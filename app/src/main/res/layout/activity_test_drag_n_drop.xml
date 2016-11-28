@@ -33,7 +33,7 @@
             android:background="@drawable/button_sky" />
     </LinearLayout>
 
-    <com.myprogrammingbuddy.selftest.DragNDropListView
+    <com.sortedqueue.programmercreek.view.DragNDropListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +44,6 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:padding="5dp" >
-    </com.myprogrammingbuddy.selftest.DragNDropListView>
+    </com.sortedqueue.programmercreek.view.DragNDropListView>
 
 </RelativeLayout>
