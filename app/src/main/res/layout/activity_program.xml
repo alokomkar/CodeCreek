@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+     <ListView
+        android:id="@+id/list_program"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" />
+
+    <ListView
+        android:id="@+id/list_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        android:visibility="gone" />
+    
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" 
+        android:background="#99ADD6"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+         <Button
+            android:id="@+id/prevProgramBtn"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:background="@drawable/button_sky"
+            style="@style/ButtonText" />
+        <Button
+            android:id="@+id/descriptionBtn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/description" 
+            android:background="@drawable/button_sky"
+            style="@style/ButtonText"/>
+
+        <Button
+            android:id="@+id/nextProgramBtn"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:background="@drawable/button_sky"
+            style="@style/ButtonText" />
+       
+    </LinearLayout>
+
+   
+</LinearLayout>

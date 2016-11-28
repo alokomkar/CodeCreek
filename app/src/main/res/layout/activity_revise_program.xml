@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/list_program"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" />
+
+    <ListView
+        android:id="@+id/list_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#99ADD6"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/prevProgramBtn_revise"
+            style="@style/ButtonText"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:text=">" />
+
+        <Button
+            android:id="@+id/descriptionBtn"
+            style="@style/ButtonText"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:text="@string/description" />
+
+        <Button
+            android:id="@+id/hintProgramBtn"
+            style="@style/ButtonText"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:text="@string/hintBtn" />
+
+        <Button
+            android:id="@+id/showAllBtn_revise"
+            style="@style/ButtonText"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky" />
+
+        <Button
+            android:id="@+id/nextProgramBtn_revise"
+            style="@style/ButtonText"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:text=">" />
+    </LinearLayout>
+
+</LinearLayout>

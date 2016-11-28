@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#C2D6D6"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="1" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#99ADD6"
+        android:orientation="vertical"
+        android:padding="0dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E7EFEF"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_program_index"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/index"
+                android:text="@string/program_index" />
+
+            <Button
+                android:id="@+id/btn_wizard"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/wizard"
+                android:text="@string/wizard" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E7EFEF"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_revise"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/revise_programs"
+                android:text="@string/revise_programs" />
+
+            <Button
+                android:id="@+id/btn_quiz"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/quiz"
+                android:text="@string/action_quiz" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E7EFEF"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_match"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/match"
+                android:text="@string/match" />
+
+            <Button
+                android:id="@+id/btn_test_yourself"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/test_yourself"
+                android:text="@string/test_yourself" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E7EFEF"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_tell_your_friends"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/tell_your_friends"
+                android:text="@string/tell_your_friends" />
+
+            <Button
+                android:id="@+id/btn_download"
+                style="@style/DashBoardButton"
+                android:background="@drawable/btn_selector"
+                android:drawableTop="@drawable/share_with_friends"
+                android:text="@string/share_with_friends" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

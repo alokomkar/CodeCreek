@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/btnCheckTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#99ADD6"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/checkBtn"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_sky"
+            android:text="@string/checkMatch" />
+
+        <Button
+            android:id="@+id/timerTestButton"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_sky" />
+    </LinearLayout>
+
+    <com.myprogrammingbuddy.selftest.DragNDropListView
+        android:id="@+id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnCheckTextLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#ADDEDE"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="5dp" >
+    </com.myprogrammingbuddy.selftest.DragNDropListView>
+
+</RelativeLayout>
