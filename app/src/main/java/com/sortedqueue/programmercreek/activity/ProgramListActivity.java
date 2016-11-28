@@ -1,8 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,6 +26,8 @@ import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsync
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+
+import java.util.List;
 
 
 public class ProgramListActivity extends Activity implements UIUpdateListener {
@@ -283,7 +283,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 
-			Intent newIntent = new Intent(ProgramListActivity.this, QuizActivity.class);
+			Intent newIntent = null;
 			Bundle newIntentBundle = new Bundle();
 			newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
 
