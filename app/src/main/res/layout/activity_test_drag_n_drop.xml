@@ -3,8 +3,8 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/md_grey_300">
 
     <LinearLayout
         android:id="@+id/btnCheckTextLayout"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:padding="@dimen/margin_8"
         android:background="#99ADD6"
         android:orientation="horizontal" >
 
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textSize="@dimen/text_dashboard_small"
             android:background="@drawable/button_sky"
             android:text="@string/checkMatch" />
 
@@ -40,10 +42,9 @@
         android:layout_above="@+id/btnCheckTextLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="#ADDEDE"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        android:padding="5dp" >
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/margin_4"
+        android:layout_margin="@dimen/margin_8" >
     </com.sortedqueue.programmercreek.view.DragNDropListView>
 
 </RelativeLayout>

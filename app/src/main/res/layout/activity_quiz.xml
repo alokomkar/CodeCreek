@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mydashboard.QuizActivity$PlaceholderFragment" >
+    >
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -11,7 +10,8 @@
         android:layout_above="@+id/buttonLayout"
         android:layout_alignLeft="@+id/buttonLayout"
         android:layout_alignRight="@+id/buttonLayout"
-        android:background="#B8B8B8" >
+        android:background="@color/md_white_1000"
+        android:layout_margin="@dimen/margin_8">
 
         <LinearLayout
             android:id="@+id/quizLinearLayout"
@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:padding="@dimen/margin_8"
         android:background="#99ADD6" >
 
         <Button

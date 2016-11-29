@@ -1,12 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ClipData;
 import android.content.DialogInterface;
@@ -42,6 +36,11 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class MatchMakerActivity extends Activity implements UIUpdateListener {
@@ -370,9 +369,10 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 		@Override
 		public boolean onLongClick(View v) {
 			
-			TextView textView = (TextView) v;
+			/*TextView textView = (TextView) v;
 			int lineNo = textView.getId() - mProgramSize;
-			textView.setText(mProgramExplanationList.get(lineNo));
+			if( lineNo >= 0 && lineNo <= mProgramExplanationList.size())
+			textView.setText(mProgramExplanationList.get(lineNo));*/
 			// TODO Auto-generated method stub
 			return false;
 		}

@@ -14,4 +14,6 @@
     <dimen name="margin_92">92dp</dimen>
     <dimen name="margin_100">100dp</dimen>
     <dimen name="text_dashboard_small">16sp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
 </resources>

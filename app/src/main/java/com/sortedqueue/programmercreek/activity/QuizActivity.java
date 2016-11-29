@@ -1,13 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +29,11 @@ import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class QuizActivity extends Activity implements UIUpdateListener, UIProgramFetcherListener {
 
@@ -136,8 +135,9 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 		for( int questionIndex = 0; questionIndex < programSize; questionIndex++ ) {
 
 			questionTextViewList[questionIndex] = new TextView( QuizActivity.this );
+			questionTextViewList[questionIndex].setTextColor(Color.parseColor("#6D4C41"));
 			questionTextViewList[questionIndex].setText((questionIndex + 1) + ". "+mProgramList.get(questionIndex).trim());
-			questionTextViewList[questionIndex].setBackgroundResource(R.drawable.choice);
+			questionTextViewList[questionIndex].setBackgroundResource(R.drawable.question_view);
 			questionTextViewList[questionIndex].setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 			mQuizLinearLayout.addView(questionTextViewList[questionIndex]);
 
@@ -152,7 +152,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 				optionRadioButtonList[(questionIndex + optionIndex)] = new RadioButton( QuizActivity.this );
 				optionRadioButtonList[(questionIndex + optionIndex)].setText( mShuffleProgramList.get(optionIndex) );
 				mOptionRadioGroupList[questionIndex].addView(optionRadioButtonList[(questionIndex + optionIndex)]);
-				mOptionRadioGroupList[questionIndex].setBackgroundResource(R.drawable.error);
+				//mOptionRadioGroupList[questionIndex].setBackgroundResource(R.drawable.error);
 			}
 
 			mQuizLinearLayout.addView(mOptionRadioGroupList[(questionIndex)]);	
@@ -341,33 +341,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
 	@Override
 	public void updateUI() {
-
-		/*List<Program_Table> program_TableList =  mDatabaseHandler.getAllProgram_Tables( mProgram_Index );
-		int prevProgramSize = 0;
-		prevProgramSize = program_TableList.size();
-		if( mCountDownTimer != null ) {
-			mCountDownTimer.cancel();
-			mTimerBtn.setText("00:00");
-			mCheckSolutionBtn.setEnabled(true);
-		}
-		do {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			program_TableList = mDatabaseHandler.getAllProgram_Tables( mProgram_Index );
-			if( prevProgramSize == program_TableList.size() ) {
-				break;
-			}
-		} while( true );
-			
-		if( program_TableList != null && program_TableList.size() != 0 ) {
-			initUI(program_TableList);
-		}*/
 		new ProgramFetcherTask(this, mDatabaseHandler, mProgram_Index).execute();
-
-
 	}
 	
 	@Override
