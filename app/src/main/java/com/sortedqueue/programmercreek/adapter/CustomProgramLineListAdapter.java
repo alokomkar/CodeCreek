@@ -1,7 +1,5 @@
 package com.sortedqueue.programmercreek.adapter;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Html;
@@ -14,6 +12,8 @@ import android.widget.TextView;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
+import java.util.ArrayList;
+
 
 public class CustomProgramLineListAdapter extends ArrayAdapter<String> {
 
@@ -22,13 +22,14 @@ public class CustomProgramLineListAdapter extends ArrayAdapter<String> {
 	private static LayoutInflater mLayoutInflater = null;
 	PrettifyHighlighter highlighter = new PrettifyHighlighter();
 	String highlighted = null;
+	private boolean isExplanation;
 
-
-	public CustomProgramLineListAdapter( Context context, int resource, int textViewResourceId,
-			ArrayList<String> programLineList ) {
+	public CustomProgramLineListAdapter(Context context, int resource, int textViewResourceId,
+										ArrayList<String> programLineList, boolean isExplanation) {
 		super( context, resource, textViewResourceId, programLineList);
 		this.mContext = context;
 		this.mProgramLineList = programLineList;
+		this.isExplanation = isExplanation;
 		mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
@@ -60,19 +61,24 @@ public class CustomProgramLineListAdapter extends ArrayAdapter<String> {
 		else {
 			mViewHolder = (ViewHolder) view.getTag();
 		}
-			
-
 		String programLine = mProgramLineList.get(position);
-        if( programLine.contains("<") || programLine.contains(">")) {
-        	mViewHolder.programLineTextView.setText(programLine);
-        	mViewHolder.programLineTextView.setTextColor(Color.parseColor("#006699"));
-            return view;
-        }
-        
-		highlighted = highlighter.highlight("c", " "+mProgramLineList.get(position));
-		mViewHolder.programLineTextView.setText(Html.fromHtml(highlighted));
+		if( isExplanation ) {
+			mViewHolder.programLineTextView.setText(programLine);
+			return view;
+		}
+		else {
+			if( programLine.contains("<") || programLine.contains(">")) {
+				mViewHolder.programLineTextView.setText(programLine);
+				mViewHolder.programLineTextView.setTextColor(Color.parseColor("#006699"));
+				return view;
+			}
 
-		return view;
+			highlighted = highlighter.highlight("c", " "+mProgramLineList.get(position));
+			mViewHolder.programLineTextView.setText(Html.fromHtml(highlighted));
+
+			return view;
+		}
+
 	}
 	
 	static class ViewHolder { 

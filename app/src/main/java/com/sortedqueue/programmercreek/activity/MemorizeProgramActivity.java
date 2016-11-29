@@ -1,9 +1,5 @@
 package com.sortedqueue.programmercreek.activity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -11,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -36,12 +30,16 @@ import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class MemorizeProgramActivity extends AppCompatActivity implements UIUpdateListener {
 
 	
 	CustomProgramLineListAdapter mAdapterProgramList;
-	ArrayAdapter<String> mAdapterProgramExplanationList;
+	CustomProgramLineListAdapter mAdapterProgramExplanationList;
 
 	ListView mProgramListView;
 	ListView mProgramExplanationListView;
@@ -131,10 +129,10 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 			// Prepare the ListView
 			mAdapterProgramList = new CustomProgramLineListAdapter(this,
-					android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList);
+					android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList, false);
 			// Prepare the ListView
-			mAdapterProgramExplanationList = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, mLinebylineprogramExplanationList);
+			mAdapterProgramExplanationList = new CustomProgramLineListAdapter(this,
+					android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList, true);
 
 			mProgramListView.setAdapter(mAdapterProgramList);
 			mProgramExplanationListView.setAdapter(mAdapterProgramExplanationList);
