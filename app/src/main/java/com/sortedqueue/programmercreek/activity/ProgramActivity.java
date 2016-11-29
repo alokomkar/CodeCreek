@@ -203,11 +203,11 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	private void programDescriptionAction() {
 
-		if(mProgDescriptionBtn.getText() == "Program") { 
-			mProgDescriptionBtn.setText("Description");	
+		if(mProgDescriptionBtn.getText() == "Flip") { 
+			mProgDescriptionBtn.setText("Flip");	
 		}
 		else { 
-			mProgDescriptionBtn.setText("Program");
+			mProgDescriptionBtn.setText("Flip");
 		}
 		flipit();
 
@@ -286,9 +286,9 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 			}
 			else {
-				if( mProgDescriptionBtn.getText().equals("Program")) {
+				if( mProgDescriptionBtn.getText().equals("Flip")) {
 					flipit();
-					mProgDescriptionBtn.setText("Description");
+					mProgDescriptionBtn.setText("Flip");
 				}
 				mAdapterProgramExplanationList.clear();
 				mAdapterProgramList.clear();
@@ -372,7 +372,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Quiz Mode - Question Type"); 
-		String[] boxTypes = {"Description","Program Code"};
+		String[] boxTypes = {"Flip","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();

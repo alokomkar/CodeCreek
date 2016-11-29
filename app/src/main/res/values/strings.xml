@@ -20,7 +20,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_dummy">Programs List</string>
     <string name="title_activity_program">Program</string>
-    <string name="description">Description</string>
+    <string name="description">Flip</string>
     <string name="hintBtn">Hint</string>
     <string name="menu">Menu</string>
     <string name="showAllBtn">Show All / Hide All</string>

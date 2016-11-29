@@ -150,11 +150,11 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		mProgDescriptionBtn = (Button) findViewById(R.id.descriptionBtn);
 		mProgDescriptionBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if(mProgDescriptionBtn.getText() == "Program") { 
-					mProgDescriptionBtn.setText("Description");	
+				if(mProgDescriptionBtn.getText() == "Flip") { 
+					mProgDescriptionBtn.setText("Flip");	
 				}
 				else { 
-					mProgDescriptionBtn.setText("Program");
+					mProgDescriptionBtn.setText("Flip");
 				}
 				flipit();
 			}
@@ -331,9 +331,9 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
 			}
 			if( program_TableList != null && program_TableList.size() > 0 ) { 
-				if( mProgDescriptionBtn.getText().equals("Program")) {
+				if( mProgDescriptionBtn.getText().equals("Flip")) {
 					flipit();
-					mProgDescriptionBtn.setText("Description");
+					mProgDescriptionBtn.setText("Flip");
 				}
 
 				mAdapterProgramExplanationList.clear();
@@ -421,7 +421,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Quiz Mode - Question Type"); 
-		String[] boxTypes = {"Description","Program Code"};
+		String[] boxTypes = {"Flip","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();
