@@ -100,9 +100,13 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
                 return true;
 
-		/*case R.id.action_refresh_database:
-            new DataBaseInserterAsyncTask(this, mPreferences.edit(), -1).execute();
-			return true;*/
+            case R.id.action_invite :
+                tellYourFriends();
+                return true;
+
+            case R.id.action_share :
+                shareInfo();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
