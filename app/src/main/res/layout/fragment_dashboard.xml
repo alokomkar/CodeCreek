@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">
@@ -83,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">
@@ -145,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">
@@ -207,6 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">
@@ -269,6 +273,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">
@@ -325,12 +330,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/testLayout"
-            android:layout_marginTop="@dimen/margin_16">
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardBackgroundColor="@color/md_white_1000"
                 card_view:cardCornerRadius="8dp"
                 card_view:cardElevation="4dp">

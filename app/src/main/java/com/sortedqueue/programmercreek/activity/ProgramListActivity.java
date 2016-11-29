@@ -72,7 +72,9 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 				if( mProgram_Indexs == null || mProgram_Indexs.size() == 0 ) {
 					new DataBaseInserterAsyncTask(ProgramListActivity.this, -1, ProgramListActivity.this).execute();
 				}
-				CustomProgramIndexAdapter customProgramIndexAdapter = new CustomProgramIndexAdapter(ProgramListActivity.this, android.R.layout.simple_list_item_1, R.id.txtViewProgDescription, mProgram_Indexs);
+				CustomProgramIndexAdapter customProgramIndexAdapter = new CustomProgramIndexAdapter(ProgramListActivity.this,
+						android.R.layout.simple_list_item_1,
+						R.id.txtViewProgDescription, mProgram_Indexs);
 				ListView programListView = (ListView)findViewById(R.id.listView1);
 				programListView.setOnItemClickListener(programListItemListener());
 				programListView.setAdapter(customProgramIndexAdapter);
