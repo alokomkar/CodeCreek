@@ -9,10 +9,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.widget.CardView;
 import android.text.Html;
-import android.util.TypedValue;
 import android.view.DragEvent;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,7 +24,6 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -60,8 +59,13 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 	long remainingTime = 0;
 	long time = 0;
 	long interval = 0;
+	CardView[] mSummaryCardViewList;
+	CardView[] mProgramCardViewList;
+
 	TextView[] mSummaryTextViewList;
 	TextView[] mProgramLineTextViewList;
+
+
 	CountDownTimer mCountDownTimer;
 	boolean mWizard = false;
 	int mProgramSize;
@@ -123,12 +127,15 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 		}
 		
 		mProgramSize = mShuffleProgramList.size();
+		mProgramCardViewList = new CardView[mProgramSize];
 		mProgramLineTextViewList = new TextView[mProgramSize];
 		String programLine = null;
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
 		for( int i = 0; i < mProgramSize; i++ ) {
-			mProgramLineTextViewList[i] = new TextView(this);
-			setProgramLineTextViewParms(mProgramLineTextViewList[i]);
-			mMatchMakerLeftLinearLayout.addView(mProgramLineTextViewList[i]);
+			mProgramCardViewList[i] = (CardView) layoutInflater.inflate(R.layout.item_match_maker_program_line, null).findViewById(R.id.programLineLayout);
+			mProgramLineTextViewList[i] = (TextView) mProgramCardViewList[i].findViewById(R.id.programLineTextView);
+			setProgramLineTextViewParms(mProgramCardViewList[i]);
+			mMatchMakerLeftLinearLayout.addView(mProgramCardViewList[i]);
 			programLine = mShuffleProgramList.get(i);
 			if( programLine.contains("font") == false ) {
 				mProgramLineTextViewList[i].setText(programLine);
@@ -137,7 +144,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 			else {
 				mProgramLineTextViewList[i].setText(Html.fromHtml(/*mHighlighter.highlight("c", programLine)*/programLine));
 			}
-			mProgramLineTextViewList[i].setId(i);
+			mProgramCardViewList[i].setId(i);
 		}
 
 		mMatchMakerRightLinearLayout = (LinearLayout) findViewById(R.id.rightLinearLyt);
@@ -146,13 +153,15 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 			mMatchMakerRightLinearLayout.removeAllViews();
 		}
 
+		mSummaryCardViewList = new CardView[mProgramSize];
 		mSummaryTextViewList = new TextView[mProgramSize];
 		for( int i = 0; i < mProgramSize; i++ ) {
-			mSummaryTextViewList[i] = new TextView(this);
-			setSummaryTextViewParms(mSummaryTextViewList[i]);
-			mMatchMakerRightLinearLayout.addView(mSummaryTextViewList[i]);
+			mSummaryCardViewList[i] = (CardView) layoutInflater.inflate(R.layout.item_match_maker_summary, null).findViewById(R.id.summaryLayout);
+			mSummaryTextViewList[i] = (TextView) mSummaryCardViewList[i].findViewById(R.id.programSummaryTextView);
+			setSummaryTextViewParms(mSummaryCardViewList[i]);
+			mMatchMakerRightLinearLayout.addView(mSummaryCardViewList[i]);
 			mSummaryTextViewList[i].setText(mProgramExplanationList.get(i));
-			mProgramLineTextViewList[i].setId(mProgramSize+i);
+			mProgramCardViewList[i].setId(mProgramSize+i);
 		}
 
 		mCheckSolutionBtn = (Button) findViewById(R.id.checkMatchButton);
@@ -270,18 +279,18 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 		int matchScore = 0;
 
 		for( int i = 0; i < programSize; i++ ) {
-			//Log.d("SOLUTION", mSummaryTextViewList[i].getText().toString().trim());
+			//Log.d("SOLUTION", mSummaryCardViewList[i].getText().toString().trim());
 			if( mProgramCheckList.get(i).trim().equals(mSummaryTextViewList[i].getText().toString().trim()) == true ) {
 				CheckSolution++;
 				matchScore++;
-				mSummaryTextViewList[i].setBackgroundResource(R.drawable.answer);
+				mSummaryCardViewList[i].setCardBackgroundColor(R.color.md_green_300);
 			}
 			else {
-				mSummaryTextViewList[i].setBackgroundResource(R.drawable.error);
+				mSummaryCardViewList[i].setCardBackgroundColor(R.color.md_deep_orange_200);
 				String programLine = mSummaryTextViewList[i].getText().toString();
 				for( int j = 0; j < programSize; j++ ) {
 					if( programLine.equals(mProgramLineTextViewList[j].getText().toString()) == true ) {
-						mProgramLineTextViewList[j].setBackgroundResource(R.drawable.option);
+						mProgramCardViewList[j].setCardBackgroundColor(R.color.md_blue_200);
 					}
 				}
 				mSummaryTextViewList[i].setText(mProgramExplanationList.get(i));
@@ -350,17 +359,10 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
 	}
 
-	private void setSummaryTextViewParms(TextView textView) {
-		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(2, 2, 2, 2);
-		textView.setLayoutParams(layoutParams);
-		textView.setBackgroundResource(R.drawable.choice);
-		textView.setGravity(Gravity.CENTER);
+	private void setSummaryTextViewParms(CardView textView) {
 		textView.setOnDragListener(new ChoiceDragListener());
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		textView.setOnClickListener(mSummaryTextViewOnClickListener);
 		textView.setOnLongClickListener(mSummaryTextViewLongClickListener);
-		
 	}
 	
 	//On Long Press Clear the program line in summary text view
@@ -391,15 +393,8 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 		}
 	}; 
 
-	private void setProgramLineTextViewParms(TextView textView) {
-		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(2, 2, 2, 2);
-		textView.setLayoutParams(layoutParams);
-		textView.setBackgroundResource(R.drawable.option);
-		textView.setGravity(Gravity.CENTER);
+	private void setProgramLineTextViewParms(CardView textView) {
 		textView.setOnLongClickListener(mProgramLineLongClickListener);
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-		textView.setTypeface(Typeface.DEFAULT_BOLD);
 	}
 
 
@@ -472,9 +467,10 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 				//stop displaying the view where it was before it was dragged
 				//view.setVisibility(View.INVISIBLE);
 				//view dragged item is being dropped on
-				TextView dropTarget = (TextView) v;
+				CardView dropCardView = (CardView) v;
+				TextView dropTarget = (TextView) dropCardView.findViewById(R.id.programSummaryTextView);
 				//view being dragged and dropped
-				TextView dropped = (TextView) view;
+				TextView dropped = (TextView) view.findViewById(R.id.programLineTextView);
 				dropped.setOnTouchListener(null);
 				mSelectedProgramLineView = null;
 				//update the text in the target view to reflect the data being dropped
@@ -482,7 +478,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 				//make it bold to highlight the fact that an item has been dropped
 				dropTarget.setTypeface(Typeface.DEFAULT_BOLD);
 				//if an item has already been dropped here, there will be a tag
-				Object tag = dropTarget.getTag();
+				Object tag = dropCardView.getTag();
 				//if there is already an item here, set it back visible in its original place
 				if(tag!=null)
 				{
@@ -492,7 +488,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 					findViewById(existingID).setVisibility(View.VISIBLE);
 				}
 				//set the tag in the target view being dropped on - to the ID of the view being dropped
-				dropTarget.setTag(dropped.getId());
+				dropTarget.setTag(view.getId());
 				break;
 			case DragEvent.ACTION_DRAG_ENDED:
 				//no action necessary

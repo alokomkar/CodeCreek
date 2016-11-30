@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/summaryLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_16"
+    card_view:cardBackgroundColor="@color/md_white_1000"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp">
+
+    <TextView
+        android:id="@+id/programSummaryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_48"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="text"
+        android:textSize="20sp" >
+    </TextView>
+
+</android.support.v7.widget.CardView>
