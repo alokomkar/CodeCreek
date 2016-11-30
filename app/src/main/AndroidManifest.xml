@@ -11,7 +11,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/splash_title"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,53 +19,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.ProgramListActivity"
-            android:label="@string/title_activity_dummy" >
-        </activity>
+            android:name=".activity.ProgramListActivity"
+            android:label="@string/title_activity_dummy"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.ProgramActivity"
-            android:label="@string/title_activity_program" >
-        </activity>
+            android:name=".activity.ProgramActivity"
+            android:label="@string/title_activity_program"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.DashboardActivity"
+            android:name=".activity.DashboardActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.TestDragNDropActivity"
-            android:label="@string/title_activity_test_drag_n_drop" >
-        </activity>
+            android:name=".activity.TestDragNDropActivity"
+            android:label="@string/title_activity_test_drag_n_drop"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.MemorizeProgramActivity"
-            android:label="@string/title_activity_revise_program" >
-        </activity>
+            android:name=".activity.MemorizeProgramActivity"
+            android:label="@string/title_activity_revise_program"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.MatchMakerActivity"
+            android:name=".activity.MatchMakerActivity"
             android:label="@string/title_activity_match_maker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.QuizActivity"
-            android:label="@string/title_activity_quiz" >
-        </activity>
+            android:name=".activity.QuizActivity"
+            android:label="@string/title_activity_quiz"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.AboutActivity"
-            android:label="@string/title_activity_about" >
-        </activity>
+            android:name=".activity.AboutActivity"
+            android:label="@string/title_activity_about"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.WebViewActivity"
-            android:label="@string/title_activity_web_view" >
-        </activity>
+            android:name=".activity.WebViewActivity"
+            android:label="@string/title_activity_web_view"></activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.HelpActivity"
-            android:label="@string/title_activity_help" >
-        </activity>
-        <activity
-            android:name="com.sortedqueue.programmercreek.activity.FullScreenWizardActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_full_screen_wizard"
-            >
-        </activity>
+            android:name=".activity.HelpActivity"
+            android:label="@string/title_activity_help"></activity>
+
+        <activity android:name=".activity.FillTheBlanksActivity"></activity>
     </application>
 
 </manifest>

@@ -74,4 +74,13 @@
     <string name="quiz_description">Take quiz to test your understanding</string>
     <string name="test_description">Test your programming skills by arranging code in right order</string>
     <string name="invite">Invite</string>
+    <string name="fill_the_missing_code">Fill the missing code :</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="program_description">Program description</string>
+    <string name="option">Option</string>
+    <string name="fill_the_code">Fill in the code</string>
+    <string name="fill_description">Fill the missing code, work on multiple blanks</string>
+    <string name="program_fill_blanks"><![CDATA[1. #include <.......>\n\n2. void ....()\n\n3. ......(\'\'Hello world\'\');]]></string>
 </resources>

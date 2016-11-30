@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.R;
@@ -38,6 +35,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     FrameLayout matchLayout;
     @Bind(R.id.testLayout)
     FrameLayout testLayout;
+    @Bind(R.id.fillLayout)
+    FrameLayout fillLayout;
 
 
     private String TAG = getClass().getSimpleName();
@@ -82,6 +81,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         reviseLayout.setOnClickListener(this);
         quizLayout.setOnClickListener(this);
         wizardLayout.setOnClickListener(this);
+        fillLayout.setOnClickListener(this);
     }
 
     @Override
@@ -98,11 +98,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
                 return true;
 
-            case R.id.action_invite :
+            case R.id.action_invite:
                 tellYourFriends();
                 return true;
 
-            case R.id.action_share :
+            case R.id.action_share:
                 shareInfo();
                 return true;
 
@@ -167,6 +167,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.matchLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
+                break;
+
+            case R.id.fillLayout:
+                Intent intent = new Intent(DashboardActivity.this, FillTheBlanksActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.quizLayout:
