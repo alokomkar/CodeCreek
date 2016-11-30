@@ -154,9 +154,10 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 					break;
 
 				case ProgrammingBuddyConstants.KEY_WIZARD :
-					mInvokeIntent = new Intent(ProgramListActivity.this, FullScreenWizardActivity.class);
-					mInvokeIntent.putExtras(mBundle);
-					startActivity(mInvokeIntent);	
+					Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
+					programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, mInvokeTest);
+					programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
+					startActivity(programListIntent);
 					break;
 
 				case ProgrammingBuddyConstants.KEY_TEST :

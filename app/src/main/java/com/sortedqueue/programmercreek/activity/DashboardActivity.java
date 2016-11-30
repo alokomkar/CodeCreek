@@ -1,8 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
 
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -92,7 +90,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                showConfirmationDialog();
+                onBackPressed();
                 return true;
 
             case R.id.action_about:
@@ -144,35 +142,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        showConfirmationDialog();
-    }
-
-    private void showConfirmationDialog() {
-
-        Builder builder = new Builder(this);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                finish();
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                //dialog.dismiss();
-            }
-        });
-
-        builder.setMessage("Are you sure you want to exit?");
-        builder.setTitle("Programming Buddy");
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.show();
+        finish();
     }
 
     /**
@@ -224,7 +194,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void LaunchFullScreenWizard() {
-        startActivity(new Intent(getApplicationContext(), FullScreenWizardActivity.class));
+        Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
+        programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
+        programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
+        startActivity(programListIntent);
+        finish();
     }
 
     private void tellYourFriends() {

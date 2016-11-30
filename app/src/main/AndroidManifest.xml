@@ -61,10 +61,6 @@
             android:label="@string/title_activity_help" >
         </activity>
         <activity
-            android:name="com.sortedqueue.programmercreek.activity.WizardActivity"
-            android:label="@string/title_activity_wizard" >
-        </activity>
-        <activity
             android:name="com.sortedqueue.programmercreek.activity.FullScreenWizardActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_screen_wizard"
