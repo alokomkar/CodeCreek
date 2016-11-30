@@ -198,7 +198,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
         programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
         startActivity(programListIntent);
-        finish();
     }
 
     private void tellYourFriends() {
