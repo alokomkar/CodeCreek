@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:weightSum="1"
         android:padding="@dimen/margin_8"
         android:background="@color/colorAccent"
         android:orientation="horizontal" >
@@ -21,8 +22,7 @@
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:textSize="@dimen/text_dashboard_small"
+            android:layout_weight="0.3"
             android:background="@drawable/button_sky"
             android:text="@string/checkMatch" />
 
@@ -31,7 +31,8 @@
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:textSize="@dimen/text_dashboard_small"
+            android:layout_weight="0.7"
             android:background="@drawable/button_sky" />
     </LinearLayout>
 

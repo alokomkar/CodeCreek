@@ -99,7 +99,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 
 		mRandomTest = ShuffleList.shuffleList(mRandomTest);
 		final int programSize = mRandomTest.size();
-		setListAdapter(new DragNDropAdapter(this, new int[]{R.layout.dragitem}, new int[]{R.id.TextView01}, mRandomTest));//new DragNDropAdapter(this,content)
+		setListAdapter(new DragNDropAdapter(this, new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest));//new DragNDropAdapter(this,content)
 		mListView = getListView();
 		//mListView.setBackgroundResource(R.drawable.error);
 
@@ -326,15 +326,15 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		public void onStartDrag(View itemView) {
 			itemView.setVisibility(View.INVISIBLE);
 			defaultBackgroundColor = itemView.getDrawingCacheBackgroundColor();
-			itemView.setBackgroundColor(backgroundColor);
-			ImageView imageView = (ImageView)itemView.findViewById(R.id.ImageView01);
+			//itemView.setBackgroundColor(backgroundColor);
+			ImageView imageView = (ImageView)itemView.findViewById(R.id.dragItemImageView);
 			if (imageView != null) imageView.setVisibility(View.INVISIBLE);
 		}
 
 		public void onStopDrag(View itemView) {
 			itemView.setVisibility(View.VISIBLE);
-			itemView.setBackgroundColor(defaultBackgroundColor);
-			ImageView imageView = (ImageView)itemView.findViewById(R.id.ImageView01);
+			//itemView.setBackgroundColor(defaultBackgroundColor);
+			ImageView imageView = (ImageView)itemView.findViewById(R.id.dragItemImageView);
 			if (imageView != null) imageView.setVisibility(View.VISIBLE);
 		}
 

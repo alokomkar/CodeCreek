@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:weightSum="1"
         android:padding="@dimen/margin_8"
         android:background="@color/colorAccent" >
 
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_sky"
             android:text="@string/checkMatch"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.3" />
         
         <Button
             android:id="@+id/timerButton"
@@ -45,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_sky"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.7" />
     </LinearLayout>
     
 

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_4">
         <ImageView
-            android:id="@+id/ImageView01"
+            android:id="@+id/dragItemImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -22,14 +22,14 @@
         </ImageView>
 
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/programLineTextView"
             android:layout_width="match_parent"
             android:layout_marginRight="@dimen/margin_8"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/ImageView01"
+            android:layout_toRightOf="@+id/dragItemImageView"
             android:text="@string/app_name"
             android:textSize="18sp"
             >
