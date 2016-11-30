@@ -28,7 +28,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="@dimen/margin_8"
-        android:background="#99ADD6" >
+        android:background="@color/colorAccent" >
 
         <Button
             android:id="@+id/checkQuizButton"

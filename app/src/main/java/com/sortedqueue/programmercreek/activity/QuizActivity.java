@@ -165,7 +165,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				mTimerBtn.setText(""+String.format("%d min, %d sec", 
+				mTimerBtn.setText(""+String.format("%d:%d",
 						TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
 						TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - 
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));

@@ -172,7 +172,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				mTimerButton.setText(""+String.format("%d min, %d sec", 
+				mTimerButton.setText(""+String.format("%d:%d",
 						TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
 						TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - 
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));

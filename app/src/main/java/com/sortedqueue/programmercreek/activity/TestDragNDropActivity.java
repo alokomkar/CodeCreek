@@ -1,11 +1,5 @@
 package com.sortedqueue.programmercreek.activity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -34,6 +28,11 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TestDragNDropActivity extends ListActivity implements UIUpdateListener {
 
@@ -126,7 +125,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				mTimerButton.setText(""+String.format("%d min, %d sec", 
+				mTimerButton.setText(""+String.format("%d:%d",
 						TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
 						TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - 
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));

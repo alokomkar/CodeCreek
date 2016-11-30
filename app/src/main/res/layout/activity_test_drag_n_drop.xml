@@ -13,7 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:padding="@dimen/margin_8"
-        android:background="#99ADD6"
+        android:background="@color/colorAccent"
         android:orientation="horizontal" >
 
         <Button

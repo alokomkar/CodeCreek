@@ -57,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:padding="@dimen/margin_8"
         android:orientation="horizontal"
-        android:background="#99ADD6" >
+        android:background="@color/colorAccent" >
 
         <Button
             android:id="@+id/checkMatchButton"

@@ -29,7 +29,7 @@
     <string name="prevProgram"></string>
     <string name="title_activity_splach_screen">SplashScreen</string>
     <string name="outputTxt">Expected Output :</string>
-    <string name="checkMatch">Check Solution</string>
+    <string name="checkMatch">Check</string>
     <string name="viewProfile">View Profile</string>
     <string name="about_string">
         Programmer Creek:\nAn attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammingbuddy.app@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\n
@@ -47,7 +47,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">3dp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
