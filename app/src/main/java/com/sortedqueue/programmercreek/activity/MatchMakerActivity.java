@@ -352,7 +352,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
 	private void setSummaryTextViewParms(TextView textView) {
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(2, 2, 2, 2);
+		layoutParams.setMargins(8, 4, 8, 4);
 		textView.setLayoutParams(layoutParams);
 		textView.setBackgroundResource(R.drawable.choice);
 		textView.setGravity(Gravity.CENTER);
@@ -393,7 +393,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
 	private void setProgramLineTextViewParms(TextView textView) {
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(2, 2, 2, 2);
+		layoutParams.setMargins(8, 4, 8, 4);
 		textView.setLayoutParams(layoutParams);
 		textView.setBackgroundResource(R.drawable.option);
 		textView.setGravity(Gravity.CENTER);
