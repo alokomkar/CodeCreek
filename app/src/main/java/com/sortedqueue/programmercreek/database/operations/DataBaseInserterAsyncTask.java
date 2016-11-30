@@ -30,7 +30,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
 	public DataBaseInserterAsyncTask( Context context, int index, UIUpdateListener uiUpdateListener ) {
 
-		this.mContext = (Context) context;
+		this.mContext = context;
 		mDatabaseHandler = new DatabaseHandler(context);
 		this.mIndex = index;
 		this.mUiUpdateListener = uiUpdateListener;

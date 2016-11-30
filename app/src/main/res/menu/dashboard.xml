@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Search / will display always -->
     <item android:id="@+id/action_about"
-          android:icon="@drawable/about32"
           android:title="@string/title_activity_about"
           app:showAsAction="never"/>
     <item android:id="@+id/action_invite"

@@ -30,7 +30,7 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 	public ProgramFetcherTask( Context context, UIProgramFetcherListener uiProgramFetcherListener, DatabaseHandler databaseHandler, int index ) {
 		this.mContext = context;
 		this.mProgramIndex = index;
-		this.mUiProgramFetcherListener = (UIProgramFetcherListener) uiProgramFetcherListener;
+		this.mUiProgramFetcherListener = uiProgramFetcherListener;
 		this.mDatabaseHandler = databaseHandler;
 	}
 

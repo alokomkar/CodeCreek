@@ -101,7 +101,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 			String programLine_html;
 			Iterator<Program_Table> iteraor = program_TableList.iterator();
 			while(iteraor.hasNext()) { 
-				newProgram_Table = (Program_Table) iteraor.next();
+				newProgram_Table = iteraor.next();
 				programLine_html = newProgram_Table.getmProgram_Line_Html();
 				if( newProgram_Table.getProgram_Line().contains("<")) {
 					programLine_html = newProgram_Table.getProgram_Line().trim();
@@ -386,7 +386,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 			if( mSelectedProgramLineView != null ) {
 				TextView summaryTextView = (TextView) v;
 				summaryTextView.setText(((TextView) mSelectedProgramLineView).getText());
-				((TextView) mSelectedProgramLineView).setOnTouchListener(null);
+				mSelectedProgramLineView.setOnTouchListener(null);
 			}
 		}
 	}; 

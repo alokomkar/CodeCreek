@@ -104,7 +104,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 			String programLine = null;
 			if( mQuizMode == ProgramListActivity.KEY_QUIZ_DESCRIPTION_QUESTION ) {
 				while(iterator.hasNext()) { 
-					Program_Table newProgram_Table = (Program_Table) iterator.next();
+					Program_Table newProgram_Table = iterator.next();
 					programLine = newProgram_Table.getProgram_Line().trim(); 
 					if( programLine.equals("{") == false && programLine.equals("}") == false ) {
 						mProgramList.add( programLine );
@@ -115,7 +115,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 			}
 			else {
 				while(iterator.hasNext()) { 
-					Program_Table newProgram_Table = (Program_Table) iterator.next();
+					Program_Table newProgram_Table = iterator.next();
 					programLine = newProgram_Table.getProgram_Line().trim(); 
 					if( programLine.equals("{") == false && programLine.equals("}") == false ) {
 						mProgramList.add(newProgram_Table.getProgram_Line_Description());

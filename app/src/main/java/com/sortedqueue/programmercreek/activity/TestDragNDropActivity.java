@@ -80,7 +80,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		Iterator<Program_Table> iteraor = program_TableList.iterator();
 		while(iteraor.hasNext()) { 
 
-			Program_Table newProgram_Table = (Program_Table) iteraor.next();
+			Program_Table newProgram_Table = iteraor.next();
 			programLine = newProgram_Table.getProgram_Line();
 			mProgramCheckList.add(programLine);
 			mProgramList.add(programLine);

@@ -49,7 +49,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	int mProgram_Index;
 	Button mProgDescriptionBtn;
 	ArrayList<String> mLinebylineprogramList = new ArrayList<String>();
-	ArrayList<String> mLinebylineprogramExplanationList = new ArrayList<String>();;
+	ArrayList<String> mLinebylineprogramExplanationList = new ArrayList<String>();
 	int mIndex = 0;
 	int mProgramLength = 0;
 
@@ -109,7 +109,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 			Iterator<Program_Table> iteraor = program_TableList.iterator();
 			while(iteraor.hasNext()) { 
-				Program_Table newProgram_Table = (Program_Table) iteraor.next();
+				Program_Table newProgram_Table = iteraor.next();
 				mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
 				mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
 
@@ -352,7 +352,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 					Iterator<Program_Table> iteraor = program_TableList.iterator();
 
 					while(iteraor.hasNext()) { 
-						Program_Table newProgram_Table = (Program_Table) iteraor.next();
+						Program_Table newProgram_Table = iteraor.next();
 						mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
 						mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
 					}
@@ -421,7 +421,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Quiz Mode - Question Type"); 
-		String[] boxTypes = {"Flip","Program Code"};
+		String[] boxTypes = {"Description","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();

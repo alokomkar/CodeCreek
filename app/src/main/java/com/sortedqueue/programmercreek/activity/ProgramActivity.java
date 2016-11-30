@@ -115,7 +115,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		Iterator<Program_Table> iteraor = program_TableList.iterator();
 		while(iteraor.hasNext()) { 
 
-			Program_Table newProgram_Table = (Program_Table) iteraor.next();
+			Program_Table newProgram_Table = iteraor.next();
 			mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
 			mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
 
@@ -232,7 +232,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 		Iterator<Program_Table> iteraor = program_TableList.iterator();
 		while(iteraor.hasNext()) { 
-			Program_Table newProgram_Table = (Program_Table) iteraor.next();
+			Program_Table newProgram_Table = iteraor.next();
 			mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
 			mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
 
@@ -306,7 +306,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 				Iterator<Program_Table> iteraor = program_TableList.iterator();
 
 				while(iteraor.hasNext()) { 
-					Program_Table newProgram_Table = (Program_Table) iteraor.next();
+					Program_Table newProgram_Table = iteraor.next();
 					mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
 					mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
 
@@ -372,7 +372,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Quiz Mode - Question Type"); 
-		String[] boxTypes = {"Flip","Program Code"};
+		String[] boxTypes = {"Description","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();
