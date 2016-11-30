@@ -31,13 +31,8 @@
     <string name="outputTxt">Expected Output :</string>
     <string name="checkMatch">Check Solution</string>
     <string name="viewProfile">View Profile</string>
-    <string name="about_string">Programming Buddy :\n
-        						An attempt to make testing your programming
-        						and memorizing skills fun.\n\n
-        						Improvement is constant, communicate your feedback,
-        						application bugs to : \nprogrammingbuddy.app@gmail.com\n\n
-        						How to :\n
-        						You can go through available programs in Revise and Memorize.\n\n
+    <string name="about_string">
+        Programmer Creek:\nAn attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammingbuddy.app@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\n
         						Revise : Displays program and description.\n\n
         						Wizard : Learning Wizard\n\n
         						Index : To view program Index.\n\n

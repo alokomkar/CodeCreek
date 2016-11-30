@@ -215,7 +215,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello, from Programming Buddy");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello, from " + getString(R.string.app_name));
         startActivity(Intent.createChooser(shareIntent, "Share App Info"));
     }
 

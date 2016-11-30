@@ -341,7 +341,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 				mProgram_Title = getProgramTitle( program_Index );
 
 				if( mProgram_Title == null ) {
-					AuxilaryUtils.displayAlert("My Programming Buddy", "You are viewing the last program", MemorizeProgramActivity.this);
+					AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
 				}
 				else {
 					setTitle("Memorize : "+getProgramTitle(program_Index));
@@ -373,7 +373,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			}
 		}
 		if( program_Index > ProgramListActivity.PROGRAM_LIST_SIZE ) {
-			AuxilaryUtils.displayAlert("My Programming Buddy", "You are viewing the last program", MemorizeProgramActivity.this);
+			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
 			mProgram_Index--;
 		}
 
@@ -469,7 +469,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
 		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
-			AuxilaryUtils.displayAlert("My Programming Buddy", "You are viewing the last program", this);
+			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 			mProgram_Index--;
 		}
 		else {
