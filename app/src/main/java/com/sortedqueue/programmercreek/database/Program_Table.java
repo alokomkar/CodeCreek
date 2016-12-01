@@ -3,14 +3,18 @@ package com.sortedqueue.programmercreek.database;
 
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Program_Table {
-	
+
 	int mProgramTableIndex;
 	int mProgramLine_No;
 	String mProgram_Line;
 	String mProgram_Line_Description;
 	String mProgram_Line_Html;
-	
+
 	/**
 	 * @param index
 	 * @param line_No
@@ -18,7 +22,7 @@ public class Program_Table {
 	 * @param program_Line_Description
 	 */
 	public Program_Table(int index, int line_No, String program_Line,
-			String program_Line_Description) {
+						 String program_Line_Description) {
 		super();
 		mProgramTableIndex = index;
 		mProgramLine_No = line_No;
@@ -26,8 +30,8 @@ public class Program_Table {
 		mProgram_Line_Description = program_Line_Description;
 		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("c", mProgram_Line);
 	}
-	
-	
+
+
 	/**
 	 * @param mProgramTableIndex
 	 * @param mProgramLine_No
@@ -36,8 +40,8 @@ public class Program_Table {
 	 * @param mProgram_Line_Html
 	 */
 	public Program_Table(int mProgramTableIndex, int mProgramLine_No,
-			String mProgram_Line, String mProgram_Line_Description,
-			String mProgram_Line_Html) {
+						 String mProgram_Line, String mProgram_Line_Description,
+						 String mProgram_Line_Html) {
 		super();
 		this.mProgramTableIndex = mProgramTableIndex;
 		this.mProgramLine_No = mProgramLine_No;
@@ -125,5 +129,45 @@ public class Program_Table {
 	@Override
 	public int hashCode() {
 		return mProgramLine_No;
+	}
+
+	public interface FillBlanksSolutionListener {
+		void getSolution( ArrayList<Program_Table> program_tables );
+	}
+
+	public static ArrayList<Program_Table> getFillTheBlanksList(List<Program_Table> program_tableList) {
+		ArrayList<Program_Table> program_tables = new ArrayList<>();
+		for( Program_Table program_table : program_tableList ) {
+			program_tables.add(program_table);
+
+		}
+		for( int i = 0; i < 4; i++ ) {
+			int randomIndex = getRandomNumberInRange(0, program_tables.size() - 1);
+			Program_Table program_table = program_tables.get(randomIndex);
+			if( !program_table.getProgram_Line().trim().equals("{") &&
+					!program_table.getProgram_Line().trim().equals("}") ) {
+				if( program_table.getProgram_Line().equals("") ) {
+					//Line already cleared
+					i--;
+				}
+				else {
+					program_table.setProgram_Line("");
+				}
+			}
+			else i--;
+
+		}
+
+		return program_tables;
+	}
+
+	private static int getRandomNumberInRange(int min, int max) {
+
+		if (min >= max) {
+			throw new IllegalArgumentException("max must be greater than min");
+		}
+
+		Random r = new Random();
+		return r.nextInt((max - min) + 1) + min;
 	}
 }

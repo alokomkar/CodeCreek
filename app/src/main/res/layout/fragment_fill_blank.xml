@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_16"
             android:id="@+id/descriptionLayout"
+            android:visibility="gone"
             android:foreground="?android:attr/selectableItemBackground"
             card_view:cardBackgroundColor="@color/md_white_1000"
             card_view:cardCornerRadius="8dp"
@@ -69,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2"
+                android:id="@+id/answerLayout1"
                 android:orientation="horizontal">
 
                 <RadioGroup
@@ -81,14 +83,17 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer1RadioButton1"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer1RadioButton2"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer1RadioButton3"
                         android:text="@string/option"/>
 
                 </RadioGroup>
@@ -103,14 +108,17 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer2RadioButton1"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer2RadioButton2"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer2RadioButton3"
                         android:text="@string/option"/>
                 </RadioGroup>
 
@@ -120,28 +128,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2"
+                android:id="@+id/answerLayout2"
                 android:orientation="horizontal">
 
                 <RadioGroup
                     android:layout_width="0dp"
-                    android:background="@drawable/option"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/option"
                     android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer3RadioButton1"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer3RadioButton2"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer3RadioButton3"
                         android:text="@string/option"/>
-
                 </RadioGroup>
 
                 <RadioGroup
@@ -154,14 +165,17 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer4RadioButton1"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer4RadioButton2"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/answer4RadioButton3"
                         android:text="@string/option"/>
                 </RadioGroup>
 

@@ -84,4 +84,5 @@
     <string name="fill_description">Fill the missing code, work on multiple blanks</string>
     <string name="program_fill_blanks"><![CDATA[1. #include <.......>\n2. void ....()\n3. ......(\'\'Hello world\'\');]]></string>
     <string name="title_fill_the_blanks">Fill the code :</string>
+    <string name="done">Done</string>
 </resources>
