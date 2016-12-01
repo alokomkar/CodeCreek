@@ -17,10 +17,20 @@ public class FillBlanksPagerAdapter extends FragmentPagerAdapter {
 
     public FillBlanksPagerAdapter(FragmentManager fm) {
         super(fm);
-        fillBlankFragments.add(new FillBlankFragment());
-        fillBlankFragments.add(new FillBlankFragment());
-        fillBlankFragments.add(new FillBlankFragment());
-        fillBlankFragments.add(new FillBlankFragment());
+        int index = 2;
+        FillBlankFragment fillBlankFragment = new FillBlankFragment();
+        fillBlankFragment.setmProgram_Index(index++);
+        fillBlankFragments.add(fillBlankFragment);
+        fillBlankFragment = new FillBlankFragment();
+        fillBlankFragment.setmProgram_Index(index++);
+        fillBlankFragments.add(fillBlankFragment);
+        fillBlankFragment = new FillBlankFragment();
+        fillBlankFragment.setmProgram_Index(index++);
+        fillBlankFragments.add(fillBlankFragment);
+        fillBlankFragment = new FillBlankFragment();
+        fillBlankFragment.setmProgram_Index(index++);
+        fillBlankFragments.add(fillBlankFragment);
+
     }
 
     @Override

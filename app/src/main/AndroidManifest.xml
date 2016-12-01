@@ -51,7 +51,8 @@
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_help"></activity>
 
-        <activity android:name=".activity.FillTheBlanksActivity"></activity>
+        <activity android:name=".activity.FillTheBlanksActivity"
+            android:label="@string/title_fill_the_blanks"></activity>
     </application>
 
 </manifest>

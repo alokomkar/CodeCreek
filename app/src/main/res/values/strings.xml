@@ -82,5 +82,6 @@
     <string name="option">Option</string>
     <string name="fill_the_code">Fill in the code</string>
     <string name="fill_description">Fill the missing code, work on multiple blanks</string>
-    <string name="program_fill_blanks"><![CDATA[1. #include <.......>\n\n2. void ....()\n\n3. ......(\'\'Hello world\'\');]]></string>
+    <string name="program_fill_blanks"><![CDATA[1. #include <.......>\n2. void ....()\n3. ......(\'\'Hello world\'\');]]></string>
+    <string name="title_fill_the_blanks">Fill the code :</string>
 </resources>

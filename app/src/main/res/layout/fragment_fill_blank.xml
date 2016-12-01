@@ -32,28 +32,34 @@
                 android:text="1. include header\n2. main function declaration\n3. print hello world " />
         </android.support.v7.widget.CardView>
 
-        <TextView
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_16"
-            android:background="@drawable/question_view"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginRight="@dimen/margin_16"
-            android:paddingBottom="@dimen/margin_16"
-            android:paddingLeft="@dimen/margin_16"
-            android:paddingRight="@dimen/margin_24"
-            android:textSize="@dimen/text_dashboard_small"
-            android:textColor="@color/md_black_1000"
-            android:text="@string/program_fill_blanks"
+            android:layout_margin="@dimen/margin_16"
+            android:id="@+id/programLayout"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_below="@+id/descriptionLayout"
-            android:id="@+id/programBlankLineTextView"/>
+            card_view:cardBackgroundColor="@color/md_white_1000"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_16"
+                android:textSize="@dimen/text_dashboard_small"
+                android:textColor="@color/md_black_1000"
+                android:text="@string/program_fill_blanks"
+                android:id="@+id/programBlankLineTextView"/>
+        </android.support.v7.widget.CardView>
+
+
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/programBlankLineTextView"
+            android:layout_below="@+id/programLayout"
             android:layout_marginLeft="@dimen/margin_8"
             android:layout_marginRight="@dimen/margin_8"
             android:paddingBottom="@dimen/margin_8"

@@ -110,8 +110,20 @@ public class Program_Table {
 	public void setmProgram_Line_Html(String mProgram_Line_Html) {
 		this.mProgram_Line_Html = mProgram_Line_Html;
 	}
-	
-	
-	
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Program_Table that = (Program_Table) o;
+
+		return mProgramLine_No == that.mProgramLine_No;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return mProgramLine_No;
+	}
 }
