@@ -69,15 +69,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
                 android:id="@+id/answerLayout1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <RadioGroup
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:background="@drawable/option"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">
                     <RadioButton
@@ -99,9 +97,8 @@
                 </RadioGroup>
 
                 <RadioGroup
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/option"
                     android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">
@@ -127,14 +124,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
                 android:id="@+id/answerLayout2"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <RadioGroup
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/option"
                     android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">
@@ -156,9 +151,8 @@
                 </RadioGroup>
 
                 <RadioGroup
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/option"
                     android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">

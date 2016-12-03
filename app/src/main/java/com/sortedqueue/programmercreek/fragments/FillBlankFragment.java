@@ -97,33 +97,36 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     @Override
     public void updateUI(List<Program_Table> program_TableList) {
 
-        ArrayList<Program_Table> originalList = new ArrayList<>(program_TableList);
-        ArrayList<Program_Table> program_tables = Program_Table.getFillTheBlanksList(program_TableList);
+        ArrayList<Program_Table> originalList = new ArrayList<>();
+        for( Program_Table program_table : program_TableList ) {
+            originalList.add(program_table);
+        }
+        ArrayList<String> fillBlanksQuestionList = Program_Table.getFillTheBlanksList(program_TableList);
 
         ArrayList<Program_Table> solution_tables = new ArrayList<>();
 
-        for ( int i = 0; i < program_tables.size(); i++ ) {
-            Program_Table program_table = program_tables.get(i);
+        for ( int i = 0; i < fillBlanksQuestionList.size(); i++ ) {
+            String program_table = fillBlanksQuestionList.get(i);
             Program_Table solution_table = originalList.get(i);
-            if( program_table.getProgram_Line().equals("") ) {
+            if( program_table.equals("") ) {
                 solution_tables.add(solution_table);
             }
         }
         setSolutionViews(solution_tables);
 
-        if (program_tables.size() > 4) {
+        if (fillBlanksQuestionList.size() > 4) {
             int position = 1;
             String programDescription = "";
             programBlankLineTextView.setText("");
-            for (Program_Table program_table : program_tables) {
+            for (String program_table : fillBlanksQuestionList) {
                 if (position == 1) {
-                    programDescription += position + ". " + program_table.getProgram_Line_Description();
+                    programDescription += position + ". " + program_table;
                     programBlankLineTextView.append((position++) + ". ");
                 } else {
-                    programDescription += "\n" + position + ". " + program_table.getProgram_Line_Description();
+                    programDescription += "\n" + position + ". " + program_table;
                     programBlankLineTextView.append("\n" + (position++) + ". ");
                 }
-                programBlankLineTextView.append(program_table.getProgram_Line().trim());
+                programBlankLineTextView.append(program_table.trim());
             }
             programDescriptionTextView.setText(programDescription);
         }

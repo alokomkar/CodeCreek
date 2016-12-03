@@ -135,23 +135,22 @@ public class Program_Table {
 		void getSolution( ArrayList<Program_Table> program_tables );
 	}
 
-	public static ArrayList<Program_Table> getFillTheBlanksList(List<Program_Table> program_tableList) {
-		ArrayList<Program_Table> program_tables = new ArrayList<>();
+	public static ArrayList<String> getFillTheBlanksList(List<Program_Table> program_tableList) {
+		ArrayList<String> program_tables = new ArrayList<>();
 		for( Program_Table program_table : program_tableList ) {
-			program_tables.add(program_table);
-
+			program_tables.add(program_table.getProgram_Line().trim());
 		}
 		for( int i = 0; i < 4; i++ ) {
 			int randomIndex = getRandomNumberInRange(0, program_tables.size() - 1);
-			Program_Table program_table = program_tables.get(randomIndex);
+			Program_Table program_table = program_tableList.get(randomIndex);
 			if( !program_table.getProgram_Line().trim().equals("{") &&
 					!program_table.getProgram_Line().trim().equals("}") ) {
-				if( program_table.getProgram_Line().equals("") ) {
+				if( program_tables.get(i).equals("") ) {
 					//Line already cleared
 					i--;
 				}
 				else {
-					program_table.setProgram_Line("");
+					program_tables.set(i, "");
 				}
 			}
 			else i--;
