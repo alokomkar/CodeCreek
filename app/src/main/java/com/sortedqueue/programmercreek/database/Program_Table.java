@@ -4,6 +4,8 @@ package com.sortedqueue.programmercreek.database;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -132,32 +134,40 @@ public class Program_Table {
 	}
 
 	public interface FillBlanksSolutionListener {
-		void getSolution( ArrayList<Program_Table> program_tables );
+		void getSolution( ArrayList<Integer> fillBlanksIndex );
 	}
 
-	public static ArrayList<String> getFillTheBlanksList(List<Program_Table> program_tableList) {
-		ArrayList<String> program_tables = new ArrayList<>();
+	public static ArrayList<String> getFillTheBlanksList(List<Program_Table> program_tableList, FillBlanksSolutionListener fillBlanksSolutionListener) {
+		ArrayList<String> fillBlanksQuestionList = new ArrayList<>();
+		ArrayList<Integer> fillBlanksIndex = new ArrayList<>();
 		for( Program_Table program_table : program_tableList ) {
-			program_tables.add(program_table.getProgram_Line().trim());
+			fillBlanksQuestionList.add(program_table.getProgram_Line().trim());
 		}
 		for( int i = 0; i < 4; i++ ) {
-			int randomIndex = getRandomNumberInRange(0, program_tables.size() - 1);
+			int randomIndex = getRandomNumberInRange(0, fillBlanksQuestionList.size() - 1);
 			Program_Table program_table = program_tableList.get(randomIndex);
 			if( !program_table.getProgram_Line().trim().equals("{") &&
 					!program_table.getProgram_Line().trim().equals("}") ) {
-				if( program_tables.get(i).equals("") ) {
+				if( fillBlanksQuestionList.get(randomIndex).equals("") ) {
 					//Line already cleared
 					i--;
 				}
 				else {
-					program_tables.set(i, "");
+					fillBlanksIndex.add(program_table.getLine_No() - 1);
+					fillBlanksQuestionList.set(randomIndex, "");
 				}
 			}
 			else i--;
 
 		}
-
-		return program_tables;
+		Collections.sort(fillBlanksIndex, new Comparator<Integer>() {
+			@Override
+			public int compare(Integer int1, Integer int2) {
+				return int1 < int2 ? -1 : int1 == int2 ? 0 : 1;
+			}
+		});
+		fillBlanksSolutionListener.getSolution(fillBlanksIndex);
+		return fillBlanksQuestionList;
 	}
 
 	private static int getRandomNumberInRange(int min, int max) {

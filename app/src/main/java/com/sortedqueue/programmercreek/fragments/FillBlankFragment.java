@@ -63,6 +63,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     private DatabaseHandler mDatabaseHandler;
     private int mProgram_Index = 1;
     private ArrayList<String> shuffleList;
+    private ArrayList<String> fillBlanksQuestionList;
 
     public FillBlankFragment() {
         // Required empty public constructor
@@ -93,7 +94,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         new ProgramFetcherTask(getContext(), this, mDatabaseHandler, mProgram_Index).execute();
     }
 
-
+    private ArrayList<Integer> fillBlanksIndex;
     @Override
     public void updateUI(List<Program_Table> program_TableList) {
 
@@ -101,7 +102,12 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         for( Program_Table program_table : program_TableList ) {
             originalList.add(program_table);
         }
-        ArrayList<String> fillBlanksQuestionList = Program_Table.getFillTheBlanksList(program_TableList);
+        fillBlanksQuestionList = Program_Table.getFillTheBlanksList(program_TableList, new Program_Table.FillBlanksSolutionListener() {
+            @Override
+            public void getSolution(ArrayList<Integer> fillBlanksIndex) {
+                FillBlankFragment.this.fillBlanksIndex = fillBlanksIndex;
+            }
+        });
 
         ArrayList<Program_Table> solution_tables = new ArrayList<>();
 
@@ -112,8 +118,16 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 solution_tables.add(solution_table);
             }
         }
-        setSolutionViews(solution_tables);
 
+
+        setSolutionViews(solution_tables);
+        setupQuestionViews(fillBlanksQuestionList);
+
+
+
+    }
+
+    private void setupQuestionViews(ArrayList<String> fillBlanksQuestionList) {
         if (fillBlanksQuestionList.size() > 4) {
             int position = 1;
             String programDescription = "";
@@ -130,7 +144,6 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             }
             programDescriptionTextView.setText(programDescription);
         }
-
     }
 
     private ArrayList<Program_Table> solutionTables;
@@ -153,7 +166,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
         ArrayList<String> solutions = new ArrayList<>();
         for( Program_Table program_table : solutionTables ) {
-            solutions.add(program_table.getProgram_Line());
+            solutions.add(program_table.getProgram_Line().trim());
         }
 
         shuffleList = new ArrayList<>();
@@ -226,42 +239,55 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         if( isChecked ) {
             switch ( buttonView.getId() ) {
                 case R.id.answer1RadioButton1 :
-                    solutionsList.add(0, buttonView.getText().toString());
+                    solutionsList.set(0, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(0), buttonView.getText().toString());
                     break;
                 case R.id.answer1RadioButton2 :
-                    solutionsList.add(0, buttonView.getText().toString());
+                    solutionsList.set(0, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(0), buttonView.getText().toString());
                     break;
                 case R.id.answer1RadioButton3 :
-                    solutionsList.add(0, buttonView.getText().toString());
+                    solutionsList.set(0, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(0), buttonView.getText().toString());
                     break;
                 case R.id.answer2RadioButton1 :
-                    solutionsList.add(1, buttonView.getText().toString());
+                    solutionsList.set(1, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(1), buttonView.getText().toString());
                     break;
                 case R.id.answer2RadioButton2 :
-                    solutionsList.add(1, buttonView.getText().toString());
+                    solutionsList.set(1, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(1), buttonView.getText().toString());
                     break;
                 case R.id.answer2RadioButton3 :
-                    solutionsList.add(1, buttonView.getText().toString());
+                    solutionsList.set(1, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(1), buttonView.getText().toString());
                     break;
                 case R.id.answer3RadioButton1 :
-                    solutionsList.add(2, buttonView.getText().toString());
+                    solutionsList.set(2, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(2), buttonView.getText().toString());
                     break;
                 case R.id.answer3RadioButton2 :
-                    solutionsList.add(2, buttonView.getText().toString());
+                    solutionsList.set(2, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(2), buttonView.getText().toString());
                     break;
                 case R.id.answer3RadioButton3 :
-                    solutionsList.add(2, buttonView.getText().toString());
+                    solutionsList.set(2, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(2), buttonView.getText().toString());
                     break;
                 case R.id.answer4RadioButton1 :
-                    solutionsList.add(3, buttonView.getText().toString());
+                    solutionsList.set(3, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(3), buttonView.getText().toString());
                     break;
                 case R.id.answer4RadioButton2 :
-                    solutionsList.add(3, buttonView.getText().toString());
+                    solutionsList.set(3, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(3), buttonView.getText().toString());
                     break;
                 case R.id.answer4RadioButton3 :
-                    solutionsList.add(3, buttonView.getText().toString());
+                    solutionsList.set(3, buttonView.getText().toString());
+                    fillBlanksQuestionList.set(fillBlanksIndex.get(3), buttonView.getText().toString());
                     break;
             }
+            setupQuestionViews(fillBlanksQuestionList);
         }
 
     }
@@ -291,13 +317,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             }
             if( answer1RadioButton3.isChecked() ) {
                 checkedSolution = answer1RadioButton3.getText().toString();
-                if( checkedSolution.trim().equals(solutionTables.get(i++).getProgram_Line().trim()) ) {
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer1RadioButton3.setTextColor(Color.GREEN);
                 }
                 else {
                     answer1RadioButton3.setTextColor(Color.RED);
                 }
             }
+            i++;
             if( answer2RadioButton1.isChecked() ) {
                 checkedSolution = answer2RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
@@ -318,15 +345,16 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             }
             if( answer2RadioButton3.isChecked() ) {
                 checkedSolution = answer2RadioButton3.getText().toString();
-                if( checkedSolution.trim().equals(solutionTables.get(i++).getProgram_Line().trim()) ) {
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer2RadioButton3.setTextColor(Color.GREEN);
                 }
                 else {
                     answer2RadioButton3.setTextColor(Color.RED);
                 }
             }
+            i++;
             if( answer3RadioButton1.isChecked() ) {
-                checkedSolution = answer2RadioButton1.getText().toString();
+                checkedSolution = answer3RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer3RadioButton1.setTextColor(Color.GREEN);
                 }
@@ -335,7 +363,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 }
             }
             if( answer3RadioButton2.isChecked() ) {
-                checkedSolution = answer2RadioButton2.getText().toString();
+                checkedSolution = answer3RadioButton2.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer3RadioButton2.setTextColor(Color.GREEN);
                 }
@@ -344,12 +372,40 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 }
             }
             if( answer3RadioButton3.isChecked() ) {
-                checkedSolution = answer2RadioButton3.getText().toString();
-                if( checkedSolution.trim().equals(solutionTables.get(i++).getProgram_Line().trim()) ) {
+                checkedSolution = answer3RadioButton3.getText().toString();
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer3RadioButton3.setTextColor(Color.GREEN);
                 }
                 else {
                     answer3RadioButton3.setTextColor(Color.RED);
+                }
+            }
+            i++;
+            if( answer4RadioButton1.isChecked() ) {
+                checkedSolution = answer4RadioButton1.getText().toString();
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
+                    answer4RadioButton1.setTextColor(Color.GREEN);
+                }
+                else {
+                    answer4RadioButton1.setTextColor(Color.RED);
+                }
+            }
+            if( answer4RadioButton2.isChecked() ) {
+                checkedSolution = answer4RadioButton2.getText().toString();
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
+                    answer4RadioButton2.setTextColor(Color.GREEN);
+                }
+                else {
+                    answer4RadioButton2.setTextColor(Color.RED);
+                }
+            }
+            if( answer4RadioButton3.isChecked() ) {
+                checkedSolution = answer4RadioButton3.getText().toString();
+                if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
+                    answer4RadioButton3.setTextColor(Color.GREEN);
+                }
+                else {
+                    answer4RadioButton3.setTextColor(Color.RED);
                 }
             }
             //Check and disable radio groups, mark correct answers - as green and wrong ones as red
