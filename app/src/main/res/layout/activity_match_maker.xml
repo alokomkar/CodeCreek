@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E6E6E6"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,40 +13,53 @@
         android:orientation="vertical"
         android:weightSum="2"
         android:layout_above="@+id/buttonLayout_match">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin_8"
+            card_view:cardBackgroundColor="@color/md_white_1000"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp">
         <ScrollView
             android:id="@+id/leftScrollView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#E6E6E6"
+            android:layout_height="match_parent"
             android:padding="10dp" >
-
-            <LinearLayout
-                android:id="@+id/leftLinearLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F0F0E6"
-                android:orientation="vertical" >
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/leftLinearLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                </LinearLayout>
         </ScrollView>
+        </android.support.v7.widget.CardView>
 
-        <ScrollView
-            android:id="@+id/rightScrollView"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_below="@+id/leftScrollView"
-            android:background="#E6E6E6"
-            android:padding="10dp" >
+            android:layout_margin="@dimen/margin_8"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardBackgroundColor="@color/md_white_1000"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp">
 
-            <LinearLayout
-                android:id="@+id/rightLinearLyt"
+            <ScrollView
+                android:id="@+id/rightScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F0F0E6"
-                android:orientation="vertical" >
-            </LinearLayout>
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/leftScrollView"
+                android:padding="10dp" >
+                <LinearLayout
+                    android:id="@+id/rightLinearLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </ScrollView>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 
