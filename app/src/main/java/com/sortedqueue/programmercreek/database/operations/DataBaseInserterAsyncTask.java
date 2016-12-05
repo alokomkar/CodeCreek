@@ -1013,13 +1013,13 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		case -2 :
 			insertProgramtoDB(mContext);
 			break;
-		default : 
+		/*default :
 			if( mUiUpdateListener != null ) {
 				if( mProgressDialog.isShowing() ) {
 					mProgressDialog.dismiss();
 				}
 				mUiUpdateListener.updateUI( );
-			}
+			}*/
 
 		}
 
