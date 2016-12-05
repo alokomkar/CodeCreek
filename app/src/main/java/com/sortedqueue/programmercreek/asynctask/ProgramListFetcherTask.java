@@ -1,7 +1,5 @@
 package com.sortedqueue.programmercreek.asynctask;
 
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,6 +7,8 @@ import android.os.AsyncTask;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
+
+import java.util.List;
 
 public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_Index>> {
 

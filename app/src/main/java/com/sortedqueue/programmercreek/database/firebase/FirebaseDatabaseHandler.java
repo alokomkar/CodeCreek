@@ -1,7 +1,10 @@
 package com.sortedqueue.programmercreek.database.firebase;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
@@ -80,6 +83,23 @@ public class FirebaseDatabaseHandler {
 
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
+    }
+
+    public void getProgramIndexes( ) {
+
+        //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
+
+        mProgramDatabase.child(PROGRAM_INDEX_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
