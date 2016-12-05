@@ -19,4 +19,5 @@ public class ProgrammingBuddyConstants {
 	public static String KEY_INVOKE_TEST = "invoke_test";
 
 
+	public static final String SIGN_IN_ACCOUNT = "SIGN_IN_ACCOUNT";
 }
