@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.database;
 
 
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-
+@IgnoreExtraProperties
 public class Program_Table {
 
 	int mProgramTableIndex;

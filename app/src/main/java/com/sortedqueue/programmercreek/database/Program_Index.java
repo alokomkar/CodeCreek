@@ -1,8 +1,11 @@
 package com.sortedqueue.programmercreek.database;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Program_Index - POJO for Programer_Index table in database.
  * */
+@IgnoreExtraProperties
 public class Program_Index {
 	
 	int mProgramIndex;
