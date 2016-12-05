@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 
@@ -40,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 
     private String TAG = getClass().getSimpleName();
+    private DatabaseHandler mDatabaseHandler;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -170,13 +172,31 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.fillLayout:
-                Intent intent = new Intent(DashboardActivity.this, FillTheBlanksActivity.class);
-                startActivity(intent);
+                LaunchFillBlanksActivity();
                 break;
 
             case R.id.quizLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
+        }
+
+    }
+
+    private void LaunchFillBlanksActivity() {
+
+        mDatabaseHandler = new DatabaseHandler(this);
+        //}
+        if( mDatabaseHandler.getProgram_TablesCount() != ProgramListActivity.PROGRAM_LIST_SIZE ) {
+            new DataBaseInserterAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
+                @Override
+                public void updateUI() {
+                    LaunchFillBlanksActivity();
+                }
+            }).execute();
+        }
+        else {
+            Intent intent = new Intent(DashboardActivity.this, FillTheBlanksActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -210,7 +230,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void updateUI() {
-        // TODO Auto-generated method stub
+
 
     }
 
