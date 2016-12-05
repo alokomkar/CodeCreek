@@ -51,6 +51,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        configureFirebaseAuth();
         ButterKnife.bind(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
         googleSignInButton.setVisibility(View.INVISIBLE);
@@ -58,7 +59,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             findViewById(R.id.googleSignInButton).setOnClickListener(this);
             googleSignInButton.setVisibility(View.VISIBLE);
             configureGoogleSignup();
-            configureFirebaseAuth();
         } else {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -106,6 +106,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private void configureGoogleSignup() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
