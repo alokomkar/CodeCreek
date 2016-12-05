@@ -20,4 +20,6 @@ public class ProgrammingBuddyConstants {
 
 
 	public static final String SIGN_IN_ACCOUNT = "SIGN_IN_ACCOUNT";
+	public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+	public static final String ACCOUNT_PHOTO = "ACCOUNT_NAME";
 }

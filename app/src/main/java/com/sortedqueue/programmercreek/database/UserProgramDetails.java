@@ -5,15 +5,26 @@ package com.sortedqueue.programmercreek.database;
  */
 
 public class UserProgramDetails {
+
+    String emailId;
     String programLanguage;
     String programId;
 
     public UserProgramDetails() {
     }
 
-    public UserProgramDetails(String programLanguage, String programId) {
+    public UserProgramDetails(String emailId, String programLanguage, String programId) {
+        this.emailId = emailId;
         this.programLanguage = programLanguage;
         this.programId = programId;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public String getProgramLanguage() {

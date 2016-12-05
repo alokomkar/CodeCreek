@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.database;
 
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+
 /**
  * Created by binay on 05/12/16.
  */
@@ -50,5 +52,10 @@ public class CreekUser {
                 ", userFullName='" + userFullName + '\'' +
                 ", userPhotoUrl='" + userPhotoUrl + '\'' +
                 '}';
+    }
+
+    public void save() {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler();
+        firebaseDatabaseHandler.writeCreekUser(this);
     }
 }

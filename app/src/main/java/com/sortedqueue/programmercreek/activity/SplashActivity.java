@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.CreekUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,6 +47,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private SharedPreferences sharedPreferences;
+    private CreekUser creekUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+                .requestProfile()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -149,6 +152,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+
+        creekUser = new CreekUser();
+        creekUser.setUserFullName(account.getDisplayName());
+        creekUser.setUserPhotoUrl(account.getPhotoUrl().toString());
+        creekUser.setEmailId(account.getEmail());
+        creekUser.save();
+        sharedPreferences.edit().putString(ProgrammingBuddyConstants.ACCOUNT_NAME, account.getDisplayName()).commit();
+        sharedPreferences.edit().putString(ProgrammingBuddyConstants.ACCOUNT_PHOTO, account.getPhotoUrl().toString()).commit();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 

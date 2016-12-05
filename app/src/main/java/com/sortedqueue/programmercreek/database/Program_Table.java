@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.database;
 
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
@@ -32,6 +33,12 @@ public class Program_Table {
 		mProgram_Line = program_Line;
 		mProgram_Line_Description = program_Line_Description;
 		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("c", mProgram_Line);
+		save();
+	}
+
+	private void save() {
+		FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler();
+		firebaseDatabaseHandler.writeProgramTable(this);
 	}
 
 
