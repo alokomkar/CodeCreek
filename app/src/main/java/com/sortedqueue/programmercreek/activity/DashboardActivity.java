@@ -2,9 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,18 +10,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener, UIUpdateListener {
 
-    SharedPreferences mPreferences;
     @Bind(R.id.indexLayout)
     FrameLayout indexLayout;
     @Bind(R.id.wizardLayout)
@@ -59,18 +61,19 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 
     private void initDB() {
-        //TODO Insert into database using a separate thread / AsyncTask
+        logDebugMessage("Inserting all Programs Titles..");
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
+        firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
+            @Override
+            public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean insertProgramTable = mPreferences.getBoolean(ProgrammingBuddyConstants.KEY_PROG_TABLE_INSERT, false);
-        final boolean insertProgramIndex = mPreferences.getBoolean(ProgrammingBuddyConstants.KEY_PROG_INDEX_INSERT, false);
+            }
 
-        if (insertProgramIndex == false || insertProgramTable == false) {
-            logDebugMessage("Inserting all Programs Titles..");
-            new DataBaseInserterAsyncTask(this, -1, this).execute();
-        }
+            @Override
+            public void onError(DatabaseError error) {
 
-
+            }
+        });
     }
 
     /**

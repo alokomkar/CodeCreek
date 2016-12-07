@@ -1,12 +1,9 @@
 package com.sortedqueue.programmercreek.database.operations;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
@@ -1067,9 +1064,6 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		super.onPostExecute(result);
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-		preferences.edit().putBoolean(ProgrammingBuddyConstants.KEY_PROG_INDEX_INSERT, true).commit();
-		preferences.edit().putBoolean(ProgrammingBuddyConstants.KEY_PROG_TABLE_INSERT, true).commit();
 		CommonUtils.dismissProgressDialog();
 		if( mUiUpdateListener != null ) {
 			mUiUpdateListener.updateUI( );

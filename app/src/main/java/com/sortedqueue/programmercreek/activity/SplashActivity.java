@@ -5,10 +5,8 @@ package com.sortedqueue.programmercreek.activity;
  */
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,8 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUser;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,8 +45,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private SharedPreferences sharedPreferences;
     private CreekUser creekUser;
+    private CreekPreferences creekPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +54,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_splash_screen);
         configureFirebaseAuth();
         ButterKnife.bind(this);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
+        creekPreferences = new CreekPreferences(SplashActivity.this);
         googleSignInButton.setVisibility(View.INVISIBLE);
-        if (sharedPreferences.getString(ProgrammingBuddyConstants.SIGN_IN_ACCOUNT, "").equals("")) {
-            findViewById(R.id.googleSignInButton).setOnClickListener(this);
+        if (creekPreferences.getSignInAccount().equals("")) {
+            googleSignInButton.setOnClickListener(this);
             googleSignInButton.setVisibility(View.VISIBLE);
             configureGoogleSignup();
         } else {
@@ -152,16 +151,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-
+        CommonUtils.displayProgressDialog(SplashActivity.this, "Authenticating account");
         creekUser = new CreekUser();
         creekUser.setUserFullName(account.getDisplayName());
         creekUser.setUserPhotoUrl(account.getPhotoUrl().toString());
         creekUser.setEmailId(account.getEmail());
         creekUser.save();
-        sharedPreferences.edit().putString(ProgrammingBuddyConstants.ACCOUNT_NAME, account.getDisplayName()).commit();
-        sharedPreferences.edit().putString(ProgrammingBuddyConstants.ACCOUNT_PHOTO, account.getPhotoUrl().toString()).commit();
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        creekPreferences.setAccountName(account.getDisplayName());
+        creekPreferences.setAccountPhoto(account.getPhotoUrl().toString());
+        final AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -177,9 +175,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(SplashActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            sharedPreferences.edit().putString(ProgrammingBuddyConstants.SIGN_IN_ACCOUNT, task.getResult().getUser().getEmail()).commit();
+                            creekPreferences.setSignInAccount(task.getResult().getUser().getEmail());
                             startApp();
                         }
+                        CommonUtils.dismissProgressDialog();
                         // ...
                     }
                 });
