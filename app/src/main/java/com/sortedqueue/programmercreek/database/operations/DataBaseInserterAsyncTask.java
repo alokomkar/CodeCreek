@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.database.operations;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,12 +11,12 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 
 public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
 	Context mContext = null;
-	ProgressDialog mProgressDialog = null;
 	DatabaseHandler mDatabaseHandler;
 	int mIndex = 0;
 	UIUpdateListener mUiUpdateListener;
@@ -1062,11 +1061,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		mProgressDialog = new ProgressDialog(mContext);
-		mProgressDialog.setIndeterminate(false);
-		mProgressDialog.setMessage("Initializing data for the first time...");
-		mProgressDialog.setCancelable(false);
-		mProgressDialog.show();
+		CommonUtils.displayProgressDialog(mContext, "Initializing data for the first time...");
 	}
 
 	@Override
@@ -1075,9 +1070,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 		preferences.edit().putBoolean(ProgrammingBuddyConstants.KEY_PROG_INDEX_INSERT, true).commit();
 		preferences.edit().putBoolean(ProgrammingBuddyConstants.KEY_PROG_TABLE_INSERT, true).commit();
-		if (mProgressDialog.isShowing()) {
-			mProgressDialog.dismiss();
-		}
+		CommonUtils.dismissProgressDialog();
 		if( mUiUpdateListener != null ) {
 			mUiUpdateListener.updateUI( );
 		}

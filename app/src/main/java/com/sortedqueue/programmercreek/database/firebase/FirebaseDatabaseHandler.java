@@ -85,11 +85,12 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
 
-    public void getProgramIndexes( ) {
+    public void initializeProgramIndexes( ) {
 
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
 
-        mProgramDatabase.child(PROGRAM_INDEX_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
+        int initialPrograms = 31;
+        mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

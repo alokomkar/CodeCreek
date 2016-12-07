@@ -1,18 +1,17 @@
 package com.sortedqueue.programmercreek.asynctask;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.List;
 
 public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_Index>> {
 
-	ProgressDialog mProgressDialog;
 	private Context mContext;
 	private UIProgramListFetcherListener mUIProgramListFetcherListener;
 	List<Program_Index> mProgram_Indexs;
@@ -26,10 +25,7 @@ public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_I
 	
 	@Override
     protected void onPreExecute() {
-    	mProgressDialog = new ProgressDialog(mContext);
-    	mProgressDialog.setMessage("Fetching Program List");
-    	mProgressDialog.setCancelable(false);
-    	mProgressDialog.show();
+		CommonUtils.displayProgressDialog(mContext, "Fetching Program List");
     }
 	
 	@Override
@@ -40,9 +36,7 @@ public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_I
 	
 	@Override
 	protected void onPostExecute(List<Program_Index> program_Indexs) {
-		if( mProgressDialog != null ) {
-			mProgressDialog.dismiss();
-		}
+		CommonUtils.dismissProgressDialog();
 		if( mUIProgramListFetcherListener != null ) {
 			mUIProgramListFetcherListener.updateUIProgramList(program_Indexs);
 		}

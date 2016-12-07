@@ -1,7 +1,5 @@
 package com.sortedqueue.programmercreek.asynctask;
 
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,11 +7,13 @@ import android.os.AsyncTask;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+
+import java.util.List;
 
 
 public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 
-	ProgressDialog mProgressDialog = null;
 	Context mContext = null;
 	int mProgramIndex;
 	UIProgramFetcherListener mUiProgramFetcherListener;
@@ -46,19 +46,13 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		mProgressDialog = new ProgressDialog(mContext);
-		mProgressDialog.setIndeterminate(false);
-		mProgressDialog.setMessage("Initializing Program, Please Wait...");
-		mProgressDialog.setCancelable(false);
-		mProgressDialog.show();
+		CommonUtils.displayProgressDialog(mContext, "Initializing Program, Please Wait...");
 	}
 
 	@Override
 	protected void onPostExecute(Void result) {
 		super.onPostExecute(result);
-		if (mProgressDialog.isShowing()) {
-			mProgressDialog.dismiss();
-		}
+		CommonUtils.dismissProgressDialog();
 		if( mUiProgramFetcherListener != null ) {
 			mUiProgramFetcherListener.updateUI( mProgram_TableList );
 		}
