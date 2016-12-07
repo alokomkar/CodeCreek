@@ -156,7 +156,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         creekUser.setUserFullName(account.getDisplayName());
         creekUser.setUserPhotoUrl(account.getPhotoUrl().toString());
         creekUser.setEmailId(account.getEmail());
-        creekUser.save();
+        creekUser.save(SplashActivity.this);
         creekPreferences.setAccountName(account.getDisplayName());
         creekPreferences.setAccountPhoto(account.getPhotoUrl().toString());
         final AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);

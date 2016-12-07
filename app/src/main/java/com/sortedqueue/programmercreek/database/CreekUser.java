@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.database;
 
+import android.content.Context;
+
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
 /**
@@ -54,8 +56,8 @@ public class CreekUser {
                 '}';
     }
 
-    public void save() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler();
+    public void save(Context context) {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         firebaseDatabaseHandler.writeCreekUser(this);
     }
 }
