@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.database;
 
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
 /**
  * Program_Index - POJO for Programer_Index table in database.
@@ -43,9 +42,4 @@ public class Program_Index {
 		return mProgramIndex+": "+mProgram_Description;
 	}
 
-	public Program_Index save() {
-		FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler();
-		firebaseDatabaseHandler.writeProgramIndex(this);
-		return this;
-	}
 }

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramIndexAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
@@ -21,12 +22,14 @@ import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -70,7 +73,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 				mProgram_Indexs = program_Indexes;
 				PROGRAM_LIST_SIZE = mProgram_Indexs.size();
 				if( mProgram_Indexs == null || mProgram_Indexs.size() == 0 ) {
-					new DataBaseInserterAsyncTask(ProgramListActivity.this, -1, ProgramListActivity.this).execute();
+					insertProgramIndexes();
 				}
 				CustomProgramIndexAdapter customProgramIndexAdapter = new CustomProgramIndexAdapter(ProgramListActivity.this,
 						android.R.layout.simple_list_item_1,
@@ -82,6 +85,21 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 			}
 		}).execute();
 
+	}
+
+	private void insertProgramIndexes() {
+		FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(ProgramListActivity.this);
+		firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
+			@Override
+			public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
+				updateUI();
+			}
+
+			@Override
+			public void onError(DatabaseError error) {
+
+			}
+		});
 	}
 
 	@Override
@@ -201,7 +219,17 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 			mDatabaseHandler = new DatabaseHandler(this);
 		//}
 		if( mDatabaseHandler.getProgram_TablesCount() != ProgramListActivity.PROGRAM_LIST_SIZE ) {
-			new DataBaseInserterAsyncTask(ProgramListActivity.this, -2, ProgramListActivity.this ).execute();	
+			new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
+				@Override
+				public void getProgramTables(ArrayList<Program_Table> program_tables) {
+					updateUI();
+				}
+
+				@Override
+				public void onError(DatabaseError error) {
+
+				}
+			});
 		}
 		else {
 			invokeTestIntents();
@@ -403,7 +431,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 		switch (item.getItemId()) {
 
 		case R.id.action_refresh_database:
-			new DataBaseInserterAsyncTask(this, -1, this).execute();
+			insertProgramIndexes();
 			return true;
 
 		default:

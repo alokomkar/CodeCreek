@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -868,7 +867,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		// Inserting Contacts
 		logDebugMessage("Inserting ProgramList");
 		int index = 1;
-		databaseHandler.addProgram_Index(new Program_Index(index++, "Hello World").save());
+		/*databaseHandler.addProgram_Index(new Program_Index(index++, "Hello World").save());
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Sum of two numbers").save());
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Pythagora's theorem").save());
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Fibonaci Series - Recursion").save());
@@ -898,7 +897,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Characters Frequency").save());
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Read File").save());
 		databaseHandler.addProgram_Index(new Program_Index(index++, "Pattern Matching - Pointers").save());
-		databaseHandler.addProgram_Index(new Program_Index(index++, "String Concatenation - without strcat").save());
+		databaseHandler.addProgram_Index(new Program_Index(index++, "String Concatenation - without strcat").save());*/
 
 
 		return databaseHandler;

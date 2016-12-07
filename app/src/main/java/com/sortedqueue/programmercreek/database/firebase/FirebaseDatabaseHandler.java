@@ -103,6 +103,9 @@ public class FirebaseDatabaseHandler {
         void getProgramIndexes(ArrayList<Program_Index> program_indices);
         void onError( DatabaseError error );
     }
+
+
+
     public void initializeProgramIndexes( final ProgramIndexInterface programIndexInterface ) {
 
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
@@ -117,7 +120,6 @@ public class FirebaseDatabaseHandler {
                     ArrayList<Program_Index> program_indices = new ArrayList<Program_Index>();
                     for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
                         Program_Index program_index = programIndexSnapshot.getValue(Program_Index.class);
-                        program_index.save();
                         databaseHandler.addProgram_Index(program_index);
                         program_indices.add(program_index);
                     }
@@ -139,6 +141,45 @@ public class FirebaseDatabaseHandler {
             programIndexInterface.getProgramIndexes(new ArrayList<Program_Index>());
         }
 
+    }
+
+    public interface ProgramTableInterface {
+        void getProgramTables(ArrayList<Program_Table> program_tables);
+        void onError( DatabaseError error );
+    }
+
+    public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
+        databaseHandler = new DatabaseHandler(mContext);
+        int initialPrograms = 31;
+        creekPreferences = new CreekPreferences(mContext);
+        if( creekPreferences.getProgramTables() == -1 ) {
+            CommonUtils.displayProgressDialog(mContext, "Loading program index");
+            mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<Program_Table> program_tables = new ArrayList<>();
+                    for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
+                        Program_Table program_index = programIndexSnapshot.getValue(Program_Table.class);
+                        databaseHandler.addProgram_Table(program_index);
+                        program_tables.add(program_index);
+                    }
+                    programTableInterface.getProgramTables(program_tables);
+                    creekPreferences.setProgramTables(program_tables.size());
+                    Log.d(TAG, "Inserted program indexes : " + program_tables.size());
+                    CommonUtils.dismissProgressDialog();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    programTableInterface.onError(databaseError);
+                    CommonUtils.dismissProgressDialog();
+                }
+            });
+        }
+        else {
+            Log.d(TAG, "Inserted program indexes found : " + creekPreferences.getProgramTables());
+            programTableInterface.getProgramTables(new ArrayList<Program_Table>());
+        }
     }
 
 
