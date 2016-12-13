@@ -53,7 +53,8 @@
                 android:layout_height="match_parent"
                 android:indeterminate="false"
                 android:max="48"
-                android:progress="48"
+                android:progress="10"
+                android:background="@drawable/circle_shape"
                 android:progressDrawable="@drawable/circular_progressbar" />
             <TextView
                 android:layout_width="match_parent"
