@@ -153,19 +153,24 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
         creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program index");
+            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "Program Tables : " + dataSnapshot.toString());
                     ArrayList<Program_Table> program_tables = new ArrayList<>();
-                    for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
-                        Program_Table program_index = programIndexSnapshot.getValue(Program_Table.class);
-                        databaseHandler.addProgram_Table(program_index);
-                        program_tables.add(program_index);
+                    for( DataSnapshot dataSnapshot1 : dataSnapshot.getChildren() ) {
+                        for( DataSnapshot programTableSnapshot : dataSnapshot1.getChildren() ) {
+                            if( programTableSnapshot.getValue() instanceof  Program_Table ) {
+                                Program_Table program_table = programTableSnapshot.getValue(Program_Table.class);
+                                databaseHandler.addProgram_Table(program_table);
+                                program_tables.add(program_table);
+                            }
+                        }
                     }
                     programTableInterface.getProgramTables(program_tables);
                     creekPreferences.setProgramTables(program_tables.size());
-                    Log.d(TAG, "Inserted program indexes : " + program_tables.size());
+                    Log.d(TAG, "Inserted program tables : " + program_tables.size());
                     CommonUtils.dismissProgressDialog();
                 }
 
@@ -177,7 +182,7 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            Log.d(TAG, "Inserted program indexes found : " + creekPreferences.getProgramTables());
+            Log.d(TAG, "Inserted program tables found : " + creekPreferences.getProgramTables());
             programTableInterface.getProgramTables(new ArrayList<Program_Table>());
         }
     }

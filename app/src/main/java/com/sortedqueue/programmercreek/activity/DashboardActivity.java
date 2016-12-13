@@ -189,7 +189,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         mDatabaseHandler = new DatabaseHandler(this);
         //}
-        if( mDatabaseHandler.getProgram_TablesCount() != ProgramListActivity.PROGRAM_LIST_SIZE ) {
+        if( mDatabaseHandler.getProgram_TablesCount() != 31 ) {
             new DataBaseInserterAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
                 @Override
                 public void updateUI() {
