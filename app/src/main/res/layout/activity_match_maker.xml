@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="2"
-        android:layout_above="@+id/buttonLayout_match">
+        android:layout_above="@+id/buttonLayout">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:foreground="?android:attr/selectableItemBackground"
@@ -62,33 +62,62 @@
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
-
-
     <LinearLayout
-        android:id="@+id/buttonLayout_match"
+        android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/margin_8"
-        android:weightSum="1"
         android:orientation="horizontal"
+        android:weightSum="1"
+        android:padding="@dimen/margin_8"
         android:background="@color/colorAccent" >
 
         <Button
-            android:id="@+id/checkMatchButton"
+            android:id="@+id/checkQuizButton"
             style="@style/ButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_sky"
             android:text="@string/checkMatch"
-            android:layout_weight="0.3" />
+            android:layout_weight="0.75" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:id="@+id/progressLayout"
+            android:layout_weight="0.25">
+            <ProgressBar
+                android:id="@+id/circular_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:max="48"
+                android:progress="10"
+                android:background="@drawable/circle_shape"
+                android:progressDrawable="@drawable/circular_progressbar" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/progressTextView"
+                android:textColor="@color/white"
+                android:text="@string/time"/>
+
+        </FrameLayout>
+
         <Button
-            android:id="@+id/timerMatchButton"
+            android:id="@+id/timerButton"
             style="@style/ButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@drawable/button_sky"
-            android:layout_weight="0.7" />
+            android:layout_weight="0.25" />
+
+
     </LinearLayout>
+
 
 </RelativeLayout>

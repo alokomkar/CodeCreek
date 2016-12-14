@@ -10,9 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sortedqueue.programmercreek.R;
@@ -34,6 +37,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class TestDragNDropActivity extends ListActivity implements UIUpdateListener {
 
 	DatabaseHandler mDatabaseHandler;
@@ -42,19 +48,28 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 	ArrayList<String> mProgramList;
 	ArrayList<String> mProgramCheckList;
 	ListView mListView;
-	Button mCheckButton;
-	Button mTimerButton;
 	long remainingTime = 0;
 	long time = 0;
 	long interval = 0;
 	CountDownTimer mCountDownTimer;
 	boolean mWizard = false;
+
+	@Bind(R.id.checkQuizButton)
+	Button checkQuizButton;
+	@Bind(R.id.circular_progress_bar)
+	ProgressBar circularProgressBar;
+	@Bind(R.id.progressTextView)
+	TextView progressTextView;
+	@Bind(R.id.progressLayout)
+	FrameLayout progressLayout;
+	@Bind(R.id.timerButton)
+	Button timerButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test_drag_n_drop);
-
+		ButterKnife.bind(this);
 		mDatabaseHandler = new DatabaseHandler(this);
 		
 		mProgram_Index = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
@@ -109,44 +124,48 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 			((DragNDropListView) mListView).setDragListener(mDragListener);
 		}
 
-		mCheckButton = (Button) findViewById(R.id.checkBtn);
-		mTimerButton = (Button) findViewById(R.id.timerTestButton);
-		mTimerButton.setEnabled(false);
+		timerButton.setEnabled(false);
 
 		time = ( programSize / 2) * 60 * 1000;
 		interval = 1000;
-		
+		circularProgressBar.setMax((int) (time / 1000));
 		if( mCountDownTimer != null ) {
 			mCountDownTimer.cancel();
-			mCheckButton.setEnabled(true);
+			checkQuizButton.setEnabled(true);
 		}
 
 		mCountDownTimer = new CountDownTimer( time, interval) {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				mTimerButton.setText(""+String.format("%d:%d",
+				timerButton.setText(""+String.format("%d:%02d",
 						TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
 						TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - 
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+				progressTextView.setText(timerButton.getText());
 				remainingTime = time - millisUntilFinished;
+				circularProgressBar.setProgress((int) (remainingTime / 1000));
 			}
 
 			@Override
 			public void onFinish() {
 
-				mTimerButton.setText("Time up");
+				timerButton.setText("Time up");
+				timerButton.setVisibility(View.VISIBLE);
+				progressLayout.setVisibility(View.GONE);
 				if( mWizard == true ) {
-					mTimerButton.setText("Finish");
-					mTimerButton.setEnabled(true);
-					mTimerButton.setOnClickListener(mFinishBtnClickListener);
+					timerButton.setText("Finish");
+					timerButton.setVisibility(View.VISIBLE);
+					progressLayout.setVisibility(View.GONE);
+					timerButton.setEnabled(true);
+					timerButton.setOnClickListener(mFinishBtnClickListener);
 				}
 
 				checkScore( programSize );
 			}
 		};
 
-		mCheckButton.setOnClickListener(new OnClickListener() {
+		checkQuizButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -166,7 +185,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		public void onClick(View v) {
 
 			switch( v.getId() ) {
-			case R.id.timerTestButton : 
+			case R.id.timerButton :
 				TestDragNDropActivity.this.finish();
 				break;
 			}
@@ -232,13 +251,15 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Keep Working..";
 			}
 			AuxilaryUtils.displayAlert("Test Complete", resultAlert, TestDragNDropActivity.this);
-			mCheckButton.setEnabled(false);
+			checkQuizButton.setEnabled(false);
 			
 			mQuizComplete = true;
 			if( mWizard == true ) {
-				mTimerButton.setText("Finish");
-				mTimerButton.setEnabled(true);
-				mTimerButton.setOnClickListener(mFinishBtnClickListener);
+				timerButton.setText("Finish");
+				timerButton.setEnabled(true);
+				timerButton.setVisibility(View.VISIBLE);
+				progressLayout.setVisibility(View.GONE);
+				timerButton.setOnClickListener(mFinishBtnClickListener);
 			}
 
 		}

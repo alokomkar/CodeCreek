@@ -7,40 +7,67 @@
     android:background="@color/md_grey_300">
 
     <LinearLayout
-        android:id="@+id/btnCheckTextLayout"
+        android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
         android:weightSum="1"
         android:padding="@dimen/margin_8"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal" >
+        android:background="@color/colorAccent" >
 
         <Button
-            android:id="@+id/checkBtn"
+            android:id="@+id/checkQuizButton"
             style="@style/ButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
             android:background="@drawable/button_sky"
-            android:text="@string/checkMatch" />
+            android:text="@string/checkMatch"
+            android:layout_weight="0.75" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:id="@+id/progressLayout"
+            android:layout_weight="0.25">
+            <ProgressBar
+                android:id="@+id/circular_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:max="48"
+                android:progress="10"
+                android:background="@drawable/circle_shape"
+                android:progressDrawable="@drawable/circular_progressbar" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/progressTextView"
+                android:textColor="@color/white"
+                android:text="@string/time"/>
+
+        </FrameLayout>
 
         <Button
-            android:id="@+id/timerTestButton"
+            android:id="@+id/timerButton"
             style="@style/ButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_dashboard_small"
-            android:layout_weight="0.7"
-            android:background="@drawable/button_sky" />
+            android:visibility="gone"
+            android:background="@drawable/button_sky"
+            android:layout_weight="0.25" />
+
+
     </LinearLayout>
 
     <com.sortedqueue.programmercreek.view.DragNDropListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnCheckTextLayout"
+        android:layout_above="@+id/buttonLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:divider="@android:color/transparent"
