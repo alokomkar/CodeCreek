@@ -287,6 +287,8 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         if (mWizard == true) {
             mTimerBtn.setText("Next");
             mTimerBtn.setEnabled(true);
+            mTimerBtn.setVisibility(View.VISIBLE);
+            progressLayout.setVisibility(View.GONE);
             mTimerBtn.setOnClickListener(mNextBtnClickListener);
         }
         mCheckSolutionBtn.setEnabled(false);
