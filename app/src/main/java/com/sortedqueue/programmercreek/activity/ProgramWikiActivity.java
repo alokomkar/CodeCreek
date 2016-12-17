@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 /**
  * Created by Alok Omkar on 2016-12-16.
@@ -45,6 +47,18 @@ public class ProgramWikiActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
             return true;
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            CommonUtils.displayProgressDialog(ProgramWikiActivity.this, "Loading Program Wiki");
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            CommonUtils.dismissProgressDialog();
         }
     }
 }
