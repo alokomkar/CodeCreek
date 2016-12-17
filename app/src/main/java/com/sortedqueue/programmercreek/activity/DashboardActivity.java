@@ -46,7 +46,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
-    private String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
+    public static final String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);

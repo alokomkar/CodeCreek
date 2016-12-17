@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,11 +24,13 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     private WebView webView;
     private String programWiki;
+    private ContentLoadingProgressBar progressBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_wiki);
         webView = (WebView) findViewById(R.id.webView);
+        progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient( new MyWebViewClient() );
         programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
         WebSettings webSettings = webView.getSettings();
@@ -52,12 +56,18 @@ public class ProgramWikiActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            CommonUtils.displayProgressDialog(ProgramWikiActivity.this, "Loading Program Wiki");
+            if( url.equalsIgnoreCase(DashboardActivity.PROGRAMER_CREEK_WIKI) ) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setIndeterminate(true);
+                progressBar.show();
+            }
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            progressBar.hide();
+            progressBar.setVisibility(View.GONE);
             CommonUtils.dismissProgressDialog();
         }
     }
