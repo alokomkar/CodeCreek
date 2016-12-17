@@ -27,6 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	//Program_Index Table Column names
 	private static final String KEY_PROGRAM_INDEX_ID = "id";
 	private static final String KEY_PROGRAM_NAME = "program_name";
+	public static final String KEY_WIKI = "wiki";
 
 	//Program_Table table name
 	private static final String TABLE_PROGRAM_TABLE = "Program_Table";
@@ -52,7 +53,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String CREATE_PROGRAM_INDEX_TABLE = 
 			"CREATE TABLE " + TABLE_PROGRAM_INDEX 
 			+ "("
-			+ KEY_PROGRAM_INDEX_ID + " INTEGER PRIMARY KEY," 
+			+ KEY_PROGRAM_INDEX_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_WIKI + " TEXT, "
 			+ KEY_PROGRAM_NAME + " TEXT )";
 
 	String CREATE_PROGRAM_TABLE_TABLE = 
@@ -279,6 +281,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_PROGRAM_INDEX_ID, program_Index.getIndex()); // Contact Name
 		values.put(KEY_PROGRAM_NAME, program_Index.getProgram_Description()); // Contact Phone Number
+		values.put(KEY_WIKI, program_Index.getWiki());
 
 		// Inserting Row
 		db.insert(TABLE_PROGRAM_INDEX, null, values);
@@ -307,7 +310,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public Program_Index getProgram_Index(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID,
+		Cursor cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_WIKI,
 				KEY_PROGRAM_NAME }, KEY_PROGRAM_INDEX_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null) {
@@ -325,7 +328,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Program_Index program_Index;
 		try {
 			program_Index = new Program_Index(Integer.parseInt(cursor.getString(0)),
-					cursor.getString(1));
+					cursor.getString(2), cursor.getString(1));
 		} catch( Exception e ) {
 			return null;
 		}
@@ -367,7 +370,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			do {
 				Program_Index program_Index = new Program_Index();
 				program_Index.setIndex(Integer.parseInt(cursor.getString(0)));
-				program_Index.setProgram_Description(cursor.getString(1));
+				program_Index.setWiki(cursor.getString(1));
+				program_Index.setProgram_Description(cursor.getString(2));
 				// Adding contact to list
 				program_IndexList.add(program_Index);
 			} while (cursor.moveToNext());

@@ -44,6 +44,8 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	public static int PROGRAM_LIST_SIZE = 0;
 
 	private String TAG = getClass().getSimpleName();
+	private Program_Index program_Index;
+
 	private void logDebugMessage( String message ) {
 		Log.d(TAG, message);
 	}
@@ -103,7 +105,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	}
 
 	@Override
-	protected void onDestroy() { 
+	protected void onDestroy() {
 
 		mDatabaseHandler.close();
 		super.onDestroy();
@@ -118,10 +120,10 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View v, int position,
-					long id) {
+									long id) {
 
 				mBundle = new Bundle();
-				Program_Index program_Index = (Program_Index) adapter.getItemAtPosition(position);
+				program_Index = (Program_Index) adapter.getItemAtPosition(position);
 				/*
 				 * Check the module table if the selected program has modules
 				 * */
@@ -146,10 +148,10 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 					@Override
 					public void updateUI(List<Program_Table> program_TableList) {
-						
+
 						mProgram_TableList = program_TableList;
 						if( mProgram_TableList != null ) {
-							logDebugMessage("Size of Program Table : " + mProgram_TableList.size());	
+							logDebugMessage("Size of Program Table : " + mProgram_TableList.size());
 						}
 						if( program_TableList == null || program_TableList.size() == 0 ) {
 							new DataBaseInserterAsyncTask(ProgramListActivity.this, mSelectedProgramIndex, ProgramListActivity.this).execute();
@@ -167,23 +169,23 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 				switch( mInvokeTest ) {
 
-				case ProgrammingBuddyConstants.KEY_REVISE : 
-					showReviseModeBox();
-					break;
+					case ProgrammingBuddyConstants.KEY_REVISE :
+						showReviseModeBox();
+						break;
 
-				case ProgrammingBuddyConstants.KEY_WIZARD :
-					Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
-					programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, mInvokeTest);
-					programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
-					startActivity(programListIntent);
-					break;
+					case ProgrammingBuddyConstants.KEY_WIZARD :
+						Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
+						programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, mInvokeTest);
+						programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
+						startActivity(programListIntent);
+						break;
 
-				case ProgrammingBuddyConstants.KEY_TEST :
-				case ProgrammingBuddyConstants.KEY_LIST :
-				case ProgrammingBuddyConstants.KEY_MATCH :
-				case ProgrammingBuddyConstants.KEY_QUIZ :
-					insertProgramTables();
-					break;
+					case ProgrammingBuddyConstants.KEY_TEST :
+					case ProgrammingBuddyConstants.KEY_LIST :
+					case ProgrammingBuddyConstants.KEY_MATCH :
+					case ProgrammingBuddyConstants.KEY_QUIZ :
+						insertProgramTables();
+						break;
 
 				}
 			}
@@ -191,32 +193,38 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 	}
 
+	private void loadProgramExplanation(String programWiki) {
+		Intent intent = new Intent(ProgramListActivity.this, ProgramWikiActivity.class);
+		intent.putExtra(DatabaseHandler.KEY_WIKI, programWiki);
+		startActivity(intent);
+	}
+
 	private void invokeTestIntents( ) {
 
 		switch( mInvokeTest ) {
-		case ProgrammingBuddyConstants.KEY_TEST :
-			mInvokeIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
-			mInvokeIntent.putExtras(mBundle);
-			startActivity(mInvokeIntent);
-			break;
-		case ProgrammingBuddyConstants.KEY_LIST :
-			showOptionsBox();
-			break;
-		case ProgrammingBuddyConstants.KEY_MATCH :
-			mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
-			mInvokeIntent.putExtras(mBundle);
-			startActivity(mInvokeIntent);
-			break;
-		case ProgrammingBuddyConstants.KEY_QUIZ :
-			showSelectBox();
-			break;
+			case ProgrammingBuddyConstants.KEY_TEST :
+				mInvokeIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
+				mInvokeIntent.putExtras(mBundle);
+				startActivity(mInvokeIntent);
+				break;
+			case ProgrammingBuddyConstants.KEY_LIST :
+				showOptionsBox();
+				break;
+			case ProgrammingBuddyConstants.KEY_MATCH :
+				mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+				mInvokeIntent.putExtras(mBundle);
+				startActivity(mInvokeIntent);
+				break;
+			case ProgrammingBuddyConstants.KEY_QUIZ :
+				showSelectBox();
+				break;
 
 		}
 	}
 
 	private void insertProgramTables() {
 		//if( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler(this);
+		mDatabaseHandler = new DatabaseHandler(this);
 		//}
 		if( mDatabaseHandler.getProgram_TablesCount() != ProgramListActivity.PROGRAM_LIST_SIZE ) {
 			new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
@@ -239,7 +247,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	protected void showReviseModeBox() {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Revise Programs"); 
+		builder.setTitle("Revise Programs");
 		String[] boxTypes = {"Normal Mode","Line By Line Mode"};
 		builder.setItems(boxTypes, reviseModeTypeListener);
 		builder.setNegativeButton("Cancel", null);
@@ -255,42 +263,42 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	/**
 	 * Quiz Type Listener 
 	 * */
-	DialogInterface.OnClickListener reviseModeTypeListener = 
+	DialogInterface.OnClickListener reviseModeTypeListener =
 			new DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 
-			Bundle newIntentBundle = new Bundle();
-			Intent newIntent = null;
-			newIntentBundle.putBoolean(KEY_WIZARD, getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD));
+					Bundle newIntentBundle = new Bundle();
+					Intent newIntent = null;
+					newIntentBundle.putBoolean(KEY_WIZARD, getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD));
 
-			switch ( which ) {
+					switch ( which ) {
 
-			case KEY_REVISE_NORMAL :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-				newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
-				break;
+						case KEY_REVISE_NORMAL :
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
+							break;
 
-			case KEY_REVISE_LINE_BY_LINE :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-				newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
-				break;
+						case KEY_REVISE_LINE_BY_LINE :
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
+							break;
 
-			}
+					}
 
-			newIntent.putExtras(newIntentBundle);
-			startActivity(newIntent);
+					newIntent.putExtras(newIntentBundle);
+					startActivity(newIntent);
 
-		}
-	};
+				}
+			};
 
 
 	protected void showOptionsBox() {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Select Mode"); 
-		String[] boxTypes = {"Revise Mode", "Memorize Mode", "Test Mode", "Quiz Mode", "Match Mode"};
+		builder.setTitle("Select Mode");
+		String[] boxTypes = {"Explanation", "Revise Mode", "Memorize Mode", "Test Mode", "Quiz Mode", "Match Mode" };
 		builder.setItems(boxTypes, optionTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();
@@ -298,66 +306,73 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 	}
 
-	public static final int INDEX_KEY_REVISE = 0;
-	public static final int INDEX_KEY_MEMORIZE = 1;
-	public static final int INDEX_KEY_TEST = 2;
-	public static final int INDEX_KEY_QUIZ = 3;
-	public static final int INDEX_KEY_MATCH = 4;
+	public static final int INDEX_KEY_EXPLANATION = 0;
+	public static final int INDEX_KEY_REVISE = 1;
+	public static final int INDEX_KEY_MEMORIZE = 2;
+	public static final int INDEX_KEY_TEST = 3;
+	public static final int INDEX_KEY_QUIZ = 4;
+	public static final int INDEX_KEY_MATCH = 5;
 
 
 	/**
 	 * Option Type Listener 
 	 * */
-	DialogInterface.OnClickListener optionTypeListener = 
+	DialogInterface.OnClickListener optionTypeListener =
 			new DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 
-			Intent newIntent = null;
-			Bundle newIntentBundle = new Bundle();
-			newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+					Intent newIntent = null;
+					Bundle newIntentBundle = new Bundle();
+					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
 
-			switch ( which ) {
+					switch ( which ) {
 
-			case INDEX_KEY_REVISE :
-				newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
-				newIntent.putExtras(newIntentBundle);
-				startActivity(newIntent);	
-				break;
+						case INDEX_KEY_REVISE :
+							newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
+							newIntent.putExtras(newIntentBundle);
+							startActivity(newIntent);
+							break;
 
-			case INDEX_KEY_MEMORIZE :
-				newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
-				newIntent.putExtras(newIntentBundle);
-				startActivity(newIntent);	
-				break;
+						case INDEX_KEY_MEMORIZE :
+							newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
+							newIntent.putExtras(newIntentBundle);
+							startActivity(newIntent);
+							break;
 
-			case INDEX_KEY_TEST :
-				newIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
-				newIntent.putExtras(newIntentBundle);
-				startActivity(newIntent);
-				break;
+						case INDEX_KEY_TEST :
+							newIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
+							newIntent.putExtras(newIntentBundle);
+							startActivity(newIntent);
+							break;
 
-			case INDEX_KEY_QUIZ : 
-				showSelectBox();
-				break;
+						case INDEX_KEY_QUIZ :
+							showSelectBox();
+							break;
 
-			case INDEX_KEY_MATCH : 
-				newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
-				newIntent.putExtras(newIntentBundle);
-				startActivity(newIntent);
-				break;
+						case INDEX_KEY_MATCH :
+							newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+							newIntent.putExtras(newIntentBundle);
+							startActivity(newIntent);
+							break;
+						case INDEX_KEY_EXPLANATION :
+							String programWiki = program_Index.getWiki();
+							loadProgramExplanation( programWiki );
+							break;
 
-			}
 
 
-		}
-	};
+					}
+
+
+				}
+			};
 
 	protected void showSelectBox() {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Quiz Mode - Question Type"); 
+		builder.setTitle("Quiz Mode - Question Type");
 		String[] boxTypes = {"Description","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
@@ -375,35 +390,35 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	/**
 	 * Quiz Type Listener 
 	 * */
-	DialogInterface.OnClickListener quizTypeListener = 
+	DialogInterface.OnClickListener quizTypeListener =
 			new DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 
-			Bundle newIntentBundle = new Bundle();
-			Intent newIntent = new Intent(ProgramListActivity.this, QuizActivity.class);
+					Bundle newIntentBundle = new Bundle();
+					Intent newIntent = new Intent(ProgramListActivity.this, QuizActivity.class);
 
-			switch ( which ) {
+					switch ( which ) {
 
-			case KEY_QUIZ_DESCRIPTION_QUESTION :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
-				break;
+						case KEY_QUIZ_DESCRIPTION_QUESTION :
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
+							break;
 
-			case KEY_QUIZ_PROGRAM_CODE_QUESTION :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
-				break;
+						case KEY_QUIZ_PROGRAM_CODE_QUESTION :
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
+							break;
 
-			}
+					}
 
-			newIntent.putExtras(newIntentBundle);
-			startActivity(newIntent);
+					newIntent.putExtras(newIntentBundle);
+					startActivity(newIntent);
 
 
-		}
-	};
+				}
+			};
 
 	@Override
 	public void updateUI() {
@@ -430,12 +445,12 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 		switch (item.getItemId()) {
 
-		case R.id.action_refresh_database:
-			insertProgramIndexes();
-			return true;
+			case R.id.action_refresh_database:
+				insertProgramIndexes();
+				return true;
 
-		default:
-			return super.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected(item);
 
 		}
 

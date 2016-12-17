@@ -26,6 +26,8 @@ import butterknife.ButterKnife;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener, UIUpdateListener {
 
+    @Bind(R.id.wikiLayout)
+    FrameLayout wikiLayout;
     @Bind(R.id.indexLayout)
     FrameLayout indexLayout;
     @Bind(R.id.wizardLayout)
@@ -44,6 +46,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
+    private String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -80,6 +83,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
      * Method to initialize UI.
      */
     private void initUI() {
+        wikiLayout.setOnClickListener(this);
         indexLayout.setOnClickListener(this);
         matchLayout.setOnClickListener(this);
         testLayout.setOnClickListener(this);
@@ -154,6 +158,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.wikiLayout :
+                Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
+                intent.putExtra(DatabaseHandler.KEY_WIKI, PROGRAMER_CREEK_WIKI);
+                startActivity(intent);
+                break;
             case R.id.indexLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_LIST);
                 break;

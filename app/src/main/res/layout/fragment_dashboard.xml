@@ -14,6 +14,69 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/wikiLayout"
+            android:layout_marginTop="@dimen/margin_16">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/md_white_1000"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_16">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/program_wiki"
+                        android:id="@+id/wikiTextView"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_marginLeft="@dimen/margin_100"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="@dimen/text_dashboard"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wikiTextView"
+                        android:minLines="2"
+                        android:maxLines="2"
+                        android:layout_marginLeft="@dimen/margin_100"
+                        android:layout_marginRight="@dimen/margin_16"
+                        android:text="@string/program_wiki_description"
+                        android:textSize="@dimen/text_dashboard_small"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/md_green_A700"
+                android:layout_marginLeft="@dimen/margin_32"
+                android:elevation="@dimen/margin_8"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="@dimen/margin_64"
+                    android:layout_height="@dimen/margin_64"
+                    android:text="W"
+                    android:textColor="@color/md_white_1000"
+                    android:textSize="@dimen/text_large_dashboard"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/indexLayout"
             android:layout_marginTop="@dimen/margin_16">
 

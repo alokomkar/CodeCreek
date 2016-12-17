@@ -10,11 +10,13 @@ public class Program_Index {
 	
 	int mProgramIndex;
 	String mProgram_Description;
+	String wiki;
 	
-	public Program_Index(int index, String program_Description) {
+	public Program_Index(int index, String program_Description, String wiki) {
 		super();
 		mProgramIndex = index;
 		mProgram_Description = program_Description;
+		this.wiki = wiki;
 	}
 
 	public Program_Index() {
@@ -36,7 +38,15 @@ public class Program_Index {
 	public void setProgram_Description(String program_Description) {
 		mProgram_Description = program_Description;
 	}
-	
+
+	public String getWiki() {
+		return wiki;
+	}
+
+	public void setWiki(String wiki) {
+		this.wiki = wiki;
+	}
+
 	@Override
 	public String toString() { 
 		return mProgramIndex+": "+mProgram_Description;

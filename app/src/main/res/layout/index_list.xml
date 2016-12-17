@@ -11,33 +11,51 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="@dimen/margin_32"
-            android:layout_height="@dimen/margin_32"
-            android:text="C"
-            android:id="@+id/programTypeTextView"
-            android:textColor="@color/md_white_1000"
-            android:background="@color/md_light_blue_600"
-            android:textSize="@dimen/text_dashboard_small"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_centerVertical="true"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/txtViewProgDescription"
-            android:layout_toRightOf="@+id/programTypeTextView"
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_8"
-            android:paddingRight="@dimen/margin_16"
-            android:paddingTop="@dimen/margin_16"
-            android:paddingBottom="@dimen/margin_16"
-            android:layout_alignParentTop="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/md_black_1000"
-            android:text="Sample"
-            android:textSize="18sp" />
+            android:id="@+id/programIndexLayout">
+            <TextView
+                android:layout_width="@dimen/margin_32"
+                android:layout_height="@dimen/margin_32"
+                android:text="C"
+                android:id="@+id/programTypeTextView"
+                android:textColor="@color/md_white_1000"
+                android:background="@color/md_light_blue_600"
+                android:textSize="@dimen/text_dashboard_small"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_centerVertical="true"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/txtViewProgDescription"
+                android:layout_toRightOf="@+id/programTypeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_8"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_16"
+                android:paddingBottom="@dimen/margin_16"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/md_black_1000"
+                android:text="Sample"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wikiTextView"
+            android:visibility="gone"
+            android:text="@string/url"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:padding="@dimen/margin_8"
+            android:textSize="18sp"
+            android:layout_below="@+id/programIndexLayout"/>
+
     </RelativeLayout>
 
 

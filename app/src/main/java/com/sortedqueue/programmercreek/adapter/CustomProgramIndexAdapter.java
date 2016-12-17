@@ -58,6 +58,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 			view = mLayoutInflater.inflate(R.layout.index_list, null);
 			mViewHolder = new ViewHolder();
 			mViewHolder.programLineTextView = (TextView) view.findViewById(R.id.txtViewProgDescription);
+			mViewHolder.wikiTextView = (TextView) view.findViewById(R.id.wikiTextView);
 			view.setTag(mViewHolder);
 		}
 		else {
@@ -71,6 +72,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 
 	static final class ViewHolder { 
 		TextView programLineTextView;
+		TextView wikiTextView;
 	}
 
 }
