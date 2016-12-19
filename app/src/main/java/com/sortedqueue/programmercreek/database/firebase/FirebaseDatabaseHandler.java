@@ -38,6 +38,7 @@ public class FirebaseDatabaseHandler {
 
     private String TAG = FirebaseDatabaseHandler.class.getSimpleName();
     private DatabaseHandler databaseHandler;
+    private ArrayList<Program_Table> program_tables;
 
     /***
      * Program Index storage :
@@ -126,7 +127,7 @@ public class FirebaseDatabaseHandler {
                     programIndexInterface.getProgramIndexes(program_indices);
                     creekPreferences.setProgramIndex(program_indices.size());
                     Log.d(TAG, "Inserted program indexes : " + program_indices.size());
-                    CommonUtils.dismissProgressDialog();
+                    //CommonUtils.dismissProgressDialog();
                 }
 
                 @Override
@@ -153,25 +154,26 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
         creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
+            //CommonUtils.displayProgressDialog(mContext, "Loading program tables");
+            program_tables = new ArrayList<>();
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "Program Tables : " + dataSnapshot.toString());
-                    ArrayList<Program_Table> program_tables = new ArrayList<>();
-                    for( DataSnapshot dataSnapshot1 : dataSnapshot.getChildren() ) {
-                        for( DataSnapshot programTableSnapshot : dataSnapshot1.getChildren() ) {
-                            if( programTableSnapshot.getValue() instanceof  Program_Table ) {
-                                Program_Table program_table = programTableSnapshot.getValue(Program_Table.class);
+                    for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
+                        for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
+                            Program_Table program_table = lineSnapShot.getValue(Program_Table.class);
+                            if( program_table != null ) {
                                 databaseHandler.addProgram_Table(program_table);
                                 program_tables.add(program_table);
+                                programTableInterface.getProgramTables(program_tables);
+                            }
+                            Log.d(TAG, "Inserted program tables : " + program_tables.size());
+                            if( program_tables.size() == 530 ) {
+                                creekPreferences.setProgramTables(program_tables.size());
+                                CommonUtils.dismissProgressDialog();
                             }
                         }
                     }
-                    programTableInterface.getProgramTables(program_tables);
-                    creekPreferences.setProgramTables(program_tables.size());
-                    Log.d(TAG, "Inserted program tables : " + program_tables.size());
-                    CommonUtils.dismissProgressDialog();
                 }
 
                 @Override

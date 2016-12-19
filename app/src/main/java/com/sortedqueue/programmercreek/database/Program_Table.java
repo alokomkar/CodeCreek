@@ -12,6 +12,18 @@ import java.util.Random;
 @IgnoreExtraProperties
 public class Program_Table {
 
+	//DataSnapshot { key = 1, value = {5={
+	// program_Line=	getch();,
+	// line_No=5,
+	// index=1,
+	// mProgram_Line_Html=<font color="#000000">	getch</font><font color="#ff4500">();</font>, program_Line_Description=Wait for keyboard input}, 4={
+	// program_Line=	printf("HelloWorld");, line_No=4, index=1, mProgram_Line_Html=<font color="#000000">	printf</font><font color="#ff4500">(</font><font color="#ff4500">"HelloWorld"</font><font color="#ff4500">);</font>, program_Line_Description=Print Statement}, 1={program_Line=#include "stdio.h", line_No=1, index=1, mProgram_Line_Html=<font color="#6B6B00">#include</font><font color="#000000"> </font><font color="#ff4500">"stdio.h"</font>, program_Line_Description=Header include}, 3={program_Line={, line_No=3, index=1, mProgram_Line_Html=<font color="#ff4500">{</font>, program_Line_Description=Start}, 6={program_Line=}, line_No=6, index=1, mProgram_Line_Html=<font color="#ff4500">}</font>, program_Line_Description=Finish}, 2={program_Line=void main(), line_No=2, index=1, mProgram_Line_Html=<font color="#006600">void</font><font color="#000000"> main</font><font color="#ff4500">()</font>, program_Line_Description=Main Declaration}} }
+	public static final String COL_INDEX = "index";
+	public static final String COL_LINE_NO = "line_No";
+	public static final String COL_LINE_HTML = "mProgram_Line_Html";
+	public static final String COL_LINE = "program_Line";
+	public static final String COL_LINE_DESCRIPTION = "program_Line_Description";
+
 	int mProgramTableIndex;
 	int mProgramLine_No;
 	String mProgram_Line;

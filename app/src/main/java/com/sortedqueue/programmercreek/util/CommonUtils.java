@@ -20,6 +20,13 @@ public class CommonUtils {
         mProgressDialog.show();
     }
 
+    public static void updateProgress( String message ) {
+        if( mProgressDialog != null ) {
+            mProgressDialog.setMessage(message);
+        }
+    }
+
+
     public static void dismissProgressDialog( ) {
         if( mProgressDialog != null ) {
             mProgressDialog.dismiss();

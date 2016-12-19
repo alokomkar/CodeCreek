@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
@@ -47,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
     public static final String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
+    private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -65,11 +67,21 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
             @Override
             public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
+                firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
+                    @Override
+                    public void getProgramTables(ArrayList<Program_Table> program_tables) {
+                        updateUI();
+                    }
 
+                    @Override
+                    public void onError(DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
