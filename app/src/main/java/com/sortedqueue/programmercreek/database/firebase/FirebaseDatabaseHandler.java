@@ -13,6 +13,8 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -127,7 +129,7 @@ public class FirebaseDatabaseHandler {
                     programIndexInterface.getProgramIndexes(program_indices);
                     creekPreferences.setProgramIndex(program_indices.size());
                     Log.d(TAG, "Inserted program indexes : " + program_indices.size());
-                    //CommonUtils.dismissProgressDialog();
+                    CommonUtils.dismissProgressDialog();
                 }
 
                 @Override
@@ -154,7 +156,7 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
         creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
-            //CommonUtils.displayProgressDialog(mContext, "Loading program tables");
+            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -163,14 +165,18 @@ public class FirebaseDatabaseHandler {
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
                             Program_Table program_table = lineSnapShot.getValue(Program_Table.class);
                             if( program_table != null ) {
-                                databaseHandler.addProgram_Table(program_table);
                                 program_tables.add(program_table);
-                                programTableInterface.getProgramTables(program_tables);
                             }
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                             if( program_tables.size() == 530 ) {
                                 creekPreferences.setProgramTables(program_tables.size());
-                                CommonUtils.dismissProgressDialog();
+                                new DataBaseInserterAsyncTask(mContext, -3, program_tables, new UIUpdateListener() {
+                                    @Override
+                                    public void updateUI() {
+                                        programTableInterface.getProgramTables(program_tables);
+                                        CommonUtils.dismissProgressDialog();
+                                    }
+                                }).execute();
                             }
                         }
                     }

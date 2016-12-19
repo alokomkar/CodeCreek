@@ -9,6 +9,8 @@ import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
+import java.util.ArrayList;
+
 
 public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -16,8 +18,18 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	DatabaseHandler mDatabaseHandler;
 	int mIndex = 0;
 	UIUpdateListener mUiUpdateListener;
-	
+	ArrayList<Program_Table> program_tables;
+
 	private String TAG = getClass().getSimpleName();
+
+	public DataBaseInserterAsyncTask(Context mContext, int i, ArrayList<Program_Table> program_tables, UIUpdateListener uiUpdateListener) {
+		this.mContext = mContext;
+		this.mDatabaseHandler = new DatabaseHandler(mContext);
+		this.mIndex = i;
+		this.mUiUpdateListener = uiUpdateListener;
+		this.program_tables = program_tables;
+	}
+
 	private void logDebugMessage( String message ) {
 		Log.d(TAG, message);
 	}
@@ -1004,9 +1016,11 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		case 31:
 			insertProgram_31(mDatabaseHandler);
 			break;
-
 		case -2 :
 			insertProgramtoDB(mContext);
+			break;
+		case -3 :
+			insertProgramstoDB( mContext );
 			break;
 		/*default :
 			if( mUiUpdateListener != null ) {
@@ -1022,6 +1036,13 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
 		return null;
 
+	}
+
+	private DatabaseHandler insertProgramstoDB(Context mContext) {
+		for( Program_Table program_table : program_tables ) {
+			mDatabaseHandler.addProgram_Table(program_table);
+		}
+		return mDatabaseHandler;
 	}
 
 

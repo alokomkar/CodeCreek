@@ -19,6 +19,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -71,17 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
             @Override
             public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
-                firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
-                    @Override
-                    public void getProgramTables(ArrayList<Program_Table> program_tables) {
-                        updateUI();
-                    }
 
-                    @Override
-                    public void onError(DatabaseError error) {
-
-                    }
-                });
             }
 
             @Override
@@ -184,7 +175,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.wizardLayout:
-                LaunchFullScreenWizard();
+                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
                 break;
 
             case R.id.testLayout:
@@ -225,21 +216,35 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void LaunchFullScreenWizard() {
-        Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
-        programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
-        programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
-        startActivity(programListIntent);
-    }
-
     private void tellYourFriends() {
 
     }
 
-    private void LaunchProgramListActivity(int invokeMode) {
-        Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
-        programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
-        startActivity(programListIntent);
+    private void LaunchProgramListActivity(final int invokeMode) {
+        if( new CreekPreferences(DashboardActivity.this).getProgramTables() == -1 ) {
+            firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
+                @Override
+                public void getProgramTables(ArrayList<Program_Table> program_tables) {
+                    LaunchProgramListActivity(invokeMode);
+                }
+
+                @Override
+                public void onError(DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+            Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
+            programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
+            boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
+            programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, isWizard);
+            if( isWizard ) {
+                programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
+            }
+            startActivity(programListIntent);
+        }
+
     }
 
 
