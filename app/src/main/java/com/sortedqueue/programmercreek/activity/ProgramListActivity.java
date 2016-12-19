@@ -226,7 +226,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 		//if( mDatabaseHandler == null ) {
 		mDatabaseHandler = new DatabaseHandler(this);
 		//}
-		if( mDatabaseHandler.getProgram_TablesCount() != ProgramListActivity.PROGRAM_LIST_SIZE ) {
+		if( mDatabaseHandler.getProgram_TablesCount() != 31 ) {
 			new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
 				@Override
 				public void getProgramTables(ArrayList<Program_Table> program_tables) {
