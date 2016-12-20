@@ -30,6 +30,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private String programWiki;
     private ContentLoadingProgressBar progressBar;
     private InterstitialAd interstitialAd;
+    private AdView mAdView;
 
 
     @Override
@@ -50,8 +51,8 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-
+        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.setVisibility(View.GONE);
         //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
 
         //For creating test ads
@@ -61,6 +62,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+        requestNewInterstitial();
 
     }
 
@@ -86,7 +88,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 progressBar.show();
             }
             else {
-                requestNewInterstitial();
+
                 if( interstitialAd != null ) {
                     interstitialAd.show();
                 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
@@ -88,6 +89,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
 		interstitialAd = new InterstitialAd(this);
 		interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+		requestNewInterstitial();
 		interstitialAd.setAdListener(new AdListener() {
 			@Override
 			public void onAdClosed() {
@@ -200,16 +202,21 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 
 			switch( v.getId() ) {
 			case R.id.timerButton :
-				if( interstitialAd != null ) {
-					interstitialAd.show();
-				}
-				else
-					TestDragNDropActivity.this.finish();
+				showAd();
 				break;
 			}
 
 		}
 	};
+
+	private void showAd() {
+
+		if( interstitialAd != null ) {
+			interstitialAd.show();
+		}
+		else
+			TestDragNDropActivity.this.finish();
+	}
 
 
 	int mProgramHint = 0;
@@ -390,9 +397,8 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 			}
 		}
 		else {
-			finish();
+			showAd();
 		}
-
 	}
 
 
@@ -443,6 +449,12 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 
 	}
 
+	private void requestNewInterstitial() {
+		AdRequest adRequest = new AdRequest.Builder()
+				.addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+				.build();
+		interstitialAd.loadAd(adRequest);
+	}
 
 
 }

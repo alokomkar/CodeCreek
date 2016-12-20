@@ -14,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramIndexAdapter;
@@ -32,6 +36,9 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class ProgramListActivity extends Activity implements UIUpdateListener {
 
@@ -45,6 +52,8 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 	private String TAG = getClass().getSimpleName();
 	private Program_Index program_Index;
+	@Bind(R.id.adView)
+	AdView adView;
 
 	private void logDebugMessage( String message ) {
 		Log.d(TAG, message);
@@ -55,13 +64,32 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_program_list);
-
+		ButterKnife.bind(this);
 		mDatabaseHandler = new DatabaseHandler(this);
 
 		fetchProgramsList( mDatabaseHandler );
-
+		initAds();
 
 	}
+
+	private void initAds() {
+		MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+		//For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+		//For creating test ads
+		AdRequest adRequest = new AdRequest.Builder()
+				.addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+				.build();
+		adView.loadAd(adRequest);
+		adView.setVisibility(View.GONE);
+		adView.setAdListener(new AdListener() {
+			@Override
+			public void onAdLoaded() {
+				super.onAdLoaded();
+				adView.setVisibility(View.VISIBLE);
+			}
+		});
+	}
+
 
 	private void fetchProgramsList(final DatabaseHandler databaseHandler) {
 

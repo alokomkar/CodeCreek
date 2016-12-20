@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -80,6 +81,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         adView.loadAd(adRequest);
+        adView.setVisibility(View.GONE);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 
