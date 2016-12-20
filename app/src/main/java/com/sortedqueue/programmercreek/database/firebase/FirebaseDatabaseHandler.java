@@ -116,7 +116,7 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
         creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramIndex() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program index");
+            CommonUtils.displayAdsProgressDialog(mContext, "Loading program index");
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -156,7 +156,7 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
         creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
+            CommonUtils.displayAdsProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

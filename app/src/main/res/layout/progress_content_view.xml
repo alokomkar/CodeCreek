@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="@dimen/margin_8"
+    android:layout_height="wrap_content">
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_margin="@dimen/margin_8"
+        android:indeterminate="true"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressTextView"
+        android:textSize="@dimen/text_dashboard_small"
+        android:textColor="@color/md_teal_800"
+        android:text="@string/about"
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_marginTop="@dimen/margin_4"
+        android:padding="@dimen/margin_16"
+        />
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_below="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_progress_bar_unit_id">
+    </com.google.android.gms.ads.AdView>
+</RelativeLayout>

@@ -18,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -64,7 +67,8 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 	FrameLayout progressLayout;
 	@Bind(R.id.timerButton)
 	Button timerButton;
-	
+	private InterstitialAd interstitialAd;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +85,16 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		else {
 			initUI( program_TableList );
 		}
+		MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+		interstitialAd = new InterstitialAd(this);
+		interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+		interstitialAd.setAdListener(new AdListener() {
+			@Override
+			public void onAdClosed() {
+				super.onAdClosed();
+				TestDragNDropActivity.this.finish();
+			}
+		});
 		
 		
 	}
@@ -186,7 +200,11 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 
 			switch( v.getId() ) {
 			case R.id.timerButton :
-				TestDragNDropActivity.this.finish();
+				if( interstitialAd != null ) {
+					interstitialAd.show();
+				}
+				else
+					TestDragNDropActivity.this.finish();
 				break;
 			}
 

@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -44,6 +47,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     FrameLayout testLayout;
     @Bind(R.id.fillLayout)
     FrameLayout fillLayout;
+    @Bind(R.id.adView)
+    AdView adView;
 
 
     private String TAG = getClass().getSimpleName();
@@ -60,9 +65,21 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
+
+        initAds();
         initDB();
         initUI();
 
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+        //For creating test ads
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        adView.loadAd(adRequest);
     }
 
 
@@ -161,7 +178,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.wikiLayout :
+            case R.id.wikiLayout:
                 Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 intent.putExtra(DatabaseHandler.KEY_WIKI, PROGRAMER_CREEK_WIKI);
                 startActivity(intent);
@@ -201,15 +218,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         mDatabaseHandler = new DatabaseHandler(this);
         //}
-        if( mDatabaseHandler.getProgram_TablesCount() != 31 ) {
+        if (mDatabaseHandler.getProgram_TablesCount() != 31) {
             new DataBaseInserterAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
                 @Override
                 public void updateUI() {
                     LaunchFillBlanksActivity();
                 }
             }).execute();
-        }
-        else {
+        } else {
             Intent intent = new Intent(DashboardActivity.this, FillTheBlanksActivity.class);
             startActivity(intent);
         }
@@ -221,7 +237,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void LaunchProgramListActivity(final int invokeMode) {
-        if( new CreekPreferences(DashboardActivity.this).getProgramTables() == -1 ) {
+        if (new CreekPreferences(DashboardActivity.this).getProgramTables() == -1) {
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
                 public void getProgramTables(ArrayList<Program_Table> program_tables) {
@@ -233,13 +249,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                 }
             });
-        }
-        else {
+        } else {
             Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
             programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
             boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
             programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, isWizard);
-            if( isWizard ) {
+            if (isWizard) {
                 programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
             }
             startActivity(programListIntent);

@@ -12,6 +12,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -25,6 +29,9 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private WebView webView;
     private String programWiki;
     private ContentLoadingProgressBar progressBar;
+    private InterstitialAd interstitialAd;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,23 @@ public class ProgramWikiActivity extends AppCompatActivity {
         if( programWiki != null ) {
             webView.loadUrl(programWiki);
         }
+        initAds();
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+
+        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+
+        //For creating test ads
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        mAdView.loadAd(adRequest);
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+
     }
 
     private class MyWebViewClient extends WebViewClient {
@@ -61,6 +85,12 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 progressBar.setIndeterminate(true);
                 progressBar.show();
             }
+            else {
+                requestNewInterstitial();
+                if( interstitialAd != null ) {
+                    interstitialAd.show();
+                }
+            }
         }
 
         @Override
@@ -70,5 +100,12 @@ public class ProgramWikiActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             CommonUtils.dismissProgressDialog();
         }
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        interstitialAd.loadAd(adRequest);
     }
 }
