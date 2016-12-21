@@ -125,6 +125,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        CommonUtils.displayProgressDialog(SplashActivity.this, "Getting accounts");
     }
 
     @Override
@@ -134,6 +135,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            CommonUtils.dismissProgressDialog();
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
@@ -143,6 +145,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                Log.e(TAG, "Sign In Error : " + result.getStatus() + " : " + result.toString());
                 Toast.makeText(SplashActivity.this, "Sign in failed.",
                         Toast.LENGTH_SHORT).show();
             }
