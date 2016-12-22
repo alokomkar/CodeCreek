@@ -1,8 +1,5 @@
 package com.sortedqueue.programmercreek.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,10 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
@@ -19,6 +20,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 	private Context mContext;
 	private ArrayList <Program_Index> mProgramIndexList;
 	private static LayoutInflater mLayoutInflater = null;
+	private String programType;
 	//private ArrayList<Scores_Table> mScores_Tables;
 
 	public CustomProgramIndexAdapter( Context context, int resource, int textViewResourceId,
@@ -26,6 +28,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 		super( context, resource, textViewResourceId, program_Indexs);
 		this.mContext = context;
 		this.mProgramIndexList = (ArrayList<Program_Index>) program_Indexs;
+		programType = new CreekPreferences(mContext).getProgramLanguage().substring(0).toUpperCase();
 		//this.mScores_Tables = (ArrayList<Scores_Table>) scores_Tables;
 		mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -59,12 +62,14 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 			mViewHolder = new ViewHolder();
 			mViewHolder.programLineTextView = (TextView) view.findViewById(R.id.txtViewProgDescription);
 			mViewHolder.wikiTextView = (TextView) view.findViewById(R.id.wikiTextView);
+			mViewHolder.programTypeTextView = (TextView) view.findViewById(R.id.programTypeTextView);
 			view.setTag(mViewHolder);
 		}
 		else {
 			view = convertView;
 			mViewHolder = (ViewHolder)view.getTag();
 		}
+		mViewHolder.programTypeTextView.setText(programType);
 		mViewHolder.programLineTextView.setText(mProgramIndexList.get(position).toString());
 
 		return view;
@@ -72,6 +77,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 
 	static final class ViewHolder { 
 		TextView programLineTextView;
+		TextView programTypeTextView;
 		TextView wikiTextView;
 	}
 

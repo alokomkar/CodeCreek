@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/programIndexLayout">
             <TextView
-                android:layout_width="@dimen/margin_32"
                 android:layout_height="@dimen/margin_32"
+                android:layout_width="@dimen/margin_32"
                 android:text="C"
                 android:id="@+id/programTypeTextView"
                 android:textColor="@color/md_white_1000"

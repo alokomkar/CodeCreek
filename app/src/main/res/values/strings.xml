@@ -36,8 +36,9 @@
     <string name="checkMatch">Check</string>
     <string name="viewProfile">View Profile</string>
     <string name="about_string">
-        Programmer Creek:\nAn attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammingbuddy.app@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\n
-        						Revise : Displays program and description.\n\n
+        Programmer Creek:\nAn attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammer.creek@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\n
+        Program Wiki : A brief on programs\n\n
+        Revise : Displays program and description.\n\n
         						Wizard : Learning Wizard\n\n
         						Index : To view program Index.\n\n
         						Test : Drag and drop the program into proper sequence as per the given program order.\nDifficulty : High\n\n
