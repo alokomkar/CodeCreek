@@ -237,6 +237,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(intent);
+                /*this.overridePendingTransition(R.anim.animation_leave,
+                        R.anim.animation_enter);*/
                 break;
             case R.id.indexLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_LIST);
@@ -313,6 +315,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
             }
             startActivity(programListIntent);
+            /*this.overridePendingTransition(R.anim.animation_leave,
+                    R.anim.animation_enter);*/
         }
 
     }
