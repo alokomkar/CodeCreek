@@ -60,19 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ KEY_PROGRAM_NAME + " TEXT," + "PRIMARY KEY("+KEY_PROGRAM_INDEX_ID+" , "
 			+ KEY_PROGRAM_LANGUAGE+"))";
 
-	String CREATE_PROGRAM_TABLE_TABLE = 
-			"CREATE TABLE " + TABLE_PROGRAM_TABLE 
-			+ "("
-			+ KEY_PROGRAM_TABLE_ID + " INTEGER,"
-			+ KEY_PROGRAM_LANGUAGE + " TEXT, "
-			+ KEY_PROGRAM_LINE_NO + " INTEGER," 
-			+ KEY_PROGRAM_LINE + " TEXT, "
-			+ KEY_PROGRAM_LINE_DESCRIPTION + " TEXT, "
-			+ KEY_PROGRAM_LINE_HTML + " TEXT, "
-			+ "PRIMARY KEY("+KEY_PROGRAM_TABLE_ID+" , "
-			+ KEY_PROGRAM_LINE_NO
-			+ " , "
-			+ KEY_PROGRAM_LANGUAGE+"))";
+
 
 	String CREATE_SCORES_TABLE = 
 			"CREATE TABLE " + TABLE_SCORES_TABLE 
@@ -427,6 +415,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return program_TableList;
 	}
 
+	String CREATE_PROGRAM_TABLE_TABLE =
+			"CREATE TABLE " + TABLE_PROGRAM_TABLE
+					+ "("
+					+ KEY_PROGRAM_TABLE_ID + " INTEGER,"
+					+ KEY_PROGRAM_LANGUAGE + " TEXT, "
+					+ KEY_PROGRAM_LINE_NO + " INTEGER,"
+					+ KEY_PROGRAM_LINE + " TEXT, "
+					+ KEY_PROGRAM_LINE_DESCRIPTION + " TEXT, "
+					+ KEY_PROGRAM_LINE_HTML + " TEXT, "
+					+ "PRIMARY KEY("+KEY_PROGRAM_TABLE_ID+" , "
+					+ KEY_PROGRAM_LINE_NO
+					+ " , "
+					+ KEY_PROGRAM_LANGUAGE+"))";
 	
 	// Getting All Program_Tables
 	public List<Program_Table> getAllProgram_Tables(int index, String program_language) {
@@ -439,7 +440,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.query(
 				TABLE_PROGRAM_TABLE, //Table name
-				new String[] {KEY_PROGRAM_TABLE_ID, KEY_PROGRAM_LANGUAGE, KEY_PROGRAM_LINE_NO, KEY_PROGRAM_LINE_DESCRIPTION, KEY_PROGRAM_LINE, KEY_PROGRAM_LINE_HTML }, //Table columns
+				new String[] {KEY_PROGRAM_TABLE_ID, KEY_PROGRAM_LANGUAGE, KEY_PROGRAM_LINE_NO, KEY_PROGRAM_LINE, KEY_PROGRAM_LINE_DESCRIPTION, KEY_PROGRAM_LINE_HTML }, //Table columns
 				KEY_PROGRAM_LANGUAGE + "=? AND " + KEY_PROGRAM_TABLE_ID + " =?", //Selection arg
 				new String[] { program_language, String.valueOf(index)}, //Selection arg values
 				null, //group by
