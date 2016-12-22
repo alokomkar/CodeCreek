@@ -59,6 +59,9 @@ public class ProgramWikiActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         if( programWiki != null ) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+            progressBar.show();
             webView.loadUrl(programWiki);
         }
         initAds();
