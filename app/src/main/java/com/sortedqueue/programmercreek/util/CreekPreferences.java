@@ -22,9 +22,11 @@ public class CreekPreferences {
     public static final String ACCOUNT_PHOTO = "ACCOUNT_PHOTO";
     public static final String KEY_PROG_TABLE_INSERT = "insertProgramTable";
     public static final String KEY_PROG_INDEX_INSERT = "insertProgramIndex";
+    public static final String KEY_PROG_INDEX_INSERT_JAVA = "insertProgramIndexJava";
+    private static final String KEY_PROG_TABLE_INSERT_JAVA = "insertProgramTableJava";
+    private static final String PROGRAM_LANGUAGE = "program_language";
 
     private SharedPreferences sharedPreferences;
-    private String PROGRAM_LANGUAGE = "program_language";
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -32,23 +34,52 @@ public class CreekPreferences {
     }
 
     public int getProgramIndex() {
-        programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
+                break;
+            case "java" :
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
+                break;
+        }
         return programIndex;
     }
 
     public void setProgramIndex(int programIndex) {
         this.programIndex = programIndex;
-        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).apply();
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).apply();
+                break;
+            case "java" :
+                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_JAVA, programIndex).apply();
+                break;
+        }
     }
 
     public int getProgramTables() {
-        programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT, -1);
+
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT, -1);
+                break;
+            case "java" :
+                programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_JAVA, -1);
+                break;
+        }
         return programTables;
     }
 
     public void setProgramTables(int programTables) {
         this.programTables = programTables;
-        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).apply();
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).apply();
+                break;
+            case "java" :
+                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_JAVA, programTables).apply();
+                break;
+        }
     }
 
     public String getSignInAccount() {
@@ -87,5 +118,13 @@ public class CreekPreferences {
     
     public void setProgramLanguage( String language ) {
         sharedPreferences.edit().putString(PROGRAM_LANGUAGE, language).apply();
+    }
+
+    public String getProgramWiki() {
+        String wikiUrl = "https://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
+        if( getProgramLanguage().equalsIgnoreCase("java")) {
+            wikiUrl = "http://www.instanceofjava.com/2014/12/program-to-print-prime-numbers-in-java.html";
+        }
+        return wikiUrl;
     }
 }

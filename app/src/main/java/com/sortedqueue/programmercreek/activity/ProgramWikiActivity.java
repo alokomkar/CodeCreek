@@ -20,6 +20,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,12 +37,13 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private InterstitialAd interstitialAd;
     private AdView mAdView;
     private String WIKI_BASE_URL = "programercreek.blogspot.in";
-
+    private CreekPreferences creekPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_wiki);
+        creekPreferences = new CreekPreferences(ProgramWikiActivity.this);
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient( new MyWebViewClient() );
@@ -100,13 +102,10 @@ public class ProgramWikiActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            if( url.equalsIgnoreCase(DashboardActivity.PROGRAMER_CREEK_WIKI) ) {
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.setIndeterminate(true);
                 progressBar.show();
-            }
-            else {
-
+            if( !url.equalsIgnoreCase(creekPreferences.getProgramWiki()) ) {
                 if( interstitialAd != null ) {
                     interstitialAd.show();
                 }

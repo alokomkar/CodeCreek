@@ -94,4 +94,5 @@
     <string name="title_program_wiki">Program Wiki</string>
     <string name="program_wiki">Program Wiki</string>
     <string name="program_wiki_description">Go through all the progams and explanations</string>
+    <string name="select_language">Select Tutorial :</string>
 </resources>

@@ -4,10 +4,13 @@ package com.sortedqueue.programmercreek.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.ads.AdListener;
@@ -50,12 +53,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     FrameLayout fillLayout;
     @Bind(R.id.adView)
     AdView adView;
+    @Bind(R.id.languageSelectionSpinner)
+    AppCompatSpinner languageSelectionSpinner;
 
 
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
-    public static String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
+    private String[] languageArray;
+    private CreekPreferences creekPreferences;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -66,8 +72,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
+        creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
-        new CreekPreferences(DashboardActivity.this).setProgramLanguage("java");
+
         initAds();
         initDB();
         initUI();
@@ -126,6 +133,38 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         quizLayout.setOnClickListener(this);
         wizardLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.language_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        languageArray = getResources().getStringArray(R.array.language_array);
+        languageSelectionSpinner.setAdapter(adapter);
+        languageSelectionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if( position != -1 ) {
+                    String selectedString = languageArray[position];
+                    selectedString = selectedString.replace("Programming", "").toLowerCase();
+                    creekPreferences.setProgramLanguage(selectedString);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        int selectedPosition = -1;
+        String selectedLanguage = creekPreferences.getProgramLanguage();
+
+        for( String language : languageArray ) {
+            selectedPosition++;
+            if( language.toLowerCase().startsWith(selectedLanguage) ) {
+                languageSelectionSpinner.setSelection(selectedPosition);
+            }
+        }
     }
 
     @Override
@@ -195,7 +234,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.wikiLayout:
                 Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
-                intent.putExtra(DatabaseHandler.KEY_WIKI, PROGRAMER_CREEK_WIKI);
+                intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(intent);
                 break;
             case R.id.indexLayout:
@@ -252,7 +291,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void LaunchProgramListActivity(final int invokeMode) {
-        if (new CreekPreferences(DashboardActivity.this).getProgramTables() == -1) {
+        if (creekPreferences.getProgramTables() == -1) {
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
                 public void getProgramTables(ArrayList<Program_Table> program_tables) {
