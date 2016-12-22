@@ -8,6 +8,7 @@ import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -1039,7 +1040,9 @@ public class DataBaseInsertAsyncTask extends AsyncTask<Void, Void, Void> {
 	}
 
 	private DatabaseHandler insertProgramstoDB(Context mContext) {
+		String programLanguage = new CreekPreferences(mContext).getProgramLanguage();
 		for( Program_Table program_table : program_tables ) {
+			program_table.setmProgram_Language(programLanguage);
 			mDatabaseHandler.addProgram_Table(program_table);
 		}
 		return mDatabaseHandler;

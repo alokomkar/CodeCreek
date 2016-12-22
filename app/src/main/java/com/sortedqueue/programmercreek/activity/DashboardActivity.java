@@ -146,8 +146,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if( position != -1 ) {
                     String selectedString = languageArray[position];
-                    selectedString = selectedString.replace("Programming", "").toLowerCase();
+                    selectedString = selectedString.replace(" Programming", "").toLowerCase();
                     creekPreferences.setProgramLanguage(selectedString);
+                    initDB();
                 }
             }
 

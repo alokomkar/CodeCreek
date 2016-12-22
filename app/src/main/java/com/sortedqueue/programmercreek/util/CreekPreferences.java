@@ -39,7 +39,7 @@ public class CreekPreferences {
                 programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
                 break;
             case "java" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, -1);
                 break;
         }
         return programIndex;

@@ -354,8 +354,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Getting All Program_Indexs
 	public List<Program_Index> getAllProgram_Indexs(String program_language) {
 		List<Program_Index> program_IndexList = new ArrayList<Program_Index>();
-		// Select All Query
-		String selectQuery = "SELECT  * FROM " + TABLE_PROGRAM_INDEX + " WHERE " + KEY_PROGRAM_LANGUAGE + " = " + program_language;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.query(
