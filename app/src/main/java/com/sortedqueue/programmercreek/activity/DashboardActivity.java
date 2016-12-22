@@ -1,7 +1,9 @@
 package com.sortedqueue.programmercreek.activity;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -13,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -290,7 +295,17 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void tellYourFriends() {
-
+        //https://developers.facebook.com/docs/sharing/android/
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentTitle("Programmer Creek")
+                .setContentDescription("Check this out : ")
+                .setShareHashtag(new ShareHashtag.Builder()
+                        .setHashtag("#ProgrammerCreek")
+                        .build())
+                .setContentUrl(Uri.parse("https://programercreek.blogspot.in"))
+                .build();
+        ShareDialog shareDialog = new ShareDialog(DashboardActivity.this);
+        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
     }
 
     private void LaunchProgramListActivity(final int invokeMode) {

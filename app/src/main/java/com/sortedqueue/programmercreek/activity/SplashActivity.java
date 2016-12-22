@@ -13,6 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -24,22 +30,30 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUser;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
 
     private static int SPLASH_TIMEOUT = 1000;
     @Bind(R.id.googleSignInButton)
     SignInButton googleSignInButton;
+    @Bind(R.id.fbLoginButton)
+    LoginButton fbLoginButton;
+
     private int RC_SIGN_IN = 1000;
     private String TAG = "SplashActivity";
     private GoogleApiClient mGoogleApiClient;
@@ -47,6 +61,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CreekUser creekUser;
     private CreekPreferences creekPreferences;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +70,19 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         configureFirebaseAuth();
         ButterKnife.bind(this);
         creekPreferences = new CreekPreferences(SplashActivity.this);
-        googleSignInButton.setVisibility(View.INVISIBLE);
+        googleSignInButton.setVisibility(View.GONE);
+        fbLoginButton.setVisibility(View.GONE);
         if (creekPreferences.getSignInAccount().equals("")) {
             googleSignInButton.setOnClickListener(this);
             googleSignInButton.setVisibility(View.VISIBLE);
             configureGoogleSignup();
+            fbLoginButton.setVisibility(View.VISIBLE);
+            List<String> fbPermissions = new ArrayList<>();
+            fbPermissions.add("email");
+            fbPermissions.add("public_profile");
+            callbackManager = CallbackManager.Factory.create();
+            fbLoginButton.setReadPermissions(fbPermissions);
+            fbLoginButton.registerCallback(callbackManager, this);
         } else {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -77,18 +100,31 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
+                storeFirebaseUserDetails(firebaseAuth);
                 // ...
             }
         };
         // ...
+    }
+
+    private void storeFirebaseUserDetails(FirebaseAuth firebaseAuth) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            creekUser = new CreekUser();
+            creekUser.setUserFullName(user.getDisplayName());
+            creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
+            creekUser.setEmailId(user.getEmail());
+            creekUser.save(SplashActivity.this);
+            creekPreferences.setAccountName(user.getDisplayName());
+            creekPreferences.setAccountPhoto(user.getPhotoUrl().toString());
+            creekPreferences.setSignInAccount(user.getEmail());
+            startApp();
+        } else {
+            // User is signed out
+            Log.d(TAG, "onAuthStateChanged:signed_out");
+        }
     }
 
     @Override
@@ -119,10 +155,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        signIn();
+        switch ( view.getId() ) {
+            case R.id.googleSignInButton :
+                googleSignIn();
+                break;
+        }
+
     }
 
-    private void signIn() {
+    private void googleSignIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
         CommonUtils.displayProgressDialog(SplashActivity.this, "Getting accounts");
@@ -149,6 +190,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(SplashActivity.this, "Sign in failed.",
                         Toast.LENGTH_SHORT).show();
             }
+        }
+        else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -198,6 +242,50 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(SplashActivity.this, "Connection failed.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        Toast.makeText(SplashActivity.this, "Login success.",
+                Toast.LENGTH_SHORT).show();
+        handleFBAccessToken( loginResult.getAccessToken() );
+
+    }
+
+    private void handleFBAccessToken(AccessToken accessToken) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(SplashActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        // ...
+                    }
+                });
+
+    }
+
+    @Override
+    public void onCancel() {
+        Toast.makeText(SplashActivity.this, "Login canceled.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+        Log.d("FBLogin", "onError : " + error.getMessage());
+        error.printStackTrace();
+        Toast.makeText(SplashActivity.this, "Login error.",
                 Toast.LENGTH_SHORT).show();
     }
 }
