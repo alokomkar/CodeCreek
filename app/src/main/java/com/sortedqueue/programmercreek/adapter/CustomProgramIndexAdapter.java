@@ -28,7 +28,7 @@ public class CustomProgramIndexAdapter extends ArrayAdapter<Program_Index> {
 		super( context, resource, textViewResourceId, program_Indexs);
 		this.mContext = context;
 		this.mProgramIndexList = (ArrayList<Program_Index>) program_Indexs;
-		programType = new CreekPreferences(mContext).getProgramLanguage().substring(0).toUpperCase();
+		programType = new CreekPreferences(mContext).getProgramLanguage().substring(0, 1).toUpperCase();
 		//this.mScores_Tables = (ArrayList<Scores_Table>) scores_Tables;
 		mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

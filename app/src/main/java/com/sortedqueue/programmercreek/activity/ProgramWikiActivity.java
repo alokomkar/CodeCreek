@@ -19,6 +19,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -48,6 +49,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient( new MyWebViewClient() );
         programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
+        AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "Creek", "Welcome to Wiki of programs, browse through all programs and explanations here. Feel free to leave a comment.");
         try {
             WIKI_BASE_URL = new URL(programWiki).getHost();
         } catch (MalformedURLException e) {

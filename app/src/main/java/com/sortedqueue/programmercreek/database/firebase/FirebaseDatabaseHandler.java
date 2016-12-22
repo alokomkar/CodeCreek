@@ -15,6 +15,7 @@ import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -119,6 +120,7 @@ public class FirebaseDatabaseHandler {
 
         if( creekPreferences.getProgramIndex() == -1 ) {
             CommonUtils.displayAdsProgressDialog(mContext, "Loading program index");
+            AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to programmer creek, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
