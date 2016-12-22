@@ -13,7 +13,7 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -34,7 +34,7 @@ public class FirebaseDatabaseHandler {
     private String CREEK_USER_CHILD = "users";
     private String CREEK_USER_PROGRAM_DETAILS_CHILD = "user_program_details";
     private String CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/";
-    private String programLanguage = "c";
+    private String programLanguage = "java";
     private Context mContext;
     private CreekPreferences creekPreferences;
 
@@ -82,6 +82,8 @@ public class FirebaseDatabaseHandler {
 
     public FirebaseDatabaseHandler(Context context) {
         this.mContext = context;
+        creekPreferences = new CreekPreferences(mContext);
+        programLanguage = creekPreferences.getProgramLanguage();
         getDatabase();
         getUserDatabase();
     }
@@ -114,7 +116,7 @@ public class FirebaseDatabaseHandler {
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
         databaseHandler = new DatabaseHandler(mContext);
         int initialPrograms = 31;
-        creekPreferences = new CreekPreferences(mContext);
+
         if( creekPreferences.getProgramIndex() == -1 ) {
             CommonUtils.displayAdsProgressDialog(mContext, "Loading program index");
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,6 +125,7 @@ public class FirebaseDatabaseHandler {
                     ArrayList<Program_Index> program_indices = new ArrayList<Program_Index>();
                     for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
                         Program_Index program_index = programIndexSnapshot.getValue(Program_Index.class);
+                        program_index.setmProgram_Language(programLanguage);
                         databaseHandler.addProgram_Index(program_index);
                         program_indices.add(program_index);
                     }
@@ -154,7 +157,6 @@ public class FirebaseDatabaseHandler {
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
         databaseHandler = new DatabaseHandler(mContext);
         int initialPrograms = 31;
-        creekPreferences = new CreekPreferences(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
             CommonUtils.displayAdsProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
@@ -164,21 +166,25 @@ public class FirebaseDatabaseHandler {
                     for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
                             Program_Table program_table = lineSnapShot.getValue(Program_Table.class);
+                            program_table.setmProgram_Language(programLanguage);
                             if( program_table != null ) {
                                 program_tables.add(program_table);
                             }
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
-                            if( program_tables.size() == 530 ) {
-                                creekPreferences.setProgramTables(program_tables.size());
-                                new DataBaseInserterAsyncTask(mContext, -3, program_tables, new UIUpdateListener() {
-                                    @Override
-                                    public void updateUI() {
-                                        programTableInterface.getProgramTables(program_tables);
-                                        CommonUtils.dismissProgressDialog();
-                                    }
-                                }).execute();
-                            }
                         }
+                    }
+                    if( program_tables.size() > 0 ) {
+                        creekPreferences.setProgramTables(program_tables.size());
+                        new DataBaseInsertAsyncTask(mContext, -3, program_tables, new UIUpdateListener() {
+                            @Override
+                            public void updateUI() {
+                                programTableInterface.getProgramTables(program_tables);
+                                CommonUtils.dismissProgressDialog();
+                            }
+                        }).execute();
+                    }
+                    else {
+                        CommonUtils.dismissProgressDialog();
                     }
                 }
 

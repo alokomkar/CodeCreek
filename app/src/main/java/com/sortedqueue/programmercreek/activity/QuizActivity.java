@@ -26,7 +26,7 @@ import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -373,7 +373,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         switch (item.getItemId()) {
 
             case R.id.action_refresh_database:
-                new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+                new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
                 return true;
 
             default:
@@ -393,7 +393,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         }
 
         if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+            new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
         } else {
             initUI(program_TableList);
         }

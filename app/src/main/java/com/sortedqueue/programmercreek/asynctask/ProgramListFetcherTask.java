@@ -7,6 +7,7 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_I
 	
 	@Override
 	protected List<Program_Index> doInBackground(Void... params) {
-		mProgram_Indexs = mDatabaseHandler.getAllProgram_Indexs();
+		mProgram_Indexs = mDatabaseHandler.getAllProgram_Indexs(new CreekPreferences(mContext).getProgramLanguage());
 		return mProgram_Indexs;
 	}
 	

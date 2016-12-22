@@ -29,6 +29,7 @@ public class Program_Table {
 	String mProgram_Line;
 	String mProgram_Line_Description;
 	String mProgram_Line_Html;
+	String mProgram_Language;
 
 	/**
 	 * @param index
@@ -37,33 +38,15 @@ public class Program_Table {
 	 * @param program_Line_Description
 	 */
 	public Program_Table(int index, int line_No, String program_Line,
-						 String program_Line_Description) {
+						 String program_Line_Description, String mProgram_Language) {
 		super();
 		mProgramTableIndex = index;
 		mProgramLine_No = line_No;
 		mProgram_Line = program_Line;
 		mProgram_Line_Description = program_Line_Description;
-		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("c", mProgram_Line);
+		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("java", mProgram_Line);
+		this.mProgram_Language = mProgram_Language;
 	}
-
-	/**
-	 * @param mProgramTableIndex
-	 * @param mProgramLine_No
-	 * @param mProgram_Line
-	 * @param mProgram_Line_Description
-	 * @param mProgram_Line_Html
-	 */
-	public Program_Table(int mProgramTableIndex, int mProgramLine_No,
-						 String mProgram_Line, String mProgram_Line_Description,
-						 String mProgram_Line_Html) {
-		super();
-		this.mProgramTableIndex = mProgramTableIndex;
-		this.mProgramLine_No = mProgramLine_No;
-		this.mProgram_Line = mProgram_Line;
-		this.mProgram_Line_Description = mProgram_Line_Description;
-		this.mProgram_Line_Html = mProgram_Line_Html;
-	}
-
 
 	/**
 	 * Default Constructor 
@@ -127,6 +110,14 @@ public class Program_Table {
 
 	public void setmProgram_Line_Html(String mProgram_Line_Html) {
 		this.mProgram_Line_Html = mProgram_Line_Html;
+	}
+
+	public String getmProgram_Language() {
+		return mProgram_Language;
+	}
+
+	public void setmProgram_Language(String mProgram_Language) {
+		this.mProgram_Language = mProgram_Language;
 	}
 
 	@Override

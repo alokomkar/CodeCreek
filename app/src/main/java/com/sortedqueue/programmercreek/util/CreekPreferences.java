@@ -24,6 +24,7 @@ public class CreekPreferences {
     public static final String KEY_PROG_INDEX_INSERT = "insertProgramIndex";
 
     private SharedPreferences sharedPreferences;
+    private String PROGRAM_LANGUAGE = "program_language";
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -37,7 +38,7 @@ public class CreekPreferences {
 
     public void setProgramIndex(int programIndex) {
         this.programIndex = programIndex;
-        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).commit();
+        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).apply();
     }
 
     public int getProgramTables() {
@@ -47,7 +48,7 @@ public class CreekPreferences {
 
     public void setProgramTables(int programTables) {
         this.programTables = programTables;
-        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).commit();
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).apply();
     }
 
     public String getSignInAccount() {
@@ -57,7 +58,7 @@ public class CreekPreferences {
 
     public void setSignInAccount(String signInAccount) {
         this.signInAccount = signInAccount;
-        sharedPreferences.edit().putString(SIGN_IN_ACCOUNT, signInAccount).commit();
+        sharedPreferences.edit().putString(SIGN_IN_ACCOUNT, signInAccount).apply();
     }
 
     public String getAccountName() {
@@ -67,7 +68,7 @@ public class CreekPreferences {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
-        sharedPreferences.edit().putString(ACCOUNT_NAME, accountName).commit();
+        sharedPreferences.edit().putString(ACCOUNT_NAME, accountName).apply();
     }
 
     public String getAccountPhoto() {
@@ -77,6 +78,14 @@ public class CreekPreferences {
 
     public void setAccountPhoto(String accountPhoto) {
         this.accountPhoto = accountPhoto;
-        sharedPreferences.edit().putString(ACCOUNT_PHOTO, accountPhoto).commit();
+        sharedPreferences.edit().putString(ACCOUNT_PHOTO, accountPhoto).apply();
+    }
+
+    public String getProgramLanguage() {
+        return sharedPreferences.getString(PROGRAM_LANGUAGE, "c");
+    }
+    
+    public void setProgramLanguage( String language ) {
+        sharedPreferences.edit().putString(PROGRAM_LANGUAGE, language).apply();
     }
 }

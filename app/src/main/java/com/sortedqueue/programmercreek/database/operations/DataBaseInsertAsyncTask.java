@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import java.util.ArrayList;
 
 
-public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
+public class DataBaseInsertAsyncTask extends AsyncTask<Void, Void, Void> {
 
 	Context mContext = null;
 	DatabaseHandler mDatabaseHandler;
@@ -22,7 +22,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
 	private String TAG = getClass().getSimpleName();
 
-	public DataBaseInserterAsyncTask(Context mContext, int i, ArrayList<Program_Table> program_tables, UIUpdateListener uiUpdateListener) {
+	public DataBaseInsertAsyncTask(Context mContext, int i, ArrayList<Program_Table> program_tables, UIUpdateListener uiUpdateListener) {
 		this.mContext = mContext;
 		this.mDatabaseHandler = new DatabaseHandler(mContext);
 		this.mIndex = i;
@@ -35,7 +35,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	}
 
 
-	public DataBaseInserterAsyncTask( Context context, int index, UIUpdateListener uiUpdateListener ) {
+	public DataBaseInsertAsyncTask(Context context, int index, UIUpdateListener uiUpdateListener ) {
 
 		this.mContext = context;
 		this.mDatabaseHandler = new DatabaseHandler(context);
@@ -45,18 +45,18 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	}
 
 
-	public DatabaseHandler insertProgramtoDB( Context context ) {
+	/*public DatabaseHandler insertProgramtoDB( Context context ) {
 
-		/**
+		*//**
 		 * Adding data to database
-		 * */
+		 * *//*
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(context);	
 		}
 
-		/**
+		*//**
 		 * CRUD Operations
-		 * */
+		 * *//*
 		logDebugMessage("Inserting Programs...");
 
 		insertProgram_1( mDatabaseHandler );
@@ -93,9 +93,9 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 
 		return mDatabaseHandler;
 
-	}
+	}*/
 
-	private void insertProgram_30(DatabaseHandler databaseHandler) {
+	/*private void insertProgram_30(DatabaseHandler databaseHandler) {
 		
 		logDebugMessage("Inserting Program 30");
 		int index;
@@ -865,7 +865,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		databaseHandler.addProgram_Table(new Program_Table(1, ++index, "	getch();", "Wait for keyboard input"));
 		databaseHandler.addProgram_Table(new Program_Table(1, ++index, "}", "Finish"));
 
-	}
+	}*/
 
 	public DatabaseHandler insertProgramListtoDB( Context context ) {
 		/**
@@ -923,7 +923,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		case -1:
 			insertProgramListtoDB(mContext);
 			break;
-		case 1:
+		/*case 1:
 			insertProgram_1(mDatabaseHandler);
 			break;
 		case 2:
@@ -1012,13 +1012,13 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 			break;
 		case 30:
 			insertProgram_30(mDatabaseHandler);
-			break;
-		case 31:
+			break;*/
+		/*case 31:
 			insertProgram_31(mDatabaseHandler);
-			break;
-		case -2 :
+			break;*/
+		/*case -2 :
 			insertProgramtoDB(mContext);
-			break;
+			break;*/
 		case -3 :
 			insertProgramstoDB( mContext );
 			break;
@@ -1046,7 +1046,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 	}
 
 
-	private void insertProgram_31(DatabaseHandler databaseHandler) {
+	/*private void insertProgram_31(DatabaseHandler databaseHandler) {
 		logDebugMessage("Inserting Program 31");
 		int index = 0;
 
@@ -1073,7 +1073,7 @@ public class DataBaseInserterAsyncTask extends AsyncTask<Void, Void, Void> {
 		databaseHandler.addProgram_Table( new Program_Table( 31, ++index, "}","End"));
 
 
-	}
+	}*/
 
 	@Override
 	protected void onPreExecute() {

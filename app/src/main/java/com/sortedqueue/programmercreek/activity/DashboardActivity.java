@@ -21,7 +21,7 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
-    public static final String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
+    public static String PROGRAMER_CREEK_WIKI = "http://programercreek.blogspot.in/2016/12/c-programming-hello-world.html";
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
     private void logDebugMessage(String message) {
@@ -66,12 +66,19 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
-
+        adView.setVisibility(View.GONE);
+        new CreekPreferences(DashboardActivity.this).setProgramLanguage("java");
         initAds();
         initDB();
         initUI();
 
+        //initJavaIndex();
+
     }
+
+    /*private void initJavaIndex() {
+        new JavaProgramInserter(DashboardActivity.this).insertProgramTables();
+    }*/
 
     private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -81,7 +88,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         adView.loadAd(adRequest);
-        adView.setVisibility(View.GONE);
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -172,7 +178,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.action_refresh_database:
-                new DataBaseInserterAsyncTask(this, -1, this).execute();
+                new DataBaseInsertAsyncTask(this, -1, this).execute();
                 break;
         }
     }
@@ -228,7 +234,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         mDatabaseHandler = new DatabaseHandler(this);
         //}
         if (mDatabaseHandler.getProgram_TablesCount() != 31) {
-            new DataBaseInserterAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
+            new DataBaseInsertAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
                 @Override
                 public void updateUI() {
                     LaunchFillBlanksActivity();

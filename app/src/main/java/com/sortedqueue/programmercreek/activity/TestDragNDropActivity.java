@@ -27,12 +27,13 @@ import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
 
@@ -79,9 +80,9 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		
 		mProgram_Index = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mWizard = getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD);
-		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 		if( program_TableList == null || program_TableList.size() == 0 ) {
-			new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+			new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
 		}
 		else {
 			initUI( program_TableList );
@@ -406,7 +407,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 	@Override
 	public void updateUI() {
 		
-		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 		int prevProgramSize = 0;
 		prevProgramSize = program_TableList.size();
 		do {
@@ -415,7 +416,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			program_TableList = mDatabaseHandler.getAllProgram_Tables( mProgram_Index );
+			program_TableList = mDatabaseHandler.getAllProgram_Tables( mProgram_Index, new CreekPreferences(this).getProgramLanguage() );
 			if( prevProgramSize == program_TableList.size() ) {
 				break;
 			}
@@ -439,7 +440,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		switch (item.getItemId()) {
 
 		case R.id.action_refresh_database:
-			new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+			new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
 			return true;
 
 		default:

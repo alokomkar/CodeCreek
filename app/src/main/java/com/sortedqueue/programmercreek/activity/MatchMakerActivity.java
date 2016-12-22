@@ -33,9 +33,10 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
@@ -92,9 +93,9 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         if (mDatabaseHandler == null) {
             mDatabaseHandler = new DatabaseHandler(this);
         }
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
         if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+            new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
         } else {
             initUI(program_TableList);
         }
@@ -534,7 +535,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
     @Override
     public void updateUI() {
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -543,7 +544,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
             if (prevProgramSize == program_TableList.size()) {
                 break;
             }
@@ -567,7 +568,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         switch (item.getItemId()) {
 
             case R.id.action_refresh_database:
-                new DataBaseInserterAsyncTask(this, mProgram_Index, this).execute();
+                new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
                 return true;
 
             default:

@@ -21,6 +21,9 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * Created by Alok Omkar on 2016-12-16.
  */
@@ -32,6 +35,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private ContentLoadingProgressBar progressBar;
     private InterstitialAd interstitialAd;
     private AdView mAdView;
+    private String WIKI_BASE_URL = "programercreek.blogspot.in";
 
 
     @Override
@@ -42,6 +46,12 @@ public class ProgramWikiActivity extends AppCompatActivity {
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient( new MyWebViewClient() );
         programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
+        try {
+            WIKI_BASE_URL = new URL(programWiki).getHost();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            WIKI_BASE_URL = "programercreek.blogspot.in";
+        }
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         if( programWiki != null ) {
@@ -77,7 +87,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (Uri.parse(url).getHost().equals("programercreek.blogspot.in")) {
+            if (Uri.parse(url).getHost().equals(WIKI_BASE_URL)) {
                 // This is my web site, so do not override; let my WebView load the page
                 return false;
             }

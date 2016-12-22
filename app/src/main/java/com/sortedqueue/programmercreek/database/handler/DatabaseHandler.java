@@ -1,8 +1,5 @@
 package com.sortedqueue.programmercreek.database.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,11 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 6;
 
 	// Database Name
 	private static final String DATABASE_NAME = "MyProgrammingBuddy";
@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_PROGRAM_INDEX_ID = "id";
 	private static final String KEY_PROGRAM_NAME = "program_name";
 	public static final String KEY_WIKI = "wiki";
+	public static final String KEY_PROGRAM_LANGUAGE = "program_language";
 
 	//Program_Table table name
 	private static final String TABLE_PROGRAM_TABLE = "Program_Table";
@@ -53,20 +54,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String CREATE_PROGRAM_INDEX_TABLE = 
 			"CREATE TABLE " + TABLE_PROGRAM_INDEX 
 			+ "("
-			+ KEY_PROGRAM_INDEX_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_PROGRAM_INDEX_ID + " INTEGER,"
+			+ KEY_PROGRAM_LANGUAGE + " TEXT, "
 			+ KEY_WIKI + " TEXT, "
-			+ KEY_PROGRAM_NAME + " TEXT )";
+			+ KEY_PROGRAM_NAME + " TEXT," + "PRIMARY KEY("+KEY_PROGRAM_INDEX_ID+" , "
+			+ KEY_PROGRAM_LANGUAGE+"))";
 
 	String CREATE_PROGRAM_TABLE_TABLE = 
 			"CREATE TABLE " + TABLE_PROGRAM_TABLE 
 			+ "("
-			+ KEY_PROGRAM_TABLE_ID + " INTEGER," 
+			+ KEY_PROGRAM_TABLE_ID + " INTEGER,"
+			+ KEY_PROGRAM_LANGUAGE + " TEXT, "
 			+ KEY_PROGRAM_LINE_NO + " INTEGER," 
 			+ KEY_PROGRAM_LINE + " TEXT, "
 			+ KEY_PROGRAM_LINE_DESCRIPTION + " TEXT, "
 			+ KEY_PROGRAM_LINE_HTML + " TEXT, "
 			+ "PRIMARY KEY("+KEY_PROGRAM_TABLE_ID+" , "
-			+KEY_PROGRAM_LINE_NO+"))";
+			+ KEY_PROGRAM_LINE_NO
+			+ " , "
+			+ KEY_PROGRAM_LANGUAGE+"))";
 
 	String CREATE_SCORES_TABLE = 
 			"CREATE TABLE " + TABLE_SCORES_TABLE 
@@ -269,7 +275,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// Create tables again
 		onCreate(db);
 		//TODO Check if this works
-		//new DataBaseInserterAsyncTask( mContext, PreferenceManager.getDefaultSharedPreferences(mContext).edit()).execute();
+		//new DataBaseInsertAsyncTask( mContext, PreferenceManager.getDefaultSharedPreferences(mContext).edit()).execute();
 
 	}
 
@@ -282,7 +288,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_PROGRAM_INDEX_ID, program_Index.getIndex()); // Contact Name
 		values.put(KEY_PROGRAM_NAME, program_Index.getProgram_Description()); // Contact Phone Number
 		values.put(KEY_WIKI, program_Index.getWiki());
-
+		values.put(KEY_PROGRAM_LANGUAGE, program_Index.getmProgram_Language());
 		// Inserting Row
 		db.insert(TABLE_PROGRAM_INDEX, null, values);
 		db.close(); // Closing database connection
@@ -298,6 +304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_PROGRAM_TABLE_ID, program_Table.getIndex()); // Contact Name
 		values.put(KEY_PROGRAM_LINE, program_Table.getProgram_Line());
 		values.put(KEY_PROGRAM_LINE_HTML, program_Table.getmProgram_Line_Html());
+		values.put(KEY_PROGRAM_LANGUAGE, program_Table.getmProgram_Language());
 
 		// Inserting Row
 		db.insert(TABLE_PROGRAM_TABLE, null, values);
@@ -310,7 +317,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public Program_Index getProgram_Index(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_WIKI,
+		Cursor cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
 				KEY_PROGRAM_NAME }, KEY_PROGRAM_INDEX_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null) {
@@ -328,7 +335,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Program_Index program_Index;
 		try {
 			program_Index = new Program_Index(Integer.parseInt(cursor.getString(0)),
-					cursor.getString(2), cursor.getString(1));
+					cursor.getString(3), cursor.getString(2), cursor.getString(1));
 		} catch( Exception e ) {
 			return null;
 		}
@@ -357,21 +364,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 
 	// Getting All Program_Indexs
-	public List<Program_Index> getAllProgram_Indexs() {
+	public List<Program_Index> getAllProgram_Indexs(String program_language) {
 		List<Program_Index> program_IndexList = new ArrayList<Program_Index>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM " + TABLE_PROGRAM_INDEX;
+		String selectQuery = "SELECT  * FROM " + TABLE_PROGRAM_INDEX + " WHERE " + KEY_PROGRAM_LANGUAGE + " = " + program_language;
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
+		Cursor cursor = db.query(
+				TABLE_PROGRAM_INDEX, //Table name
+				new String[] {KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_LANGUAGE, KEY_WIKI, KEY_PROGRAM_NAME }, //Table columns
+				KEY_PROGRAM_LANGUAGE + "=?", //Selection arg
+				new String[] { program_language }, //Selection arg values
+				null, //group by
+				null, // havinb
+				KEY_PROGRAM_INDEX_ID, //order by
+				null  ); //limit
 
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
 				Program_Index program_Index = new Program_Index();
 				program_Index.setIndex(Integer.parseInt(cursor.getString(0)));
-				program_Index.setWiki(cursor.getString(1));
-				program_Index.setProgram_Description(cursor.getString(2));
+				program_Index.setmProgram_Language(cursor.getString(1));
+				program_Index.setWiki(cursor.getString(2));
+				program_Index.setProgram_Description(cursor.getString(3));
 				// Adding contact to list
 				program_IndexList.add(program_Index);
 			} while (cursor.moveToNext());
@@ -397,10 +413,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			do {
 				Program_Table program_Table = new Program_Table();
 				program_Table.setIndex(Integer.parseInt(cursor.getString(0)));
-				program_Table.setLine_No(cursor.getInt(1));
-				program_Table.setProgram_Line(cursor.getString(2));
-				program_Table.setProgram_Line_Description(cursor.getString(3));
-				program_Table.setmProgram_Line_Html(cursor.getString(4));
+				program_Table.setmProgram_Language(cursor.getString(1));
+				program_Table.setLine_No(cursor.getInt(2));
+				program_Table.setProgram_Line(cursor.getString(3));
+				program_Table.setProgram_Line_Description(cursor.getString(4));
+				program_Table.setmProgram_Line_Html(cursor.getString(5));
 				// Adding contact to list
 				program_TableList.add(program_Table);
 			} while (cursor.moveToNext());
@@ -412,24 +429,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	
 	// Getting All Program_Tables
-	public List<Program_Table> getAllProgram_Tables(int index) {
+	public List<Program_Table> getAllProgram_Tables(int index, String program_language) {
 		List<Program_Table> program_TableList = new ArrayList<Program_Table>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM " + TABLE_PROGRAM_TABLE
-				+" WHERE " + KEY_PROGRAM_TABLE_ID + " = " + index;
+		/*String selectQuery = "SELECT  * FROM " + TABLE_PROGRAM_TABLE
+				+" WHERE " + KEY_PROGRAM_TABLE_ID + " = " + index
+				+ " AND " + KEY_PROGRAM_LANGUAGE + " = " + program_language;*/
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
+		Cursor cursor = db.query(
+				TABLE_PROGRAM_TABLE, //Table name
+				new String[] {KEY_PROGRAM_TABLE_ID, KEY_PROGRAM_LANGUAGE, KEY_PROGRAM_LINE_NO, KEY_PROGRAM_LINE_DESCRIPTION, KEY_PROGRAM_LINE, KEY_PROGRAM_LINE_HTML }, //Table columns
+				KEY_PROGRAM_LANGUAGE + "=? AND " + KEY_PROGRAM_TABLE_ID + " =?", //Selection arg
+				new String[] { program_language, String.valueOf(index)}, //Selection arg values
+				null, //group by
+				null, // havinb
+				KEY_PROGRAM_LINE_NO, //order by
+				null  ); //limit
 
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
 				Program_Table program_Table = new Program_Table();
 				program_Table.setIndex(Integer.parseInt(cursor.getString(0)));
-				program_Table.setLine_No(cursor.getInt(1));
-				program_Table.setProgram_Line(cursor.getString(2));
-				program_Table.setProgram_Line_Description(cursor.getString(3));
-				program_Table.setmProgram_Line_Html(cursor.getString(4));
+				program_Table.setmProgram_Language(cursor.getString(1));
+				program_Table.setLine_No(cursor.getInt(2));
+				program_Table.setProgram_Line(cursor.getString(3));
+				program_Table.setProgram_Line_Description(cursor.getString(4));
+				program_Table.setmProgram_Line_Html(cursor.getString(5));
 				// Adding contact to list
 				program_TableList.add(program_Table);
 			} while (cursor.moveToNext());

@@ -7,6 +7,7 @@ import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(mContext);
 		}
-		mProgram_TableList =  mDatabaseHandler.getAllProgram_Tables( mProgramIndex );
+		mProgram_TableList =  mDatabaseHandler.getAllProgram_Tables( mProgramIndex, new CreekPreferences(mContext).getProgramLanguage() );
 		return null;
 	}
 

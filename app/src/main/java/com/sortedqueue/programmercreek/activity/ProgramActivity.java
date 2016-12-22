@@ -27,10 +27,11 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -95,8 +96,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			public void updateUI(List<Program_Table> program_TableList) {
 				mProgram_TableList = program_TableList;
 				if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) {
-					new DataBaseInserterAsyncTask(ProgramActivity.this, mProgram_Index, ProgramActivity.this ).execute();
-					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+					new DataBaseInsertAsyncTask(ProgramActivity.this, mProgram_Index, ProgramActivity.this ).execute();
+					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(ProgramActivity.this).getProgramLanguage());
 				}
 				else {
 					initUI( mProgram_TableList );
@@ -227,7 +228,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	@SuppressWarnings("unused")
 	private void populateProgramTable(int program_Index) {
-		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 
 
 		Iterator<Program_Table> iteraor = program_TableList.iterator();
@@ -278,11 +279,11 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		 * */
 		if( program_Index > 0 && program_Index <= ProgramListActivity.PROGRAM_LIST_SIZE ) {
 
-			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index);
+			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
 			if( program_TableList == null || program_TableList.size() == 0 && mProgram_Index <= ProgramListActivity.PROGRAM_LIST_SIZE ) {
 
-				new DataBaseInserterAsyncTask( this, mProgram_Index, this ).execute();
-				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+				new DataBaseInsertAsyncTask( this, mProgram_Index, this ).execute();
+				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 
 			}
 			else {
@@ -425,7 +426,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	@Override
 	public void updateUI() {
 
-		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index);
+		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 			mProgram_Index--;
@@ -448,7 +449,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		switch (item.getItemId()) {
 
 		case R.id.action_refresh_database:
-			new DataBaseInserterAsyncTask(this, mProgram_Index, this ).execute();
+			new DataBaseInsertAsyncTask(this, mProgram_Index, this ).execute();
 			return true;
 
 		default:

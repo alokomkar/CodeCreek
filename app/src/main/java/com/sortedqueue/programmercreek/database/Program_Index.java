@@ -11,12 +11,14 @@ public class Program_Index {
 	int mProgramIndex;
 	String mProgram_Description;
 	String wiki;
+	String mProgram_Language;
 	
-	public Program_Index(int index, String program_Description, String wiki) {
+	public Program_Index(int index, String program_Description, String wiki, String mProgram_Language) {
 		super();
 		mProgramIndex = index;
 		mProgram_Description = program_Description;
 		this.wiki = wiki;
+		this.mProgram_Language = mProgram_Language;
 	}
 
 	public Program_Index() {
@@ -45,6 +47,14 @@ public class Program_Index {
 
 	public void setWiki(String wiki) {
 		this.wiki = wiki;
+	}
+
+	public String getmProgram_Language() {
+		return mProgram_Language;
+	}
+
+	public void setmProgram_Language(String mProgram_Language) {
+		this.mProgram_Language = mProgram_Language;
 	}
 
 	@Override

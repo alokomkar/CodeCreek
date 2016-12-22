@@ -28,7 +28,7 @@ import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInserterAsyncTask;
+import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -182,7 +182,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 							logDebugMessage("Size of Program Table : " + mProgram_TableList.size());
 						}
 						if( program_TableList == null || program_TableList.size() == 0 ) {
-							new DataBaseInserterAsyncTask(ProgramListActivity.this, mSelectedProgramIndex, ProgramListActivity.this).execute();
+							new DataBaseInsertAsyncTask(ProgramListActivity.this, mSelectedProgramIndex, ProgramListActivity.this).execute();
 
 						}
 					}
