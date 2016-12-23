@@ -7,8 +7,15 @@ android {
         applicationId "com.sortedqueue.programmercreek"
         minSdkVersion 15
         targetSdkVersion 23
+        def versionMajor = 1
+        def versionMinor = 1
+        def versionPatch = 0
+        def versionBuild = 0
         versionCode 1
-        versionName "1.1"
+        versionName "1.0"
+
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
