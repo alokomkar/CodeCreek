@@ -356,15 +356,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		List<Program_Index> program_IndexList = new ArrayList<Program_Index>();
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.query(
-				TABLE_PROGRAM_INDEX, //Table name
-				new String[] {KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_LANGUAGE, KEY_WIKI, KEY_PROGRAM_NAME }, //Table columns
-				KEY_PROGRAM_LANGUAGE + "=?", //Selection arg
-				new String[] { program_language }, //Selection arg values
-				null, //group by
-				null, // havinb
-				KEY_PROGRAM_INDEX_ID, //order by
-				null  ); //limit
+		String[] selectionArgs;
+		Cursor cursor = null ;
+		if( program_language.equalsIgnoreCase("c++") || program_language.equalsIgnoreCase("cpp") ) {
+			selectionArgs = new String[] { "c++", "cpp" };
+			cursor = db.query(
+					TABLE_PROGRAM_INDEX, //Table name
+					new String[] {KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_LANGUAGE, KEY_WIKI, KEY_PROGRAM_NAME }, //Table columns
+					KEY_PROGRAM_LANGUAGE + "=? OR " + KEY_PROGRAM_LANGUAGE +"=?", //Selection arg
+					selectionArgs, //Selection arg values
+					null, //group by
+					null, // havinb
+					KEY_PROGRAM_INDEX_ID, //order by
+					null  ); //limit
+		}
+		else {
+			selectionArgs = new String[] { program_language };
+			cursor = db.query(
+					TABLE_PROGRAM_INDEX, //Table name
+					new String[] {KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_LANGUAGE, KEY_WIKI, KEY_PROGRAM_NAME }, //Table columns
+					KEY_PROGRAM_LANGUAGE + "=?", //Selection arg
+					selectionArgs, //Selection arg values
+					null, //group by
+					null, // havinb
+					KEY_PROGRAM_INDEX_ID, //order by
+					null  ); //limit
+		}
 
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
