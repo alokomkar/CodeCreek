@@ -36,7 +36,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUser;
-import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -101,15 +100,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 storeFirebaseUserDetails(firebaseAuth);
-                // ...
             }
         };
-        // ...
     }
 
     private void storeFirebaseUserDetails(FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
+        if (user != null ) {
+            if( !creekPreferences.getSignInAccount().equals("") ) {
+                Log.d(TAG, "Sign up complete");
+                return;
+            }
             // User is signed in
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             creekUser = new CreekUser();
