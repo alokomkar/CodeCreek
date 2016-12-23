@@ -85,6 +85,9 @@ public class FirebaseDatabaseHandler {
         this.mContext = context;
         creekPreferences = new CreekPreferences(mContext);
         programLanguage = creekPreferences.getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
         getDatabase();
         getUserDatabase();
     }

@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -89,6 +88,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     /*private void initJavaIndex() {
+        creekPreferences.setProgramLanguage("cpp");
         new JavaProgramInserter(DashboardActivity.this).insertProgramTables();
     }*/
 

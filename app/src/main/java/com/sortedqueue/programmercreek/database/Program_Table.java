@@ -44,7 +44,7 @@ public class Program_Table {
 		mProgramLine_No = line_No;
 		mProgram_Line = program_Line;
 		mProgram_Line_Description = program_Line_Description;
-		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("java", mProgram_Line);
+		mProgram_Line_Html = PrettifyHighlighter.getInstance().highlight("c++", mProgram_Line);
 		this.mProgram_Language = mProgram_Language;
 	}
 

@@ -23,7 +23,10 @@ public class CreekPreferences {
     public static final String KEY_PROG_TABLE_INSERT = "insertProgramTable";
     public static final String KEY_PROG_INDEX_INSERT = "insertProgramIndex";
     public static final String KEY_PROG_INDEX_INSERT_JAVA = "insertProgramIndexJava";
-    private static final String KEY_PROG_TABLE_INSERT_JAVA = "insertProgramTableJava";
+    public static final String KEY_PROG_TABLE_INSERT_JAVA = "insertProgramTableJava";
+    public static final String KEY_PROG_INDEX_INSERT_CPP = "insertProgramIndexCpp";
+    public static final String KEY_PROG_TABLE_INSERT_CPP = "insertProgramTableCpp";
+
     private static final String PROGRAM_LANGUAGE = "program_language";
 
     private SharedPreferences sharedPreferences;
@@ -41,6 +44,10 @@ public class CreekPreferences {
             case "java" :
                 programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, -1);
                 break;
+            case "cpp" :
+            case "c++" :
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, -1);
+                break;
         }
         return programIndex;
     }
@@ -54,6 +61,11 @@ public class CreekPreferences {
             case "java" :
                 sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_JAVA, programIndex).apply();
                 break;
+            case "cpp" :
+            case "c++" :
+                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_CPP, programIndex).apply();
+                break;
+
         }
     }
 
@@ -65,6 +77,10 @@ public class CreekPreferences {
                 break;
             case "java" :
                 programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_JAVA, -1);
+                break;
+            case "cpp" :
+            case "c++" :
+                programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_CPP, -1);
                 break;
         }
         return programTables;
@@ -78,6 +94,10 @@ public class CreekPreferences {
                 break;
             case "java" :
                 sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_JAVA, programTables).apply();
+                break;
+            case "cpp" :
+            case "c++" :
+                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_CPP, programTables).apply();
                 break;
         }
     }
