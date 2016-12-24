@@ -96,4 +96,9 @@
     <string name="program_wiki">Program Wiki</string>
     <string name="program_wiki_description">Go through all the progams and explanations</string>
     <string name="select_language">Select Tutorial :</string>
+    <string name="title_activity_syntax_learn">Learn Syntax</string>
+    <string name="printf_statement">Example : printf(\"Hello world\");</string>
+    <string name="printf_solution">printf(\"Infinite Programmer\");</string>
+    <string name="option_infinite_programmer">\"Infinite Programmer\"</string>
+    <string name="options">Options</string>
 </resources>

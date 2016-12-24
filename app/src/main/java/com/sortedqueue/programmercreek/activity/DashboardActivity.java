@@ -238,7 +238,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, SyntaxLearnActivity.class);
                 intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(intent);
                 /*this.overridePendingTransition(R.anim.animation_leave,

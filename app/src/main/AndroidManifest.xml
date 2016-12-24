@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sortedqueue.programmercreek">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".CreekApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider341877366183342"
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider341877366183342"
+            android:exported="true" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/splash_title"
@@ -27,50 +33,55 @@
         <activity
             android:name=".activity.ProgramListActivity"
             android:label="@string/title_activity_dummy"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProgramActivity"
             android:label="@string/title_activity_program"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.DashboardActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TestDragNDropActivity"
             android:label="@string/title_activity_test_drag_n_drop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MemorizeProgramActivity"
             android:label="@string/title_activity_revise_program"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MatchMakerActivity"
             android:label="@string/title_activity_match_maker"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.QuizActivity"
             android:label="@string/title_activity_quiz"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutActivity"
             android:label="@string/title_activity_about"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebViewActivity"
             android:label="@string/title_activity_web_view"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_help"
-            android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".activity.FillTheBlanksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FillTheBlanksActivity"
             android:label="@string/title_fill_the_blanks"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.ProgramWikiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProgramWikiActivity"
             android:label="@string/title_program_wiki"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SyntaxLearnActivity"
+            android:label="@string/title_activity_syntax_learn"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
