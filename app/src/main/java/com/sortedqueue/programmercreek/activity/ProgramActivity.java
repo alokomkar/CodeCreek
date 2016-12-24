@@ -282,10 +282,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 			}
 			else {
-				if( mProgDescriptionBtn.getText().equals("Flip")) {
+				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
 					flipit();
 					mProgDescriptionBtn.setText("Flip");
-				}
+				}*/
 				mAdapterProgramExplanationList.clear();
 				mAdapterProgramList.clear();
 				mListPostion = 1;
