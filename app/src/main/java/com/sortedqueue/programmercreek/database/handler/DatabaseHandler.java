@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -304,10 +306,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Getting single Program_Index
 	public Program_Index getProgram_Index(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
+		String programLanguage = new CreekPreferences(mContext).getProgramLanguage();
+		String[] selectionArgs = new String[] { String.valueOf(id), programLanguage };
+		Cursor cursor;
+		cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
+						KEY_PROGRAM_LANGUAGE }, KEY_PROGRAM_INDEX_ID + "=? AND " + KEY_PROGRAM_LANGUAGE + "=?", selectionArgs
+				, null, null, null, null);
+		if( programLanguage.equals("c++") ) {
+			selectionArgs = new String[] { String.valueOf(id), programLanguage };
+			cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
+							KEY_PROGRAM_LANGUAGE }, KEY_PROGRAM_INDEX_ID
+					+ "=? AND "
+					+ KEY_PROGRAM_LANGUAGE + "=?"
+					, selectionArgs
+					, null, null, null, null);
 
-		Cursor cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
-				KEY_PROGRAM_NAME }, KEY_PROGRAM_INDEX_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+		}
 		if (cursor != null) {
 			try {
 				cursor.moveToFirst();	

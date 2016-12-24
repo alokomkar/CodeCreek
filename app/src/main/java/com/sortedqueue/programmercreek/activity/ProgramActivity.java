@@ -242,15 +242,11 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	}
 
-	public String getProgramTitle(int program_Index) { 
-		if ( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler( this );
+	public String getProgramTitle(int program_Index) {
+		if( mDatabaseHandler == null ) {
+			mDatabaseHandler = new DatabaseHandler(ProgramActivity.this);
 		}
-		Program_Index program_Index2 = mDatabaseHandler.getProgram_Index(program_Index);
-		if( program_Index2 == null ) {
-			return null;
-		}
-		return mDatabaseHandler.getProgram_Index(program_Index).getProgram_Description();
+		return AuxilaryUtils.getProgramTitle(program_Index, ProgramActivity.this, mDatabaseHandler );
 	}
 
 	public void enableDisablePrevButton() { 

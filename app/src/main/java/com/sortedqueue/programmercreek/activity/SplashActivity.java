@@ -222,10 +222,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(SplashActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
+                        } /*else {
                             creekPreferences.setSignInAccount(task.getResult().getUser().getEmail());
                             startApp();
-                        }
+                        }*/
                         CommonUtils.dismissProgressDialog();
                         // ...
                     }

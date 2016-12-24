@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +22,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.CustomProgramIndexAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -40,7 +42,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProgramListActivity extends Activity implements UIUpdateListener {
+public class ProgramListActivity extends Activity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
 	DatabaseHandler mDatabaseHandler;
 
@@ -105,12 +107,10 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 				if( mProgram_Indexs == null || mProgram_Indexs.size() == 0 ) {
 					insertProgramIndexes();
 				}
-				CustomProgramIndexAdapter customProgramIndexAdapter = new CustomProgramIndexAdapter(ProgramListActivity.this,
-						android.R.layout.simple_list_item_1,
-						R.id.txtViewProgDescription, mProgram_Indexs);
-				ListView programListView = (ListView)findViewById(R.id.listView1);
-				programListView.setOnItemClickListener(programListItemListener());
-				programListView.setAdapter(customProgramIndexAdapter);
+				CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
+				RecyclerView programListRecyclerView = (RecyclerView) findViewById(R.id.programListRecyclerView);
+				programListRecyclerView.setLayoutManager( new LinearLayoutManager(ProgramListActivity.this, LinearLayoutManager.VERTICAL, false));
+				programListRecyclerView.setAdapter(customProgramRecyclerViewAdapter);
 
 			}
 		}).execute();
@@ -143,83 +143,8 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	Bundle mBundle;
 	Intent mInvokeIntent = null;
 	int mSelectedProgramIndex = 0;
+	String mSelectedProgramTitle = "";
 	private List<Program_Table> mProgram_TableList;
-	private OnItemClickListener programListItemListener() {
-		return new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapter, View v, int position,
-									long id) {
-
-				mBundle = new Bundle();
-				program_Index = (Program_Index) adapter.getItemAtPosition(position);
-				/*
-				 * Check the module table if the selected program has modules
-				 * */
-				if( mDatabaseHandler == null ) {
-					mDatabaseHandler = new DatabaseHandler(ProgramListActivity.this);
-				}
-				/*List<Module_Table> module_Tables = mDatabaseHandler.getAllModule_Tables(program_Index.getIndex());
-				if( module_Tables != null ) { 
-					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, true);
-				}
-				else { 
-					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, false);
-				}*/
-				/**
-				 * Pack and pass program index to 
-				 * ProgramActivity so as to retrieve 
-				 * corresponding program from DB.
-				 * */
-				mSelectedProgramIndex = program_Index.getIndex();
-				mProgram_TableList = null;
-				new ProgramFetcherTask(ProgramListActivity.this, new UIProgramFetcherListener() {
-
-					@Override
-					public void updateUI(List<Program_Table> program_TableList) {
-
-						mProgram_TableList = program_TableList;
-						if( mProgram_TableList != null ) {
-							logDebugMessage("Size of Program Table : " + mProgram_TableList.size());
-						}
-						if( program_TableList == null || program_TableList.size() == 0 ) {
-							new DataBaseInsertAsyncTask(ProgramListActivity.this, mSelectedProgramIndex, ProgramListActivity.this).execute();
-
-						}
-					}
-				}, mDatabaseHandler, mSelectedProgramIndex).execute();
-
-
-
-				mBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-				mBundle.putBoolean(KEY_WIZARD, getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD));
-				mInvokeTest = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST);
-
-
-				switch( mInvokeTest ) {
-
-					case ProgrammingBuddyConstants.KEY_REVISE :
-						showReviseModeBox();
-						break;
-
-					case ProgrammingBuddyConstants.KEY_WIZARD :
-						Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
-						programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, mInvokeTest);
-						programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
-						startActivity(programListIntent);
-						break;
-
-					case ProgrammingBuddyConstants.KEY_TEST :
-					case ProgrammingBuddyConstants.KEY_LIST :
-					case ProgrammingBuddyConstants.KEY_MATCH :
-					case ProgrammingBuddyConstants.KEY_QUIZ :
-						insertProgramTables();
-						break;
-
-				}
-			}
-		};
-
-	}
 
 	private void loadProgramExplanation(String programWiki) {
 		Intent intent = new Intent(ProgramListActivity.this, ProgramWikiActivity.class);
@@ -305,11 +230,13 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 						case KEY_REVISE_NORMAL :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
 							break;
 
 						case KEY_REVISE_LINE_BY_LINE :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
 							break;
 
@@ -354,6 +281,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 					Intent newIntent = null;
 					Bundle newIntentBundle = new Bundle();
 					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+					newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 
 					switch ( which ) {
 
@@ -431,11 +359,13 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 
 						case KEY_QUIZ_DESCRIPTION_QUESTION :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
 							break;
 
 						case KEY_QUIZ_PROGRAM_CODE_QUESTION :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
 							break;
 
@@ -485,6 +415,75 @@ public class ProgramListActivity extends Activity implements UIUpdateListener {
 	}
 
 
+	@Override
+	public void onItemClick(int position) {
+		mBundle = new Bundle();
+		program_Index = mProgram_Indexs.get(position);
+				/*
+				 * Check the module table if the selected program has modules
+				 * */
+		if( mDatabaseHandler == null ) {
+			mDatabaseHandler = new DatabaseHandler(ProgramListActivity.this);
+		}
+				/*List<Module_Table> module_Tables = mDatabaseHandler.getAllModule_Tables(program_Index.getIndex());
+				if( module_Tables != null ) {
+					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, true);
+				}
+				else {
+					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, false);
+				}*/
+		/**
+		 * Pack and pass program index to
+		 * ProgramActivity so as to retrieve
+		 * corresponding program from DB.
+		 * */
+		mSelectedProgramIndex = program_Index.getIndex();
+		mSelectedProgramTitle = program_Index.getProgram_Description();
+		mProgram_TableList = null;
+		new ProgramFetcherTask(ProgramListActivity.this, new UIProgramFetcherListener() {
+
+			@Override
+			public void updateUI(List<Program_Table> program_TableList) {
+
+				mProgram_TableList = program_TableList;
+				if( mProgram_TableList != null ) {
+					logDebugMessage("Size of Program Table : " + mProgram_TableList.size());
+				}
+				if( program_TableList == null || program_TableList.size() == 0 ) {
+					new DataBaseInsertAsyncTask(ProgramListActivity.this, mSelectedProgramIndex, ProgramListActivity.this).execute();
+
+				}
+			}
+		}, mDatabaseHandler, mSelectedProgramIndex).execute();
 
 
+
+		mBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+		mBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
+		mBundle.putBoolean(KEY_WIZARD, getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD));
+		mInvokeTest = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST);
+
+
+		switch( mInvokeTest ) {
+
+			case ProgrammingBuddyConstants.KEY_REVISE :
+				showReviseModeBox();
+				break;
+
+			case ProgrammingBuddyConstants.KEY_WIZARD :
+				Intent programListIntent = new Intent(getApplicationContext(), ProgramListActivity.class);
+				programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, mInvokeTest);
+				programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
+				startActivity(programListIntent);
+				break;
+
+			case ProgrammingBuddyConstants.KEY_TEST :
+			case ProgrammingBuddyConstants.KEY_LIST :
+			case ProgrammingBuddyConstants.KEY_MATCH :
+			case ProgrammingBuddyConstants.KEY_QUIZ :
+				insertProgramTables();
+				break;
+
+		}
+	}
 }

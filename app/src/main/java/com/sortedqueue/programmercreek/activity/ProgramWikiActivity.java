@@ -49,7 +49,10 @@ public class ProgramWikiActivity extends AppCompatActivity {
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient( new MyWebViewClient() );
         programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
-        AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "Creek", "Welcome to Wiki of programs, browse through all programs and explanations here. Feel free to leave a comment.");
+        if( !creekPreferences.getWikiHelp() ) {
+            creekPreferences.setWikihelp(true);
+            AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "Creek", "Welcome to Wiki of programs, browse through all programs and explanations here. Feel free to leave a comment.");
+        }
         try {
             WIKI_BASE_URL = new URL(programWiki).getHost();
         } catch (MalformedURLException e) {

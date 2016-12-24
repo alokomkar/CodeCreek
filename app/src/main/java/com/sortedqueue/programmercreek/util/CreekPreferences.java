@@ -30,6 +30,7 @@ public class CreekPreferences {
     private static final String PROGRAM_LANGUAGE = "program_language";
 
     private SharedPreferences sharedPreferences;
+    private String WIKI_HELP = "Wiki_help";
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -146,5 +147,13 @@ public class CreekPreferences {
             wikiUrl = "http://www.instanceofjava.com/2014/12/program-to-print-prime-numbers-in-java.html";
         }
         return wikiUrl;
+    }
+
+    public boolean getWikiHelp() {
+        return sharedPreferences.getBoolean(WIKI_HELP, false);
+    }
+
+    public void setWikihelp(boolean wikiHelp) {
+        sharedPreferences.edit().putBoolean(WIKI_HELP, wikiHelp).apply();
     }
 }

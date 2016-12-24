@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.constants;
 
 public class ProgrammingBuddyConstants {
 	public static final String KEY_PROG_ID = "Program_Index";
+	public static final String KEY_PROG_TITLE = "Program_title";
 	public static final String KEY_MODULE_LIST = "Modules_List";
 	public static final int KEY_TEST = 1;
 	public static final int KEY_LIST = 2;

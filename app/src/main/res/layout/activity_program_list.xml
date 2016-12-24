@@ -5,8 +5,8 @@
     android:orientation="vertical"
     android:background="@color/md_grey_300">
 
-    <ListView
-        android:id="@+id/listView1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/programListRecyclerView"
         android:layout_above="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:dividerHeight="@dimen/margin_8"
         android:layout_margin="@dimen/margin_8"
         android:background="@color/md_grey_300" >
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:visibility="gone"

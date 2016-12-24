@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,7 +61,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     @Bind(R.id.languageSelectionSpinner)
     AppCompatSpinner languageSelectionSpinner;
 
-
     private String TAG = getClass().getSimpleName();
     private DatabaseHandler mDatabaseHandler;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
@@ -78,7 +78,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         ButterKnife.bind(this);
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
-
         initAds();
         initDB();
         initUI();
@@ -149,7 +148,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         languageSelectionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if( position != -1 ) {
+                if (position != -1) {
                     String selectedString = languageArray[position];
                     selectedString = selectedString.replace(" Programming", "").toLowerCase();
                     creekPreferences.setProgramLanguage(selectedString);
@@ -165,9 +164,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         int selectedPosition = -1;
         String selectedLanguage = creekPreferences.getProgramLanguage();
 
-        for( String language : languageArray ) {
+        for (String language : languageArray) {
             selectedPosition++;
-            if( language.toLowerCase().startsWith(selectedLanguage) ) {
+            if (language.toLowerCase().startsWith(selectedLanguage)) {
                 languageSelectionSpinner.setSelection(selectedPosition);
             }
         }

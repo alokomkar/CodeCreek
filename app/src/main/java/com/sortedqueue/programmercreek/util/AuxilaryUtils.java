@@ -118,7 +118,13 @@ public class AuxilaryUtils {
 		if ( databaseHandler == null ) {
 			databaseHandler = new DatabaseHandler( context );
 		}
-		return databaseHandler.getProgram_Index(program_Index).getProgram_Description();
+		if( databaseHandler.getProgram_Index(program_Index) != null ) {
+			return databaseHandler.getProgram_Index(program_Index).getProgram_Description();
+		}
+		else {
+			return "Program " + (program_Index + 1);
+		}
+
 
 	}
 

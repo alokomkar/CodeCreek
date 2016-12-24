@@ -302,11 +302,11 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	}
 
-	public String getProgramTitle(int program_Index) { 
-		if ( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler( this );
+	public String getProgramTitle(int program_Index) {
+		if( mDatabaseHandler == null ) {
+			mDatabaseHandler = new DatabaseHandler(MemorizeProgramActivity.this);
 		}
-		return mDatabaseHandler.getProgram_Index(program_Index).getProgram_Description();
+		return AuxilaryUtils.getProgramTitle(program_Index, MemorizeProgramActivity.this, mDatabaseHandler );
 	}
 
 	public void enableDisablePrevButton() { 
