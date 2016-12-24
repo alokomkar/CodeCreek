@@ -17,6 +17,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.sortedqueue.programmercreek.R;
@@ -54,8 +55,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	int mIndex = 0;
 	int mProgramLength = 0;
 
-	Button mPrevProgramBtn;
-	Button mNextProgramBtn;
+	ImageButton mPrevProgramBtn;
+	ImageButton mNextProgramBtn;
 	Button mShowOrHideProgramBtn;
 	boolean mWizard = false;
 
@@ -205,10 +206,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		});
 
 
-		mNextProgramBtn = (Button) findViewById(R.id.nextProgramBtn_revise);
-		mNextProgramBtn.setText(">");
-		mPrevProgramBtn = (Button) findViewById(R.id.prevProgramBtn_revise);
-		mPrevProgramBtn.setText("<");
+		mNextProgramBtn = (ImageButton) findViewById(R.id.nextProgramBtn_revise);
+		mPrevProgramBtn = (ImageButton) findViewById(R.id.prevProgramBtn_revise);
 
 		enableDisablePrevButton();
 
@@ -233,8 +232,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		});
 
 
-		Button hintProgramButton = (Button) findViewById(R.id.hintProgramBtn);
-		hintProgramButton.setText("?");
+		ImageButton hintProgramButton = (ImageButton) findViewById(R.id.hintProgramBtn);
 		hintProgramButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				mAdapterProgramExplanationList.clear();

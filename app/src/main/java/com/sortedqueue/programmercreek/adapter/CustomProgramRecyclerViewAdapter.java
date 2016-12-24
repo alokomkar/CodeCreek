@@ -48,7 +48,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.programTypeTextView.setText(mProgramType);
-        holder.txtViewProgDescription.setText(mProgram_Indexs.get(position).toString());
+        holder.txtViewProgDescription.setText(mProgram_Indexs.get(position).getProgram_Description());
     }
 
     @Override

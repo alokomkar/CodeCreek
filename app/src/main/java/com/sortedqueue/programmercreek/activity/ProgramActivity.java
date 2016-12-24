@@ -18,6 +18,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.sortedqueue.programmercreek.R;
@@ -53,8 +54,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	int mProgram_Index;
 	Button mProgDescriptionBtn;
-	Button mNextProgramBtn;
-	Button mPrevProgramBtn;
+	ImageButton mNextProgramBtn;
+	ImageButton mPrevProgramBtn;
 
 	int mListPostion = 0;
 	DatabaseHandler mDatabaseHandler;
@@ -154,12 +155,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		mProgDescriptionBtn = (Button) findViewById(R.id.descriptionBtn);
 		mProgDescriptionBtn.setOnClickListener(mButtonClickListener);
 
-		mNextProgramBtn = (Button) findViewById(R.id.nextProgramBtn);
-		mNextProgramBtn.setText(">");
+		mNextProgramBtn = (ImageButton) findViewById(R.id.nextProgramBtn);
 		mNextProgramBtn.setOnClickListener(mButtonClickListener);
 
-		mPrevProgramBtn = (Button) findViewById(R.id.prevProgramBtn);
-		mPrevProgramBtn.setText("<");
+		mPrevProgramBtn = (ImageButton) findViewById(R.id.prevProgramBtn);
 		mPrevProgramBtn.setOnClickListener(mButtonClickListener);
 		enableDisablePrevButton();
 		if( mWizard == true ) {

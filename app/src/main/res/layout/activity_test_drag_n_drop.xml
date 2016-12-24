@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/progressTextView"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="@string/time"/>
 
         </FrameLayout>
