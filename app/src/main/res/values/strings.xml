@@ -101,4 +101,5 @@
     <string name="printf_solution">printf(\"Infinite Programmer\");</string>
     <string name="option_infinite_programmer">\"Infinite Programmer\"</string>
     <string name="options">Options</string>
+    <string name="learn_syntax_description">Learn/ Practice syntax for the program functions</string>
 </resources>

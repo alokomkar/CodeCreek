@@ -40,6 +40,34 @@
         android:padding="@dimen/margin_12"
         android:src="@drawable/ic_assignment_turned_in" />-->
 
-    <include layout="@layout/content_syntax_learn" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/ProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:maxHeight="4dp"
+            android:minHeight="4dp"
+            android:max="4"
+            android:progress="1"
+            android:progressDrawable="@drawable/greenprogress" />
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fillBlanksTextView"
+            android:layout_above="@+id/navigationLayout"
+
+            android:id="@+id/syntaxLearnViewPager">
+
+        </android.support.v4.view.ViewPager>
+
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -133,6 +133,72 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/syntaxLayout"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_16"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/md_white_1000"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/margin_16">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/syntaxTextView"
+                                android:minLines="2"
+                                android:maxLines="2"
+                                android:layout_marginLeft="@dimen/margin_100"
+                                android:layout_marginRight="@dimen/margin_16"
+                                android:text="@string/learn_syntax_description"
+                                android:textSize="@dimen/text_dashboard_small"
+                                android:id="@+id/textView3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:text="@string/title_activity_syntax_learn"
+                                android:id="@+id/syntaxTextView"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="@dimen/text_dashboard"
+                                android:gravity="center"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignLeft="@+id/textView3"
+                                android:layout_alignStart="@+id/textView3" />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/md_blue_500"
+                        android:layout_marginLeft="@dimen/margin_32"
+                        android:elevation="@dimen/margin_8"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="@dimen/margin_64"
+                            android:layout_height="@dimen/margin_64"
+                            android:text="S"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/text_large_dashboard"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/indexLayout"
                     android:layout_marginTop="@dimen/margin_16">
 

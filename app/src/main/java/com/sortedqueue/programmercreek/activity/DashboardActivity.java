@@ -42,6 +42,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Bind(R.id.wikiLayout)
     FrameLayout wikiLayout;
+    @Bind(R.id.syntaxLayout)
+    FrameLayout syntaxLayout;
     @Bind(R.id.indexLayout)
     FrameLayout indexLayout;
     @Bind(R.id.wizardLayout)
@@ -130,6 +132,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
      */
     private void initUI() {
         wikiLayout.setOnClickListener(this);
+        syntaxLayout.setOnClickListener(this);
         indexLayout.setOnClickListener(this);
         matchLayout.setOnClickListener(this);
         testLayout.setOnClickListener(this);
@@ -238,9 +241,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(DashboardActivity.this, SyntaxLearnActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(intent);
+                /*this.overridePendingTransition(R.anim.animation_leave,
+                        R.anim.animation_enter);*/
+                break;
+            case R.id.syntaxLayout:
+                Intent syntaxIntent = new Intent(DashboardActivity.this, SyntaxLearnActivity.class);
+                syntaxIntent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
+                startActivity(syntaxIntent);
                 /*this.overridePendingTransition(R.anim.animation_leave,
                         R.anim.animation_enter);*/
                 break;
