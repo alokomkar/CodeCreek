@@ -65,11 +65,12 @@
             android:background="@drawable/button_sky"
             android:text="@string/hintBtn" />
 
-        <Button
+        <ImageButton
             android:id="@+id/showAllBtn_revise"
             style="@style/ButtonText"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove"
+            android:layout_height="match_parent"
             android:background="@drawable/button_sky" />
 
         <ImageButton

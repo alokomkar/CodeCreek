@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -57,12 +58,14 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	ImageButton mPrevProgramBtn;
 	ImageButton mNextProgramBtn;
-	Button mShowOrHideProgramBtn;
+	ImageButton mShowOrHideProgramBtn;
 	boolean mWizard = false;
 
 	public String KEY_PROG_TABLE_INSERT = "insertProgramTable";
 	List<Program_Table> mProgram_TableList;
 	String mProgram_Title = null;
+	private Drawable mShowAllDrawable;
+	private Drawable mHideDrawable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+		mShowAllDrawable = getDrawable(R.drawable.ic_show_all);
+		mHideDrawable = getDrawable(R.drawable.ic_remove);
 		Log.d("Program Activity", " :: Program_Index :  " +  mProgram_Index+"");
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(this);
@@ -162,8 +167,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			}
 		});
 
-		mShowOrHideProgramBtn = (Button) findViewById(R.id.showAllBtn_revise);
-		mShowOrHideProgramBtn.setText(">|");
+		mShowOrHideProgramBtn = (ImageButton) findViewById(R.id.showAllBtn_revise);
+		mShowOrHideProgramBtn.setImageDrawable(mShowAllDrawable);
 		mShowOrHideProgramBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				mAdapterProgramExplanationList.clear();
@@ -177,7 +182,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 					mLinebylineprogramList.clear();
 					mLinebylineprogramList = new ArrayList<String>();
 				}
-				if( mShowOrHideProgramBtn.getText().toString().equals(">|") == true ) {
+				if( mShowOrHideProgramBtn.getDrawable().equals(mShowAllDrawable) == true ) {
 
 					for( int i = 0; i < mProgramLength; i++) { 
 						mLinebylineprogramExplanationList.add(mProgramExplanationList.get(i));
@@ -194,11 +199,11 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 					//To scroll down automatically upon introduction of new line
 					mProgramExplanationListView.setSelection((mAdapterProgramExplanationList.getCount() - 1));
 					mProgramListView.setSelection((mAdapterProgramList.getCount() - 1));
-					mShowOrHideProgramBtn.setText("|<");
+					mShowOrHideProgramBtn.setImageDrawable(mHideDrawable);
 				}
 				else {
 					mIndex = 1;
-					mShowOrHideProgramBtn.setText(">|");
+					mShowOrHideProgramBtn.setImageDrawable(mShowAllDrawable);
 				}
 
 			}
@@ -287,7 +292,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 			mPrevProgramBtn.setVisibility(View.GONE);
 			mNextProgramBtn.setVisibility(View.GONE);
-			mShowOrHideProgramBtn.setText(">>");
+			mShowOrHideProgramBtn.setImageDrawable(mShowAllDrawable);
 			mShowOrHideProgramBtn.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -330,10 +335,10 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
 			}
 			if( program_TableList != null && program_TableList.size() > 0 ) { 
-				if( mProgDescriptionBtn.getText().equals("Flip")) {
+				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
 					flipit();
 					mProgDescriptionBtn.setText("Flip");
-				}
+				}*/
 
 				mAdapterProgramExplanationList.clear();
 				mAdapterProgramList.clear();
