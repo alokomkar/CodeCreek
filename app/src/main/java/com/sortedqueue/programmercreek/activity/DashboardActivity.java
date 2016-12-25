@@ -24,6 +24,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
@@ -88,10 +89,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    /*private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("cpp");
-        new JavaProgramInserter(DashboardActivity.this).insertProgramTables();
-    }*/
+    private void initJavaIndex() {
+        creekPreferences.setProgramLanguage("c");
+        new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
+    }
 
     private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -169,7 +170,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         for (String language : languageArray) {
             selectedPosition++;
-            if (language.toLowerCase().startsWith(selectedLanguage)) {
+            language = language.replace("Programming", "").trim().toLowerCase();
+            if (language.equals(selectedLanguage)) {
                 languageSelectionSpinner.setSelection(selectedPosition);
             }
         }

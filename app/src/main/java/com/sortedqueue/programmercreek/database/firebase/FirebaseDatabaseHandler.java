@@ -9,8 +9,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
+import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
@@ -20,6 +22,11 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import co.uk.rushorm.core.RushCallback;
+import co.uk.rushorm.core.RushSearch;
+import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by binay on 05/12/16.
@@ -28,12 +35,16 @@ import java.util.ArrayList;
 public class FirebaseDatabaseHandler {
 
     private DatabaseReference mProgramDatabase;
+    private DatabaseReference mLanguageModuleDatabase;
+    private DatabaseReference mSyntaxModuleDatabase;
     private DatabaseReference mUserDatabase;
     private DatabaseReference mUserDetailsDatabase;
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
     private String CREEK_USER_CHILD = "users";
     private String CREEK_USER_PROGRAM_DETAILS_CHILD = "user_program_details";
+    private String LANGUAGE_MODULE = "language_module";
+    private String SYNTAX_MODULE = "syntax_module";
     private String CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/";
     private String programLanguage = "java";
     private Context mContext;
@@ -57,7 +68,7 @@ public class FirebaseDatabaseHandler {
      *  CREEK_BASE_FIREBASE_URL/user_program_details/email_id/program_language
      ***/
 
-    public DatabaseReference getDatabase() {
+    public DatabaseReference getProgramDatabase() {
         if( mProgramDatabase == null ) {
             mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
             mProgramDatabase.keepSynced(true);
@@ -88,8 +99,45 @@ public class FirebaseDatabaseHandler {
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
-        getDatabase();
+        getProgramDatabase();
         getUserDatabase();
+        getUserDetailsDatabase();
+        getLanguageModuleDatabase();
+        getSyntaxModuleDatabase();
+    }
+
+    private void getSyntaxModuleDatabase() {
+        if( mSyntaxModuleDatabase == null ) {
+            mSyntaxModuleDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/"+SYNTAX_MODULE+"/" + programLanguage);
+            mSyntaxModuleDatabase.keepSynced(true);
+        }
+    }
+
+    private void getLanguageModuleDatabase() {
+        if( mLanguageModuleDatabase == null ) {
+            mLanguageModuleDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/"+LANGUAGE_MODULE+"/" + programLanguage);
+            mLanguageModuleDatabase.keepSynced(true);
+        }
+    }
+
+    public void writeSyntaxModule(final SyntaxModule syntaxModule) {
+        mSyntaxModuleDatabase.child(  programLanguage + "_" + syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId()  ).setValue(syntaxModule);
+        syntaxModule.save(new RushCallback() {
+            @Override
+            public void complete() {
+                Log.d(TAG, "Rush ORM : saved successfully " + syntaxModule.toString()  );
+            }
+        });
+    }
+
+    public void writeLanguageModule(final LanguageModule languageModule) {
+        mLanguageModuleDatabase.child(languageModule.getModuleLanguage() + "_" + languageModule.getModuleId() ).setValue(languageModule);
+        languageModule.save(new RushCallback() {
+            @Override
+            public void complete() {
+                Log.d(TAG, "Rush ORM : saved successfully " + languageModule.toString()  );
+            }
+        });
     }
 
     public void writeProgramIndex( Program_Index program_index ) {
@@ -108,12 +156,99 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
 
+
+    public interface ModuleInterface {
+        void getModules( ArrayList<LanguageModule> languageModules );
+        void onError( DatabaseError error );
+    }
+
     public interface ProgramIndexInterface {
         void getProgramIndexes(ArrayList<Program_Index> program_indices);
         void onError( DatabaseError error );
     }
 
+    public interface SyntaxInterface {
+        void getSyntaxModules( ArrayList<SyntaxModule> syntaxModules );
+        void onError( DatabaseError error );
+    }
 
+    public void initalizeSyntax( LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
+        if( !creekPreferences.getSyntaxInserted() ) {
+
+            mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<SyntaxModule> syntaxModules = new ArrayList<>();
+                    for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
+                        SyntaxModule languageModule = childDataSnapShot.getValue(SyntaxModule.class);
+                        languageModule.save();
+                        syntaxModules.add(languageModule);
+                    }
+                    syntaxInterface.getSyntaxModules(syntaxModules);
+                    creekPreferences.setModulesInserted(true);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    syntaxInterface.onError(databaseError);
+                }
+            });
+        }
+        else {
+            new RushSearch()
+                    .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                    .whereEqual("syntaxModuleId", languageModule.getModuleId())
+                    .find(SyntaxModule.class, new RushSearchCallback<SyntaxModule>() {
+                        @Override
+                        public void complete(List<SyntaxModule> list) {
+                            ArrayList<SyntaxModule> modules = new ArrayList<>();
+                            if( list != null ) {
+                                modules.addAll(list);
+                            }
+                            syntaxInterface.getSyntaxModules(modules);
+                        }
+                    });
+        }
+    }
+
+
+    public void initializeModules( final ModuleInterface moduleInterface ) {
+        if( !creekPreferences.getModulesInserted() ) {
+
+            mLanguageModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<LanguageModule> languageModules = new ArrayList<LanguageModule>();
+                    for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
+                        LanguageModule languageModule = childDataSnapShot.getValue(LanguageModule.class);
+                        languageModule.save();
+                        languageModules.add(languageModule);
+                    }
+                    moduleInterface.getModules(languageModules);
+                    creekPreferences.setModulesInserted(true);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    moduleInterface.onError(databaseError);
+                }
+            });
+        }
+        else {
+            new RushSearch()
+                    .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                    .find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
+                        @Override
+                        public void complete(List<LanguageModule> list) {
+                            ArrayList<LanguageModule> modules = new ArrayList<>();
+                            if( list != null ) {
+                                modules.addAll(list);
+                            }
+                            moduleInterface.getModules(modules);
+                        }
+                    });
+        }
+    }
 
     public void initializeProgramIndexes( final ProgramIndexInterface programIndexInterface ) {
 

@@ -26,6 +26,12 @@ public class CreekPreferences {
     public static final String KEY_PROG_TABLE_INSERT_JAVA = "insertProgramTableJava";
     public static final String KEY_PROG_INDEX_INSERT_CPP = "insertProgramIndexCpp";
     public static final String KEY_PROG_TABLE_INSERT_CPP = "insertProgramTableCpp";
+    public static final String KEY_C_MODULE = "keyCModule";
+    public static final String KEY_CPP_MODULE = "keyCppModule";
+    public static final String KEY_JAVA_MODULE = "keyJavaModule";
+    public static final String KEY_C_SYNTAX = "keyCSyntax";
+    public static final String KEY_CPP_SYNTAX = "keyCppSyntax";
+    public static final String KEY_JAVA_SYNTAX = "keyJavaSyntax";
 
     private static final String PROGRAM_LANGUAGE = "program_language";
 
@@ -155,5 +161,61 @@ public class CreekPreferences {
 
     public void setWikihelp(boolean wikiHelp) {
         sharedPreferences.edit().putBoolean(WIKI_HELP, wikiHelp).apply();
+    }
+
+    public boolean getModulesInserted() {
+        switch ( getProgramLanguage() ) {
+            case "java" :
+                return sharedPreferences.getBoolean(KEY_JAVA_MODULE, false);
+            case "c" :
+                return sharedPreferences.getBoolean(KEY_C_MODULE, false);
+            case "c++" :
+            case "cpp" :
+                return sharedPreferences.getBoolean(KEY_CPP_MODULE, false);
+        }
+        return false;
+    }
+
+    public void setModulesInserted( boolean modulesInserted ) {
+        switch ( getProgramLanguage() ) {
+            case "java" :
+                sharedPreferences.edit().putBoolean(KEY_JAVA_MODULE, modulesInserted).apply();
+                break;
+            case "c" :
+                sharedPreferences.edit().putBoolean(KEY_C_MODULE, modulesInserted).apply();
+                break;
+            case "c++" :
+            case "cpp" :
+                sharedPreferences.edit().putBoolean(KEY_CPP_MODULE, modulesInserted).apply();
+                break;
+        }
+    }
+
+    public boolean getSyntaxInserted() {
+        switch ( getProgramLanguage() ) {
+            case "java" :
+                return sharedPreferences.getBoolean(KEY_JAVA_SYNTAX, false);
+            case "c" :
+                return sharedPreferences.getBoolean(KEY_C_SYNTAX, false);
+            case "c++" :
+            case "cpp" :
+                return sharedPreferences.getBoolean(KEY_CPP_SYNTAX, false);
+        }
+        return false;
+    }
+
+    public void setSyntaxInserted( boolean modulesInserted ) {
+        switch ( getProgramLanguage() ) {
+            case "java" :
+                sharedPreferences.edit().putBoolean(KEY_JAVA_SYNTAX, modulesInserted).apply();
+                break;
+            case "c" :
+                sharedPreferences.edit().putBoolean(KEY_C_SYNTAX, modulesInserted).apply();
+                break;
+            case "c++" :
+            case "cpp" :
+                sharedPreferences.edit().putBoolean(KEY_CPP_SYNTAX, modulesInserted).apply();
+                break;
+        }
     }
 }

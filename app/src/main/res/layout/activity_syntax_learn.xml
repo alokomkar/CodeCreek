@@ -43,6 +43,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/viewPagerLayout"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
         <ProgressBar
@@ -64,10 +66,19 @@
 
             android:id="@+id/syntaxLearnViewPager">
 
+
         </android.support.v4.view.ViewPager>
 
 
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/container">
+
+    </FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

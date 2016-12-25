@@ -2,9 +2,15 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alok on 21/12/16.
@@ -212,5 +218,44 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeProgramTable( new Program_Table(programIndex, lineNo++, "}", "End of main", "c++"));
 
         CommonUtils.dismissProgressDialog();
+    }
+
+    public void insertLanguageModules() {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        int moduleId = 1;
+        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
+        String generatedId = programLanguage + "_" + moduleId;
+        ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
+        int index = 0;
+        moduleOptions.add(new ModuleOption(index++, "\"Infinite Programmer\""));
+        moduleOptions.add(new ModuleOption(index++, "printf("));
+        moduleOptions.add(new ModuleOption(index++, ");"));
+        moduleOptions.add(new ModuleOption(index++, "printout("));
+        moduleOptions.add(new ModuleOption(index++, "(;"));
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_1",
+                        generatedId,
+                        programLanguage,
+                        "printf",
+                        "The printf function is used to print to standard output in a formatted manner",
+                        "Example : printf(\"Hello world\");",
+                        "Hello world",
+                        "Write command to print : Infinite Programmer",
+                        "Infinite Programmer",
+                        "printf(\"Hello world\");",
+                        moduleOptions
+                        ));
+        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Simple input and output", "How to show and read", programLanguage ));
+
+    }
+
+    public void insertSyntaxModules( ) {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        firebaseDatabaseHandler.writeSyntaxModule( new SyntaxModule());
+
     }
 }
