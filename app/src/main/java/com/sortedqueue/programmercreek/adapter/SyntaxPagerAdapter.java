@@ -19,7 +19,6 @@ public class SyntaxPagerAdapter extends FragmentPagerAdapter {
 
     public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
         super(fm);
-        int index = 2;
         for( SyntaxModule syntaxModule : syntaxModules ) {
             SyntaxLearnActivityFragment fillBlankFragment = new SyntaxLearnActivityFragment();
             fillBlankFragment.setSyntaxModule( syntaxModule );

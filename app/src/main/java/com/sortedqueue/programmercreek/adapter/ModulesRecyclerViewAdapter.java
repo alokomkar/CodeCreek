@@ -39,7 +39,8 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         LanguageModule languageModule = languageModules.get(position);
-        holder.moduleTextView.setText(languageModule.getModuleName() + "\n" + languageModule.getModuleDescription());
+        holder.moduleNameTextView.setText(languageModule.getModuleName());
+        holder.moduleDescriptionTextView.setText(languageModule.getModuleDescription());
     }
 
     @Override
@@ -49,10 +50,13 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.moduleTextView)
-        TextView moduleTextView;
+        @Bind(R.id.moduleNameTextView)
+        TextView moduleNameTextView;
+        @Bind(R.id.moduleDescriptionTextView)
+        TextView moduleDescriptionTextView;
 
-        ViewHolder(View view) {
+
+        public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);

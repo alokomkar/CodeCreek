@@ -230,23 +230,23 @@ public class JavaProgramInserter {
         String generatedId = programLanguage + "_" + moduleId;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, "\"Infinite Programmer\""));
         moduleOptions.add(new ModuleOption(index++, "printf("));
+        moduleOptions.add(new ModuleOption(index++, "\"Infinite Programmer\""));
+        moduleOptions.add(new ModuleOption(index++, "puts("));
         moduleOptions.add(new ModuleOption(index++, ");"));
-        moduleOptions.add(new ModuleOption(index++, "printout("));
         moduleOptions.add(new ModuleOption(index++, "(;"));
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
-                        "s_1",
+                        "s_2",
                         generatedId,
                         programLanguage,
-                        "printf",
-                        "The printf function is used to print to standard output in a formatted manner",
-                        "Example : printf(\"Hello world\");",
-                        "Hello world",
+                        "puts",
+                        "The puts() function is a very simple way to send a string to the screen when you have no placeholders to be concerned about. (The puts function appends a newline character to its output.)",
+                        "Example : puts(\"Print this string.\");",
+                        "Print this string.",
                         "Write command to print : Infinite Programmer",
                         "Infinite Programmer",
-                        "printf(\"Hello world\");",
+                        "puts(\"Infinite Programmer\");",
                         moduleOptions
                         ));
         //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Simple input and output", "How to show and read", programLanguage ));

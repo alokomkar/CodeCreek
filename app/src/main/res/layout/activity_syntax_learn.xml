@@ -58,18 +58,14 @@
             android:max="4"
             android:progress="1"
             android:progressDrawable="@drawable/greenprogress" />
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/fillBlanksTextView"
-            android:layout_above="@+id/navigationLayout"
 
-            android:id="@+id/syntaxLearnViewPager">
-
-
-        </android.support.v4.view.ViewPager>
-
-
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/fillBlanksTextView"
+                android:layout_above="@+id/navigationLayout"
+                android:id="@+id/syntaxLearnViewPager">
+            </android.support.v4.view.ViewPager>
     </LinearLayout>
 
     <FrameLayout
