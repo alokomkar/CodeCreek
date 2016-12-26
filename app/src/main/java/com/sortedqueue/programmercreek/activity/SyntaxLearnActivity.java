@@ -1,28 +1,24 @@
 package com.sortedqueue.programmercreek.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.SyntaxPagerAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.fragments.ModuleDetailsFragment;
 import com.sortedqueue.programmercreek.fragments.ModuleFragment;
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -33,17 +29,12 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.syntaxLearnViewPager)
-    ViewPager syntaxLearnViewPager;
-    @Bind(R.id.ProgressBar)
-    ProgressBar progressBar;
-    @Bind(R.id.viewPagerLayout)
-    LinearLayout viewPagerLayout;
     @Bind(R.id.container)
     FrameLayout container;
     private FragmentTransaction mFragmentTransaction;
     private ModuleFragment moduleFragment;
     private String TAG = SyntaxLearnActivity.class.getSimpleName();
+    private ModuleDetailsFragment moduleDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +50,6 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
 
     private void loadModulesFragment() {
         getSupportActionBar().setTitle("Modules");
-        viewPagerLayout.setVisibility(View.GONE);
-        container.setVisibility(View.VISIBLE);
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         moduleFragment = (ModuleFragment) getSupportFragmentManager().findFragmentByTag(ModuleFragment.class.getSimpleName());
         if( moduleFragment == null ) {
@@ -79,10 +68,8 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_hint) {
-            Snackbar.make(findViewById(android.R.id.content), "Display your hint here", Snackbar.LENGTH_LONG).show();
-        } else if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -91,10 +78,10 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     public void onModuleLoad(final LanguageModule module) {
 
         CommonUtils.displayProgressDialog(SyntaxLearnActivity.this, "Loading material");
-        new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initalizeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
+        new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initializeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
             @Override
             public void getSyntaxModules(ArrayList<SyntaxModule> syntaxModules) {
-                setupViewPager(module, syntaxModules);
+                loadModuleDetailsFragment(module, syntaxModules);
             }
 
             @Override
@@ -105,31 +92,30 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         });
     }
 
-    private void setupViewPager(LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
-        getSupportActionBar().setTitle("Syntax Learner");
-        viewPagerLayout.setVisibility(View.VISIBLE);
-        container.setVisibility(View.GONE);
-        syntaxLearnViewPager.setOffscreenPageLimit(syntaxModules.size());
-        SyntaxPagerAdapter syntaxPagerAdapter = new SyntaxPagerAdapter(getSupportFragmentManager(), module, syntaxModules);
-        syntaxLearnViewPager.setAdapter(syntaxPagerAdapter);
-        progressBar.setMax(syntaxModules.size());
-        progressBar.setProgress(1);
-        syntaxLearnViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    private void loadModuleDetailsFragment(LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
+        getSupportActionBar().setTitle( new CreekPreferences(SyntaxLearnActivity.this).getProgramLanguage().toUpperCase() + " Syntax Learner");
 
-            }
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        moduleDetailsFragment = (ModuleDetailsFragment) getSupportFragmentManager().findFragmentByTag(ModuleDetailsFragment.class.getSimpleName());
+        if( moduleDetailsFragment == null ) {
+            moduleDetailsFragment = new ModuleDetailsFragment();
+        }
+        moduleDetailsFragment.setParameters( module, syntaxModules );
+        mFragmentTransaction.replace(R.id.container, moduleDetailsFragment, ModuleDetailsFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
 
-            @Override
-            public void onPageSelected(int position) {
-                progressBar.setProgress(position + 1);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         CommonUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        String title = getSupportActionBar().getTitle().toString();
+        Log.d(TAG, "onBackPress : " + title);
+        if( !title.equals("Modules") ) {
+            loadModulesFragment();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

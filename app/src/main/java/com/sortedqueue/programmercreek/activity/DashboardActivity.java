@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -84,8 +84,24 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         initAds();
         initDB();
         initUI();
-
+        getFirebaseDBVerion();
         //initJavaIndex();
+
+    }
+
+    private void getFirebaseDBVerion() {
+        //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
+        firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
+            @Override
+            public void onSuccess(CreekUserDB creekUserDB) {
+                creekPreferences.checkUpdateDB( creekUserDB );
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

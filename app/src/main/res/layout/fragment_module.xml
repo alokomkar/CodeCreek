@@ -6,7 +6,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_16"
+        android:padding="@dimen/margin_16"
         android:id="@+id/modulesRecyclerView">
 
     </android.support.v7.widget.RecyclerView>

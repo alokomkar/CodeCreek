@@ -4,6 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.sortedqueue.programmercreek.database.CreekUserDB;
+
+import java.util.List;
+
+import co.uk.rushorm.core.RushSearch;
+import co.uk.rushorm.core.RushSearchCallback;
+
 /**
  * Created by Alok on 07/12/16.
  */
@@ -63,17 +70,29 @@ public class CreekPreferences {
         this.programIndex = programIndex;
         switch ( getProgramLanguage() ) {
             case "c" :
-                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).apply();
+                setCProgramIndex( programIndex );
                 break;
             case "java" :
-                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_JAVA, programIndex).apply();
+                setJavaProgramIndex( programIndex );
                 break;
             case "cpp" :
             case "c++" :
-                sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_CPP, programIndex).apply();
+                setCppProgramIndex( programIndex );
                 break;
 
         }
+    }
+
+    private void setCppProgramIndex(int programIndex) {
+        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_CPP, programIndex).apply();
+    }
+
+    private void setCProgramIndex(int programIndex) {
+        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT, programIndex).apply();
+    }
+
+    private void setJavaProgramIndex( int programIndex ) {
+        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_JAVA, programIndex).apply();
     }
 
     public int getProgramTables() {
@@ -97,16 +116,28 @@ public class CreekPreferences {
         this.programTables = programTables;
         switch ( getProgramLanguage() ) {
             case "c" :
-                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).apply();
+                setCProgramTablesIndex(programTables);
                 break;
             case "java" :
-                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_JAVA, programTables).apply();
+                setJavaProgramTablesIndex(programTables);
                 break;
             case "cpp" :
             case "c++" :
-                sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_CPP, programTables).apply();
+                setCPPProgramTablesIndex(programTables);
                 break;
         }
+    }
+
+    private void setCPPProgramTablesIndex(int programTables) {
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_CPP, programTables).apply();
+    }
+
+    private void setJavaProgramTablesIndex(int programTables) {
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_JAVA, programTables).apply();
+    }
+
+    private void setCProgramTablesIndex(int programTables) {
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT, programTables).apply();
     }
 
     public String getSignInAccount() {
@@ -179,16 +210,28 @@ public class CreekPreferences {
     public void setModulesInserted( boolean modulesInserted ) {
         switch ( getProgramLanguage() ) {
             case "java" :
-                sharedPreferences.edit().putBoolean(KEY_JAVA_MODULE, modulesInserted).apply();
+                setJavaModulesInserted(modulesInserted);
                 break;
             case "c" :
-                sharedPreferences.edit().putBoolean(KEY_C_MODULE, modulesInserted).apply();
+                setCModulesInserted(modulesInserted);
                 break;
             case "c++" :
             case "cpp" :
-                sharedPreferences.edit().putBoolean(KEY_CPP_MODULE, modulesInserted).apply();
+                setCPPModulesInserted(modulesInserted);
                 break;
         }
+    }
+
+    private void setCPPModulesInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_CPP_MODULE, modulesInserted).apply();
+    }
+
+    private void setCModulesInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_C_MODULE, modulesInserted).apply();
+    }
+
+    private void setJavaModulesInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_JAVA_MODULE, modulesInserted).apply();
     }
 
     public boolean getSyntaxInserted() {
@@ -207,15 +250,130 @@ public class CreekPreferences {
     public void setSyntaxInserted( boolean modulesInserted ) {
         switch ( getProgramLanguage() ) {
             case "java" :
-                sharedPreferences.edit().putBoolean(KEY_JAVA_SYNTAX, modulesInserted).apply();
+                setJavaSyntaxInserted( modulesInserted );
                 break;
             case "c" :
-                sharedPreferences.edit().putBoolean(KEY_C_SYNTAX, modulesInserted).apply();
+                setCSyntaxInserted( modulesInserted );
                 break;
             case "c++" :
             case "cpp" :
-                sharedPreferences.edit().putBoolean(KEY_CPP_SYNTAX, modulesInserted).apply();
-                break;
+               setCPPSyntaxInserted( modulesInserted );
+               break;
         }
+    }
+
+    private void setCPPSyntaxInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_CPP_SYNTAX, modulesInserted).apply();
+    }
+
+    private void setCSyntaxInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_C_SYNTAX, modulesInserted).apply();
+    }
+
+    private void setJavaSyntaxInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_JAVA_SYNTAX, modulesInserted).apply();
+    }
+
+    public void checkUpdateDB(final CreekUserDB creekUserDB) {
+        new RushSearch().find(CreekUserDB.class, new RushSearchCallback<CreekUserDB>() {
+            @Override
+            public void complete(List<CreekUserDB> list) {
+                if( list == null || list.size() == 0 ) {
+                    //save creekDB
+                    creekUserDB.save();
+
+                }
+                else {
+                    for( CreekUserDB localDB : list ) {
+                        if( !creekUserDB.equals(localDB) ) {
+                            //Check which db needs to be updated
+                            if( creekUserDB.getcModuleDBVersion() > (localDB.getcModuleDBVersion()) ) {
+                                setCModulesInserted(false);
+                            }
+                            if( creekUserDB.getcProgramIndexDBVersion() > (localDB.getcProgramIndexDBVersion())) {
+                                setCProgramIndex(-1);
+                            }
+                            if( creekUserDB.getcProgramTableDBVersion() > (localDB.getcProgramTableDBVersion()) ) {
+                                setCProgramTablesIndex(-1);
+                            }
+                            if( creekUserDB.getcSyntaxDBVersion() > (localDB.getcSyntaxDBVersion()) ) {
+                                setCSyntaxInserted(false);
+                            }
+
+                            //Cpp
+                            if( creekUserDB.getCppModuleDBVersion() > (localDB.getCppModuleDBVersion()) ) {
+                                setCPPModulesInserted(false);
+                            }
+                            if( creekUserDB.getCppProgramIndexDBVersion() > (localDB.getCppProgramIndexDBVersion())) {
+                                setCProgramIndex(-1);
+                            }
+                            if( creekUserDB.getCppProgramTableDBVersion() > (localDB.getCppProgramTableDBVersion()) ) {
+                                setCPPProgramTablesIndex(-1);
+                            }
+                            if( creekUserDB.getCppSyntaxDBVersion() > (localDB.getCppSyntaxDBVersion()) ) {
+                                setCPPSyntaxInserted(false);
+                            }
+
+                            //Java
+                            if( creekUserDB.getJavaModuleDBVersion() > (localDB.getJavaModuleDBVersion()) ) {
+                                setJavaModulesInserted(false);
+                            }
+                            if( creekUserDB.getJavaProgramIndexDBVersion() > (localDB.getJavaProgramIndexDBVersion())) {
+                                setJavaProgramIndex(-1);
+                            }
+                            if( creekUserDB.getJavaProgramTableDBVersion() > (localDB.getJavaProgramTableDBVersion()) ) {
+                                setJavaProgramTablesIndex(-1);
+                            }
+                            if( creekUserDB.getJavaSyntaxDBVersion() > (localDB.getJavaSyntaxDBVersion()) ) {
+                                setJavaSyntaxInserted(false);
+                            }
+
+                            //C Premium
+                            if( creekUserDB.getcModuleDBVersionPremium() > (localDB.getcModuleDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getcProgramIndexDBVersionPremium() > (localDB.getcProgramIndexDBVersionPremium())) {
+
+                            }
+                            if( creekUserDB.getcProgramTableDBVersionPremium() > (localDB.getcProgramTableDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getcSyntaxDBVersionPremium() > (localDB.getcSyntaxDBVersionPremium()) ) {
+
+                            }
+
+                            //CPP Premium
+                            if( creekUserDB.getCppModuleDBVersionPremium() > (localDB.getCppModuleDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getCppProgramIndexDBVersionPremium() > (localDB.getCppProgramIndexDBVersionPremium())) {
+
+                            }
+                            if( creekUserDB.getCppProgramTableDBVersionPremium() > (localDB.getCppProgramTableDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getCppSyntaxDBVersionPremium() > (localDB.getCppSyntaxDBVersionPremium()) ) {
+
+                            }
+                            
+
+                            //Java Premium
+                            if( creekUserDB.getJavaModuleDBVersionPremium() > (localDB.getJavaModuleDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getJavaProgramIndexDBVersionPremium() > (localDB.getJavaProgramIndexDBVersionPremium())) {
+
+                            }
+                            if( creekUserDB.getJavaProgramTableDBVersionPremium() > (localDB.getJavaProgramTableDBVersionPremium()) ) {
+
+                            }
+                            if( creekUserDB.getJavaSyntaxDBVersionPremium() > (localDB.getJavaSyntaxDBVersionPremium()) ) {
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 }

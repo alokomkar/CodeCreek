@@ -2,7 +2,6 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
-import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -222,7 +221,7 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 1;
+        int moduleId = 6;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
@@ -230,26 +229,181 @@ public class JavaProgramInserter {
         String generatedId = programLanguage + "_" + moduleId;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, "printf("));
-        moduleOptions.add(new ModuleOption(index++, "\"Infinite Programmer\""));
-        moduleOptions.add(new ModuleOption(index++, "puts("));
-        moduleOptions.add(new ModuleOption(index++, ");"));
-        moduleOptions.add(new ModuleOption(index++, "(;"));
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "while"));
+        moduleOptions.add(new ModuleOption(index++, "<"));
+        moduleOptions.add(new ModuleOption(index++, "("));
+        moduleOptions.add(new ModuleOption(index++, " {"));
+        moduleOptions.add(new ModuleOption(index++, " a "));
+        moduleOptions.add(new ModuleOption(index++, ")"));
+        moduleOptions.add(new ModuleOption(index++, " 20 "));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_1",
+                        generatedId,
+                        programLanguage,
+                        "while loop",
+                        "Repeats a statement or group of statements while a given condition is true. It tests the condition before executing the loop body.",
+                        "Syntax : \n" +
+                                "while(condition) {\n" +
+                                "   statement(s);\n" +
+                                "}",
+                        "Output : \n Here, statement(s) may be a single statement or a block of statements. The condition may be any expression, and true is any nonzero value. The loop iterates while the condition is true.\n" +
+                                "\n" +
+                                "When the condition becomes false, the program control passes to the line immediately following the loop.",
+                        "Write a while loop to loop till a < 20 : \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   /* local variable definition */\n" +
+                                "   int a = 10;\n" +
+                                "\n" +
+                                "   /* while loop execution */\n" +
+                                "   //Your while loop here\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "      a++;\n" +
+                                "   }\n" +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "value of a",
+                        "while( a < 20 ) {",
+                        moduleOptions
+                        ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "for( "));
+        moduleOptions.add(new ModuleOption(index++, "a = 10;"));
+        moduleOptions.add(new ModuleOption(index++, " : "));
+        moduleOptions.add(new ModuleOption(index++, " a < 20 "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
+        moduleOptions.add(new ModuleOption(index++, ";"));
+        moduleOptions.add(new ModuleOption(index++, ")"));
+        moduleOptions.add(new ModuleOption(index++, "a++"));
+        moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
+
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_2",
                         generatedId,
                         programLanguage,
-                        "puts",
-                        "The puts() function is a very simple way to send a string to the screen when you have no placeholders to be concerned about. (The puts function appends a newline character to its output.)",
-                        "Example : puts(\"Print this string.\");",
-                        "Print this string.",
-                        "Write command to print : Infinite Programmer",
-                        "Infinite Programmer",
-                        "puts(\"Infinite Programmer\");",
+                        "for loop",
+                        "Executes a sequence of statements multiple times and abbreviates the code that manages the loop variable.",
+                        "Syntax : \n" +
+                                "for ( init; condition; increment ) {\n" +
+                                "   statement(s);\n" +
+                                "}",
+                        "Output : \n Here is the flow of control in a 'for' loop −\n" +
+                                "\n\n" +
+                                "The init step is executed first, and only once. This step allows you to declare and initialize any loop control variables. You are not required to put a statement here, as long as a semicolon appears.\n" +
+                                "\n\n" +
+                                "Next, the condition is evaluated. If it is true, the body of the loop is executed. If it is false, the body of the loop does not execute and the flow of control jumps to the next statement just after the 'for' loop.\n" +
+                                "\n" +
+                                "After the body of the 'for' loop executes, the flow of control jumps back up to the increment statement. This statement allows you to update any loop control variables. This statement can be left blank, as long as a semicolon appears after the condition.\n" +
+                                "\n\n" +
+                                "The condition is now evaluated again. If it is true, the loop executes and the process repeats itself (body of loop, then increment step, and then again condition). After the condition becomes false, the 'for' loop terminates.",
+                        "Place your for loop to produce expetcted output : \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   int a;\n" +
+                                "\t\n" +
+                                "   /* for loop execution */\n" +
+                                "   //Your for loop here{\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "   }\n" +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "value of a",
+                        "for( a = 10; a < 20; a++ )",
                         moduleOptions
-                        ));
-        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Simple input and output", "How to show and read", programLanguage ));
+                ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "else "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"value of a: %d\\n\", a);\n"));
+        moduleOptions.add(new ModuleOption(index++, "   do {\n" ));
+        moduleOptions.add(new ModuleOption(index++, " 0 "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
+        moduleOptions.add(new ModuleOption(index++, ";"));
+        moduleOptions.add(new ModuleOption(index++, "   }"));
+        moduleOptions.add(new ModuleOption(index++, "      a = a + 1;\n"));
+        moduleOptions.add(new ModuleOption(index++, "   }while( a < 20 );\n"));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_3",
+                        generatedId,
+                        programLanguage,
+                        "do...while loop",
+                        "It is more like a while statement, except that it tests the condition at the end of the loop body.",
+                        "Syntax : \n" +
+                                "do {\n" +
+                                "   statement(s);\n" +
+                                "} ",
+                        "Output : \n Notice that the conditional expression appears at the end of the loop, so the statement(s) in the loop executes once before the condition is tested.\n" +
+                                "\n" +
+                                "If the condition is true, the flow of control jumps back up to do, and the statement(s) in the loop executes again. This process repeats until the given condition becomes false.",
+                        "Place your do while for expected output : \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   /* local variable definition */\n" +
+                                "   int a = 10;\n" +
+                                "\n" +
+                                "   /* do loop execution */\n" +
+                                "   //Your do while loop here\n"
+                                 +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "value of a:",
+                        "   do {\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "      a = a + 1;\n" +
+                                "   }while( a < 20 );\n",
+                        moduleOptions
+                ));
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+
+        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
 
     }
 

@@ -15,3 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Add this to the 'proguard-rules.pro' file
+#-keep public class * implements co.uk.rushorm.core.Rush { *; }

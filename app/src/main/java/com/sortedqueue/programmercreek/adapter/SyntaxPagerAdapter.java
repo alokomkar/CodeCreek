@@ -15,10 +15,11 @@ import java.util.ArrayList;
  */
 public class SyntaxPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<SyntaxLearnActivityFragment> syntaxLearnActivityFragments = new ArrayList<>();
+    private ArrayList<SyntaxLearnActivityFragment> syntaxLearnActivityFragments;
 
     public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
         super(fm);
+        syntaxLearnActivityFragments = new ArrayList<>();
         for( SyntaxModule syntaxModule : syntaxModules ) {
             SyntaxLearnActivityFragment fillBlankFragment = new SyntaxLearnActivityFragment();
             fillBlankFragment.setSyntaxModule( syntaxModule );

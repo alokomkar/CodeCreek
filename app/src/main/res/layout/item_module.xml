@@ -4,8 +4,6 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_8"
-    android:layout_marginRight="@dimen/margin_8"
     android:layout_marginTop="@dimen/margin_4"
     android:layout_marginBottom="@dimen/margin_4"
     card_view:cardBackgroundColor="@color/md_white_1000"
@@ -16,6 +14,13 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/module"/>
 
         <TextView
             android:layout_width="match_parent"

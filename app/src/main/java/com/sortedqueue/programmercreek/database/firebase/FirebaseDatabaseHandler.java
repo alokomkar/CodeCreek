@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.database.firebase;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
+import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
@@ -22,11 +24,9 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushSearch;
-import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by binay on 05/12/16.
@@ -53,6 +53,8 @@ public class FirebaseDatabaseHandler {
     private String TAG = FirebaseDatabaseHandler.class.getSimpleName();
     private DatabaseHandler databaseHandler;
     private ArrayList<Program_Table> program_tables;
+    private DatabaseReference mCreekUserDBDatabase;
+    private String CREEK_USER_DB = "creek_user_db_version";
 
     /***
      * Program Index storage :
@@ -92,6 +94,13 @@ public class FirebaseDatabaseHandler {
         return mUserDetailsDatabase;
     }
 
+    public void getCreekUserDBDatabase() {
+        if( mCreekUserDBDatabase == null ) {
+            mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_DB );
+            mCreekUserDBDatabase.keepSynced(true);
+        }
+    }
+
     public FirebaseDatabaseHandler(Context context) {
         this.mContext = context;
         creekPreferences = new CreekPreferences(mContext);
@@ -99,6 +108,7 @@ public class FirebaseDatabaseHandler {
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
+        getCreekUserDBDatabase();
         getProgramDatabase();
         getUserDatabase();
         getUserDetailsDatabase();
@@ -152,6 +162,34 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( creekUser.getEmailId().replaceAll("[-+.^:,]","")).setValue(creekUser);
     }
 
+    public void writeCreekUserDB(CreekUserDB creekUserDB) {
+        mCreekUserDBDatabase.setValue(creekUserDB);
+    }
+
+    public interface GetCreekUserDBListener {
+        void onSuccess( CreekUserDB creekUserDB );
+        void onError( DatabaseError databaseError );
+    }
+    public void readCreekUserDB(final GetCreekUserDBListener getCreekUserDBListener ) {
+        mCreekUserDBDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot != null ) {
+                    CreekUserDB creekUserDB = dataSnapshot.getValue(CreekUserDB.class);
+                    if( creekUserDB != null ) {
+                        getCreekUserDBListener.onSuccess(creekUserDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getCreekUserDBListener.onError(databaseError);
+            }
+        });
+    }
+
+
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
@@ -172,7 +210,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError error );
     }
 
-    public void initalizeSyntax( LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
+    public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
         if( !creekPreferences.getSyntaxInserted() ) {
 
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,12 +218,14 @@ public class FirebaseDatabaseHandler {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ArrayList<SyntaxModule> syntaxModules = new ArrayList<>();
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
-                        SyntaxModule languageModule = childDataSnapShot.getValue(SyntaxModule.class);
-                        languageModule.save();
-                        syntaxModules.add(languageModule);
+                        SyntaxModule syntaxModule = childDataSnapShot.getValue(SyntaxModule.class);
+                        syntaxModule.save();
+                        if( syntaxModule.getModuleId().equals(languageModule.getModuleId()) ) {
+                            syntaxModules.add(syntaxModule);
+                        }
                     }
                     syntaxInterface.getSyntaxModules(syntaxModules);
-                    creekPreferences.setModulesInserted(true);
+                    creekPreferences.setSyntaxInserted(true);
                 }
 
                 @Override
@@ -195,19 +235,25 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            new RushSearch()
-                    .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
-                    .whereEqual("syntaxModuleId", languageModule.getModuleId())
-                    .find(SyntaxModule.class, new RushSearchCallback<SyntaxModule>() {
-                        @Override
-                        public void complete(List<SyntaxModule> list) {
-                            ArrayList<SyntaxModule> modules = new ArrayList<>();
-                            if( list != null ) {
-                                modules.addAll(list);
-                            }
-                            syntaxInterface.getSyntaxModules(modules);
-                        }
-                    });
+            new AsyncTask<Void, Void, ArrayList<SyntaxModule>>() {
+
+                @Override
+                protected ArrayList<SyntaxModule> doInBackground(Void... voids) {
+                    ArrayList<SyntaxModule> syntaxModules = new ArrayList<>(new RushSearch()
+                            .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                            .and()
+                            .whereEqual("moduleId", languageModule.getModuleId())
+                            .find(SyntaxModule.class));
+                    return syntaxModules;
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<SyntaxModule> syntaxModules) {
+                    super.onPostExecute(syntaxModules);
+                    syntaxInterface.getSyntaxModules(syntaxModules);
+                }
+            }.execute();
+
         }
     }
 
@@ -235,18 +281,22 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            new RushSearch()
-                    .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
-                    .find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
-                        @Override
-                        public void complete(List<LanguageModule> list) {
-                            ArrayList<LanguageModule> modules = new ArrayList<>();
-                            if( list != null ) {
-                                modules.addAll(list);
-                            }
-                            moduleInterface.getModules(modules);
-                        }
-                    });
+            new AsyncTask<Void, Void, ArrayList<LanguageModule>>() {
+
+                @Override
+                protected ArrayList<LanguageModule> doInBackground(Void... voids) {
+                    return new ArrayList<LanguageModule>(new RushSearch()
+                            .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                            .find(LanguageModule.class));
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<LanguageModule> languageModules) {
+                    super.onPostExecute(languageModules);
+                    moduleInterface.getModules(languageModules);
+                }
+            }.execute();
+
         }
     }
 
