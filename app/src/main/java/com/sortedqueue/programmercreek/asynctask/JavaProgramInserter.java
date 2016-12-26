@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -221,7 +222,7 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 1;
+        int moduleId = 6;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
@@ -237,7 +238,7 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, " &a"));
         moduleOptions.add(new ModuleOption(index++, " &s"));
         moduleOptions.add(new ModuleOption(index++, " );"));
-        firebaseDatabaseHandler.writeSyntaxModule(
+        /*firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_6",
                         generatedId,
@@ -263,8 +264,8 @@ public class JavaProgramInserter {
                         "reads s",
                         "getchar(s);",
                         moduleOptions
-                        ));
-        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Simple input and output", "How to show and read", programLanguage ));
+                        ));*/
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
 
     }
 

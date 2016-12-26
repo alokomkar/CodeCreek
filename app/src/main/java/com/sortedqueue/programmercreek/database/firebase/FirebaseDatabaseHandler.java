@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.database.firebase;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -172,7 +173,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError error );
     }
 
-    public void initalizeSyntax( LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
+    public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
         if( !creekPreferences.getSyntaxInserted() ) {
 
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,12 +181,14 @@ public class FirebaseDatabaseHandler {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ArrayList<SyntaxModule> syntaxModules = new ArrayList<>();
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
-                        SyntaxModule languageModule = childDataSnapShot.getValue(SyntaxModule.class);
-                        languageModule.save();
-                        syntaxModules.add(languageModule);
+                        SyntaxModule syntaxModule = childDataSnapShot.getValue(SyntaxModule.class);
+                        syntaxModule.save();
+                        if( syntaxModule.getModuleId().equals(languageModule.getModuleId()) ) {
+                            syntaxModules.add(syntaxModule);
+                        }
                     }
                     syntaxInterface.getSyntaxModules(syntaxModules);
-                    creekPreferences.setModulesInserted(true);
+                    creekPreferences.setSyntaxInserted(true);
                 }
 
                 @Override
@@ -195,19 +198,25 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            new RushSearch()
-                    .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
-                    .whereEqual("syntaxModuleId", languageModule.getModuleId())
-                    .find(SyntaxModule.class, new RushSearchCallback<SyntaxModule>() {
-                        @Override
-                        public void complete(List<SyntaxModule> list) {
-                            ArrayList<SyntaxModule> modules = new ArrayList<>();
-                            if( list != null ) {
-                                modules.addAll(list);
-                            }
-                            syntaxInterface.getSyntaxModules(modules);
-                        }
-                    });
+            new AsyncTask<Void, Void, ArrayList<SyntaxModule>>() {
+
+                @Override
+                protected ArrayList<SyntaxModule> doInBackground(Void... voids) {
+                    ArrayList<SyntaxModule> syntaxModules = new ArrayList<>(new RushSearch()
+                            .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                            .and()
+                            .whereEqual("moduleId", languageModule.getModuleId())
+                            .find(SyntaxModule.class));
+                    return syntaxModules;
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<SyntaxModule> syntaxModules) {
+                    super.onPostExecute(syntaxModules);
+                    syntaxInterface.getSyntaxModules(syntaxModules);
+                }
+            }.execute();
+
         }
     }
 

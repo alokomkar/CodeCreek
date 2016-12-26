@@ -91,7 +91,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     public void onModuleLoad(final LanguageModule module) {
 
         CommonUtils.displayProgressDialog(SyntaxLearnActivity.this, "Loading material");
-        new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initalizeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
+        new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initializeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
             @Override
             public void getSyntaxModules(ArrayList<SyntaxModule> syntaxModules) {
                 setupViewPager(module, syntaxModules);

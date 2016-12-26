@@ -25,11 +25,13 @@ public class CommonUtils {
 
     public static void displayProgressDialog(Context context, String message ) {
         dismissProgressDialog();
-        mProgressDialog = new ProgressDialog(context);
-        mProgressDialog.setMessage(message);
-        mProgressDialog.setIndeterminate(false);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
+        if( context != null ) {
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setMessage(message);
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
     }
 
     public static void dismissProgressDialog( ) {
