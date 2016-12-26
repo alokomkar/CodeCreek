@@ -2,7 +2,6 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
-import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -222,7 +221,7 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 6;
+        int moduleId = 3;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
@@ -230,42 +229,51 @@ public class JavaProgramInserter {
         String generatedId = programLanguage + "_" + moduleId;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
         moduleOptions.add(new ModuleOption(index++, "\"%s\""));
         moduleOptions.add(new ModuleOption(index++, "gets("));
         moduleOptions.add(new ModuleOption(index++, "getchar("));
-        moduleOptions.add(new ModuleOption(index++, "s"));
-        moduleOptions.add(new ModuleOption(index++, " &a"));
-        moduleOptions.add(new ModuleOption(index++, " &s"));
-        moduleOptions.add(new ModuleOption(index++, " );"));
-        /*firebaseDatabaseHandler.writeSyntaxModule(
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "80;"));
+        moduleOptions.add(new ModuleOption(index++, "#const "));
+        moduleOptions.add(new ModuleOption(index++, "const "));
+        moduleOptions.add(new ModuleOption(index++, "int "));
+        moduleOptions.add(new ModuleOption(index++, "HEIGHT "));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_6",
                         generatedId,
                         programLanguage,
-                        "getchar() ",
-                        "The int getchar(void) function reads the next available character from the screen and returns it as an integer. This function reads only single character at a time. You can use this method in the loop in case you want to read more than one character from the screen.",
-                        "Example : \n" +"#include <stdio.h>\n" +
-                                "int main( ) {\n" +
+                        "Defining Constants : The const Keyword  ",
+                        "You can use const prefix to declare constants with a specific type as follows " ,
+                        "Syntax : const type variable = value;+\n\n"
+                                +"Example : \n\n " +
+                                "#include <stdio.h>\n" +
                                 "\n" +
-                                "   int c;\n" +
+                                "int main() {\n" +
                                 "\n" +
-                                "   printf( \"Enter a value :\");\n" +
-                                "   c = getchar( );\n" +
-                                "\n" +
-                                "   printf( \"\\nYou entered: \");\n" +
-                                "   putchar( c );\n" +
+                                "   const int  LENGTH = 10;\n" +
+                                "   const int  WIDTH = 5;\n" +
+                                "   const char NEWLINE = '\\n';\n" +
+                                "   int area;  \n" +
+                                "   \n" +
+                                "   area = LENGTH * WIDTH;\n" +
+                                "   printf(\"value of area : %d\", area);\n" +
+                                "   printf(\"%c\", NEWLINE);\n" +
                                 "\n" +
                                 "   return 0;\n" +
                                 "}",
-                        "Enter a value : this is test\n" +
-                                "You entered: t",
-                        "Write command to read a char value : s",
-                        "reads s",
-                        "getchar(s);",
+                        "value of area : 50",
+                        "Define a constant HEIGHT : 80",
+                        "declare HEIGHT",
+                        "const int HEIGHT 80",
                         moduleOptions
-                        ));*/
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
+                        ));
+        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
 
     }
 
