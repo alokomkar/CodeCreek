@@ -221,7 +221,7 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 3;
+        int moduleId = 5;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
@@ -237,42 +237,250 @@ public class JavaProgramInserter {
 
         /*moduleOptions.add(new ModuleOption(index++, "s;"));
         moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "80;"));
-        moduleOptions.add(new ModuleOption(index++, "#const "));
-        moduleOptions.add(new ModuleOption(index++, "const "));
-        moduleOptions.add(new ModuleOption(index++, "int "));
-        moduleOptions.add(new ModuleOption(index++, "HEIGHT "));
+        moduleOptions.add(new ModuleOption(index++, "9 "));
+        moduleOptions.add(new ModuleOption(index++, "a "));
+        moduleOptions.add(new ModuleOption(index++, "< "));
+        moduleOptions.add(new ModuleOption(index++, "20"));
 
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
-                        "s_6",
+                        "s_1",
                         generatedId,
                         programLanguage,
-                        "Defining Constants : The const Keyword  ",
-                        "You can use const prefix to declare constants with a specific type as follows " ,
-                        "Syntax : const type variable = value;+\n\n"
-                                +"Example : \n\n " +
+                        "if statement",
+                        "An if statement consists of a boolean expression followed by one or more statements.",
+                        "Syntax : \n" +
+                                "if(boolean_expression) {\n" +
+                                "   /* statement(s) will execute if the boolean expression is true */\n" +
+                                "}",
+                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
+                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed.",
+                        "Replace boolean expression to produce expetcted output : \n" +
                                 "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
                                 "\n" +
-                                "int main() {\n" +
-                                "\n" +
-                                "   const int  LENGTH = 10;\n" +
-                                "   const int  WIDTH = 5;\n" +
-                                "   const char NEWLINE = '\\n';\n" +
-                                "   int area;  \n" +
+                                "   /* local variable definition */\n" +
+                                "   int a = 10;\n" +
+                                " \n" +
+                                "   /* check the boolean condition using if statement */\n" +
+                                "\t\n" +
+                                "   if( boolean_expression ) {\n" +
+                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
+                                "      printf(\"a is less than 20\\n\" );\n" +
+                                "   }\n" +
                                 "   \n" +
-                                "   area = LENGTH * WIDTH;\n" +
-                                "   printf(\"value of area : %d\", area);\n" +
-                                "   printf(\"%c\", NEWLINE);\n" +
-                                "\n" +
+                                "   printf(\"value of a is : %d\\n\", a);\n" +
+                                " \n" +
                                 "   return 0;\n" +
                                 "}",
-                        "value of area : 50",
-                        "Define a constant HEIGHT : 80",
-                        "declare HEIGHT",
-                        "const int HEIGHT 80",
+                        "a is less than 20",
+                        "a < 20",
                         moduleOptions
                         ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "else {\n"));
+        moduleOptions.add(new ModuleOption(index++, "condition "));
+        moduleOptions.add(new ModuleOption(index++, " : "));
+        moduleOptions.add(new ModuleOption(index++, " 0 "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
+        moduleOptions.add(new ModuleOption(index++, ";"));
+        moduleOptions.add(new ModuleOption(index++, "   }"));
+        moduleOptions.add(new ModuleOption(index++, "int x"));
+        moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_2",
+                        generatedId,
+                        programLanguage,
+                        "if..else statement",
+                        "An if statement can be followed by an optional else statement, which executes when the Boolean expression is false.",
+                        "Syntax : \n" +
+                                "if(boolean_expression) {\n" +
+                                "   /* statement(s) will execute if the boolean expression is true */\n" +
+                                "}\n" +
+                                "else {\n" +
+                                "   /* statement(s) will execute if the boolean expression is false */\n" +
+                                "}",
+                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
+                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed.",
+                        "Place else to produce expetcted output : \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   /* local variable definition */\n" +
+                                "   int a = 10;\n" +
+                                " \n" +
+                                "   /* check the boolean condition using if statement */\n" +
+                                "\t\n" +
+                                "   if( a < 20 ) {\n" +
+                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
+                                "      printf(\"a is less than 20\\n\" );\n" +
+                                "   }//Your else part here\n" +
+                                "   \n" +
+                                "   printf(\"value of a is : %d\\n\", a);\n" +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "a is not less than 20",
+                        "else {\n" +
+                                "      printf(\"a is not less than 20\\n\" );\n" +
+                                "   }",
+                        moduleOptions
+                ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "else "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is less than 10\\n\" );\n"));
+        moduleOptions.add(new ModuleOption(index++, "if( a < 10 ) {\n"));
+        moduleOptions.add(new ModuleOption(index++, " 0 "));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
+        moduleOptions.add(new ModuleOption(index++, ";"));
+        moduleOptions.add(new ModuleOption(index++, "   }"));
+        moduleOptions.add(new ModuleOption(index++, "int x"));
+        moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_3",
+                        generatedId,
+                        programLanguage,
+                        "if..else if statement",
+                        "An if statement can be followed an else if followed by an optional else statement, which executes when none of conditions match.",
+                        "Syntax : \n" +
+                                "if(boolean_expression1) {\n" +
+                                "   /* statement(s) will execute if the boolean expression is true */\n" +
+                                "}\n" +
+                                "else if(boolean_expression2) {\n" +
+                                "   /* statement(s) will execute if the boolean expression is true */\n" +
+                                "}\n" +
+                                "else {\n" +
+                                "   /* statement(s) will execute if the boolean expression is false */\n" +
+                                "}",
+                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
+                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed; if not the else part is executed",
+                        "Place else if to produce expected output : \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   /* local variable definition */\n" +
+                                "   int a = 10;\n" +
+                                " \n" +
+                                "   /* check the boolean condition using if statement */\n" +
+                                "\t\n" +
+                                "   if( a < 20 ) {\n" +
+                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
+                                "      printf(\"a is less than 20\\n\" );\n" +
+                                "   }//Your if else part here\n" +
+                                "   else printf(\"No values matched\")" +
+                                "   \n" +
+                                "   printf(\"value of a is : %d\\n\", a);\n" +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "a is less than 10",
+                        "else if( a < 10 ) {\n" +
+                                "      printf(\"a is less than 10\\n\" );\n" +
+                                "   }",
+                        moduleOptions
+                ));
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, "Excellent!"));
+        moduleOptions.add(new ModuleOption(index++, "You passed"));
+        moduleOptions.add(new ModuleOption(index++, "Well done"));
+        moduleOptions.add(new ModuleOption(index++, "Better try again"));
+        moduleOptions.add(new ModuleOption(index++, "Invalid grade"));
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_4",
+                        generatedId,
+                        programLanguage,
+                        "switch statement",
+                        "A switch statement allows a variable to be tested for equality against a list of values. Each value is called a case, and the variable being switched on is checked for each switch case." ,
+                        "Example : \n" +
+                                "switch(expression) {\n" +
+                                "\n" +
+                                "   case constant-expression  :\n" +
+                                "      statement(s);\n" +
+                                "      break; /* optional */\n" +
+                                "\t\n" +
+                                "   case constant-expression  :\n" +
+                                "      statement(s);\n" +
+                                "      break; /* optional */\n" +
+                                "  \n" +
+                                "   /* you can have any number of case statements */\n" +
+                                "   default : /* Optional */\n" +
+                                "   statement(s);\n" +
+                                "}"
+                        ,
+
+                        "Corresponding case gets executed, else default is executed",
+                        "What's the output ? \n" +
+                                "#include <stdio.h>\n" +
+                                " \n" +
+                                "int main () {\n" +
+                                "\n" +
+                                "   /* local variable definition */\n" +
+                                "   char grade = 'B';\n" +
+                                "\n" +
+                                "   switch(grade) {\n" +
+                                "      case 'A' :\n" +
+                                "         printf(\"Excellent!\\n\" );\n" +
+                                "         break;\n" +
+                                "      case 'B' :\n" +
+                                "      case 'C' :\n" +
+                                "         printf(\"Well done\\n\" );\n" +
+                                "         break;\n" +
+                                "      case 'D' :\n" +
+                                "         printf(\"You passed\\n\" );\n" +
+                                "         break;\n" +
+                                "      case 'F' :\n" +
+                                "         printf(\"Better try again\\n\" );\n" +
+                                "         break;\n" +
+                                "      default :\n" +
+                                "         printf(\"Invalid grade\\n\" );\n" +
+                                "   }\n" +
+                                "   \n" +
+                                "   printf(\"Your grade is  %c\\n\", grade );\n" +
+                                " \n" +
+                                "   return 0;\n" +
+                                "}",
+                        "Result : switch to the right grade",
+                        "Well done",
+                        moduleOptions
+                ));
         //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
 
     }

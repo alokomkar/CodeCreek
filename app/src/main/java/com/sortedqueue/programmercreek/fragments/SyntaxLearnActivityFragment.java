@@ -20,7 +20,6 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
-import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -42,6 +41,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     ImageView checkSyntaxImageView;
     @Bind(R.id.clearSyntaxImageView)
     ImageView clearSyntaxImageView;
+    @Bind(R.id.hintSyntaxImageView)
+    ImageView hintSyntaxImageView;
     @Bind(R.id.content_syntax_learn)
     RelativeLayout contentSyntaxLearn;
     @Bind(R.id.syntaxNameTextView)
@@ -89,6 +90,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         }
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
+        hintSyntaxImageView.setOnClickListener(this);
     }
 
     private void setupRecyclerView(ArrayList<ModuleOption> syntaxOptions) {
@@ -122,13 +124,16 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case R.id.checkSyntaxImageView :
                 checkSolution();
                 break;
+            case R.id.hintSyntaxImageView :
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "Solution : " + syntaxModule.getSyntaxSolution(), Snackbar.LENGTH_LONG).show();
+                break;
         }
     }
 
     private void checkSolution() {
         String solutionText =  syntaxSolutionTextView.getText().toString();
-        if( solutionText.equals(syntaxModule.getSyntaxSolution()) ) {
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, its the right syntax", Snackbar.LENGTH_LONG).show();
+        if( solutionText.trim().equals(syntaxModule.getSyntaxSolution().trim()) ) {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, You've got it right", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
         }

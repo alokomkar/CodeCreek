@@ -23,11 +23,9 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushSearch;
-import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by binay on 05/12/16.
@@ -244,18 +242,22 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            new RushSearch()
-                    .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
-                    .find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
-                        @Override
-                        public void complete(List<LanguageModule> list) {
-                            ArrayList<LanguageModule> modules = new ArrayList<>();
-                            if( list != null ) {
-                                modules.addAll(list);
-                            }
-                            moduleInterface.getModules(modules);
-                        }
-                    });
+            new AsyncTask<Void, Void, ArrayList<LanguageModule>>() {
+
+                @Override
+                protected ArrayList<LanguageModule> doInBackground(Void... voids) {
+                    return new ArrayList<LanguageModule>(new RushSearch()
+                            .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                            .find(LanguageModule.class));
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<LanguageModule> languageModules) {
+                    super.onPostExecute(languageModules);
+                    moduleInterface.getModules(languageModules);
+                }
+            }.execute();
+
         }
     }
 
