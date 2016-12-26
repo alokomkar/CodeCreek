@@ -2,7 +2,6 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
-import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -230,23 +229,39 @@ public class JavaProgramInserter {
         String generatedId = programLanguage + "_" + moduleId;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, "printf("));
-        moduleOptions.add(new ModuleOption(index++, "\"Infinite Programmer\""));
-        moduleOptions.add(new ModuleOption(index++, "puts("));
-        moduleOptions.add(new ModuleOption(index++, ");"));
-        moduleOptions.add(new ModuleOption(index++, "(;"));
+        moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, "s"));
+        moduleOptions.add(new ModuleOption(index++, " &a"));
+        moduleOptions.add(new ModuleOption(index++, " &s"));
+        moduleOptions.add(new ModuleOption(index++, " );"));
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
-                        "s_2",
+                        "s_6",
                         generatedId,
                         programLanguage,
-                        "puts",
-                        "The puts() function is a very simple way to send a string to the screen when you have no placeholders to be concerned about. (The puts function appends a newline character to its output.)",
-                        "Example : puts(\"Print this string.\");",
-                        "Print this string.",
-                        "Write command to print : Infinite Programmer",
-                        "Infinite Programmer",
-                        "puts(\"Infinite Programmer\");",
+                        "getchar() ",
+                        "The int getchar(void) function reads the next available character from the screen and returns it as an integer. This function reads only single character at a time. You can use this method in the loop in case you want to read more than one character from the screen.",
+                        "Example : \n" +"#include <stdio.h>\n" +
+                                "int main( ) {\n" +
+                                "\n" +
+                                "   int c;\n" +
+                                "\n" +
+                                "   printf( \"Enter a value :\");\n" +
+                                "   c = getchar( );\n" +
+                                "\n" +
+                                "   printf( \"\\nYou entered: \");\n" +
+                                "   putchar( c );\n" +
+                                "\n" +
+                                "   return 0;\n" +
+                                "}",
+                        "Enter a value : this is test\n" +
+                                "You entered: t",
+                        "Write command to read a char value : s",
+                        "reads s",
+                        "getchar(s);",
                         moduleOptions
                         ));
         //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Simple input and output", "How to show and read", programLanguage ));

@@ -82,7 +82,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         if (item.getItemId() == R.id.action_hint) {
             Snackbar.make(findViewById(android.R.id.content), "Display your hint here", Snackbar.LENGTH_LONG).show();
         } else if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -131,5 +131,17 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             }
         });
         CommonUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        String title = getSupportActionBar().getTitle().toString();
+        Log.d(TAG, "onBackPress : " + title);
+        if( !title.equals("Modules") ) {
+            loadModulesFragment();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }
