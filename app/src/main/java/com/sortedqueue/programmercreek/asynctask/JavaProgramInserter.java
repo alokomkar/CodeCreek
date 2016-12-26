@@ -221,7 +221,7 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 5;
+        int moduleId = 6;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
@@ -237,45 +237,46 @@ public class JavaProgramInserter {
 
         /*moduleOptions.add(new ModuleOption(index++, "s;"));
         moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "9 "));
-        moduleOptions.add(new ModuleOption(index++, "a "));
-        moduleOptions.add(new ModuleOption(index++, "< "));
-        moduleOptions.add(new ModuleOption(index++, "20"));
+        moduleOptions.add(new ModuleOption(index++, "while"));
+        moduleOptions.add(new ModuleOption(index++, "<"));
+        moduleOptions.add(new ModuleOption(index++, "("));
+        moduleOptions.add(new ModuleOption(index++, " {"));
+        moduleOptions.add(new ModuleOption(index++, " a "));
+        moduleOptions.add(new ModuleOption(index++, ")"));
+        moduleOptions.add(new ModuleOption(index++, " 20 "));
 
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_1",
                         generatedId,
                         programLanguage,
-                        "if statement",
-                        "An if statement consists of a boolean expression followed by one or more statements.",
+                        "while loop",
+                        "Repeats a statement or group of statements while a given condition is true. It tests the condition before executing the loop body.",
                         "Syntax : \n" +
-                                "if(boolean_expression) {\n" +
-                                "   /* statement(s) will execute if the boolean expression is true */\n" +
+                                "while(condition) {\n" +
+                                "   statement(s);\n" +
                                 "}",
-                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
-                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed.",
-                        "Replace boolean expression to produce expetcted output : \n" +
+                        "Output : \n Here, statement(s) may be a single statement or a block of statements. The condition may be any expression, and true is any nonzero value. The loop iterates while the condition is true.\n" +
+                                "\n" +
+                                "When the condition becomes false, the program control passes to the line immediately following the loop.",
+                        "Write a while loop to loop till a < 20 : \n" +
                                 "#include <stdio.h>\n" +
                                 " \n" +
                                 "int main () {\n" +
                                 "\n" +
                                 "   /* local variable definition */\n" +
                                 "   int a = 10;\n" +
-                                " \n" +
-                                "   /* check the boolean condition using if statement */\n" +
-                                "\t\n" +
-                                "   if( boolean_expression ) {\n" +
-                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
-                                "      printf(\"a is less than 20\\n\" );\n" +
+                                "\n" +
+                                "   /* while loop execution */\n" +
+                                "   //Your while loop here\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "      a++;\n" +
                                 "   }\n" +
-                                "   \n" +
-                                "   printf(\"value of a is : %d\\n\", a);\n" +
                                 " \n" +
                                 "   return 0;\n" +
                                 "}",
-                        "a is less than 20",
-                        "a < 20",
+                        "value of a",
+                        "while( a < 20 ) {",
                         moduleOptions
                         ));
 
@@ -289,14 +290,14 @@ public class JavaProgramInserter {
 
         /*moduleOptions.add(new ModuleOption(index++, "s;"));
         moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "else {\n"));
-        moduleOptions.add(new ModuleOption(index++, "condition "));
+        moduleOptions.add(new ModuleOption(index++, "for( "));
+        moduleOptions.add(new ModuleOption(index++, "a = 10;"));
         moduleOptions.add(new ModuleOption(index++, " : "));
-        moduleOptions.add(new ModuleOption(index++, " 0 "));
+        moduleOptions.add(new ModuleOption(index++, " a < 20 "));
         moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
         moduleOptions.add(new ModuleOption(index++, ";"));
-        moduleOptions.add(new ModuleOption(index++, "   }"));
-        moduleOptions.add(new ModuleOption(index++, "int x"));
+        moduleOptions.add(new ModuleOption(index++, ")"));
+        moduleOptions.add(new ModuleOption(index++, "a++"));
         moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
 
         firebaseDatabaseHandler.writeSyntaxModule(
@@ -304,40 +305,37 @@ public class JavaProgramInserter {
                         "s_2",
                         generatedId,
                         programLanguage,
-                        "if..else statement",
-                        "An if statement can be followed by an optional else statement, which executes when the Boolean expression is false.",
+                        "for loop",
+                        "Executes a sequence of statements multiple times and abbreviates the code that manages the loop variable.",
                         "Syntax : \n" +
-                                "if(boolean_expression) {\n" +
-                                "   /* statement(s) will execute if the boolean expression is true */\n" +
-                                "}\n" +
-                                "else {\n" +
-                                "   /* statement(s) will execute if the boolean expression is false */\n" +
+                                "for ( init; condition; increment ) {\n" +
+                                "   statement(s);\n" +
                                 "}",
-                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
-                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed.",
-                        "Place else to produce expetcted output : \n" +
+                        "Output : \n Here is the flow of control in a 'for' loop −\n" +
+                                "\n\n" +
+                                "The init step is executed first, and only once. This step allows you to declare and initialize any loop control variables. You are not required to put a statement here, as long as a semicolon appears.\n" +
+                                "\n\n" +
+                                "Next, the condition is evaluated. If it is true, the body of the loop is executed. If it is false, the body of the loop does not execute and the flow of control jumps to the next statement just after the 'for' loop.\n" +
+                                "\n" +
+                                "After the body of the 'for' loop executes, the flow of control jumps back up to the increment statement. This statement allows you to update any loop control variables. This statement can be left blank, as long as a semicolon appears after the condition.\n" +
+                                "\n\n" +
+                                "The condition is now evaluated again. If it is true, the loop executes and the process repeats itself (body of loop, then increment step, and then again condition). After the condition becomes false, the 'for' loop terminates.",
+                        "Place your for loop to produce expetcted output : \n" +
                                 "#include <stdio.h>\n" +
                                 " \n" +
                                 "int main () {\n" +
                                 "\n" +
-                                "   /* local variable definition */\n" +
-                                "   int a = 10;\n" +
-                                " \n" +
-                                "   /* check the boolean condition using if statement */\n" +
+                                "   int a;\n" +
                                 "\t\n" +
-                                "   if( a < 20 ) {\n" +
-                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
-                                "      printf(\"a is less than 20\\n\" );\n" +
-                                "   }//Your else part here\n" +
-                                "   \n" +
-                                "   printf(\"value of a is : %d\\n\", a);\n" +
+                                "   /* for loop execution */\n" +
+                                "   //Your for loop here{\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "   }\n" +
                                 " \n" +
                                 "   return 0;\n" +
                                 "}",
-                        "a is not less than 20",
-                        "else {\n" +
-                                "      printf(\"a is not less than 20\\n\" );\n" +
-                                "   }",
+                        "value of a",
+                        "for( a = 10; a < 20; a++ )",
                         moduleOptions
                 ));
 
@@ -352,58 +350,48 @@ public class JavaProgramInserter {
         /*moduleOptions.add(new ModuleOption(index++, "s;"));
         moduleOptions.add(new ModuleOption(index++, "extern "));*/
         moduleOptions.add(new ModuleOption(index++, "else "));
-        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is less than 10\\n\" );\n"));
-        moduleOptions.add(new ModuleOption(index++, "if( a < 10 ) {\n"));
+        moduleOptions.add(new ModuleOption(index++, "      printf(\"value of a: %d\\n\", a);\n"));
+        moduleOptions.add(new ModuleOption(index++, "   do {\n" ));
         moduleOptions.add(new ModuleOption(index++, " 0 "));
         moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
         moduleOptions.add(new ModuleOption(index++, ";"));
         moduleOptions.add(new ModuleOption(index++, "   }"));
-        moduleOptions.add(new ModuleOption(index++, "int x"));
-        moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
+        moduleOptions.add(new ModuleOption(index++, "      a = a + 1;\n"));
+        moduleOptions.add(new ModuleOption(index++, "   }while( a < 20 );\n"));
 
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_3",
                         generatedId,
                         programLanguage,
-                        "if..else if statement",
-                        "An if statement can be followed an else if followed by an optional else statement, which executes when none of conditions match.",
+                        "do...while loop",
+                        "It is more like a while statement, except that it tests the condition at the end of the loop body.",
                         "Syntax : \n" +
-                                "if(boolean_expression1) {\n" +
-                                "   /* statement(s) will execute if the boolean expression is true */\n" +
-                                "}\n" +
-                                "else if(boolean_expression2) {\n" +
-                                "   /* statement(s) will execute if the boolean expression is true */\n" +
-                                "}\n" +
-                                "else {\n" +
-                                "   /* statement(s) will execute if the boolean expression is false */\n" +
-                                "}",
-                        "Output : \n If the Boolean expression evaluates to true, then the block of code inside the 'if' statement will be executed. If the Boolean expression evaluates to false, " +
-                                "then the first set of code after the end of the 'if' statement (after the closing curly brace) will be executed; if not the else part is executed",
-                        "Place else if to produce expected output : \n" +
+                                "do {\n" +
+                                "   statement(s);\n" +
+                                "} ",
+                        "Output : \n Notice that the conditional expression appears at the end of the loop, so the statement(s) in the loop executes once before the condition is tested.\n" +
+                                "\n" +
+                                "If the condition is true, the flow of control jumps back up to do, and the statement(s) in the loop executes again. This process repeats until the given condition becomes false.",
+                        "Place your do while for expected output : \n" +
                                 "#include <stdio.h>\n" +
                                 " \n" +
                                 "int main () {\n" +
                                 "\n" +
                                 "   /* local variable definition */\n" +
                                 "   int a = 10;\n" +
-                                " \n" +
-                                "   /* check the boolean condition using if statement */\n" +
-                                "\t\n" +
-                                "   if( a < 20 ) {\n" +
-                                "      /* if condition is true then print the following : Replace boolean_expression */\n" +
-                                "      printf(\"a is less than 20\\n\" );\n" +
-                                "   }//Your if else part here\n" +
-                                "   else printf(\"No values matched\")" +
-                                "   \n" +
-                                "   printf(\"value of a is : %d\\n\", a);\n" +
+                                "\n" +
+                                "   /* do loop execution */\n" +
+                                "   //Your do while loop here\n"
+                                 +
                                 " \n" +
                                 "   return 0;\n" +
                                 "}",
-                        "a is less than 10",
-                        "else if( a < 10 ) {\n" +
-                                "      printf(\"a is less than 10\\n\" );\n" +
-                                "   }",
+                        "value of a:",
+                        "   do {\n" +
+                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "      a = a + 1;\n" +
+                                "   }while( a < 20 );\n",
                         moduleOptions
                 ));
         moduleOptions = new ArrayList<>();
@@ -414,73 +402,7 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, "getchar("));
         moduleOptions.add(new ModuleOption(index++, " &a"));*/
 
-        /*moduleOptions.add(new ModuleOption(index++, "s;"));
-        moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "Excellent!"));
-        moduleOptions.add(new ModuleOption(index++, "You passed"));
-        moduleOptions.add(new ModuleOption(index++, "Well done"));
-        moduleOptions.add(new ModuleOption(index++, "Better try again"));
-        moduleOptions.add(new ModuleOption(index++, "Invalid grade"));
 
-        firebaseDatabaseHandler.writeSyntaxModule(
-                new SyntaxModule(
-                        "s_4",
-                        generatedId,
-                        programLanguage,
-                        "switch statement",
-                        "A switch statement allows a variable to be tested for equality against a list of values. Each value is called a case, and the variable being switched on is checked for each switch case." ,
-                        "Example : \n" +
-                                "switch(expression) {\n" +
-                                "\n" +
-                                "   case constant-expression  :\n" +
-                                "      statement(s);\n" +
-                                "      break; /* optional */\n" +
-                                "\t\n" +
-                                "   case constant-expression  :\n" +
-                                "      statement(s);\n" +
-                                "      break; /* optional */\n" +
-                                "  \n" +
-                                "   /* you can have any number of case statements */\n" +
-                                "   default : /* Optional */\n" +
-                                "   statement(s);\n" +
-                                "}"
-                        ,
-
-                        "Corresponding case gets executed, else default is executed",
-                        "What's the output ? \n" +
-                                "#include <stdio.h>\n" +
-                                " \n" +
-                                "int main () {\n" +
-                                "\n" +
-                                "   /* local variable definition */\n" +
-                                "   char grade = 'B';\n" +
-                                "\n" +
-                                "   switch(grade) {\n" +
-                                "      case 'A' :\n" +
-                                "         printf(\"Excellent!\\n\" );\n" +
-                                "         break;\n" +
-                                "      case 'B' :\n" +
-                                "      case 'C' :\n" +
-                                "         printf(\"Well done\\n\" );\n" +
-                                "         break;\n" +
-                                "      case 'D' :\n" +
-                                "         printf(\"You passed\\n\" );\n" +
-                                "         break;\n" +
-                                "      case 'F' :\n" +
-                                "         printf(\"Better try again\\n\" );\n" +
-                                "         break;\n" +
-                                "      default :\n" +
-                                "         printf(\"Invalid grade\\n\" );\n" +
-                                "   }\n" +
-                                "   \n" +
-                                "   printf(\"Your grade is  %c\\n\", grade );\n" +
-                                " \n" +
-                                "   return 0;\n" +
-                                "}",
-                        "Result : switch to the right grade",
-                        "Well done",
-                        moduleOptions
-                ));
         //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
 
     }
