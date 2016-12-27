@@ -5,9 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.database.SyntaxModule;
 
 import java.util.List;
 
+import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
 import co.uk.rushorm.core.RushSearchCallback;
 
@@ -289,15 +292,42 @@ public class CreekPreferences {
                             //Check which db needs to be updated
                             if( creekUserDB.getcModuleDBVersion() > (localDB.getcModuleDBVersion()) ) {
                                 setCModulesInserted(false);
+                                new RushSearch().whereEqual("moduleLanguage", "c").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
+                                    @Override
+                                    public void complete(List<LanguageModule> list) {
+                                        if( list != null ) {
+                                            RushCore.getInstance().delete(list);
+                                        }
+                                    }
+                                });
                             }
                             if( creekUserDB.getcProgramIndexDBVersion() > (localDB.getcProgramIndexDBVersion())) {
                                 setCProgramIndex(-1);
+                                new RushSearch().whereEqual("syntaxLanguage", "c").find(SyntaxModule.class,
+                                        new RushSearchCallback<SyntaxModule>() {
+                                            @Override
+                                            public void complete(List<SyntaxModule> list) {
+                                                if( list != null ) {
+                                                    RushCore.getInstance().delete(list);
+                                                }
+                                            }
+                                        });
                             }
                             if( creekUserDB.getcProgramTableDBVersion() > (localDB.getcProgramTableDBVersion()) ) {
                                 setCProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getcSyntaxDBVersion() > (localDB.getcSyntaxDBVersion()) ) {
                                 setCSyntaxInserted(false);
+                                new RushSearch().whereEqual("syntaxLanguage", "c").find(SyntaxModule.class,
+                                        new RushSearchCallback<SyntaxModule>() {
+                                    @Override
+                                    public void complete(List<SyntaxModule> list) {
+                                        if( list != null ) {
+                                            RushCore.getInstance().delete(list);
+                                        }
+                                    }
+                                });
+
                             }
 
                             //Cpp

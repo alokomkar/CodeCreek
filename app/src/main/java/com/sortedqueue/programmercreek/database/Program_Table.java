@@ -9,8 +9,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+
+import co.uk.rushorm.core.RushObject;
+
 @IgnoreExtraProperties
-public class Program_Table {
+public class Program_Table extends RushObject {
 
 	//DataSnapshot { key = 1, value = {5={
 	// program_Line=	getch();,

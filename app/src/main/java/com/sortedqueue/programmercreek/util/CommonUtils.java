@@ -12,16 +12,6 @@ import com.google.android.gms.ads.AdView;
 public class CommonUtils {
 
     private static ProgressDialog mProgressDialog;
-    private static AdView mAdView;
-
-    public static void displayAdsProgressDialog(Context context, String message ) {
-        dismissProgressDialog();
-        mProgressDialog = new ProgressDialog(context);
-        mProgressDialog.setMessage(message);
-        mProgressDialog.setIndeterminate(false);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
-    }
 
     public static void displayProgressDialog(Context context, String message ) {
         dismissProgressDialog();
@@ -43,9 +33,6 @@ public class CommonUtils {
         try {
             if( mProgressDialog != null ) {
                 mProgressDialog.dismiss();
-                if( mAdView != null ) {
-                    mAdView.destroy();
-                }
             }
         } catch ( Exception e ) {
 

@@ -34,6 +34,7 @@ import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTa
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,14 +133,6 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 		});
 	}
 
-	@Override
-	protected void onDestroy() {
-
-		mDatabaseHandler.close();
-		super.onDestroy();
-
-	}
-
 	Bundle mBundle;
 	Intent mInvokeIntent = null;
 	int mSelectedProgramIndex = 0;
@@ -179,7 +172,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 		//if( mDatabaseHandler == null ) {
 		mDatabaseHandler = new DatabaseHandler(this);
 		//}
-		if( mDatabaseHandler.getProgram_TablesCount() != 31 ) {
+		if( new CreekPreferences(ProgramListActivity.this).getProgramTables() == -1 ) {
 			new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
 				@Override
 				public void getProgramTables(ArrayList<Program_Table> program_tables) {

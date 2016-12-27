@@ -26,7 +26,7 @@ public class ProgramListFetcherTask extends AsyncTask<Void, Void, List<Program_I
 	
 	@Override
     protected void onPreExecute() {
-		CommonUtils.displayAdsProgressDialog(mContext, "Fetching Program List");
+		CommonUtils.displayProgressDialog(mContext, "Fetching Program List");
     }
 	
 	@Override

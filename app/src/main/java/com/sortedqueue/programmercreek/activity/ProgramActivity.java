@@ -259,15 +259,6 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	}
 
-	@Override 
-	protected void onDestroy() { 
-
-		mDatabaseHandler.close();
-		super.onDestroy();
-
-	}
-
-
 	protected void NextProgram(int program_Index) {
 		/**
 		 * Reset the list and reset adapter to change view

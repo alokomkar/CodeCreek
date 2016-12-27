@@ -1081,7 +1081,7 @@ public class DataBaseInsertAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		CommonUtils.displayAdsProgressDialog(mContext, "Initializing data for the first time...");
+		CommonUtils.displayProgressDialog(mContext, "Initializing data for the first time...");
 	}
 
 	@Override

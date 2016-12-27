@@ -307,7 +307,7 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
 
         if( creekPreferences.getProgramIndex() == -1 ) {
-            CommonUtils.displayAdsProgressDialog(mContext, "Loading program index");
+            CommonUtils.displayProgressDialog(mContext, "Loading program index");
             AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to programmer creek, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -348,7 +348,7 @@ public class FirebaseDatabaseHandler {
         databaseHandler = new DatabaseHandler(mContext);
         int initialPrograms = 31;
         if( creekPreferences.getProgramTables() == -1 ) {
-            CommonUtils.displayAdsProgressDialog(mContext, "Loading program tables");
+            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

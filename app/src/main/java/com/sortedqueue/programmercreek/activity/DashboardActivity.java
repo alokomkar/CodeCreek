@@ -307,7 +307,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         mDatabaseHandler = new DatabaseHandler(this);
         //}
-        if (mDatabaseHandler.getProgram_TablesCount() != 31) {
+        if (creekPreferences.getProgramTables() == -1) {
             new DataBaseInsertAsyncTask(DashboardActivity.this, -2, new UIUpdateListener() {
                 @Override
                 public void updateUI() {

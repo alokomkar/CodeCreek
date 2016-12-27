@@ -46,7 +46,7 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		CommonUtils.displayAdsProgressDialog(mContext, "Initializing Program, Please Wait...");
+		CommonUtils.displayProgressDialog(mContext, "Initializing Program, Please Wait...");
 	}
 
 	@Override
