@@ -227,7 +227,7 @@ public class JavaProgramInserter {
             programLanguage = "cpp";
         }
 
-        moduleId = 5;
+        moduleId = 1;
         String generatedId = programLanguage + "_" + moduleId++;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;

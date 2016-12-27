@@ -109,7 +109,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("c++");
+        creekPreferences.setProgramLanguage("java");
         new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
     }
 
@@ -327,10 +327,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void tellYourFriends() {
         //https://developers.facebook.com/docs/sharing/android/
         ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentTitle("Programmer Creek")
+                .setContentTitle("Infinite Programmer")
                 .setContentDescription("Check this out : ")
                 .setShareHashtag(new ShareHashtag.Builder()
-                        .setHashtag("#ProgrammerCreek")
+                        .setHashtag("#InfiniteProgrammer")
                         .build())
                 .setContentUrl(Uri.parse("https://programercreek.blogspot.in"))
                 .build();

@@ -331,7 +331,7 @@ public class FirebaseDatabaseHandler {
         if( creekPreferences.getProgramIndex() == -1 ) {
             CommonUtils.displayProgressDialog(mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
-                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to programmer creek, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
+                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
             }
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {

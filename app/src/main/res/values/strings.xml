@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Programmer Creek</string>
+    <string name="app_name">Infinite Programmer</string>
     <string name="title_activity_basic">BasicActivity</string>
-    <string name="splash_title">Programmer Creek</string>
+    <string name="splash_title">Infinite Programmer</string>
     <string name="bloglink">https://programercreek.blogspot.in</string>
     <string name="mobile_banner_id">ca-app-pub-2597451345754102~2851301278</string>
     <string name="banner_ad_wiki_unit_id">ca-app-pub-2597451345754102/4328034476</string>
@@ -36,14 +36,7 @@
     <string name="checkMatch">Check</string>
     <string name="viewProfile">View Profile</string>
     <string name="about_string">
-        Programmer Creek:\nAn attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammer.creek@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\n
-        Program Wiki : A brief on programs\n\n
-        Revise : Displays program and description.\n\n
-        						Wizard : Learning Wizard\n\n
-        						Index : To view program Index.\n\n
-        						Test : Drag and drop the program into proper sequence as per the given program order.\nDifficulty : High\n\n
-        						Quiz : Take quiz with two modes of questions.\nDifficulty : Low\n\n
-        						Match : Match program lines with their description. - Drag and drop, select program line and click on description to place it.\nDifficulty : Medium</string>
+        An attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammer.creek@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\nProgram Wiki : A brief on programs\n\nLearn Syntax : Go through and practice program syntax\n\nRevise : Displays program and description.\n\nWizard : Learning Wizard\n\nIndex : To view program Index.\n\nTest : Drag and drop the program into proper sequence as per the given program order.\nDifficulty : High\n\nQuiz : Take quiz with two modes of questions.\nDifficulty : Low\n\nMatch : Match program lines with their description. - Drag and drop, select program line and click on description to place it.\nDifficulty : Medium</string>
 
     <style name="ButtonText">
         <item name="android:layout_width">fill_parent</item>
