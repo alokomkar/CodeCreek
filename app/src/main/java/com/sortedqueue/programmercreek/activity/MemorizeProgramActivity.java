@@ -112,7 +112,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		if( program_TableList != null && program_TableList.size() > 0 ) {
 
 			mProgram_Title = getProgramTitle(mProgram_Index);
-			setTitle("Memorize : "+mProgram_Title);
+			setTitle("Memorize : "+mProgram_Title.toUpperCase());
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
 
@@ -350,7 +350,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 					AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
 				}
 				else {
-					setTitle("Memorize : "+getProgramTitle(program_Index));
+					setTitle("Memorize : "+getProgramTitle(program_Index).toUpperCase());
 
 					mProgramList = new ArrayList<String>();
 					mProgramExplanationList = new ArrayList<String>();
