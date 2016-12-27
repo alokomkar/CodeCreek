@@ -82,9 +82,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         ButterKnife.bind(this);
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         initAds();
         initUI();
-        //getFirebaseDBVerion();
+        getFirebaseDBVerion();
         //initJavaIndex();
 
     }
@@ -108,7 +109,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("java");
+        creekPreferences.setProgramLanguage("c++");
         new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
     }
 

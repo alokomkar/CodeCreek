@@ -2,12 +2,12 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
-import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -222,149 +222,223 @@ public class JavaProgramInserter {
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         int moduleId = 1;
-        String programLanguage = "java";
-        /*if( programLanguage.equals("c++") ) {
+        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
-        }*/
+        }
+
+        moduleId = 5;
         String generatedId = programLanguage + "_" + moduleId++;
-        /*firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Basic Input/Output", "The C++ standard libraries provide an extensive set of input/output capabilities which we will see in subsequent chapters.", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "C++ Strings", "C++ provides two types of string representations", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Modifier Types", "A modifier is used to alter the meaning of the base type so that it more precisely fits the needs of various situations.", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Storage Classes in C++", "A storage class defines the scope (visibility) and life-time of variables and/or functions within a C++ Program. ", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loop Control Statements", "Loop control statements change execution from its normal sequence. ", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "C++ Functions", "Use of looping to perform a task multiple times", programLanguage ));*/
-
-        programLanguage = "java";
-        moduleId = 1;
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Basic Datatypes", "Explore basic datatypes available in Java", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Variable Types", "A variable provides us with named storage that our programs can manipulate. ", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Object and Classes", "What are objects and classes?", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Modifier Types", "Explore Modifier types in Java", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Enhanced for loop in Java", "Loop control statements change execution from its normal sequence. ", programLanguage ));
-        generatedId = programLanguage + "_" + moduleId++;
-        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Methods in Java", "A Java method is a collection of statements that are grouped together to perform an operation. ", programLanguage ));
-
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
-        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
-        moduleOptions.add(new ModuleOption(index++, "gets("));
-        moduleOptions.add(new ModuleOption(index++, "getchar("));
-        moduleOptions.add(new ModuleOption(index++, " &a"));*/
 
-        /*moduleOptions.add(new ModuleOption(index++, "s;"));
-        moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "while"));
-        moduleOptions.add(new ModuleOption(index++, "<"));
-        moduleOptions.add(new ModuleOption(index++, "("));
-        moduleOptions.add(new ModuleOption(index++, " {"));
-        moduleOptions.add(new ModuleOption(index++, " a "));
-        moduleOptions.add(new ModuleOption(index++, ")"));
-        moduleOptions.add(new ModuleOption(index++, " 20 "));
+        moduleOptions.add(new ModuleOption(index++, "0"));
+        moduleOptions.add(new ModuleOption(index++, "1"));
+        moduleOptions.add(new ModuleOption(index++, "2"));
+        moduleOptions.add(new ModuleOption(index++, "3"));
+        moduleOptions.add(new ModuleOption(index++, "4"));
+        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
+        moduleOptions.add(new ModuleOption(index++, "e"));
+        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+
 
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_1",
                         generatedId,
                         programLanguage,
-                        "while loop",
-                        "Repeats a statement or group of statements while a given condition is true. It tests the condition before executing the loop body.",
-                        "Syntax : \n" +
-                                "while(condition) {\n" +
-                                "   statement(s);\n" +
-                                "}",
-                        "Output : \n Here, statement(s) may be a single statement or a block of statements. The condition may be any expression, and true is any nonzero value. The loop iterates while the condition is true.\n" +
+                        "break statement",
+                        "Terminates the loop or switch statement and transfers execution to the statement immediately following the loop or switch. \n" +
+                                "The break statement has the following two usages in C++:\n" +
                                 "\n" +
-                                "When the condition becomes false, the program control passes to the line immediately following the loop.",
-                        "Write a while loop to loop till a < 20 : \n" +
-                                "#include <stdio.h>\n" +
-                                " \n" +
-                                "int main () {\n" +
+                                "When the break statement is encountered inside a loop, the loop is immediately terminated and program control resumes at the next statement following the loop.\n" +
                                 "\n" +
-                                "   /* local variable definition */\n" +
-                                "   int a = 10;\n" +
-                                "\n" +
-                                "   /* while loop execution */\n" +
-                                "   //Your while loop here\n" +
-                                "      printf(\"value of a: %d\\n\", a);\n" +
-                                "      a++;\n" +
-                                "   }\n" +
-                                " \n" +
-                                "   return 0;\n" +
-                                "}",
-                        "value of a",
-                        "while( a < 20 ) {",
+                                "It can be used to terminate a case in the switch statement ",
+                        "Example : \n" +
+                                "// do loop execution\n" +
+                                "   do {\n" +
+                                "      cout << \"value of a: \" << a << endl;\n" +
+                                "      a = a + 1;\n" +
+                                "\t\t\n" +
+                                "      if( a > 15) {\n" +
+                                "         // terminate the loop\n" +
+                                "         break;\n" +
+                                "      }\n" +
+                                "   }while( a < 20 );",
+                        "Output : \n" +
+                                "value of a: 10\n" +
+                                "value of a: 11\n" +
+                                "value of a: 12\n" +
+                                "value of a: 13\n" +
+                                "value of a: 14\n" +
+                                "value of a: 15",
+                        "Predict the output : What would be the value of y when x = 2?\n" +
+                                "for( x = 0; x < 4; x++ )\n" +
+                                "  for( y = 0; y < 10; y++ ) {\n" +
+                                "    if( y < x ) break; \n" +
+                                "  }",
+
+                        "Hint : \n" +
+                                "If you are using nested loops (i.e., one loop inside another loop), the break statement will stop the execution of the innermost loop and start executing the next line of code after the block.",
+                        "0",
                         moduleOptions
                         ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
-       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
-        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
-        moduleOptions.add(new ModuleOption(index++, "gets("));
-        moduleOptions.add(new ModuleOption(index++, "getchar("));
-        moduleOptions.add(new ModuleOption(index++, " &a"));*/
 
-        /*moduleOptions.add(new ModuleOption(index++, "s;"));
-        moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "for( "));
-        moduleOptions.add(new ModuleOption(index++, "a = 10;"));
-        moduleOptions.add(new ModuleOption(index++, " : "));
-        moduleOptions.add(new ModuleOption(index++, " a < 20 "));
-        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
-        moduleOptions.add(new ModuleOption(index++, ";"));
-        moduleOptions.add(new ModuleOption(index++, ")"));
-        moduleOptions.add(new ModuleOption(index++, "a++"));
-        moduleOptions.add(new ModuleOption(index++, "bool condition = true;\n"));
+        moduleOptions.add(new ModuleOption(index++, ""));
+        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
+        moduleOptions.add(new ModuleOption(index++, "e"));
+        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+
 
         firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_2",
                         generatedId,
                         programLanguage,
-                        "for loop",
-                        "Executes a sequence of statements multiple times and abbreviates the code that manages the loop variable.",
-                        "Syntax : \n" +
-                                "for ( init; condition; increment ) {\n" +
-                                "   statement(s);\n" +
-                                "}",
-                        "Output : \n Here is the flow of control in a 'for' loop −\n" +
-                                "\n\n" +
-                                "The init step is executed first, and only once. This step allows you to declare and initialize any loop control variables. You are not required to put a statement here, as long as a semicolon appears.\n" +
-                                "\n\n" +
-                                "Next, the condition is evaluated. If it is true, the body of the loop is executed. If it is false, the body of the loop does not execute and the flow of control jumps to the next statement just after the 'for' loop.\n" +
+                        "C++ continue statement",
+                        "The continue statement works somewhat like the break statement. Instead of forcing termination, however, continue forces the next iteration of the loop to take place, skipping any code in between.\n" +
                                 "\n" +
-                                "After the body of the 'for' loop executes, the flow of control jumps back up to the increment statement. This statement allows you to update any loop control variables. This statement can be left blank, as long as a semicolon appears after the condition.\n" +
-                                "\n\n" +
-                                "The condition is now evaluated again. If it is true, the loop executes and the process repeats itself (body of loop, then increment step, and then again condition). After the condition becomes false, the 'for' loop terminates.",
-                        "Place your for loop to produce expetcted output : \n" +
-                                "#include <stdio.h>\n" +
+                                "For the for loop, continue causes the conditional test and increment portions of the loop to execute. For the while and do...while loops, program control passes to the conditional tests.",
+                        "Example : \n" +
+                                "// Local variable declaration:\n" +
+                                "   int a = 10;\n" +
+                                "\n" +
+                                "   // do loop execution\n" +
+                                "   do {\n" +
+                                "      if( a == 15) {\n" +
+                                "         // skip the iteration.\n" +
+                                "         a = a + 1;\n" +
+                                "         continue;\n" +
+                                "      }\n" +
+                                "\t\t\n" +
+                                "      cout << \"value of a: \" << a << endl;\n" +
+                                "      a = a + 1;\n" +
+                                "   }while( a < 20 );",
+                        "Output : \n " +
+                                "value of a: 10\n" +
+                                "value of a: 11\n" +
+                                "value of a: 12\n" +
+                                "value of a: 13\n" +
+                                "value of a: 14\n" +
+                                "value of a: 16\n" +
+                                "value of a: 17\n" +
+                                "value of a: 18\n" +
+                                "value of a: 19",
+                        "",
+
+                        "",
+                        "",
+                        moduleOptions
+                ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+
+        moduleOptions.add(new ModuleOption(index++, "No effect"));
+        moduleOptions.add(new ModuleOption(index++, "Error in program."));
+        moduleOptions.add(new ModuleOption(index++, "Compilation error"));
+        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
+        moduleOptions.add(new ModuleOption(index++, "e"));
+        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_3",
+                        generatedId,
+                        programLanguage,
+                        "C++ goto statement",
+                        "A goto statement provides an unconditional jump from the goto to a labeled statement in the same function.\n" +
+                                "\n" +
+                                "NOTE: Use of goto statement is highly discouraged because it makes difficult to trace the control flow of a program, making the program hard to understand and hard to modify. Any program that uses a goto can be rewritten so that it doesn't need the goto.",
+                        "Example : \n" +
+                                "// Local variable declaration:\n" +
+                                "   int a = 10;\n" +
+                                "\n" +
+                                "   // do loop execution\n" +
+                                "   LOOP:do {\n" +
+                                "      if( a == 15) {\n" +
+                                "         // skip the iteration.\n" +
+                                "         a = a + 1;\n" +
+                                "         goto LOOP;\n" +
+                                "      }\n" +
+                                "\t\t\n" +
+                                "      cout << \"value of a: \" << a << endl;\n" +
+                                "      a = a + 1;\n" +
+                                "   }while( a < 20 );",
+                        "Output : \n value of a: 10\n" +
+                                "value of a: 11\n" +
+                                "value of a: 12\n" +
+                                "value of a: 13\n" +
+                                "value of a: 14\n" +
+                                "value of a: 16\n" +
+                                "value of a: 17\n" +
+                                "value of a: 18\n" +
+                                "value of a: 19",
+                        "Predict the output for the program when if condition becomes true: \n" +
+                                "for(...) {\n" +
+                                "   for(...) {\n" +
+                                "      while(...) {\n" +
+                                "         if(...) goto stop;\n" +
+                                "         .\n" +
+                                "         .\n" +
+                                "         .\n" +
+                                "      }\n" +
+                                "   }\n" +
+                                "}\n" +
+                                "stop:\n" +
+                                "cout << \"Error in program.\\n\";",
+
+                        "Hint : One good use for the goto is to exit from a deeply nested routine.",
+                        "Error in program",
+                        moduleOptions
+                ));
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+
+        moduleOptions.add(new ModuleOption(index++, "("));
+        moduleOptions.add(new ModuleOption(index++, ")"));
+        moduleOptions.add(new ModuleOption(index++, "true"));
+
+        moduleOptions.add(new ModuleOption(index++, "while"));        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
+        moduleOptions.add(new ModuleOption(index++, "e"));
+        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_4",
+                        generatedId,
+                        programLanguage,
+                        "The Infinite Loop",
+                        "A loop becomes infinite loop if a condition never becomes false. The for loop is traditionally used for this purpose. Since none of the three expressions that form the for loop are required, you can make an endless loop by leaving the conditional expression empty.",
+                        "Example : \n" +
+                                "#include <iostream>\n" +
+                                "using namespace std;\n" +
                                 " \n" +
                                 "int main () {\n" +
                                 "\n" +
-                                "   int a;\n" +
-                                "\t\n" +
-                                "   /* for loop execution */\n" +
-                                "   //Your for loop here{\n" +
-                                "      printf(\"value of a: %d\\n\", a);\n" +
+                                "   for( ; ; ) {\n" +
+                                "      printf(\"This loop will run forever.\\n\");\n" +
                                 "   }\n" +
-                                " \n" +
+                                "\n" +
                                 "   return 0;\n" +
                                 "}",
-                        "value of a",
-                        "for( a = 10; a < 20; a++ )",
+                        "Output : \n When the conditional expression is absent, it is assumed to be true. You may have an initialization and increment expression, but C++ programmers more commonly use the for(;;) construct to signify an infinite loop.\n" +
+                                "\n",
+                        "Construct an infinite loop using while to print infinite programmer : \n" +
+                                "//Your loop here\n" +
+                                "cout << \"Infinite programmer\" << endl;",
+
+                        "Prints Infinite programmer infinitely",
+                        "while(true)",
                         moduleOptions
                 ));
+
 
         moduleOptions = new ArrayList<>();
         index = 0;
@@ -376,51 +450,69 @@ public class JavaProgramInserter {
 
         /*moduleOptions.add(new ModuleOption(index++, "s;"));
         moduleOptions.add(new ModuleOption(index++, "extern "));*/
-        moduleOptions.add(new ModuleOption(index++, "else "));
-        moduleOptions.add(new ModuleOption(index++, "      printf(\"value of a: %d\\n\", a);\n"));
-        moduleOptions.add(new ModuleOption(index++, "   do {\n" ));
-        moduleOptions.add(new ModuleOption(index++, " 0 "));
-        moduleOptions.add(new ModuleOption(index++, "      printf(\"a is not less than 20\\n\" );\n"));
-        moduleOptions.add(new ModuleOption(index++, ";"));
-        moduleOptions.add(new ModuleOption(index++, "   }"));
-        moduleOptions.add(new ModuleOption(index++, "      a = a + 1;\n"));
-        moduleOptions.add(new ModuleOption(index++, "   }while( a < 20 );\n"));
 
-        firebaseDatabaseHandler.writeSyntaxModule(
+        moduleOptions.add(new ModuleOption(index++, "compilation success"));
+        moduleOptions.add(new ModuleOption(index++, "error: non-modifiable object"));
+
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_2",
+                        generatedId,
+                        programLanguage,
+                        "Type Qualifiers in C++",
+                        "The type qualifiers provide additional information about the variables they precede.",
+                        "Description : \n" +
+                                "const : Objects of type const cannot be changed by your program during execution\n" +
+                                "volatile : The modifier volatile tells the compiler that a variable's value may be changed in ways not explicitly specified by the program.\n" +
+                                "restrict : A pointer qualified by restrict is initially the only means by which the object it points to can be accessed. Only C99 adds a new type qualifier called restrict.",
+                        "Example : \n int n1 = 0;           // non-const object\n" +
+                                "    const int n2 = 0;     // const object\n" +
+                                "    int const n3 = 0;     // const object (same as n2)\n" +
+                                "    volatile int n4 = 0;  // volatile object",
+                        "What would be the output for if : n2 = 2; is assigned from above example",
+                        "Hint : const cannot be changed",
+                        "error: non-modifiable object",
+                        moduleOptions
+                ));*/
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+        moduleOptions.add(new ModuleOption(index++, "\"%s\""));
+        moduleOptions.add(new ModuleOption(index++, "gets("));
+        moduleOptions.add(new ModuleOption(index++, "getchar("));
+        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+
+        /*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        moduleOptions.add(new ModuleOption(index++, " <<"));
+        moduleOptions.add(new ModuleOption(index++, "cin"));
+        moduleOptions.add(new ModuleOption(index++, " >> "));
+        moduleOptions.add(new ModuleOption(index++, " \"undefined character\""));
+        moduleOptions.add(new ModuleOption(index++, ";"));
+        moduleOptions.add(new ModuleOption(index++, "cerr"));
+        moduleOptions.add(new ModuleOption(index++, "cout"));
+
+
+       /* firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_3",
                         generatedId,
                         programLanguage,
-                        "do...while loop",
-                        "It is more like a while statement, except that it tests the condition at the end of the loop body.",
+                        "The standard error stream (cerr)",
+                        "The predefined object cerr is an instance of ostream class. The cerr object is said to be attached to the standard error device, which is also a display screen but the object cerr is un-buffered and each stream insertion to cerr causes its output to appear immediately.\n" +
+                                "\n" +
+                                "The cerr is also used in conjunction with the stream insertion operator as shown in the following example.",
                         "Syntax : \n" +
-                                "do {\n" +
-                                "   statement(s);\n" +
-                                "} ",
-                        "Output : \n Notice that the conditional expression appears at the end of the loop, so the statement(s) in the loop executes once before the condition is tested.\n" +
-                                "\n" +
-                                "If the condition is true, the flow of control jumps back up to do, and the statement(s) in the loop executes again. This process repeats until the given condition becomes false.",
-                        "Place your do while for expected output : \n" +
-                                "#include <stdio.h>\n" +
+                                "char str[] = \"Unable to read....\";\n" +
                                 " \n" +
-                                "int main () {\n" +
-                                "\n" +
-                                "   /* local variable definition */\n" +
-                                "   int a = 10;\n" +
-                                "\n" +
-                                "   /* do loop execution */\n" +
-                                "   //Your do while loop here\n"
-                                 +
-                                " \n" +
-                                "   return 0;\n" +
-                                "}",
-                        "value of a:",
-                        "   do {\n" +
-                                "      printf(\"value of a: %d\\n\", a);\n" +
-                                "      a = a + 1;\n" +
-                                "   }while( a < 20 );\n",
+                                "cerr << \"Error message : \" << str << endl;",
+                        "Output : \n Error message : Unable to read....",
+                        "Print an error : undefined character",
+                        "undefined character",
+                        "cerr << \"undefined character\";",
                         moduleOptions
-                ));
+                ));*/
         moduleOptions = new ArrayList<>();
         index = 0;
        /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));

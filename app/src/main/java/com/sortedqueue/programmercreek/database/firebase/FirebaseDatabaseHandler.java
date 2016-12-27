@@ -239,11 +239,23 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 protected ArrayList<SyntaxModule> doInBackground(Void... voids) {
-                    ArrayList<SyntaxModule> syntaxModules = new ArrayList<>(new RushSearch()
-                            .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
-                            .and()
-                            .whereEqual("moduleId", languageModule.getModuleId())
-                            .find(SyntaxModule.class));
+                    ArrayList<SyntaxModule> syntaxModules;
+                    if( creekPreferences.getProgramLanguage().equals("c++") ) {
+                        syntaxModules = new ArrayList<>(new RushSearch()
+                                .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                                .or()
+                                .whereEqual("syntaxLanguage", "cpp")
+                                .and()
+                                .whereEqual("moduleId", languageModule.getModuleId())
+                                .find(SyntaxModule.class));
+                    }
+                    else {
+                        syntaxModules = new ArrayList<>(new RushSearch()
+                                .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                                .and()
+                                .whereEqual("moduleId", languageModule.getModuleId())
+                                .find(SyntaxModule.class));
+                    }
                     return syntaxModules;
                 }
 

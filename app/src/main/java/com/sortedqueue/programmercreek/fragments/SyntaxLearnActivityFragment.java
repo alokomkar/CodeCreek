@@ -91,6 +91,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
         hintSyntaxImageView.setOnClickListener(this);
+
     }
 
     private void setupRecyclerView(ArrayList<ModuleOption> syntaxOptions) {
@@ -103,6 +104,15 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 syntaxSolutionTextView.append(moduleOptions.get(position).getOption());
             }
         }));
+
+        // No question in the module : Toggle views
+        int visibility = syntaxOptions.size() > 1 ? View.VISIBLE : View.GONE;
+        optionsCardView.setVisibility(visibility);
+        syntaxQuestionCardView.setVisibility(visibility);
+        checkSyntaxImageView.setVisibility(visibility);
+        clearSyntaxImageView.setVisibility(visibility);
+        hintSyntaxImageView.setVisibility(visibility);
+
     }
 
     public void setSyntaxModule(SyntaxModule syntaxModule) {
