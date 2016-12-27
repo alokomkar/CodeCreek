@@ -47,6 +47,15 @@ public class DatabaseHandler {
 	// Getting single Program_Index
 	public Program_Index getProgram_Index(int id) {
 		String programLanguage = new CreekPreferences(mContext).getProgramLanguage();
+		if( programLanguage.equalsIgnoreCase("c++") ) {
+			return new RushSearch()
+					.whereEqual("mProgramIndex", id)
+					.and()
+					.whereEqual("mProgram_Language", programLanguage)
+					.or().whereEqual("mProgram_Language", "cpp")
+					.findSingle(Program_Index.class);
+		}
+        else
 		return new RushSearch().whereEqual("mProgramIndex", id).and().whereEqual("mProgram_Language", programLanguage).findSingle(Program_Index.class);
 	}
 
@@ -59,7 +68,9 @@ public class DatabaseHandler {
 					.whereEqual("mProgram_Language", "cpp")
 					.find(Program_Index.class);
 		}
-		return new RushSearch().whereEqual("mProgram_Language", program_language).find(Program_Index.class);
+        else {
+            return new RushSearch().whereEqual("mProgram_Language", program_language).find(Program_Index.class);
+        }
 	}
 
 	// Getting All Program_Tables
@@ -73,6 +84,7 @@ public class DatabaseHandler {
 					.whereEqual("mProgram_Language", "cpp")
 					.find(Program_Table.class);
 		}
+        else
 		return new RushSearch().whereEqual("mProgramTableIndex", index).and().whereEqual("mProgram_Language", program_language).find(Program_Table.class);
 	}
 

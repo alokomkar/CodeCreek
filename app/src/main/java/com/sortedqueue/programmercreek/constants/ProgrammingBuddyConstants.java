@@ -16,4 +16,5 @@ public class ProgrammingBuddyConstants {
 	public static final int KEY_QUIZ_PROGRAM_CODE_QUESTION = 0;
 	public static final String KEY_WIZARD_MODE = "wizard_mode";
 	public static String KEY_INVOKE_TEST = "invoke_test";
+	public static final String KEY_TOTAL_PROGRAMS = "total_programs";
 }

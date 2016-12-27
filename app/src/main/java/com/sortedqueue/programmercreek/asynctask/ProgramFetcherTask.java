@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import java.util.List;
 
 
-public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
+public class ProgramFetcherTask extends AsyncTask<Void, Void, List<Program_Table>> {
 
 	Context mContext = null;
 	int mProgramIndex;
@@ -35,12 +35,12 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 	}
 
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected List<Program_Table> doInBackground(Void... params) {
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(mContext);
 		}
 		mProgram_TableList =  mDatabaseHandler.getAllProgram_Tables( mProgramIndex, new CreekPreferences(mContext).getProgramLanguage() );
-		return null;
+		return mProgram_TableList;
 	}
 
 	@Override
@@ -50,11 +50,11 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, Void> {
 	}
 
 	@Override
-	protected void onPostExecute(Void result) {
+	protected void onPostExecute(List<Program_Table> result) {
 		super.onPostExecute(result);
 		CommonUtils.dismissProgressDialog();
 		if( mUiProgramFetcherListener != null ) {
-			mUiProgramFetcherListener.updateUI( mProgram_TableList );
+			mUiProgramFetcherListener.updateUI( result );
 		}
 	}
 

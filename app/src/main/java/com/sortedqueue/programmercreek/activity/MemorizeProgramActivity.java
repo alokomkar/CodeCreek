@@ -66,6 +66,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	String mProgram_Title = null;
 	private Drawable mShowAllDrawable;
 	private Drawable mHideDrawable;
+	private int mTotalPrograms;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
+		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		mShowAllDrawable = getDrawable(R.drawable.ic_show_all);
 		mHideDrawable = getDrawable(R.drawable.ic_remove);
@@ -327,7 +329,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		/**
 		 * Reset the list and reset adapter to change view
 		 * */
-		if( program_Index > 0 && program_Index <= ProgramListActivity.PROGRAM_LIST_SIZE ) { 
+		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 			mIndex = 0;
 			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
 			if( program_TableList == null || program_TableList.size() == 0 ) {
@@ -376,7 +378,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 				mAdapterProgramExplanationList.setNotifyOnChange(true);	
 			}
 		}
-		if( program_Index > ProgramListActivity.PROGRAM_LIST_SIZE ) {
+		if( program_Index > mTotalPrograms ) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
 			mProgram_Index--;
 		}

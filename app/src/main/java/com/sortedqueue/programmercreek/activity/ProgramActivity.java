@@ -25,7 +25,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
@@ -61,6 +60,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	DatabaseHandler mDatabaseHandler;
 	boolean mWizard = false;
 	String mProgram_Title = null;
+	private int mTotalPrograms;
 	//gesture detector
 	/**
 	 * http://code.tutsplus.com/tutorials/android-sdk-detecting-gestures--mobile-21161
@@ -74,7 +74,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		mDatabaseHandler = new DatabaseHandler(this);
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
-
+		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 0);
 		this.mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		//boolean modules = newProgramActivityBundle.getBoolean(DashboardActivity.KEY_MODULE_LIST);
 
@@ -263,10 +263,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		/**
 		 * Reset the list and reset adapter to change view
 		 * */
-		if( program_Index > 0 && program_Index <= ProgramListActivity.PROGRAM_LIST_SIZE ) {
+		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 
 			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
-			if( program_TableList == null || program_TableList.size() == 0 && mProgram_Index <= ProgramListActivity.PROGRAM_LIST_SIZE ) {
+			if( program_TableList == null || program_TableList.size() == 0 && mProgram_Index <= mTotalPrograms ) {
 
 				new DataBaseInsertAsyncTask( this, mProgram_Index, this ).execute();
 				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
@@ -311,7 +311,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			mAdapterProgramExplanationList.setNotifyOnChange(true);
 
 		}
-		if( program_Index > ProgramListActivity.PROGRAM_LIST_SIZE ) {
+		if( program_Index > mTotalPrograms) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
 			mProgram_Index--;
 		}
