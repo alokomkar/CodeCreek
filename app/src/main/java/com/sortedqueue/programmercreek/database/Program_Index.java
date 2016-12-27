@@ -2,19 +2,17 @@ package com.sortedqueue.programmercreek.database;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import co.uk.rushorm.core.RushObject;
-
 /**
  * Program_Index - POJO for Programer_Index table in database.
  * */
 @IgnoreExtraProperties
-public class Program_Index extends RushObject {
-	
+public class Program_Index {
+
 	int mProgramIndex;
 	String mProgram_Description;
 	String wiki;
 	String mProgram_Language;
-	
+
 	public Program_Index(int index, String program_Description, String wiki, String mProgram_Language) {
 		super();
 		mProgramIndex = index;
@@ -62,7 +60,7 @@ public class Program_Index extends RushObject {
 	}
 
 	@Override
-	public String toString() { 
+	public String toString() {
 		return mProgramIndex+": "+mProgram_Description;
 	}
 

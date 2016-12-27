@@ -359,11 +359,10 @@ public class FirebaseDatabaseHandler {
 
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
         databaseHandler = new DatabaseHandler(mContext);
-        int initialPrograms = 31;
         if( creekPreferences.getProgramTables() == -1 ) {
             CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
-            mProgramDatabase.child(PROGRAM_TABLE_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
+            mProgramDatabase.child(PROGRAM_TABLE_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {

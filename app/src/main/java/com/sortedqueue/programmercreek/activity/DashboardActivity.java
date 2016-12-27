@@ -83,9 +83,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
         initAds();
-        initDB();
         initUI();
-        getFirebaseDBVerion();
+        //getFirebaseDBVerion();
         //initJavaIndex();
 
     }

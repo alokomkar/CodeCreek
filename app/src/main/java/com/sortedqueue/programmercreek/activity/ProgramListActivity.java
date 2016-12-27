@@ -17,20 +17,15 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -113,7 +108,6 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 	Intent mInvokeIntent = null;
 	int mSelectedProgramIndex = 0;
 	String mSelectedProgramTitle = "";
-	private List<Program_Table> mProgram_TableList;
 
 	private void loadProgramExplanation(String programWiki) {
 		Intent intent = new Intent(ProgramListActivity.this, ProgramWikiActivity.class);
@@ -141,28 +135,6 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 				showSelectBox();
 				break;
 
-		}
-	}
-
-	private void insertProgramTables() {
-		//if( mDatabaseHandler == null ) {
-		mDatabaseHandler = new DatabaseHandler(this);
-		//}
-		if( new CreekPreferences(ProgramListActivity.this).getProgramTables() == -1 ) {
-			new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
-				@Override
-				public void getProgramTables(ArrayList<Program_Table> program_tables) {
-					updateUI();
-				}
-
-				@Override
-				public void onError(DatabaseError error) {
-
-				}
-			});
-		}
-		else {
-			invokeTestIntents();
 		}
 	}
 
@@ -199,14 +171,14 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 
 						case KEY_REVISE_NORMAL :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-							mBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
 							break;
 
 						case KEY_REVISE_LINE_BY_LINE :
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-							mBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
+							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
 							break;
@@ -252,7 +224,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 					Intent newIntent = null;
 					Bundle newIntentBundle = new Bundle();
 					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
-					mBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
+					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 					newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 
 					switch ( which ) {
@@ -388,7 +360,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(ProgramListActivity.this);
 		}
-				/*List<Module_Table> module_Tables = mDatabaseHandler.getAllModule_Tables(program_Index.getIndex());
+				/*List<Module_Table> module_Tables = mDatabaseHandler.getAllModule_Tables(program_Index.getTableIndex());
 				if( module_Tables != null ) {
 					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, true);
 				}
@@ -427,7 +399,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 			case ProgrammingBuddyConstants.KEY_LIST :
 			case ProgrammingBuddyConstants.KEY_MATCH :
 			case ProgrammingBuddyConstants.KEY_QUIZ :
-				insertProgramTables();
+				invokeTestIntents();
 				break;
 
 		}

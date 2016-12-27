@@ -88,7 +88,7 @@
         <meta-data android:name="Rush_classes_package" android:value="com.sortedqueue.programmercreek.database" />
 
         <!-- Updating this will cause a database upgrade -->
-        <meta-data android:name="Rush_db_version" android:value="2" />
+        <meta-data android:name="Rush_db_version" android:value="3" />
 
         <!-- Database name -->
         <meta-data android:name="Rush_db_name" android:value="rush.db" />

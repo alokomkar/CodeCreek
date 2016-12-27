@@ -72,7 +72,7 @@
     <string name="title_activity_full_screen_wizard">Learning Wizard</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="index_description">Browse through program index, your learning starts here</string>
+    <string name="index_description">Browse through program tableIndex, your learning starts here</string>
     <string name="wizard_description">Become a pro through learning wizard</string>
     <string name="revise_description">Revise line by line or in full program mode</string>
     <string name="match_description">Match code with their meaning, race against time</string>

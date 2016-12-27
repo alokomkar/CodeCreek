@@ -102,7 +102,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 				}
 				else {
 					initUI( mProgram_TableList );
-				}		
+				}
 			}
 		}, mDatabaseHandler, program_Index).execute();
 
@@ -225,22 +225,6 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		NextProgram(mProgram_Index);	
 	}
 
-	@SuppressWarnings("unused")
-	private void populateProgramTable(int program_Index) {
-		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
-
-
-		Iterator<Program_Table> iteraor = program_TableList.iterator();
-		while(iteraor.hasNext()) { 
-			Program_Table newProgram_Table = iteraor.next();
-			mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
-			mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
-
-		}
-
-
-	}
-
 	public String getProgramTitle(int program_Index) {
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(ProgramActivity.this);
@@ -289,7 +273,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 				AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
 			}
 			else {
-				setTitle("Revise : "+mProgram_Title);
+				setTitle("Revise : " + mProgram_Title );
 				Iterator<Program_Table> iteraor = program_TableList.iterator();
 
 				while(iteraor.hasNext()) { 
