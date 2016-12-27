@@ -285,9 +285,19 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 protected ArrayList<LanguageModule> doInBackground(Void... voids) {
-                    return new ArrayList<LanguageModule>(new RushSearch()
-                            .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
-                            .find(LanguageModule.class));
+                    String programLanguage = creekPreferences.getProgramLanguage();
+                    if( programLanguage.equalsIgnoreCase("c++") ) {
+                        return new ArrayList<LanguageModule>(new RushSearch()
+                                .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                                .or()
+                                .whereEqual("moduleLanguage", "cpp")
+                                .find(LanguageModule.class));
+                    }
+                    else {
+                        return new ArrayList<LanguageModule>(new RushSearch()
+                                .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                                .find(LanguageModule.class));
+                    }
                 }
 
                 @Override
@@ -308,7 +318,10 @@ public class FirebaseDatabaseHandler {
 
         if( creekPreferences.getProgramIndex() == -1 ) {
             CommonUtils.displayProgressDialog(mContext, "Loading program index");
-            AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to programmer creek, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
+            if( !creekPreferences.isWelcomeDone() ) {
+                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to programmer creek, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
+                creekPreferences.setWelcomeDone(true);
+            }
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

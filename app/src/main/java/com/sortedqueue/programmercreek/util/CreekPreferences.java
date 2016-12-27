@@ -47,6 +47,7 @@ public class CreekPreferences {
 
     private SharedPreferences sharedPreferences;
     private String WIKI_HELP = "Wiki_help";
+    private String KEY_WELCOME_DONE = "welcome_done";
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -238,7 +239,7 @@ public class CreekPreferences {
     }
 
     public boolean getSyntaxInserted() {
-        switch ( getProgramLanguage() ) {
+        switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
                 return sharedPreferences.getBoolean(KEY_JAVA_SYNTAX, false);
             case "c" :
@@ -251,7 +252,7 @@ public class CreekPreferences {
     }
 
     public void setSyntaxInserted( boolean modulesInserted ) {
-        switch ( getProgramLanguage() ) {
+        switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
                 setJavaSyntaxInserted( modulesInserted );
                 break;
@@ -333,15 +334,41 @@ public class CreekPreferences {
                             //Cpp
                             if( creekUserDB.getCppModuleDBVersion() > (localDB.getCppModuleDBVersion()) ) {
                                 setCPPModulesInserted(false);
+                                new RushSearch().whereEqual("moduleLanguage", "cpp").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
+                                    @Override
+                                    public void complete(List<LanguageModule> list) {
+                                        if( list != null ) {
+                                            RushCore.getInstance().delete(list);
+                                        }
+                                    }
+                                });
                             }
                             if( creekUserDB.getCppProgramIndexDBVersion() > (localDB.getCppProgramIndexDBVersion())) {
-                                setCProgramIndex(-1);
+                                setCppProgramIndex(-1);
+                                new RushSearch().whereEqual("syntaxLanguage", "cpp").find(SyntaxModule.class,
+                                        new RushSearchCallback<SyntaxModule>() {
+                                            @Override
+                                            public void complete(List<SyntaxModule> list) {
+                                                if( list != null ) {
+                                                    RushCore.getInstance().delete(list);
+                                                }
+                                            }
+                                        });
                             }
                             if( creekUserDB.getCppProgramTableDBVersion() > (localDB.getCppProgramTableDBVersion()) ) {
                                 setCPPProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getCppSyntaxDBVersion() > (localDB.getCppSyntaxDBVersion()) ) {
                                 setCPPSyntaxInserted(false);
+                                new RushSearch().whereEqual("syntaxLanguage", "cpp").find(SyntaxModule.class,
+                                        new RushSearchCallback<SyntaxModule>() {
+                                            @Override
+                                            public void complete(List<SyntaxModule> list) {
+                                                if( list != null ) {
+                                                    RushCore.getInstance().delete(list);
+                                                }
+                                            }
+                                        });
                             }
 
                             //Java
@@ -405,5 +432,13 @@ public class CreekPreferences {
                 }
             }
         });
+    }
+
+    public boolean isWelcomeDone() {
+        return sharedPreferences.getBoolean(KEY_WELCOME_DONE, false);
+    }
+
+    public void setWelcomeDone(boolean welcomeDone) {
+        sharedPreferences.edit().putBoolean(KEY_WELCOME_DONE, welcomeDone).apply();
     }
 }

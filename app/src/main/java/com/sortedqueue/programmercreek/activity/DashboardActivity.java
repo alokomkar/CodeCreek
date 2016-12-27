@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -91,22 +92,24 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
+        CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 creekPreferences.checkUpdateDB( creekUserDB );
+                CommonUtils.dismissProgressDialog();
             }
 
             @Override
             public void onError(DatabaseError databaseError) {
-
+                CommonUtils.dismissProgressDialog();
             }
         });
 
     }
 
     private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("c");
+        creekPreferences.setProgramLanguage("java");
         new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
     }
 

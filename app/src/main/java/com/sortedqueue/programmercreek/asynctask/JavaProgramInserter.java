@@ -2,12 +2,12 @@ package com.sortedqueue.programmercreek.asynctask;
 
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -221,12 +221,39 @@ public class JavaProgramInserter {
 
     public void insertLanguageModules() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        int moduleId = 6;
-        String programLanguage = new CreekPreferences(context).getProgramLanguage();
-        if( programLanguage.equals("c++") ) {
+        int moduleId = 1;
+        String programLanguage = "java";
+        /*if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
-        }
-        String generatedId = programLanguage + "_" + moduleId;
+        }*/
+        String generatedId = programLanguage + "_" + moduleId++;
+        /*firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Basic Input/Output", "The C++ standard libraries provide an extensive set of input/output capabilities which we will see in subsequent chapters.", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "C++ Strings", "C++ provides two types of string representations", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Modifier Types", "A modifier is used to alter the meaning of the base type so that it more precisely fits the needs of various situations.", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Storage Classes in C++", "A storage class defines the scope (visibility) and life-time of variables and/or functions within a C++ Program. ", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loop Control Statements", "Loop control statements change execution from its normal sequence. ", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "C++ Functions", "Use of looping to perform a task multiple times", programLanguage ));*/
+
+        programLanguage = "java";
+        moduleId = 1;
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Basic Datatypes", "Explore basic datatypes available in Java", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Variable Types", "A variable provides us with named storage that our programs can manipulate. ", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Object and Classes", "What are objects and classes?", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Modifier Types", "Explore Modifier types in Java", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Enhanced for loop in Java", "Loop control statements change execution from its normal sequence. ", programLanguage ));
+        generatedId = programLanguage + "_" + moduleId++;
+        firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Methods in Java", "A Java method is a collection of statements that are grouped together to perform an operation. ", programLanguage ));
+
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
        /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
@@ -403,7 +430,7 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, " &a"));*/
 
 
-        //firebaseDatabaseHandler.writeLanguageModule(new LanguageModule(generatedId, "Loops", "Use of looping to perform a task multiple times", programLanguage ));
+
 
     }
 
