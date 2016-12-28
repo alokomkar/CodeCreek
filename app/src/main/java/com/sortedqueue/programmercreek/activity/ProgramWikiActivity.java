@@ -87,7 +87,6 @@ public class ProgramWikiActivity extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                mAdView.setVisibility(View.VISIBLE);
             }
         });
         interstitialAd = new InterstitialAd(this);
@@ -115,11 +114,6 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.setIndeterminate(true);
                 progressBar.show();
-            if( !url.equalsIgnoreCase(creekPreferences.getProgramWiki()) ) {
-                if( interstitialAd != null ) {
-                    interstitialAd.show();
-                }
-            }
         }
 
         @Override
@@ -145,8 +139,15 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 R.anim.anim_slide_out_right);
     }
 
+    boolean isAdShown = false;
+
     @Override
     public void onBackPressed() {
+        if( !isAdShown ) {
+            interstitialAd.show();
+            isAdShown = true;
+            return;
+        }
         finish();
     }
 }

@@ -8,6 +8,7 @@
         android:id="@+id/progressBar"
         android:background="@color/bg"
         style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -16,6 +17,7 @@
     <WebView
         android:id="@+id/webView"
         android:background="@color/bg"
+        android:layout_below="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/adView"
