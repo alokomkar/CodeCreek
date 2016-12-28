@@ -98,6 +98,8 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 				TestDragNDropActivity.this.finish();
 			}
 		});
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
 		
 		
 	}
@@ -457,5 +459,11 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		interstitialAd.loadAd(adRequest);
 	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
 
 }

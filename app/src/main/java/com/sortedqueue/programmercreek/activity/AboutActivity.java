@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +26,21 @@ public class AboutActivity extends AppCompatActivity {
 				startActivity(browserIntent);
 			}
 		});
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
 
+	}
+
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 
 

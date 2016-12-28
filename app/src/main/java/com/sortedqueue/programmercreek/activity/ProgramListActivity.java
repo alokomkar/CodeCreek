@@ -61,6 +61,8 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 
 		fetchProgramsList( mDatabaseHandler );
 		initAds();
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
 
 	}
 
@@ -403,5 +405,17 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 				break;
 
 		}
+	}
+
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 }

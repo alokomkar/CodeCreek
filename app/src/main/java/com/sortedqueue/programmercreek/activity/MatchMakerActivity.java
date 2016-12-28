@@ -99,6 +99,8 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         } else {
             initUI(program_TableList);
         }
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
     private void initUI(List<Program_Table> program_TableList) {
@@ -576,6 +578,13 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
         }
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
 

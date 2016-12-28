@@ -85,6 +85,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         initAds();
         initUI();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
         //getFirebaseDBVerion();
         //initJavaIndex();
 
@@ -254,6 +256,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
         finish();
     }
 

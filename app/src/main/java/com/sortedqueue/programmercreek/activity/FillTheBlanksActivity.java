@@ -68,6 +68,8 @@ public class FillTheBlanksActivity extends AppCompatActivity implements View.OnC
         setTitle(0);
 
         setupListeners();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
     @Override
@@ -147,5 +149,17 @@ public class FillTheBlanksActivity extends AppCompatActivity implements View.OnC
                 fillBlanksViewPager.setCurrentItem(fillBlanksAdapter.getCount() - 1);
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

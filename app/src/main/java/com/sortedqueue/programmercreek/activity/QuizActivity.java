@@ -84,6 +84,8 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
             mQuizMode = bundle.getInt(ProgramListActivity.KEY_QUIZ_TYPE);
             initQuiz(mQuizMode);
         }
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
     }
 
@@ -398,4 +400,12 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
             initUI(program_TableList);
         }
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
 }

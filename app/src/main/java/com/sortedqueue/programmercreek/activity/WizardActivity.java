@@ -12,8 +12,21 @@ public class WizardActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_wizard);
-		
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
+
 	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 	
 }

@@ -87,6 +87,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			Log.d("ProgramActivity", " :: Program_Index : " + mProgram_Index+"");
 			getProgramTableFromDB(mProgram_Index);
 		}
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
 	}
 
 	private void getProgramTableFromDB(int program_Index) {
@@ -429,5 +431,15 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
 
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 }

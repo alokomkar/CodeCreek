@@ -68,6 +68,8 @@ public class ProgramWikiActivity extends AppCompatActivity {
             webView.loadUrl(programWiki);
         }
         initAds();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
     private void initAds() {
@@ -134,5 +136,17 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         interstitialAd.loadAd(adRequest);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

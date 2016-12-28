@@ -46,6 +46,8 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadModulesFragment();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
     private void loadModulesFragment() {
@@ -115,7 +117,14 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             loadModulesFragment();
         }
         else {
-            super.onBackPressed();
+            finish();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 }

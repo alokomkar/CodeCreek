@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -77,13 +78,15 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
-		mShowAllDrawable = getDrawable(R.drawable.ic_show_all);
-		mHideDrawable = getDrawable(R.drawable.ic_remove);
+		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);
+		mHideDrawable = ContextCompat.getDrawable(this, R.drawable.ic_remove);
 		Log.d("Program Activity", " :: Program_Index :  " +  mProgram_Index+"");
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(this);
 		}
 		getProgramTableFromDB(mProgram_Index);
+		this.overridePendingTransition(R.anim.anim_slide_in_left,
+				R.anim.anim_slide_out_left);
 		
 	}
 
@@ -506,7 +509,17 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(R.anim.anim_slide_in_right,
+				R.anim.anim_slide_out_right);
+	}
 
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 
 
 }
