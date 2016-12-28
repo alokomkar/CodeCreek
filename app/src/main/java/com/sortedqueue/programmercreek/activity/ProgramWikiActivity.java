@@ -87,10 +87,29 @@ public class ProgramWikiActivity extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
             }
         });
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                finish();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                finish();
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+        });
         requestNewInterstitial();
 
     }
