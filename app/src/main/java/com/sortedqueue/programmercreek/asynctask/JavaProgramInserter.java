@@ -232,11 +232,11 @@ public class JavaProgramInserter {
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, "0"));
-        moduleOptions.add(new ModuleOption(index++, "1"));
+        moduleOptions.add(new ModuleOption(index++, ""));
+        /*moduleOptions.add(new ModuleOption(index++, "1"));
         moduleOptions.add(new ModuleOption(index++, "2"));
         moduleOptions.add(new ModuleOption(index++, "3"));
-        moduleOptions.add(new ModuleOption(index++, "4"));
+        moduleOptions.add(new ModuleOption(index++, "4"));*/
         /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
         moduleOptions.add(new ModuleOption(index++, "e"));
         moduleOptions.add(new ModuleOption(index++, "Error"));*/
@@ -247,50 +247,46 @@ public class JavaProgramInserter {
                         "s_1",
                         generatedId,
                         programLanguage,
-                        "break statement",
-                        "Terminates the loop or switch statement and transfers execution to the statement immediately following the loop or switch. \n" +
-                                "The break statement has the following two usages in C++:\n" +
+                        "Primitive data types",
+                        " The eight primitive data types in Java are:\n" +
                                 "\n" +
-                                "When the break statement is encountered inside a loop, the loop is immediately terminated and program control resumes at the next statement following the loop.\n" +
-                                "\n" +
-                                "It can be used to terminate a case in the switch statement ",
-                        "Example : \n" +
-                                "// do loop execution\n" +
-                                "   do {\n" +
-                                "      cout << \"value of a: \" << a << endl;\n" +
-                                "      a = a + 1;\n" +
-                                "\t\t\n" +
-                                "      if( a > 15) {\n" +
-                                "         // terminate the loop\n" +
-                                "         break;\n" +
-                                "      }\n" +
-                                "   }while( a < 20 );",
-                        "Output : \n" +
-                                "value of a: 10\n" +
-                                "value of a: 11\n" +
-                                "value of a: 12\n" +
-                                "value of a: 13\n" +
-                                "value of a: 14\n" +
-                                "value of a: 15",
-                        "Predict the output : What would be the value of y when x = 2?\n" +
-                                "for( x = 0; x < 4; x++ )\n" +
-                                "  for( y = 0; y < 10; y++ ) {\n" +
-                                "    if( y < x ) break; \n" +
-                                "  }",
+                                "    boolean, the type whose values are either true or false\n" +
+                                "    char, the character type whose values are 16-bit Unicode characters\n" +
+                                "    the arithmetic types:\n" +
+                                "        the integral types:\n" +
+                                "            byte\n" +
+                                "            short\n" +
+                                "            int\n" +
+                                "            long \n" +
+                                "        the floating-point types:\n" +
+                                "            float\n" +
+                                "            double \n\n",
+                        "Example : \n\n" +
+                                "Type : Description : Default : Size : Example Literals" +
+                                "boolean : true or false : false : 1 bit : true, false\n" +
+                                "byte : twos complement integer : 0 : 8 bits : (none)\n" +
+                                "char : Unicode character : \\u0000 : 16 bits  : 'a', '\\u0041', '\\101', '\\\\', '\\'', '\\n', 'ß'\n" +
+                                "short : twos complement integer : 0 : 16 bits : (none)\n" +
+                                "int : twos complement integer : 0 : 32 bits : -2, -1, 0, 1, 2\n" +
+                                "long : twos complement integer : 0 : 64 bits : -2L, -1L, 0L, 1L, 2L\n" +
+                                "float : IEEE 754 floating point : 0.0 : 32 bits  : 1.23e100f, -1.23e-100f, .3f, 3.14F\n" +
+                                "double : IEEE 754 floating point : 0.0 : 64 bits  : 1.23456e300d, -1.23456e-300d, 1e1d",
+                        "Description : \n" +
+                                "Above class contains all the types of variables in java",
+                        "",
 
-                        "Hint : \n" +
-                                "If you are using nested loops (i.e., one loop inside another loop), the break statement will stop the execution of the innermost loop and start executing the next line of code after the block.",
-                        "0",
+                        "",
+                        "",
                         moduleOptions
                         ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, ""));
-        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
-        moduleOptions.add(new ModuleOption(index++, "e"));
-        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+        moduleOptions.add(new ModuleOption(index++, "class Code "));
+        moduleOptions.add(new ModuleOption(index++, "String program_Language;\n"));
+        moduleOptions.add(new ModuleOption(index++, "{\n"));
+        moduleOptions.add(new ModuleOption(index++, "}"));
 
 
         firebaseDatabaseHandler.writeSyntaxModule(
@@ -298,51 +294,78 @@ public class JavaProgramInserter {
                         "s_2",
                         generatedId,
                         programLanguage,
-                        "C++ continue statement",
-                        "The continue statement works somewhat like the break statement. Instead of forcing termination, however, continue forces the next iteration of the loop to take place, skipping any code in between.\n" +
+                        "Non-primitive, or reference data types ",
+                        "Non-primitive, or reference data types are the more sophisticated members of the data type family. They don't store the value, but store a reference to that value. Instead of partNumber 4030023, Java keeps the reference (also called address) to that value, not the value itself.\n" +
                                 "\n" +
-                                "For the for loop, continue causes the conditional test and increment portions of the loop to execute. For the while and do...while loops, program control passes to the conditional tests.",
+                                "Reference types can be a class, interface, or array variable. Remember that a class is a set of plans for a given object. There are thousands of Tree objects, but the parent set of plans would belong in the Tree class. Variables can exist inside the tree class, such as height or tree type. These are reference variables.\n" +
+                                "\n" +
+                                "An array is a single object that contains multiple values of the same type. We could have declared our integer for partNumbers as an array to hold a given number of partNumbers in a single object. \n\n" +
+                                "Class Data Types\n" +
+                                "\n" +
+                                "Let's say we declare a new class called Product: " +
+                                "\nclass Product {\n" +
+                                "//Class specific code" +
+                                "}\n\n" +
+                                "In order to create a new non-primitive or reference variable for this class, we have to create a new instance of the Product class. The new keyword is used to create an object. Look at the following example where we'll be creating a new Product called car wax.\n" +
+                                "\n" +
+                                "The Java code is as follows: ",
                         "Example : \n" +
-                                "// Local variable declaration:\n" +
-                                "   int a = 10;\n" +
-                                "\n" +
-                                "   // do loop execution\n" +
-                                "   do {\n" +
-                                "      if( a == 15) {\n" +
-                                "         // skip the iteration.\n" +
-                                "         a = a + 1;\n" +
-                                "         continue;\n" +
-                                "      }\n" +
-                                "\t\t\n" +
-                                "      cout << \"value of a: \" << a << endl;\n" +
-                                "      a = a + 1;\n" +
-                                "   }while( a < 20 );",
+                                "Product carwax = new Product();",
                         "Output : \n " +
-                                "value of a: 10\n" +
-                                "value of a: 11\n" +
-                                "value of a: 12\n" +
-                                "value of a: 13\n" +
-                                "value of a: 14\n" +
-                                "value of a: 16\n" +
-                                "value of a: 17\n" +
-                                "value of a: 18\n" +
-                                "value of a: 19",
-                        "",
+                                "So now we have a variable of carWax: But it's really an instance of the Product class, and not a set value like the primitive variables. ",
+                        "Declare a new class Code : with variable : String program_Language :",
 
-                        "",
-                        "",
+                        "A new class called Code has been made",
+                        "class Code {\n" +
+                                "String program_Language;\n" +
+                                "}",
                         moduleOptions
                 ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, "No effect"));
-        moduleOptions.add(new ModuleOption(index++, "Error in program."));
-        moduleOptions.add(new ModuleOption(index++, "Compilation error"));
+        moduleOptions.add(new ModuleOption(index++, "Code readCode();\n"));
+        moduleOptions.add(new ModuleOption(index++, "String program_Language;\n"));
+        moduleOptions.add(new ModuleOption(index++, "public interface readCode\n"));
+        moduleOptions.add(new ModuleOption(index++, " {\n"));
+        moduleOptions.add(new ModuleOption(index++, "}"));
+
+
+        firebaseDatabaseHandler.writeSyntaxModule(
+                new SyntaxModule(
+                        "s_3",
+                        generatedId,
+                        programLanguage,
+                        "Interface Data Types",
+                        "An interface is like a dashboard or control panel for a class. It has the buttons, but the function is elsewhere. " +
+                                "We won't go into detail on implementing interfaces since the focus is on the interface as a " +
+                                "non-primitive, or reference, data type. ",
+                        "Example : \n" +
+                                "public interface writeCode {\n" +
+                                "\nint onCodeInput(Code code,\n" +
+                                "            String programLanguage,\n" +
+                                "            String programLineCode,\n" +
+                                "            String comments);\n" +
+                                "//Code here is a custom class defined" +
+                                "}\n\n" +
+                                "public class JavaProgram implements writeCode {\n" +
+                                " int onCodeInput( Code code, String programLanguage, String programLineCode, String comments ) {\n" +
+                                " //Your implementation to do something with the parameters.\n}" +
+                                "}",
+                        "Description : \n " +
+                                "To use an interface, you write a class that implements the interface. When an instantiable class implements an interface, it provides a method body for each of the methods declared in the interface. ",
+                        "Declare a new interface readCode : with method : Code readCode() :",
+
+                        "A new class called Code has been made",
+                        "public interface readCode {\n" +
+                                "Code readCode();\n" +
+                                "}",
+                        moduleOptions
+                ));
         /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
         moduleOptions.add(new ModuleOption(index++, "e"));
-        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+        moduleOptions.add(new ModuleOption(index++, "Error"));*//*
 
 
         firebaseDatabaseHandler.writeSyntaxModule(
@@ -365,7 +388,7 @@ public class JavaProgramInserter {
                                 "         a = a + 1;\n" +
                                 "         goto LOOP;\n" +
                                 "      }\n" +
-                                "\t\t\n" +
+                                " :  : \n" +
                                 "      cout << \"value of a: \" << a << endl;\n" +
                                 "      a = a + 1;\n" +
                                 "   }while( a < 20 );",
@@ -404,9 +427,9 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, ")"));
         moduleOptions.add(new ModuleOption(index++, "true"));
 
-        moduleOptions.add(new ModuleOption(index++, "while"));        /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
+        moduleOptions.add(new ModuleOption(index++, "while"));        *//*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
         moduleOptions.add(new ModuleOption(index++, "e"));
-        moduleOptions.add(new ModuleOption(index++, "Error"));*/
+        moduleOptions.add(new ModuleOption(index++, "Error"));*//*
 
 
         firebaseDatabaseHandler.writeSyntaxModule(
@@ -442,19 +465,19 @@ public class JavaProgramInserter {
 
         moduleOptions = new ArrayList<>();
         index = 0;
-       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+       *//* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
         moduleOptions.add(new ModuleOption(index++, "\"%s\""));
         moduleOptions.add(new ModuleOption(index++, "gets("));
         moduleOptions.add(new ModuleOption(index++, "getchar("));
-        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+        moduleOptions.add(new ModuleOption(index++, " &a"));*//*
 
-        /*moduleOptions.add(new ModuleOption(index++, "s;"));
-        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        *//*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*//*
 
         moduleOptions.add(new ModuleOption(index++, "compilation success"));
         moduleOptions.add(new ModuleOption(index++, "error: non-modifiable object"));
 
-        /*firebaseDatabaseHandler.writeSyntaxModule(
+        *//*firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_2",
                         generatedId,
@@ -473,18 +496,18 @@ public class JavaProgramInserter {
                         "Hint : const cannot be changed",
                         "error: non-modifiable object",
                         moduleOptions
-                ));*/
+                ));*//*
 
         moduleOptions = new ArrayList<>();
         index = 0;
-       /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
+       *//* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
         moduleOptions.add(new ModuleOption(index++, "\"%s\""));
         moduleOptions.add(new ModuleOption(index++, "gets("));
         moduleOptions.add(new ModuleOption(index++, "getchar("));
-        moduleOptions.add(new ModuleOption(index++, " &a"));*/
+        moduleOptions.add(new ModuleOption(index++, " &a"));*//*
 
-        /*moduleOptions.add(new ModuleOption(index++, "s;"));
-        moduleOptions.add(new ModuleOption(index++, "extern "));*/
+        *//*moduleOptions.add(new ModuleOption(index++, "s;"));
+        moduleOptions.add(new ModuleOption(index++, "extern "));*//*
         moduleOptions.add(new ModuleOption(index++, " <<"));
         moduleOptions.add(new ModuleOption(index++, "cin"));
         moduleOptions.add(new ModuleOption(index++, " >> "));
@@ -494,7 +517,7 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, "cout"));
 
 
-       /* firebaseDatabaseHandler.writeSyntaxModule(
+       *//* firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_3",
                         generatedId,
@@ -512,9 +535,9 @@ public class JavaProgramInserter {
                         "undefined character",
                         "cerr << \"undefined character\";",
                         moduleOptions
-                ));*/
+                ));*//*
         moduleOptions = new ArrayList<>();
-        index = 0;
+        index = 0;*/
        /* moduleOptions.add(new ModuleOption(index++, "\"%d\""));
         moduleOptions.add(new ModuleOption(index++, "\"%s\""));
         moduleOptions.add(new ModuleOption(index++, "gets("));
