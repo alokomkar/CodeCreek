@@ -227,12 +227,15 @@ public class JavaProgramInserter {
             programLanguage = "cpp";
         }
 
-        moduleId = 1;
+        moduleId = 5;
         String generatedId = programLanguage + "_" + moduleId++;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, ""));
+        moduleOptions.add(new ModuleOption(index++, " numbers )"));
+        moduleOptions.add(new ModuleOption(index++, "for("));
+        moduleOptions.add(new ModuleOption(index++, ":"));
+        moduleOptions.add(new ModuleOption(index++, " int x "));
         /*moduleOptions.add(new ModuleOption(index++, "1"));
         moduleOptions.add(new ModuleOption(index++, "2"));
         moduleOptions.add(new ModuleOption(index++, "3"));
@@ -247,89 +250,127 @@ public class JavaProgramInserter {
                         "s_1",
                         generatedId,
                         programLanguage,
-                        "Primitive data types",
-                        " The eight primitive data types in Java are:\n" +
-                                "\n" +
-                                "    boolean, the type whose values are either true or false\n" +
-                                "    char, the character type whose values are 16-bit Unicode characters\n" +
-                                "    the arithmetic types:\n" +
-                                "        the integral types:\n" +
-                                "            byte\n" +
-                                "            short\n" +
-                                "            int\n" +
-                                "            long \n" +
-                                "        the floating-point types:\n" +
-                                "            float\n" +
-                                "            double \n\n",
-                        "Example : \n\n" +
-                                "Type : Description : Default : Size : Example Literals" +
-                                "boolean : true or false : false : 1 bit : true, false\n" +
-                                "byte : twos complement integer : 0 : 8 bits : (none)\n" +
-                                "char : Unicode character : \\u0000 : 16 bits  : 'a', '\\u0041', '\\101', '\\\\', '\\'', '\\n', 'ß'\n" +
-                                "short : twos complement integer : 0 : 16 bits : (none)\n" +
-                                "int : twos complement integer : 0 : 32 bits : -2, -1, 0, 1, 2\n" +
-                                "long : twos complement integer : 0 : 64 bits : -2L, -1L, 0L, 1L, 2L\n" +
-                                "float : IEEE 754 floating point : 0.0 : 32 bits  : 1.23e100f, -1.23e-100f, .3f, 3.14F\n" +
-                                "double : IEEE 754 floating point : 0.0 : 64 bits  : 1.23456e300d, -1.23456e-300d, 1e1d",
+                        "Enhanced for loop in Java",
+                        "As of Java 5, the enhanced for loop was introduced. This is mainly used to traverse collection of elements including arrays.\n" +
+                                "\n",
+                        "Syntax : \n\n" +
+                                "for(declaration : expression) {\n" +
+                                "   // Statements\n" +
+                                "}\n",
                         "Description : \n" +
-                                "Above class contains all the types of variables in java",
-                        "",
+                                "Declaration − The newly declared block variable, is of a type compatible with the elements of the array you are accessing. The variable will be available within the for block and its value would be the same as the current array element.\n" +
+                                "\n" +
+                                "Expression − This evaluates to the array you need to loop through. The expression can be an array variable or method call that returns an array.",
+                        "Define an enhanced for loop in the example :\n" +
+                                "public class Test {\n" +
+                                "\n" +
+                                "   public static void main(String args[]) {\n" +
+                                "      int [] numbers = {10, 20, 30, 40, 50};\n" +
+                                "\n" +
+                                "      //Your for loop here{\n" +
+                                "         System.out.print( x );\n" +
+                                "         System.out.print(\",\");\n" +
+                                "      }\n" +
+                                "      System.out.print(\"\\n\");\n" +
+                                "      String [] names = {\"James\", \"Larry\", \"Tom\", \"Lacy\"};\n" +
+                                "\n" +
+                                "      for( String name : names ) {\n" +
+                                "         System.out.print( name );\n" +
+                                "         System.out.print(\",\");\n" +
+                                "      }\n" +
+                                "   }",
 
-                        "",
-                        "",
+                        "Print numbers from 10 to 50",
+                        "for( int x : numbers )",
                         moduleOptions
                         ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, "class Code "));
-        moduleOptions.add(new ModuleOption(index++, "String program_Language;\n"));
-        moduleOptions.add(new ModuleOption(index++, "{\n"));
-        moduleOptions.add(new ModuleOption(index++, "}"));
+        /*moduleOptions.add(new ModuleOption(index++, "Singleton "));
+        moduleOptions.add(new ModuleOption(index++, "public static "));
+        moduleOptions.add(new ModuleOption(index++, " return singleton;\n"));
+        moduleOptions.add(new ModuleOption(index++, "getInstance( ) {\n"));*/
+        moduleOptions.add(new ModuleOption(index++, ""));
 
 
-        firebaseDatabaseHandler.writeSyntaxModule(
+        /*firebaseDatabaseHandler.writeSyntaxModule(
                 new SyntaxModule(
                         "s_2",
                         generatedId,
                         programLanguage,
-                        "Non-primitive, or reference data types ",
-                        "Non-primitive, or reference data types are the more sophisticated members of the data type family. They don't store the value, but store a reference to that value. Instead of partNumber 4030023, Java keeps the reference (also called address) to that value, not the value itself.\n" +
+                        "Access Modifiers",
+                        "Default Access Modifier - No Keyword\n" +
+                                "Default access modifier means we do not explicitly declare an access modifier for a class, field, method, etc.\n" +
                                 "\n" +
-                                "Reference types can be a class, interface, or array variable. Remember that a class is a set of plans for a given object. There are thousands of Tree objects, but the parent set of plans would belong in the Tree class. Variables can exist inside the tree class, such as height or tree type. These are reference variables.\n" +
+                                "A variable or method declared without any access control modifier is available to any other class in the same package. The fields in an interface are implicitly public static final and the methods in an interface are by default public.\n" +
+                                "Private Access Modifier - Private\n" +
+                                "Methods, variables, and constructors that are declared private can only be accessed within the declared class itself.\n" +
                                 "\n" +
-                                "An array is a single object that contains multiple values of the same type. We could have declared our integer for partNumbers as an array to hold a given number of partNumbers in a single object. \n\n" +
-                                "Class Data Types\n" +
+                                "Private access modifier is the most restrictive access level. Class and interfaces cannot be private.\n" +
                                 "\n" +
-                                "Let's say we declare a new class called Product: " +
-                                "\nclass Product {\n" +
-                                "//Class specific code" +
-                                "}\n\n" +
-                                "In order to create a new non-primitive or reference variable for this class, we have to create a new instance of the Product class. The new keyword is used to create an object. Look at the following example where we'll be creating a new Product called car wax.\n" +
+                                "Variables that are declared private can be accessed outside the class, if public getter methods are present in the class.\n" +
                                 "\n" +
-                                "The Java code is as follows: ",
+                                "Using the private modifier is the main way that an object encapsulates itself and hides data from the outside world.\n" +
+                                "Public Access Modifier - Public\n" +
+                                "A class, method, constructor, interface, etc. declared public can be accessed from any other class. Therefore, fields, methods, blocks declared inside a public class can be accessed from any class belonging to the Java Universe.\n" +
+                                "\n" +
+                                "However, if the public class we are trying to access is in a different package, then the public class still needs to be imported. Because of class inheritance, all public methods and variables of a class are inherited by its subclasses.\n" +
+                                "\n" +
+                                "Protected Access Modifier - Protected\n" +
+                                "Variables, methods, and constructors, which are declared protected in a superclass can be accessed only by the subclasses in other package or any class within the package of the protected members' class.\n" +
+                                "\n" +
+                                "The protected access modifier cannot be applied to class and interfaces. Methods, fields can be declared protected, however methods and fields in a interface cannot be declared protected.\n" +
+                                "\n" +
+                                "Protected access gives the subclass a chance to use the helper method or variable, while preventing a nonrelated class from trying to use it.\n" +
+                                "Access Control and Inheritance\n" +
+                                "The following rules for inherited methods are enforced −\n" +
+                                "\n" +
+                                "1. Methods declared public in a superclass also must be public in all subclasses.\n" +
+                                "\n" +
+                                "2. Methods declared protected in a superclass must either be protected or public in subclasses; they cannot be private.\n" +
+                                "\n" +
+                                "3. Methods declared private are not inherited at all, so there is no rule for them.",
                         "Example : \n" +
-                                "Product carwax = new Product();",
-                        "Output : \n " +
-                                "So now we have a variable of carWax: But it's really an instance of the Product class, and not a set value like the primitive variables. ",
-                        "Declare a new class Code : with variable : String program_Language :",
-
-                        "A new class called Code has been made",
-                        "class Code {\n" +
-                                "String program_Language;\n" +
+                                "public class Logger {\n" +
+                                "String version = \"1.5.1\";\n" +
+                                "//default access\n" +
+                                "boolean processOrder() {\n" +
+                                "   return true;\n" +
+                                "}" +
+                                "   private String format;\n" +
+                                "//Private access\n" +
+                                "   public String getFormat() {\n" +
+                                "      return this.format;\n" +
+                                "   }\n" +
+                                "\n" +
+                                "   //Public access" +
+                                "   public void setFormat(String format) {\n" +
+                                "      this.format = format;\n" +
+                                "   }\n" +
+                                "   //Protected access : can be overridden by the child class" +
+                                "   protected boolean openSpeaker(Speaker sp) {\n" +
+                                "      // implementation details\n" +
+                                "   }" +
                                 "}",
+                        "Description : \n " +
+                                "The above class illustrates all the access modifiers ",
+                        "",
+
+                        "",
+                        "",
                         moduleOptions
                 ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
 
-        moduleOptions.add(new ModuleOption(index++, "Code readCode();\n"));
+        *//*moduleOptions.add(new ModuleOption(index++, "Code readCode();\n"));
         moduleOptions.add(new ModuleOption(index++, "String program_Language;\n"));
         moduleOptions.add(new ModuleOption(index++, "public interface readCode\n"));
-        moduleOptions.add(new ModuleOption(index++, " {\n"));
-        moduleOptions.add(new ModuleOption(index++, "}"));
+        moduleOptions.add(new ModuleOption(index++, " {\n"));*//*
+        moduleOptions.add(new ModuleOption(index++, ""));
 
 
         firebaseDatabaseHandler.writeSyntaxModule(
@@ -337,32 +378,40 @@ public class JavaProgramInserter {
                         "s_3",
                         generatedId,
                         programLanguage,
-                        "Interface Data Types",
-                        "An interface is like a dashboard or control panel for a class. It has the buttons, but the function is elsewhere. " +
-                                "We won't go into detail on implementing interfaces since the focus is on the interface as a " +
-                                "non-primitive, or reference, data type. ",
+                        "Non Access Modifiers",
+                        "Java provides a number of non-access modifiers to achieve many other functionalities.\n" +
+                                "\n" +
+                                "The static modifier for creating class methods and variables.\n" +
+                                "\n" +
+                                "The final modifier for finalizing the implementations of classes, methods, and variables.\n" +
+                                "\n" +
+                                "The abstract modifier for creating abstract classes and methods.\n" +
+                                "\n" +
+                                "The synchronized and volatile modifiers, which are used for threads.",
                         "Example : \n" +
-                                "public interface writeCode {\n" +
-                                "\nint onCodeInput(Code code,\n" +
-                                "            String programLanguage,\n" +
-                                "            String programLineCode,\n" +
-                                "            String comments);\n" +
-                                "//Code here is a custom class defined" +
-                                "}\n\n" +
-                                "public class JavaProgram implements writeCode {\n" +
-                                " int onCodeInput( Code code, String programLanguage, String programLineCode, String comments ) {\n" +
-                                " //Your implementation to do something with the parameters.\n}" +
+                                "class Cloth\n" +
+                                "{\n" +
+                                " static String cloth_brand = \"Infinity\";" +
+                                " final int MAX_PRICE = 999;    //final variable\n" +
+                                " final int MIN_PRICE = 699;\n" +
+                                " final void display()      //final method\n" +
+                                " {\n" +
+                                "  System.out.println(\"Maxprice is\" + MAX_PRICE );\n" +
+                                "  System.out.println(\"Minprice is\" + MIN_PRICE);\n" +
+                                " }\n" +
+                                " //Static methods\n" +
+                                " public static void main(String[] args) {\n" +
+                                "  display();\n" +
+                                " }" +
                                 "}",
                         "Description : \n " +
-                                "To use an interface, you write a class that implements the interface. When an instantiable class implements an interface, it provides a method body for each of the methods declared in the interface. ",
-                        "Declare a new interface readCode : with method : Code readCode() :",
+                                "Above class contains examples for static variable, static method, final variable and final method",
+                        "",
 
-                        "A new class called Code has been made",
-                        "public interface readCode {\n" +
-                                "Code readCode();\n" +
-                                "}",
+                        "",
+                        "",
                         moduleOptions
-                ));
+                ));*/
         /*moduleOptions.add(new ModuleOption(index++, "Namasthe"));
         moduleOptions.add(new ModuleOption(index++, "e"));
         moduleOptions.add(new ModuleOption(index++, "Error"));*//*
