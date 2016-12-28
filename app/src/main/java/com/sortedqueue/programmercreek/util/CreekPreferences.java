@@ -304,15 +304,6 @@ public class CreekPreferences {
                             }
                             if( creekUserDB.getcProgramIndexDBVersion() > (localDB.getcProgramIndexDBVersion())) {
                                 setCProgramIndex(-1);
-                                new RushSearch().whereEqual("syntaxLanguage", "c").find(SyntaxModule.class,
-                                        new RushSearchCallback<SyntaxModule>() {
-                                            @Override
-                                            public void complete(List<SyntaxModule> list) {
-                                                if( list != null ) {
-                                                    RushCore.getInstance().delete(list);
-                                                }
-                                            }
-                                        });
                             }
                             if( creekUserDB.getcProgramTableDBVersion() > (localDB.getcProgramTableDBVersion()) ) {
                                 setCProgramTablesIndex(-1);
@@ -334,7 +325,7 @@ public class CreekPreferences {
                             //Cpp
                             if( creekUserDB.getCppModuleDBVersion() > (localDB.getCppModuleDBVersion()) ) {
                                 setCPPModulesInserted(false);
-                                new RushSearch().whereEqual("moduleLanguage", "cpp").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
+                                new RushSearch().whereEqual("moduleLanguage", "cpp").or().whereEqual("moduleLanguage", "c++").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
                                     public void complete(List<LanguageModule> list) {
                                         if( list != null ) {
@@ -345,22 +336,13 @@ public class CreekPreferences {
                             }
                             if( creekUserDB.getCppProgramIndexDBVersion() > (localDB.getCppProgramIndexDBVersion())) {
                                 setCppProgramIndex(-1);
-                                new RushSearch().whereEqual("syntaxLanguage", "cpp").find(SyntaxModule.class,
-                                        new RushSearchCallback<SyntaxModule>() {
-                                            @Override
-                                            public void complete(List<SyntaxModule> list) {
-                                                if( list != null ) {
-                                                    RushCore.getInstance().delete(list);
-                                                }
-                                            }
-                                        });
                             }
                             if( creekUserDB.getCppProgramTableDBVersion() > (localDB.getCppProgramTableDBVersion()) ) {
                                 setCPPProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getCppSyntaxDBVersion() > (localDB.getCppSyntaxDBVersion()) ) {
                                 setCPPSyntaxInserted(false);
-                                new RushSearch().whereEqual("syntaxLanguage", "cpp").find(SyntaxModule.class,
+                                new RushSearch().whereEqual("syntaxLanguage", "cpp").or().whereEqual("syntaxLanguage", "c++").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
                                             @Override
                                             public void complete(List<SyntaxModule> list) {
@@ -374,6 +356,14 @@ public class CreekPreferences {
                             //Java
                             if( creekUserDB.getJavaModuleDBVersion() > (localDB.getJavaModuleDBVersion()) ) {
                                 setJavaModulesInserted(false);
+                                new RushSearch().whereEqual("moduleLanguage", "java").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
+                                    @Override
+                                    public void complete(List<LanguageModule> list) {
+                                        if( list != null ) {
+                                            RushCore.getInstance().delete(list);
+                                        }
+                                    }
+                                });
                             }
                             if( creekUserDB.getJavaProgramIndexDBVersion() > (localDB.getJavaProgramIndexDBVersion())) {
                                 setJavaProgramIndex(-1);
@@ -383,6 +373,15 @@ public class CreekPreferences {
                             }
                             if( creekUserDB.getJavaSyntaxDBVersion() > (localDB.getJavaSyntaxDBVersion()) ) {
                                 setJavaSyntaxInserted(false);
+                                new RushSearch().whereEqual("syntaxLanguage", "java").find(SyntaxModule.class,
+                                        new RushSearchCallback<SyntaxModule>() {
+                                            @Override
+                                            public void complete(List<SyntaxModule> list) {
+                                                if( list != null ) {
+                                                    RushCore.getInstance().delete(list);
+                                                }
+                                            }
+                                        });
                             }
 
                             //C Premium
