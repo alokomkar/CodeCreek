@@ -57,6 +57,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         if( moduleFragment == null ) {
             moduleFragment = new ModuleFragment();
         }
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, moduleFragment, ModuleFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
@@ -103,6 +104,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             moduleDetailsFragment = new ModuleDetailsFragment();
         }
         moduleDetailsFragment.setParameters( module, syntaxModules );
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, moduleDetailsFragment, ModuleDetailsFragment.class.getSimpleName());
         mFragmentTransaction.commit();
 
