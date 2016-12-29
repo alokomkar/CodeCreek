@@ -96,6 +96,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     }
 
+    private ArrayList<String> solutionList = new ArrayList<>();
     private void setupRecyclerView(ArrayList<ModuleOption> syntaxOptions) {
         moduleOptions = syntaxOptions;
         Log.d(TAG, "Module Options : " + syntaxOptions.toString());
@@ -103,7 +104,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         optionsRecyclerView.setAdapter( new OptionsRecyclerViewAdapter(getContext(), syntaxOptions, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
-                syntaxSolutionTextView.append(moduleOptions.get(position).getOption());
+                solutionList.add(moduleOptions.get(position).getOption());
+                syntaxSolutionTextView.setText(getSolution(solutionList));
             }
         }));
 
@@ -115,6 +117,14 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
 
+    }
+
+    private String getSolution(ArrayList<String> solutionList) {
+        String solution = "";
+        for( String solutionString : solutionList ) {
+            solution += solutionString;
+        }
+        return solution;
     }
 
     public void setSyntaxModule(SyntaxModule syntaxModule) {
@@ -131,7 +141,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     public void onClick(View view) {
         switch ( view.getId() ) {
             case R.id.clearSyntaxImageView :
-                syntaxSolutionTextView.setText("");
+                if( solutionList.size() == 0 ) {
+                    syntaxSolutionTextView.setText("");
+                }
+                else {
+                    solutionList.remove(solutionList.size() - 1);
+                    syntaxSolutionTextView.setText(getSolution(solutionList));
+                }
                 break;
             case R.id.checkSyntaxImageView :
                 checkSolution();
