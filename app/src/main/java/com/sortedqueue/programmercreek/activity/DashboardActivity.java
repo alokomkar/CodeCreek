@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -127,8 +128,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             public void onAdLoaded() {
                 super.onAdLoaded();
                 adView.setVisibility(View.VISIBLE);
+                AuxilaryUtils.displayResultAlert("Result", "Message", DashboardActivity.this);
             }
         });
+
     }
 
 

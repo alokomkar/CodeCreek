@@ -12,10 +12,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -27,7 +31,9 @@ import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 
 public class AuxilaryUtils {
 
-	public static void showConfirmationDialog(final Activity activity){
+    private static int progressBarStatus;
+
+    public static void showConfirmationDialog(final Activity activity){
 
 		Builder builder = new Builder(activity);
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -84,10 +90,13 @@ public class AuxilaryUtils {
 		alertDialog.show();
 	}
 
-	public static void displayResultAlert(String title, String message, final Activity activity) {
+	public static void displayResultAlert(String title, String message,  final Activity activity) {
 
 		Builder alertDialogBuilder = new Builder(
 				activity);
+		View view = LayoutInflater.from(activity).inflate(R.layout.dialog_result, null);
+		final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+		alertDialogBuilder.setView(LayoutInflater.from(activity).inflate(R.layout.dialog_result, null));
 
 		// set title
 		alertDialogBuilder.setTitle(title);
@@ -101,8 +110,6 @@ public class AuxilaryUtils {
 						// if this button is clicked, close
 						// current activity
 						dialog.cancel();
-						activity.finish();
-
 					}
 				});
 
@@ -111,6 +118,29 @@ public class AuxilaryUtils {
 
 		// show it
 		alertDialog.show();
+        final Handler handler = new Handler();
+        if( alertDialog.isShowing() ) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (progressBarStatus = 0; progressBarStatus <= 100; progressBarStatus++) {
+
+                        handler.post(new Runnable() {
+                            public void run() {
+                                progressBar.setProgress(progressBarStatus);
+                            }
+                        });
+
+
+                        try {
+                            Thread.sleep(50);
+                        } catch (Exception ex) {
+                        }
+                    }
+                }
+            }).start();
+        }
+
 	}
 
 	public static String getProgramTitle(int program_Index, Context context, DatabaseHandler databaseHandler ) {
