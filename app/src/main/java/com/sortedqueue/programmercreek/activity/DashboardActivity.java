@@ -85,16 +85,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         initAds();
         initUI();
-        //getFirebaseDBVerion();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-
         //initJavaIndex();
 
     }
 
     private void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
+        CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
@@ -221,7 +220,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 return true;
 
             case R.id.action_sync :
-                CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
                 getFirebaseDBVerion();
                 return true;
 
