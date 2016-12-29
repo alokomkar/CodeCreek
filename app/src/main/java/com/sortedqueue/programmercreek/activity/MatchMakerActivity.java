@@ -310,13 +310,14 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         }
         if (CheckSolution == programSize) {
             if (quizComplete == false) {
-                AuxilaryUtils.displayAlert("Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
+                AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!", MatchMakerActivity.this);
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!", CheckSolution, programSize );
                 checkQuizButton.setEnabled(false);
             } else {
-                AuxilaryUtils.displayAlert("Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!", MatchMakerActivity.this);
+                AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!",
+                        CheckSolution, programSize);
                 checkQuizButton.setEnabled(false);
             }
 
@@ -356,7 +357,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
                 }
             }
-            AuxilaryUtils.displayAlert("Match Complete", message, MatchMakerActivity.this);
+            AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", message, matchScore, programSize);
         }
         if (mWizard == true) {
             timerButton.setText("Next");

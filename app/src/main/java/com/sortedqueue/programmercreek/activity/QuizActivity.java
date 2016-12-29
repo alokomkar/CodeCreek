@@ -284,7 +284,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!";
         }
 
-        AuxilaryUtils.displayAlert(QuizActivity.this.getTitle().toString(), message, QuizActivity.this);
+        AuxilaryUtils.displayResultAlert( QuizActivity.this, QuizActivity.this.getTitle().toString(), message, score, programSize );
         quizComplete = true;
         if (mWizard == true) {
             mTimerBtn.setText("Next");

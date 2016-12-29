@@ -29,6 +29,7 @@
             android:layout_alignTop="@+id/arc_progress"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:id="@+id/bigScoreTextView"
             android:text="16/16"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_large_dashboard"/>

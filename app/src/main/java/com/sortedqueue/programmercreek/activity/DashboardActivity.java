@@ -128,7 +128,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             public void onAdLoaded() {
                 super.onAdLoaded();
                 adView.setVisibility(View.VISIBLE);
-                AuxilaryUtils.displayResultAlert("Result", "Message", DashboardActivity.this);
+                //AuxilaryUtils.displayResultAlert("Result", "Message", DashboardActivity.this);
             }
         });
 

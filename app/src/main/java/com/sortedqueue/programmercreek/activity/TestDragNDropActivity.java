@@ -278,7 +278,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 						TimeUnit.MILLISECONDS.toSeconds(remainingTime) - 
 						TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Keep Working..";
 			}
-			AuxilaryUtils.displayAlert("Test Complete", resultAlert, TestDragNDropActivity.this);
+			AuxilaryUtils.displayResultAlert(TestDragNDropActivity.this, "Test Complete", resultAlert, (int) ((float)(maxScore - mProgramHint) / maxScore * 100), 100);
 			checkQuizButton.setEnabled(false);
 			
 			mQuizComplete = true;
