@@ -336,7 +336,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 .setShareHashtag(new ShareHashtag.Builder()
                         .setHashtag("#InfiniteProgrammer")
                         .build())
-                .setContentUrl(Uri.parse("https://programercreek.blogspot.in"))
+
+                .setContentUrl(Uri.parse(getString(R.string.app_url)))
                 .build();
         ShareDialog shareDialog = new ShareDialog(DashboardActivity.this);
         shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
@@ -375,7 +376,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello, from " + getString(R.string.app_name));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this app : \n" + getString(R.string.app_url));
         startActivity(Intent.createChooser(shareIntent, "Share App Info"));
     }
 

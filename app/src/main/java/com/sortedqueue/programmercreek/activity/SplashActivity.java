@@ -284,8 +284,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         Intent i = new Intent(SplashActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();
-        /*this.overridePendingTransition(R.anim.animation_leave,
-                R.anim.animation_enter);*/
     }
 
     @Override
