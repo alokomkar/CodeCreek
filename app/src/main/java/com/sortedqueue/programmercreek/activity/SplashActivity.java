@@ -6,11 +6,14 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -61,6 +64,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private CreekUser creekUser;
     private CreekPreferences creekPreferences;
     private CallbackManager callbackManager;
+    private Thread splashTread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +72,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_splash_screen);
         configureFirebaseAuth();
         ButterKnife.bind(this);
+
         creekPreferences = new CreekPreferences(SplashActivity.this);
         googleSignInButton.setVisibility(View.GONE);
         fbLoginButton.setVisibility(View.GONE);
-        if (creekPreferences.getSignInAccount().equals("")) {
-            googleSignInButton.setOnClickListener(this);
+        if( creekPreferences.getSignInAccount().equals("") ) {
+            googleSignInButton.setOnClickListener(SplashActivity.this);
             googleSignInButton.setVisibility(View.VISIBLE);
             configureGoogleSignup();
             fbLoginButton.setVisibility(View.VISIBLE);
@@ -81,16 +86,59 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             fbPermissions.add("public_profile");
             callbackManager = CallbackManager.Factory.create();
             fbLoginButton.setReadPermissions(fbPermissions);
-            fbLoginButton.registerCallback(callbackManager, this);
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            fbLoginButton.registerCallback(callbackManager, SplashActivity.this);
+        }
+        startAnimations();
+
+
+    }
+
+    private void checkAndStartApp() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!creekPreferences.getSignInAccount().equals("")) {
                     startApp();
                 }
-            }, SPLASH_TIMEOUT);
-        }
+            }
+        });
 
+    }
+
+    private void startAnimations() {
+
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        anim.reset();
+        LinearLayout l=(LinearLayout) findViewById(R.id.splashLayout);
+        l.clearAnimation();
+        l.startAnimation(anim);
+
+        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
+        anim.reset();
+        ImageView iv = (ImageView) findViewById(R.id.iconImageView);
+        iv.clearAnimation();
+        iv.startAnimation(anim);
+
+        splashTread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    int waited = 0;
+                    // Splash screen pause time
+                    while (waited < 2500) {
+                        sleep(100);
+                        waited += 100;
+                    }
+                    checkAndStartApp();
+                } catch (InterruptedException e) {
+                    // do nothing
+                } finally {
+                    //checkAndStartApp();
+                }
+
+            }
+        };
+        splashTread.start();
     }
 
     private void configureFirebaseAuth() {
