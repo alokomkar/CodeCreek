@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -135,14 +137,25 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 checkSolution();
                 break;
             case R.id.hintSyntaxImageView :
-                Snackbar.make(getActivity().findViewById(android.R.id.content), "Solution : " + syntaxModule.getSyntaxSolution(), Snackbar.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setMessage(syntaxModule.getSyntaxSolution());
+                builder.setTitle("Solution :");
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.show();
                 break;
         }
     }
 
     private void checkSolution() {
         String solutionText =  syntaxSolutionTextView.getText().toString();
-        if( solutionText.trim().equals(syntaxModule.getSyntaxSolution().trim()) ) {
+        if( solutionText.trim().replaceAll("\\s+","").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+","")) ) {
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, You've got it right", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);

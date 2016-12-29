@@ -85,9 +85,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         initAds();
         initUI();
+        getFirebaseDBVerion();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-        //getFirebaseDBVerion();
+
         //initJavaIndex();
 
     }

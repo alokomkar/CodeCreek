@@ -227,15 +227,15 @@ public class JavaProgramInserter {
             programLanguage = "cpp";
         }
 
-        moduleId = 5;
+        moduleId = 1;
         String generatedId = programLanguage + "_" + moduleId++;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
         int index = 0;
-
-        moduleOptions.add(new ModuleOption(index++, " numbers )"));
+        moduleOptions.add(new ModuleOption(index, ""));
+        /*moduleOptions.add(new ModuleOption(index++, " numbers )"));
         moduleOptions.add(new ModuleOption(index++, "for("));
         moduleOptions.add(new ModuleOption(index++, ":"));
-        moduleOptions.add(new ModuleOption(index++, " int x "));
+        moduleOptions.add(new ModuleOption(index++, " int x "));*/
         /*moduleOptions.add(new ModuleOption(index++, "1"));
         moduleOptions.add(new ModuleOption(index++, "2"));
         moduleOptions.add(new ModuleOption(index++, "3"));
@@ -250,38 +250,95 @@ public class JavaProgramInserter {
                         "s_1",
                         generatedId,
                         programLanguage,
-                        "Enhanced for loop in Java",
-                        "As of Java 5, the enhanced for loop was introduced. This is mainly used to traverse collection of elements including arrays.\n" +
-                                "\n",
-                        "Syntax : \n\n" +
-                                "for(declaration : expression) {\n" +
-                                "   // Statements\n" +
-                                "}\n",
-                        "Description : \n" +
-                                "Declaration − The newly declared block variable, is of a type compatible with the elements of the array you are accessing. The variable will be available within the for block and its value would be the same as the current array element.\n" +
+                        "Primitive Data types",
+                        "There are eight primitive datatypes supported by Java. Primitive datatypes are predefined by the language and named by a keyword. Let us now look into the eight primitive data types in detail.\n" +
                                 "\n" +
-                                "Expression − This evaluates to the array you need to loop through. The expression can be an array variable or method call that returns an array.",
-                        "Define an enhanced for loop in the example :\n" +
-                                "public class Test {\n" +
+                                "byte\n" +
+                                "Byte data type is an 8-bit signed two's complement integer\n" +
                                 "\n" +
-                                "   public static void main(String args[]) {\n" +
-                                "      int [] numbers = {10, 20, 30, 40, 50};\n" +
+                                "Minimum value is -128 (-2^7)\n" +
                                 "\n" +
-                                "      //Your for loop here{\n" +
-                                "         System.out.print( x );\n" +
-                                "         System.out.print(\",\");\n" +
-                                "      }\n" +
-                                "      System.out.print(\"\\n\");\n" +
-                                "      String [] names = {\"James\", \"Larry\", \"Tom\", \"Lacy\"};\n" +
+                                "Maximum value is 127 (inclusive)(2^7 -1)\n" +
                                 "\n" +
-                                "      for( String name : names ) {\n" +
-                                "         System.out.print( name );\n" +
-                                "         System.out.print(\",\");\n" +
-                                "      }\n" +
-                                "   }",
+                                "Default value is 0\n" +
+                                "\n" +
+                                "Byte data type is used to save space in large arrays, mainly in place of integers, since a byte is four times smaller than an integer.\n" +
+                                "\n" +
+                                "Example: byte a = 100, byte b = -50\n" +
+                                "\n" +
+                                "short\n" +
+                                "Short data type is a 16-bit signed two's complement integer\n" +
+                                "\n" +
+                                "Minimum value is -32,768 (-2^15)\n" +
+                                "\n" +
+                                "Maximum value is 32,767 (inclusive) (2^15 -1)\n" +
+                                "\n" +
+                                "Short data type can also be used to save memory as byte data type. A short is 2 times smaller than an integer\n" +
+                                "\n" +
+                                "Default value is 0.\n" +
+                                "\n" +
+                                "Example: short s = 10000, short r = -20000\n" +
+                                "\n" +
+                                "int\n" +
+                                "Int data type is a 32-bit signed two's complement integer.\n" +
+                                "\n" +
+                                "Minimum value is - 2,147,483,648 (-2^31)\n" +
+                                "\n" +
+                                "Maximum value is 2,147,483,647(inclusive) (2^31 -1)\n" +
+                                "\n" +
+                                "Integer is generally used as the default data type for integral values unless there is a concern about memory.\n" +
+                                "\n" +
+                                "The default value is 0\n" +
+                                "\n" +
+                                "Example: int a = 100000, int b = -200000\n" +
+                                "\n" +
+                                "long\n" +
+                                "Long data type is a 64-bit signed two's complement integer\n" +
+                                "Minimum value is -9,223,372,036,854,775,808(-2^63)\n" +
+                                "Maximum value is 9,223,372,036,854,775,807 (inclusive)(2^63 -1)\n" +
+                                "This type is used when a wider range than int is needed\n" +
+                                "Default value is 0L\n" +
+                                "Example: long a = 100000L, long b = -200000L\n" +
+                                "float\n" +
+                                "Float data type is a single-precision 32-bit IEEE 754 floating point\n" +
+                                "\n" +
+                                "Float is mainly used to save memory in large arrays of floating point numbers\n" +
+                                "\n" +
+                                "Default value is 0.0f\n" +
+                                "\n" +
+                                "Float data type is never used for precise values such as currency\n" +
+                                "\n" +
+                                "Example: float f1 = 234.5f\n" +
+                                "\n" +
+                                "double\n" +
+                                "double data type is a double-precision 64-bit IEEE 754 floating point\n" +
+                                "\n" +
+                                "This data type is generally used as the default data type for decimal values, generally the default choice\n" +
+                                "\n" +
+                                "Double data type should never be used for precise values such as currency\n" +
+                                "\n" +
+                                "Default value is 0.0d\n" +
+                                "\n" +
+                                "Example: double d1 = 123.4\n" +
+                                "\n" +
+                                "boolean\n" +
+                                "boolean data type represents one bit of information\n" +
+                                "There are only two possible values: true and false\n" +
+                                "This data type is used for simple flags that track true/false conditions\n" +
+                                "Default value is false\n" +
+                                "Example: boolean one = true\n" +
+                                "char\n" +
+                                "char data type is a single 16-bit Unicode character\n" +
+                                "Minimum value is '\\u0000' (or 0)\n" +
+                                "Maximum value is '\\uffff' (or 65,535 inclusive)\n" +
+                                "Char data type is used to store any character\n" +
+                                "Example: char letterA = 'A'\n",
+                        "",
+                        "",
+                        "",
 
-                        "Print numbers from 10 to 50",
-                        "for( int x : numbers )",
+                        "",
+                        "",
                         moduleOptions
                         ));
 
