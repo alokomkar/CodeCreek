@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/indexLayout"
-                    android:layout_marginTop="@dimen/margin_16">
+                    >
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -261,74 +261,13 @@
                     </LinearLayout>
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/wizardLayout"
-                    android:layout_marginTop="@dimen/margin_16">
 
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_16"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:cardBackgroundColor="@color/md_white_1000"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/margin_16">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/wizard"
-                                android:id="@+id/wizardTextView"
-                                android:layout_marginTop="@dimen/margin_8"
-                                android:layout_marginLeft="@dimen/margin_100"
-                                android:textColor="@color/md_black_1000"
-                                android:textSize="@dimen/text_dashboard"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/wizardTextView"
-                                android:minLines="2"
-                                android:maxLines="2"
-                                android:layout_marginLeft="@dimen/margin_100"
-                                android:layout_marginRight="@dimen/margin_16"
-                                android:text="@string/wizard_description"
-                                android:textSize="@dimen/text_dashboard_small"/>
-                        </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/md_blue_800"
-                        android:layout_marginLeft="@dimen/margin_32"
-                        android:elevation="@dimen/margin_8"
-                        android:orientation="vertical"
-                        >
-                        <TextView
-                            android:text="W"
-                            android:layout_width="@dimen/margin_64"
-                            android:layout_height="@dimen/margin_64"
-                            android:textColor="@color/md_white_1000"
-                            android:textSize="@dimen/text_large_dashboard"
-                            android:gravity="center"/>
-                    </LinearLayout>
-                </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/reviseLayout"
-                    android:layout_marginTop="@dimen/margin_16">
+                    >
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -391,7 +330,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/quizLayout"
-                    android:layout_marginTop="@dimen/margin_16">
+                    >
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -454,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/matchLayout"
-                    android:layout_marginTop="@dimen/margin_16">
+                    >
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -580,8 +519,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/testLayout"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:layout_marginBottom="@dimen/margin_16">
+                    >
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -640,6 +578,69 @@
                     </LinearLayout>
                 </FrameLayout>
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/wizardLayout"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_16"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/md_white_1000"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/margin_16">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wizard"
+                                android:id="@+id/wizardTextView"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginLeft="@dimen/margin_100"
+                                android:textColor="@color/md_black_1000"
+                                android:textSize="@dimen/text_dashboard"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/wizardTextView"
+                                android:minLines="2"
+                                android:maxLines="2"
+                                android:layout_marginLeft="@dimen/margin_100"
+                                android:layout_marginRight="@dimen/margin_16"
+                                android:text="@string/wizard_description"
+                                android:textSize="@dimen/text_dashboard_small"/>
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/md_blue_800"
+                        android:layout_marginLeft="@dimen/margin_32"
+                        android:elevation="@dimen/margin_8"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:text="W"
+                            android:layout_width="@dimen/margin_64"
+                            android:layout_height="@dimen/margin_64"
+                            android:textColor="@color/md_white_1000"
+                            android:textSize="@dimen/text_large_dashboard"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
 
             </LinearLayout>
         </ScrollView>

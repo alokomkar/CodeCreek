@@ -67,6 +67,7 @@
         android:background="@color/md_white_1000"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/buttonLayout"
+        android:padding="@dimen/margin_8"
         android:layout_centerHorizontal="true">
 
         <LinearLayout
