@@ -97,4 +97,5 @@
     <string name="learn_syntax_description">Learn/ Practice syntax for the program functions</string>
     <string name="module">Module</string>
     <string name="app_url">https://play.google.com/store/apps/details?id=com.sortedqueue.programmercreek</string>
+    <string name="sync_with_server">Sync with Server</string>
 </resources>

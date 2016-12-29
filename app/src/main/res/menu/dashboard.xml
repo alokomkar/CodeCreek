@@ -11,6 +11,10 @@
     <item android:id="@+id/action_share"
         android:title="@string/share_with_friends"
         app:showAsAction="never"/>
+    <item android:id="@+id/action_sync"
+        android:title="@string/sync_with_server"
+        android:icon="@drawable/ic_refresh"
+        app:showAsAction="always"/>
     <!-- <item android:id="@+id/action_refresh_database"
           android:icon="@drawable/refresh32"
           android:title="@string/title_refresh_database"
