@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/margin_16"
-    android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/md_white_1000"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
+
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
@@ -21,36 +22,99 @@
             android:textColor="@color/md_blue_700"
             android:background="@drawable/question_view"/>
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/optionsRadioGroup"
-            android:orientation="vertical">
-            <RadioButton
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin_4"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/option1Layout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/option1ImageView"
+                android:background="@drawable/quiz_selector"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/optionRadioButton1"
+                android:gravity="center_vertical"
+                android:id="@+id/option1TextView"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textColor="@color/md_black_1000"
                 android:text="@string/about"
-                android:layout_margin="@dimen/margin_4"/>
-            <RadioButton
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin_4"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/option2Layout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/option2ImageView"
+                android:background="@drawable/quiz_selector"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/optionRadioButton2"
+                android:gravity="center_vertical"
+                android:id="@+id/option2TextView"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textColor="@color/md_black_1000"
                 android:text="@string/about"
-                android:layout_margin="@dimen/margin_4"/>
-            <RadioButton
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin_4"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/option3Layout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/option3ImageView"
+                android:background="@drawable/quiz_selector"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/optionRadioButton3"
+                android:gravity="center_vertical"
+                android:id="@+id/option3TextView"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textColor="@color/md_black_1000"
                 android:text="@string/about"
-                android:layout_margin="@dimen/margin_4"/>
-            <RadioButton
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin_4"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/option4Layout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/option4ImageView"
+                android:background="@drawable/quiz_selector"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/optionRadioButton4"
+                android:gravity="center_vertical"
+                android:id="@+id/option4TextView"
+                android:layout_marginLeft="@dimen/margin_4"
+                android:textColor="@color/md_black_1000"
                 android:text="@string/about"
-                android:layout_margin="@dimen/margin_4"/>
-        </RadioGroup>
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+
 
     </LinearLayout>
-    </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>

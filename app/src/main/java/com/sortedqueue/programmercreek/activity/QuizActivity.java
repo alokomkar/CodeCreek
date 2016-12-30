@@ -44,14 +44,11 @@ import butterknife.ButterKnife;
 
 public class QuizActivity extends Activity implements UIUpdateListener, UIProgramFetcherListener {
 
-    LinearLayout mQuizLinearLayout = null;
-
     ArrayList<String> mProgramList;
     ArrayList<String> mShuffleProgramList;
     ArrayList<String> mProgramExplanationList;
     Button mCheckSolutionBtn = null;
     Button mTimerBtn = null;
-    RadioGroup[] mOptionRadioGroupList;
     long remainingTime = 0;
     long time = 0;
     long interval = 0;
@@ -75,8 +72,6 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         ButterKnife.bind(this);
-
-        mQuizLinearLayout = (LinearLayout) findViewById(R.id.quizLinearLayout);
 
         mCheckSolutionBtn = (Button) findViewById(R.id.checkQuizButton);
         mTimerBtn = (Button) findViewById(R.id.timerButton);
@@ -112,9 +107,6 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
     private void initUI(List<Program_Table> program_TableList) {
 
-        if (mQuizLinearLayout != null) {
-            mQuizLinearLayout.removeAllViews();
-        }
         setTitle("Quiz : " + AuxilaryUtils.getProgramTitle(mProgram_Index, QuizActivity.this, mDatabaseHandler));
 
         if (program_TableList != null && program_TableList.size() > 0) {
@@ -147,9 +139,6 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         }
 
         final int programSize = mProgramList.size();
-        final TextView[] questionTextViewList = new TextView[programSize];
-        mOptionRadioGroupList = new RadioGroup[programSize];
-        RadioButton[] optionRadioButtonList = new RadioButton[(programSize * 4)];
         ArrayList<String> optionList = null;
         quizModels = new ArrayList<>();
         for (int questionIndex = 0; questionIndex < programSize; questionIndex++) {

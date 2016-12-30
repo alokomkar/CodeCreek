@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
  */
 public class QuizRecyclerAdapter extends RecyclerView.Adapter<QuizRecyclerAdapter.ViewHolder> {
 
+
     private Context context;
     private ArrayList<QuizModel> quizModels;
     private CustomQuizAdapterListner adapterClickListner;
@@ -29,7 +31,7 @@ public class QuizRecyclerAdapter extends RecyclerView.Adapter<QuizRecyclerAdapte
     private ArrayList<String> mProgramExplanationList;
 
     public interface CustomQuizAdapterListner {
-        void onOptionSelected( int position, String option );
+        void onOptionSelected(int position, String option);
     }
 
     public QuizRecyclerAdapter(Context context, ArrayList<QuizModel> quizModels, ArrayList<String> mProgramExplanationList, CustomQuizAdapterListner adapterClickListner) {
@@ -57,19 +59,28 @@ public class QuizRecyclerAdapter extends RecyclerView.Adapter<QuizRecyclerAdapte
         holder.questionTextView.setText(quizModel.getQuestionIndex() + ". " + quizModel.getQuestion());
         ArrayList<String> optionsList = quizModel.getOptionsList();
         int index = 0;
-        holder.optionRadioButton1.setText(optionsList.get(index++));
-        holder.optionRadioButton2.setText(optionsList.get(index++));
-        holder.optionRadioButton3.setText(optionsList.get(index++));
-        holder.optionRadioButton4.setText(optionsList.get(index++));
-        holder.optionRadioButton1.setChecked(holder.optionRadioButton1.getText().toString().equals(quizModel.getSelectedOption()));
-        holder.optionRadioButton2.setChecked(holder.optionRadioButton2.getText().toString().equals(quizModel.getSelectedOption()));
-        holder.optionRadioButton3.setChecked(holder.optionRadioButton3.getText().toString().equals(quizModel.getSelectedOption()));
-        holder.optionRadioButton4.setChecked(holder.optionRadioButton4.getText().toString().equals(quizModel.getSelectedOption()));
-        if( isAnswerChecked ) {
-            holder.optionRadioButton1.setTextColor(holder.optionRadioButton1.getText().toString().equals(solution) ? Color.BLUE : Color.RED );
-            holder.optionRadioButton2.setTextColor(holder.optionRadioButton2.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
-            holder.optionRadioButton3.setTextColor(holder.optionRadioButton3.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
-            holder.optionRadioButton4.setTextColor(holder.optionRadioButton4.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
+        holder.option1TextView.setText(optionsList.get(index++));
+        holder.option2TextView.setText(optionsList.get(index++));
+        holder.option3TextView.setText(optionsList.get(index++));
+        holder.option4TextView.setText(optionsList.get(index++));
+        holder.option1Layout.setSelected(holder.option1TextView.getText().toString().equals(quizModel.getSelectedOption()));
+        holder.option2Layout.setSelected(holder.option2TextView.getText().toString().equals(quizModel.getSelectedOption()));
+        holder.option3Layout.setSelected(holder.option3TextView.getText().toString().equals(quizModel.getSelectedOption()));
+        holder.option4Layout.setSelected(holder.option4TextView.getText().toString().equals(quizModel.getSelectedOption()));
+
+        if (isAnswerChecked) {
+            if (holder.option1Layout.isSelected()) {
+                holder.option1TextView.setTextColor(holder.option1TextView.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
+            }
+            if (holder.option2Layout.isSelected()) {
+                holder.option2TextView.setTextColor(holder.option2TextView.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
+            }
+            if (holder.option3Layout.isSelected()) {
+                holder.option3TextView.setTextColor(holder.option3TextView.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
+            }
+            if (holder.option4Layout.isSelected()) {
+                holder.option4TextView.setTextColor(holder.option4TextView.getText().toString().equals(solution) ? Color.BLUE : Color.RED);
+            }
         }
     }
 
@@ -82,47 +93,107 @@ public class QuizRecyclerAdapter extends RecyclerView.Adapter<QuizRecyclerAdapte
 
         @Bind(R.id.questionTextView)
         TextView questionTextView;
-        @Bind(R.id.optionRadioButton1)
-        RadioButton optionRadioButton1;
-        @Bind(R.id.optionRadioButton2)
-        RadioButton optionRadioButton2;
-        @Bind(R.id.optionRadioButton3)
-        RadioButton optionRadioButton3;
-        @Bind(R.id.optionRadioButton4)
-        RadioButton optionRadioButton4;
+        @Bind(R.id.option1TextView)
+        TextView option1TextView;
+        @Bind(R.id.option1Layout)
+        LinearLayout option1Layout;
+        @Bind(R.id.option2TextView)
+        TextView option2TextView;
+        @Bind(R.id.option2Layout)
+        LinearLayout option2Layout;
+        @Bind(R.id.option3TextView)
+        TextView option3TextView;
+        @Bind(R.id.option3Layout)
+        LinearLayout option3Layout;
+        @Bind(R.id.option4TextView)
+        TextView option4TextView;
+        @Bind(R.id.option4Layout)
+        LinearLayout option4Layout;
+        @Bind(R.id.option1ImageView)
+        ImageView option1ImageView;
+        @Bind(R.id.option2ImageView)
+        ImageView option2ImageView;
+        @Bind(R.id.option3ImageView)
+        ImageView option3ImageView;
+        @Bind(R.id.option4ImageView)
+        ImageView option4ImageView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            optionRadioButton1.setOnClickListener(this);
-            optionRadioButton2.setOnClickListener(this);
-            optionRadioButton3.setOnClickListener(this);
-            optionRadioButton4.setOnClickListener(this);
-
+            option1Layout.setOnClickListener(this);
+            option2Layout.setOnClickListener(this);
+            option3Layout.setOnClickListener(this);
+            option4Layout.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
+            if( isAnswerChecked ) {
+                return;
+            }
             int position = getAdapterPosition();
-            if( position != RecyclerView.NO_POSITION ) {
+            switch (view.getId()) {
+                case R.id.option1Layout:
+                    option1Layout.setSelected(true);
+                    option2Layout.setSelected(false);
+                    option3Layout.setSelected(false);
+                    option4Layout.setSelected(false);
+                    option1ImageView.setSelected(true);
+                    option2ImageView.setSelected(false);
+                    option3ImageView.setSelected(false);
+                    option4ImageView.setSelected(false);
+                    break;
+                case R.id.option2Layout:
+                    option1Layout.setSelected(false);
+                    option2Layout.setSelected(true);
+                    option3Layout.setSelected(false);
+                    option4Layout.setSelected(false);
+                    option1ImageView.setSelected(false);
+                    option2ImageView.setSelected(true);
+                    option3ImageView.setSelected(false);
+                    option4ImageView.setSelected(false);
+                    break;
+                case R.id.option3Layout:
+                    option1Layout.setSelected(false);
+                    option2Layout.setSelected(false);
+                    option3Layout.setSelected(true);
+                    option4Layout.setSelected(false);
+                    option1ImageView.setSelected(false);
+                    option2ImageView.setSelected(false);
+                    option3ImageView.setSelected(true);
+                    option4ImageView.setSelected(false);
+                    break;
+                case R.id.option4Layout:
+                    option1Layout.setSelected(false);
+                    option2Layout.setSelected(false);
+                    option3Layout.setSelected(false);
+                    option4Layout.setSelected(true);
+                    option1ImageView.setSelected(false);
+                    option2ImageView.setSelected(false);
+                    option3ImageView.setSelected(false);
+                    option4ImageView.setSelected(true);
+                    break;
+
+            }
+            
+            if (position != RecyclerView.NO_POSITION) {
                 String optionSelected = "";
-                if( optionRadioButton1.isChecked() ) {
-                    optionSelected = optionRadioButton1.getText().toString();
-                }
-                else if( optionRadioButton2.isChecked() ) {
-                    optionSelected = optionRadioButton1.getText().toString();
-                }
-                else if( optionRadioButton3.isChecked() ) {
-                    optionSelected = optionRadioButton1.getText().toString();
-                }
-                else if( optionRadioButton4.isChecked() ) {
-                    optionSelected = optionRadioButton1.getText().toString();
+                if (option1Layout.isSelected()) {
+                    optionSelected = option1TextView.getText().toString();
+                } else if (option2Layout.isSelected()) {
+                    optionSelected = option2TextView.getText().toString();
+                } else if (option3Layout.isSelected()) {
+                    optionSelected = option3TextView.getText().toString();
+                } else if (option4Layout.isSelected()) {
+                    optionSelected = option4TextView.getText().toString();
                 }
 
-                if( !optionSelected.equals("") ) {
+                if (!optionSelected.equals("")) {
                     QuizModel quizModel = quizModels.get(position);
                     quizModel.setSelectedOption(optionSelected);
-                    notifyItemChanged(position);
+                    notifyDataSetChanged();
                 }
             }
         }
