@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/bg"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/buttonLayout"
@@ -60,11 +61,23 @@
 
     </LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonLayout"
+        android:id="@+id/quizRecyclerView"
+        android:background="@color/white"
+        tools:listItem="@layout/item_question_layout"
+        android:layout_margin="@dimen/margin_8">
+
+    </android.support.v7.widget.RecyclerView>
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_white_1000"
+        android:visibility="gone"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/buttonLayout"
         android:padding="@dimen/margin_8"

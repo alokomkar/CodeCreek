@@ -5,10 +5,10 @@ import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.TypedValue;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,9 +22,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
@@ -63,6 +65,10 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
     TextView progressTextView;
     @Bind(R.id.progressLayout)
     FrameLayout progressLayout;
+    @Bind(R.id.quizRecyclerView)
+    RecyclerView quizRecyclerView;
+    private ArrayList<QuizModel> quizModels;
+    private QuizRecyclerAdapter quizRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +127,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
                 while (iterator.hasNext()) {
                     Program_Table newProgram_Table = iterator.next();
                     programLine = newProgram_Table.getProgram_Line().trim();
-                    if (programLine.equals("{") == false && programLine.equals("}") == false) {
+                    if (programLine.trim().equals("{") == false && programLine.trim().equals("}") == false) {
                         mProgramList.add(programLine);
                         mProgramExplanationList.add(newProgram_Table.getProgram_Line_Description());
                     }
@@ -131,7 +137,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
                 while (iterator.hasNext()) {
                     Program_Table newProgram_Table = iterator.next();
                     programLine = newProgram_Table.getProgram_Line().trim();
-                    if (programLine.equals("{") == false && programLine.equals("}") == false) {
+                    if (programLine.trim().equals("{") == false && programLine.trim().equals("}") == false) {
                         mProgramList.add(newProgram_Table.getProgram_Line_Description());
                         mProgramExplanationList.add(programLine);
                     }
@@ -145,33 +151,28 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         mOptionRadioGroupList = new RadioGroup[programSize];
         RadioButton[] optionRadioButtonList = new RadioButton[(programSize * 4)];
         ArrayList<String> optionList = null;
-
+        quizModels = new ArrayList<>();
         for (int questionIndex = 0; questionIndex < programSize; questionIndex++) {
-
-            questionTextViewList[questionIndex] = new TextView(QuizActivity.this);
-            questionTextViewList[questionIndex].setTextColor(Color.parseColor("#6D4C41"));
-            questionTextViewList[questionIndex].setText((questionIndex + 1) + ". " + mProgramList.get(questionIndex).trim());
-            questionTextViewList[questionIndex].setBackgroundResource(R.drawable.question_view);
-            questionTextViewList[questionIndex].setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            mQuizLinearLayout.addView(questionTextViewList[questionIndex]);
-
-            mOptionRadioGroupList[questionIndex] = new RadioGroup(QuizActivity.this);
-
+            QuizModel quizModel = new QuizModel();
+            quizModel.setQuestionIndex(questionIndex + 1);
+            quizModel.setQuestion(mProgramList.get(questionIndex).trim());
             //Get Options List
             optionList = getOptionsList(questionIndex, programSize);
             //Shuffle Options
             mShuffleProgramList = ShuffleList.shuffleList(optionList);
-
-            for (int optionIndex = 0; optionIndex < 4; optionIndex++) {
-                optionRadioButtonList[(questionIndex + optionIndex)] = new RadioButton(QuizActivity.this);
-                optionRadioButtonList[(questionIndex + optionIndex)].setText(mShuffleProgramList.get(optionIndex));
-                mOptionRadioGroupList[questionIndex].addView(optionRadioButtonList[(questionIndex + optionIndex)]);
-                //mOptionRadioGroupList[questionIndex].setBackgroundResource(R.drawable.error);
-            }
-
-            mQuizLinearLayout.addView(mOptionRadioGroupList[(questionIndex)]);
+            quizModel.setOptionsList(mShuffleProgramList);
+            quizModels.add(quizModel);
         }
 
+        quizRecyclerView.setLayoutManager( new LinearLayoutManager(QuizActivity.this, LinearLayoutManager.VERTICAL, false));
+        quizRecyclerAdapter = new QuizRecyclerAdapter(QuizActivity.this, quizModels, mProgramExplanationList, new QuizRecyclerAdapter.CustomQuizAdapterListner() {
+            @Override
+            public void onOptionSelected(int position, String option) {
+
+                quizRecyclerAdapter.notifyItemChanged(position);
+            }
+        });
+        quizRecyclerView.setAdapter(quizRecyclerAdapter);
         time = (programSize / 2) * 60 * 1000;
         interval = 1000;
         circularProgressBar.setMax((int) (time / 1000));
@@ -234,29 +235,14 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
     protected void checkScore(int programSize) {
         int score = 0;
-        String optionSelected;
-        for (int i = 0; i < programSize; i++) {
-            RadioButton optionSelectedRadioButton = (RadioButton) (findViewById(mOptionRadioGroupList[i].getCheckedRadioButtonId()));
-            if (optionSelectedRadioButton == null) {
-                continue;
-            }
-            optionSelected = optionSelectedRadioButton.getText().toString().trim();
-            if (optionSelected.equals(mProgramExplanationList.get(i).trim()) == true) {
-                optionSelectedRadioButton.setTextColor(Color.BLUE);
-                score++;
-            } else {
-                optionSelectedRadioButton.setTextColor(Color.RED);
-            }
-            for (int j = 0; j < mOptionRadioGroupList[i].getChildCount(); j++) {
-                RadioButton answerRadioButton = ((RadioButton) mOptionRadioGroupList[i].getChildAt(j));
-                answerRadioButton.setEnabled(false);
-                optionSelected = answerRadioButton.getText().toString().trim();
 
-                if (optionSelected.equals(mProgramExplanationList.get(i).trim()) == true)
-                    answerRadioButton.setTextColor(Color.BLUE);
+        quizRecyclerAdapter.setAnswerChecked(true);
+        int i = 0;
+        for( QuizModel quizModel : quizModels ) {
+            if( quizModel.getSelectedOption().equals(mProgramExplanationList.get(i++)) ) {
+                score++;
             }
         }
-
 
         String message = null;
         switch (score) {
@@ -284,7 +270,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!";
         }
 
-        AuxilaryUtils.displayResultAlert( QuizActivity.this, "Quiz Complete", message, score, programSize );
+        AuxilaryUtils.displayResultAlert(QuizActivity.this, "Quiz Complete", message, score, programSize);
         quizComplete = true;
         if (mWizard == true) {
             mTimerBtn.setText("Next");
