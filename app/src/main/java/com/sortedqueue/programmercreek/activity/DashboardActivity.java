@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +25,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
+import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.Program_Index;
@@ -31,12 +35,14 @@ import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
+import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -272,9 +278,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
-                intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
-                startActivity(intent);
+                startWikiIntent();
                 /*this.overridePendingTransition(R.anim.animation_leave,
                         R.anim.animation_enter);*/
                 break;
@@ -313,6 +317,51 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
         }
+
+    }
+
+    private void startWikiIntent() {
+
+        if( creekPreferences.getProgramIndex() == -1 ) {
+            firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
+
+                @Override
+                public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
+                    if( program_indices.size() == 0 ) {
+                    }
+                    else {
+                        Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
+                        intent.putExtra(DatabaseHandler.KEY_WIKI, program_indices.get(0).getWiki());
+                        intent.putExtra(DatabaseHandler.KEY_PROGRAM_LANGUAGE, program_indices);
+                        startActivity(intent);
+                    }
+
+                }
+
+                @Override
+                public void onError(DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+            if( mDatabaseHandler == null ) {
+                mDatabaseHandler = new DatabaseHandler(DashboardActivity.this);
+            }
+            new ProgramListFetcherTask(DashboardActivity.this, mDatabaseHandler, new UIProgramListFetcherListener() {
+
+                @Override
+                public void updateUIProgramList(List<Program_Index> program_Indexes) {
+                    Intent intent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
+                    intent.putExtra(DatabaseHandler.KEY_WIKI, program_Indexes.get(0).getWiki());
+                    intent.putExtra(DatabaseHandler.KEY_PROGRAM_LANGUAGE, new ArrayList<>(program_Indexes));
+                    startActivity(intent);
+
+                }
+            }).execute();
+
+        }
+
 
     }
 

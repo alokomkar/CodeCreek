@@ -207,7 +207,7 @@ public class AuxilaryUtils {
 
         Glide
                 .with(context)
-                .load("https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/Programmer%20Creek-feature-graphic.png?alt=media&token=a6de3c6d-5b11-4255-84f9-861b849f0d63")
+                .load("https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/Infinite%20Programmer-feature-graphic.png?alt=media&token=7140ec19-5313-4c9d-8435-4f12a25cee34")
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(SimpleTarget.SIZE_ORIGINAL, SimpleTarget.SIZE_ORIGINAL) {
                     @Override

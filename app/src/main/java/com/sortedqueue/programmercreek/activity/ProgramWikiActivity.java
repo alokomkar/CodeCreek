@@ -11,6 +11,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -18,6 +20,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -25,6 +28,10 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Alok Omkar on 2016-12-16.
@@ -32,6 +39,12 @@ import java.net.URL;
 
 public class ProgramWikiActivity extends AppCompatActivity {
 
+    @Bind(R.id.firstQuestionImageView)
+    ImageView firstQuestionImageView;
+    @Bind(R.id.indexTextView)
+    TextView indexTextView;
+    @Bind(R.id.lastQuestionImageView)
+    ImageView lastQuestionImageView;
     private WebView webView;
     private String programWiki;
     private ContentLoadingProgressBar progressBar;
@@ -39,17 +52,27 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private AdView mAdView;
     private String WIKI_BASE_URL = "programercreek.blogspot.in";
     private CreekPreferences creekPreferences;
+    private ArrayList<Program_Index> program_indices;
+    private ArrayList<String> programUrls;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_wiki);
+        ButterKnife.bind(this);
         creekPreferences = new CreekPreferences(ProgramWikiActivity.this);
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
-        webView.setWebViewClient( new MyWebViewClient() );
+        webView.setWebViewClient(new MyWebViewClient());
         programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
-        if( !creekPreferences.getWikiHelp() ) {
+        program_indices = getIntent().getExtras().getParcelableArrayList(DatabaseHandler.KEY_PROGRAM_LANGUAGE);
+        if( program_indices != null ) {
+            programUrls = new ArrayList<>();
+            for( Program_Index program_index : program_indices ) {
+                programUrls.add(program_index.getWiki());
+            }
+        }
+        if (!creekPreferences.getWikiHelp()) {
             creekPreferences.setWikihelp(true);
             AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "Creek", "Welcome to Wiki of programs, browse through all programs and explanations here. Feel free to leave a comment.");
         }
@@ -61,15 +84,45 @@ public class ProgramWikiActivity extends AppCompatActivity {
         }
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        if( programWiki != null ) {
+        loadUrl();
+        initAds();
+        setupLiseners();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+    }
+
+    private void setupLiseners() {
+        firstQuestionImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int index = programUrls.indexOf(programWiki);
+                if( index + 1 != programUrls.size() ) {
+                    programWiki = programUrls.get(++index);
+                    loadUrl();
+                }
+
+            }
+        });
+        lastQuestionImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int index = programUrls.indexOf(programWiki);
+                if( index - 1 >= 0 ) {
+                    programWiki = programUrls.get(--index);
+                    loadUrl();
+                }
+
+            }
+        });
+    }
+
+    private void loadUrl() {
+        if (programWiki != null) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
             progressBar.show();
             webView.loadUrl(programWiki);
         }
-        initAds();
-        this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left);
     }
 
     private void initAds() {
@@ -130,9 +183,9 @@ public class ProgramWikiActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.setIndeterminate(true);
-                progressBar.show();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+            progressBar.show();
         }
 
         @Override
@@ -162,7 +215,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if( !isAdShown ) {
+        if (!isAdShown) {
             interstitialAd.show();
             isAdShown = true;
             return;

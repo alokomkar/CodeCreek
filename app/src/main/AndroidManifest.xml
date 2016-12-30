@@ -82,6 +82,7 @@
         <activity
             android:name=".activity.SyntaxLearnActivity"
             android:label="@string/title_activity_syntax_learn"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- REQUIRED Set the package for your model classes,
