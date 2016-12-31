@@ -78,7 +78,7 @@ public final class DragNDropAdapter extends BaseAdapter implements RemoveListene
      *      ViewGroup)
      */
     public View getView(int position, View convertView, ViewGroup parent) {
-        // A ViewHolder keeps references to children views to avoid unneccessary calls
+        // A HeaderViewHolder keeps references to children views to avoid unneccessary calls
         // to findViewById() on each row.
         ViewHolder holder;
 
@@ -88,14 +88,14 @@ public final class DragNDropAdapter extends BaseAdapter implements RemoveListene
         if (convertView == null) {
             convertView = mInflater.inflate(mLayouts[0], null);
             //convertView.setBackgroundResource(R.drawable.error);
-            // Creates a ViewHolder and store references to the two children views
+            // Creates a HeaderViewHolder and store references to the two children views
             // we want to bind data to.
             holder = new ViewHolder();
             holder.text = (TextView) convertView.findViewById(mIds[0]);
 
             convertView.setTag(holder);
         } else {
-            // Get the ViewHolder back to get fast access to the TextView
+            // Get the HeaderViewHolder back to get fast access to the TextView
             // and the ImageView.
             holder = (ViewHolder) convertView.getTag();
         }

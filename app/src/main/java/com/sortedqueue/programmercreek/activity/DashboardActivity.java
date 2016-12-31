@@ -321,8 +321,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void startWikiIntent() {
-
-        if( creekPreferences.getProgramIndex() == -1 ) {
+        Intent intent = new Intent(DashboardActivity.this, NewProgramWikiActivity.class);
+        startActivity(intent);
+        /*if( creekPreferences.getProgramIndex() == -1 ) {
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
 
                 @Override
@@ -360,7 +361,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 }
             }).execute();
 
-        }
+        }*/
 
 
     }

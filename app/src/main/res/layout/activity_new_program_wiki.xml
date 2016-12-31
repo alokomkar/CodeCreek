@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.sortedqueue.programmercreek.activity.FillTheBlanksActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/md_blue_grey_100"
-        android:padding="@dimen/margin_16"
-        android:visibility="visible"
-        android:text="@string/fill_the_missing_code"
-        android:id="@+id/fillBlanksTextView"
-        android:textSize="@dimen/text_dashboard_small"
-        android:textColor="@color/md_blue_grey_800"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +52,8 @@
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fillBlanksViewPager"
+        android:id="@+id/programWikiViewPager"
+        android:layout_above="@+id/navigationLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">

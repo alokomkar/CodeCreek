@@ -12,10 +12,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
+import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -37,6 +39,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mProgramDatabase;
     private DatabaseReference mLanguageModuleDatabase;
     private DatabaseReference mSyntaxModuleDatabase;
+    private DatabaseReference mProgramWikiDatabase;
     private DatabaseReference mUserDatabase;
     private DatabaseReference mUserDetailsDatabase;
     private String PROGRAM_INDEX_CHILD = "program_indexes";
@@ -55,6 +58,7 @@ public class FirebaseDatabaseHandler {
     private ArrayList<Program_Table> program_tables;
     private DatabaseReference mCreekUserDBDatabase;
     private String CREEK_USER_DB = "creek_user_db_version";
+    private String WIKI_MODULE = "wiki_module";
 
     /***
      * Program Index storage :
@@ -123,11 +127,29 @@ public class FirebaseDatabaseHandler {
         }
     }
 
+    private void getProgramWikiDatabase() {
+        if( mProgramWikiDatabase == null ) {
+            mProgramWikiDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/"+WIKI_MODULE+"/" + programLanguage);
+            mProgramWikiDatabase.keepSynced(true);
+        }
+    }
+
+
     private void getLanguageModuleDatabase() {
         if( mLanguageModuleDatabase == null ) {
             mLanguageModuleDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/"+LANGUAGE_MODULE+"/" + programLanguage);
             mLanguageModuleDatabase.keepSynced(true);
         }
+    }
+
+    public void writeProgramWiki(final WikiModel wikiModel) {
+        mProgramWikiDatabase.child(wikiModel.getWikiId()).setValue(wikiModel);
+        wikiModel.save(new RushCallback() {
+            @Override
+            public void complete() {
+
+            }
+        });
     }
 
     public void writeSyntaxModule(final SyntaxModule syntaxModule) {
@@ -194,6 +216,63 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
 
+    public interface ProgramWikiInterface {
+        void getProgramWiki( ArrayList<ProgramWiki> programWikis );
+        void onError( DatabaseError error );
+    }
+
+    public void initializeProgramWiki( final ProgramWikiInterface programWikiInterface ) {
+        if( !creekPreferences.getProgramWikiInserted() ) {
+
+            mProgramDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<ProgramWiki> programWikis = new ArrayList<>();
+                    for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
+                        ProgramWiki wiki = childDataSnapShot.getValue(ProgramWiki.class);
+                        wiki.save();
+                        programWikis.add(wiki);
+                    }
+                    programWikiInterface.getProgramWiki(programWikis);
+                    creekPreferences.setSyntaxInserted(true);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    programWikiInterface.onError(databaseError);
+                }
+            });
+        }
+        else {
+            new AsyncTask<Void, Void, ArrayList<ProgramWiki>>() {
+
+                @Override
+                protected ArrayList<ProgramWiki> doInBackground(Void... voids) {
+                    ArrayList<ProgramWiki> programWikis;
+                    if( creekPreferences.getProgramLanguage().equals("c++") ) {
+                        programWikis = new ArrayList<>(new RushSearch()
+                                .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                                .or()
+                                .whereEqual("syntaxLanguage", "cpp")
+                                .find(ProgramWiki.class));
+                    }
+                    else {
+                        programWikis = new ArrayList<>(new RushSearch()
+                                .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                                .find(ProgramWiki.class));
+                    }
+                    return programWikis;
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<ProgramWiki> programWikis) {
+                    super.onPostExecute(programWikis);
+                    programWikiInterface.getProgramWiki(programWikis);
+                }
+            }.execute();
+
+        }
+    }
 
     public interface ModuleInterface {
         void getModules( ArrayList<LanguageModule> languageModules );
