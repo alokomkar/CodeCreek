@@ -16,11 +16,16 @@ public class WikiModel extends RushObject implements Parcelable {
     private String wikiHeader;
     private String wikiId;
     private ArrayList<ProgramWiki> programWikis = new ArrayList<>();
+    private String syntaxLanguage;
 
-    public WikiModel(String wikiId, String wikiHeader, ArrayList<ProgramWiki> programWikis) {
+    public WikiModel(String wikiId, String wikiHeader, ArrayList<ProgramWiki> programWikis, String syntaxLanguage) {
         this.wikiHeader = wikiHeader;
         this.programWikis = programWikis;
         this.wikiId = wikiId;
+        this.syntaxLanguage = syntaxLanguage;
+    }
+
+    public WikiModel() {
     }
 
     public String getWikiId() {
@@ -47,6 +52,13 @@ public class WikiModel extends RushObject implements Parcelable {
         this.programWikis = programWikis;
     }
 
+    public String getSyntaxLanguage() {
+        return syntaxLanguage;
+    }
+
+    public void setSyntaxLanguage(String syntaxLanguage) {
+        this.syntaxLanguage = syntaxLanguage;
+    }
 
     @Override
     public int describeContents() {

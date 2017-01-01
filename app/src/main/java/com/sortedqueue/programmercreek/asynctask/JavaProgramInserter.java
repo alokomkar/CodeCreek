@@ -3,8 +3,10 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.content.Context;
 
 import com.sortedqueue.programmercreek.database.ModuleOption;
+import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -659,5 +661,149 @@ public class JavaProgramInserter {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         firebaseDatabaseHandler.writeSyntaxModule( new SyntaxModule());
 
+    }
+
+    public void insertProgramWiki() {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        ArrayList<ProgramWiki> programWikis = new ArrayList<>();
+        ProgramWiki programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
+        programWiki.setHeader("Hello World");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
+        programWiki.setProgramExplanation("" +
+                "How \"Hello, World!\" program works?\n" +
+                "\n" +
+                "The #include <stdio.h> is a preprocessor command. This command tells compiler to include the contents of stdio.h (standard input and output) file in the program.\n\n" +
+                "The stdio.h file contains functions such as scanf() and print() to take input and display output respectively.\n\n" +
+                "If you use printf() function without writing #include <stdio.h>, the program will not be compiled.\n\n" +
+                "The execution of a C program starts from the main() function.\n\n" +
+                "The printf() is a library function to send formatted output to the screen. In this program, the printf() displays Hello, World! text on the screen.\n\n" +
+                "The return 0; statement is the \"Exit status\" of the program. In simple terms, program ends with this statement.\n\n");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
+        programWiki.setProgramExample(
+                "#include <stdio.h>\n" +
+                        "int main()\n" +
+                        "{\n" +
+                        "   // printf() displays the string inside quotation\n" +
+                        "   printf(\"Hello, World!\");\n" +
+                        "   return 0;\n" +
+                        "}");
+        programWiki.setOutput("" +
+                "Output\n" +
+                "\n" +
+                "Hello, World!");
+        programWikis.add(programWiki);
+
+        WikiModel wikiModel = new WikiModel("c1", "Hello World", programWikis, "c");
+        firebaseDatabaseHandler.writeProgramWiki(wikiModel);
+
+        programWikis = new ArrayList<>();
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
+        programWiki.setHeader("C program to add two numbers");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
+        programWiki.setProgramExplanation("" +
+                "Here are a few examples on how to add two numbers. In the expression (c = a + b) overflow may occur if sum of a and b is larger than maximum value which can be stored in variable c. ");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
+        programWiki.setProgramExample(
+                        "#include<stdio.h>\n" +
+                        " \n" +
+                        "int main()\n" +
+                        "{\n" +
+                        "   int a, b, c;\n" +
+                        " \n" +
+                        "   printf(\"Enter two numbers to add\\n\");\n" +
+                        "   scanf(\"%d%d\",&a,&b);\n" +
+                        " \n" +
+                        "   c = a + b;\n" +
+                        " \n" +
+                        "   printf(\"Sum of entered numbers = %d\\n\",c);\n" +
+                        " \n" +
+                        "   return 0;\n" +
+                        "}\n" +
+                        "\n");
+        programWiki.setOutput("" +
+                "Output\n" +
+                "\n" +
+                "Enter two numbers to add\n4\n5\nSum of entered numbers = 9");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
+        programWiki.setHeader("Addition without using third variable");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
+        programWiki.setProgramExample(
+                        "#include <stdio.h>\n" +
+                        " \n" +
+                        "int main()\n" +
+                        "{\n" +
+                        "   int a, b, c;\n" +
+                        "   char ch;\n" +
+                        " \n" +
+                        "   while (1) {\n" +
+                        "      printf(\"Inut two integers\\n\");\n" +
+                        "      scanf(\"%d%d\", &a, &b);\n" +
+                        "      getchar();\n" +
+                        " \n" +
+                        "      c = a + b;\n" +
+                        " \n" +
+                        "      printf(\"(%d) + (%d) = (%d)\\n\", a, b, c);\n" +
+                        " \n" +
+                        "      printf(\"Do you wish to add more numbers (y/n)\\n\");\n" +
+                        "      scanf(\"%c\", &ch);\n" +
+                        " \n" +
+                        "      if (ch == 'y' || ch == 'Y')\n" +
+                        "         continue;\n" +
+                        "      else\n" +
+                        "       break;\n" +
+                        "   }\n" +
+                        " \n" +
+                        "   return 0;\n" +
+                        "}\n" +
+                        "\n");
+        programWiki.setOutput("" +
+                "Output\n" +
+                "\n" +
+                "Inut two integers\n" +
+                "2 6\n" +
+                "(2) + (6) = (8)\n" +
+                "Do you wish to add more numbers (y/n)\n" +
+                "y\n" +
+                "Inut two integers\n" +
+                "2 -6\n" +
+                "(2) + (-6) = (-4)\n" +
+                "Do you wish to add more numbers (y/n)\n" +
+                "y\n" +
+                "Inut two integers\n" +
+                "-5 3\n" +
+                "(-5) + (3) = (-2)\n" +
+                "Do you wish to add more numbers (y/n)\n" +
+                "y\n" +
+                "Inut two integers\n" +
+                "-5 -6\n" +
+                "(-5) + (-6) = (-11)\n" +
+                "Do you wish to add more numbers (y/n)\n" +
+                "n");
+        programWikis.add(programWiki);
+
+
+
+        wikiModel = new WikiModel("c2", "C program to add two numbers", programWikis, "c" );
+        firebaseDatabaseHandler.writeProgramWiki(wikiModel);
     }
 }

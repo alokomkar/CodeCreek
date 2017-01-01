@@ -34,6 +34,8 @@ public class ProgramWiki extends RushObject implements Parcelable {
     public ProgramWiki() {
     }
 
+
+
     public int getContentType() {
         return contentType;
     }

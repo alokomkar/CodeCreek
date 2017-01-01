@@ -113,6 +113,7 @@ public class FirebaseDatabaseHandler {
             programLanguage = "cpp";
         }
         getCreekUserDBDatabase();
+        getProgramWikiDatabase();
         getProgramDatabase();
         getUserDatabase();
         getUserDetailsDatabase();
@@ -217,24 +218,25 @@ public class FirebaseDatabaseHandler {
     }
 
     public interface ProgramWikiInterface {
-        void getProgramWiki( ArrayList<ProgramWiki> programWikis );
+        void getProgramWiki( ArrayList<WikiModel> programWikis );
         void onError( DatabaseError error );
     }
 
     public void initializeProgramWiki( final ProgramWikiInterface programWikiInterface ) {
         if( !creekPreferences.getProgramWikiInserted() ) {
 
-            mProgramDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            mProgramWikiDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<ProgramWiki> programWikis = new ArrayList<>();
+                    ArrayList<WikiModel> programWikis = new ArrayList<>();
+                    Log.d(TAG, "Wiki model Resoponse : " + dataSnapshot.toString());
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
-                        ProgramWiki wiki = childDataSnapShot.getValue(ProgramWiki.class);
+                        WikiModel wiki = childDataSnapShot.getValue(WikiModel.class);
                         wiki.save();
                         programWikis.add(wiki);
                     }
                     programWikiInterface.getProgramWiki(programWikis);
-                    creekPreferences.setSyntaxInserted(true);
+                    creekPreferences.setProgramWikiInserted(true);
                 }
 
                 @Override
@@ -244,28 +246,28 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
-            new AsyncTask<Void, Void, ArrayList<ProgramWiki>>() {
+            new AsyncTask<Void, Void, ArrayList<WikiModel>>() {
 
                 @Override
-                protected ArrayList<ProgramWiki> doInBackground(Void... voids) {
-                    ArrayList<ProgramWiki> programWikis;
+                protected ArrayList<WikiModel> doInBackground(Void... voids) {
+                    ArrayList<WikiModel> programWikis;
                     if( creekPreferences.getProgramLanguage().equals("c++") ) {
                         programWikis = new ArrayList<>(new RushSearch()
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
                                 .or()
                                 .whereEqual("syntaxLanguage", "cpp")
-                                .find(ProgramWiki.class));
+                                .find(WikiModel.class));
                     }
                     else {
                         programWikis = new ArrayList<>(new RushSearch()
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
-                                .find(ProgramWiki.class));
+                                .find(WikiModel.class));
                     }
                     return programWikis;
                 }
 
                 @Override
-                protected void onPostExecute(ArrayList<ProgramWiki> programWikis) {
+                protected void onPostExecute(ArrayList<WikiModel> programWikis) {
                     super.onPostExecute(programWikis);
                     programWikiInterface.getProgramWiki(programWikis);
                 }

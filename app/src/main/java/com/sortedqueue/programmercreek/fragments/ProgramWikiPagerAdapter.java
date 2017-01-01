@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.sortedqueue.programmercreek.database.ProgramWiki;
+import com.sortedqueue.programmercreek.database.WikiModel;
+
 import java.util.ArrayList;
 
 /**
@@ -13,17 +16,17 @@ import java.util.ArrayList;
 public class ProgramWikiPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<ProgramWikiFragment> ProgramWikiFragments = new ArrayList<>();
+    private ArrayList<WikiModel> programWikis;
 
-    public ProgramWikiPagerAdapter(FragmentManager fm) {
+    public ProgramWikiPagerAdapter(FragmentManager fm, ArrayList<WikiModel> programWikis) {
         super(fm);
-        ProgramWikiFragment ProgramWikiFragment = new ProgramWikiFragment();
-        ProgramWikiFragments.add(ProgramWikiFragment);
-        ProgramWikiFragment = new ProgramWikiFragment();
-        ProgramWikiFragments.add(ProgramWikiFragment);
-        ProgramWikiFragment = new ProgramWikiFragment();
-        ProgramWikiFragments.add(ProgramWikiFragment);
-        ProgramWikiFragment = new ProgramWikiFragment();
-        ProgramWikiFragments.add(ProgramWikiFragment);
+        this.programWikis = programWikis;
+        for( WikiModel programWiki : programWikis ) {
+            ProgramWikiFragment ProgramWikiFragment = new ProgramWikiFragment();
+            ProgramWikiFragment.setParams( programWiki );
+            ProgramWikiFragments.add(ProgramWikiFragment);
+        }
+
 
     }
 
@@ -34,6 +37,6 @@ public class ProgramWikiPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return ProgramWikiFragments.size();
+        return programWikis.size();
     }
 }
