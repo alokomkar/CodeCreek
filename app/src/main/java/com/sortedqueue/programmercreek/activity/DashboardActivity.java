@@ -90,11 +90,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
-        /*initAds();
-        initUI();*/
+        initAds();
+        initUI();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-        initJavaIndex();
+        //initJavaIndex();
 
     }
 

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushList;
 
 /**
  * Created by Alok Omkar on 2016-12-31.
@@ -15,6 +16,8 @@ public class WikiModel extends RushObject implements Parcelable {
 
     private String wikiHeader;
     private String wikiId;
+
+    @RushList(classType = ProgramWiki.class)
     private ArrayList<ProgramWiki> programWikis = new ArrayList<>();
     private String syntaxLanguage;
 
