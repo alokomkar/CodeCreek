@@ -256,11 +256,13 @@ public class FirebaseDatabaseHandler {
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
                                 .or()
                                 .whereEqual("syntaxLanguage", "cpp")
+                                .orderAsc("wikiId")
                                 .find(WikiModel.class));
                     }
                     else {
                         programWikis = new ArrayList<>(new RushSearch()
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
+                                .orderAsc("wikiId")
                                 .find(WikiModel.class));
                     }
                     return programWikis;
