@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
         android:scrollbars="none"
+        android:fastScrollEnabled="false"
         android:headerDividersEnabled="true"
         android:footerDividersEnabled="true"
         android:dividerHeight="@dimen/margin_8"
