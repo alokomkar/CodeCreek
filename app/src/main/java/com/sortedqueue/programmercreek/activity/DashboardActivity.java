@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,8 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
     ViewPager dashboardViewPager;
     @Bind(R.id.dashboardTabLayout)
     TabLayout dashboardTabLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     private String TAG = getClass().getSimpleName();
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
@@ -55,18 +58,25 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
+        setupToolbar();
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         adView.setVisibility(View.GONE);
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
-        initAds();
+        //initAds();
 
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
-
+        dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
+        dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
         //initJavaIndex();
 
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
     }
 
     private void getFirebaseDBVerion() {

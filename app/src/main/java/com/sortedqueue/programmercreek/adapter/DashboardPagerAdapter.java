@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 
@@ -18,6 +19,11 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
     public static final int INDEX_DASHBOARD = 1;
     private Context context;
     private String tabTitles[] = new String[] { "Language", "Dashboard" };
+
+    private int[] imageResId = {
+            R.drawable.ic_account_box_white_24dp,
+            R.drawable.ic_dns_white_24dp
+    };
 
     public DashboardPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -42,7 +48,6 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
-        return tabTitles[position];
+        return "";
     }
 }
