@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,14 +46,13 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TestDragNDropActivity extends ListActivity implements UIUpdateListener {
+public class TestDragNDropActivity extends AppCompatActivity implements UIUpdateListener {
 
 	DatabaseHandler mDatabaseHandler;
 	int mProgram_Index;
 	ArrayList<String> mRandomTest;
 	ArrayList<String> mProgramList;
 	ArrayList<String> mProgramCheckList;
-	ListView mListView;
 	long remainingTime = 0;
 	long time = 0;
 	long interval = 0;
@@ -70,14 +70,18 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 	@Bind(R.id.timerButton)
 	Button timerButton;
 	private InterstitialAd interstitialAd;
+	private DragNDropListView dragNDropListView;
+	private DragNDropAdapter dragNDropAdapter;
+	private int programSize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test_drag_n_drop);
 		ButterKnife.bind(this);
+		dragNDropListView = (DragNDropListView) findViewById(R.id.dragNDropListView); 
 		mDatabaseHandler = new DatabaseHandler(this);
-		
+
 		mProgram_Index = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mWizard = getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD);
 		List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
@@ -132,17 +136,14 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		}
 
 		mRandomTest = ShuffleList.shuffleList(mRandomTest);
-		final int programSize = mRandomTest.size();
-		setListAdapter(new DragNDropAdapter(this, new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest));//new DragNDropAdapter(this,content)
-		mListView = getListView();
+		programSize = mRandomTest.size();
+		dragNDropAdapter = new DragNDropAdapter(this, new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest);
+		dragNDropListView.setAdapter(dragNDropAdapter);//new DragNDropAdapter(this,content)
 		//mListView.setBackgroundResource(R.drawable.error);
-
-		if (mListView instanceof DragNDropListView) {
-			((DragNDropListView) mListView).setDropListener(mDropListener);
-			((DragNDropListView) mListView).setRemoveListener(mRemoveListener);
-			((DragNDropListView) mListView).setDragListener(mDragListener);
-		}
-
+		dragNDropListView.setDropListener(mDropListener);
+		dragNDropListView.setRemoveListener(mRemoveListener);
+		dragNDropListView.setDragListener(mDragListener);
+		
 		timerButton.setEnabled(false);
 
 		time = ( programSize / 2) * 60 * 1000;
@@ -230,7 +231,7 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 		int programCheck = 0;
 		for( int i = 0; i < programLength; i++ ) { 
 
-			String item = mListView.getAdapter().getItem(i).toString().trim();
+			String item = dragNDropListView.getAdapter().getItem(i).toString().trim();
 			String actualItem = mProgramList.get(i).toString().trim();
 			//linearLayout = (LinearLayout) getViewByPosition(i, mListView);
 			//textView = (TextView) linearLayout.getChildAt(1);
@@ -343,22 +344,17 @@ public class TestDragNDropActivity extends ListActivity implements UIUpdateListe
 	private DropListenerInterface mDropListener = 
 			new DropListenerInterface() {
 		public void onDrop(int from, int to) {
-			ListAdapter adapter = getListAdapter();
-			if (adapter instanceof DragNDropAdapter) {
-				((DragNDropAdapter)adapter).onDrop(from, to);
-				getListView().invalidateViews();
-			}
+				dragNDropAdapter.onDrop(from, to);
+				dragNDropListView.invalidateViews();
+
 		}
 	};
 
 	private RemoveListenerInterface mRemoveListener =
 			new RemoveListenerInterface() {
 		public void onRemove(int which) {
-			ListAdapter adapter = getListAdapter();
-			if (adapter instanceof DragNDropAdapter) {
-				((DragNDropAdapter)adapter).onRemove(which);
-				getListView().invalidateViews();
-			}
+			dragNDropAdapter.onRemove(which);
+			dragNDropListView.invalidateViews();
 		}
 	};
 

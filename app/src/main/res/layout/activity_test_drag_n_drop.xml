@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <com.sortedqueue.programmercreek.view.DragNDropListView
-        android:id="@+id/android:list"
+        android:id="@+id/dragNDropListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonLayout"

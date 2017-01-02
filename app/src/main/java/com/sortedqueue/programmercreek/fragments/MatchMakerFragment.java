@@ -1,7 +1,6 @@
-package com.sortedqueue.programmercreek.activity;
+package com.sortedqueue.programmercreek.fragments;
 
-import android.app.Activity;
-import android.app.AlertDialog.Builder;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,29 +8,29 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.DragShadowBuilder;
-import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TableRow.LayoutParams;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.MatchMakerActivity;
+import com.sortedqueue.programmercreek.activity.ProgramListActivity;
+import com.sortedqueue.programmercreek.activity.TestDragNDropActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -40,6 +39,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,8 +48,11 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Alok Omkar on 2017-01-02.
+ */
 
-public class MatchMakerActivity extends Activity implements UIUpdateListener {
+public class MatchMakerFragment extends Fragment implements UIUpdateListener {
 
     @Bind(R.id.checkQuizButton)
     Button checkQuizButton;
@@ -79,35 +82,48 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
     CountDownTimer mCountDownTimer;
     boolean mWizard = false;
     int mProgramSize;
+    private Bundle newProgramActivityBundle;
+    private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_match_maker);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
+        ButterKnife.bind(this, view);
+        mMatchMakerLeftLinearLayout = (LinearLayout) view.findViewById(R.id.leftLinearLyt);
+        mMatchMakerRightLinearLayout = (LinearLayout) view.findViewById(R.id.rightLinearLyt);
+        checkQuizButton = (Button) view.findViewById(R.id.checkQuizButton);
+        timerButton = (Button) view.findViewById(R.id.timerButton);
+        initUI();
+        return view;
+    }
 
-        Bundle newProgramActivityBundle = getIntent().getExtras();
+    public void setBundle( Bundle bundle ) {
+        this.newProgramActivityBundle = bundle;
+    }
+    
+    private void initUI() {
+        
         mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
         if (mDatabaseHandler == null) {
-            mDatabaseHandler = new DatabaseHandler(this);
+            mDatabaseHandler = new DatabaseHandler(getContext());
         }
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+                new CreekPreferences(getContext()).getProgramLanguage());
         if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
+            new DataBaseInsertAsyncTask(getContext(), mProgram_Index, this).execute();
         } else {
             initUI(program_TableList);
         }
-        this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left);
     }
 
     private void initUI(List<Program_Table> program_TableList) {
-
         if (program_TableList != null && program_TableList.size() > 0) {
-
-            setTitle("Match : " + AuxilaryUtils.getProgramTitle(mProgram_Index, MatchMakerActivity.this, mDatabaseHandler));
+            //TODO
+            getActivity().setTitle("Match : " + AuxilaryUtils.getProgramTitle(mProgram_Index, getContext(), mDatabaseHandler));
 
             mProgramList = new ArrayList<String>();
             mProgramExplanationList = new ArrayList<String>();
@@ -132,7 +148,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         mShuffleProgramList.addAll(mProgramList);
         mShuffleProgramList = ShuffleList.shuffleList(mShuffleProgramList);
 
-        mMatchMakerLeftLinearLayout = (LinearLayout) findViewById(R.id.leftLinearLyt);
+        
 
         if (mMatchMakerLeftLinearLayout != null) {
             mMatchMakerLeftLinearLayout.removeAllViews();
@@ -142,7 +158,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         mProgramLineTextViewList = new TextView[mProgramSize];
         String programLine = null;
         for (int i = 0; i < mProgramSize; i++) {
-            mProgramLineTextViewList[i] = new TextView(this);
+            mProgramLineTextViewList[i] = new TextView(getContext());
             setProgramLineTextViewParms(mProgramLineTextViewList[i]);
             mMatchMakerLeftLinearLayout.addView(mProgramLineTextViewList[i]);
             programLine = mShuffleProgramList.get(i);
@@ -155,7 +171,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
             mProgramLineTextViewList[i].setId(i);
         }
 
-        mMatchMakerRightLinearLayout = (LinearLayout) findViewById(R.id.rightLinearLyt);
+
         //mMatchMakerRightLinearLayout.setLayoutParams(layoutParams);
         if (mMatchMakerRightLinearLayout != null) {
             mMatchMakerRightLinearLayout.removeAllViews();
@@ -163,15 +179,14 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
         mSummaryTextViewList = new TextView[mProgramSize];
         for (int i = 0; i < mProgramSize; i++) {
-            mSummaryTextViewList[i] = new TextView(this);
+            mSummaryTextViewList[i] = new TextView(getContext());
             setSummaryTextViewParms(mSummaryTextViewList[i]);
             mMatchMakerRightLinearLayout.addView(mSummaryTextViewList[i]);
             mSummaryTextViewList[i].setText(mProgramExplanationList.get(i));
             mProgramLineTextViewList[i].setId(mProgramSize + i);
         }
 
-        checkQuizButton = (Button) findViewById(R.id.checkQuizButton);
-        timerButton = (Button) findViewById(R.id.timerButton);
+
         timerButton.setText("00:00");
         timerButton.setEnabled(false);
 
@@ -216,7 +231,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         };
 
 
-        checkQuizButton.setOnClickListener(new OnClickListener() {
+        checkQuizButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -226,64 +241,46 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         });
 
         mCountDownTimer.start();
-
-
     }
+    //On Long Press Clear the program line in summary text view
+    View.OnLongClickListener mSummaryTextViewLongClickListener = new View.OnLongClickListener() {
 
-    OnClickListener mNextBtnClickListener = new OnClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+
+			/*TextView textView = (TextView) v;
+			int lineNo = textView.getId() - mProgramSize;
+			if( lineNo >= 0 && lineNo <= mProgramExplanationList.size())
+			textView.setText(mProgramExplanationList.get(lineNo));*/
+            // TODO Auto-generated method stub
+            return false;
+        }
+    };
+
+    View.OnClickListener mSummaryTextViewOnClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
 
-            switch (v.getId()) {
-                case R.id.timerButton:
-                    navigateToTest();
-                    break;
+            if (mSelectedProgramLineView != null) {
+                TextView summaryTextView = (TextView) v;
+                summaryTextView.setText(((TextView) mSelectedProgramLineView).getText());
+                mSelectedProgramLineView.setOnTouchListener(null);
             }
-
         }
     };
-
-    private void showConfirmSubmitDialog(final int programSize, final CountDownTimer countDownTimer) {
-        Builder builder = new Builder(this);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                checkScore(programSize);
-                countDownTimer.cancel();
-            }
-
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        builder.setMessage("Are you sure you want to submit the Match?");
-        builder.setTitle(this.getTitle());
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.show();
+    private void setSummaryTextViewParms(TextView textView) {
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(8, 4, 8, 4);
+        textView.setLayoutParams(layoutParams);
+        textView.setBackgroundResource(R.drawable.choice);
+        textView.setGravity(Gravity.CENTER);
+        textView.setOnDragListener(new ChoiceDragListener());
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setOnClickListener(mSummaryTextViewOnClickListener);
+        textView.setOnLongClickListener(mSummaryTextViewLongClickListener);
 
     }
-
-
-    protected void navigateToTest() {
-
-        Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
-        newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-        Intent intent = new Intent(this, TestDragNDropActivity.class);
-        intent.putExtras(newIntentBundle);
-        startActivity(intent);
-        this.finish();
-
-    }
-
 
     protected void checkScore(int programSize) {
 
@@ -310,19 +307,19 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         }
         if (CheckSolution == programSize) {
             if (quizComplete == false) {
-                AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
+                AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!", CheckSolution, programSize );
                 checkQuizButton.setEnabled(false);
             } else {
-                AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!",
+                AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!",
                         CheckSolution, programSize);
                 checkQuizButton.setEnabled(false);
             }
 
         } else {
-            //Toast.makeText(MatchMakerActivity.this, "Please check the program again...", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Please check the program again...", Toast.LENGTH_SHORT).show();
             String message = null;
 
             if (quizComplete == false) {
@@ -357,7 +354,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
                 }
             }
-            AuxilaryUtils.displayResultAlert(MatchMakerActivity.this, "Match Complete", message, matchScore, programSize);
+            AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", message, matchScore, programSize);
         }
         if (mWizard == true) {
             timerButton.setText("Next");
@@ -370,60 +367,58 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
     }
 
-    private void setSummaryTextViewParms(TextView textView) {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(8, 4, 8, 4);
-        textView.setLayoutParams(layoutParams);
-        textView.setBackgroundResource(R.drawable.choice);
-        textView.setGravity(Gravity.CENTER);
-        textView.setOnDragListener(new ChoiceDragListener());
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setOnClickListener(mSummaryTextViewOnClickListener);
-        textView.setOnLongClickListener(mSummaryTextViewLongClickListener);
-
-    }
-
-    //On Long Press Clear the program line in summary text view
-    OnLongClickListener mSummaryTextViewLongClickListener = new OnLongClickListener() {
-
-        @Override
-        public boolean onLongClick(View v) {
-            
-			/*TextView textView = (TextView) v;
-			int lineNo = textView.getId() - mProgramSize;
-			if( lineNo >= 0 && lineNo <= mProgramExplanationList.size())
-			textView.setText(mProgramExplanationList.get(lineNo));*/
-            // TODO Auto-generated method stub
-            return false;
-        }
-    };
-
-    OnClickListener mSummaryTextViewOnClickListener = new OnClickListener() {
+    View.OnClickListener mNextBtnClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
 
-            if (mSelectedProgramLineView != null) {
-                TextView summaryTextView = (TextView) v;
-                summaryTextView.setText(((TextView) mSelectedProgramLineView).getText());
-                mSelectedProgramLineView.setOnTouchListener(null);
+            switch (v.getId()) {
+                case R.id.timerButton:
+                    navigateToTest();
+                    break;
             }
+
         }
     };
 
-    private void setProgramLineTextViewParms(TextView textView) {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(8, 4, 8, 4);
-        textView.setLayoutParams(layoutParams);
-        textView.setBackgroundResource(R.drawable.option);
-        textView.setGravity(Gravity.CENTER);
-        textView.setOnLongClickListener(mProgramLineLongClickListener);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
+    protected void navigateToTest() {
+
+        Bundle newIntentBundle = new Bundle();
+        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+        newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        Intent intent = new Intent(getContext(), TestDragNDropActivity.class);
+        intent.putExtras(newIntentBundle);
+        startActivity(intent);
     }
 
+    private void showConfirmSubmitDialog(final int programSize, final CountDownTimer countDownTimer) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-    OnLongClickListener mProgramLineLongClickListener = new OnLongClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                checkScore(programSize);
+                countDownTimer.cancel();
+            }
+
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setMessage("Are you sure you want to submit the Match?");
+        builder.setTitle(getActivity().getTitle());
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.show();
+
+    }
+    
+    View.OnLongClickListener mProgramLineLongClickListener = new View.OnLongClickListener() {
 
         @Override
         public boolean onLongClick(View view) {
@@ -431,45 +426,18 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
             view.setOnTouchListener(new ChoiceTouchListener());
             view.setBackgroundResource(R.drawable.selected);
             mSelectedProgramLineView = view;
-            //Toast.makeText(MatchMakerActivity.this, "Selected", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Selected", Toast.LENGTH_SHORT).show();
 
             //To start drag immediately after a view has been selected.
             ClipData data = ClipData.newPlainText("", "");
-            DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data, shadowBuilder, view, 0);
 
             return false;
         }
     };
 
-    /**
-     * ChoiceTouchListener will handle touch events on draggable views
-     */
-    private final class ChoiceTouchListener implements OnTouchListener {
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-				/*
-				 * Drag details: we only need default behavior
-				 * - clip data could be set to pass data as part of drag
-				 * - shadow can be tailored
-				 */
-                ClipData data = ClipData.newPlainText("", "");
-                DragShadowBuilder shadowBuilder = new DragShadowBuilder(view);
-                //start dragging the item touched
-                view.startDrag(data, shadowBuilder, view, 0);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    /**
-     * DragListener will handle dragged views being dropped on the drop area
-     * - only the drop action will have processing added to it as we are not
-     * - amending the default behavior for other parts of the drag process
-     */
-    private class ChoiceDragListener implements OnDragListener {
+    private class ChoiceDragListener implements View.OnDragListener {
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
@@ -505,7 +473,7 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
                         //the tag is the view id already dropped here
                         int existingID = (Integer) tag;
                         //set the original view visible again
-                        findViewById(existingID).setVisibility(View.VISIBLE);
+                        view.findViewById(existingID).setVisibility(View.VISIBLE);
                     }
                     //set the tag in the target view being dropped on - to the ID of the view being dropped
                     dropTarget.setTag(dropped.getId());
@@ -522,23 +490,43 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
 
     boolean quizComplete = false;
 
-    @Override
-    public void onBackPressed() {
-        if (quizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(this);
-            if (mCountDownTimer != null) {
-                mCountDownTimer.cancel();
+    /**
+     * ChoiceTouchListener will handle touch events on draggable views
+     */
+    private final class ChoiceTouchListener implements View.OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+				/*
+				 * Drag details: we only need default behavior
+				 * - clip data could be set to pass data as part of drag
+				 * - shadow can be tailored
+				 */
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                //start dragging the item touched
+                view.startDrag(data, shadowBuilder, view, 0);
+                return true;
+            } else {
+                return false;
             }
-        } else {
-            finish();
         }
-
     }
 
+    private void setProgramLineTextViewParms(TextView textView) {
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(8, 4, 8, 4);
+        textView.setLayoutParams(layoutParams);
+        textView.setBackgroundResource(R.drawable.option);
+        textView.setGravity(Gravity.CENTER);
+        textView.setOnLongClickListener(mProgramLineLongClickListener);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setTypeface(Typeface.DEFAULT_BOLD);
+    }
 
     @Override
     public void updateUI() {
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+                new CreekPreferences(getContext()).getProgramLanguage());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -547,7 +535,8 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
+            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+                    new CreekPreferences(getContext()).getProgramLanguage());
             if (prevProgramSize == program_TableList.size()) {
                 break;
             }
@@ -558,35 +547,4 @@ public class MatchMakerActivity extends Activity implements UIUpdateListener {
         }
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.program, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_refresh_database:
-                new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        this.overridePendingTransition(R.anim.anim_slide_in_right,
-                R.anim.anim_slide_out_right);
-    }
-
-
 }
