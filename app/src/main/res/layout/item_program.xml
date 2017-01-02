@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:textSize="@dimen/text_dashboard_small"
+        android:id="@+id/syntaxDescriptionTextView"
+        android:text="The printf function is used to print to standard output in a formatted manner"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_8"
+        android:background="@color/md_black_1000"
+        android:textColor="@color/md_grey_500"
+        android:textSize="@dimen/text_dashboard_small"
+        android:id="@+id/syntaxSolutionTextView"
+        android:text="@string/printf_solution"/>
+</LinearLayout>
+
+
+
+
+

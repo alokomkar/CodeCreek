@@ -27,8 +27,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/navigationLayout"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_wiki_unit_id">
     </com.google.android.gms.ads.AdView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/navigationLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/md_indigo_A100"
+        android:padding="@dimen/margin_8"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/firstQuestionImageView"
+            android:src="@android:drawable/ic_media_previous"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/indexTextView"
+            android:visibility="gone"
+            android:text="1/4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_dashboard"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/lastQuestionImageView"
+            android:src="@android:drawable/ic_media_next"/>
+
+    </RelativeLayout>
 </RelativeLayout>

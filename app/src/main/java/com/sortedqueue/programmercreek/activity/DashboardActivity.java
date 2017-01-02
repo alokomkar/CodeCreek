@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,10 +37,10 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
 
     @Bind(R.id.adView)
     AdView adView;
-    @Bind(R.id.dashboardTabLayout)
-    TabLayout dashboardTabLayout;
     @Bind(R.id.dashboardViewPager)
     ViewPager dashboardViewPager;
+    @Bind(R.id.dashboardTabLayout)
+    TabLayout dashboardTabLayout;
 
     private String TAG = getClass().getSimpleName();
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
@@ -61,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         initAds();
 
-        dashboardViewPager.setAdapter( new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
+        dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -89,8 +88,8 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
     }
 
     private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("java");
-        new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
+        creekPreferences.setProgramLanguage("c");
+        new JavaProgramInserter(DashboardActivity.this).insertProgramWiki();
     }
 
     private void initAds() {
@@ -111,8 +110,6 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         });
 
     }
-
-
 
 
     /**
@@ -185,6 +182,13 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         this.overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
         finish();
+    }
+
+
+    private void startWikiIntent() {
+        Intent intent = new Intent(DashboardActivity.this, NewProgramWikiActivity.class);
+        startActivity(intent);
+
     }
 
     private void tellYourFriends() {

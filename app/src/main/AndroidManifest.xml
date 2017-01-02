@@ -80,8 +80,13 @@
             android:label="@string/title_program_wiki"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.NewProgramWikiActivity"
+            android:label="@string/title_program_wiki"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.SyntaxLearnActivity"
             android:label="@string/title_activity_syntax_learn"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- REQUIRED Set the package for your model classes,
@@ -89,7 +94,7 @@
         <meta-data android:name="Rush_classes_package" android:value="com.sortedqueue.programmercreek.database" />
 
         <!-- Updating this will cause a database upgrade -->
-        <meta-data android:name="Rush_db_version" android:value="3" />
+        <meta-data android:name="Rush_db_version" android:value="5" />
 
         <!-- Database name -->
         <meta-data android:name="Rush_db_name" android:value="rush.db" />

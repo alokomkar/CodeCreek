@@ -1,12 +1,15 @@
 package com.sortedqueue.programmercreek.database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
  * Program_Index - POJO for Programer_Index table in database.
  * */
 @IgnoreExtraProperties
-public class Program_Index {
+public class Program_Index implements Parcelable {
 
 	int mProgramIndex;
 	String mProgram_Description;
@@ -64,4 +67,35 @@ public class Program_Index {
 		return mProgramIndex+": "+mProgram_Description;
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.mProgramIndex);
+		dest.writeString(this.mProgram_Description);
+		dest.writeString(this.wiki);
+		dest.writeString(this.mProgram_Language);
+	}
+
+	protected Program_Index(Parcel in) {
+		this.mProgramIndex = in.readInt();
+		this.mProgram_Description = in.readString();
+		this.wiki = in.readString();
+		this.mProgram_Language = in.readString();
+	}
+
+	public static final Parcelable.Creator<Program_Index> CREATOR = new Parcelable.Creator<Program_Index>() {
+		@Override
+		public Program_Index createFromParcel(Parcel source) {
+			return new Program_Index(source);
+		}
+
+		@Override
+		public Program_Index[] newArray(int size) {
+			return new Program_Index[size];
+		}
+	};
 }

@@ -26,6 +26,7 @@ import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -38,7 +39,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 
 	int mInvokeTest = 0;
 
-	List<Program_Index> mProgram_Indexs;
+	ArrayList<Program_Index> mProgram_Indexs;
 
 	public int PROGRAM_LIST_SIZE = 0;
 
@@ -94,7 +95,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 
 			@Override
 			public void updateUIProgramList(List<Program_Index> program_Indexes) {
-				mProgram_Indexs = program_Indexes;
+				mProgram_Indexs = new ArrayList<Program_Index>(program_Indexes);
 				PROGRAM_LIST_SIZE = mProgram_Indexs.size();
 				CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
 				RecyclerView programListRecyclerView = (RecyclerView) findViewById(R.id.programListRecyclerView);
@@ -114,6 +115,7 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 	private void loadProgramExplanation(String programWiki) {
 		Intent intent = new Intent(ProgramListActivity.this, ProgramWikiActivity.class);
 		intent.putExtra(DatabaseHandler.KEY_WIKI, programWiki);
+		intent.putExtra(DatabaseHandler.KEY_PROGRAM_LANGUAGE, mProgram_Indexs);
 		startActivity(intent);
 	}
 

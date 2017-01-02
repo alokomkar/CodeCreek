@@ -43,6 +43,10 @@ public class CreekPreferences {
     public static final String KEY_CPP_SYNTAX = "keyCppSyntax";
     public static final String KEY_JAVA_SYNTAX = "keyJavaSyntax";
 
+    public static final String KEY_C_WIKI = "keyCWiki";
+    public static final String KEY_CPP_WIKI = "keyCppWiki";
+    public static final String KEY_JAVA_WIKI = "keyJavaWiki";
+
     private static final String PROGRAM_LANGUAGE = "program_language";
 
     private SharedPreferences sharedPreferences;
@@ -238,6 +242,19 @@ public class CreekPreferences {
         sharedPreferences.edit().putBoolean(KEY_JAVA_MODULE, modulesInserted).apply();
     }
 
+    public boolean getProgramWikiInserted() {
+        switch ( getProgramLanguage().toLowerCase() ) {
+            case "java" :
+                return sharedPreferences.getBoolean(KEY_JAVA_WIKI, false);
+            case "c" :
+                return sharedPreferences.getBoolean(KEY_C_WIKI, false);
+            case "c++" :
+            case "cpp" :
+                return sharedPreferences.getBoolean(KEY_CPP_WIKI, false);
+        }
+        return false;
+    }
+
     public boolean getSyntaxInserted() {
         switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
@@ -249,6 +266,20 @@ public class CreekPreferences {
                 return sharedPreferences.getBoolean(KEY_CPP_SYNTAX, false);
         }
         return false;
+    }
+    public void setProgramWikiInserted( boolean modulesInserted ) {
+        switch ( getProgramLanguage().toLowerCase() ) {
+            case "java" :
+                setJavaWikiInserted( modulesInserted );
+                break;
+            case "c" :
+                setCWikiInserted( modulesInserted );
+                break;
+            case "c++" :
+            case "cpp" :
+                setCPPWikiInserted( modulesInserted );
+                break;
+        }
     }
 
     public void setSyntaxInserted( boolean modulesInserted ) {
@@ -276,6 +307,18 @@ public class CreekPreferences {
 
     private void setJavaSyntaxInserted(boolean modulesInserted) {
         sharedPreferences.edit().putBoolean(KEY_JAVA_SYNTAX, modulesInserted).apply();
+    }
+
+    private void setCPPWikiInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_CPP_WIKI, modulesInserted).apply();
+    }
+
+    private void setCWikiInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_C_WIKI, modulesInserted).apply();
+    }
+
+    private void setJavaWikiInserted(boolean modulesInserted) {
+        sharedPreferences.edit().putBoolean(KEY_JAVA_WIKI, modulesInserted).apply();
     }
 
     public void checkUpdateDB(final CreekUserDB creekUserDB) {

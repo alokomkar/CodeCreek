@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.FillTheBlanksActivity;
+import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
-import com.sortedqueue.programmercreek.activity.ProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
@@ -117,8 +117,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(getContext(), ProgramWikiActivity.class);
-                intent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
+                Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 /*this.overridePendingTransition(R.anim.animation_leave,
                         R.anim.animation_enter);*/

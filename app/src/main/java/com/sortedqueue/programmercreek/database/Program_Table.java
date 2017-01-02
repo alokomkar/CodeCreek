@@ -1,6 +1,9 @@
 package com.sortedqueue.programmercreek.database;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
@@ -10,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 @IgnoreExtraProperties
-public class Program_Table {
+public class Program_Table implements Parcelable {
 
     //DataSnapshot { key = 1, value = {5={
     // program_Line=	getch();,
@@ -182,4 +185,40 @@ public class Program_Table {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.mProgramTableIndex);
+        dest.writeInt(this.mProgramLine_No);
+        dest.writeString(this.mProgram_Line);
+        dest.writeString(this.mProgram_Line_Description);
+        dest.writeString(this.mProgram_Line_Html);
+        dest.writeString(this.mProgram_Language);
+    }
+
+    protected Program_Table(Parcel in) {
+        this.mProgramTableIndex = in.readInt();
+        this.mProgramLine_No = in.readInt();
+        this.mProgram_Line = in.readString();
+        this.mProgram_Line_Description = in.readString();
+        this.mProgram_Line_Html = in.readString();
+        this.mProgram_Language = in.readString();
+    }
+
+    public static final Parcelable.Creator<Program_Table> CREATOR = new Parcelable.Creator<Program_Table>() {
+        @Override
+        public Program_Table createFromParcel(Parcel source) {
+            return new Program_Table(source);
+        }
+
+        @Override
+        public Program_Table[] newArray(int size) {
+            return new Program_Table[size];
+        }
+    };
 }
