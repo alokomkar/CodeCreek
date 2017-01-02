@@ -4,17 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiPagerAdapter;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
 
@@ -25,12 +27,24 @@ import butterknife.ButterKnife;
  * Created by Alok Omkar on 2016-12-31.
  */
 
-public class NewProgramWikiActivity extends AppCompatActivity {
+public class NewProgramWikiActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.programWikiViewPager)
-    ViewPager programWikiViewPager;
+    ScrollableViewPager programWikiViewPager;
     @Bind(R.id.ProgressBar)
-    android.widget.ProgressBar progressBar;
+    ProgressBar progressBar;
+    @Bind(R.id.firstQuestionImageView)
+    ImageView firstQuestionImageView;
+    @Bind(R.id.prevQuestionImageView)
+    ImageView prevQuestionImageView;
+    @Bind(R.id.indexTextView)
+    TextView indexTextView;
+    @Bind(R.id.nextQuestionImageView)
+    ImageView nextQuestionImageView;
+    @Bind(R.id.lastQuestionImageView)
+    ImageView lastQuestionImageView;
+    @Bind(R.id.navigationLayout)
+    RelativeLayout navigationLayout;
     private ProgramWikiPagerAdapter programWikiPagerAdapter;
 
     @Override
@@ -44,8 +58,11 @@ public class NewProgramWikiActivity extends AppCompatActivity {
             public void getProgramWiki(ArrayList<WikiModel> programWikis) {
                 programWikiPagerAdapter = new ProgramWikiPagerAdapter(getSupportFragmentManager(), programWikis);
                 programWikiViewPager.setAdapter(programWikiPagerAdapter);
+                programWikiViewPager.setCanScroll(false);
                 progressBar.setMax(programWikis.size());
                 progressBar.setProgress(1);
+                indexTextView.setText( 1 + "/" + programWikiPagerAdapter.getCount());
+                toggleVisiblity(0);
                 programWikiViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -55,6 +72,8 @@ public class NewProgramWikiActivity extends AppCompatActivity {
                     @Override
                     public void onPageSelected(int position) {
                         progressBar.setProgress(position + 1);
+                        toggleVisiblity(position);
+                        indexTextView.setText( (position + 1) + "/" + programWikiPagerAdapter.getCount());
                     }
 
                     @Override
@@ -62,8 +81,11 @@ public class NewProgramWikiActivity extends AppCompatActivity {
 
                     }
                 });
+                setupNavigationListener();
                 CommonUtils.dismissProgressDialog();
             }
+
+
 
             @Override
             public void onError(DatabaseError error) {
@@ -72,7 +94,46 @@ public class NewProgramWikiActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    private void setupNavigationListener() {
+        firstQuestionImageView.setOnClickListener(this);
+        prevQuestionImageView.setOnClickListener(this);
+        nextQuestionImageView.setOnClickListener(this);
+        lastQuestionImageView.setOnClickListener(this);
+    }
 
+    private void toggleVisiblity(int position) {
+        firstQuestionImageView.setVisibility(View.VISIBLE);
+        prevQuestionImageView.setVisibility(View.VISIBLE);
+        lastQuestionImageView.setVisibility(View.VISIBLE);
+        nextQuestionImageView.setVisibility(View.VISIBLE);
+
+        if( position == 0 ) {
+            firstQuestionImageView.setVisibility(View.GONE);
+            prevQuestionImageView.setVisibility(View.GONE);
+        }
+        else if( position == programWikiPagerAdapter.getCount() -1 ) {
+            lastQuestionImageView.setVisibility(View.GONE);
+            nextQuestionImageView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch ( v.getId() ) {
+            case R.id.firstQuestionImageView :
+                programWikiViewPager.setCurrentItem(0);
+                break;
+            case R.id.prevQuestionImageView :
+                programWikiViewPager.setCurrentItem( programWikiViewPager.getCurrentItem() - 1 );
+                break;
+            case R.id.nextQuestionImageView :
+                programWikiViewPager.setCurrentItem( programWikiViewPager.getCurrentItem() + 1 );
+                break;
+            case R.id.lastQuestionImageView :
+                programWikiViewPager.setCurrentItem(programWikiPagerAdapter.getCount() - 1);
+                break;
+        }
     }
 }

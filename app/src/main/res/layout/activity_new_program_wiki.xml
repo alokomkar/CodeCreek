@@ -16,12 +16,57 @@
         android:progress="1"
         android:progressDrawable="@drawable/greenprogress" />
 
-    <android.support.v4.view.ViewPager
+    <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/programWikiViewPager"
+        android:layout_above="@+id/navigationLayout"
         android:layout_below="@+id/ProgressBar">
 
-    </android.support.v4.view.ViewPager>
+    </com.sortedqueue.programmercreek.view.ScrollableViewPager>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/navigationLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/md_indigo_A100"
+        android:padding="@dimen/margin_8"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/firstQuestionImageView"
+            android:src="@android:drawable/ic_media_previous"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/firstQuestionImageView"
+            android:id="@+id/prevQuestionImageView"
+            android:src="@android:drawable/ic_media_rew"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/indexTextView"
+            android:text="1/4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_dashboard_small"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/lastQuestionImageView"
+            android:id="@+id/nextQuestionImageView"
+            android:src="@android:drawable/ic_media_ff"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/lastQuestionImageView"
+            android:src="@android:drawable/ic_media_next"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

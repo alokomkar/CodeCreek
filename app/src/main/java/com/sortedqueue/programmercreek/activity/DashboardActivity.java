@@ -11,15 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
@@ -36,8 +31,8 @@ import butterknife.ButterKnife;
 
 public class DashboardActivity extends AppCompatActivity implements UIUpdateListener {
 
-    @Bind(R.id.adView)
-    AdView adView;
+    //@Bind(R.id.adView)
+    //AdView adView;
     @Bind(R.id.dashboardViewPager)
     ViewPager dashboardViewPager;
     @Bind(R.id.dashboardTabLayout)
@@ -60,7 +55,7 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         ButterKnife.bind(this);
         setupToolbar();
         creekPreferences = new CreekPreferences(DashboardActivity.this);
-        adView.setVisibility(View.GONE);
+        //adView.setVisibility(View.GONE);
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         //initAds();
 
@@ -68,6 +63,9 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
+
+        dashboardViewPager.setCurrentItem(1);
+
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
         //initJavaIndex();
@@ -102,7 +100,7 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         new JavaProgramInserter(DashboardActivity.this).insertProgramWiki();
     }
 
-    private void initAds() {
+    /*private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
         //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
         //For creating test ads
@@ -119,7 +117,7 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
             }
         });
 
-    }
+    }*/
 
 
     /**

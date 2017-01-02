@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.protectsoft.webviewcode.Codeview;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -74,7 +77,10 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void initProgramView(RecyclerView.ViewHolder holder, ProgramWiki programWiki, int position) {
         ProgramViewHolder programViewHolder = (ProgramViewHolder) holder;
-        programViewHolder.syntaxDescriptionTextView.setText( "Example : \n" + programWiki.getProgramExample());
+        Codeview.with(context)
+                .withCode("Example : \n" + programWiki.getProgramExample())
+                .into(programViewHolder.syntaxDescriptionTextView);
+        //programViewHolder.syntaxDescriptionTextView.setText( "Example : \n" + programWiki.getProgramExample());
         programViewHolder.syntaxSolutionTextView.setText(programWiki.getOutput());
     }
 
@@ -100,7 +106,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class ProgramViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.syntaxDescriptionTextView)
-        TextView syntaxDescriptionTextView;
+        WebView syntaxDescriptionTextView;
 
         @Bind(R.id.syntaxSolutionTextView)
         TextView syntaxSolutionTextView;
