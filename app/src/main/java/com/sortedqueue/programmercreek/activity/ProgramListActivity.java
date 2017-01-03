@@ -1,11 +1,11 @@
 package com.sortedqueue.programmercreek.activity;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,7 +33,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProgramListActivity extends Activity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
+public class ProgramListActivity extends AppCompatActivity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
 	DatabaseHandler mDatabaseHandler;
 
@@ -131,7 +131,8 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 				showOptionsBox();
 				break;
 			case ProgrammingBuddyConstants.KEY_MATCH :
-				mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+				//mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+				mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
 				mInvokeIntent.putExtras(mBundle);
 				startActivity(mInvokeIntent);
 				break;
@@ -256,7 +257,9 @@ public class ProgramListActivity extends Activity implements UIUpdateListener, C
 							break;
 
 						case INDEX_KEY_MATCH :
-							newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+
+							//newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+                            newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
 							newIntent.putExtras(newIntentBundle);
 							startActivity(newIntent);
 							break;

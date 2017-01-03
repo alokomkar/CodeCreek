@@ -25,12 +25,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.MatchMakerActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.TestDragNDropActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Table;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -39,7 +37,6 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,7 +86,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
+        view = inflater.inflate(R.layout.fragment_match_maker, container, false);
         ButterKnife.bind(this, view);
         mMatchMakerLeftLinearLayout = (LinearLayout) view.findViewById(R.id.leftLinearLyt);
         mMatchMakerRightLinearLayout = (LinearLayout) view.findViewById(R.id.rightLinearLyt);

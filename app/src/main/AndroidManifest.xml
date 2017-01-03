@@ -85,6 +85,10 @@
             android:label="@string/title_program_wiki"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.WizardActivity"
+            android:label="@string/title_program_wiki"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.SyntaxLearnActivity"
             android:label="@string/title_activity_syntax_learn"
             android:screenOrientation="portrait"
