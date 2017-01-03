@@ -668,188 +668,14 @@ public class JavaProgramInserter {
         ArrayList<ProgramWiki> programWikis = new ArrayList<>();
         ProgramWiki programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
-        programWiki.setHeader("Reverse Array ");
+        programWiki.setHeader("C program to read a file ");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
         programWiki.setProgramExplanation("" +
-                "C program to reverse an array: This program reverses the array elements. For example if a is an array of integers with three elements such that\n" +
-                "a[0] = 1\n" +
-                "a[1] = 2\n" +
-                "a[2] = 3\n" +
-                "Then on reversing the array will be\n" +
-                "a[0] = 3\n" +
-                "a[1] = 2\n" +
-                "a[0] = 1\n" +
-                "Given below is the c code to reverse an array.");
-        programWikis.add(programWiki);
-
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
-        programWiki.setProgramExample(
-                        "#include <stdio.h>\n" +
-                                " \n" +
-                                "int main()\n" +
-                                "{\n" +
-                                "   int n, c, d, a[100], b[100];\n" +
-                                " \n" +
-                                "   printf(\"Enter the number of elements in array\\n\");\n" +
-                                "   scanf(\"%d\", &n);\n" +
-                                " \n" +
-                                "   printf(\"Enter the array elements\\n\");\n" +
-                                " \n" +
-                                "   for (c = 0; c < n ; c++)\n" +
-                                "      scanf(\"%d\", &a[c]);\n" +
-                                " \n" +
-                                "   /*\n" +
-                                "    * Copying elements into array b starting from end of array a\n" +
-                                "    */\n" +
-                                " \n" +
-                                "   for (c = n - 1, d = 0; c >= 0; c--, d++)\n" +
-                                "      b[d] = a[c];\n" +
-                                " \n" +
-                                "   /*\n" +
-                                "    * Copying reversed array into original.\n" +
-                                "    * Here we are modifying original array, this is optional.\n" +
-                                "    */\n" +
-                                " \n" +
-                                "   for (c = 0; c < n; c++)\n" +
-                                "      a[c] = b[c];\n" +
-                                " \n" +
-                                "   printf(\"Reverse array is\\n\");\n" +
-                                " \n" +
-                                "   for (c = 0; c < n; c++)\n" +
-                                "      printf(\"%d\\n\", a[c]);\n" +
-                                " \n" +
-                                "   return 0;\n" +
-                                "}");
-        programWiki.setOutput("" +
-                "" +
-                "Output\n" +
-                "\n" +
-                "Enter the number of elements in the array\n5\nEnter the array elements\n1 2 3 4 5\nReverse Array is \n5 4 3 2 1" );
-
-        programWikis.add(programWiki);
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
-        programWiki.setProgramExplanation("" +
-                "Reverse array by swapping (without using additional memory)");
-        programWikis.add(programWiki);
-
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
-        programWiki.setProgramExample(
-                "\n" +
-                        "\n" +
-                        "#include <stdio.h>\n" +
-                        " \n" +
-                        "int main() {\n" +
-                        "  int array[100], n, c, t, end;\n" +
-                        " \n" +
-                        "  scanf(\"%d\", &n);\n" +
-                        "  end = n - 1;\n" +
-                        " \n" +
-                        "  for (c = 0; c < n; c++) {\n" +
-                        "    scanf(\"%d\", &array[c]);\n" +
-                        "  }\n" +
-                        " \n" +
-                        "  for (c = 0; c < n/2; c++) {\n" +
-                        "    t          = array[c];\n" +
-                        "    array[c]   = array[end];\n" +
-                        "    array[end] = t;\n" +
-                        " \n" +
-                        "    end--;\n" +
-                        "  }\n" +
-                        " \n" +
-                        "  printf(\"Reversed array elements are:\\n\");\n" +
-                        " \n" +
-                        "  for (c = 0; c < n; c++) {\n" +
-                        "    printf(\"%d\\n\", array[c]);\n" +
-                        "  }\n" +
-                        " \n" +
-                        "  return 0;\n" +
-                        "}\n" +
-                        "\n");
-        programWikis.add(programWiki);
-
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
-        programWiki.setProgramExplanation("" +
-                "C program to reverse an array using pointers");
-        programWikis.add(programWiki);
-
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
-        programWiki.setProgramExample(
-                "\n" +
-                        "\n" +
-                        "#include <stdio.h>\n" +
-                        "#include <stdlib.h>\n" +
-                        " \n" +
-                        "void reverse_array(int*, int);\n" +
-                        " \n" +
-                        "int main()\n" +
-                        "{\n" +
-                        "   int n, c, *pointer;\n" +
-                        " \n" +
-                        "   scanf(\"%d\",&n);\n" +
-                        " \n" +
-                        "   pointer = (int*)malloc(sizeof(int)*n);\n" +
-                        " \n" +
-                        "   if( pointer == NULL )\n" +
-                        "      exit(EXIT_FAILURE);\n" +
-                        " \n" +
-                        "   for ( c = 0 ; c < n ; c++ )\n" +
-                        "      scanf(\"%d\",(pointer+c));\n" +
-                        " \n" +
-                        "   reverse_array(pointer, n);\n" +
-                        " \n" +
-                        "   printf(\"Original array on reversal is\\n\");\n" +
-                        " \n" +
-                        "   for ( c = 0 ; c < n ; c++ )\n" +
-                        "      printf(\"%d\\n\",*(pointer+c));\n" +
-                        " \n" +
-                        "   free(pointer);\n" +
-                        " \n" +
-                        "   return 0;\n" +
-                        "}\n" +
-                        " \n" +
-                        "void reverse_array(int *pointer, int n)\n" +
-                        "{\n" +
-                        "   int *s, c, d;\n" +
-                        " \n" +
-                        "   s = (int*)malloc(sizeof(int)*n);\n" +
-                        " \n" +
-                        "   if( s == NULL )\n" +
-                        "      exit(EXIT_FAILURE);\n" +
-                        " \n" +
-                        "   for ( c = n - 1, d = 0 ; c >= 0 ; c--, d++ )\n" +
-                        "      *(s+d) = *(pointer+c);\n" +
-                        " \n" +
-                        "   for ( c = 0 ; c < n ; c++ )\n" +
-                        "      *(pointer+c) = *(s+c);\n" +
-                        " \n" +
-                        "   free(s);\n" +
-                        "}\n" +
-                        "\n");
-        programWikis.add(programWiki);
-
-        WikiModel wikiModel = new WikiModel("c17", "Reverse Array", programWikis, "c");
-        firebaseDatabaseHandler.writeProgramWiki(wikiModel);
-        /***
-         * ====================================================================================
-         * **/
-        programWikis = new ArrayList<>();
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
-        programWiki.setHeader("Merge 2 sorted arrays ");
-        programWikis.add(programWiki);
-
-        programWiki = new ProgramWiki();
-        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
-        programWiki.setProgramExplanation("" +
-                "C program to merge two arrays into third array: Arrays are assumed to be sorted in ascending order. You enter two short sorted arrays and combine them to get a large array.");
+                "C program to read a file: This program reads a file entered by the user and displays its contents on the screen, fopen function is used to open a file it returns a pointer to structure FILE. FILE is a predefined structure in stdio.h . If the file is successfully opened then fopen returns a pointer to file and if it is unable to open a file then it returns NULL. fgetc function returns a character which is read from the file and fclose function closes the file. Opening a file means we bring file from disk to ram to perform operations on it. The file must be present in the directory in which the executable file of this code sis present.\n" +
+                "There are blank lines present at end of file. In our program we have opened only one file but you can open multiple files in a single program and in different modes as desired. File handling is very important when we wish to store data permanently on a storage device. All variables and data of program is lost when program exits so if that data is required later we need to use files.");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
@@ -858,85 +684,120 @@ public class JavaProgramInserter {
                         "\n" +
                                 "\n" +
                                 "#include <stdio.h>\n" +
+                                "#include <stdlib.h>\n" +
                                 " \n" +
-                                "void merge(int [], int, int [], int, int []);\n" +
+                                "int main()\n" +
+                                "{\n" +
+                                "   char ch, file_name[25];\n" +
+                                "   FILE *fp;\n" +
                                 " \n" +
-                                "int main() {\n" +
-                                "  int a[100], b[100], m, n, c, sorted[200];\n" +
+                                "   printf(\"Enter the name of file you wish to see\\n\");\n" +
+                                "   gets(file_name);\n" +
                                 " \n" +
-                                "  printf(\"Input number of elements in first array\\n\");\n" +
-                                "  scanf(\"%d\", &m);\n" +
+                                "   fp = fopen(file_name,\"r\"); // read mode\n" +
                                 " \n" +
-                                "  printf(\"Input %d integers\\n\", m);\n" +
-                                "  for (c = 0; c < m; c++) {\n" +
-                                "    scanf(\"%d\", &a[c]);\n" +
-                                "  }\n" +
+                                "   if( fp == NULL )\n" +
+                                "   {\n" +
+                                "      perror(\"Error while opening the file.\\n\");\n" +
+                                "      exit(EXIT_FAILURE);\n" +
+                                "   }\n" +
                                 " \n" +
-                                "  printf(\"Input number of elements in second array\\n\");\n" +
-                                "  scanf(\"%d\", &n);\n" +
+                                "   printf(\"The contents of %s file are :\\n\", file_name);\n" +
                                 " \n" +
-                                "  printf(\"Input %d integers\\n\", n);\n" +
-                                "  for (c = 0; c < n; c++) {\n" +
-                                "    scanf(\"%d\", &b[c]);\n" +
-                                "  }\n" +
+                                "   while( ( ch = fgetc(fp) ) != EOF )\n" +
+                                "      printf(\"%c\",ch);\n" +
                                 " \n" +
-                                "  merge(a, m, b, n, sorted);\n" +
-                                " \n" +
-                                "  printf(\"Sorted array:\\n\");\n" +
-                                " \n" +
-                                "  for (c = 0; c < m + n; c++) {\n" +
-                                "    printf(\"%d\\n\", sorted[c]);\n" +
-                                "  }\n" +
-                                " \n" +
-                                "  return 0;\n" +
+                                "   fclose(fp);\n" +
+                                "   return 0;\n" +
                                 "}\n" +
-                                " \n" +
-                                "void merge(int a[], int m, int b[], int n, int sorted[]) {\n" +
-                                "  int i, j, k;\n" +
-                                " \n" +
-                                "  j = k = 0;\n" +
-                                " \n" +
-                                "  for (i = 0; i < m + n;) {\n" +
-                                "    if (j < m && k < n) {\n" +
-                                "      if (a[j] < b[k]) {\n" +
-                                "        sorted[i] = a[j];\n" +
-                                "        j++;\n" +
-                                "      }\n" +
-                                "      else {\n" +
-                                "        sorted[i] = b[k];\n" +
-                                "        k++;\n" +
-                                "      }\n" +
-                                "      i++;\n" +
-                                "    }\n" +
-                                "    else if (j == m) {\n" +
-                                "      for (; i < m + n;) {\n" +
-                                "        sorted[i] = b[k];\n" +
-                                "        k++;\n" +
-                                "        i++;\n" +
-                                "      }\n" +
-                                "    }\n" +
-                                "    else {\n" +
-                                "      for (; i < m + n;) {\n" +
-                                "        sorted[i] = a[j];\n" +
-                                "        j++;\n" +
-                                "        i++;\n" +
-                                "      }\n" +
-                                "    }\n" +
-                                "  }\n" +
+                                "\n");
+        programWiki.setOutput("" +
+                "" +
+                "Output\n" +
+                "\n" +
+                "Enter the name of the file your wish to see \nHello_world.txt\n" +
+                "The contents of Hello_world.txt are :\nHello world" );
+
+        programWikis.add(programWiki);
+
+
+        WikiModel wikiModel = new WikiModel("c22", "C program to read a file ", programWikis, "c");
+        firebaseDatabaseHandler.writeProgramWiki(wikiModel);
+        /***
+         * ====================================================================================
+         * **/
+        programWikis = new ArrayList<>();
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
+        programWiki.setHeader("Pattern matching using Pointers ");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
+        programWiki.setProgramExplanation("" +
+                "In this program, we are going to use pointers for string comparision/ pattern matching");
+        programWikis.add(programWiki);
+
+        programWiki = new ProgramWiki();
+        programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
+        programWiki.setProgramExample(
+                        "#include<stdio.h>\n" +
+                                "#include<conio.h>\n" +
+                                "int match(char*, char*);\n" +
+                                "main()\n" +
+                                "{\n" +
+                                "   char a[100], b[100];\n" +
+                                "   int position;\n" +
+                                "  printf(“Enter some text\\n”);\n" +
+                                "  gets(a);\n" +
+                                "  printf(“Enter a string to find\\n”);\n" +
+                                "  gets(b);\n" +
+                                "  position = match(a, b);\n" +
+                                "  if(position!=-1)\n" +
+                                "    printf(“Found at location %d\\n”, position+1);\n" +
+                                "  else\n" +
+                                "    printf(“Not found.\\n”);\n" +
+                                "  getch();\n" +
                                 "}\n" +
-                                "\n" );
+                                "\n" +
+                                "int match(char *a, char *b)\n" +
+                                "{\n" +
+                                "   int c;\n" +
+                                "   int position = 0;\n" +
+                                "   char *x, *y;\n" +
+                                "   x = a;\n" +
+                                "   y = b;\n" +
+                                "   while(*a)\n" +
+                                "   {\n" +
+                                "     while(*x==*y)\n" +
+                                "    {\n" +
+                                "      x++;\n" +
+                                "      y++;\n" +
+                                "     if(*x==”||*y==”)\n" +
+                                "      break;\n" +
+                                "    }\n" +
+                                "    if(*y==”)\n" +
+                                "     break;\n" +
+                                "    a++;\n" +
+                                "    position++;\n" +
+                                "   x = a;\n" +
+                                "   y = b;\n" +
+                                "  }\n" +
+                                "   if(*a)\n" +
+                                "     return position;\n" +
+                                "   else\n" +
+                                "     return -1;\n" +
+                                "}" );
         programWiki.setOutput("" +
                 "Output\n" +
                 "\n" +
-                "Enter the number of elements in the first array\n3\n" +
-                "Input 3 integers\n1 2 3\n" +
-                "Enter the number of elements in the second array\n3\n" +
-                "Input 3 integers\n4 5 6\n" +
-                "Sorted Array :\n1 2 3 4 5 6"
+                "Enter some text\nHello world, how are you?\n" +
+                "Enter a string to find\nhow\n" +
+                "Found at location \n 14"
         );
         programWikis.add(programWiki);
 
-        wikiModel = new WikiModel("c18", "Merge 2 sorted arrays ", programWikis, "c" );
+        wikiModel = new WikiModel("c23", "Pattern matching using Pointers ", programWikis, "c" );
         firebaseDatabaseHandler.writeProgramWiki(wikiModel);
 
         /***
@@ -946,63 +807,46 @@ public class JavaProgramInserter {
         programWikis = new ArrayList<>();
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
-        programWiki.setHeader("Bubble sort ");
+        programWiki.setHeader("String concatenation");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM_EXPLANATION);
         programWiki.setProgramExplanation("" +
-                "C program for bubble sort: c programming code for bubble sort to sort numbers or arrange them in ascending order. You can easily modify it to print numbers in descending order.");
+                "This program concatenates strings, for example if the first string is \"c \" and second string is \"program\" then on concatenating these two strings we get the string \"c program\". To concatenate two strings we use strcat function of string.h, to concatenate without using library function see another code below which uses pointers.");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
         programWiki.setProgramExample(
-                "/* Bubble sort code */\n" +
-                        " \n" +
-                        "#include <stdio.h>\n" +
+                "#include <stdio.h>\n" +
+                        "#include <string.h>\n" +
                         " \n" +
                         "int main()\n" +
                         "{\n" +
-                        "  int array[100], n, c, d, swap;\n" +
+                        "   char a[1000], b[1000];\n" +
                         " \n" +
-                        "  printf(\"Enter number of elements\\n\");\n" +
-                        "  scanf(\"%d\", &n);\n" +
+                        "   printf(\"Enter the first string\\n\");\n" +
+                        "   gets(a);\n" +
                         " \n" +
-                        "  printf(\"Enter %d integers\\n\", n);\n" +
+                        "   printf(\"Enter the second string\\n\");\n" +
+                        "   gets(b);\n" +
                         " \n" +
-                        "  for (c = 0; c < n; c++)\n" +
-                        "    scanf(\"%d\", &array[c]);\n" +
+                        "   strcat(a,b);\n" +
                         " \n" +
-                        "  for (c = 0 ; c < ( n - 1 ); c++)\n" +
-                        "  {\n" +
-                        "    for (d = 0 ; d < n - c - 1; d++)\n" +
-                        "    {\n" +
-                        "      if (array[d] > array[d+1]) /* For decreasing order use < */\n" +
-                        "      {\n" +
-                        "        swap       = array[d];\n" +
-                        "        array[d]   = array[d+1];\n" +
-                        "        array[d+1] = swap;\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  }\n" +
+                        "   printf(\"String obtained on concatenation is %s\\n\",a);\n" +
                         " \n" +
-                        "  printf(\"Sorted list in ascending order:\\n\");\n" +
-                        " \n" +
-                        "  for ( c = 0 ; c < n ; c++ )\n" +
-                        "     printf(\"%d\\n\", array[c]);\n" +
-                        " \n" +
-                        "  return 0;\n" +
+                        "   return 0;\n" +
                         "}" );
         programWiki.setOutput("" +
                 "Output\n" +
                 "\n" +
-                "Enter number of integers\n5\nEnter 5 integers\n5 4 3 2 1\nSorted list in ascending order\n1 2 3 4 5");
+                "Enter the first string\nInfinite\nEnter the second string\nProgrammer\nString obtained on concatenation is\nInfiniteProgrammer");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
-        programWiki.setHeader("Bubble sort in c language using function");
+        programWiki.setHeader("Concatenate strings without strcat function");
         programWikis.add(programWiki);
 
         programWiki = new ProgramWiki();
@@ -1012,58 +856,57 @@ public class JavaProgramInserter {
                         "\n" +
                         "#include <stdio.h>\n" +
                         " \n" +
-                        "void bubble_sort(long [], long);\n" +
+                        "void concatenate(char [], char []); \n" +
                         " \n" +
                         "int main()\n" +
                         "{\n" +
-                        "  long array[100], n, c, d, swap;\n" +
+                        "   char p[100], q[100];\n" +
                         " \n" +
-                        "  printf(\"Enter number of elements\\n\");\n" +
-                        "  scanf(\"%ld\", &n);\n" +
+                        "   printf(\"Input a string\\n\");\n" +
+                        "   gets(p);\n" +
                         " \n" +
-                        "  printf(\"Enter %ld integers\\n\", n);\n" +
+                        "   printf(\"Input a string to concatenate\\n\");\n" +
+                        "   gets(q);\n" +
                         " \n" +
-                        "  for (c = 0; c < n; c++)\n" +
-                        "    scanf(\"%ld\", &array[c]);\n" +
+                        "   concatenate(p, q); \n" +
                         " \n" +
-                        "  bubble_sort(array, n);\n" +
+                        "   printf(\"String obtained on concatenation is \\\"%s\\\"\\n\", p);\n" +
                         " \n" +
-                        "  printf(\"Sorted list in ascending order:\\n\");\n" +
-                        " \n" +
-                        "  for ( c = 0 ; c < n ; c++ )\n" +
-                        "     printf(\"%ld\\n\", array[c]);\n" +
-                        " \n" +
-                        "  return 0;\n" +
+                        "   return 0;\n" +
                         "}\n" +
                         " \n" +
-                        "void bubble_sort(long list[], long n)\n" +
-                        "{\n" +
-                        "  long c, d, t;\n" +
+                        "void concatenate(char p[], char q[]) {\n" +
+                        "   int c, d;\n" +
                         " \n" +
-                        "  for (c = 0 ; c < ( n - 1 ); c++)\n" +
-                        "  {\n" +
-                        "    for (d = 0 ; d < n - c - 1; d++)\n" +
-                        "    {\n" +
-                        "      if (list[d] > list[d+1])\n" +
-                        "      {\n" +
-                        "        /* Swapping */\n" +
+                        "   c = 0;\n" +
                         " \n" +
-                        "        t         = list[d];\n" +
-                        "        list[d]   = list[d+1];\n" +
-                        "        list[d+1] = t;\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  }\n" +
+                        "   while (p[c] != '\\0') {\n" +
+                        "      c++;   \n" +
+                        "   }\n" +
+                        " \n" +
+                        "   d = 0;\n" +
+                        " \n" +
+                        "   while (q[d] != '\\0') {\n" +
+                        "      p[c] = q[d];\n" +
+                        "      d++;\n" +
+                        "      c++; \n" +
+                        "   }\n" +
+                        " \n" +
+                        "   p[c] = '\\0';\n" +
                         "}\n" +
                         "\n" );
+        programWiki.setOutput("" +
+                "Output\n" +
+                "\n" +
+                "Input a string\nInfinite\nInput a string to concatenate\nProgrammer\nString obtained on concatenation is\nInfiniteProgrammer");
 
 
-        wikiModel = new WikiModel("c19", "Bubble sort ", programWikis, "c" );
+        wikiModel = new WikiModel("c24", "String concatenation", programWikis, "c" );
         firebaseDatabaseHandler.writeProgramWiki(wikiModel);
 
         /***
          * ====================================================================================
-         * **/
+         * **//*
 
         programWikis = new ArrayList<>();
         programWiki = new ProgramWiki();
@@ -1080,7 +923,7 @@ public class JavaProgramInserter {
         programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_PROGRAM);
         programWiki.setProgramExample(
-                "/* insertion sort ascending order */\n" +
+                "*//* insertion sort ascending order *//*\n" +
                         " \n" +
                         "#include <stdio.h>\n" +
                         " \n" +
@@ -1128,9 +971,9 @@ public class JavaProgramInserter {
         wikiModel = new WikiModel("c20", "Insertion sort", programWikis, "c" );
         firebaseDatabaseHandler.writeProgramWiki(wikiModel);
 
-        /***
+        *//***
          * ====================================================================================
-         * **/
+         * **//*
 
         programWikis = new ArrayList<>();
         programWiki = new ProgramWiki();
@@ -1163,8 +1006,8 @@ public class JavaProgramInserter {
                         " \n" +
                         "   while (string[c] != '\\0')\n" +
                         "   {\n" +
-                        "      /** Considering characters from 'a' to 'z' only\n" +
-                        "          and ignoring others */\n" +
+                        "      *//** Considering characters from 'a' to 'z' only\n" +
+                        "          and ignoring others *//*\n" +
                         " \n" +
                         "      if (string[c] >= 'a' && string[c] <= 'z') \n" +
                         "         count[string[c]-'a']++;\n" +
@@ -1174,8 +1017,8 @@ public class JavaProgramInserter {
                         " \n" +
                         "   for (c = 0; c < 26; c++)\n" +
                         "   {\n" +
-                        "      /** Printing only those characters \n" +
-                        "          whose count is at least 1 */\n" +
+                        "      *//** Printing only those characters \n" +
+                        "          whose count is at least 1 *//*\n" +
                         " \n" +
                         "      if (count[c] != 0)\n" +
                         "         printf(\"%c occurs %d times in the entered string.\\n\",c+'a',count[c]);\n" +
@@ -1217,6 +1060,6 @@ public class JavaProgramInserter {
         programWikis.add(programWiki);
 
         wikiModel = new WikiModel("c21", "Character's frequency ", programWikis, "c" );
-        firebaseDatabaseHandler.writeProgramWiki(wikiModel);
+        firebaseDatabaseHandler.writeProgramWiki(wikiModel);*/
     }
 }
