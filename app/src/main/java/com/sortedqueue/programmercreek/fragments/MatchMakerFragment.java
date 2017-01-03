@@ -2,8 +2,8 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,12 +26,13 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
-import com.sortedqueue.programmercreek.activity.TestDragNDropActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
@@ -67,7 +68,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     ArrayList<String> mProgramCheckList;
     ArrayList<String> mShuffleProgramList;
     ArrayList<String> mProgramExplanationList;
-    int mProgram_Index = 0;
+    Program_Index mProgram_Index;
     DatabaseHandler mDatabaseHandler = null;
     View mSelectedProgramLineView = null;
     PrettifyHighlighter mHighlighter = new PrettifyHighlighter();
@@ -102,16 +103,16 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     
     private void initUI() {
         
-        mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
+        mProgram_Index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
         if (mDatabaseHandler == null) {
             mDatabaseHandler = new DatabaseHandler(getContext());
         }
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(),
                 new CreekPreferences(getContext()).getProgramLanguage());
         if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInsertAsyncTask(getContext(), mProgram_Index, this).execute();
+            new DataBaseInsertAsyncTask(getContext(), mProgram_Index.getIndex(), this).execute();
         } else {
             initUI(program_TableList);
         }
@@ -120,7 +121,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     private void initUI(List<Program_Table> program_TableList) {
         if (program_TableList != null && program_TableList.size() > 0) {
             //TODO
-            getActivity().setTitle("Match : " + AuxilaryUtils.getProgramTitle(mProgram_Index, getContext(), mDatabaseHandler));
+            getActivity().setTitle("Match : " + mProgram_Index.getProgram_Description());
 
             mProgramList = new ArrayList<String>();
             mProgramExplanationList = new ArrayList<String>();
@@ -378,14 +379,43 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
         }
     };
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+    }
+
+    public void onBackPressed() {
+        if (quizComplete == false) {
+            AuxilaryUtils.showConfirmationDialog(getActivity());
+        } else {
+            getActivity().finish();
+        }
+
+    }
+
+    private WizardNavigationListener wizardNavigationListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof WizardNavigationListener ) {
+            wizardNavigationListener = (WizardNavigationListener) context;
+        }
+    }
+
+
+
     protected void navigateToTest() {
 
         Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-        Intent intent = new Intent(getContext(), TestDragNDropActivity.class);
-        intent.putExtras(newIntentBundle);
-        startActivity(intent);
+
+        wizardNavigationListener.loadTestFragment(newIntentBundle);
+
     }
 
     private void showConfirmSubmitDialog(final int programSize, final CountDownTimer countDownTimer) {
@@ -522,7 +552,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
 
     @Override
     public void updateUI() {
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(),
                 new CreekPreferences(getContext()).getProgramLanguage());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
@@ -532,7 +562,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, 
+            program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(),
                     new CreekPreferences(getContext()).getProgramLanguage());
             if (prevProgramSize == program_TableList.size()) {
                 break;

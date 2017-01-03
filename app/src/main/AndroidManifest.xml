@@ -45,16 +45,8 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.TestDragNDropActivity"
-            android:label="@string/title_activity_test_drag_n_drop"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.MemorizeProgramActivity"
             android:label="@string/title_activity_revise_program"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MatchMakerActivity"
-            android:label="@string/title_activity_match_maker"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.QuizActivity"

@@ -1,12 +1,12 @@
 package com.sortedqueue.programmercreek.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -15,16 +15,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
@@ -42,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class QuizActivity extends Activity implements UIUpdateListener, UIProgramFetcherListener {
+public class QuizActivity extends AppCompatActivity implements UIUpdateListener, UIProgramFetcherListener {
 
     ArrayList<String> mProgramList;
     ArrayList<String> mShuffleProgramList;
@@ -90,24 +88,26 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
     }
 
-    int mProgram_Index = 0;
+    int mProgramIndex = 0;
+    private Program_Index program_index;
 
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
 
         Bundle newProgramActivityBundle = getIntent().getExtras();
-        mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
+        program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        mProgramIndex = program_index.getIndex();
 
         //PrettifyHighlighter prettifyHighlighter = new PrettifyHighlighter();
         if (mDatabaseHandler == null) {
             mDatabaseHandler = new DatabaseHandler(QuizActivity.this);
         }
-        new ProgramFetcherTask(this, mDatabaseHandler, mProgram_Index).execute();
+        new ProgramFetcherTask(this, mDatabaseHandler, mProgramIndex).execute();
     }
 
     private void initUI(List<Program_Table> program_TableList) {
 
-        setTitle("Quiz : " + AuxilaryUtils.getProgramTitle(mProgram_Index, QuizActivity.this, mDatabaseHandler));
+        setTitle("Quiz : " + AuxilaryUtils.getProgramTitle(mProgramIndex, QuizActivity.this, mDatabaseHandler));
 
         if (program_TableList != null && program_TableList.size() > 0) {
             mProgramList = new ArrayList<String>();
@@ -274,9 +274,9 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
     protected void navigateToMatchMaker() {
 
         Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-        Intent intent = new Intent(QuizActivity.this, MatchMakerActivity.class);
+        Intent intent = new Intent(QuizActivity.this, WizardActivity.class);
         intent.putExtras(newIntentBundle);
         startActivity(intent);
         this.finish();
@@ -335,7 +335,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
 
     @Override
     public void updateUI() {
-        new ProgramFetcherTask(this, mDatabaseHandler, mProgram_Index).execute();
+        new ProgramFetcherTask(this, mDatabaseHandler, mProgramIndex).execute();
     }
 
     @Override
@@ -350,7 +350,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         switch (item.getItemId()) {
 
             case R.id.action_refresh_database:
-                new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
+                new DataBaseInsertAsyncTask(this, mProgramIndex, this).execute();
                 return true;
 
             default:
@@ -370,7 +370,7 @@ public class QuizActivity extends Activity implements UIUpdateListener, UIProgra
         }
 
         if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInsertAsyncTask(this, mProgram_Index, this).execute();
+            new DataBaseInsertAsyncTask(this, mProgramIndex, this).execute();
         } else {
             initUI(program_TableList);
         }

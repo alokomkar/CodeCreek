@@ -123,7 +123,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 		switch( mInvokeTest ) {
 			case ProgrammingBuddyConstants.KEY_TEST :
-				mInvokeIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
+				mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_TEST);
 				mInvokeIntent.putExtras(mBundle);
 				startActivity(mInvokeIntent);
 				break;
@@ -133,6 +134,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 			case ProgrammingBuddyConstants.KEY_MATCH :
 				//mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
 				mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_MATCH);
 				mInvokeIntent.putExtras(mBundle);
 				startActivity(mInvokeIntent);
 				break;
@@ -247,7 +249,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 							break;
 
 						case INDEX_KEY_TEST :
-							newIntent = new Intent(ProgramListActivity.this, TestDragNDropActivity.class);
+							newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                            newIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_TEST);
 							newIntent.putExtras(newIntentBundle);
 							startActivity(newIntent);
 							break;
@@ -259,7 +262,9 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 						case INDEX_KEY_MATCH :
 
 							//newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+                            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
                             newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                            newIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_MATCH);
 							newIntent.putExtras(newIntentBundle);
 							startActivity(newIntent);
 							break;
@@ -309,13 +314,13 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 					switch ( which ) {
 
 						case KEY_QUIZ_DESCRIPTION_QUESTION :
-							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
 							break;
 
 						case KEY_QUIZ_PROGRAM_CODE_QUESTION :
-							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
 							break;
@@ -382,7 +387,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		mSelectedProgramIndex = program_Index.getIndex();
 		mSelectedProgramTitle = program_Index.getProgram_Description();
 
-		mBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+		mBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 		mBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 		mBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 		mBundle.putBoolean(KEY_WIZARD, getIntent().getExtras().getBoolean(ProgramListActivity.KEY_WIZARD));

@@ -25,6 +25,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
@@ -51,10 +52,11 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	ListView mProgramListView;
 	ListView mProgramExplanationListView;
 
-	int mProgram_Index;
+	int mProgramIndex;
 	Button mProgDescriptionBtn;
 	ImageButton mNextProgramBtn;
 	ImageButton mPrevProgramBtn;
+	Program_Index program_index;
 
 	int mListPostion = 0;
 	DatabaseHandler mDatabaseHandler;
@@ -73,19 +75,19 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 		mDatabaseHandler = new DatabaseHandler(this);
 		Bundle newProgramActivityBundle = getIntent().getExtras();
-		mProgram_Index = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID);
+		program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 0);
 		this.mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		//boolean modules = newProgramActivityBundle.getBoolean(DashboardActivity.KEY_MODULE_LIST);
 
-		mProgram_Title = getProgramTitle(mProgram_Index); 
+		mProgram_Title = getProgramTitle(mProgramIndex);
 		if(  mProgram_Title == null ) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 		}
 		else {
 			setTitle("Revise : "+ mProgram_Title.toUpperCase());
-			Log.d("ProgramActivity", " :: Program_Index : " + mProgram_Index+"");
-			getProgramTableFromDB(mProgram_Index);
+			Log.d("ProgramActivity", " :: Program_Index : " + mProgramIndex +"");
+			getProgramTableFromDB(mProgramIndex);
 		}
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
@@ -99,8 +101,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			public void updateUI(List<Program_Table> program_TableList) {
 				mProgram_TableList = program_TableList;
 				if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) {
-					new DataBaseInsertAsyncTask(ProgramActivity.this, mProgram_Index, ProgramActivity.this ).execute();
-					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(ProgramActivity.this).getProgramLanguage());
+					new DataBaseInsertAsyncTask(ProgramActivity.this, mProgramIndex, ProgramActivity.this ).execute();
+					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(ProgramActivity.this).getProgramLanguage());
 				}
 				else {
 					initUI( mProgram_TableList );
@@ -216,15 +218,15 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	}
 
 	protected void nextProgramBtnAction() {
-		mProgram_Index = mProgram_Index + 1;
+		mProgramIndex = mProgramIndex + 1;
 		enableDisablePrevButton();
-		NextProgram(mProgram_Index);
+		NextProgram(mProgramIndex);
 	}
 
 	protected void prevProgramBtnAction() {
-		mProgram_Index = mProgram_Index - 1;
+		mProgramIndex = mProgramIndex - 1;
 		enableDisablePrevButton();
-		NextProgram(mProgram_Index);	
+		NextProgram(mProgramIndex);
 	}
 
 	public String getProgramTitle(int program_Index) {
@@ -235,7 +237,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	}
 
 	public void enableDisablePrevButton() { 
-		if( mProgram_Index == 1 || mProgram_Index < 1) { 
+		if( mProgramIndex == 1 || mProgramIndex < 1) {
 			mPrevProgramBtn.setEnabled(false);
 
 		}
@@ -252,10 +254,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 
 			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
-			if( program_TableList == null || program_TableList.size() == 0 && mProgram_Index <= mTotalPrograms ) {
+			if( program_TableList == null || program_TableList.size() == 0 && mProgramIndex <= mTotalPrograms ) {
 
-				new DataBaseInsertAsyncTask( this, mProgram_Index, this ).execute();
-				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
+				new DataBaseInsertAsyncTask( this, mProgramIndex, this ).execute();
+				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(this).getProgramLanguage());
 
 			}
 			else {
@@ -269,7 +271,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			}
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
-			mProgram_Title = getProgramTitle(mProgram_Index);
+			mProgram_Title = getProgramTitle(mProgramIndex);
 
 			if( mProgram_Title == null ) {
 				AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
@@ -299,7 +301,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		}
 		if( program_Index > mTotalPrograms) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
-			mProgram_Index--;
+			mProgramIndex--;
 		}
 
 	}
@@ -375,13 +377,13 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			switch ( which ) {
 
 			case KEY_QUIZ_DESCRIPTION_QUESTION :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
 				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
 
 				break;
 
 			case KEY_QUIZ_PROGRAM_CODE_QUESTION :
-				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
 				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
 				break;
 
@@ -398,10 +400,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	@Override
 	public void updateUI() {
 
-		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index, new CreekPreferences(this).getProgramLanguage());
+		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(this).getProgramLanguage());
 		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
-			mProgram_Index--;
+			mProgramIndex--;
 		}
 		else {
 			initUI( mProgram_TableList );	
@@ -421,7 +423,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		switch (item.getItemId()) {
 
 		case R.id.action_refresh_database:
-			new DataBaseInsertAsyncTask(this, mProgram_Index, this ).execute();
+			new DataBaseInsertAsyncTask(this, mProgramIndex, this ).execute();
 			return true;
 
 		default:
