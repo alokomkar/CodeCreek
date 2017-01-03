@@ -102,6 +102,9 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     private void initUserValues() {
         Glide.with(getContext()).load(creekPreferences.getAccountPhoto()).fitCenter().into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
+        if( creekPreferences.getProgramLanguage().equals("")) {
+            selectAndInitDb(0);
+        }
     }
 
     @Override
@@ -151,6 +154,5 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         selectedString = selectedString.replace(" Programming", "").toLowerCase();
         creekPreferences.setProgramLanguage(selectedString);
         initDB();
-
     }
 }

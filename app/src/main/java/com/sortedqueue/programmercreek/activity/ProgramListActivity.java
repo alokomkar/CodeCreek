@@ -177,14 +177,14 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 					switch ( which ) {
 
 						case KEY_REVISE_NORMAL :
-							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+                            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, ProgramActivity.class);
 							break;
 
 						case KEY_REVISE_LINE_BY_LINE :
-							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+							newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 							newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 							newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 							newIntent = new Intent(ProgramListActivity.this, MemorizeProgramActivity.class);
@@ -230,7 +230,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 					Intent newIntent = null;
 					Bundle newIntentBundle = new Bundle();
-					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, mSelectedProgramIndex);
+					newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
 					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, PROGRAM_LIST_SIZE);
 					newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, mSelectedProgramTitle);
 
@@ -309,8 +309,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				public void onClick(DialogInterface dialog, int which) {
 
 					Bundle newIntentBundle = new Bundle();
-					Intent newIntent = new Intent(ProgramListActivity.this, QuizActivity.class);
-
+					Intent newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                    newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
 					switch ( which ) {
 
 						case KEY_QUIZ_DESCRIPTION_QUESTION :

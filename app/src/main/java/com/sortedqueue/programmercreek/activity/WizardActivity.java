@@ -9,6 +9,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
+import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 
@@ -22,6 +23,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private FragmentTransaction mFragmentTransaction;
     private MatchMakerFragment matchMakerFragment;
     private TestDragNDropFragment testDragNDropFragment;
+    private QuizFragment quizFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 break;
             case ProgrammingBuddyConstants.KEY_TEST:
                 loadTestFragment( bundle );
+                break;
+            case ProgrammingBuddyConstants.KEY_QUIZ:
+                loadQuizFragment( bundle );
                 break;
         }
 
@@ -72,6 +77,20 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     }
 
     @Override
+    public void loadQuizFragment(Bundle bundle) {
+        setTitle("Quiz : " + ((Program_Index)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag(QuizFragment.class.getSimpleName());
+        if( quizFragment == null ) {
+            quizFragment = new QuizFragment();
+        }
+        quizFragment.setBundle(bundle);
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, quizFragment, QuizFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.anim_slide_in_right,
@@ -90,6 +109,12 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         else if( title.startsWith("Test") ) {
             if( testDragNDropFragment != null ) {
                 testDragNDropFragment.onBackPressed();
+                return;
+            }
+        }
+        else if( title.startsWith("Quiz") ) {
+            if( quizFragment != null ) {
+                quizFragment.onBackPressed();
                 return;
             }
         }

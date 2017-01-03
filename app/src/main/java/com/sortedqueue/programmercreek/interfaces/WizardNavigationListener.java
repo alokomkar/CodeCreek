@@ -10,4 +10,5 @@ public interface WizardNavigationListener {
 
     void loadMatchMakerFragment(Bundle bundle);
     void loadTestFragment(Bundle bundle);
+    void loadQuizFragment(Bundle bundle);
 }

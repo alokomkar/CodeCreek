@@ -63,8 +63,11 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
-
-        dashboardViewPager.setCurrentItem(1);
+        if( creekPreferences.getProgramLanguage().equals("")) {
+            dashboardViewPager.setCurrentItem(0);
+        }
+        else
+            dashboardViewPager.setCurrentItem(1);
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);

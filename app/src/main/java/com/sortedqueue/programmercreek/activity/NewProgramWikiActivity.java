@@ -10,6 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.WikiModel;
@@ -46,6 +50,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
     @Bind(R.id.navigationLayout)
     RelativeLayout navigationLayout;
     private ProgramWikiPagerAdapter programWikiPagerAdapter;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,8 +97,44 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                 CommonUtils.dismissProgressDialog();
             }
         });
+        initAds();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
 
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                finish();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                finish();
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+        });
+        requestNewInterstitial();
+
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        interstitialAd.loadAd(adRequest);
     }
 
     private void setupNavigationListener() {
@@ -135,5 +176,24 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                 programWikiViewPager.setCurrentItem(programWikiPagerAdapter.getCount() - 1);
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
+    boolean isAdShown = false;
+
+    @Override
+    public void onBackPressed() {
+        if (!isAdShown) {
+            interstitialAd.show();
+            isAdShown = true;
+            return;
+        }
+        finish();
     }
 }

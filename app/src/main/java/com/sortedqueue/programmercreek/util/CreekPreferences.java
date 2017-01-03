@@ -179,7 +179,7 @@ public class CreekPreferences {
     }
 
     public String getProgramLanguage() {
-        return sharedPreferences.getString(PROGRAM_LANGUAGE, "c");
+        return sharedPreferences.getString(PROGRAM_LANGUAGE, "");
     }
     
     public void setProgramLanguage( String language ) {

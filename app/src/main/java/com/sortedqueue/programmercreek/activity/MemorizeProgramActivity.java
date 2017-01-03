@@ -78,6 +78,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		mProgram_Index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        programIndex = mProgram_Index.getIndex();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);
@@ -116,8 +117,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		if( program_TableList != null && program_TableList.size() > 0 ) {
 
-			mProgram_Title = getProgramTitle(mProgram_Index.getIndex());
-			setTitle("Memorize : "+mProgram_Title.toUpperCase());
+			mProgram_Title = mProgram_Index.getProgram_Description();
+			setTitle("Memorize : "+ mProgram_Title.toUpperCase());
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
 
@@ -451,7 +452,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		public void onClick(DialogInterface dialog, int which) {
 
 			Bundle newIntentBundle = new Bundle();
-			Intent newIntent = new Intent(MemorizeProgramActivity.this, QuizActivity.class);
+			Intent newIntent = new Intent(MemorizeProgramActivity.this, WizardActivity.class);
+            newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
 			newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
 
 			switch ( which ) {

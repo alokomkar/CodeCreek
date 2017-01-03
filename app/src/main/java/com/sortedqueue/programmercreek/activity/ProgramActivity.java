@@ -76,11 +76,12 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		mDatabaseHandler = new DatabaseHandler(this);
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+		mProgramIndex = program_index.getIndex();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 0);
 		this.mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		//boolean modules = newProgramActivityBundle.getBoolean(DashboardActivity.KEY_MODULE_LIST);
 
-		mProgram_Title = getProgramTitle(mProgramIndex);
+		mProgram_Title = program_index.getProgram_Description();
 		if(  mProgram_Title == null ) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 		}
@@ -371,7 +372,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		public void onClick(DialogInterface dialog, int which) {
 
 			Bundle newIntentBundle = new Bundle();
-			Intent newIntent = new Intent(ProgramActivity.this, QuizActivity.class);
+			Intent newIntent = new Intent(ProgramActivity.this, WizardActivity.class);
+			newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
 			newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
 
 			switch ( which ) {

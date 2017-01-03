@@ -1,24 +1,25 @@
-package com.sortedqueue.programmercreek.activity;
+package com.sortedqueue.programmercreek.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog.Builder;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -29,6 +30,7 @@ import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
@@ -40,7 +42,11 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class QuizActivity extends AppCompatActivity implements UIUpdateListener, UIProgramFetcherListener {
+/**
+ * Created by Alok on 03/01/17.
+ */
+
+public class QuizFragment extends Fragment implements UIUpdateListener, UIProgramFetcherListener {
 
     ArrayList<String> mProgramList;
     ArrayList<String> mShuffleProgramList;
@@ -64,28 +70,32 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
     RecyclerView quizRecyclerView;
     private ArrayList<QuizModel> quizModels;
     private QuizRecyclerAdapter quizRecyclerAdapter;
+    private Bundle bundle;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_quiz, container, false);
+        ButterKnife.bind(this, view);
 
-        mCheckSolutionBtn = (Button) findViewById(R.id.checkQuizButton);
-        mTimerBtn = (Button) findViewById(R.id.timerButton);
+        mCheckSolutionBtn = (Button) view.findViewById(R.id.checkQuizButton);
+        mTimerBtn = (Button) view.findViewById(R.id.timerButton);
         mTimerBtn.setText("00:00");
         mTimerBtn.setEnabled(false);
 
-        Bundle bundle = getIntent().getExtras();
+
         mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
         if (bundle != null) {
             mQuizMode = bundle.getInt(ProgramListActivity.KEY_QUIZ_TYPE);
             initQuiz(mQuizMode);
         }
-        this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left);
 
+        return view;
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
     }
 
     int mProgramIndex = 0;
@@ -94,20 +104,20 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
 
-        Bundle newProgramActivityBundle = getIntent().getExtras();
-        program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        
+        program_index = (Program_Index) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mProgramIndex = program_index.getIndex();
 
         //PrettifyHighlighter prettifyHighlighter = new PrettifyHighlighter();
         if (mDatabaseHandler == null) {
-            mDatabaseHandler = new DatabaseHandler(QuizActivity.this);
+            mDatabaseHandler = new DatabaseHandler(getContext());
         }
-        new ProgramFetcherTask(this, mDatabaseHandler, mProgramIndex).execute();
+        new ProgramFetcherTask(getContext(), this, mDatabaseHandler, mProgramIndex).execute();
     }
 
     private void initUI(List<Program_Table> program_TableList) {
 
-        setTitle("Quiz : " + AuxilaryUtils.getProgramTitle(mProgramIndex, QuizActivity.this, mDatabaseHandler));
+        getActivity().setTitle("Quiz : " + program_index.getProgram_Description());
 
         if (program_TableList != null && program_TableList.size() > 0) {
             mProgramList = new ArrayList<String>();
@@ -153,8 +163,8 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
             quizModels.add(quizModel);
         }
 
-        quizRecyclerView.setLayoutManager( new LinearLayoutManager(QuizActivity.this, LinearLayoutManager.VERTICAL, false));
-        quizRecyclerAdapter = new QuizRecyclerAdapter(QuizActivity.this, quizModels, mProgramExplanationList, new QuizRecyclerAdapter.CustomQuizAdapterListner() {
+        quizRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        quizRecyclerAdapter = new QuizRecyclerAdapter(getContext(), quizModels, mProgramExplanationList, new QuizRecyclerAdapter.CustomQuizAdapterListner() {
             @Override
             public void onOptionSelected(int position, String option) {
 
@@ -194,7 +204,7 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
             }
         };
 
-        mCheckSolutionBtn.setOnClickListener(new OnClickListener() {
+        mCheckSolutionBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -207,7 +217,7 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
 
     }
 
-    OnClickListener mNextBtnClickListener = new OnClickListener() {
+    View.OnClickListener mNextBtnClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -259,7 +269,7 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!";
         }
 
-        AuxilaryUtils.displayResultAlert(QuizActivity.this, "Quiz Complete", message, score, programSize);
+        AuxilaryUtils.displayResultAlert(getActivity(), "Quiz Complete", message, score, programSize);
         quizComplete = true;
         if (mWizard == true) {
             mTimerBtn.setText("Next");
@@ -272,14 +282,10 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
     }
 
     protected void navigateToMatchMaker() {
-
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-        Intent intent = new Intent(QuizActivity.this, WizardActivity.class);
-        intent.putExtras(newIntentBundle);
-        startActivity(intent);
-        this.finish();
+        wizardNavigationListener.loadMatchMakerFragment(bundle);
     }
 
     private ArrayList<String> getOptionsList(int questionIndex, int programSize) {
@@ -290,23 +296,55 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
         return optionList;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mCountDownTimer != null)
+            mCountDownTimer.cancel();
+        wizardNavigationListener = null;
+    }
+
     boolean quizComplete = false;
 
-    @Override
     public void onBackPressed() {
         if (quizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(this);
-            if (mCountDownTimer != null)
-                mCountDownTimer.cancel();
+            AuxilaryUtils.showConfirmationDialog(getActivity());
+
         } else {
-            finish();
+            getActivity().finish();
         }
 
     }
 
+    private WizardNavigationListener wizardNavigationListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof WizardNavigationListener ) {
+            wizardNavigationListener = (WizardNavigationListener) context;
+        }
+    }
+
+    @Override
+    public void updateUI(List<Program_Table> program_TableList) {
+
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+            mTimerBtn.setText("00:00");
+            mCheckSolutionBtn.setEnabled(true);
+        }
+
+        if (program_TableList == null || program_TableList.size() == 0) {
+            new DataBaseInsertAsyncTask(getContext(), mProgramIndex, this).execute();
+        } else {
+            initUI(program_TableList);
+        }
+    }
+
 
     private void showConfirmSubmitDialog(final int programSize, final CountDownTimer countDownTimer) {
-        Builder builder = new Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
             @Override
@@ -327,7 +365,7 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
         });
 
         builder.setMessage("Are you sure you want to submit the Quiz?");
-        builder.setTitle(this.getTitle());
+        builder.setTitle(getActivity().getTitle());
         builder.setIcon(android.R.drawable.ic_dialog_info);
         builder.show();
 
@@ -335,52 +373,6 @@ public class QuizActivity extends AppCompatActivity implements UIUpdateListener,
 
     @Override
     public void updateUI() {
-        new ProgramFetcherTask(this, mDatabaseHandler, mProgramIndex).execute();
+        new ProgramFetcherTask(getContext(), mDatabaseHandler, mProgramIndex).execute();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.program, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_refresh_database:
-                new DataBaseInsertAsyncTask(this, mProgramIndex, this).execute();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
-    }
-
-    @Override
-    public void updateUI(List<Program_Table> program_TableList) {
-
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-            mTimerBtn.setText("00:00");
-            mCheckSolutionBtn.setEnabled(true);
-        }
-
-        if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInsertAsyncTask(this, mProgramIndex, this).execute();
-        } else {
-            initUI(program_TableList);
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        this.overridePendingTransition(R.anim.anim_slide_in_right,
-                R.anim.anim_slide_out_right);
-    }
-
 }
