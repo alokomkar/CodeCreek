@@ -25,9 +25,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
+import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -155,17 +159,11 @@ public class AuxilaryUtils {
     }
 
     public static String getProgramTitle(int program_Index, Context context, DatabaseHandler databaseHandler) {
-
-        if (databaseHandler == null) {
-            databaseHandler = new DatabaseHandler(context);
+        HashMap<Integer, Program_Index> program_indexHashMap = CreekApplication.getInstance().getProgram_indexHashMap();
+        if( program_indexHashMap.containsKey(program_Index) ) {
+            return CreekApplication.getInstance().getProgram_indexHashMap().get(program_Index).getProgram_Description();
         }
-        if (databaseHandler.getProgram_Index(program_Index) != null) {
-            return databaseHandler.getProgram_Index(program_Index).getProgram_Description();
-        } else {
-            return "Program " + (program_Index + 1);
-        }
-
-
+        return null;
     }
 
     public static void generateBigTextNotification(final Context context, final String notificationTitle, final String notificationContent) {

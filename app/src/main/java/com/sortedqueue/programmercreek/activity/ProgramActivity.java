@@ -86,7 +86,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 		}
 		else {
-			setTitle("Revise : "+ mProgram_Title.toUpperCase());
+			setTitle("Revise : "+ mProgram_Title);
 			Log.d("ProgramActivity", " :: Program_Index : " + mProgramIndex +"");
 			getProgramTableFromDB(mProgramIndex);
 		}
@@ -275,10 +275,11 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			mProgram_Title = getProgramTitle(mProgramIndex);
 
 			if( mProgram_Title == null ) {
+				setTitle("Revise");
 				AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
 			}
 			else {
-				setTitle("Revise : " + mProgram_Title.toUpperCase() );
+				setTitle("Revise : " + mProgram_Title );
 				Iterator<Program_Table> iteraor = program_TableList.iterator();
 
 				while(iteraor.hasNext()) { 

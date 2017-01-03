@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
@@ -96,6 +97,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 			@Override
 			public void updateUIProgramList(List<Program_Index> program_Indexes) {
 				mProgram_Indexs = new ArrayList<Program_Index>(program_Indexes);
+				CreekApplication.getInstance().setProgramIndexes( mProgram_Indexs );
 				PROGRAM_LIST_SIZE = mProgram_Indexs.size();
 				CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
 				RecyclerView programListRecyclerView = (RecyclerView) findViewById(R.id.programListRecyclerView);

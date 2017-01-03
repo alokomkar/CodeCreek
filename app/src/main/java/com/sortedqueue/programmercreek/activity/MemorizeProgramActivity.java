@@ -87,13 +87,13 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		if( mDatabaseHandler == null ) {
 			mDatabaseHandler = new DatabaseHandler(this);
 		}
-		getProgramTableFromDB(mProgram_Index.getIndex());
+		getProgramTableFromDB(programIndex);
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
 		
 	}
 
-	private void getProgramTableFromDB(int program_Index) {
+	private void getProgramTableFromDB(final int program_Index) {
 		
 		new ProgramFetcherTask(this, new UIProgramFetcherListener() {
 			
@@ -101,8 +101,8 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			public void updateUI(List<Program_Table> program_TableList) {
 				mProgram_TableList = program_TableList;
 				if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) {
-					new DataBaseInsertAsyncTask(MemorizeProgramActivity.this, mProgram_Index.getIndex(), MemorizeProgramActivity.this ).execute();
-					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(MemorizeProgramActivity.this).getProgramLanguage());
+					new DataBaseInsertAsyncTask(MemorizeProgramActivity.this, program_Index, MemorizeProgramActivity.this ).execute();
+					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(MemorizeProgramActivity.this).getProgramLanguage());
 				}
 				else {
 					initUI( mProgram_TableList );
@@ -118,7 +118,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		if( program_TableList != null && program_TableList.size() > 0 ) {
 
 			mProgram_Title = mProgram_Index.getProgram_Description();
-			setTitle("Memorize : "+ mProgram_Title.toUpperCase());
+			setTitle("Memorize : "+ mProgram_Title);
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
 
@@ -226,7 +226,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		mNextProgramBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				programIndex = mProgram_Index.getIndex() + 1;
+				programIndex = programIndex + 1;
 				enableDisablePrevButton();	
 				mLinebylineprogramExplanationList = new ArrayList<String>();
 				mLinebylineprogramList = new ArrayList<String>();
@@ -236,7 +236,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		mPrevProgramBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				programIndex = mProgram_Index.getIndex() - 1;
+				programIndex = programIndex - 1;
 				enableDisablePrevButton();	
 				mLinebylineprogramExplanationList = new ArrayList<String>();
 				mLinebylineprogramList = new ArrayList<String>();
@@ -279,7 +279,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 				}
 				else {
-					NextProgram(mProgram_Index.getIndex());
+					NextProgram(programIndex);
 				}
 				//To navigate to next program - disable this.
 				/**else { 
@@ -321,7 +321,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	}
 
 	public void enableDisablePrevButton() { 
-		if( mProgram_Index.getIndex() == 1 || mProgram_Index.getIndex() < 1) {
+		if( programIndex == 1 || programIndex < 1) {
 			mPrevProgramBtn.setEnabled(false);
 		}
 		else {
@@ -339,7 +339,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			mIndex = 0;
 			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
 			if( program_TableList == null || program_TableList.size() == 0 ) {
-				new DataBaseInsertAsyncTask(this, mProgram_Index.getIndex(), this).execute();
+				new DataBaseInsertAsyncTask(this, program_Index, this).execute();
 				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(this).getProgramLanguage());
 			}
 			if( program_TableList != null && program_TableList.size() > 0 ) { 
@@ -353,10 +353,11 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 				mProgram_Title = getProgramTitle( program_Index );
 
 				if( mProgram_Title == null ) {
+					setTitle("Memorize");
 					AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
 				}
 				else {
-					setTitle("Memorize : "+getProgramTitle(program_Index).toUpperCase());
+					setTitle("Memorize : "+getProgramTitle(program_Index));
 
 					mProgramList = new ArrayList<String>();
 					mProgramExplanationList = new ArrayList<String>();
@@ -480,7 +481,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	@Override
 	public void updateUI() {
 
-		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(this).getProgramLanguage());
+		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(programIndex, new CreekPreferences(this).getProgramLanguage());
 		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 			programIndex--;
@@ -503,7 +504,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		switch (item.getItemId()) {
 
 		case R.id.action_refresh_database:
-			new DataBaseInsertAsyncTask(this, mProgram_Index.getIndex(), this).execute();
+			new DataBaseInsertAsyncTask(this, programIndex, this).execute();
 			return true;
 
 		default:

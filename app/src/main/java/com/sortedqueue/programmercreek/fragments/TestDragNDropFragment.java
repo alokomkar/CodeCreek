@@ -115,7 +115,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
 
     private void initUI(List<Program_Table> program_TableList) {
 
-        getActivity().setTitle( "Test : " + AuxilaryUtils.getProgramTitle(mProgram_Index.getIndex(), getContext(), mDatabaseHandler));
+        getActivity().setTitle( "Test : " + mProgram_Index.getProgram_Description());
 
         mProgramList = new ArrayList<String>();
         mProgramCheckList = new ArrayList<String>();
