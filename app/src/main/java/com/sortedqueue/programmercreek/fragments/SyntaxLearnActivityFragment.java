@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -22,6 +26,7 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 
 import java.util.ArrayList;
 
@@ -63,9 +68,17 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     TextView syntaxQuestionOutputTextView;
     @Bind(R.id.optionsRecyclerView)
     RecyclerView optionsRecyclerView;
+    @Bind(R.id.checkButtonLayout)
+    LinearLayout checkButtonLayout;
+    @Bind(R.id.scrollView)
+    ScrollView scrollView;
+    @Bind(R.id.doneFAB)
+    FloatingActionButton doneFAB;
     private SyntaxModule syntaxModule;
     private ArrayList<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
+    private ModuleDetailsScrollPageListener modulteDetailsScrollPageListener;
+    private boolean isLastFragment;
 
     public SyntaxLearnActivityFragment() {
     }
@@ -75,7 +88,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
-        bindData( syntaxModule );
+        bindData(syntaxModule);
         return view;
     }
 
@@ -87,21 +100,28 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         syntaxQuestionTextView.setText(syntaxModule.getSyntaxQuestion());
         syntaxSolutionTextView.setText("");
         syntaxQuestionOutputTextView.setText("Expected Output : " + syntaxModule.getSyntaxQuestionOutput());
-        if( syntaxModule.getSyntaxOptions() != null ) {
-            setupRecyclerView( syntaxModule.getSyntaxOptions() );
+        if (syntaxModule.getSyntaxOptions() != null) {
+            setupRecyclerView(syntaxModule.getSyntaxOptions());
         }
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
         hintSyntaxImageView.setOnClickListener(this);
-
+        doneFAB.setOnClickListener(this);
+        if( isLastFragment ) {
+            doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
+        }
+        else {
+            doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_media_ff));
+        }
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
+
     private void setupRecyclerView(ArrayList<ModuleOption> syntaxOptions) {
         moduleOptions = syntaxOptions;
         Log.d(TAG, "Module Options : " + syntaxOptions.toString());
         optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        optionsRecyclerView.setAdapter( new OptionsRecyclerViewAdapter(getContext(), syntaxOptions, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        optionsRecyclerView.setAdapter(new OptionsRecyclerViewAdapter(getContext(), syntaxOptions, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 solutionList.add(moduleOptions.get(position).getOption());
@@ -121,7 +141,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     private String getSolution(ArrayList<String> solutionList) {
         String solution = "";
-        for( String solutionString : solutionList ) {
+        for (String solutionString : solutionList) {
             solution += solutionString;
         }
         return solution;
@@ -139,20 +159,19 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ) {
-            case R.id.clearSyntaxImageView :
-                if( solutionList.size() == 0 ) {
+        switch (view.getId()) {
+            case R.id.clearSyntaxImageView:
+                if (solutionList.size() == 0) {
                     syntaxSolutionTextView.setText("");
-                }
-                else {
+                } else {
                     solutionList.remove(solutionList.size() - 1);
                     syntaxSolutionTextView.setText(getSolution(solutionList));
                 }
                 break;
-            case R.id.checkSyntaxImageView :
+            case R.id.checkSyntaxImageView:
                 checkSolution();
                 break;
-            case R.id.hintSyntaxImageView :
+            case R.id.hintSyntaxImageView:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
 
@@ -166,20 +185,30 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 builder.setIcon(android.R.drawable.ic_dialog_info);
                 builder.show();
                 break;
+            case R.id.doneFAB :
+                modulteDetailsScrollPageListener.onScrollForward();
+                break;
         }
     }
 
     private void checkSolution() {
-        String solutionText =  syntaxSolutionTextView.getText().toString();
-        if( solutionText.trim().replaceAll("\\s+","").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+","")) ) {
+        String solutionText = syntaxSolutionTextView.getText().toString();
+        if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, You've got it right", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
-        }
-        else {
+        } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Check the syntax again", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText("Error..!!");
             syntaxQuestionOutputTextView.setTextColor(Color.RED);
         }
+    }
+
+    public void setModulteDetailsScrollPageListener(ModuleDetailsScrollPageListener modulteDetailsScrollPageListener) {
+        this.modulteDetailsScrollPageListener = modulteDetailsScrollPageListener;
+    }
+
+    public void setIsLastFragment(boolean isLastFragment) {
+        this.isLastFragment = isLastFragment;
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,18 @@ import java.util.ArrayList;
 public class SyntaxPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<SyntaxLearnActivityFragment> syntaxLearnActivityFragments;
-
-    public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
+    public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, ArrayList<SyntaxModule> syntaxModules, ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
         super(fm);
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
         syntaxLearnActivityFragments = new ArrayList<>();
+        int position = 0;
         for( SyntaxModule syntaxModule : syntaxModules ) {
+            position++;
             SyntaxLearnActivityFragment fillBlankFragment = new SyntaxLearnActivityFragment();
             fillBlankFragment.setSyntaxModule( syntaxModule );
+            fillBlankFragment.setModulteDetailsScrollPageListener( moduleDetailsScrollPageListener );
+            fillBlankFragment.setIsLastFragment( position == syntaxModules.size() );
             syntaxLearnActivityFragments.add(fillBlankFragment);
         }
 

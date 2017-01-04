@@ -18,11 +18,11 @@
         android:progress="1"
         android:progressDrawable="@drawable/greenprogress" />
 
-    <android.support.v4.view.ViewPager
+    <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/fillBlanksTextView"
         android:layout_above="@+id/navigationLayout"
         android:id="@+id/syntaxLearnViewPager">
-    </android.support.v4.view.ViewPager>
+    </com.sortedqueue.programmercreek.view.ScrollableViewPager>
 </LinearLayout>

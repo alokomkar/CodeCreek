@@ -12,6 +12,8 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.SyntaxPagerAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
+import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
 
@@ -22,16 +24,17 @@ import butterknife.ButterKnife;
  * Created by Alok on 26/12/16.
  */
 
-public class ModuleDetailsFragment extends Fragment {
+public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScrollPageListener{
 
     @Bind(R.id.ProgressBar)
     android.widget.ProgressBar progressBar;
     @Bind(R.id.syntaxLearnViewPager)
-    ViewPager syntaxLearnViewPager;
+    ScrollableViewPager syntaxLearnViewPager;
     @Bind(R.id.viewPagerLayout)
     LinearLayout viewPagerLayout;
     private LanguageModule module;
     private ArrayList<SyntaxModule> syntaxModules;
+    private SyntaxPagerAdapter syntaxPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,8 +48,9 @@ public class ModuleDetailsFragment extends Fragment {
     private void setupViews() {
 
         syntaxLearnViewPager.setOffscreenPageLimit(syntaxModules.size());
-        SyntaxPagerAdapter syntaxPagerAdapter = new SyntaxPagerAdapter(getChildFragmentManager(), module, syntaxModules);
+        syntaxPagerAdapter = new SyntaxPagerAdapter(getChildFragmentManager(), module, syntaxModules, this);
         syntaxLearnViewPager.setAdapter(syntaxPagerAdapter);
+        syntaxLearnViewPager.setCanScroll(false);
         progressBar.setMax(syntaxModules.size());
         progressBar.setProgress(1);
         syntaxLearnViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -77,5 +81,16 @@ public class ModuleDetailsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onScrollForward() {
+        if( syntaxLearnViewPager.getCurrentItem() + 1 == syntaxPagerAdapter.getCount() ) {
+            getActivity().onBackPressed();
+        }
+        else {
+            syntaxLearnViewPager.setCurrentItem(syntaxLearnViewPager.getCurrentItem() + 1);
+        }
+
     }
 }

@@ -4,12 +4,20 @@ import android.app.Application;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.database.ModuleOption;
+import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.WikiModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import co.uk.rushorm.android.AndroidInitializeConfig;
+import co.uk.rushorm.core.Rush;
 import co.uk.rushorm.core.RushCore;
 
 /**
@@ -33,7 +41,17 @@ public class CreekApplication extends Application {
         program_indexHashMap = new HashMap<>();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        List<Class<? extends Rush>> dbClasses = new ArrayList<Class<? extends Rush>>() ;
+
+        dbClasses.add(CreekUserDB.class) ;
+        dbClasses.add(LanguageModule.class) ;
+        dbClasses.add(ModuleOption.class) ;
+        dbClasses.add(ProgramWiki.class) ;
+        dbClasses.add(SyntaxModule.class) ;
+        dbClasses.add(WikiModel.class) ;
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
+        config.setClasses(dbClasses) ;
         RushCore.initialize(config);
     }
 
