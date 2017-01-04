@@ -24,7 +24,7 @@ import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -95,13 +95,13 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     int mProgramIndex = 0;
-    private Program_Index program_index;
+    private ProgramIndex program_index;
 
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
 
         
-        program_index = (Program_Index) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mProgramIndex = program_index.getIndex();
         new ProgramFetcherTask(getContext(), this, mProgramIndex).execute();
     }

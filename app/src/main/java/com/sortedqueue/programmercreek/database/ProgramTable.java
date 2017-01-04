@@ -3,6 +3,8 @@ package com.sortedqueue.programmercreek.database;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
+
 import co.uk.rushorm.core.RushObject;
 
 /**
@@ -21,13 +23,13 @@ public class ProgramTable extends RushObject implements Parcelable {
     public ProgramTable() {
     }
 
-    public ProgramTable(int index, int line_No, String program_Language, String program_Line, String program_Line_Description, String program_Line_Html) {
+    public ProgramTable(int index, int line_No, String program_Language, String program_Line, String program_Line_Description) {
         this.index = index;
         this.line_No = line_No;
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = program_Line_Html;
+        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("c++", program_Line);
     }
 
     public String getProgram_Line_Html() {

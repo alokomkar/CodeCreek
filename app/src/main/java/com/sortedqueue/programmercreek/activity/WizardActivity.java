@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
@@ -64,7 +64,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadTestFragment(Bundle bundle) {
-        setTitle("Test : " + ((Program_Index)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
+        setTitle("Test : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         testDragNDropFragment = (TestDragNDropFragment) getSupportFragmentManager().findFragmentByTag(TestDragNDropFragment.class.getSimpleName());
         if( testDragNDropFragment == null ) {
@@ -78,7 +78,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadQuizFragment(Bundle bundle) {
-        setTitle("Quiz : " + ((Program_Index)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
+        setTitle("Quiz : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag(QuizFragment.class.getSimpleName());
         if( quizFragment == null ) {

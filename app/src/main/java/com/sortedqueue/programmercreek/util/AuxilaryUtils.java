@@ -27,7 +27,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 
 import java.util.HashMap;
 
@@ -156,7 +156,7 @@ public class AuxilaryUtils {
     }
 
     public static String getProgramTitle(int program_Index, Context context ) {
-        HashMap<Integer, Program_Index> program_indexHashMap = CreekApplication.getInstance().getProgram_indexHashMap();
+        HashMap<Integer, ProgramIndex> program_indexHashMap = CreekApplication.getInstance().getProgram_indexHashMap();
         if( program_indexHashMap.containsKey(program_Index) ) {
             return CreekApplication.getInstance().getProgram_indexHashMap().get(program_Index).getProgram_Description();
         }

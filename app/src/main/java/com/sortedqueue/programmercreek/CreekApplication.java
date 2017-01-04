@@ -8,6 +8,7 @@ import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
@@ -44,12 +45,14 @@ public class CreekApplication extends Application {
 
         List<Class<? extends Rush>> dbClasses = new ArrayList<Class<? extends Rush>>() ;
 
-        dbClasses.add(CreekUserDB.class) ;
-        dbClasses.add(LanguageModule.class) ;
-        dbClasses.add(ModuleOption.class) ;
-        dbClasses.add(ProgramWiki.class) ;
-        dbClasses.add(SyntaxModule.class) ;
-        dbClasses.add(WikiModel.class) ;
+        dbClasses.add(CreekUserDB.class);
+        dbClasses.add(LanguageModule.class);
+        dbClasses.add(ModuleOption.class);
+        dbClasses.add(ProgramWiki.class);
+        dbClasses.add(SyntaxModule.class);
+        dbClasses.add(WikiModel.class);
+        dbClasses.add(ProgramTable.class);
+        dbClasses.add(ProgramIndex.class);
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);

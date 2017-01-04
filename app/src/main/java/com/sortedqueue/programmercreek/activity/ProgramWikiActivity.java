@@ -21,7 +21,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -52,7 +52,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private AdView mAdView;
     private String WIKI_BASE_URL = "programercreek.blogspot.in";
     private CreekPreferences creekPreferences;
-    private ArrayList<Program_Index> program_indices;
+    private ArrayList<ProgramIndex> program_indices;
     private ArrayList<String> programUrls;
 
     @Override
@@ -68,7 +68,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         program_indices = getIntent().getExtras().getParcelableArrayList(ProgrammingBuddyConstants.KEY_PROGRAM_LANGUAGE);
         if( program_indices != null ) {
             programUrls = new ArrayList<>();
-            for( Program_Index program_index : program_indices ) {
+            for( ProgramIndex program_index : program_indices ) {
                 programUrls.add(program_index.getWiki());
             }
         }

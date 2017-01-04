@@ -27,9 +27,8 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -49,7 +48,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	ListView mProgramExplanationListView;
 	ArrayList<String> mProgramList;
 	ArrayList<String> mProgramExplanationList;
-	Program_Index mProgram_Index;
+	ProgramIndex mProgramIndex;
 	int programIndex;
 	Button mProgDescriptionBtn;
 	ArrayList<String> mLinebylineprogramList = new ArrayList<String>();
@@ -75,13 +74,13 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		setContentView(R.layout.activity_revise_program);
 
 		Bundle newProgramActivityBundle = getIntent().getExtras();
-		mProgram_Index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        programIndex = mProgram_Index.getIndex();
+		mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        programIndex = mProgramIndex.getIndex();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);
 		mHideDrawable = ContextCompat.getDrawable(this, R.drawable.ic_remove);
-		Log.d("Program Activity", " :: Program_Index :  " +  mProgram_Index+"");
+		Log.d("Program Activity", " :: ProgramIndex :  " +  mProgramIndex+"");
 		getProgramTableFromDB(programIndex);
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
@@ -108,7 +107,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		if( program_TableList != null && program_TableList.size() > 0 ) {
 
-			mProgram_Title = mProgram_Index.getProgram_Description();
+			mProgram_Title = mProgramIndex.getProgram_Description();
 			setTitle("Memorize : "+ mProgram_Title);
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
@@ -445,12 +444,12 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			switch ( which ) {
 
 			case ProgrammingBuddyConstants.KEY_QUIZ_DESCRIPTION_QUESTION :
-				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
 				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_QUIZ_TYPE, ProgrammingBuddyConstants.KEY_QUIZ_DESCRIPTION_QUESTION);
 				break;
 
 			case ProgrammingBuddyConstants.KEY_QUIZ_PROGRAM_CODE_QUESTION :
-				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
 				newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_QUIZ_TYPE, ProgrammingBuddyConstants.KEY_QUIZ_PROGRAM_CODE_QUESTION);
 				break;
 

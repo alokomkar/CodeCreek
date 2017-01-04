@@ -28,7 +28,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
@@ -66,7 +66,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     ArrayList<String> mProgramCheckList;
     ArrayList<String> mShuffleProgramList;
     ArrayList<String> mProgramExplanationList;
-    Program_Index mProgram_Index;
+    ProgramIndex mProgramIndex;
     View mSelectedProgramLineView = null;
     PrettifyHighlighter mHighlighter = new PrettifyHighlighter();
     long remainingTime = 0;
@@ -100,10 +100,10 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     
     private void initUI() {
         
-        mProgram_Index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
-        List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgram_Index.getIndex());
+        List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
         {
             initUI(program_TableList);
         }
@@ -112,7 +112,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     private void initUI(List<ProgramTable> program_TableList) {
         if (program_TableList != null && program_TableList.size() > 0) {
             //TODO
-            getActivity().setTitle("Match : " + mProgram_Index.getProgram_Description());
+            getActivity().setTitle("Match : " + mProgramIndex.getProgram_Description());
 
             mProgramList = new ArrayList<String>();
             mProgramExplanationList = new ArrayList<String>();
@@ -402,7 +402,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     protected void navigateToTest() {
 
         Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgram_Index);
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
 
         wizardNavigationListener.loadTestFragment(newIntentBundle);
@@ -543,7 +543,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
 
     @Override
     public void updateUI() {
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgram_Index.getIndex());
+        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -552,7 +552,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgram_Index.getIndex());
+            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
             if (prevProgramSize == program_TableList.size()) {
                 break;
             }

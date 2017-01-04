@@ -24,10 +24,10 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
+import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
@@ -53,8 +53,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class TestDragNDropFragment extends Fragment implements UIUpdateListener {
 
-    DatabaseHandler mDatabaseHandler;
-    Program_Index mProgram_Index;
+    ProgramIndex mProgramIndex;
     ArrayList<String> mRandomTest;
     ArrayList<String> mProgramList;
     ArrayList<String> mProgramCheckList;
@@ -88,13 +87,10 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
         view = inflater.inflate(R.layout.activity_test_drag_n_drop, container, false);
         ButterKnife.bind(this, view);
         dragNDropListView = (DragNDropListView) view.findViewById(R.id.dragNDropListView);
-        mProgram_Index = (Program_Index) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+        mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(getContext()).getProgramLanguage());
-        if( program_TableList == null || program_TableList.size() == 0 ) {
-            new DataBaseInsertAsyncTask(getContext(), mProgram_Index.getIndex(), this).execute();
-        }
-        else {
+        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
+        {
             initUI( program_TableList );
         }
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -111,25 +107,25 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
         return view;
     }
 
-    private void initUI(List<Program_Table> program_TableList) {
+    private void initUI(ArrayList<ProgramTable> program_TableList) {
 
-        getActivity().setTitle( "Test : " + mProgram_Index.getProgram_Description());
+        getActivity().setTitle( "Test : " + mProgramIndex.getProgram_Description());
 
         mProgramList = new ArrayList<String>();
         mProgramCheckList = new ArrayList<String>();
         String programLine = null;
-        Iterator<Program_Table> iteraor = program_TableList.iterator();
+        Iterator<ProgramTable> iteraor = program_TableList.iterator();
         while(iteraor.hasNext()) {
 
-            Program_Table newProgram_Table = iteraor.next();
-            programLine = newProgram_Table.getProgram_Line();
+            ProgramTable newProgramTable = iteraor.next();
+            programLine = newProgramTable.getProgram_Line();
             mProgramCheckList.add(programLine);
             mProgramList.add(programLine);
 			/*if( programLine.contains("for") ) {
 				mProgramList.add(programLine);
 			}
 			else {
-				mProgramList.add(newProgram_Table.getmProgram_Line_Html());
+				mProgramList.add(newProgramTable.getmProgram_Line_Html());
 			}*/
         }
 
@@ -413,7 +409,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
     @Override
     public void updateUI() {
 
-        List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(getContext()).getProgramLanguage());
+        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -422,7 +418,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = mDatabaseHandler.getAllProgram_Tables( mProgram_Index.getIndex(), new CreekPreferences(getContext()).getProgramLanguage() );
+            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
             if( prevProgramSize == program_TableList.size() ) {
                 break;
             }

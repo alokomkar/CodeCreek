@@ -26,9 +26,8 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -55,7 +54,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	Button mProgDescriptionBtn;
 	ImageButton mNextProgramBtn;
 	ImageButton mPrevProgramBtn;
-	Program_Index program_index;
+	ProgramIndex program_index;
 
 	int mListPostion = 0;
 	boolean mWizard = false;
@@ -72,7 +71,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		super.onCreate(savedInstanceState);
 
 		Bundle newProgramActivityBundle = getIntent().getExtras();
-		program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+		program_index = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mProgramIndex = program_index.getIndex();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 0);
 		this.mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
@@ -84,7 +83,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		}
 		else {
 			setTitle("Revise : "+ mProgram_Title);
-			Log.d("ProgramActivity", " :: Program_Index : " + mProgramIndex +"");
+			Log.d("ProgramActivity", " :: ProgramIndex : " + mProgramIndex +"");
 			getProgramTableFromDB(mProgramIndex);
 		}
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
