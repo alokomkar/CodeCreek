@@ -116,8 +116,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 	private void loadProgramExplanation(String programWiki) {
 		Intent intent = new Intent(ProgramListActivity.this, ProgramWikiActivity.class);
-		intent.putExtra(DatabaseHandler.KEY_WIKI, programWiki);
-		intent.putExtra(DatabaseHandler.KEY_PROGRAM_LANGUAGE, mProgram_Indexs);
+		intent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, programWiki);
+		intent.putExtra(ProgrammingBuddyConstants.KEY_PROGRAM_LANGUAGE, mProgram_Indexs);
 		startActivity(intent);
 	}
 

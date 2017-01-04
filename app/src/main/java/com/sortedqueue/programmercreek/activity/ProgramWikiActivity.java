@@ -20,8 +20,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -64,8 +64,8 @@ public class ProgramWikiActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient(new MyWebViewClient());
-        programWiki = getIntent().getExtras().getString(DatabaseHandler.KEY_WIKI);
-        program_indices = getIntent().getExtras().getParcelableArrayList(DatabaseHandler.KEY_PROGRAM_LANGUAGE);
+        programWiki = getIntent().getExtras().getString(ProgrammingBuddyConstants.KEY_WIKI);
+        program_indices = getIntent().getExtras().getParcelableArrayList(ProgrammingBuddyConstants.KEY_PROGRAM_LANGUAGE);
         if( program_indices != null ) {
             programUrls = new ArrayList<>();
             for( Program_Index program_index : program_indices ) {

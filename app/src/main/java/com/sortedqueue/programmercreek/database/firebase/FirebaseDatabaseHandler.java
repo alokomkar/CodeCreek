@@ -12,15 +12,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.LanguageModule;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
-import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
-import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -54,8 +51,7 @@ public class FirebaseDatabaseHandler {
     private CreekPreferences creekPreferences;
 
     private String TAG = FirebaseDatabaseHandler.class.getSimpleName();
-    private DatabaseHandler databaseHandler;
-    private ArrayList<Program_Table> program_tables;
+    private ArrayList<ProgramTable> program_tables;
     private DatabaseReference mCreekUserDBDatabase;
     private String CREEK_USER_DB = "creek_user_db_version";
     private String WIKI_MODULE = "wiki_module";
@@ -173,11 +169,11 @@ public class FirebaseDatabaseHandler {
         });
     }
 
-    public void writeProgramIndex( Program_Index program_index ) {
+    public void writeProgramIndex( ProgramIndex program_index ) {
         mProgramDatabase.child(PROGRAM_INDEX_CHILD + "/" + program_index.getIndex()).setValue(program_index);
     }
 
-    public void writeProgramTable( Program_Table program_table ) {
+    public void writeProgramTable( ProgramTable program_table ) {
         mProgramDatabase.child(PROGRAM_TABLE_CHILD + "/" + program_table.getIndex() + "/" + program_table.getLine_No()).setValue(program_table);
     }
 
@@ -284,7 +280,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public interface ProgramIndexInterface {
-        void getProgramIndexes(ArrayList<Program_Index> program_indices);
+        void getProgramIndexes(ArrayList<ProgramIndex> program_indices);
         void onError( DatabaseError error );
     }
 
@@ -408,7 +404,6 @@ public class FirebaseDatabaseHandler {
     public void initializeProgramIndexes( final ProgramIndexInterface programIndexInterface ) {
 
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
-        databaseHandler = new DatabaseHandler(mContext);
         int initialPrograms = 31;
 
         if( creekPreferences.getProgramIndex() == -1 ) {
@@ -420,11 +415,10 @@ public class FirebaseDatabaseHandler {
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<Program_Index> program_indices = new ArrayList<Program_Index>();
+                    ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
                     for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
-                        Program_Index program_index = programIndexSnapshot.getValue(Program_Index.class);
-                        program_index.setmProgram_Language(programLanguage);
-                        databaseHandler.addProgram_Index(program_index);
+                        ProgramIndex program_index = programIndexSnapshot.getValue(ProgramIndex.class);
+                        program_index.save();
                         program_indices.add(program_index);
                     }
                     programIndexInterface.getProgramIndexes(program_indices);
@@ -442,18 +436,17 @@ public class FirebaseDatabaseHandler {
         }
         else {
             Log.d(TAG, "Inserted program indexes found : " + creekPreferences.getProgramIndex());
-            programIndexInterface.getProgramIndexes(new ArrayList<Program_Index>());
+            programIndexInterface.getProgramIndexes(new ArrayList<ProgramIndex>());
         }
 
     }
 
     public interface ProgramTableInterface {
-        void getProgramTables(ArrayList<Program_Table> program_tables);
+        void getProgramTables(ArrayList<ProgramTable> program_tables);
         void onError( DatabaseError error );
     }
 
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
-        databaseHandler = new DatabaseHandler(mContext);
         if( creekPreferences.getProgramTables() == -1 ) {
             CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
@@ -462,27 +455,14 @@ public class FirebaseDatabaseHandler {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
-                            Program_Table program_table = lineSnapShot.getValue(Program_Table.class);
-                            program_table.setmProgram_Language(programLanguage);
-                            if( program_table != null ) {
-                                program_tables.add(program_table);
-                            }
+                            ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
+                            program_table.save();
+                            program_tables.add(program_table);
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                         }
                     }
-                    if( program_tables.size() > 0 ) {
-                        creekPreferences.setProgramTables(program_tables.size());
-                        new DataBaseInsertAsyncTask(mContext, -3, program_tables, new UIUpdateListener() {
-                            @Override
-                            public void updateUI() {
-                                programTableInterface.getProgramTables(program_tables);
-                                CommonUtils.dismissProgressDialog();
-                            }
-                        }).execute();
-                    }
-                    else {
-                        CommonUtils.dismissProgressDialog();
-                    }
+                    programTableInterface.getProgramTables(program_tables);
+                    CommonUtils.dismissProgressDialog();
                 }
 
                 @Override
@@ -494,7 +474,7 @@ public class FirebaseDatabaseHandler {
         }
         else {
             Log.d(TAG, "Inserted program tables found : " + creekPreferences.getProgramTables());
-            programTableInterface.getProgramTables(new ArrayList<Program_Table>());
+            programTableInterface.getProgramTables(new ArrayList<ProgramTable>());
         }
     }
 

@@ -124,7 +124,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.syntaxLayout:
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);
-                syntaxIntent.putExtra(DatabaseHandler.KEY_WIKI, creekPreferences.getProgramWiki());
+                syntaxIntent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(syntaxIntent);
                 /*this.overridePendingTransition(R.anim.animation_leave,
                         R.anim.animation_enter);*/

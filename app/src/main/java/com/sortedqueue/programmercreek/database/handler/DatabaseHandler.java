@@ -95,164 +95,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-	/*private void executeInsertStatements() {
-		*//**
-     * CRUD Operations
-     * *//*
-		// Inserting Contacts
-		Log.d("Insert: ", "Inserting ..");
-		this.addProgram_Index(new Program_Index(1, "Hello World"));
-		this.addProgram_Index(new Program_Index(2, "Sum of two numbers"));
-		this.addProgram_Index(new Program_Index(3, "Pythagora's theorem"));
-		this.addProgram_Index(new Program_Index(4, "Fibonaci Series - Recursion"));
-		this.addProgram_Index(new Program_Index(5, "Stack Definition"));
-		this.addProgram_Index(new Program_Index(6, "Stack Push Operation"));
-		this.addProgram_Index(new Program_Index(7, "Stack Pop Operation"));
-		this.addProgram_Index(new Program_Index(8, "Quick Sort"));
-
-		*//**
-     * CRUD Operations
-     * *//*
-
-		Log.d("Insert: ", "Inserting ..");
-		int index = 0;
-		this.addProgram_Table(new Program_Table(1, ++index, "#include \"stdio.h\"", "Header include"));
-		this.addProgram_Table(new Program_Table(1, ++index, "void main()", "Main Declaration"));
-		this.addProgram_Table(new Program_Table(1, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(1, ++index, "	printf(\"HelloWorld\");", "Print Statement"));
-		this.addProgram_Table(new Program_Table(1, ++index, "	getch();", "Wait for keyboard input"));
-		this.addProgram_Table(new Program_Table(1, ++index, "}", "Finish"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(2, ++index, "#include \"stdio.h\"", "Header include"));
-		this.addProgram_Table(new Program_Table(2, ++index, "void main()", "Main Declaration"));
-		this.addProgram_Table(new Program_Table(2, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(2, ++index, "  int a = 1, b = 2;", "Variables declaration"));
-		this.addProgram_Table(new Program_Table(2, ++index, "	printf(\"%d\", a + b );", "Print Statement : prints 3"));
-		this.addProgram_Table(new Program_Table(2, ++index, "	getch();", "Wait for keyboard input"));
-		this.addProgram_Table(new Program_Table(2, ++index, "}", "Finish"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(3, ++index, "#include \"stdio.h\" #include \"math.h\"", "Headers include"));
-		this.addProgram_Table(new Program_Table(3, ++index, "void main()", "Main Declaration"));
-		this.addProgram_Table(new Program_Table(3, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(3, ++index, "  int a = 1, b = 2;", "Variables declaration"));
-		this.addProgram_Table(new Program_Table(3, ++index, "	printf(\"%f\", (float) sqrt((1*1)+(2*2)) );", "Print Statement : prints 2.236\n   sqrt() -\" inbuilt square root function \n  from math.h"));
-		this.addProgram_Table(new Program_Table(3, ++index, "	getch();", "Wait for keyboard input"));
-		this.addProgram_Table(new Program_Table(3, ++index, "}", "Finish"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(4, ++index, "#include \"stdio.h\"", "Header include"));
-		this.addProgram_Table(new Program_Table(4, ++index, "int fibonaci( int i )", "Function Definition"));
-		this.addProgram_Table(new Program_Table(4, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(4, ++index, "  if( i == 0 )", "Check if i is 0?"));
-		this.addProgram_Table(new Program_Table(4, ++index, "    {", "i = 0, start of if block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "      return 0;", "return 0 "));
-		this.addProgram_Table(new Program_Table(4, ++index, "    }", "end of if block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "  if( i == 1 )", "Check if i is 1?"));
-		this.addProgram_Table(new Program_Table(4, ++index, "    {", "i = 0, start of if block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "      return 1;", "return 1 "));
-		this.addProgram_Table(new Program_Table(4, ++index, "    }", "end of if block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "	return fibonaci(i-1) + fibonaci(i-2);", "Recursive call to function"));
-		this.addProgram_Table(new Program_Table(4, ++index, "}", "Finish"));
-		this.addProgram_Table(new Program_Table(4, ++index, "int main()", "Main Declaration - return type int"));
-		this.addProgram_Table(new Program_Table(4, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(4, ++index, "  int i;", "Variable declaration"));
-		this.addProgram_Table(new Program_Table(4, ++index, "  for( i = 0; i < 10; i++ )", "for loop to print first 10 numbers"));
-		this.addProgram_Table(new Program_Table(4, ++index, "    {", "i = 0, start of for block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "      printf(\"%d\\t%n\", fibonaci(i));", "print fibonacci series "));
-		this.addProgram_Table(new Program_Table(4, ++index, "    }", "end of for block"));
-		this.addProgram_Table(new Program_Table(4, ++index, "	return 0;", "return 0 - return type int"));
-		this.addProgram_Table(new Program_Table(4, ++index, "}", "Finish"));
-
-		index = 0;
-			mProgressDialog.setMessage("Inserting Program "+programIndex+++"...");
-			this.addModule_Table(new Module_Table(5, 5, "Stack Definition"));
-			this.addModule_Table(new Module_Table(5, 6, "Stack Push Operation"));
-			this.addModule_Table(new Module_Table(5, 7, "Stack Pop Operation"));
-			this.addModule_Table(new Module_Table(5, 8, "Stack Display Operation"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(5, ++index, "#include \"stdio.h\"", "Header include"));
-		this.addProgram_Table(new Program_Table(5, ++index, "#define MAXSIZE 5", "MAXSIZE definition"));
-		this.addProgram_Table(new Program_Table(5, ++index, "struct stack", "Struct definition - name : stack"));
-		this.addProgram_Table(new Program_Table(5, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(5, ++index, "  int stk[MAXSIZE]; int top;", "Integer array to hold stack values; To point to top of stack"));
-		//this.addProgram_Table(new Program_Table(5, ++index, "  int top;", "To point to top of stack"));
-		this.addProgram_Table(new Program_Table(5, ++index, "};", "End"));
-		this.addProgram_Table(new Program_Table(5, ++index, "typedef struct stack STACK;", "typedef used to declare stack"));
-		this.addProgram_Table(new Program_Table(5, ++index, "STACK s;", "STACK variable declaration"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(6, ++index, "void push ()", "Function Definition"));
-		this.addProgram_Table(new Program_Table(6, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  int num; if (s.top == (MAXSIZE - 1))", "Variable declaration : num \nCheck if stack is full"));
-		//this.addProgram_Table(new Program_Table(6, ++index, "  if (s.top == (MAXSIZE - 1))", "Check if stack is full"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  {", "Start"));
-		this.addProgram_Table(new Program_Table(6, ++index, "    printf (\"Stack is Full\\n\");", "Prints \"Stack is Full\""));
-		this.addProgram_Table(new Program_Table(6, ++index, "    return;", "Exit without push"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  }", "End"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  else", "Else block - Stack not full"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  {", "Start"));
-		this.addProgram_Table(new Program_Table(6, ++index, "    printf (\"Enter the element to be pushed\\n\");", "Prints the message in double quotes"));
-		this.addProgram_Table(new Program_Table(6, ++index, "    scanf (\"%d\", &num);", "Reads integer from standard input"));
-		this.addProgram_Table(new Program_Table(6, ++index, "    s.top = s.top + 1;", "Increment the top index"));
-		this.addProgram_Table(new Program_Table(6, ++index, "    s.stk[s.top] = num;", "Insert num to top of stack"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  }", "End"));
-		this.addProgram_Table(new Program_Table(6, ++index, "  return;", "Exit the function"));
-		this.addProgram_Table(new Program_Table(6, ++index, "}", "End"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(7, ++index, "int pop ()", "Function Definition"));
-		this.addProgram_Table(new Program_Table(7, ++index, "{", "Start"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  int num; \nif (s.top == - 1)", "Variable declaration : num \nCheck if stack is empty"));
-		//this.addProgram_Table(new Program_Table(7, ++index, "  if (s.top == - 1)", "Check if stack is empty"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  {", "Start"));
-		this.addProgram_Table(new Program_Table(7, ++index, "    printf (\"Stack is Empty\\n\");", "Prints \"Stack is Empty\""));
-		this.addProgram_Table(new Program_Table(7, ++index, "    return (s.top);", "Exit without pop; return top index"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  }", "End"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  else", "Else block - Stack not full"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  {", "Start"));
-		this.addProgram_Table(new Program_Table(7, ++index, "    num = s.stk[s.top];", "The element to be poped"));
-		this.addProgram_Table(new Program_Table(7, ++index, "    printf (\"poped element is = %dn\", s.stk[s.top]);", "Print element being poped"));
-		this.addProgram_Table(new Program_Table(7, ++index, "    s.top = s.top - 1;", "Decrement the top index"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  }", "End"));
-		this.addProgram_Table(new Program_Table(7, ++index, "  return num;", "Return the element poped"));
-		this.addProgram_Table(new Program_Table(7, ++index, "}", "End"));
-
-		index = 0;
-		this.addProgram_Table(new Program_Table(8, ++index,"void quick_sort(int arr[20],int low,int high)","Function Definition"));
-		this.addProgram_Table(new Program_Table(8, ++index,"{","Start"));
-		this.addProgram_Table(new Program_Table(8, ++index,"	int pivot, j, temp, i;","Variable declaration"));
-		this.addProgram_Table(new Program_Table(8, ++index,"	if(low < high)","If low < high "));
-		this.addProgram_Table(new Program_Table(8, ++index,"	{","Start"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		pivot = low;","Assign low to pivot"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		i = low;","Assign low to i"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		j = high;","Assign high to j"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		while(i < j)","While i < j repeat"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		{","Start"));
-		this.addProgram_Table(new Program_Table(8, ++index,"			while((arr[i]<=arr[pivot])&&(i<high))","While arr[i] <= arr[pivot] and i < high"));
-		this.addProgram_Table(new Program_Table(8, ++index,"				i++;","Increment i"));
-		this.addProgram_Table(new Program_Table(8, ++index,"			while(arr[j]>arr[pivot])","While arr[j] > arr[pivot]"));
-		this.addProgram_Table(new Program_Table(8, ++index,"				j--;","Decrement j"));
-		this.addProgram_Table(new Program_Table(8, ++index,"			if(i<j)","If i < j"));
-		this.addProgram_Table(new Program_Table(8, ++index,"			{","Start"));
-		this.addProgram_Table(new Program_Table(8, ++index,"				temp=arr[i];","Assign arr[i] to temp"));
-		this.addProgram_Table(new Program_Table(8, ++index,"				arr[i]=arr[j];","Assign arr[j] to arr[i]"));
-		this.addProgram_Table(new Program_Table(8, ++index,"				arr[j]=temp;","Assign temp to arr[j]"));
-		this.addProgram_Table(new Program_Table(8, ++index,"			}","End"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		}","End"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		temp=arr[pivot];","Assign arr[pivot] to temp"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		arr[pivot]=arr[j];","Assign arr[j] to arr[pivot]"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		arr[j]=temp;","Assign temp to arr[j]"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		quick_sort(arr,low,j-1);","Recursive Call - arr, low, j-1"));
-		this.addProgram_Table(new Program_Table(8, ++index,"		quick_sort(arr,j+1,high);","Recursive Call - arr, j+1, high"));
-		this.addProgram_Table(new Program_Table(8, ++index,"	}","End"));
-		this.addProgram_Table(new Program_Table(8, ++index,"}","End"));
-
-
-	}*/
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -306,22 +148,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Program_Index getProgram_Index(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String programLanguage = new CreekPreferences(mContext).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
         String[] selectionArgs = new String[] { String.valueOf(id), programLanguage };
         Cursor cursor;
         cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
                         KEY_PROGRAM_LANGUAGE }, KEY_PROGRAM_INDEX_ID + "=? AND " + KEY_PROGRAM_LANGUAGE + "=?", selectionArgs
                 , null, null, null, null);
-        if( programLanguage.equals("c++") ) {
-            selectionArgs = new String[] { String.valueOf(id), programLanguage, "cpp" };
-            cursor = db.query(TABLE_PROGRAM_INDEX, new String[] { KEY_PROGRAM_INDEX_ID, KEY_PROGRAM_NAME, KEY_WIKI,
-                            KEY_PROGRAM_LANGUAGE }, KEY_PROGRAM_INDEX_ID
-                            + "=? AND "
-                            + KEY_PROGRAM_LANGUAGE + "=? OR "
-                            + KEY_PROGRAM_LANGUAGE + " =? "
-                    , selectionArgs
-                    , null, null, null, null);
 
-        }
         if (cursor != null) {
             try {
                 cursor.moveToFirst();
@@ -476,7 +311,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 null, // havinb
                 KEY_PROGRAM_LINE_NO, //order by
                 null  ); //limit
-
+        if( program_language.equals("c++") ) {
+            cursor = db.query(
+                    TABLE_PROGRAM_TABLE, //Table name
+                    new String[] {KEY_PROGRAM_TABLE_ID, KEY_PROGRAM_LANGUAGE, KEY_PROGRAM_LINE_NO, KEY_PROGRAM_LINE, KEY_PROGRAM_LINE_DESCRIPTION, KEY_PROGRAM_LINE_HTML }, //Table columns
+                    KEY_PROGRAM_LANGUAGE + "=? OR "+ KEY_PROGRAM_LANGUAGE + "=? AND " + KEY_PROGRAM_TABLE_ID + " =?", //Selection arg
+                    new String[] { program_language, "cpp", String.valueOf(index)}, //Selection arg values
+                    null, //group by
+                    null, // havinb
+                    KEY_PROGRAM_LINE_NO, //order by
+                    null  ); //limit
+        }
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
