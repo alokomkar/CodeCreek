@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,8 +70,6 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     LinearLayout checkButtonLayout;
     @Bind(R.id.scrollView)
     ScrollView scrollView;
-    @Bind(R.id.doneFAB)
-    FloatingActionButton doneFAB;
     private SyntaxModule syntaxModule;
     private ArrayList<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
@@ -106,13 +102,6 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
         hintSyntaxImageView.setOnClickListener(this);
-        doneFAB.setOnClickListener(this);
-        if( isLastFragment ) {
-            doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
-        }
-        else {
-            doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_media_ff));
-        }
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
@@ -184,9 +173,6 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 builder.setTitle("Solution :");
                 builder.setIcon(android.R.drawable.ic_dialog_info);
                 builder.show();
-                break;
-            case R.id.doneFAB :
-                modulteDetailsScrollPageListener.onScrollForward();
                 break;
         }
     }

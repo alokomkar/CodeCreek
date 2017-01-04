@@ -11,22 +11,75 @@ import android.view.MotionEvent;
 
 public class ScrollableViewPager extends ViewPager {
 
+    public enum SwipeDirection {
+        all, left, right, none ;
+    }
+
+    private float initialXValue;
+    private SwipeDirection direction;
+
     private boolean canScroll = true;
     public ScrollableViewPager(Context context) {
         super(context);
     }
     public ScrollableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.direction = SwipeDirection.all;
     }
     public void setCanScroll(boolean canScroll) {
         this.canScroll = canScroll;
     }
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return canScroll && super.onTouchEvent(ev);
+        if( canScroll && this.isSwipeAllowed(ev) ) {
+            return super.onTouchEvent(ev);
+        }
+        else {
+            return canScroll && super.onTouchEvent(ev);
+        }
+
     }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return canScroll && super.onInterceptTouchEvent(ev);
+        if( canScroll && this.isSwipeAllowed(ev)) {
+            return super.onInterceptTouchEvent(ev);
+        }
+        else {
+            return canScroll && super.onInterceptTouchEvent(ev);
+        }
+
+    }
+
+    private boolean isSwipeAllowed(MotionEvent event) {
+        if(this.direction == SwipeDirection.all) return true;
+
+        if(direction == SwipeDirection.none )//disable any swipe
+            return false;
+
+        if(event.getAction()==MotionEvent.ACTION_DOWN) {
+            initialXValue = event.getX();
+            return true;
+        }
+
+        if(event.getAction()==MotionEvent.ACTION_MOVE) {
+            try {
+                float diffX = event.getX() - initialXValue;
+                if (diffX > 0 && direction == SwipeDirection.right ) {
+                    // swipe from left to right detected
+                    return false;
+                }else if (diffX < 0 && direction == SwipeDirection.left ) {
+                    // swipe from right to left detected
+                    return false;
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    public void setAllowedSwipeDirection(SwipeDirection direction) {
+        this.direction = direction;
     }
 }
