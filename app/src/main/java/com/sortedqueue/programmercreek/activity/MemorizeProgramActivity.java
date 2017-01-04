@@ -26,14 +26,13 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,7 +49,6 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	ListView mProgramExplanationListView;
 	ArrayList<String> mProgramList;
 	ArrayList<String> mProgramExplanationList;
-	DatabaseHandler mDatabaseHandler;
 	Program_Index mProgram_Index;
 	int programIndex;
 	Button mProgDescriptionBtn;
@@ -65,7 +63,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	boolean mWizard = false;
 
 	public String KEY_PROG_TABLE_INSERT = "insertProgramTable";
-	List<Program_Table> mProgram_TableList;
+	ArrayList<ProgramTable> mProgramTableList;
 	String mProgram_Title = null;
 	private Drawable mShowAllDrawable;
 	private Drawable mHideDrawable;
@@ -84,9 +82,6 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);
 		mHideDrawable = ContextCompat.getDrawable(this, R.drawable.ic_remove);
 		Log.d("Program Activity", " :: Program_Index :  " +  mProgram_Index+"");
-		if( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler(this);
-		}
 		getProgramTableFromDB(programIndex);
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
@@ -98,22 +93,18 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		new ProgramFetcherTask(this, new UIProgramFetcherListener() {
 			
 			@Override
-			public void updateUI(List<Program_Table> program_TableList) {
-				mProgram_TableList = program_TableList;
-				if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) {
-					new DataBaseInsertAsyncTask(MemorizeProgramActivity.this, program_Index, MemorizeProgramActivity.this ).execute();
-					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(MemorizeProgramActivity.this).getProgramLanguage());
-				}
-				else {
-					initUI( mProgram_TableList );
+			public void updateUI(ArrayList<ProgramTable> program_TableList) {
+				mProgramTableList = program_TableList;
+				{
+					initUI( mProgramTableList );
 				}		
 			}
-		}, mDatabaseHandler, program_Index).execute();
+		}, program_Index).execute();
 		
 		
 	}
 
-	private void initUI(List<Program_Table> program_TableList) {
+	private void initUI(List<ProgramTable> program_TableList) {
 
 		if( program_TableList != null && program_TableList.size() > 0 ) {
 
@@ -122,11 +113,11 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			mProgramList = new ArrayList<String>();
 			mProgramExplanationList = new ArrayList<String>();
 
-			Iterator<Program_Table> iteraor = program_TableList.iterator();
+			Iterator<ProgramTable> iteraor = program_TableList.iterator();
 			while(iteraor.hasNext()) { 
-				Program_Table newProgram_Table = iteraor.next();
-				mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
-				mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
+				ProgramTable newProgramTable = iteraor.next();
+				mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+				mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
 
 			}
 
@@ -314,10 +305,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	}
 
 	public String getProgramTitle(int program_Index) {
-		if( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler(MemorizeProgramActivity.this);
-		}
-		return AuxilaryUtils.getProgramTitle(program_Index, MemorizeProgramActivity.this, mDatabaseHandler );
+		return AuxilaryUtils.getProgramTitle(program_Index, MemorizeProgramActivity.this );
 	}
 
 	public void enableDisablePrevButton() { 
@@ -337,12 +325,9 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 			mIndex = 0;
-			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
-			if( program_TableList == null || program_TableList.size() == 0 ) {
-				new DataBaseInsertAsyncTask(this, program_Index, this).execute();
-				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(this).getProgramLanguage());
-			}
-			if( program_TableList != null && program_TableList.size() > 0 ) { 
+			ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(MemorizeProgramActivity.this).getProgramTables(program_Index);
+
+			if( program_TableList != null && program_TableList.size() > 0 ) {
 				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
 					flipit();
 					mProgDescriptionBtn.setText("Flip");
@@ -362,12 +347,12 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 					mProgramList = new ArrayList<String>();
 					mProgramExplanationList = new ArrayList<String>();
 
-					Iterator<Program_Table> iteraor = program_TableList.iterator();
+					Iterator<ProgramTable> iteraor = program_TableList.iterator();
 
 					while(iteraor.hasNext()) { 
-						Program_Table newProgram_Table = iteraor.next();
-						mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
-						mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
+						ProgramTable newProgramTable = iteraor.next();
+						mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+						mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
 					}
 					mProgramLength = mProgramList.size();
 					Log.d("Program Length", mProgramLength+"");
@@ -480,40 +465,17 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	@Override
 	public void updateUI() {
-
-		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(programIndex, new CreekPreferences(this).getProgramLanguage());
-		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
+		mProgramTableList = new FirebaseDatabaseHandler(MemorizeProgramActivity.this).getProgramTables(programIndex);;
+		if( mProgramTableList == null || mProgramTableList.size() == 0 ) { 
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 			programIndex--;
 		}
 		else {
-			initUI( mProgram_TableList );	
+			initUI( mProgramTableList );	
 		}
 
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.program, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		switch (item.getItemId()) {
-
-		case R.id.action_refresh_database:
-			new DataBaseInsertAsyncTask(this, programIndex, this).execute();
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
-
-		}
-
-	}
-
 	@Override
 	public void finish() {
 		super.finish();

@@ -49,10 +49,6 @@
             android:label="@string/title_activity_revise_program"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.QuizActivity"
-            android:label="@string/title_activity_quiz"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
@@ -63,10 +59,6 @@
         <activity
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_help"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.FillTheBlanksActivity"
-            android:label="@string/title_fill_the_blanks"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProgramWikiActivity"

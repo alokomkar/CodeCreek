@@ -1,11 +1,11 @@
 package com.sortedqueue.programmercreek.interfaces;
 
-import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 
 public interface UIProgramFetcherListener {
-	void updateUI(List<Program_Table> program_TableList);
+	void updateUI(ArrayList<ProgramTable> program_TableList);
 }

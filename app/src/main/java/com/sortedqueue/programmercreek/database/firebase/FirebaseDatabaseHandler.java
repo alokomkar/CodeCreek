@@ -17,7 +17,6 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -183,6 +182,25 @@ public class FirebaseDatabaseHandler {
 
     public void writeCreekUserDB(CreekUserDB creekUserDB) {
         mCreekUserDBDatabase.setValue(creekUserDB);
+    }
+
+    public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
+        if( programLanguage.equals("c++") ) {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_Language", "c++")
+                    .or()
+                    .whereEqual("program_Language", "cpp")
+                    .and()
+                    .whereEqual("index", mProgramIndex)
+                    .find(ProgramTable.class));
+        }
+        else {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_Language", programLanguage)
+                    .and()
+                    .whereEqual("index", mProgramIndex)
+                    .find(ProgramTable.class));
+        }
     }
 
     public interface GetCreekUserDBListener {
@@ -435,6 +453,13 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
+            new AsyncTask<Void, Void, ArrayList<ProgramIndex>>() {
+
+                @Override
+                protected ArrayList<ProgramIndex> doInBackground(Void... params) {
+                    return null;
+                }
+            }.execute();
             Log.d(TAG, "Inserted program indexes found : " + creekPreferences.getProgramIndex());
             programIndexInterface.getProgramIndexes(new ArrayList<ProgramIndex>());
         }

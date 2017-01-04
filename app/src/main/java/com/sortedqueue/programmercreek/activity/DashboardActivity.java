@@ -171,23 +171,6 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
     }
 
 
-    public void onGroupItemClick(MenuItem item) {
-        // One of the group items (using the onClick attribute) was clicked
-        // The item parameter passed here indicates which item it is
-        // All other menu item clicks are handled by onOptionsItemSelected()
-        switch (item.getItemId()) {
-            case R.id.action_about:
-                Intent intent = new Intent(DashboardActivity.this, AboutActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.action_refresh_database:
-                new DataBaseInsertAsyncTask(this, -1, this).execute();
-                break;
-        }
-    }
-
-
     @Override
     public void onBackPressed() {
         this.overridePendingTransition(R.anim.anim_slide_in_right,

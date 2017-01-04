@@ -16,16 +16,26 @@ public class ProgramTable extends RushObject implements Parcelable {
     private String program_Language;
     private String program_Line;
     private String program_Line_Description;
+    private String program_Line_Html;
 
     public ProgramTable() {
     }
 
-    public ProgramTable(int index, int line_No, String program_Language, String program_Line, String program_Line_Description) {
+    public ProgramTable(int index, int line_No, String program_Language, String program_Line, String program_Line_Description, String program_Line_Html) {
         this.index = index;
         this.line_No = line_No;
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
+        this.program_Line_Html = program_Line_Html;
+    }
+
+    public String getProgram_Line_Html() {
+        return program_Line_Html;
+    }
+
+    public void setProgram_Line_Html(String program_Line_Html) {
+        this.program_Line_Html = program_Line_Html;
     }
 
     public int getIndex() {

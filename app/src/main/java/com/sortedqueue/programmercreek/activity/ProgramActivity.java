@@ -25,14 +25,13 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,7 +46,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	CustomProgramLineListAdapter mAdapterProgramList;
 	CustomProgramLineListAdapter mAdapterProgramExplanationList;
 
-	List<Program_Table> mProgram_TableList;
+	ArrayList<ProgramTable> mProgramTableList;
 
 	ListView mProgramListView;
 	ListView mProgramExplanationListView;
@@ -59,7 +58,6 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	Program_Index program_index;
 
 	int mListPostion = 0;
-	DatabaseHandler mDatabaseHandler;
 	boolean mWizard = false;
 	String mProgram_Title = null;
 	private int mTotalPrograms;
@@ -73,7 +71,6 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mDatabaseHandler = new DatabaseHandler(this);
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		program_index = (Program_Index) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mProgramIndex = program_index.getIndex();
@@ -99,32 +96,28 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		new ProgramFetcherTask(this, new UIProgramFetcherListener() {
 
 			@Override
-			public void updateUI(List<Program_Table> program_TableList) {
-				mProgram_TableList = program_TableList;
-				if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) {
-					new DataBaseInsertAsyncTask(ProgramActivity.this, mProgramIndex, ProgramActivity.this ).execute();
-					mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(ProgramActivity.this).getProgramLanguage());
-				}
-				else {
-					initUI( mProgram_TableList );
+			public void updateUI(ArrayList<ProgramTable> program_TableList) {
+				mProgramTableList = program_TableList;
+				{
+					initUI( mProgramTableList );
 				}
 			}
-		}, mDatabaseHandler, program_Index).execute();
+		}, program_Index).execute();
 
 
 	}
 
-	private void initUI(List<Program_Table> program_TableList) {
+	private void initUI(List<ProgramTable> program_TableList) {
 
 		mProgramList = new ArrayList<String>();
 		mProgramExplanationList = new ArrayList<String>();
 
-		Iterator<Program_Table> iteraor = program_TableList.iterator();
+		Iterator<ProgramTable> iteraor = program_TableList.iterator();
 		while(iteraor.hasNext()) { 
 
-			Program_Table newProgram_Table = iteraor.next();
-			mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
-			mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
+			ProgramTable newProgramTable = iteraor.next();
+			mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+			mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
 
 		}
 
@@ -231,10 +224,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	}
 
 	public String getProgramTitle(int program_Index) {
-		if( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler(ProgramActivity.this);
-		}
-		return AuxilaryUtils.getProgramTitle(program_Index, ProgramActivity.this, mDatabaseHandler );
+		return AuxilaryUtils.getProgramTitle(program_Index, ProgramActivity.this );
 	}
 
 	public void enableDisablePrevButton() { 
@@ -254,18 +244,8 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 
-			List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(program_Index, new CreekPreferences(this).getProgramLanguage());
-			if( program_TableList == null || program_TableList.size() == 0 && mProgramIndex <= mTotalPrograms ) {
-
-				new DataBaseInsertAsyncTask( this, mProgramIndex, this ).execute();
-				program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(this).getProgramLanguage());
-
-			}
-			else {
-				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
-					flipit();
-					mProgDescriptionBtn.setText("Flip");
-				}*/
+			ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(ProgramActivity.this).getProgramTables(program_Index);
+			{
 				mAdapterProgramExplanationList.clear();
 				mAdapterProgramList.clear();
 				mListPostion = 1;
@@ -280,12 +260,12 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 			}
 			else {
 				setTitle("Revise : " + mProgram_Title );
-				Iterator<Program_Table> iteraor = program_TableList.iterator();
+				Iterator<ProgramTable> iteraor = program_TableList.iterator();
 
 				while(iteraor.hasNext()) { 
-					Program_Table newProgram_Table = iteraor.next();
-					mProgramList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line());
-					mProgramExplanationList.add(newProgram_Table.getLine_No()+". "+newProgram_Table.getProgram_Line_Description());
+					ProgramTable newProgramTable = iteraor.next();
+					mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+					mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
 
 				}
 
@@ -403,35 +383,13 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	@Override
 	public void updateUI() {
 
-		mProgram_TableList = mDatabaseHandler.getAllProgram_Tables(mProgramIndex, new CreekPreferences(this).getProgramLanguage());
-		if( mProgram_TableList == null || mProgram_TableList.size() == 0 ) { 
+		mProgramTableList = new FirebaseDatabaseHandler(ProgramActivity.this).getProgramTables(mProgramIndex);
+		if( mProgramTableList == null || mProgramTableList.size() == 0 ) { 
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
 			mProgramIndex--;
 		}
 		else {
-			initUI( mProgram_TableList );	
-		}
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.program, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-
-		case R.id.action_refresh_database:
-			new DataBaseInsertAsyncTask(this, mProgramIndex, this ).execute();
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
-
+			initUI( mProgramTableList );	
 		}
 
 	}

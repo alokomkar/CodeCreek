@@ -23,11 +23,9 @@ import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.Program_Table;
 import com.sortedqueue.programmercreek.database.QuizModel;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
@@ -36,7 +34,6 @@ import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
@@ -59,7 +56,6 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     CountDownTimer mCountDownTimer;
     boolean mWizard = false;
     int mQuizMode = -1;
-    DatabaseHandler mDatabaseHandler;
     @Bind(R.id.circular_progress_bar)
     ProgressBar circularProgressBar;
     @Bind(R.id.progressTextView)
@@ -107,15 +103,10 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         
         program_index = (Program_Index) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mProgramIndex = program_index.getIndex();
-
-        //PrettifyHighlighter prettifyHighlighter = new PrettifyHighlighter();
-        if (mDatabaseHandler == null) {
-            mDatabaseHandler = new DatabaseHandler(getContext());
-        }
-        new ProgramFetcherTask(getContext(), this, mDatabaseHandler, mProgramIndex).execute();
+        new ProgramFetcherTask(getContext(), this, mProgramIndex).execute();
     }
 
-    private void initUI(List<Program_Table> program_TableList) {
+    private void initUI(ArrayList<ProgramTable> program_TableList) {
 
         getActivity().setTitle("Quiz : " + program_index.getProgram_Description());
 
@@ -123,11 +114,11 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             mProgramList = new ArrayList<String>();
             mProgramExplanationList = new ArrayList<String>();
 
-            Iterator<Program_Table> iterator = program_TableList.iterator();
+            Iterator<ProgramTable> iterator = program_TableList.iterator();
             String programLine = null;
             if (mQuizMode == ProgramListActivity.KEY_QUIZ_DESCRIPTION_QUESTION) {
                 while (iterator.hasNext()) {
-                    Program_Table newProgram_Table = iterator.next();
+                    ProgramTable newProgram_Table = iterator.next();
                     programLine = newProgram_Table.getProgram_Line().trim();
                     if (programLine.trim().equals("{") == false && programLine.trim().equals("}") == false) {
                         mProgramList.add(programLine);
@@ -137,7 +128,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
                 }
             } else {
                 while (iterator.hasNext()) {
-                    Program_Table newProgram_Table = iterator.next();
+                    ProgramTable newProgram_Table = iterator.next();
                     programLine = newProgram_Table.getProgram_Line().trim();
                     if (programLine.trim().equals("{") == false && programLine.trim().equals("}") == false) {
                         mProgramList.add(newProgram_Table.getProgram_Line_Description());
@@ -327,19 +318,14 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     @Override
-    public void updateUI(List<Program_Table> program_TableList) {
+    public void updateUI(ArrayList<ProgramTable> program_TableList) {
 
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
             mTimerBtn.setText("00:00");
             mCheckSolutionBtn.setEnabled(true);
         }
-
-        if (program_TableList == null || program_TableList.size() == 0) {
-            new DataBaseInsertAsyncTask(getContext(), mProgramIndex, this).execute();
-        } else {
-            initUI(program_TableList);
-        }
+        initUI(program_TableList);
     }
 
 
@@ -373,6 +359,6 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     @Override
     public void updateUI() {
-        new ProgramFetcherTask(getContext(), mDatabaseHandler, mProgramIndex).execute();
+        new ProgramFetcherTask(getContext(), mProgramIndex).execute();
     }
 }

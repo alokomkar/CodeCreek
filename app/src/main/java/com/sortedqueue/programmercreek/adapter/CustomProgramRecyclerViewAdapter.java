@@ -12,10 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +27,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
 
     private String mProgramType;
     private Context mContext;
-    private List<Program_Index> mProgram_Indexs;
+    private ArrayList<ProgramIndex> mProgram_Indexs;
     private AdapterClickListner mAdapterClickListner;
 
     private int lastPosition = -1;
@@ -38,7 +38,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         void onItemClick( int position );
     }
 
-    public CustomProgramRecyclerViewAdapter(Context context, List<Program_Index> mProgram_indexs) {
+    public CustomProgramRecyclerViewAdapter(Context context, ArrayList<ProgramIndex> mProgram_indexs) {
         this.mContext = context;
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;

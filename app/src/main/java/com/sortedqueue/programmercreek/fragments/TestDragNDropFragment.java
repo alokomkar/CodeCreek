@@ -88,8 +88,6 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
         view = inflater.inflate(R.layout.activity_test_drag_n_drop, container, false);
         ButterKnife.bind(this, view);
         dragNDropListView = (DragNDropListView) view.findViewById(R.id.dragNDropListView);
-        mDatabaseHandler = new DatabaseHandler(getContext());
-
         mProgram_Index = (Program_Index) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
         List<Program_Table> program_TableList = mDatabaseHandler.getAllProgram_Tables(mProgram_Index.getIndex(), new CreekPreferences(getContext()).getProgramLanguage());

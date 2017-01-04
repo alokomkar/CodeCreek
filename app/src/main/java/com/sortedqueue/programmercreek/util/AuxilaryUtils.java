@@ -18,7 +18,6 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,11 +28,9 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
@@ -158,7 +155,7 @@ public class AuxilaryUtils {
 
     }
 
-    public static String getProgramTitle(int program_Index, Context context, DatabaseHandler databaseHandler) {
+    public static String getProgramTitle(int program_Index, Context context ) {
         HashMap<Integer, Program_Index> program_indexHashMap = CreekApplication.getInstance().getProgram_indexHashMap();
         if( program_indexHashMap.containsKey(program_Index) ) {
             return CreekApplication.getInstance().getProgram_indexHashMap().get(program_Index).getProgram_Description();

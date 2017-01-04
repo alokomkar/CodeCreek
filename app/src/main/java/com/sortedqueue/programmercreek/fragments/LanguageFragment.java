@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.database.Program_Index;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -118,7 +118,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
             @Override
-            public void getProgramIndexes(ArrayList<Program_Index> program_indices) {
+            public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
 
             }
 

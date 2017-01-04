@@ -17,18 +17,16 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
-import com.sortedqueue.programmercreek.asynctask.ProgramListFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Index;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.interfaces.UIProgramListFetcherListener;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,16 +34,15 @@ import butterknife.ButterKnife;
 
 public class ProgramListActivity extends AppCompatActivity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-	DatabaseHandler mDatabaseHandler;
 
 	int mInvokeTest = 0;
 
-	ArrayList<Program_Index> mProgram_Indexs;
+	ArrayList<ProgramIndex> mProgram_Indexs;
 
 	public int PROGRAM_LIST_SIZE = 0;
 
 	private String TAG = getClass().getSimpleName();
-	private Program_Index program_Index;
+	private ProgramIndex program_Index;
 	@Bind(R.id.adView)
 	AdView adView;
 
@@ -59,9 +56,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_program_list);
 		ButterKnife.bind(this);
-		mDatabaseHandler = new DatabaseHandler(this);
-
-		fetchProgramsList( mDatabaseHandler );
+		fetchProgramsList( );
 		initAds();
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
@@ -87,25 +82,28 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 	}
 
 
-	private void fetchProgramsList(final DatabaseHandler databaseHandler) {
+	private void fetchProgramsList() {
 
 		// Reading all contacts
 		logDebugMessage("Reading All Programs...");
 
-		new ProgramListFetcherTask(this, mDatabaseHandler, new UIProgramListFetcherListener() {
-
+		new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
 			@Override
-			public void updateUIProgramList(List<Program_Index> program_Indexes) {
-				mProgram_Indexs = new ArrayList<Program_Index>(program_Indexes);
+			public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
+				mProgram_Indexs = new ArrayList<>(program_indices);
 				CreekApplication.getInstance().setProgramIndexes( mProgram_Indexs );
 				PROGRAM_LIST_SIZE = mProgram_Indexs.size();
 				CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
 				RecyclerView programListRecyclerView = (RecyclerView) findViewById(R.id.programListRecyclerView);
 				programListRecyclerView.setLayoutManager( new LinearLayoutManager(ProgramListActivity.this, LinearLayoutManager.VERTICAL, false));
 				programListRecyclerView.setAdapter(customProgramRecyclerViewAdapter);
+			}
+
+			@Override
+			public void onError(DatabaseError error) {
 
 			}
-		}).execute();
+		});
 
 	}
 
@@ -371,9 +369,6 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				/*
 				 * Check the module table if the selected program has modules
 				 * */
-		if( mDatabaseHandler == null ) {
-			mDatabaseHandler = new DatabaseHandler(ProgramListActivity.this);
-		}
 				/*List<Module_Table> module_Tables = mDatabaseHandler.getAllModule_Tables(program_Index.getTableIndex());
 				if( module_Tables != null ) {
 					newIntentBundle.putBoolean(DashboardActivity.KEY_MODULE_LIST, true);

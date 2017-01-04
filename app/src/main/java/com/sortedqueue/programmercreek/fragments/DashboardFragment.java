@@ -11,16 +11,12 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.FillTheBlanksActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.Program_Table;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.database.handler.DatabaseHandler;
-import com.sortedqueue.programmercreek.database.operations.DataBaseInsertAsyncTask;
-import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -74,7 +70,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     FrameLayout wizardLayout;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
-    private DatabaseHandler mDatabaseHandler;
 
     public static DashboardFragment getInstance() {
         if (instance == null) {
@@ -149,10 +144,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
                 break;
 
-            case R.id.fillLayout:
-                LaunchFillBlanksActivity();
-                break;
-
             case R.id.quizLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
@@ -160,29 +151,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    private void LaunchFillBlanksActivity() {
-
-        mDatabaseHandler = new DatabaseHandler(getContext());
-        //}
-        if (creekPreferences.getProgramTables() == -1) {
-            new DataBaseInsertAsyncTask(getContext(), -2, new UIUpdateListener() {
-                @Override
-                public void updateUI() {
-                    LaunchFillBlanksActivity();
-                }
-            }).execute();
-        } else {
-            Intent intent = new Intent(getContext(), FillTheBlanksActivity.class);
-            startActivity(intent);
-        }
-
-    }
 
     private void LaunchProgramListActivity(final int invokeMode) {
         if (creekPreferences.getProgramTables() == -1) {
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
-                public void getProgramTables(ArrayList<Program_Table> program_tables) {
+                public void getProgramTables(ArrayList<ProgramTable> program_tables) {
                     LaunchProgramListActivity(invokeMode);
                 }
 

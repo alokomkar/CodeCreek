@@ -7,8 +7,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
-import com.sortedqueue.programmercreek.database.Program_Index;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
 
@@ -27,8 +27,8 @@ import co.uk.rushorm.core.RushCore;
 public class CreekApplication extends Application {
 
     static CreekApplication creekApplication;
-    private ArrayList<Program_Index> programIndexes;
-    private HashMap<Integer, Program_Index> program_indexHashMap;
+    private ArrayList<ProgramIndex> programIndexes;
+    private HashMap<Integer, ProgramIndex> program_indexHashMap;
 
     public static CreekApplication getInstance() {
         return creekApplication;
@@ -56,19 +56,19 @@ public class CreekApplication extends Application {
     }
 
 
-    public void setProgramIndexes(ArrayList<Program_Index> programIndexes) {
+    public void setProgramIndexes(ArrayList<ProgramIndex> programIndexes) {
         this.programIndexes = programIndexes;
         program_indexHashMap.clear();
-        for( Program_Index program_index : programIndexes ) {
+        for( ProgramIndex program_index : programIndexes ) {
             program_indexHashMap.put(program_index.getIndex(), program_index);
         }
     }
 
-    public HashMap<Integer, Program_Index> getProgram_indexHashMap() {
+    public HashMap<Integer, ProgramIndex> getProgram_indexHashMap() {
         return program_indexHashMap;
     }
 
-    public ArrayList<Program_Index> getProgramIndexes() {
+    public ArrayList<ProgramIndex> getProgramIndexes() {
         return programIndexes;
     }
 }
