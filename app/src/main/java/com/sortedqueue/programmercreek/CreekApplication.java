@@ -63,7 +63,7 @@ public class CreekApplication extends Application {
         this.programIndexes = programIndexes;
         program_indexHashMap.clear();
         for( ProgramIndex program_index : programIndexes ) {
-            program_indexHashMap.put(program_index.getIndex(), program_index);
+            program_indexHashMap.put(program_index.getProgram_index(), program_index);
         }
     }
 

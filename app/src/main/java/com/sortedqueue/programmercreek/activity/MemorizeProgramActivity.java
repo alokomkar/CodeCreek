@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
@@ -75,7 +73,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 		Bundle newProgramActivityBundle = getIntent().getExtras();
 		mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        programIndex = mProgramIndex.getIndex();
+        programIndex = mProgramIndex.getProgram_index();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
 		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);

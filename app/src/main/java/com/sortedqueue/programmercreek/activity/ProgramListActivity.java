@@ -381,7 +381,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		 * ProgramActivity so as to retrieve
 		 * corresponding program from DB.
 		 * */
-		mSelectedProgramIndex = program_Index.getIndex();
+		mSelectedProgramIndex = program_Index.getProgram_index();
 		mSelectedProgramTitle = program_Index.getProgram_Description();
 
 		mBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);

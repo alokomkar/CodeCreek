@@ -169,11 +169,11 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeProgramIndex( ProgramIndex program_index ) {
-        mProgramDatabase.child(PROGRAM_INDEX_CHILD + "/" + program_index.getIndex()).setValue(program_index);
+        mProgramDatabase.child(PROGRAM_INDEX_CHILD + "/" + program_index.getProgram_index()).setValue(program_index);
     }
 
     public void writeProgramTable( ProgramTable program_table ) {
-        mProgramDatabase.child(PROGRAM_TABLE_CHILD + "/" + program_table.getIndex() + "/" + program_table.getLine_No()).setValue(program_table);
+        mProgramDatabase.child(PROGRAM_TABLE_CHILD + "/" + program_table.getProgram_index() + "/" + program_table.getLine_No()).setValue(program_table);
     }
 
     public void writeCreekUser(CreekUser creekUser) {
@@ -478,7 +478,9 @@ public class FirebaseDatabaseHandler {
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildren() );
                     for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
+                        Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildren() );
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
                             ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
                             program_table.save();
@@ -487,6 +489,7 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     programTableInterface.getProgramTables(program_tables);
+                    creekPreferences.setProgramIndex(program_tables.size());
                     CommonUtils.dismissProgressDialog();
                 }
 

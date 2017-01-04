@@ -103,7 +103,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
         mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
-        List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
+        List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         {
             initUI(program_TableList);
         }
@@ -543,7 +543,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
 
     @Override
     public void updateUI() {
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
+        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -552,7 +552,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getIndex());
+            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
             if (prevProgramSize == program_TableList.size()) {
                 break;
             }

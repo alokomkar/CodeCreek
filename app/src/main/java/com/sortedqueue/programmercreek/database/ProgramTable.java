@@ -13,7 +13,7 @@ import co.uk.rushorm.core.RushObject;
 
 public class ProgramTable extends RushObject implements Parcelable {
 
-    private int index;
+    private int program_index;
     private int line_No;
     private String program_Language;
     private String program_Line;
@@ -23,8 +23,8 @@ public class ProgramTable extends RushObject implements Parcelable {
     public ProgramTable() {
     }
 
-    public ProgramTable(int index, int line_No, String program_Language, String program_Line, String program_Line_Description) {
-        this.index = index;
+    public ProgramTable(int program_index, int line_No, String program_Language, String program_Line, String program_Line_Description) {
+        this.program_index = program_index;
         this.line_No = line_No;
         this.program_Language = program_Language;
         this.program_Line = program_Line;
@@ -40,12 +40,12 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Line_Html = program_Line_Html;
     }
 
-    public int getIndex() {
-        return index;
+    public int getProgram_index() {
+        return program_index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setProgram_index(int program_index) {
+        this.program_index = program_index;
     }
 
     public int getLine_No() {
@@ -87,7 +87,7 @@ public class ProgramTable extends RushObject implements Parcelable {
 
         ProgramTable that = (ProgramTable) o;
 
-        if (index != that.index) return false;
+        if (program_index != that.program_index) return false;
         if (line_No != that.line_No) return false;
         if (program_Language != null ? !program_Language.equals(that.program_Language) : that.program_Language != null)
             return false;
@@ -99,7 +99,7 @@ public class ProgramTable extends RushObject implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = index;
+        int result = program_index;
         result = 31 * result + line_No;
         result = 31 * result + (program_Language != null ? program_Language.hashCode() : 0);
         result = 31 * result + (program_Line != null ? program_Line.hashCode() : 0);
@@ -110,7 +110,7 @@ public class ProgramTable extends RushObject implements Parcelable {
     @Override
     public String toString() {
         return "ProgramTable{" +
-                "index=" + index +
+                "program_index=" + program_index +
                 ", line_No=" + line_No +
                 ", program_Language='" + program_Language + '\'' +
                 ", program_Line='" + program_Line + '\'' +
@@ -126,7 +126,7 @@ public class ProgramTable extends RushObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.index);
+        dest.writeInt(this.program_index);
         dest.writeInt(this.line_No);
         dest.writeString(this.program_Language);
         dest.writeString(this.program_Line);
@@ -134,7 +134,7 @@ public class ProgramTable extends RushObject implements Parcelable {
     }
 
     protected ProgramTable(Parcel in) {
-        this.index = in.readInt();
+        this.program_index = in.readInt();
         this.line_No = in.readInt();
         this.program_Language = in.readString();
         this.program_Line = in.readString();

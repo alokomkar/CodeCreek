@@ -2,10 +2,13 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +30,7 @@ import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -161,7 +165,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 checkSolution();
                 break;
             case R.id.hintSyntaxImageView:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                openVoiceIntent();
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -172,8 +177,25 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 builder.setMessage(syntaxModule.getSyntaxSolution());
                 builder.setTitle("Solution :");
                 builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.show();
+                builder.show();*/
                 break;
+        }
+    }
+
+    private static final int SPEECH_REQUEST = 9878;
+    private void openVoiceIntent() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        startActivityForResult(intent, SPEECH_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK ) {
+            List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            String spokenText = results.get(0);
+            syntaxSolutionTextView.setText(spokenText);
         }
     }
 
