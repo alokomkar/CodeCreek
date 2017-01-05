@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -58,6 +60,10 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     private String[] languageArray;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
+    private int INDEX_CPP = 1;
+    private int INDEX_C = 0;
+    private int INDEX_JAVA = 2;
+    private DashboardNavigationListener dashboardNavigationListener;
 
     public static LanguageFragment getInstance() {
         if (instance == null) {
@@ -115,18 +121,23 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
 
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
-        firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
-            @Override
-            public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
+        if( creekPreferences.getProgramIndex() == -1 ) {
+            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+            firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
+                @Override
+                public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
+                    dashboardNavigationListener.navigateToDashboard();
+                }
 
-            }
+                @Override
+                public void onError(DatabaseError error) {
 
-            @Override
-            public void onError(DatabaseError error) {
-
-            }
-        });
+                }
+            });
+        }
+        else {
+            dashboardNavigationListener.navigateToDashboard();
+        }
     }
 
     private void logDebugMessage(String message) {
@@ -137,13 +148,13 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cppProgrammingCardView:
-                selectAndInitDb(1);
+                selectAndInitDb(INDEX_CPP);
                 break;
             case R.id.cProgrammingCardView:
-                selectAndInitDb(0);
+                selectAndInitDb(INDEX_C);
                 break;
             case R.id.javaProgrammingCardView:
-                selectAndInitDb(2);
+                selectAndInitDb(INDEX_JAVA);
                 break;
         }
     }
@@ -154,5 +165,19 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         selectedString = selectedString.replace(" Programming", "").toLowerCase();
         creekPreferences.setProgramLanguage(selectedString);
         initDB();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.dashboardNavigationListener = null;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof DashboardNavigationListener ) {
+            this.dashboardNavigationListener = (DashboardNavigationListener) context;
+        }
     }
 }

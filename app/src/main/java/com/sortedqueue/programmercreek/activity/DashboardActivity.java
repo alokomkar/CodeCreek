@@ -21,14 +21,14 @@ import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DashboardActivity extends AppCompatActivity implements UIUpdateListener {
+public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener {
 
     //@Bind(R.id.adView)
     //AdView adView;
@@ -65,8 +65,11 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }
-        else
+        else {
             dashboardViewPager.setCurrentItem(1);
+            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage());
+        }
+
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -178,12 +181,6 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
     }
 
 
-    private void startWikiIntent() {
-        Intent intent = new Intent(DashboardActivity.this, NewProgramWikiActivity.class);
-        startActivity(intent);
-
-    }
-
     private void tellYourFriends() {
         //https://developers.facebook.com/docs/sharing/android/
         ShareLinkContent content = new ShareLinkContent.Builder()
@@ -207,11 +204,14 @@ public class DashboardActivity extends AppCompatActivity implements UIUpdateList
         startActivity(Intent.createChooser(shareIntent, "Share App Info"));
     }
 
-
     @Override
-    public void updateUI() {
-
-
+    public void navigateToDashboard() {
+        dashboardViewPager.setCurrentItem(1);
+        getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage());
     }
 
+    @Override
+    public void navigateToLanguage() {
+        dashboardViewPager.setCurrentItem(0);
+    }
 }
