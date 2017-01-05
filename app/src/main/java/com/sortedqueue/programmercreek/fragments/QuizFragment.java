@@ -26,6 +26,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.QuizModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
@@ -99,10 +100,25 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
+        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+            mWizard = false;
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                @Override
+                public void onSuccess(ProgramIndex programIndex) {
+                    program_index = programIndex;
+                    mProgramIndex = programIndex.getProgram_index();
+                    getProgramTables();
+                }
+            });
+        }
+        else {
+            program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgramIndex = program_index.getProgram_index();
+        }
+    }
 
-        
-        program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        mProgramIndex = program_index.getProgram_index();
+    private void getProgramTables() {
         new ProgramFetcherTask(getContext(), this, mProgramIndex).execute();
     }
 

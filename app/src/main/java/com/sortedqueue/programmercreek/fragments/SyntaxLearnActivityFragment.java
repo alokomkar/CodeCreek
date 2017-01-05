@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -84,6 +85,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
     private ModuleDetailsScrollPageListener modulteDetailsScrollPageListener;
     private boolean isLastFragment;
+    private String wizardUrl = null;
 
     public SyntaxLearnActivityFragment() {
     }
@@ -93,7 +95,19 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
-        bindData(syntaxModule);
+        if( wizardUrl == null ) {
+            bindData(syntaxModule);
+        }
+        else {
+            new FirebaseDatabaseHandler(getContext()).getSyntaxModule(wizardUrl, new FirebaseDatabaseHandler.SyntaxModuleInterface() {
+                @Override
+                public void onSuccess(SyntaxModule syntaxModule) {
+                    SyntaxLearnActivityFragment.this.syntaxModule = syntaxModule;
+                    bindData(syntaxModule);
+                }
+            });
+        }
+
         return view;
     }
 
@@ -237,5 +251,9 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     public void setIsLastFragment(boolean isLastFragment) {
         this.isLastFragment = isLastFragment;
+    }
+
+    public void setSyntaxModule(String wizardUrl) {
+        this.wizardUrl = wizardUrl;
     }
 }

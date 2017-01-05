@@ -74,6 +74,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WizardModuleActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_program_wiki"
             android:screenOrientation="portrait" />
         <activity

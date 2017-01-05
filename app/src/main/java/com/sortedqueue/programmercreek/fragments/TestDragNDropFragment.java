@@ -84,12 +84,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
         view = inflater.inflate(R.layout.activity_test_drag_n_drop, container, false);
         ButterKnife.bind(this, view);
         dragNDropListView = (DragNDropListView) view.findViewById(R.id.dragNDropListView);
-        mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-        {
-            initUI( program_TableList );
-        }
+
+        handleBundle();
+
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
         interstitialAd = new InterstitialAd(getContext());
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
@@ -102,6 +99,33 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
             }
         });
         return view;
+    }
+
+    private void handleBundle() {
+
+        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+            mWizard = false;
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID), new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                @Override
+                public void onSuccess(ProgramIndex programIndex) {
+                    mProgramIndex = programIndex;
+                    getProgramTables();
+                }
+            });
+        }
+        else {
+            mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+        }
+
+
+    }
+
+    private void getProgramTables() {
+        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
+        {
+            initUI( program_TableList );
+        }
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {

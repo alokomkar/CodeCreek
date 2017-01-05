@@ -196,61 +196,114 @@ public class FirebaseDatabaseHandler {
         }
     }
 
-    public ProgramIndex getProgramIndex(int mProgramIndex) {
-        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-            return new RushSearch()
-                    .whereEqual("program_Language", "c++")
-                    .or()
-                    .whereEqual("program_Language", "cpp")
-                    .and()
-                    .whereEqual("program_index", mProgramIndex)
-                    .findSingle(ProgramIndex.class);
-        }
-        else {
-            return new RushSearch()
-                    .whereEqual("program_Language", programLanguage)
-                    .and()
-                    .whereEqual("program_index", mProgramIndex)
-                    .findSingle(ProgramIndex.class);
-        }
+    public interface GetProgramIndexListener {
+        void onSuccess( ProgramIndex programIndex );
+    }
+    public void getProgramIndexInBackGround(final int mProgramIndex, final GetProgramIndexListener getProgramIndexListener ) {
+
+        new AsyncTask<Void, Void, ProgramIndex>() {
+
+            @Override
+            protected ProgramIndex doInBackground(Void... voids) {
+                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                    return new RushSearch()
+                            .whereEqual("program_Language", "c++")
+                            .or()
+                            .whereEqual("program_Language", "cpp")
+                            .and()
+                            .whereEqual("program_index", mProgramIndex)
+                            .findSingle(ProgramIndex.class);
+                }
+                else {
+                    return new RushSearch()
+                            .whereEqual("program_Language", programLanguage)
+                            .and()
+                            .whereEqual("program_index", mProgramIndex)
+                            .findSingle(ProgramIndex.class);
+                }
+            }
+
+            @Override
+            protected void onPostExecute(ProgramIndex programIndex) {
+                super.onPostExecute(programIndex);
+                getProgramIndexListener.onSuccess(programIndex);
+            }
+        }.execute();
+
+
     }
 
-    public SyntaxModule getSyntaxModule(String wizardUrl) {
-        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-            return new RushSearch()
-                    .whereEqual("program_Language", "c++")
-                    .or()
-                    .whereEqual("program_Language", "cpp")
-                    .and()
-                    .whereEqual("syntaxModuleId", wizardUrl)
-                    .findSingle(SyntaxModule.class);
-        }
-        else {
-            return new RushSearch()
-                    .whereEqual("program_Language", programLanguage)
-                    .and()
-                    .whereEqual("syntaxModuleId", wizardUrl)
-                    .findSingle(SyntaxModule.class);
-        }
+    public interface SyntaxModuleInterface {
+        void onSuccess( SyntaxModule syntaxModule );
+    }
+    public void getSyntaxModule(final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
+
+        new AsyncTask<Void, Void, SyntaxModule>( ) {
+
+            @Override
+            protected SyntaxModule doInBackground(Void... voids) {
+                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                    return new RushSearch()
+                            .whereEqual("syntaxLanguage", "c++")
+                            .or()
+                            .whereEqual("syntaxLanguage", "cpp")
+                            .and()
+                            .whereEqual("syntaxModuleId", wizardUrl)
+                            .findSingle(SyntaxModule.class);
+                }
+                else {
+                    return new RushSearch()
+                            .whereEqual("syntaxLanguage", programLanguage)
+                            .and()
+                            .whereEqual("syntaxModuleId", wizardUrl)
+                            .findSingle(SyntaxModule.class);
+                }
+            }
+
+            @Override
+            protected void onPostExecute(SyntaxModule syntaxModule) {
+                super.onPostExecute(syntaxModule);
+                syntaxModuleInterface.onSuccess(syntaxModule);
+            }
+        }.execute();
+
+
     }
 
-    public WikiModel getWikiModel(String wizardUrl) {
-        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-            return new RushSearch()
-                    .whereEqual("syntaxLanguage", "c++")
-                    .or()
-                    .whereEqual("syntaxLanguage", "cpp")
-                    .and()
-                    .whereEqual("wikiId", wizardUrl)
-                    .findSingle(WikiModel.class);
-        }
-        else {
-            return new RushSearch()
-                    .whereEqual("syntaxLanguage", programLanguage)
-                    .and()
-                    .whereEqual("wikiId", wizardUrl)
-                    .findSingle(WikiModel.class);
-        }
+    public interface GetWikiModelListener {
+        void onSuccess( WikiModel wikiModel );
+    }
+
+    public void getWikiModel(final String wizardUrl, final GetWikiModelListener getWikiModelListener ) {
+        new AsyncTask<Void, Void, WikiModel>() {
+
+            @Override
+            protected WikiModel doInBackground(Void... voids) {
+                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                    return new RushSearch()
+                            .whereEqual("syntaxLanguage", "c++")
+                            .or()
+                            .whereEqual("syntaxLanguage", "cpp")
+                            .and()
+                            .whereEqual("wikiId", wizardUrl)
+                            .findSingle(WikiModel.class);
+                }
+                else {
+                    return new RushSearch()
+                            .whereEqual("syntaxLanguage", programLanguage)
+                            .and()
+                            .whereEqual("wikiId", wizardUrl)
+                            .findSingle(WikiModel.class);
+                }
+            }
+
+            @Override
+            protected void onPostExecute(WikiModel wikiModel) {
+                super.onPostExecute(wikiModel);
+                getWikiModelListener.onSuccess(wikiModel);
+            }
+        }.execute();
+
     }
 
     public interface GetCreekUserDBListener {

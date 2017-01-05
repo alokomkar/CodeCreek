@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
+import com.sortedqueue.programmercreek.activity.WizardModuleActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -113,7 +114,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
+                //Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
+                Intent intent = new Intent(getContext(), WizardModuleActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:

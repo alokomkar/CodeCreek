@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ProgramWikiRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
 import java.util.ArrayList;
 
@@ -36,12 +37,27 @@ public class ProgramWikiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_program_wiki, null);
         ButterKnife.bind(this, fragmentView);
-
-        headerTextView.setText(programWiki.getWikiHeader());
-
-        setupRecyclerView( programWiki );
+        setupViews( programWiki );
+        if( wizardUrl == null ) {
+            headerTextView.setText(programWiki.getWikiHeader());
+            setupRecyclerView( programWiki );
+        }
+        else {
+            new FirebaseDatabaseHandler(getContext()).getWikiModel(wizardUrl, new FirebaseDatabaseHandler.GetWikiModelListener() {
+                @Override
+                public void onSuccess(WikiModel wikiModel) {
+                    ProgramWikiFragment.this.programWiki = wikiModel;
+                    headerTextView.setText(programWiki.getWikiHeader());
+                    setupRecyclerView( programWiki );
+                }
+            });
+        }
 
         return fragmentView;
+    }
+
+    private void setupViews(WikiModel programWiki) {
+        this.programWiki = programWiki;
     }
 
     private void setupRecyclerView(WikiModel wikiModel) {
@@ -58,5 +74,10 @@ public class ProgramWikiFragment extends Fragment {
     private WikiModel programWiki;
     public void setParams(WikiModel programWiki) {
         this.programWiki = programWiki;
+    }
+
+    private String wizardUrl;
+    public void setParams(String wizardUrl) {
+        this.wizardUrl = wizardUrl;
     }
 }

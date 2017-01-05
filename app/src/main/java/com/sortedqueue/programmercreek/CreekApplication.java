@@ -12,6 +12,8 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
+import com.sortedqueue.programmercreek.database.WizardDetails;
+import com.sortedqueue.programmercreek.database.WizardModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +55,8 @@ public class CreekApplication extends Application {
         dbClasses.add(WikiModel.class);
         dbClasses.add(ProgramTable.class);
         dbClasses.add(ProgramIndex.class);
+        dbClasses.add(WizardModule.class);
+        dbClasses.add(WizardDetails.class);
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);

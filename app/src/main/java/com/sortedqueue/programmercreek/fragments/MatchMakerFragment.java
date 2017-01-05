@@ -99,10 +99,28 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     }
     
     private void initUI() {
-        
-        mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
 
+        if( newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+            mWizard = false;
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID), new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                @Override
+                public void onSuccess(ProgramIndex programIndex) {
+                    mProgramIndex = programIndex;
+                    getProgramTables();
+                }
+            });
+        }
+        else {
+            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+
+            getProgramTables();
+        }
+
+
+    }
+
+    private void getProgramTables() {
         List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         {
             initUI(program_TableList);

@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.R;
@@ -44,6 +47,33 @@ public class WizardModuleActivity extends AppCompatActivity {
                 R.anim.anim_slide_out_left);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_syntax_learn, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
     private void loadModulesFragment() {
 
         WizardModule wizardModule = new WizardModule();
@@ -56,42 +86,42 @@ public class WizardModuleActivity extends AppCompatActivity {
         WizardDetails wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("c_c_1_s_" + index++);
+        wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
@@ -109,6 +139,8 @@ public class WizardModuleActivity extends AppCompatActivity {
         wizardDetails.setProgramTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         wizardDetailsArrayList.add(wizardDetails);
+
+        wizardModule.setWizardModules(wizardDetailsArrayList);
 
         getSupportActionBar().setTitle(wizardModule.getWizardName());
 

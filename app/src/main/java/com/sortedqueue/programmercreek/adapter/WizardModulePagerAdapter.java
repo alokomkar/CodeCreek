@@ -29,12 +29,13 @@ public class WizardModulePagerAdapter extends FragmentPagerAdapter {
     public WizardModulePagerAdapter(Context context, FragmentManager childFragmentManager, ArrayList<WizardDetails> wizardModules) {
         super(childFragmentManager);
         wizardFragments = new ArrayList<>();
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+
         for( WizardDetails wizardDetails : wizardModules ) {
             switch ( wizardDetails.getWizardType() ) {
                 case WizardDetails.TYPE_PROGRAM_INDEX:
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, firebaseDatabaseHandler.getProgramIndex(Integer.parseInt(wizardDetails.getWizardUrl())));
+                    bundle.putInt(ProgrammingBuddyConstants.KEY_PROG_ID, Integer.parseInt(wizardDetails.getWizardUrl()));
+                    bundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_LESSON);
                     switch ( wizardDetails.getProgramTestType() ) {
                         case ProgrammingBuddyConstants.KEY_MATCH :
                             MatchMakerFragment matchMakerFragment = new MatchMakerFragment();
@@ -55,12 +56,12 @@ public class WizardModulePagerAdapter extends FragmentPagerAdapter {
                     break;
                 case WizardDetails.TYPE_SYNTAX_MODULE:
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
-                    syntaxLearnActivityFragment.setSyntaxModule(firebaseDatabaseHandler.getSyntaxModule(wizardDetails.getWizardUrl()));
+                    syntaxLearnActivityFragment.setSyntaxModule(wizardDetails.getWizardUrl());
                     wizardFragments.add(syntaxLearnActivityFragment);
                     break;
                 case WizardDetails.TYPE_WIKI:
                     ProgramWikiFragment ProgramWikiFragment = new ProgramWikiFragment();
-                    ProgramWikiFragment.setParams( firebaseDatabaseHandler.getWikiModel(wizardDetails.getWizardUrl()) );
+                    ProgramWikiFragment.setParams( wizardDetails.getWizardUrl() );
                     wizardFragments.add(ProgramWikiFragment);
                     break;
             }
