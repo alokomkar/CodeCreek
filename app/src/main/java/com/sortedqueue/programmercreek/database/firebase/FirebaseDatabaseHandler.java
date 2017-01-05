@@ -478,9 +478,9 @@ public class FirebaseDatabaseHandler {
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildren() );
+                    Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildrenCount() );
                     for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
-                        Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildren() );
+                        Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildrenCount() );
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
                             ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
                             program_table.save();
@@ -488,9 +488,10 @@ public class FirebaseDatabaseHandler {
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                         }
                     }
-                    programTableInterface.getProgramTables(program_tables);
-                    creekPreferences.setProgramIndex(program_tables.size());
+                    creekPreferences.setProgramTables(program_tables.size());
                     CommonUtils.dismissProgressDialog();
+                    programTableInterface.getProgramTables(program_tables);
+
                 }
 
                 @Override

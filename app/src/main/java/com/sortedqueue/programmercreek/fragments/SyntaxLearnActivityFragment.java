@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,6 +29,8 @@ import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +55,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     ImageView clearSyntaxImageView;
     @Bind(R.id.hintSyntaxImageView)
     ImageView hintSyntaxImageView;
+    @Bind(R.id.voiceTypeImageView)
+    ImageView voiceTypeImageView;
     @Bind(R.id.content_syntax_learn)
     RelativeLayout contentSyntaxLearn;
     @Bind(R.id.syntaxNameTextView)
@@ -106,6 +111,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
         hintSyntaxImageView.setOnClickListener(this);
+        voiceTypeImageView.setOnClickListener(this);
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
@@ -129,6 +135,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         checkSyntaxImageView.setVisibility(visibility);
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
+        voiceTypeImageView.setVisibility(visibility);
 
     }
 
@@ -165,8 +172,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 checkSolution();
                 break;
             case R.id.hintSyntaxImageView:
-                openVoiceIntent();
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -177,7 +184,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 builder.setMessage(syntaxModule.getSyntaxSolution());
                 builder.setTitle("Solution :");
                 builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.show();*/
+                builder.show();
+                break;
+            case R.id.voiceTypeImageView :
+                openVoiceIntent();
                 break;
         }
     }
@@ -186,7 +196,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void openVoiceIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        startActivityForResult(intent, SPEECH_REQUEST);
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST);
+        } catch ( ActivityNotFoundException e ) {
+            e.printStackTrace();
+            AuxilaryUtils.displayAlert("No Voice App", "Your device doesn't support voice input - no app found", getContext());
+        }
+
     }
 
     @Override
@@ -195,7 +211,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         if( requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK ) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            syntaxSolutionTextView.setText(spokenText);
+            if( spokenText.equalsIgnoreCase("print formatted") ) {
+                solutionList.add("printf(");
+                syntaxSolutionTextView.setText(getSolution(solutionList));
+            }
         }
     }
 

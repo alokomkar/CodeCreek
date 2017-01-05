@@ -124,7 +124,16 @@
                 android:id="@+id/checkButtonLayout"
                 android:layout_below="@+id/syntaxQuestionCardView"
                 android:layout_alignParentRight="true">
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/voiceTypeImageView"
+                    android:elevation="@dimen/margin_4"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:background="@drawable/button_blue"
+                    android:padding="@dimen/margin_4"
+                    android:src="@drawable/ic_record_voice_over_white_24dp"
+                    />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
