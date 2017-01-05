@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.database.firebase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -70,34 +71,26 @@ public class FirebaseDatabaseHandler {
      ***/
 
     public DatabaseReference getProgramDatabase() {
-        if( mProgramDatabase == null ) {
-            mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
-            mProgramDatabase.keepSynced(true);
-        }
+        mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
+        mProgramDatabase.keepSynced(true);
         return mProgramDatabase;
     }
 
     public DatabaseReference getUserDatabase() {
-        if( mUserDatabase == null ) {
-            mUserDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_CHILD );
-            mUserDatabase.keepSynced(true);
-        }
+        mUserDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_CHILD );
+        mUserDatabase.keepSynced(true);
         return mUserDatabase;
     }
 
     public DatabaseReference getUserDetailsDatabase() {
-        if( mUserDetailsDatabase == null ) {
-            mUserDetailsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_PROGRAM_DETAILS_CHILD );
-            mUserDetailsDatabase.keepSynced(true);
-        }
+        mUserDetailsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_PROGRAM_DETAILS_CHILD );
+        mUserDetailsDatabase.keepSynced(true);
         return mUserDetailsDatabase;
     }
 
     public void getCreekUserDBDatabase() {
-        if( mCreekUserDBDatabase == null ) {
-            mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_DB );
-            mCreekUserDBDatabase.keepSynced(true);
-        }
+        mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_DB );
+        mCreekUserDBDatabase.keepSynced(true);
     }
 
     public FirebaseDatabaseHandler(Context context) {
@@ -425,7 +418,7 @@ public class FirebaseDatabaseHandler {
         int initialPrograms = 31;
 
         if( creekPreferences.getProgramIndex() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program index");
+            CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
@@ -495,7 +488,6 @@ public class FirebaseDatabaseHandler {
 
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
         if( creekPreferences.getProgramTables() == -1 ) {
-            CommonUtils.displayProgressDialog(mContext, "Loading program tables");
             program_tables = new ArrayList<>();
             mProgramDatabase.child(PROGRAM_TABLE_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -511,7 +503,6 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     creekPreferences.setProgramTables(program_tables.size());
-                    CommonUtils.dismissProgressDialog();
                     programTableInterface.getProgramTables(program_tables);
 
                 }
@@ -519,7 +510,6 @@ public class FirebaseDatabaseHandler {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     programTableInterface.onError(databaseError);
-                    CommonUtils.dismissProgressDialog();
                 }
             });
         }

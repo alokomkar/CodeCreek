@@ -86,7 +86,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
         ButterKnife.bind(this, view);
         creekPreferences = new CreekPreferences(getContext());
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getActivity());
+
         initUI();
         return view;
     }
@@ -115,15 +115,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             case R.id.wikiLayout:
                 Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
-                /*this.overridePendingTransition(R.anim.animation_leave,
-                        R.anim.animation_enter);*/
                 break;
             case R.id.syntaxLayout:
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);
                 syntaxIntent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(syntaxIntent);
-                /*this.overridePendingTransition(R.anim.animation_leave,
-                        R.anim.animation_enter);*/
                 break;
             case R.id.indexLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_LIST);
@@ -155,15 +151,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void LaunchProgramListActivity(final int invokeMode) {
         if (creekPreferences.getProgramTables() == -1) {
+            CommonUtils.displayProgressDialog(getActivity(), "Initializing data for the first time : " + creekPreferences.getProgramLanguage().toUpperCase());
+            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getActivity());
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
                 public void getProgramTables(ArrayList<ProgramTable> program_tables) {
+                    CommonUtils.dismissProgressDialog();
                     LaunchProgramListActivity(invokeMode);
                 }
 
                 @Override
                 public void onError(DatabaseError error) {
-
+                    CommonUtils.dismissProgressDialog();
                 }
             });
         } else {

@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.asynctask;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -39,7 +40,7 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, ArrayList<ProgramT
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		CommonUtils.displayProgressDialog(mContext, "Initializing Program, Please Wait...");
+		CommonUtils.displayProgressDialog((Activity) mContext, "Initializing Program, Please Wait...");
 	}
 
 	@Override

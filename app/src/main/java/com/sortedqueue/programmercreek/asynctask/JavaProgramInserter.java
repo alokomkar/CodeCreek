@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.asynctask;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.sortedqueue.programmercreek.database.ModuleOption;
@@ -63,7 +64,7 @@ public class JavaProgramInserter {
     }*/
 
     public void insertProgramTables( ) {
-        CommonUtils.displayProgressDialog(context, "Inserting program tables");
+        CommonUtils.displayProgressDialog((Activity) context, "Inserting program tables");
         int programIndex = 24;
         int lineNo = 1;
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
