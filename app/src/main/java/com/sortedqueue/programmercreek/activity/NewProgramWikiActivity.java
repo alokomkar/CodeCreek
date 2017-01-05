@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.fragments.ProgramWikiPagerAdapter;
+import com.sortedqueue.programmercreek.adapter.ProgramWikiPagerAdapter;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 

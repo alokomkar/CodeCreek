@@ -62,7 +62,7 @@ public class ModuleFragment extends Fragment {
     }
 
     private void getModules() {
-        //CommonUtils.displayProgressDialog(getContext(), "Loading modules");
+        CommonUtils.displayProgressDialog(getContext(), "Loading modules");
         new FirebaseDatabaseHandler(getContext()).initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
             @Override
             public void getModules(ArrayList<LanguageModule> languageModules) {

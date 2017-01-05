@@ -196,6 +196,63 @@ public class FirebaseDatabaseHandler {
         }
     }
 
+    public ProgramIndex getProgramIndex(int mProgramIndex) {
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+            return new RushSearch()
+                    .whereEqual("program_Language", "c++")
+                    .or()
+                    .whereEqual("program_Language", "cpp")
+                    .and()
+                    .whereEqual("program_index", mProgramIndex)
+                    .findSingle(ProgramIndex.class);
+        }
+        else {
+            return new RushSearch()
+                    .whereEqual("program_Language", programLanguage)
+                    .and()
+                    .whereEqual("program_index", mProgramIndex)
+                    .findSingle(ProgramIndex.class);
+        }
+    }
+
+    public SyntaxModule getSyntaxModule(String wizardUrl) {
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+            return new RushSearch()
+                    .whereEqual("program_Language", "c++")
+                    .or()
+                    .whereEqual("program_Language", "cpp")
+                    .and()
+                    .whereEqual("syntaxModuleId", wizardUrl)
+                    .findSingle(SyntaxModule.class);
+        }
+        else {
+            return new RushSearch()
+                    .whereEqual("program_Language", programLanguage)
+                    .and()
+                    .whereEqual("syntaxModuleId", wizardUrl)
+                    .findSingle(SyntaxModule.class);
+        }
+    }
+
+    public WikiModel getWikiModel(String wizardUrl) {
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+            return new RushSearch()
+                    .whereEqual("syntaxLanguage", "c++")
+                    .or()
+                    .whereEqual("syntaxLanguage", "cpp")
+                    .and()
+                    .whereEqual("wikiId", wizardUrl)
+                    .findSingle(WikiModel.class);
+        }
+        else {
+            return new RushSearch()
+                    .whereEqual("syntaxLanguage", programLanguage)
+                    .and()
+                    .whereEqual("wikiId", wizardUrl)
+                    .findSingle(WikiModel.class);
+        }
+    }
+
     public interface GetCreekUserDBListener {
         void onSuccess( CreekUserDB creekUserDB );
         void onError( DatabaseError databaseError );
@@ -239,7 +296,12 @@ public class FirebaseDatabaseHandler {
                     Log.d(TAG, "Wiki model Resoponse : " + dataSnapshot.toString());
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
                         WikiModel wiki = childDataSnapShot.getValue(WikiModel.class);
-                        wiki.save();
+                        wiki.save(new RushCallback() {
+                            @Override
+                            public void complete() {
+
+                            }
+                        });
                         programWikis.add(wiki);
                     }
                     programWikiInterface.getProgramWiki(programWikis);
@@ -309,7 +371,12 @@ public class FirebaseDatabaseHandler {
                     ArrayList<SyntaxModule> syntaxModules = new ArrayList<>();
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
                         SyntaxModule syntaxModule = childDataSnapShot.getValue(SyntaxModule.class);
-                        syntaxModule.save();
+                        syntaxModule.save(new RushCallback() {
+                            @Override
+                            public void complete() {
+
+                            }
+                        });
                         if( syntaxModule.getModuleId().equals(languageModule.getModuleId()) ) {
                             syntaxModules.add(syntaxModule);
                         }
@@ -369,7 +436,12 @@ public class FirebaseDatabaseHandler {
                     ArrayList<LanguageModule> languageModules = new ArrayList<LanguageModule>();
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
                         LanguageModule languageModule = childDataSnapShot.getValue(LanguageModule.class);
-                        languageModule.save();
+                        languageModule.save(new RushCallback() {
+                            @Override
+                            public void complete() {
+
+                            }
+                        });
                         languageModules.add(languageModule);
                     }
                     moduleInterface.getModules(languageModules);
@@ -429,7 +501,12 @@ public class FirebaseDatabaseHandler {
                     ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
                     for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
                         ProgramIndex program_index = programIndexSnapshot.getValue(ProgramIndex.class);
-                        program_index.save();
+                        program_index.save(new RushCallback() {
+                            @Override
+                            public void complete() {
+
+                            }
+                        });
                         program_indices.add(program_index);
                     }
                     creekPreferences.setProgramIndex(program_indices.size());
@@ -497,7 +574,12 @@ public class FirebaseDatabaseHandler {
                         Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildrenCount() );
                         for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
                             ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
-                            program_table.save();
+                            program_table.save(new RushCallback() {
+                                @Override
+                                public void complete() {
+
+                                }
+                            });
                             program_tables.add(program_table);
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                         }

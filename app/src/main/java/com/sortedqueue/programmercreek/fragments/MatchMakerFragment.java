@@ -101,7 +101,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     private void initUI() {
         
         mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-        mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+        mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
 
         List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         {
