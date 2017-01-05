@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdView;
 
@@ -11,6 +12,7 @@ import com.google.android.gms.ads.AdView;
 
 public class CommonUtils {
 
+    public static final String TAG = "CommonUtils";
     private static ProgressDialog mProgressDialog;
 
     public static void displayProgressDialog(Context context, String message ) {
@@ -24,7 +26,9 @@ public class CommonUtils {
                 mProgressDialog.show();
             }
         } catch ( Exception e ) {
+            Log.d(TAG, "displayProgress : " + e.getMessage());
 
+            e.printStackTrace();
         }
 
     }
@@ -35,7 +39,8 @@ public class CommonUtils {
                 mProgressDialog.dismiss();
             }
         } catch ( Exception e ) {
-
+            Log.d(TAG, "dismissProgressDialog : " + e.getMessage());
+            e.printStackTrace();
         }
 
     }

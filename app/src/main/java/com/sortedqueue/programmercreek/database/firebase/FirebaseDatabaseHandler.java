@@ -185,20 +185,20 @@ public class FirebaseDatabaseHandler {
     }
 
     public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
-        if( programLanguage.equals("c++") ) {
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
             return new ArrayList<>(new RushSearch()
                     .whereEqual("program_Language", "c++")
                     .or()
                     .whereEqual("program_Language", "cpp")
                     .and()
-                    .whereEqual("index", mProgramIndex)
+                    .whereEqual("program_index", mProgramIndex)
                     .find(ProgramTable.class));
         }
         else {
             return new ArrayList<>(new RushSearch()
                     .whereEqual("program_Language", programLanguage)
                     .and()
-                    .whereEqual("index", mProgramIndex)
+                    .whereEqual("program_index", mProgramIndex)
                     .find(ProgramTable.class));
         }
     }
@@ -439,10 +439,10 @@ public class FirebaseDatabaseHandler {
                         program_index.save();
                         program_indices.add(program_index);
                     }
-                    programIndexInterface.getProgramIndexes(program_indices);
                     creekPreferences.setProgramIndex(program_indices.size());
                     Log.d(TAG, "Inserted program indexes : " + program_indices.size());
                     CommonUtils.dismissProgressDialog();
+                    programIndexInterface.getProgramIndexes(program_indices);
                 }
 
                 @Override
@@ -457,13 +457,35 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 protected ArrayList<ProgramIndex> doInBackground(Void... params) {
-                    return null;
+                    return new FirebaseDatabaseHandler(mContext).getProgramIndexes();
+
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<ProgramIndex> programIndices) {
+                    super.onPostExecute(programIndices);
+                    programIndexInterface.getProgramIndexes(programIndices);
                 }
             }.execute();
             Log.d(TAG, "Inserted program indexes found : " + creekPreferences.getProgramIndex());
-            programIndexInterface.getProgramIndexes(new ArrayList<ProgramIndex>());
+
         }
 
+    }
+
+    private ArrayList<ProgramIndex> getProgramIndexes() {
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_Language", "c++")
+                    .or()
+                    .whereEqual("program_Language", "cpp")
+                    .find(ProgramIndex.class));
+        }
+        else {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_Language", programLanguage)
+                    .find(ProgramIndex.class));
+        }
     }
 
     public interface ProgramTableInterface {

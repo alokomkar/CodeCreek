@@ -86,7 +86,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
         ButterKnife.bind(this, view);
         creekPreferences = new CreekPreferences(getContext());
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getActivity());
         initUI();
         return view;
     }
