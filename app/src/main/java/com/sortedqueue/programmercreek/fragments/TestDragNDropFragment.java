@@ -166,44 +166,48 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
 
         timerButton.setEnabled(false);
 
-        time = ( programSize / 2) * 60 * 1000;
-        interval = 1000;
-        circularProgressBar.setMax((int) (time / 1000));
-        if( mCountDownTimer != null ) {
-            mCountDownTimer.cancel();
-            checkQuizButton.setEnabled(true);
-        }
-
-        mCountDownTimer = new CountDownTimer( time, interval) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timerButton.setText(""+String.format("%d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                progressTextView.setText(timerButton.getText());
-                remainingTime = time - millisUntilFinished;
-                circularProgressBar.setProgress((int) (remainingTime / 1000));
+        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) != ProgrammingBuddyConstants.KEY_LESSON ) {
+            time = ( programSize / 2) * 60 * 1000;
+            interval = 1000;
+            circularProgressBar.setMax((int) (time / 1000));
+            if( mCountDownTimer != null ) {
+                mCountDownTimer.cancel();
+                checkQuizButton.setEnabled(true);
             }
 
-            @Override
-            public void onFinish() {
+            mCountDownTimer = new CountDownTimer( time, interval) {
 
-                timerButton.setText("Time up");
-                timerButton.setVisibility(View.VISIBLE);
-                progressLayout.setVisibility(View.GONE);
-                if( mWizard == true ) {
-                    timerButton.setText("Finish");
-                    timerButton.setVisibility(View.VISIBLE);
-                    progressLayout.setVisibility(View.GONE);
-                    timerButton.setEnabled(true);
-                    timerButton.setOnClickListener(mFinishBtnClickListener);
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    timerButton.setText(""+String.format("%d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                    progressTextView.setText(timerButton.getText());
+                    remainingTime = time - millisUntilFinished;
+                    circularProgressBar.setProgress((int) (remainingTime / 1000));
                 }
 
-                checkScore( programSize );
-            }
-        };
+                @Override
+                public void onFinish() {
+
+                    timerButton.setText("Time up");
+                    timerButton.setVisibility(View.VISIBLE);
+                    progressLayout.setVisibility(View.GONE);
+                    if( mWizard == true ) {
+                        timerButton.setText("Finish");
+                        timerButton.setVisibility(View.VISIBLE);
+                        progressLayout.setVisibility(View.GONE);
+                        timerButton.setEnabled(true);
+                        timerButton.setOnClickListener(mFinishBtnClickListener);
+                    }
+
+                    checkScore( programSize );
+                }
+            };
+            mCountDownTimer.start();
+        }
+
 
         checkQuizButton.setOnClickListener(new View.OnClickListener() {
 
@@ -213,7 +217,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
             }
         });
 
-        mCountDownTimer.start();
+
 
 
 
@@ -299,6 +303,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Keep Working..";
             }
+            if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+                resultAlert = "You have scored " + score;
+            }
             AuxilaryUtils.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float)(maxScore - mProgramHint) / maxScore * 100), 100);
             checkQuizButton.setEnabled(false);
 
@@ -323,7 +330,8 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 checkScore(programSize);
-                countDownTimer.cancel();
+                if( countDownTimer != null )
+                    countDownTimer.cancel();
             }
 
         });
