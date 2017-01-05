@@ -19,10 +19,6 @@
             android:background="@color/md_grey_300">
 
 
-
-
-
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +32,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -102,7 +98,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -165,7 +161,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -230,7 +226,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -293,7 +289,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -356,7 +352,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -420,7 +416,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -482,7 +478,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout
@@ -546,7 +542,7 @@
                     android:layout_margin="@dimen/margin_16"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
                     app:cardElevation="4dp">
 
                     <RelativeLayout

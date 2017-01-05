@@ -25,7 +25,7 @@
                 android:layout_marginBottom="@dimen/margin_8"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
                 app:cardElevation="4dp">
 
                 <LinearLayout
@@ -78,7 +78,7 @@
                 android:layout_marginBottom="@dimen/margin_8"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
                 app:cardElevation="4dp">
 
                 <LinearLayout
@@ -177,7 +177,7 @@
                 android:id="@+id/optionsCardView"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
                 app:cardElevation="4dp"
                 android:layout_below="@+id/checkButtonLayout"
                 android:layout_alignParentLeft="true"
