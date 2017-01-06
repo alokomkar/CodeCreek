@@ -86,6 +86,7 @@ public class WizardModuleActivity extends AppCompatActivity {
         int index = 1;
         WizardDetails wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
         wizardDetails.setWizardUrl("s_" + index++);
 

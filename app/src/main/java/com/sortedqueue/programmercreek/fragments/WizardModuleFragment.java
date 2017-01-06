@@ -61,7 +61,7 @@ public class WizardModuleFragment extends Fragment {
         syntaxLearnViewPager.setOffscreenPageLimit(wizardModule.getWizardModules().size());
         wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), wizardModule.getWizardModules());
         syntaxLearnViewPager.setAdapter(wizardModulePagerAdapter);
-        syntaxLearnViewPager.setCanScroll(true);
+        syntaxLearnViewPager.setCanScroll(false);
         syntaxLearnViewPager.setAllowedSwipeDirection(ScrollableViewPager.SwipeDirection.left);
         progressBar.setMax(wizardModule.getWizardModules().size());
         progressBar.setProgress(1);

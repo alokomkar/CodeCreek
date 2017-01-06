@@ -15,8 +15,6 @@
         android:layout_height="match_parent">
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/questionTextView"
@@ -38,8 +36,6 @@
                 android:id="@+id/option1ImageView"
                 android:background="@drawable/quiz_selector"/>
             <TextView
-                tools:ignore="MissingPrefix"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

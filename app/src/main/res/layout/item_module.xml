@@ -17,8 +17,6 @@
         android:padding="@dimen/margin_16">
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -26,8 +24,6 @@
             android:text="@string/module"/>
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/moduleNameTextView"
@@ -35,8 +31,6 @@
             android:text="@string/printf_solution"/>
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"

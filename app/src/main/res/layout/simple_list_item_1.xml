@@ -12,8 +12,6 @@
     card_view:cardElevation="4dp">
 
     <TextView
-        tools:ignore="MissingPrefix"
-        fontPath="fonts/Roboto-Regular.ttf"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/text1"
         android:layout_width="match_parent"

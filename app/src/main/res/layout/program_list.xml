@@ -12,8 +12,6 @@
     card_view:cardElevation="4dp">
 
     <TextView
-        tools:ignore="MissingPrefix"
-        fontPath="fonts/Roboto-Regular.ttf"
         android:id="@+id/progamLineTxtView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_48"

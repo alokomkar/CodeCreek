@@ -22,8 +22,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/programIndexLayout">
             <TextView
-                tools:ignore="MissingPrefix"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_height="@dimen/margin_32"
                 android:layout_width="@dimen/margin_32"
                 android:text="C"
@@ -38,8 +36,6 @@
                 android:gravity="center"/>
 
             <TextView
-                tools:ignore="MissingPrefix"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:id="@+id/txtViewProgDescription"
                 android:layout_toRightOf="@+id/programTypeTextView"
                 android:layout_width="match_parent"
@@ -56,8 +52,6 @@
         </RelativeLayout>
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/wikiTextView"

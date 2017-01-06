@@ -23,8 +23,6 @@
         </ImageView>
 
         <TextView
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:id="@+id/programLineTextView"
             android:layout_width="match_parent"
             android:layout_marginRight="@dimen/margin_8"
