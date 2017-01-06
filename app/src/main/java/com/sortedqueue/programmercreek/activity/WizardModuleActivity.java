@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.WizardDetails;
-import com.sortedqueue.programmercreek.database.WizardModule;
+import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.database.Chapters;
 import com.sortedqueue.programmercreek.fragments.WizardModuleFragment;
 
 import java.util.ArrayList;
@@ -77,86 +77,87 @@ public class WizardModuleActivity extends AppCompatActivity {
 
     private void loadModulesFragment() {
 
-        WizardModule wizardModule = new WizardModule();
-        wizardModule.setProgram_Language("c");
-        wizardModule.setWizardModuleId("c_w_1");
-        wizardModule.setWizardName("Simple I/O : Hello world");
+        Chapters chapters = new Chapters();
+        chapters.setProgram_Language("c");
+        chapters.setChapterId("c_w_1");
+        chapters.setChapterName("Simple I/O : Hello world");
+        chapters.setChapteBrief("Learn about simple input and output commands, write your very first program");
 
-        ArrayList<WizardDetails> wizardDetailsArrayList = new ArrayList<>();
+        ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
         int index = 1;
-        WizardDetails wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("s_" + index++);
+        ChapterDetails chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardUrl("s_" + index++);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("s_" + index++);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("s_" + index++);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("s_" + index++);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index);
-        wizardDetails.setSyntaxId("c_1");
-        wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
-        wizardDetails.setWizardUrl("s_" + index++);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setSyntaxId("c_1");
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index++);
-        wizardDetails.setWizardType(WizardDetails.TYPE_WIKI);
-        wizardDetails.setWizardUrl("c1");
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c1");
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardDetails = new WizardDetails();
-        wizardDetails.setWizardIndex(index++);
-        wizardDetails.setWizardType(WizardDetails.TYPE_PROGRAM_INDEX);
-        wizardDetails.setWizardUrl("1");
-        wizardDetails.setProgramTestType(ProgrammingBuddyConstants.KEY_TEST);
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("1");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
-        wizardDetailsArrayList.add(wizardDetails);
+        chapterDetailsArrayList.add(chapterDetails);
 
-        wizardModule.setWizardModules(wizardDetailsArrayList);
+        chapters.setWizardModules(chapterDetailsArrayList);
 
-        getSupportActionBar().setTitle(wizardModule.getWizardName());
+        getSupportActionBar().setTitle(chapters.getChapterName());
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         wizardModuleFragment = (WizardModuleFragment) getSupportFragmentManager().findFragmentByTag(WizardModuleFragment.class.getSimpleName());
         if( wizardModuleFragment == null ) {
             wizardModuleFragment = new WizardModuleFragment();
         }
-        wizardModuleFragment.setWizardModule( wizardModule );
+        wizardModuleFragment.setChapters(chapters);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, wizardModuleFragment, WizardModuleFragment.class.getSimpleName());
         mFragmentTransaction.commit();
