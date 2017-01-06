@@ -13,7 +13,7 @@ import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
-import com.sortedqueue.programmercreek.database.Chapters;
+import com.sortedqueue.programmercreek.database.Chapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public class CreekApplication extends Application {
         dbClasses.add(WikiModel.class);
         dbClasses.add(ProgramTable.class);
         dbClasses.add(ProgramIndex.class);
-        dbClasses.add(Chapters.class);
+        dbClasses.add(Chapter.class);
         dbClasses.add(ChapterDetails.class);
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;

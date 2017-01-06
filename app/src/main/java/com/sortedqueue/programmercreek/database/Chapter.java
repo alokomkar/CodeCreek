@@ -12,7 +12,7 @@ import co.uk.rushorm.core.annotations.RushList;
  * Created by Alok on 05/01/17.
  */
 
-public class Chapters extends RushObject implements Parcelable {
+public class Chapter extends RushObject implements Parcelable {
 
     private String program_Language;
     private String chapterId;
@@ -22,10 +22,10 @@ public class Chapters extends RushObject implements Parcelable {
     @RushList(classType = ChapterDetails.class)
     private ArrayList<ChapterDetails> wizardModules = new ArrayList<>();
 
-    public Chapters() {
+    public Chapter() {
     }
 
-    public Chapters(String program_Language, String chapterId, String chapterName, String chapteBrief, ArrayList<ChapterDetails> wizardModules) {
+    public Chapter(String program_Language, String chapterId, String chapterName, String chapteBrief, ArrayList<ChapterDetails> wizardModules) {
         this.program_Language = program_Language;
         this.chapterId = chapterId;
         this.chapteBrief = chapteBrief;
@@ -78,7 +78,7 @@ public class Chapters extends RushObject implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Chapters that = (Chapters) o;
+        Chapter that = (Chapter) o;
 
         if (program_Language != null ? !program_Language.equals(that.program_Language) : that.program_Language != null)
             return false;
@@ -114,7 +114,7 @@ public class Chapters extends RushObject implements Parcelable {
         dest.writeTypedList(this.wizardModules);
     }
 
-    protected Chapters(Parcel in) {
+    protected Chapter(Parcel in) {
         this.program_Language = in.readString();
         this.chapterId = in.readString();
         this.chapterName = in.readString();
@@ -122,15 +122,15 @@ public class Chapters extends RushObject implements Parcelable {
         this.wizardModules = in.createTypedArrayList(ChapterDetails.CREATOR);
     }
 
-    public static final Parcelable.Creator<Chapters> CREATOR = new Parcelable.Creator<Chapters>() {
+    public static final Parcelable.Creator<Chapter> CREATOR = new Parcelable.Creator<Chapter>() {
         @Override
-        public Chapters createFromParcel(Parcel source) {
-            return new Chapters(source);
+        public Chapter createFromParcel(Parcel source) {
+            return new Chapter(source);
         }
 
         @Override
-        public Chapters[] newArray(int size) {
-            return new Chapters[size];
+        public Chapter[] newArray(int size) {
+            return new Chapter[size];
         }
     };
 }

@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.WizardModulePagerAdapter;
-import com.sortedqueue.programmercreek.database.Chapters;
+import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 05/01/17.
  */
 
-public class WizardModuleFragment extends Fragment {
+public class ChapterDetailsFragment extends Fragment {
 
     @Bind(R.id.ProgressBar)
     android.widget.ProgressBar progressBar;
@@ -35,7 +35,7 @@ public class WizardModuleFragment extends Fragment {
     @Bind(R.id.doneFAB)
     FloatingActionButton doneFAB;
 
-    private Chapters chapters;
+    private Chapter chapter;
     private WizardModulePagerAdapter wizardModulePagerAdapter;
 
     @Override
@@ -53,17 +53,17 @@ public class WizardModuleFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    public void setChapters(Chapters chapters) {
-        this.chapters = chapters;
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
     private void setupViews() {
         CommonUtils.displayProgressDialog(getContext(), "Loading chapter");
-        syntaxLearnViewPager.setOffscreenPageLimit(chapters.getWizardModules().size());
-        wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), chapters.getWizardModules());
+        syntaxLearnViewPager.setOffscreenPageLimit(chapter.getWizardModules().size());
+        wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), chapter.getWizardModules());
         syntaxLearnViewPager.setAdapter(wizardModulePagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
-        progressBar.setMax(chapters.getWizardModules().size());
+        progressBar.setMax(chapter.getWizardModules().size());
         progressBar.setProgress(1);
         doneFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class WizardModuleFragment extends Fragment {
 
     public void onScrollForward() {
         //Add validations here : if answer is complete - track and allow scrolling
-        if (syntaxLearnViewPager.getCurrentItem() + 1 == chapters.getWizardModules().size()) {
+        if (syntaxLearnViewPager.getCurrentItem() + 1 == chapter.getWizardModules().size()) {
             getActivity().onBackPressed();
         } else {
             syntaxLearnViewPager.setCurrentItem(syntaxLearnViewPager.getCurrentItem() + 1);

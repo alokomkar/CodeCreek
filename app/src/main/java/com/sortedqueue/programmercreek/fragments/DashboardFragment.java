@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
-import com.sortedqueue.programmercreek.activity.WizardModuleActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -131,7 +131,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.wizardLayout:
-                Intent textModeIntent = new Intent(getContext(), WizardModuleActivity.class);
+                Intent textModeIntent = new Intent(getContext(), ChaptersActivity.class);
                 startActivity(textModeIntent);
                 break;
 
