@@ -26,6 +26,8 @@
             android:layout_centerInParent="true"
             android:src="@drawable/splash_logo"/>
         <TextView
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Roboto-Regular.ttf"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,6 +52,8 @@
     </LinearLayout>
 
     <TextView
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/Roboto-Regular.ttf"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"

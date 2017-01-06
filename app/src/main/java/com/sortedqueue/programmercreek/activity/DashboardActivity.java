@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener {
 
@@ -46,7 +48,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

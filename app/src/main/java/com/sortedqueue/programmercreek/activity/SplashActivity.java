@@ -4,6 +4,7 @@ package com.sortedqueue.programmercreek.activity;
  * Created by Alok Omkar on 2016-11-26.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,6 +48,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
 
@@ -65,6 +67,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private CreekPreferences creekPreferences;
     private CallbackManager callbackManager;
     private Thread splashTread;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

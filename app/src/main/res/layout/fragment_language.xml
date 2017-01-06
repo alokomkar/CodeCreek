@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:paddingBottom="@dimen/margin_16"
@@ -28,7 +28,8 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_marginLeft="@dimen/margin_4"
                 />
-            <TextView
+            <TextView tools:ignore="MissingPrefix"
+                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/nameTextView"
@@ -59,13 +60,13 @@
                 android:gravity="center"
                 >
 
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_16"
                     android:text="@string/select_language"/>
 
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:id="@+id/languageSelectionTextView"
                     android:text="C Programming"
                     android:textColor="@color/colorPrimaryDark"
@@ -93,7 +94,7 @@
                 android:padding="@dimen/margin_16"
                 >
 
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -102,7 +103,7 @@
                     android:textSize="@dimen/text_dashboard_small"
                     android:id="@+id/cProgrammingTextView" />
 
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/c_description"/>
@@ -139,7 +140,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/margin_16"
                 >
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -147,7 +148,7 @@
                     android:text="C++ Programming"
                     android:id="@+id/cppProgrammingTextView"
                     android:textSize="@dimen/text_dashboard_small"/>
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/cpp_description"/>
@@ -184,7 +185,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/margin_16"
                 >
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -192,7 +193,7 @@
                     android:text="Java Programming"
                     android:id="@+id/javaProgrammingTextView"
                     android:textSize="@dimen/text_dashboard_small"/>
-                <TextView
+                <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/java_description"/>

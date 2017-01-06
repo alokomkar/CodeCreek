@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/margin_16"
     app:cardBackgroundColor="@color/md_white_1000"
     app:cardCornerRadius="@dimen/cardview_app_radius"
@@ -14,6 +15,8 @@
         android:layout_height="match_parent">
 
         <TextView
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/questionTextView"
@@ -35,6 +38,8 @@
                 android:id="@+id/option1ImageView"
                 android:background="@drawable/quiz_selector"/>
             <TextView
+                tools:ignore="MissingPrefix"
+                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -58,6 +63,8 @@
                 android:id="@+id/option2ImageView"
                 android:background="@drawable/quiz_selector"/>
             <TextView
+                tools:ignore="MissingPrefix"
+                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -81,6 +88,8 @@
                 android:id="@+id/option3ImageView"
                 android:background="@drawable/quiz_selector"/>
             <TextView
+                tools:ignore="MissingPrefix"
+                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -104,6 +113,8 @@
                 android:id="@+id/option4ImageView"
                 android:background="@drawable/quiz_selector"/>
             <TextView
+                tools:ignore="MissingPrefix"
+                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

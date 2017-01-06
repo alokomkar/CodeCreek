@@ -273,7 +273,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
             }
         }
         if( programCheck < programLength ) {
-            displayToast("Please check the program Again");
+            displayToast("Please check the program again");
             mProgramHint++;
             return;
         }

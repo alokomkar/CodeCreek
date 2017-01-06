@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavigationListener {
 
@@ -36,6 +38,10 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     private String TAG = SyntaxLearnActivity.class.getSimpleName();
     private ModuleDetailsFragment moduleDetailsFragment;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

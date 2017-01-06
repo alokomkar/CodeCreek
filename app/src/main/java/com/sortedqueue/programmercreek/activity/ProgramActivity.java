@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ProgramActivity extends AppCompatActivity implements UIUpdateListener {
 
@@ -63,7 +66,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	 * http://code.tutsplus.com/tutorials/android-sdk-detecting-gestures--mobile-21161
 	 * */
 
-
+	@Override
+	protected void attachBaseContext(Context newBase) {
+		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

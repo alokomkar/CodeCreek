@@ -114,8 +114,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.wikiLayout:
-                //Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
-                Intent intent = new Intent(getContext(), WizardModuleActivity.class);
+                Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:
@@ -132,7 +131,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.wizardLayout:
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
+                Intent textModeIntent = new Intent(getContext(), WizardModuleActivity.class);
+                startActivity(textModeIntent);
                 break;
 
             case R.id.testLayout:

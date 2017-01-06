@@ -1,11 +1,14 @@
 package com.sortedqueue.programmercreek.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.sortedqueue.programmercreek.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class WebViewActivity extends AppCompatActivity {
@@ -28,5 +31,10 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(url);
     }
+
+	@Override
+	protected void attachBaseContext(Context newBase) {
+		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+	}
 
 }

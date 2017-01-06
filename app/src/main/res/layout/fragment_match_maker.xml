@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +21,7 @@
             android:layout_weight="1"
             android:layout_margin="@dimen/margin_8"
             card_view:cardBackgroundColor="@color/md_white_1000"
-            card_view:cardCornerRadius="8dp"
+            card_view:cardCornerRadius="@dimen/cardview_app_radius"
             card_view:cardElevation="4dp">
         <ScrollView
             android:id="@+id/leftScrollView"
@@ -43,7 +44,7 @@
             android:layout_margin="@dimen/margin_8"
             android:foreground="?android:attr/selectableItemBackground"
             card_view:cardBackgroundColor="@color/md_white_1000"
-            card_view:cardCornerRadius="8dp"
+            card_view:cardCornerRadius="@dimen/cardview_app_radius"
             card_view:cardElevation="4dp">
 
             <ScrollView
@@ -97,7 +98,7 @@
                 android:progress="10"
                 android:background="@drawable/circle_shape"
                 android:progressDrawable="@drawable/circular_progressbar" />
-            <TextView
+            <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

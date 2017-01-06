@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -41,6 +42,7 @@
                         android:layout_marginBottom="@dimen/margin_16">
 
                         <TextView
+                            fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/syntaxTextView"
@@ -50,9 +52,10 @@
                             android:layout_marginRight="@dimen/margin_16"
                             android:text="@string/learn_syntax_description"
                             android:textSize="@dimen/text_dashboard_small"
-                            android:id="@+id/textView3" />
+                            android:id="@+id/textView3"
+                            tools:ignore="MissingPrefix" />
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_8"
@@ -76,7 +79,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="S"
@@ -106,7 +109,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/program_index"
@@ -117,7 +120,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/indexTextView"
@@ -139,7 +142,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="I"
@@ -169,7 +172,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/program_wiki"
@@ -180,7 +183,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/wikiTextView"
@@ -202,7 +205,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="W"
@@ -234,7 +237,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/revise_programs"
@@ -245,7 +248,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/reviseTextView"
@@ -267,7 +270,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="R"
@@ -297,7 +300,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/action_quiz"
@@ -308,7 +311,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/quizTextView"
@@ -330,7 +333,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="Q"
@@ -360,7 +363,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/match"
@@ -371,7 +374,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/matchTextView"
@@ -393,7 +396,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="M"
@@ -424,7 +427,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/fill_the_code"
@@ -435,7 +438,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/fillBlanksTextView"
@@ -457,7 +460,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="F"
@@ -486,7 +489,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/test_yourself"
@@ -497,7 +500,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/testTextView"
@@ -519,7 +522,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="T"
@@ -550,7 +553,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/wizard"
@@ -561,7 +564,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView
+                        <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/wizardTextView"
@@ -583,7 +586,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView
+                    <TextView tools:ignore="MissingPrefix"                                              fontPath="fonts/Roboto-Regular.ttf"
                         android:text="W"
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"

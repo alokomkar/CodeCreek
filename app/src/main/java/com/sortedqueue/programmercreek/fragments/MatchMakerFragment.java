@@ -169,7 +169,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             setProgramLineTextViewParms(mProgramLineTextViewList[i]);
             mMatchMakerLeftLinearLayout.addView(mProgramLineTextViewList[i]);
             programLine = mShuffleProgramList.get(i);
-            if (programLine.contains("font") == false) {
+            if (programLine.contains("fonts") == false) {
                 mProgramLineTextViewList[i].setText(programLine);
                 mProgramLineTextViewList[i].setTextColor(Color.parseColor("#006699"));
             } else {

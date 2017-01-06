@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -13,6 +13,8 @@
         android:id="@+id/syntaxDescriptionTextView"
         android:text="The printf function is used to print to standard output in a formatted manner"/>
     <TextView
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/Roboto-Regular.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_8"

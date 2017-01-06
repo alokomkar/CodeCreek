@@ -185,6 +185,7 @@ public class FirebaseDatabaseHandler {
                     .whereEqual("program_Language", "cpp")
                     .and()
                     .whereEqual("program_index", mProgramIndex)
+                    .orderAsc("line_No")
                     .find(ProgramTable.class));
         }
         else {
@@ -192,6 +193,7 @@ public class FirebaseDatabaseHandler {
                     .whereEqual("program_Language", programLanguage)
                     .and()
                     .whereEqual("program_index", mProgramIndex)
+                    .orderAsc("line_No")
                     .find(ProgramTable.class));
         }
     }
@@ -548,7 +550,8 @@ public class FirebaseDatabaseHandler {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
             }
-            mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms).addListenerForSingleValueEvent(new ValueEventListener() {
+            mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
@@ -602,11 +605,13 @@ public class FirebaseDatabaseHandler {
                     .whereEqual("program_Language", "c++")
                     .or()
                     .whereEqual("program_Language", "cpp")
+                    .orderAsc("program_index")
                     .find(ProgramIndex.class));
         }
         else {
             return new ArrayList<>(new RushSearch()
                     .whereEqual("program_Language", programLanguage)
+                    .orderAsc("program_index")
                     .find(ProgramIndex.class));
         }
     }

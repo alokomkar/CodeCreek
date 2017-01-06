@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +11,10 @@
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/Roboto-Regular.ttf"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

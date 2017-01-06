@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class ProgramListActivity extends AppCompatActivity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
@@ -80,14 +82,18 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 			}
 		});
 	}
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 	private void fetchProgramsList() {
 
 		// Reading all contacts
 		logDebugMessage("Reading All Programs...");
 
-		new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
+		new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramIndexes(
+				new FirebaseDatabaseHandler.ProgramIndexInterface() {
 			@Override
 			public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
 				mProgram_Indexs = new ArrayList<>(program_indices);

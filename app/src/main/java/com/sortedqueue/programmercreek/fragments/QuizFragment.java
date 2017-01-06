@@ -115,6 +115,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         else {
             program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mProgramIndex = program_index.getProgram_index();
+            getProgramTables();
         }
     }
 

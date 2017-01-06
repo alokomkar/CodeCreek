@@ -22,6 +22,7 @@ import java.util.List;
 import co.uk.rushorm.android.AndroidInitializeConfig;
 import co.uk.rushorm.core.Rush;
 import co.uk.rushorm.core.RushCore;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by Alok Omkar on 2016-12-22.
@@ -44,6 +45,11 @@ public class CreekApplication extends Application {
         program_indexHashMap = new HashMap<>();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         List<Class<? extends Rush>> dbClasses = new ArrayList<Class<? extends Rush>>() ;
 

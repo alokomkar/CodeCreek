@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WizardActivity extends AppCompatActivity implements WizardNavigationListener {
 
@@ -24,6 +26,11 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private MatchMakerFragment matchMakerFragment;
     private TestDragNDropFragment testDragNDropFragment;
     private QuizFragment quizFragment;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
