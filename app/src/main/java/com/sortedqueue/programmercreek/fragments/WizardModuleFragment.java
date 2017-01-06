@@ -14,7 +14,8 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.WizardModulePagerAdapter;
 import com.sortedqueue.programmercreek.database.WizardModule;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.view.ScrollableViewPager;
+import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
+import com.sortedqueue.programmercreek.view.SwipeDirection;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +29,7 @@ public class WizardModuleFragment extends Fragment {
     @Bind(R.id.ProgressBar)
     android.widget.ProgressBar progressBar;
     @Bind(R.id.syntaxLearnViewPager)
-    ScrollableViewPager syntaxLearnViewPager;
+    OneDirectionalScrollableViewPager syntaxLearnViewPager;
     @Bind(R.id.viewPagerLayout)
     LinearLayout viewPagerLayout;
     @Bind(R.id.doneFAB)
@@ -61,8 +62,7 @@ public class WizardModuleFragment extends Fragment {
         syntaxLearnViewPager.setOffscreenPageLimit(wizardModule.getWizardModules().size());
         wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), wizardModule.getWizardModules());
         syntaxLearnViewPager.setAdapter(wizardModulePagerAdapter);
-        syntaxLearnViewPager.setCanScroll(false);
-        syntaxLearnViewPager.setAllowedSwipeDirection(ScrollableViewPager.SwipeDirection.left);
+        syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
         progressBar.setMax(wizardModule.getWizardModules().size());
         progressBar.setProgress(1);
         doneFAB.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +98,7 @@ public class WizardModuleFragment extends Fragment {
     }
 
     public void onScrollForward() {
+        //Add validations here : if answer is complete - track and allow scrolling
         if (syntaxLearnViewPager.getCurrentItem() + 1 == wizardModule.getWizardModules().size()) {
             getActivity().onBackPressed();
         } else {

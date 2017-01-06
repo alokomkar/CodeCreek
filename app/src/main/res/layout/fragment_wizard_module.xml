@@ -25,13 +25,13 @@
             android:progress="1"
             android:progressDrawable="@drawable/greenprogress" />
 
-        <com.sortedqueue.programmercreek.view.ScrollableViewPager
+        <com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/fillBlanksTextView"
             android:layout_above="@+id/navigationLayout"
             android:id="@+id/syntaxLearnViewPager">
-        </com.sortedqueue.programmercreek.view.ScrollableViewPager>
+        </com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager>
 
 
     </LinearLayout>

@@ -55,8 +55,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
         syntaxLearnViewPager.setOffscreenPageLimit(syntaxModules.size());
         syntaxPagerAdapter = new SyntaxPagerAdapter(getChildFragmentManager(), module, syntaxModules, this);
         syntaxLearnViewPager.setAdapter(syntaxPagerAdapter);
-        syntaxLearnViewPager.setCanScroll(false);
-        syntaxLearnViewPager.setAllowedSwipeDirection(ScrollableViewPager.SwipeDirection.left);
+        syntaxLearnViewPager.setCanScroll(true);
         progressBar.setMax(syntaxModules.size());
         progressBar.setProgress(1);
         doneFAB.setOnClickListener(new View.OnClickListener() {
