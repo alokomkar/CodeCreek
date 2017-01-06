@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
@@ -32,6 +33,7 @@ import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
 
@@ -105,19 +107,42 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
 
         if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID), new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                @Override
-                public void onSuccess(ProgramIndex programIndex) {
-                    mProgramIndex = programIndex;
-                    getProgramTables();
-                }
-            });
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                        @Override
+                        public void onSuccess(ProgramIndex programIndex) {
+                            mProgramIndex = programIndex;
+                            getProgramTablesInBackground();
+                        }
+
+                        @Override
+                        public void onError(DatabaseError databaseError) {
+                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                        }
+                    });
         }
         else {
             mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+            getProgramTables();
         }
 
+
+    }
+
+    private void getProgramTablesInBackground() {
+        new FirebaseDatabaseHandler(getContext())
+                .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                    @Override
+                    public void onSuccess(ArrayList<ProgramTable> programTables) {
+                        initUI(programTables);
+                    }
+
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+                        CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                    }
+                });
 
     }
 

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.WizardDetails;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
@@ -56,7 +55,7 @@ public class WizardModulePagerAdapter extends FragmentPagerAdapter {
                     break;
                 case WizardDetails.TYPE_SYNTAX_MODULE:
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
-                    syntaxLearnActivityFragment.setSyntaxModule(wizardDetails.getWizardUrl());
+                    syntaxLearnActivityFragment.setSyntaxModule(wizardDetails.getSyntaxId(), wizardDetails.getWizardUrl());
                     wizardFragments.add(syntaxLearnActivityFragment);
                     break;
                 case WizardDetails.TYPE_WIKI:

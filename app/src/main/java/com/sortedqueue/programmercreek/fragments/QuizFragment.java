@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
@@ -31,6 +32,7 @@ import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
@@ -104,13 +106,17 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             mWizard = false;
             new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                @Override
-                public void onSuccess(ProgramIndex programIndex) {
-                    program_index = programIndex;
-                    mProgramIndex = programIndex.getProgram_index();
-                    getProgramTables();
-                }
-            });
+                        @Override
+                        public void onSuccess(ProgramIndex programIndex) {
+                            program_index = programIndex;
+                            mProgramIndex = programIndex.getProgram_index();
+                            getProgramTables();
+                        }
+                        @Override
+                        public void onError(DatabaseError databaseError) {
+                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                        }
+                    });
         }
         else {
             program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);

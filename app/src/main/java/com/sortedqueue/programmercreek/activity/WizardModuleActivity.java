@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -95,12 +94,14 @@ public class WizardModuleActivity extends AppCompatActivity {
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardUrl("s_" + index++);
 
         wizardDetailsArrayList.add(wizardDetails);
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
         wizardDetails.setWizardUrl("s_" + index++);
 
@@ -108,6 +109,7 @@ public class WizardModuleActivity extends AppCompatActivity {
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
         wizardDetails.setWizardUrl("s_" + index++);
 
@@ -115,6 +117,7 @@ public class WizardModuleActivity extends AppCompatActivity {
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
         wizardDetails.setWizardUrl("s_" + index++);
 
@@ -122,6 +125,7 @@ public class WizardModuleActivity extends AppCompatActivity {
 
         wizardDetails = new WizardDetails();
         wizardDetails.setWizardIndex(index);
+        wizardDetails.setSyntaxId("c_1");
         wizardDetails.setWizardType(WizardDetails.TYPE_SYNTAX_MODULE);
         wizardDetails.setWizardUrl("s_" + index++);
 

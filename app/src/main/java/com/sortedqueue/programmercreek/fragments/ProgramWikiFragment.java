@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ProgramWikiRecyclerAdapter;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-
-import java.util.ArrayList;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,6 +48,11 @@ public class ProgramWikiFragment extends Fragment {
                     ProgramWikiFragment.this.programWiki = wikiModel;
                     headerTextView.setText(programWiki.getWikiHeader());
                     setupRecyclerView( programWiki );
+                }
+
+                @Override
+                public void onError(DatabaseError databaseError) {
+                    CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
                 }
             });
         }

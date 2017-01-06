@@ -177,134 +177,253 @@ public class FirebaseDatabaseHandler {
         mCreekUserDBDatabase.setValue(creekUserDB);
     }
 
+    public interface GetProgramTablesListener {
+        void onSuccess( ArrayList<ProgramTable> programTables );
+        void onError( DatabaseError databaseError );
+    }
+
+    public void getProgramTablesInBackground(final int mProgramIndex, final GetProgramTablesListener getProgramTablesListener ) {
+        if( creekPreferences.getProgramTables() != -1 ) {
+            new AsyncTask<Void, Void, ArrayList<ProgramTable>>( ) {
+
+                @Override
+                protected ArrayList<ProgramTable> doInBackground(Void... params) {
+                    return getProgramTables(mProgramIndex);
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<ProgramTable> programTables) {
+                    super.onPostExecute(programTables);
+                    getProgramTablesListener.onSuccess(programTables);
+
+                }
+            }.execute();
+        }
+       else {
+            mProgramDatabase.child( "program_tables/" + String.valueOf(mProgramIndex))
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<ProgramTable> programTables = new ArrayList<ProgramTable>();
+                    for( DataSnapshot indexSnapShot : dataSnapshot.getChildren() ) {
+                        ProgramTable programTable = indexSnapShot.getValue(ProgramTable.class);
+                        if( programTable != null ) {
+                            programTables.add(programTable);
+                        }
+                    }
+                    if( programTables.size() > 0 )
+                        getProgramTablesListener.onSuccess(programTables);
+                    else
+                        getProgramTablesListener.onError(null);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getProgramTablesListener.onError(databaseError);
+                }
+            });
+        }
+
+
+    }
+
     public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
-        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-            return new ArrayList<>(new RushSearch()
-                    .whereEqual("program_Language", "c++")
-                    .or()
-                    .whereEqual("program_Language", "cpp")
-                    .and()
-                    .whereEqual("program_index", mProgramIndex)
-                    .orderAsc("line_No")
-                    .find(ProgramTable.class));
-        }
-        else {
-            return new ArrayList<>(new RushSearch()
-                    .whereEqual("program_Language", programLanguage)
-                    .and()
-                    .whereEqual("program_index", mProgramIndex)
-                    .orderAsc("line_No")
-                    .find(ProgramTable.class));
-        }
+            if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                return new ArrayList<>(new RushSearch()
+                        .whereEqual("program_Language", "c++")
+                        .or()
+                        .whereEqual("program_Language", "cpp")
+                        .and()
+                        .whereEqual("program_index", mProgramIndex)
+                        .orderAsc("line_No")
+                        .find(ProgramTable.class));
+            }
+            else {
+                return new ArrayList<>(new RushSearch()
+                        .whereEqual("program_Language", programLanguage)
+                        .and()
+                        .whereEqual("program_index", mProgramIndex)
+                        .orderAsc("line_No")
+                        .find(ProgramTable.class));
+            }
+
     }
 
     public interface GetProgramIndexListener {
         void onSuccess( ProgramIndex programIndex );
+        void onError( DatabaseError databaseError );
     }
     public void getProgramIndexInBackGround(final int mProgramIndex, final GetProgramIndexListener getProgramIndexListener ) {
 
-        new AsyncTask<Void, Void, ProgramIndex>() {
+        if( creekPreferences.getProgramIndex() != -1 ) {
+            new AsyncTask<Void, Void, ProgramIndex>() {
 
-            @Override
-            protected ProgramIndex doInBackground(Void... voids) {
-                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-                    return new RushSearch()
-                            .whereEqual("program_Language", "c++")
-                            .or()
-                            .whereEqual("program_Language", "cpp")
-                            .and()
-                            .whereEqual("program_index", mProgramIndex)
-                            .findSingle(ProgramIndex.class);
+                @Override
+                protected ProgramIndex doInBackground(Void... voids) {
+                    if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                        return new RushSearch()
+                                .whereEqual("program_Language", "c++")
+                                .or()
+                                .whereEqual("program_Language", "cpp")
+                                .and()
+                                .whereEqual("program_index", mProgramIndex)
+                                .findSingle(ProgramIndex.class);
+                    }
+                    else {
+                        return new RushSearch()
+                                .whereEqual("program_Language", programLanguage)
+                                .and()
+                                .whereEqual("program_index", mProgramIndex)
+                                .findSingle(ProgramIndex.class);
+                    }
                 }
-                else {
-                    return new RushSearch()
-                            .whereEqual("program_Language", programLanguage)
-                            .and()
-                            .whereEqual("program_index", mProgramIndex)
-                            .findSingle(ProgramIndex.class);
-                }
-            }
 
-            @Override
-            protected void onPostExecute(ProgramIndex programIndex) {
-                super.onPostExecute(programIndex);
-                getProgramIndexListener.onSuccess(programIndex);
-            }
-        }.execute();
+                @Override
+                protected void onPostExecute(ProgramIndex programIndex) {
+                    super.onPostExecute(programIndex);
+                    getProgramIndexListener.onSuccess(programIndex);
+                }
+            }.execute();
+        }
+        else {
+            mProgramDatabase.child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ProgramIndex programIndex = dataSnapshot.getValue(ProgramIndex.class);
+                    getProgramIndexListener.onSuccess(programIndex);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "getProgramIndexInBackGround : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
+                    getProgramIndexListener.onError(databaseError);
+                }
+            });
+        }
+
+
 
 
     }
 
     public interface SyntaxModuleInterface {
         void onSuccess( SyntaxModule syntaxModule );
+        void onError( DatabaseError error );
     }
-    public void getSyntaxModule(final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
+    public void getSyntaxModule(String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
 
-        new AsyncTask<Void, Void, SyntaxModule>( ) {
+        if( creekPreferences.getSyntaxInserted() ) {
+            new AsyncTask<Void, Void, SyntaxModule>( ) {
 
-            @Override
-            protected SyntaxModule doInBackground(Void... voids) {
-                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-                    return new RushSearch()
-                            .whereEqual("syntaxLanguage", "c++")
-                            .or()
-                            .whereEqual("syntaxLanguage", "cpp")
-                            .and()
-                            .whereEqual("syntaxModuleId", wizardUrl)
-                            .findSingle(SyntaxModule.class);
+                @Override
+                protected SyntaxModule doInBackground(Void... voids) {
+                    if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                        return new RushSearch()
+                                .whereEqual("syntaxLanguage", "c++")
+                                .or()
+                                .whereEqual("syntaxLanguage", "cpp")
+                                .and()
+                                .whereEqual("syntaxModuleId", wizardUrl)
+                                .findSingle(SyntaxModule.class);
+                    }
+                    else {
+                        return new RushSearch()
+                                .whereEqual("syntaxLanguage", programLanguage)
+                                .and()
+                                .whereEqual("syntaxModuleId", wizardUrl)
+                                .findSingle(SyntaxModule.class);
+                    }
                 }
-                else {
-                    return new RushSearch()
-                            .whereEqual("syntaxLanguage", programLanguage)
-                            .and()
-                            .whereEqual("syntaxModuleId", wizardUrl)
-                            .findSingle(SyntaxModule.class);
-                }
-            }
 
-            @Override
-            protected void onPostExecute(SyntaxModule syntaxModule) {
-                super.onPostExecute(syntaxModule);
-                syntaxModuleInterface.onSuccess(syntaxModule);
-            }
-        }.execute();
+                @Override
+                protected void onPostExecute(SyntaxModule syntaxModule) {
+                    super.onPostExecute(syntaxModule);
+                    syntaxModuleInterface.onSuccess(syntaxModule);
+                }
+            }.execute();
+        }
+        else {
+            mSyntaxModuleDatabase.child(programLanguage + "_" + syntaxId + "_" + wizardUrl ).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SyntaxModule syntaxModule = dataSnapshot.getValue(SyntaxModule.class);
+                    if( syntaxModule == null ) {
+                        syntaxModuleInterface.onError(null);
+                    }
+                    else
+                        syntaxModuleInterface.onSuccess(syntaxModule);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "getSyntaxModule : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
+                    syntaxModuleInterface.onError( databaseError );
+                }
+            });
+        }
+
+
+
 
 
     }
 
     public interface GetWikiModelListener {
         void onSuccess( WikiModel wikiModel );
+        void onError( DatabaseError databaseError );
     }
 
     public void getWikiModel(final String wizardUrl, final GetWikiModelListener getWikiModelListener ) {
-        new AsyncTask<Void, Void, WikiModel>() {
+        if( creekPreferences.getProgramWikiInserted() ) {
+            new AsyncTask<Void, Void, WikiModel>() {
 
-            @Override
-            protected WikiModel doInBackground(Void... voids) {
-                if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-                    return new RushSearch()
-                            .whereEqual("syntaxLanguage", "c++")
-                            .or()
-                            .whereEqual("syntaxLanguage", "cpp")
-                            .and()
-                            .whereEqual("wikiId", wizardUrl)
-                            .findSingle(WikiModel.class);
+                @Override
+                protected WikiModel doInBackground(Void... voids) {
+                    if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+                        return new RushSearch()
+                                .whereEqual("syntaxLanguage", "c++")
+                                .or()
+                                .whereEqual("syntaxLanguage", "cpp")
+                                .and()
+                                .whereEqual("wikiId", wizardUrl)
+                                .findSingle(WikiModel.class);
+                    }
+                    else {
+                        return new RushSearch()
+                                .whereEqual("syntaxLanguage", programLanguage)
+                                .and()
+                                .whereEqual("wikiId", wizardUrl)
+                                .findSingle(WikiModel.class);
+                    }
                 }
-                else {
-                    return new RushSearch()
-                            .whereEqual("syntaxLanguage", programLanguage)
-                            .and()
-                            .whereEqual("wikiId", wizardUrl)
-                            .findSingle(WikiModel.class);
-                }
-            }
 
-            @Override
-            protected void onPostExecute(WikiModel wikiModel) {
-                super.onPostExecute(wikiModel);
-                getWikiModelListener.onSuccess(wikiModel);
-            }
-        }.execute();
+                @Override
+                protected void onPostExecute(WikiModel wikiModel) {
+                    super.onPostExecute(wikiModel);
+                    getWikiModelListener.onSuccess(wikiModel);
+                }
+            }.execute();
+
+        }
+        else {
+            mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    WikiModel wikiModel = dataSnapshot.getValue(WikiModel.class);
+                    getWikiModelListener.onSuccess(wikiModel);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "getWikiModel : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
+                    getWikiModelListener.onError(databaseError);
+                }
+            });
+        }
 
     }
 
@@ -365,6 +484,8 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "initializeProgramWiki : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
                     programWikiInterface.onError(databaseError);
                 }
             });
@@ -442,6 +563,8 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "initializeSyntax : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
                     syntaxInterface.onError(databaseError);
                 }
             });
@@ -505,6 +628,8 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "initializeModules : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
                     moduleInterface.onError(databaseError);
                 }
             });
@@ -552,31 +677,33 @@ public class FirebaseDatabaseHandler {
             }
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
-                    for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
-                        ProgramIndex program_index = programIndexSnapshot.getValue(ProgramIndex.class);
-                        program_index.save(new RushCallback() {
-                            @Override
-                            public void complete() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
+                            for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
+                                ProgramIndex program_index = programIndexSnapshot.getValue(ProgramIndex.class);
+                                program_index.save(new RushCallback() {
+                                    @Override
+                                    public void complete() {
 
+                                    }
+                                });
+                                program_indices.add(program_index);
                             }
-                        });
-                        program_indices.add(program_index);
-                    }
-                    creekPreferences.setProgramIndex(program_indices.size());
-                    Log.d(TAG, "Inserted program indexes : " + program_indices.size());
-                    CommonUtils.dismissProgressDialog();
-                    programIndexInterface.getProgramIndexes(program_indices);
-                }
+                            creekPreferences.setProgramIndex(program_indices.size());
+                            Log.d(TAG, "Inserted program indexes : " + program_indices.size());
+                            CommonUtils.dismissProgressDialog();
+                            programIndexInterface.getProgramIndexes(program_indices);
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    programIndexInterface.onError(databaseError);
-                    CommonUtils.dismissProgressDialog();
-                }
-            });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d(TAG, "initializeProgramIndexes : " + databaseError.toException().getMessage());
+                            databaseError.toException().printStackTrace();
+                            programIndexInterface.onError(databaseError);
+                            CommonUtils.dismissProgressDialog();
+                        }
+                    });
         }
         else {
             new AsyncTask<Void, Void, ArrayList<ProgramIndex>>() {
@@ -649,6 +776,8 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, "initializeProgramTables : " + databaseError.toException().getMessage());
+                    databaseError.toException().printStackTrace();
                     programTableInterface.onError(databaseError);
                 }
             });

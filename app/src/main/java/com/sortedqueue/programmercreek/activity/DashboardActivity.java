@@ -72,7 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         }
         else {
             dashboardViewPager.setCurrentItem(1);
-            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage());
+            getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
 
 
@@ -212,7 +212,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void navigateToDashboard() {
         dashboardViewPager.setCurrentItem(1);
-        getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage());
+        getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
     }
 
     @Override

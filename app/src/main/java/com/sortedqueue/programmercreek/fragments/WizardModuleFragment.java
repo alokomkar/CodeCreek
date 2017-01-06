@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.WizardModulePagerAdapter;
 import com.sortedqueue.programmercreek.database.WizardModule;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import butterknife.Bind;
@@ -56,7 +57,7 @@ public class WizardModuleFragment extends Fragment {
     }
 
     private void setupViews() {
-
+        CommonUtils.displayProgressDialog(getContext(), "Loading chapter");
         syntaxLearnViewPager.setOffscreenPageLimit(wizardModule.getWizardModules().size());
         wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), wizardModule.getWizardModules());
         syntaxLearnViewPager.setAdapter(wizardModulePagerAdapter);
@@ -88,7 +89,7 @@ public class WizardModuleFragment extends Fragment {
 
             }
         });
-
+        CommonUtils.dismissProgressDialog();
     }
 
     private void toggleFabDrawable(final int progress) {

@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -33,6 +34,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
@@ -97,18 +99,24 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     public void setBundle( Bundle bundle ) {
         this.newProgramActivityBundle = bundle;
     }
-    
+
     private void initUI() {
 
         if( newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID), new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                @Override
-                public void onSuccess(ProgramIndex programIndex) {
-                    mProgramIndex = programIndex;
-                    getProgramTables();
-                }
-            });
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                        @Override
+                        public void onSuccess(ProgramIndex programIndex) {
+                            mProgramIndex = programIndex;
+                            getProgramTables();
+                        }
+
+                        @Override
+                        public void onError(DatabaseError databaseError) {
+                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                        }
+                    });
         }
         else {
             mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
@@ -155,7 +163,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
         mShuffleProgramList.addAll(mProgramList);
         mShuffleProgramList = ShuffleList.shuffleList(mShuffleProgramList);
 
-        
+
 
         if (mMatchMakerLeftLinearLayout != null) {
             mMatchMakerLeftLinearLayout.removeAllViews();
@@ -453,7 +461,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
         builder.show();
 
     }
-    
+
     View.OnLongClickListener mProgramLineLongClickListener = new View.OnLongClickListener() {
 
         @Override

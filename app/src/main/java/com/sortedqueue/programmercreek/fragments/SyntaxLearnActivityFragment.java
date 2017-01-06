@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
@@ -86,6 +87,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private ModuleDetailsScrollPageListener modulteDetailsScrollPageListener;
     private boolean isLastFragment;
     private String wizardUrl = null;
+    private String syntaxId;
 
     public SyntaxLearnActivityFragment() {
     }
@@ -99,11 +101,17 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             bindData(syntaxModule);
         }
         else {
-            new FirebaseDatabaseHandler(getContext()).getSyntaxModule(wizardUrl, new FirebaseDatabaseHandler.SyntaxModuleInterface() {
+            new FirebaseDatabaseHandler(getContext()).getSyntaxModule(syntaxId, wizardUrl,
+                    new FirebaseDatabaseHandler.SyntaxModuleInterface() {
                 @Override
                 public void onSuccess(SyntaxModule syntaxModule) {
                     SyntaxLearnActivityFragment.this.syntaxModule = syntaxModule;
                     bindData(syntaxModule);
+                }
+
+                @Override
+                public void onError(DatabaseError error) {
+                    CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
                 }
             });
         }
@@ -253,7 +261,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         this.isLastFragment = isLastFragment;
     }
 
-    public void setSyntaxModule(String wizardUrl) {
+    public void setSyntaxModule(String syntaxId, String wizardUrl) {
         this.wizardUrl = wizardUrl;
+        this.syntaxId = syntaxId;
     }
 }

@@ -14,6 +14,7 @@ public class WizardDetails extends RushObject implements Parcelable {
     private int wizardIndex;
     private int wizardType;
     private String wizardUrl;
+    private String syntaxId;
     private String programLanguage;
     private int programTestType; //match, test, quiz
 
@@ -30,6 +31,14 @@ public class WizardDetails extends RushObject implements Parcelable {
         this.wizardType = wizardType;
         this.wizardUrl = wizardUrl;
         this.programLanguage = programLanguage;
+    }
+
+    public String getSyntaxId() {
+        return syntaxId;
+    }
+
+    public void setSyntaxId(String syntaxId) {
+        this.syntaxId = syntaxId;
     }
 
     public int getWizardIndex() {
