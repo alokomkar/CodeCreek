@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -177,11 +178,16 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             setProgramLineTextViewParms(mProgramLineTextViewList[i]);
             mMatchMakerLeftLinearLayout.addView(mProgramLineTextViewList[i]);
             programLine = mShuffleProgramList.get(i);
-            if (programLine.contains("fonts") == false) {
+            if (programLine.contains("font") == false) {
                 mProgramLineTextViewList[i].setText(programLine);
                 mProgramLineTextViewList[i].setTextColor(Color.parseColor("#006699"));
             } else {
-                mProgramLineTextViewList[i].setText(Html.fromHtml(/*mHighlighter.highlight("c", programLine)*/programLine));
+                if( Build.VERSION.SDK_INT >= 24 ) {
+                    mProgramLineTextViewList[i].setText(Html.fromHtml(programLine, Html.FROM_HTML_MODE_LEGACY));
+                }
+                else {
+                    mProgramLineTextViewList[i].setText(Html.fromHtml(programLine));
+                }
             }
             mProgramLineTextViewList[i].setId(i);
         }

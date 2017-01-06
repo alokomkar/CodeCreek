@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,13 @@ public class CustomProgramLineListAdapter extends ArrayAdapter<String> {
 			}
 
 			highlighted = highlighter.highlight("c", " "+mProgramLineList.get(position));
-			mViewHolder.programLineTextView.setText(Html.fromHtml(highlighted));
+			if(Build.VERSION.SDK_INT >= 24) {
+				mViewHolder.programLineTextView.setText(Html.fromHtml(highlighted, Html.FROM_HTML_MODE_LEGACY));
+			}
+			else {
+				mViewHolder.programLineTextView.setText(Html.fromHtml(highlighted));
+			}
+
 
 			return view;
 		}

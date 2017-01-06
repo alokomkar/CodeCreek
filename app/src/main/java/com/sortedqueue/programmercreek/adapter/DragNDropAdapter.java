@@ -1,9 +1,8 @@
 package com.sortedqueue.programmercreek.adapter;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
+
+import java.util.ArrayList;
 
 
 public final class DragNDropAdapter extends BaseAdapter implements RemoveListenerInterface, DropListenerInterface {
@@ -110,7 +111,13 @@ public final class DragNDropAdapter extends BaseAdapter implements RemoveListene
         //highlighted = highlighter.highlight("c++", mContent.get(position));
         
         //progarmLine = StringEscapeUtils.unescapeHtml4(highlighted);
-        holder.text.setText(Html.fromHtml(highlighter.highlight("c++", programLine)));
+        if(Build.VERSION.SDK_INT >= 24 ) {
+            holder.text.setText(Html.fromHtml(highlighter.highlight("c++", programLine), Html.FROM_HTML_MODE_LEGACY));
+        }
+        else {
+            holder.text.setText(Html.fromHtml(highlighter.highlight("c++", programLine)));
+        }
+
         //holder.text.setText(programLine);
 
         return convertView;
