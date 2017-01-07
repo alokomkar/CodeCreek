@@ -10,14 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ChapterDetailsPagerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
 
@@ -28,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 05/01/17.
  */
 
-public class ChapterDetailsFragment extends Fragment implements WikiNavigationListner {
+public class ChapterDetailsFragment extends Fragment implements WikiNavigationListner, ModuleDetailsScrollPageListener {
 
     @Bind(R.id.ProgressBar)
     android.widget.ProgressBar progressBar;
@@ -64,10 +69,10 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private void setupViews() {
 
         syntaxLearnViewPager.setOffscreenPageLimit(3);
-        chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), getChildFragmentManager(), chapter.getWizardModules(), this);
+        chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), this, getChildFragmentManager(), chapter.getChapterDetailsArrayList(), this);
         syntaxLearnViewPager.setAdapter(chapterDetailsPagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
-        progressBar.setMax(chapter.getWizardModules().size());
+        progressBar.setMax(chapter.getChapterDetailsArrayList().size());
         progressBar.setProgress(1);
         doneFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +123,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
     }
 
+    @Override
     public void onScrollForward() {
         //Add validations here : if answer is complete - track and allow scrolling
         Fragment fragment = chapterDetailsPagerAdapter.getItem(syntaxLearnViewPager.getCurrentItem());
@@ -140,11 +146,30 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     }
 
     private void fabAction() {
-        if (syntaxLearnViewPager.getCurrentItem() + 1 == chapter.getWizardModules().size()) {
+        updateCreekStats();
+        if (syntaxLearnViewPager.getCurrentItem() + 1 == chapter.getChapterDetailsArrayList().size()) {
             getActivity().onBackPressed();
         } else {
             syntaxLearnViewPager.setCurrentItem(syntaxLearnViewPager.getCurrentItem() + 1);
         }
+    }
+
+    private void updateCreekStats() {
+        ChapterDetails chapterDetails = chapterDetailsPagerAdapter.getChapterDetailsForPosition(syntaxLearnViewPager.getCurrentItem());
+        CreekUserStats creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        switch ( new CreekPreferences(getContext()).getProgramLanguage() ) {
+            case "c" :
+                creekUserStats.setcProgramIndex(chapterDetails.getProgressIndex());
+                break;
+            case "c++" :
+            case "cpp" :
+                creekUserStats.setCppProgramIndex(chapterDetails.getProgressIndex());
+                break;
+            case "java" :
+                creekUserStats.setJavaProgressIndex(chapterDetails.getProgressIndex());
+                break;
+        }
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }
 
     @Override

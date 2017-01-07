@@ -25,11 +25,11 @@ public class SyntaxPagerAdapter extends FragmentPagerAdapter {
         int position = 0;
         for( SyntaxModule syntaxModule : syntaxModules ) {
             position++;
-            SyntaxLearnActivityFragment fillBlankFragment = new SyntaxLearnActivityFragment();
-            fillBlankFragment.setSyntaxModule( syntaxModule );
-            fillBlankFragment.setModulteDetailsScrollPageListener( moduleDetailsScrollPageListener );
-            fillBlankFragment.setIsLastFragment( position == syntaxModules.size() );
-            syntaxLearnActivityFragments.add(fillBlankFragment);
+            SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
+            syntaxLearnActivityFragment.setSyntaxModule( syntaxModule );
+            syntaxLearnActivityFragment.setModulteDetailsScrollPageListener( moduleDetailsScrollPageListener );
+            syntaxLearnActivityFragment.setIsLastFragment( position == syntaxModules.size() );
+            syntaxLearnActivityFragments.add(syntaxLearnActivityFragment);
         }
 
     }

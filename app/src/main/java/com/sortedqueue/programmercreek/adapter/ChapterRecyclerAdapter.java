@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Chapter;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 
 import java.util.ArrayList;
 
@@ -25,11 +28,12 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
     private Context context;
     private ArrayList<Chapter> chapters;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
-
+    private CreekUserStats creekUserStats;
     public ChapterRecyclerAdapter(Context context, ArrayList<Chapter> chapters, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.context = context;
         this.chapters = chapters;
         this.adapterClickListner = adapterClickListner;
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
     }
 
     @Override
@@ -40,11 +44,38 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
     @Override
     public void onBindViewHolder(ChapterRecyclerAdapter.ViewHolder holder, int position) {
-        Chapter languageModule = chapters.get(position);
-        holder.moduleNameTextView.setText(languageModule.getChapterName());
-        holder.moduleDescriptionTextView.setText(languageModule.getChapteBrief());
-        holder.itemView.setEnabled(position == 0);
-        holder.lockedImageView.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
+        Chapter chapter = chapters.get(position);
+        holder.moduleNameTextView.setText(chapter.getChapterName());
+        holder.moduleDescriptionTextView.setText(chapter.getChapteBrief());
+        boolean isChapterEnabled;
+        int chapterProgress = 0;
+        switch ( chapter.getProgram_Language() ) {
+            case "c":
+                isChapterEnabled = creekUserStats.getcProgramIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getcProgramIndex();
+                holder.itemView.setEnabled(isChapterEnabled);
+                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                break;
+            case "cpp":
+            case "c++":
+                isChapterEnabled = creekUserStats.getCppProgramIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getCppProgramIndex();
+                holder.itemView.setEnabled(isChapterEnabled);
+                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                break;
+            case "java":
+                isChapterEnabled = creekUserStats.getJavaProgressIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getJavaProgressIndex();
+                holder.itemView.setEnabled(isChapterEnabled);
+                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                break;
+        }
+        int maxProgress = chapter.getChapterDetailsArrayList().size();
+        holder.progressBar.setMax(maxProgress);
+        chapterProgress = chapterProgress <= maxProgress ? chapterProgress : maxProgress;
+        holder.progressBar.setProgress( chapterProgress );
+        holder.progressBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
+
     }
 
     @Override
@@ -61,11 +92,14 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         TextView headerTextView;
         @Bind(R.id.lockedImageView)
         ImageView lockedImageView;
+        @Bind(R.id.progressBar)
+        ProgressBar progressBar;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             headerTextView.setText("Chapter");
+            progressBar.setVisibility(View.VISIBLE);
             view.setOnClickListener(this);
         }
 

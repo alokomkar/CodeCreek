@@ -38,8 +38,11 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUser;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -176,6 +179,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             creekPreferences.setAccountName(user.getDisplayName());
             creekPreferences.setAccountPhoto(user.getPhotoUrl().toString());
             creekPreferences.setSignInAccount(user.getEmail());
+            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUserStatsInBackground(new FirebaseDatabaseHandler.CreekUserStatsListener() {
+                @Override
+                public void onSuccess(CreekUserStats creekUserStats) {
+
+                }
+
+                @Override
+                public void onFailure(DatabaseError databaseError) {
+
+                }
+            });
             startApp();
         } else {
             // User is signed out
@@ -277,10 +291,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(SplashActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        } /*else {
-                            creekPreferences.setSignInAccount(task.getResult().getUser().getEmail());
-                            startApp();
-                        }*/
+                        }
                         CommonUtils.dismissProgressDialog();
                         // ...
                     }

@@ -18,19 +18,29 @@ public class Chapter extends RushObject implements Parcelable {
     private String chapterId;
     private String chapterName;
     private String chapteBrief;
+    private int minStats;
 
     @RushList(classType = ChapterDetails.class)
-    private ArrayList<ChapterDetails> wizardModules = new ArrayList<>();
+    private ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
 
     public Chapter() {
     }
 
-    public Chapter(String program_Language, String chapterId, String chapterName, String chapteBrief, ArrayList<ChapterDetails> wizardModules) {
+    public Chapter(String program_Language, String chapterId, String chapterName, String chapteBrief, int minStats, ArrayList<ChapterDetails> chapterDetailsArrayList) {
         this.program_Language = program_Language;
         this.chapterId = chapterId;
         this.chapteBrief = chapteBrief;
         this.chapterName = chapterName;
-        this.wizardModules = wizardModules;
+        this.minStats = minStats;
+        this.chapterDetailsArrayList = chapterDetailsArrayList;
+    }
+
+    public int getMinStats() {
+        return minStats;
+    }
+
+    public void setMinStats(int minStats) {
+        this.minStats = minStats;
     }
 
     public String getProgram_Language() {
@@ -57,12 +67,12 @@ public class Chapter extends RushObject implements Parcelable {
         this.chapterName = chapterName;
     }
 
-    public ArrayList<ChapterDetails> getWizardModules() {
-        return wizardModules;
+    public ArrayList<ChapterDetails> getChapterDetailsArrayList() {
+        return chapterDetailsArrayList;
     }
 
-    public void setWizardModules(ArrayList<ChapterDetails> wizardModules) {
-        this.wizardModules = wizardModules;
+    public void setChapterDetailsArrayList(ArrayList<ChapterDetails> chapterDetailsArrayList) {
+        this.chapterDetailsArrayList = chapterDetailsArrayList;
     }
 
     public String getChapteBrief() {
@@ -86,7 +96,7 @@ public class Chapter extends RushObject implements Parcelable {
             return false;
         if (chapterName != null ? !chapterName.equals(that.chapterName) : that.chapterName != null)
             return false;
-        return wizardModules != null ? wizardModules.equals(that.wizardModules) : that.wizardModules == null;
+        return chapterDetailsArrayList != null ? chapterDetailsArrayList.equals(that.chapterDetailsArrayList) : that.chapterDetailsArrayList == null;
 
     }
 
@@ -95,7 +105,7 @@ public class Chapter extends RushObject implements Parcelable {
         int result = program_Language != null ? program_Language.hashCode() : 0;
         result = 31 * result + (chapterId != null ? chapterId.hashCode() : 0);
         result = 31 * result + (chapterName != null ? chapterName.hashCode() : 0);
-        result = 31 * result + (wizardModules != null ? wizardModules.hashCode() : 0);
+        result = 31 * result + (chapterDetailsArrayList != null ? chapterDetailsArrayList.hashCode() : 0);
         return result;
     }
 
@@ -111,7 +121,8 @@ public class Chapter extends RushObject implements Parcelable {
         dest.writeString(this.chapterId);
         dest.writeString(this.chapterName);
         dest.writeString(this.chapteBrief);
-        dest.writeTypedList(this.wizardModules);
+        dest.writeInt(this.minStats);
+        dest.writeTypedList(this.chapterDetailsArrayList);
     }
 
     protected Chapter(Parcel in) {
@@ -119,7 +130,8 @@ public class Chapter extends RushObject implements Parcelable {
         this.chapterId = in.readString();
         this.chapterName = in.readString();
         this.chapteBrief = in.readString();
-        this.wizardModules = in.createTypedArrayList(ChapterDetails.CREATOR);
+        this.minStats = in.readInt();
+        this.chapterDetailsArrayList = in.createTypedArrayList(ChapterDetails.CREATOR);
     }
 
     public static final Parcelable.Creator<Chapter> CREATOR = new Parcelable.Creator<Chapter>() {
@@ -133,4 +145,16 @@ public class Chapter extends RushObject implements Parcelable {
             return new Chapter[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "program_Language='" + program_Language + '\'' +
+                ", chapterId='" + chapterId + '\'' +
+                ", chapterName='" + chapterName + '\'' +
+                ", chapteBrief='" + chapteBrief + '\'' +
+                ", minStats=" + minStats +
+                ", chapterDetailsArrayList=" + chapterDetailsArrayList +
+                '}';
+    }
 }

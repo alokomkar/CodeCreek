@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -99,6 +100,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
 
     @Override
     public void onChapterSelected(Chapter chapter) {
+        Log.d("ChaptersActivity", "Selected chapter : " + chapter.toString());
         getSupportActionBar().setTitle(chapter.getChapterName());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         chapterDetailsFragment = (ChapterDetailsFragment) getSupportFragmentManager().findFragmentByTag(ChapterDetailsFragment.class.getSimpleName());

@@ -13,6 +13,7 @@ import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 
 import java.util.ArrayList;
@@ -23,14 +24,16 @@ import java.util.ArrayList;
 
 public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<Fragment> chaterFragments;
+    private ArrayList<Fragment> chapterFragments;
+    private ArrayList<ChapterDetails> chapterDetailsArrayList;
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
-
-    public ChapterDetailsPagerAdapter(Context context, FragmentManager childFragmentManager, ArrayList<ChapterDetails> wizardModules, WikiNavigationListner wikiNavigationListner) {
+    public ChapterDetailsPagerAdapter(Context context, ModuleDetailsScrollPageListener moduleDetailsScrollPageListener, FragmentManager childFragmentManager, ArrayList<ChapterDetails> chapterDetailsArrayList, WikiNavigationListner wikiNavigationListner) {
         super(childFragmentManager);
-        chaterFragments = new ArrayList<>();
-
-        for( ChapterDetails chapterDetails : wizardModules ) {
+        chapterFragments = new ArrayList<>();
+        this.chapterDetailsArrayList = chapterDetailsArrayList;
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
+        for( ChapterDetails chapterDetails : chapterDetailsArrayList ) {
             switch ( chapterDetails.getChapterType() ) {
                 case ChapterDetails.TYPE_PROGRAM_INDEX:
                     Bundle bundle = new Bundle();
@@ -40,30 +43,31 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                         case ProgrammingBuddyConstants.KEY_MATCH :
                             MatchMakerFragment matchMakerFragment = new MatchMakerFragment();
                             matchMakerFragment.setBundle(bundle);
-                            chaterFragments.add(matchMakerFragment);
+                            chapterFragments.add(matchMakerFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_TEST :
                             TestDragNDropFragment testDragNDropFragment = new TestDragNDropFragment();
                             testDragNDropFragment.setBundle(bundle);
-                            chaterFragments.add(testDragNDropFragment);
+                            chapterFragments.add(testDragNDropFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_QUIZ :
                             QuizFragment quizFragment = new QuizFragment();
                             quizFragment.setBundle(bundle);
-                            chaterFragments.add(quizFragment);
+                            chapterFragments.add(quizFragment);
                             break;
                     }
                     break;
                 case ChapterDetails.TYPE_SYNTAX_MODULE:
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
                     syntaxLearnActivityFragment.setSyntaxModule(chapterDetails.getSyntaxId(), chapterDetails.getChapterReferenceId());
-                    chaterFragments.add(syntaxLearnActivityFragment);
+                    syntaxLearnActivityFragment.setModulteDetailsScrollPageListener(moduleDetailsScrollPageListener);
+                    chapterFragments.add(syntaxLearnActivityFragment);
                     break;
                 case ChapterDetails.TYPE_WIKI:
                     ProgramWikiFragment ProgramWikiFragment = new ProgramWikiFragment();
                     ProgramWikiFragment.setParams( chapterDetails.getChapterReferenceId() );
                     ProgramWikiFragment.setWikiNavigationListener( wikiNavigationListner );
-                    chaterFragments.add(ProgramWikiFragment);
+                    chapterFragments.add(ProgramWikiFragment);
                     break;
             }
         }
@@ -71,11 +75,15 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return chaterFragments.get(position);
+        return chapterFragments.get(position);
+    }
+
+    public ChapterDetails getChapterDetailsForPosition( int position ) {
+        return chapterDetailsArrayList.get(position);
     }
 
     @Override
     public int getCount() {
-        return chaterFragments.size();
+        return chapterFragments.size();
     }
 }

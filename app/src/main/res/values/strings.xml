@@ -102,4 +102,6 @@
     <string name="cpp_description">C++ is a general-purpose, statically typed, free-form, multi-paradigm programming language supporting procedural programming, data abstraction, and generic programming.</string>
     <string name="java_description">Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.</string>
     <string name="unable_to_fetch_data">Unable to fetch data</string>
+    <string name="congratulations">Congratulations, You\'ve got it right</string>
+    <string name="proceed">Proceed</string>
 </resources>

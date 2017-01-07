@@ -129,4 +129,17 @@ public class ChapterDetails extends RushObject implements Parcelable {
             return new ChapterDetails[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ChapterDetails{" +
+                "chapterModuleIndex=" + chapterModuleIndex +
+                ", chapterType=" + chapterType +
+                ", chapterReferenceId='" + chapterReferenceId + '\'' +
+                ", syntaxId='" + syntaxId + '\'' +
+                ", programLanguage='" + programLanguage + '\'' +
+                ", chapterTestType=" + chapterTestType +
+                ", progressIndex=" + progressIndex +
+                '}';
+    }
 }

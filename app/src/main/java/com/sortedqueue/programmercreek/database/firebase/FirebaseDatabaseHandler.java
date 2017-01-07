@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -39,6 +40,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mSyntaxModuleDatabase;
     private DatabaseReference mProgramWikiDatabase;
     private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserStatsDatabase;
     private DatabaseReference mUserDetailsDatabase;
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -56,6 +58,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mCreekUserDBDatabase;
     private String CREEK_USER_DB = "creek_user_db_version";
     private String WIKI_MODULE = "wiki_module";
+    private String CREEK_USER_STATS = "user_stats";
 
     /***
      * Program Index storage :
@@ -83,6 +86,12 @@ public class FirebaseDatabaseHandler {
         return mUserDatabase;
     }
 
+    public DatabaseReference getUserStatsDatabase() {
+        mUserStatsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_STATS );
+        mUserStatsDatabase.keepSynced(true);
+        return mUserStatsDatabase;
+    }
+
     public DatabaseReference getUserDetailsDatabase() {
         mUserDetailsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_PROGRAM_DETAILS_CHILD );
         mUserDetailsDatabase.keepSynced(true);
@@ -105,6 +114,7 @@ public class FirebaseDatabaseHandler {
         getProgramWikiDatabase();
         getProgramDatabase();
         getUserDatabase();
+        getUserStatsDatabase();
         getUserDetailsDatabase();
         getLanguageModuleDatabase();
         getSyntaxModuleDatabase();
@@ -314,7 +324,7 @@ public class FirebaseDatabaseHandler {
     }
     public void getSyntaxModule(String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
 
-        if( creekPreferences.getSyntaxInserted() ) {
+        /*if( creekPreferences.getSyntaxInserted() ) {
             new AsyncTask<Void, Void, SyntaxModule>( ) {
 
                 @Override
@@ -344,7 +354,7 @@ public class FirebaseDatabaseHandler {
                 }
             }.execute();
         }
-        else {
+        else */{
             mSyntaxModuleDatabase.child(programLanguage + "_" + syntaxId + "_" + wizardUrl ).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -807,14 +817,16 @@ public class FirebaseDatabaseHandler {
 
     public void getCreekUserStatsInBackground(final CreekUserStatsListener creekUserStatsListener ) {
 
-        mUserDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
+        mUserStatsDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 CreekUserStats creekUserStats = dataSnapshot.getValue(CreekUserStats.class);
                 if( creekUserStats != null ) {
                     creekPreferences.saveCreekUserStats( creekUserStats );
+                    Log.d(TAG, "getCreekUserStatsInBackground : " + creekUserStats.toString());
                     creekUserStatsListener.onSuccess(creekUserStats);
+
                 }
                 else {
                     creekUserStatsListener.onFailure(null);
@@ -833,7 +845,8 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeCreekUserStats( CreekUserStats creekUserStats ) {
-        mUserDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+        mUserStatsDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+        creekPreferences.saveCreekUserStats(creekUserStats);
     }
 
 

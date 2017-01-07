@@ -102,5 +102,12 @@ public class CreekUserStats implements Parcelable {
         }
     };
 
-
+    @Override
+    public String toString() {
+        return "CreekUserStats{" +
+                "javaProgressIndex=" + javaProgressIndex +
+                ", cProgramIndex=" + cProgramIndex +
+                ", cppProgramIndex=" + cppProgramIndex +
+                '}';
+    }
 }

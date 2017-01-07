@@ -168,6 +168,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
         voiceTypeImageView.setVisibility(visibility);
+        isAnswered = syntaxOptions.size() == 0;
 
     }
 
@@ -253,7 +254,14 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void checkSolution() {
         String solutionText = syntaxSolutionTextView.getText().toString();
         if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, You've got it right", Snackbar.LENGTH_LONG).show();
+            CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if( modulteDetailsScrollPageListener != null ) {
+                        modulteDetailsScrollPageListener.onScrollForward();
+                    }
+                }
+            });
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
             isAnswered = true;
