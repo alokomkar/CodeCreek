@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
@@ -14,6 +15,7 @@ import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.Chapter;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +35,7 @@ public class CreekApplication extends Application {
     static CreekApplication creekApplication;
     private ArrayList<ProgramIndex> programIndexes;
     private HashMap<Integer, ProgramIndex> program_indexHashMap;
+    private CreekUserStats creekUserStats;
 
     public static CreekApplication getInstance() {
         return creekApplication;
@@ -83,5 +86,16 @@ public class CreekApplication extends Application {
 
     public ArrayList<ProgramIndex> getProgramIndexes() {
         return programIndexes;
+    }
+
+    public CreekUserStats getCreekUserStats( ) {
+        if( creekUserStats == null ) {
+            creekUserStats = new CreekPreferences(getApplicationContext()).getCreekUserStats();
+        }
+        return creekUserStats;
+    }
+
+    public void setCreekUserStats(CreekUserStats creekUserStats) {
+        this.creekUserStats = creekUserStats;
     }
 }

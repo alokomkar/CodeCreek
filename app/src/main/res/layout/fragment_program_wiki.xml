@@ -6,16 +6,30 @@
     android:background="@color/bg"
     android:layout_height="match_parent">
 
-    <TextView
-        tools:ignore="MissingPrefix"
-        fontPath="fonts/Roboto-Regular.ttf"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/headerTextView"
-        android:textColor="@color/md_black_1000"
-        android:padding="@dimen/margin_16"
-        android:textSize="@dimen/text_dashboard_small"
-        android:text="@string/about"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backImageView"
+            android:src="@android:drawable/ic_media_rew"
+            android:padding="@dimen/margin_8"/>
+
+        <TextView
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Roboto-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/headerTextView"
+            android:textColor="@color/md_black_1000"
+            android:padding="@dimen/margin_16"
+            android:textSize="@dimen/text_dashboard_small"
+            android:text="@string/about"/>
+    </LinearLayout>
+
+
 
    <android.support.v7.widget.RecyclerView
        android:layout_width="match_parent"

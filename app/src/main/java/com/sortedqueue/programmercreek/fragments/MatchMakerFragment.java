@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -51,7 +52,7 @@ import butterknife.ButterKnife;
  * Created by Alok Omkar on 2017-01-02.
  */
 
-public class MatchMakerFragment extends Fragment implements UIUpdateListener {
+public class MatchMakerFragment extends Fragment implements UIUpdateListener, TestCompletionListener {
 
     @Bind(R.id.checkQuizButton)
     Button checkQuizButton;
@@ -82,6 +83,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
     int mProgramSize;
     private Bundle newProgramActivityBundle;
     private View view;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -486,6 +488,11 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener {
             return false;
         }
     };
+
+    @Override
+    public int isTestComplete() {
+        return quizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
+    }
 
     private class ChoiceDragListener implements View.OnDragListener {
 

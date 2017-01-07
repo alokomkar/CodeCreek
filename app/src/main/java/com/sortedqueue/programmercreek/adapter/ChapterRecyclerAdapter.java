@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -42,6 +43,8 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         Chapter languageModule = chapters.get(position);
         holder.moduleNameTextView.setText(languageModule.getChapterName());
         holder.moduleDescriptionTextView.setText(languageModule.getChapteBrief());
+        holder.itemView.setEnabled(position == 0);
+        holder.lockedImageView.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
@@ -54,11 +57,15 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         TextView moduleNameTextView;
         @Bind(R.id.moduleDescriptionTextView)
         TextView moduleDescriptionTextView;
-
+        @Bind(R.id.headerTextView)
+        TextView headerTextView;
+        @Bind(R.id.lockedImageView)
+        ImageView lockedImageView;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            headerTextView.setText("Chapter");
             view.setOnClickListener(this);
         }
 

@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.WizardModulePagerAdapter;
+import com.sortedqueue.programmercreek.adapter.ChapterDetailsPagerAdapter;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
+import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
+import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
@@ -24,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 05/01/17.
  */
 
-public class ChapterDetailsFragment extends Fragment {
+public class ChapterDetailsFragment extends Fragment implements WikiNavigationListner {
 
     @Bind(R.id.ProgressBar)
     android.widget.ProgressBar progressBar;
@@ -36,7 +40,7 @@ public class ChapterDetailsFragment extends Fragment {
     FloatingActionButton doneFAB;
 
     private Chapter chapter;
-    private WizardModulePagerAdapter wizardModulePagerAdapter;
+    private ChapterDetailsPagerAdapter chapterDetailsPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,10 +62,10 @@ public class ChapterDetailsFragment extends Fragment {
     }
 
     private void setupViews() {
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapter");
-        syntaxLearnViewPager.setOffscreenPageLimit(chapter.getWizardModules().size());
-        wizardModulePagerAdapter = new WizardModulePagerAdapter(getContext(), getChildFragmentManager(), chapter.getWizardModules());
-        syntaxLearnViewPager.setAdapter(wizardModulePagerAdapter);
+
+        syntaxLearnViewPager.setOffscreenPageLimit(3);
+        chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), getChildFragmentManager(), chapter.getWizardModules(), this);
+        syntaxLearnViewPager.setAdapter(chapterDetailsPagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
         progressBar.setMax(chapter.getWizardModules().size());
         progressBar.setProgress(1);
@@ -82,6 +86,7 @@ public class ChapterDetailsFragment extends Fragment {
             public void onPageSelected(int position) {
                 progressBar.setProgress(position + 1);
                 toggleFabDrawable(progressBar.getProgress());
+                changeViewPagerBehavior(position);
             }
 
             @Override
@@ -89,7 +94,23 @@ public class ChapterDetailsFragment extends Fragment {
 
             }
         });
-        CommonUtils.dismissProgressDialog();
+
+    }
+
+    private void changeViewPagerBehavior(int position) {
+        Fragment fragment = chapterDetailsPagerAdapter.getItem(position);
+        if( fragment instanceof ProgramWikiFragment ) {
+            syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
+        }
+        else {
+            TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
+            if( testCompletionListener.isTestComplete() != -1 ) {
+                syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
+            }
+            else {
+                syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
+            }
+        }
     }
 
     private void toggleFabDrawable(final int progress) {
@@ -99,11 +120,35 @@ public class ChapterDetailsFragment extends Fragment {
 
     public void onScrollForward() {
         //Add validations here : if answer is complete - track and allow scrolling
+        Fragment fragment = chapterDetailsPagerAdapter.getItem(syntaxLearnViewPager.getCurrentItem());
+
+        if( fragment instanceof TestCompletionListener ) {
+            TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
+            switch ( testCompletionListener.isTestComplete() ) {
+                case ProgrammingBuddyConstants.KEY_MATCH :
+                case ProgrammingBuddyConstants.KEY_TEST : //Has same index as wiki - no changes for wiki
+                case ProgrammingBuddyConstants.KEY_QUIZ :
+                case ChapterDetails.TYPE_SYNTAX_MODULE :
+                    fabAction();
+                    break;
+                case -1 :
+                    CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
+                    break;
+            }
+        }
+
+    }
+
+    private void fabAction() {
         if (syntaxLearnViewPager.getCurrentItem() + 1 == chapter.getWizardModules().size()) {
             getActivity().onBackPressed();
         } else {
             syntaxLearnViewPager.setCurrentItem(syntaxLearnViewPager.getCurrentItem() + 1);
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        syntaxLearnViewPager.setCurrentItem( syntaxLearnViewPager.getCurrentItem() - 1);
     }
 }

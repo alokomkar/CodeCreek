@@ -84,8 +84,10 @@ public class ChaptersFragment extends Fragment {
 
         ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
         int index = 1;
+        int progressIndex = 1;
         ChapterDetails chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -94,6 +96,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -102,6 +105,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -110,6 +114,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -118,6 +123,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -126,6 +132,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId("c_1");
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
@@ -134,6 +141,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
         chapterDetails.setChapterReferenceId("c1");
 
@@ -141,6 +149,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("1");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
@@ -149,6 +158,7 @@ public class ChaptersFragment extends Fragment {
 
         chapter.setWizardModules(chapterDetailsArrayList);
         chapters = new ArrayList<>();
+        chapters.add(chapter);
         chapters.add(chapter);
         setupRecyclerView(chapters);
     }

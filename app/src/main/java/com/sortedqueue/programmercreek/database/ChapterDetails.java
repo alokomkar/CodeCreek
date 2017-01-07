@@ -17,6 +17,7 @@ public class ChapterDetails extends RushObject implements Parcelable {
     private String syntaxId;
     private String programLanguage;
     private int chapterTestType; //match, test, quiz
+    private int progressIndex;
 
     public static final int TYPE_WIKI = 1;
     public static final int TYPE_PROGRAM_INDEX = 2;
@@ -26,11 +27,20 @@ public class ChapterDetails extends RushObject implements Parcelable {
     public ChapterDetails() {
     }
 
-    public ChapterDetails(int chapterModuleIndex, int chapterType, String chapterReferenceId, String programLanguage ) {
+    public ChapterDetails(int chapterModuleIndex, int chapterType, String chapterReferenceId, String programLanguage, int progressIndex ) {
         this.chapterModuleIndex = chapterModuleIndex;
         this.chapterType = chapterType;
         this.chapterReferenceId = chapterReferenceId;
         this.programLanguage = programLanguage;
+        this.progressIndex = progressIndex;
+    }
+
+    public int getProgressIndex() {
+        return progressIndex;
+    }
+
+    public void setProgressIndex(int progressIndex) {
+        this.progressIndex = progressIndex;
     }
 
     public String getSyntaxId() {
@@ -95,6 +105,7 @@ public class ChapterDetails extends RushObject implements Parcelable {
         dest.writeString(this.syntaxId);
         dest.writeString(this.programLanguage);
         dest.writeInt(this.chapterTestType);
+        dest.writeInt(this.progressIndex);
     }
 
     protected ChapterDetails(Parcel in) {
@@ -104,6 +115,7 @@ public class ChapterDetails extends RushObject implements Parcelable {
         this.syntaxId = in.readString();
         this.programLanguage = in.readString();
         this.chapterTestType = in.readInt();
+        this.progressIndex = in.readInt();
     }
 
     public static final Parcelable.Creator<ChapterDetails> CREATOR = new Parcelable.Creator<ChapterDetails>() {

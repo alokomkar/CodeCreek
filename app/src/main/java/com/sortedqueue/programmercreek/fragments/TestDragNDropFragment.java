@@ -31,6 +31,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -50,7 +51,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Created by Alok on 03/01/17.
  */
 
-public class TestDragNDropFragment extends Fragment implements UIUpdateListener {
+public class TestDragNDropFragment extends Fragment implements UIUpdateListener, TestCompletionListener {
 
     ProgramIndex mProgramIndex;
     ArrayList<String> mRandomTest;
@@ -493,5 +494,10 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener 
 
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;
+    }
+
+    @Override
+    public int isTestComplete() {
+        return mQuizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
     }
 }

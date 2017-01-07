@@ -13,6 +13,7 @@ import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
+import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 
 import java.util.ArrayList;
 
@@ -20,14 +21,14 @@ import java.util.ArrayList;
  * Created by Alok on 05/01/17.
  */
 
-public class WizardModulePagerAdapter extends FragmentPagerAdapter {
+public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<Fragment> wizardFragments;
+    private ArrayList<Fragment> chaterFragments;
 
 
-    public WizardModulePagerAdapter(Context context, FragmentManager childFragmentManager, ArrayList<ChapterDetails> wizardModules) {
+    public ChapterDetailsPagerAdapter(Context context, FragmentManager childFragmentManager, ArrayList<ChapterDetails> wizardModules, WikiNavigationListner wikiNavigationListner) {
         super(childFragmentManager);
-        wizardFragments = new ArrayList<>();
+        chaterFragments = new ArrayList<>();
 
         for( ChapterDetails chapterDetails : wizardModules ) {
             switch ( chapterDetails.getChapterType() ) {
@@ -39,29 +40,30 @@ public class WizardModulePagerAdapter extends FragmentPagerAdapter {
                         case ProgrammingBuddyConstants.KEY_MATCH :
                             MatchMakerFragment matchMakerFragment = new MatchMakerFragment();
                             matchMakerFragment.setBundle(bundle);
-                            wizardFragments.add(matchMakerFragment);
+                            chaterFragments.add(matchMakerFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_TEST :
                             TestDragNDropFragment testDragNDropFragment = new TestDragNDropFragment();
                             testDragNDropFragment.setBundle(bundle);
-                            wizardFragments.add(testDragNDropFragment);
+                            chaterFragments.add(testDragNDropFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_QUIZ :
                             QuizFragment quizFragment = new QuizFragment();
                             quizFragment.setBundle(bundle);
-                            wizardFragments.add(quizFragment);
+                            chaterFragments.add(quizFragment);
                             break;
                     }
                     break;
                 case ChapterDetails.TYPE_SYNTAX_MODULE:
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
                     syntaxLearnActivityFragment.setSyntaxModule(chapterDetails.getSyntaxId(), chapterDetails.getChapterReferenceId());
-                    wizardFragments.add(syntaxLearnActivityFragment);
+                    chaterFragments.add(syntaxLearnActivityFragment);
                     break;
                 case ChapterDetails.TYPE_WIKI:
                     ProgramWikiFragment ProgramWikiFragment = new ProgramWikiFragment();
                     ProgramWikiFragment.setParams( chapterDetails.getChapterReferenceId() );
-                    wizardFragments.add(ProgramWikiFragment);
+                    ProgramWikiFragment.setWikiNavigationListener( wikiNavigationListner );
+                    chaterFragments.add(ProgramWikiFragment);
                     break;
             }
         }
@@ -69,11 +71,11 @@ public class WizardModulePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return wizardFragments.get(position);
+        return chaterFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return wizardFragments.size();
+        return chaterFragments.size();
     }
 }

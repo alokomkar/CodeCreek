@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
@@ -46,7 +47,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 03/01/17.
  */
 
-public class QuizFragment extends Fragment implements UIUpdateListener, UIProgramFetcherListener {
+public class QuizFragment extends Fragment implements UIUpdateListener, UIProgramFetcherListener, TestCompletionListener {
 
     ArrayList<String> mProgramList;
     ArrayList<String> mShuffleProgramList;
@@ -383,5 +384,10 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     @Override
     public void updateUI() {
         new ProgramFetcherTask(getContext(), mProgramIndex).execute();
+    }
+
+    @Override
+    public int isTestComplete() {
+        return quizComplete ? ProgrammingBuddyConstants.KEY_QUIZ : -1;
     }
 }

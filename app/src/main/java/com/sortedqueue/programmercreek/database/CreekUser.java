@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
+import co.uk.rushorm.core.RushObject;
+
 /**
  * Created by binay on 05/12/16.
  */

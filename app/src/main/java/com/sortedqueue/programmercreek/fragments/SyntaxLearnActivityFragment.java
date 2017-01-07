@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,10 +28,13 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -43,7 +47,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener {
+public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener {
 
     @Bind(R.id.syntaxExplanationCardView)
     CardView syntaxExplanationCardView;
@@ -81,6 +85,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     LinearLayout checkButtonLayout;
     @Bind(R.id.scrollView)
     ScrollView scrollView;
+    @Bind(R.id.progressBar)
+    ContentLoadingProgressBar progressBar;
     private SyntaxModule syntaxModule;
     private ArrayList<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
@@ -88,6 +94,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private boolean isLastFragment;
     private String wizardUrl = null;
     private String syntaxId;
+    private boolean isAnswered = false;
 
     public SyntaxLearnActivityFragment() {
     }
@@ -101,16 +108,19 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             bindData(syntaxModule);
         }
         else {
+            progressBar.setVisibility(View.VISIBLE);
             new FirebaseDatabaseHandler(getContext()).getSyntaxModule(syntaxId, wizardUrl,
                     new FirebaseDatabaseHandler.SyntaxModuleInterface() {
                 @Override
                 public void onSuccess(SyntaxModule syntaxModule) {
                     SyntaxLearnActivityFragment.this.syntaxModule = syntaxModule;
                     bindData(syntaxModule);
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError(DatabaseError error) {
+                    progressBar.setVisibility(View.GONE);
                     CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
                 }
             });
@@ -246,6 +256,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Congratulations, You've got it right", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
+            isAnswered = true;
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Check the syntax again", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText("Error..!!");
@@ -264,5 +275,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     public void setSyntaxModule(String syntaxId, String wizardUrl) {
         this.wizardUrl = wizardUrl;
         this.syntaxId = syntaxId;
+    }
+
+    @Override
+    public int isTestComplete() {
+        return isAnswered ? ChapterDetails.TYPE_SYNTAX_MODULE : -1;
     }
 }

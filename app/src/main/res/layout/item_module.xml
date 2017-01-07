@@ -16,12 +16,27 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_16">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/module"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/headerTextView"
+                android:text="@string/module"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lockedImageView"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_lock_lock"/>
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="match_parent"

@@ -18,9 +18,20 @@
             tools:context="com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment"
             tools:showIn="@layout/activity_syntax_learn">
 
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/progressBar"
+                android:background="@color/bg"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/progressBar"
                 android:id="@+id/syntaxExplanationCardView"
                 android:layout_marginBottom="@dimen/margin_8"
                 android:foreground="?android:attr/selectableItemBackground"

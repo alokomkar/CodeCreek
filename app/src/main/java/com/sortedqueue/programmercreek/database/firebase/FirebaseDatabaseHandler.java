@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
@@ -674,6 +675,17 @@ public class FirebaseDatabaseHandler {
             if( !creekPreferences.isWelcomeDone() ) {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
+                getCreekUserStatsInBackground(new CreekUserStatsListener() {
+                    @Override
+                    public void onSuccess(CreekUserStats creekUserStats) {
+
+                    }
+
+                    @Override
+                    public void onFailure(DatabaseError databaseError) {
+
+                    }
+                });
             }
             mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -788,6 +800,41 @@ public class FirebaseDatabaseHandler {
         }
     }
 
+    public interface CreekUserStatsListener {
+        void onSuccess( CreekUserStats creekUserStats );
+        void onFailure( DatabaseError databaseError );
+    }
+
+    public void getCreekUserStatsInBackground(final CreekUserStatsListener creekUserStatsListener ) {
+
+        mUserDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                CreekUserStats creekUserStats = dataSnapshot.getValue(CreekUserStats.class);
+                if( creekUserStats != null ) {
+                    creekPreferences.saveCreekUserStats( creekUserStats );
+                    creekUserStatsListener.onSuccess(creekUserStats);
+                }
+                else {
+                    creekUserStatsListener.onFailure(null);
+                    creekPreferences.saveCreekUserStats(new CreekUserStats());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                creekUserStatsListener.onFailure(databaseError);
+                creekPreferences.saveCreekUserStats(new CreekUserStats());
+            }
+        });
+
+    }
+
+    public void writeCreekUserStats( CreekUserStats creekUserStats ) {
+        mUserDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+    }
 
 
 

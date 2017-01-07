@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 
@@ -482,5 +484,20 @@ public class CreekPreferences {
 
     public void setWelcomeDone(boolean welcomeDone) {
         sharedPreferences.edit().putBoolean(KEY_WELCOME_DONE, welcomeDone).apply();
+    }
+
+    public void saveCreekUserStats(CreekUserStats creekUserStats) {
+        sharedPreferences.edit().putInt("javaProgressIndex", creekUserStats.getJavaProgressIndex()).apply();
+        sharedPreferences.edit().putInt("cProgressIndex", creekUserStats.getcProgramIndex()).apply();
+        sharedPreferences.edit().putInt("cppProgressIndex", creekUserStats.getCppProgramIndex()).apply();
+        CreekApplication.getInstance().setCreekUserStats(creekUserStats);
+    }
+
+    public CreekUserStats getCreekUserStats( ) {
+        CreekUserStats creekUserStats = new CreekUserStats();
+        creekUserStats.setCppProgramIndex(sharedPreferences.getInt("cppProgressIndex", 0));
+        creekUserStats.setcProgramIndex(sharedPreferences.getInt("cProgressIndex", 0));
+        creekUserStats.setJavaProgressIndex(sharedPreferences.getInt("javaProgressIndex", 0));
+        return creekUserStats;
     }
 }
