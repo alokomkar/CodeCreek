@@ -188,6 +188,10 @@ public class FirebaseDatabaseHandler {
         mCreekUserDBDatabase.setValue(creekUserDB);
     }
 
+    public void getLatestCModules() {
+
+    }
+
     public interface GetProgramTablesListener {
         void onSuccess( ArrayList<ProgramTable> programTables );
         void onError( DatabaseError databaseError );

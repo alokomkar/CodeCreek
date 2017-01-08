@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.uk.rushorm.core.RushCore;
@@ -336,16 +339,8 @@ public class CreekPreferences {
                     for( CreekUserDB localDB : list ) {
                         if( !creekUserDB.equals(localDB) ) {
                             //Check which db needs to be updated
-                            if( creekUserDB.getcModuleDBVersion() > (localDB.getcModuleDBVersion()) ) {
-                                setCModulesInserted("0");
-                                new RushSearch().whereEqual("moduleLanguage", "c").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
-                                    @Override
-                                    public void complete(List<LanguageModule> list) {
-                                        if( list != null ) {
-                                            RushCore.getInstance().delete(list);
-                                        }
-                                    }
-                                });
+                            if( !creekUserDB.getcModuleDBVersion().equals (localDB.getcModuleDBVersion()) ) {
+                                //TODO
                             }
                             if( creekUserDB.getcProgramIndexDBVersion() > (localDB.getcProgramIndexDBVersion())) {
                                 setCProgramIndex(-1);
@@ -353,7 +348,7 @@ public class CreekPreferences {
                             if( creekUserDB.getcProgramTableDBVersion() > (localDB.getcProgramTableDBVersion()) ) {
                                 setCProgramTablesIndex(-1);
                             }
-                            if( creekUserDB.getcSyntaxDBVersion() > (localDB.getcSyntaxDBVersion()) ) {
+                            if( !creekUserDB.getcSyntaxDBVersion().equals (localDB.getcSyntaxDBVersion()) ) {
                                 setCSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "c").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
@@ -368,7 +363,7 @@ public class CreekPreferences {
                             }
 
                             //Cpp
-                            if( creekUserDB.getCppModuleDBVersion() > (localDB.getCppModuleDBVersion()) ) {
+                            if( !creekUserDB.getCppModuleDBVersion().equals (localDB.getCppModuleDBVersion()) ) {
                                 setCPPModulesInserted("0");
                                 new RushSearch().whereEqual("moduleLanguage", "cpp").or().whereEqual("moduleLanguage", "c++").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
@@ -385,7 +380,7 @@ public class CreekPreferences {
                             if( creekUserDB.getCppProgramTableDBVersion() > (localDB.getCppProgramTableDBVersion()) ) {
                                 setCPPProgramTablesIndex(-1);
                             }
-                            if( creekUserDB.getCppSyntaxDBVersion() > (localDB.getCppSyntaxDBVersion()) ) {
+                            if( !creekUserDB.getCppSyntaxDBVersion().equals(localDB.getCppSyntaxDBVersion()) ) {
                                 setCPPSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "cpp").or().whereEqual("syntaxLanguage", "c++").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
@@ -399,7 +394,7 @@ public class CreekPreferences {
                             }
 
                             //Java
-                            if( creekUserDB.getJavaModuleDBVersion() > (localDB.getJavaModuleDBVersion()) ) {
+                            if( !creekUserDB.getJavaModuleDBVersion().equals (localDB.getJavaModuleDBVersion()) ) {
                                 setJavaModulesInserted("0");
                                 new RushSearch().whereEqual("moduleLanguage", "java").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
@@ -416,7 +411,7 @@ public class CreekPreferences {
                             if( creekUserDB.getJavaProgramTableDBVersion() > (localDB.getJavaProgramTableDBVersion()) ) {
                                 setJavaProgramTablesIndex(-1);
                             }
-                            if( creekUserDB.getJavaSyntaxDBVersion() > (localDB.getJavaSyntaxDBVersion()) ) {
+                            if( !creekUserDB.getJavaSyntaxDBVersion().equals(localDB.getJavaSyntaxDBVersion()) ) {
                                 setJavaSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "java").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
@@ -430,7 +425,7 @@ public class CreekPreferences {
                             }
 
                             //C Premium
-                            if( creekUserDB.getcModuleDBVersionPremium() > (localDB.getcModuleDBVersionPremium()) ) {
+                            if( creekUserDB.getcModuleDBVersionPremium().equals (localDB.getcModuleDBVersionPremium()) ) {
 
                             }
                             if( creekUserDB.getcProgramIndexDBVersionPremium() > (localDB.getcProgramIndexDBVersionPremium())) {
@@ -439,12 +434,12 @@ public class CreekPreferences {
                             if( creekUserDB.getcProgramTableDBVersionPremium() > (localDB.getcProgramTableDBVersionPremium()) ) {
 
                             }
-                            if( creekUserDB.getcSyntaxDBVersionPremium() > (localDB.getcSyntaxDBVersionPremium()) ) {
+                            if( creekUserDB.getcSyntaxDBVersionPremium().equals (localDB.getcSyntaxDBVersionPremium()) ) {
 
                             }
 
                             //CPP Premium
-                            if( creekUserDB.getCppModuleDBVersionPremium() > (localDB.getCppModuleDBVersionPremium()) ) {
+                            if( !creekUserDB.getCppModuleDBVersionPremium().equals (localDB.getCppModuleDBVersionPremium()) ) {
 
                             }
                             if( creekUserDB.getCppProgramIndexDBVersionPremium() > (localDB.getCppProgramIndexDBVersionPremium())) {
@@ -453,13 +448,13 @@ public class CreekPreferences {
                             if( creekUserDB.getCppProgramTableDBVersionPremium() > (localDB.getCppProgramTableDBVersionPremium()) ) {
 
                             }
-                            if( creekUserDB.getCppSyntaxDBVersionPremium() > (localDB.getCppSyntaxDBVersionPremium()) ) {
+                            if( creekUserDB.getCppSyntaxDBVersionPremium().equals(localDB.getCppSyntaxDBVersionPremium()) ) {
 
                             }
                             
 
                             //Java Premium
-                            if( creekUserDB.getJavaModuleDBVersionPremium() > (localDB.getJavaModuleDBVersionPremium()) ) {
+                            if( !creekUserDB.getJavaModuleDBVersionPremium().equals (localDB.getJavaModuleDBVersionPremium()) ) {
 
                             }
                             if( creekUserDB.getJavaProgramIndexDBVersionPremium() > (localDB.getJavaProgramIndexDBVersionPremium())) {
@@ -468,7 +463,7 @@ public class CreekPreferences {
                             if( creekUserDB.getJavaProgramTableDBVersionPremium() > (localDB.getJavaProgramTableDBVersionPremium()) ) {
 
                             }
-                            if( creekUserDB.getJavaSyntaxDBVersionPremium() > (localDB.getJavaSyntaxDBVersionPremium()) ) {
+                            if( !creekUserDB.getJavaSyntaxDBVersionPremium().equals(localDB.getJavaSyntaxDBVersionPremium()) ) {
 
                             }
                         }

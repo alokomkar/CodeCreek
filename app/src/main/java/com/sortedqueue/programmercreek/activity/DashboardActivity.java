@@ -94,12 +94,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 creekPreferences.checkUpdateDB(creekUserDB);
-                CommonUtils.dismissProgressDialog();
             }
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
             }
         });
 
