@@ -9,54 +9,68 @@ import co.uk.rushorm.core.RushObject;
 public class CreekUserDB extends RushObject {
 
     //Free version database versions
-    private double javaSyntaxDBVersion = 1.0;
-    private double javaModuleDBVersion = 1.0;
+    private String javaSyntaxDBVersion;
+    private String javaModuleDBVersion;
+    private String javaWikiDBVersion;
     private double javaProgramIndexDBVersion = 1.0;
     private double javaProgramTableDBVersion = 1.0;
 
-    private double cSyntaxDBVersion = 1.0;
-    private double cModuleDBVersion = 1.0;
+    private String cSyntaxDBVersion;
+    private String cModuleDBVersion;
+    private String cWikiDBVersion;
     private double cProgramIndexDBVersion = 1.0;
     private double cProgramTableDBVersion = 1.0;
 
-    private double cppSyntaxDBVersion = 1.0;
-    private double cppModuleDBVersion = 1.0;
+    private String cppSyntaxDBVersion;
+    private String cppModuleDBVersion;
+    private String cppWikiDBVersion;
     private double cppProgramIndexDBVersion = 1.0;
     private double cppProgramTableDBVersion = 1.0;
 
     //Premium version database versions
-    private double javaSyntaxDBVersionPremium = 1.0;
-    private double javaModuleDBVersionPremium = 1.0;
+    private String javaSyntaxDBVersionPremium;
+    private String javaModuleDBVersionPremium;
+    private String javaWikiDBVersionPremium;
     private double javaProgramIndexDBVersionPremium = 1.0;
     private double javaProgramTableDBVersionPremium = 1.0;
 
-    private double cSyntaxDBVersionPremium = 1.0;
-    private double cModuleDBVersionPremium = 1.0;
+    private String cSyntaxDBVersionPremium;
+    private String cModuleDBVersionPremium;
+    private String cWikiDBVersionPremium;
     private double cProgramIndexDBVersionPremium = 1.0;
     private double cProgramTableDBVersionPremium = 1.0;
 
-    private double cppSyntaxDBVersionPremium = 1.0;
-    private double cppModuleDBVersionPremium = 1.0;
+    private String cppSyntaxDBVersionPremium;
+    private String cppModuleDBVersionPremium;
+    private String cppWikiDBVersionPremium;
     private double cppProgramIndexDBVersionPremium = 1.0;
     private double cppProgramTableDBVersionPremium = 1.0;
 
     public CreekUserDB() {
     }
 
-    public double getJavaSyntaxDBVersion() {
+    public String getJavaSyntaxDBVersion() {
         return javaSyntaxDBVersion;
     }
 
-    public void setJavaSyntaxDBVersion(double javaSyntaxDBVersion) {
+    public void setJavaSyntaxDBVersion(String javaSyntaxDBVersion) {
         this.javaSyntaxDBVersion = javaSyntaxDBVersion;
     }
 
-    public double getJavaModuleDBVersion() {
+    public String getJavaModuleDBVersion() {
         return javaModuleDBVersion;
     }
 
-    public void setJavaModuleDBVersion(double javaModuleDBVersion) {
+    public void setJavaModuleDBVersion(String javaModuleDBVersion) {
         this.javaModuleDBVersion = javaModuleDBVersion;
+    }
+
+    public String getJavaWikiDBVersion() {
+        return javaWikiDBVersion;
+    }
+
+    public void setJavaWikiDBVersion(String javaWikiDBVersion) {
+        this.javaWikiDBVersion = javaWikiDBVersion;
     }
 
     public double getJavaProgramIndexDBVersion() {
@@ -75,20 +89,28 @@ public class CreekUserDB extends RushObject {
         this.javaProgramTableDBVersion = javaProgramTableDBVersion;
     }
 
-    public double getcSyntaxDBVersion() {
+    public String getcSyntaxDBVersion() {
         return cSyntaxDBVersion;
     }
 
-    public void setcSyntaxDBVersion(double cSyntaxDBVersion) {
+    public void setcSyntaxDBVersion(String cSyntaxDBVersion) {
         this.cSyntaxDBVersion = cSyntaxDBVersion;
     }
 
-    public double getcModuleDBVersion() {
+    public String getcModuleDBVersion() {
         return cModuleDBVersion;
     }
 
-    public void setcModuleDBVersion(double cModuleDBVersion) {
+    public void setcModuleDBVersion(String cModuleDBVersion) {
         this.cModuleDBVersion = cModuleDBVersion;
+    }
+
+    public String getcWikiDBVersion() {
+        return cWikiDBVersion;
+    }
+
+    public void setcWikiDBVersion(String cWikiDBVersion) {
+        this.cWikiDBVersion = cWikiDBVersion;
     }
 
     public double getcProgramIndexDBVersion() {
@@ -107,20 +129,28 @@ public class CreekUserDB extends RushObject {
         this.cProgramTableDBVersion = cProgramTableDBVersion;
     }
 
-    public double getCppSyntaxDBVersion() {
+    public String getCppSyntaxDBVersion() {
         return cppSyntaxDBVersion;
     }
 
-    public void setCppSyntaxDBVersion(double cppSyntaxDBVersion) {
+    public void setCppSyntaxDBVersion(String cppSyntaxDBVersion) {
         this.cppSyntaxDBVersion = cppSyntaxDBVersion;
     }
 
-    public double getCppModuleDBVersion() {
+    public String getCppModuleDBVersion() {
         return cppModuleDBVersion;
     }
 
-    public void setCppModuleDBVersion(double cppModuleDBVersion) {
+    public void setCppModuleDBVersion(String cppModuleDBVersion) {
         this.cppModuleDBVersion = cppModuleDBVersion;
+    }
+
+    public String getCppWikiDBVersion() {
+        return cppWikiDBVersion;
+    }
+
+    public void setCppWikiDBVersion(String cppWikiDBVersion) {
+        this.cppWikiDBVersion = cppWikiDBVersion;
     }
 
     public double getCppProgramIndexDBVersion() {
@@ -139,20 +169,28 @@ public class CreekUserDB extends RushObject {
         this.cppProgramTableDBVersion = cppProgramTableDBVersion;
     }
 
-    public double getJavaSyntaxDBVersionPremium() {
+    public String getJavaSyntaxDBVersionPremium() {
         return javaSyntaxDBVersionPremium;
     }
 
-    public void setJavaSyntaxDBVersionPremium(double javaSyntaxDBVersionPremium) {
+    public void setJavaSyntaxDBVersionPremium(String javaSyntaxDBVersionPremium) {
         this.javaSyntaxDBVersionPremium = javaSyntaxDBVersionPremium;
     }
 
-    public double getJavaModuleDBVersionPremium() {
+    public String getJavaModuleDBVersionPremium() {
         return javaModuleDBVersionPremium;
     }
 
-    public void setJavaModuleDBVersionPremium(double javaModuleDBVersionPremium) {
+    public void setJavaModuleDBVersionPremium(String javaModuleDBVersionPremium) {
         this.javaModuleDBVersionPremium = javaModuleDBVersionPremium;
+    }
+
+    public String getJavaWikiDBVersionPremium() {
+        return javaWikiDBVersionPremium;
+    }
+
+    public void setJavaWikiDBVersionPremium(String javaWikiDBVersionPremium) {
+        this.javaWikiDBVersionPremium = javaWikiDBVersionPremium;
     }
 
     public double getJavaProgramIndexDBVersionPremium() {
@@ -171,20 +209,28 @@ public class CreekUserDB extends RushObject {
         this.javaProgramTableDBVersionPremium = javaProgramTableDBVersionPremium;
     }
 
-    public double getcSyntaxDBVersionPremium() {
+    public String getcSyntaxDBVersionPremium() {
         return cSyntaxDBVersionPremium;
     }
 
-    public void setcSyntaxDBVersionPremium(double cSyntaxDBVersionPremium) {
+    public void setcSyntaxDBVersionPremium(String cSyntaxDBVersionPremium) {
         this.cSyntaxDBVersionPremium = cSyntaxDBVersionPremium;
     }
 
-    public double getcModuleDBVersionPremium() {
+    public String getcModuleDBVersionPremium() {
         return cModuleDBVersionPremium;
     }
 
-    public void setcModuleDBVersionPremium(double cModuleDBVersionPremium) {
+    public void setcModuleDBVersionPremium(String cModuleDBVersionPremium) {
         this.cModuleDBVersionPremium = cModuleDBVersionPremium;
+    }
+
+    public String getcWikiDBVersionPremium() {
+        return cWikiDBVersionPremium;
+    }
+
+    public void setcWikiDBVersionPremium(String cWikiDBVersionPremium) {
+        this.cWikiDBVersionPremium = cWikiDBVersionPremium;
     }
 
     public double getcProgramIndexDBVersionPremium() {
@@ -203,20 +249,28 @@ public class CreekUserDB extends RushObject {
         this.cProgramTableDBVersionPremium = cProgramTableDBVersionPremium;
     }
 
-    public double getCppSyntaxDBVersionPremium() {
+    public String getCppSyntaxDBVersionPremium() {
         return cppSyntaxDBVersionPremium;
     }
 
-    public void setCppSyntaxDBVersionPremium(double cppSyntaxDBVersionPremium) {
+    public void setCppSyntaxDBVersionPremium(String cppSyntaxDBVersionPremium) {
         this.cppSyntaxDBVersionPremium = cppSyntaxDBVersionPremium;
     }
 
-    public double getCppModuleDBVersionPremium() {
+    public String getCppModuleDBVersionPremium() {
         return cppModuleDBVersionPremium;
     }
 
-    public void setCppModuleDBVersionPremium(double cppModuleDBVersionPremium) {
+    public void setCppModuleDBVersionPremium(String cppModuleDBVersionPremium) {
         this.cppModuleDBVersionPremium = cppModuleDBVersionPremium;
+    }
+
+    public String getCppWikiDBVersionPremium() {
+        return cppWikiDBVersionPremium;
+    }
+
+    public void setCppWikiDBVersionPremium(String cppWikiDBVersionPremium) {
+        this.cppWikiDBVersionPremium = cppWikiDBVersionPremium;
     }
 
     public double getCppProgramIndexDBVersionPremium() {
@@ -242,45 +296,63 @@ public class CreekUserDB extends RushObject {
 
         CreekUserDB that = (CreekUserDB) o;
 
-        if (Double.compare(that.javaSyntaxDBVersion, javaSyntaxDBVersion) != 0) return false;
-        if (Double.compare(that.javaModuleDBVersion, javaModuleDBVersion) != 0) return false;
         if (Double.compare(that.javaProgramIndexDBVersion, javaProgramIndexDBVersion) != 0)
             return false;
         if (Double.compare(that.javaProgramTableDBVersion, javaProgramTableDBVersion) != 0)
             return false;
-        if (Double.compare(that.cSyntaxDBVersion, cSyntaxDBVersion) != 0) return false;
-        if (Double.compare(that.cModuleDBVersion, cModuleDBVersion) != 0) return false;
         if (Double.compare(that.cProgramIndexDBVersion, cProgramIndexDBVersion) != 0) return false;
         if (Double.compare(that.cProgramTableDBVersion, cProgramTableDBVersion) != 0) return false;
-        if (Double.compare(that.cppSyntaxDBVersion, cppSyntaxDBVersion) != 0) return false;
-        if (Double.compare(that.cppModuleDBVersion, cppModuleDBVersion) != 0) return false;
         if (Double.compare(that.cppProgramIndexDBVersion, cppProgramIndexDBVersion) != 0)
             return false;
         if (Double.compare(that.cppProgramTableDBVersion, cppProgramTableDBVersion) != 0)
-            return false;
-        if (Double.compare(that.javaSyntaxDBVersionPremium, javaSyntaxDBVersionPremium) != 0)
-            return false;
-        if (Double.compare(that.javaModuleDBVersionPremium, javaModuleDBVersionPremium) != 0)
             return false;
         if (Double.compare(that.javaProgramIndexDBVersionPremium, javaProgramIndexDBVersionPremium) != 0)
             return false;
         if (Double.compare(that.javaProgramTableDBVersionPremium, javaProgramTableDBVersionPremium) != 0)
             return false;
-        if (Double.compare(that.cSyntaxDBVersionPremium, cSyntaxDBVersionPremium) != 0)
-            return false;
-        if (Double.compare(that.cModuleDBVersionPremium, cModuleDBVersionPremium) != 0)
-            return false;
         if (Double.compare(that.cProgramIndexDBVersionPremium, cProgramIndexDBVersionPremium) != 0)
             return false;
         if (Double.compare(that.cProgramTableDBVersionPremium, cProgramTableDBVersionPremium) != 0)
             return false;
-        if (Double.compare(that.cppSyntaxDBVersionPremium, cppSyntaxDBVersionPremium) != 0)
-            return false;
-        if (Double.compare(that.cppModuleDBVersionPremium, cppModuleDBVersionPremium) != 0)
-            return false;
         if (Double.compare(that.cppProgramIndexDBVersionPremium, cppProgramIndexDBVersionPremium) != 0)
             return false;
-        return Double.compare(that.cppProgramTableDBVersionPremium, cppProgramTableDBVersionPremium) == 0;
+        if (Double.compare(that.cppProgramTableDBVersionPremium, cppProgramTableDBVersionPremium) != 0)
+            return false;
+        if (javaSyntaxDBVersion != null ? !javaSyntaxDBVersion.equals(that.javaSyntaxDBVersion) : that.javaSyntaxDBVersion != null)
+            return false;
+        if (javaModuleDBVersion != null ? !javaModuleDBVersion.equals(that.javaModuleDBVersion) : that.javaModuleDBVersion != null)
+            return false;
+        if (javaWikiDBVersion != null ? !javaWikiDBVersion.equals(that.javaWikiDBVersion) : that.javaWikiDBVersion != null)
+            return false;
+        if (cSyntaxDBVersion != null ? !cSyntaxDBVersion.equals(that.cSyntaxDBVersion) : that.cSyntaxDBVersion != null)
+            return false;
+        if (cModuleDBVersion != null ? !cModuleDBVersion.equals(that.cModuleDBVersion) : that.cModuleDBVersion != null)
+            return false;
+        if (cWikiDBVersion != null ? !cWikiDBVersion.equals(that.cWikiDBVersion) : that.cWikiDBVersion != null)
+            return false;
+        if (cppSyntaxDBVersion != null ? !cppSyntaxDBVersion.equals(that.cppSyntaxDBVersion) : that.cppSyntaxDBVersion != null)
+            return false;
+        if (cppModuleDBVersion != null ? !cppModuleDBVersion.equals(that.cppModuleDBVersion) : that.cppModuleDBVersion != null)
+            return false;
+        if (cppWikiDBVersion != null ? !cppWikiDBVersion.equals(that.cppWikiDBVersion) : that.cppWikiDBVersion != null)
+            return false;
+        if (javaSyntaxDBVersionPremium != null ? !javaSyntaxDBVersionPremium.equals(that.javaSyntaxDBVersionPremium) : that.javaSyntaxDBVersionPremium != null)
+            return false;
+        if (javaModuleDBVersionPremium != null ? !javaModuleDBVersionPremium.equals(that.javaModuleDBVersionPremium) : that.javaModuleDBVersionPremium != null)
+            return false;
+        if (javaWikiDBVersionPremium != null ? !javaWikiDBVersionPremium.equals(that.javaWikiDBVersionPremium) : that.javaWikiDBVersionPremium != null)
+            return false;
+        if (cSyntaxDBVersionPremium != null ? !cSyntaxDBVersionPremium.equals(that.cSyntaxDBVersionPremium) : that.cSyntaxDBVersionPremium != null)
+            return false;
+        if (cModuleDBVersionPremium != null ? !cModuleDBVersionPremium.equals(that.cModuleDBVersionPremium) : that.cModuleDBVersionPremium != null)
+            return false;
+        if (cWikiDBVersionPremium != null ? !cWikiDBVersionPremium.equals(that.cWikiDBVersionPremium) : that.cWikiDBVersionPremium != null)
+            return false;
+        if (cppSyntaxDBVersionPremium != null ? !cppSyntaxDBVersionPremium.equals(that.cppSyntaxDBVersionPremium) : that.cppSyntaxDBVersionPremium != null)
+            return false;
+        if (cppModuleDBVersionPremium != null ? !cppModuleDBVersionPremium.equals(that.cppModuleDBVersionPremium) : that.cppModuleDBVersionPremium != null)
+            return false;
+        return cppWikiDBVersionPremium != null ? cppWikiDBVersionPremium.equals(that.cppWikiDBVersionPremium) : that.cppWikiDBVersionPremium == null;
 
     }
 
@@ -288,54 +360,84 @@ public class CreekUserDB extends RushObject {
     public int hashCode() {
         int result;
         long temp;
-        temp = Double.doubleToLongBits(javaSyntaxDBVersion);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(javaModuleDBVersion);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = javaSyntaxDBVersion != null ? javaSyntaxDBVersion.hashCode() : 0;
+        result = 31 * result + (javaModuleDBVersion != null ? javaModuleDBVersion.hashCode() : 0);
+        result = 31 * result + (javaWikiDBVersion != null ? javaWikiDBVersion.hashCode() : 0);
         temp = Double.doubleToLongBits(javaProgramIndexDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(javaProgramTableDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cSyntaxDBVersion);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cModuleDBVersion);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (cSyntaxDBVersion != null ? cSyntaxDBVersion.hashCode() : 0);
+        result = 31 * result + (cModuleDBVersion != null ? cModuleDBVersion.hashCode() : 0);
+        result = 31 * result + (cWikiDBVersion != null ? cWikiDBVersion.hashCode() : 0);
         temp = Double.doubleToLongBits(cProgramIndexDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cProgramTableDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cppSyntaxDBVersion);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cppModuleDBVersion);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (cppSyntaxDBVersion != null ? cppSyntaxDBVersion.hashCode() : 0);
+        result = 31 * result + (cppModuleDBVersion != null ? cppModuleDBVersion.hashCode() : 0);
+        result = 31 * result + (cppWikiDBVersion != null ? cppWikiDBVersion.hashCode() : 0);
         temp = Double.doubleToLongBits(cppProgramIndexDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cppProgramTableDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(javaSyntaxDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(javaModuleDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (javaSyntaxDBVersionPremium != null ? javaSyntaxDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (javaModuleDBVersionPremium != null ? javaModuleDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (javaWikiDBVersionPremium != null ? javaWikiDBVersionPremium.hashCode() : 0);
         temp = Double.doubleToLongBits(javaProgramIndexDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(javaProgramTableDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cSyntaxDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cModuleDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (cSyntaxDBVersionPremium != null ? cSyntaxDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (cModuleDBVersionPremium != null ? cModuleDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (cWikiDBVersionPremium != null ? cWikiDBVersionPremium.hashCode() : 0);
         temp = Double.doubleToLongBits(cProgramIndexDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cProgramTableDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cppSyntaxDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(cppModuleDBVersionPremium);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (cppSyntaxDBVersionPremium != null ? cppSyntaxDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (cppModuleDBVersionPremium != null ? cppModuleDBVersionPremium.hashCode() : 0);
+        result = 31 * result + (cppWikiDBVersionPremium != null ? cppWikiDBVersionPremium.hashCode() : 0);
         temp = Double.doubleToLongBits(cppProgramIndexDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cppProgramTableDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CreekUserDB{" +
+                "\njavaSyntaxDBVersion='" + javaSyntaxDBVersion + '\'' +
+                ",\n javaModuleDBVersion='" + javaModuleDBVersion + '\'' +
+                ",\n javaWikiDBVersion='" + javaWikiDBVersion + '\'' +
+                ",\n javaProgramIndexDBVersion=" + javaProgramIndexDBVersion +
+                ",\n javaProgramTableDBVersion=" + javaProgramTableDBVersion +
+                ",\n cSyntaxDBVersion='" + cSyntaxDBVersion + '\'' +
+                ",\n cModuleDBVersion='" + cModuleDBVersion + '\'' +
+                ",\n cWikiDBVersion='" + cWikiDBVersion + '\'' +
+                ",\n cProgramIndexDBVersion=" + cProgramIndexDBVersion +
+                ",\n cProgramTableDBVersion=" + cProgramTableDBVersion +
+                ",\n cppSyntaxDBVersion='" + cppSyntaxDBVersion + '\'' +
+                ",\n cppModuleDBVersion='" + cppModuleDBVersion + '\'' +
+                ",\n cppWikiDBVersion='" + cppWikiDBVersion + '\'' +
+                ",\n cppProgramIndexDBVersion=" + cppProgramIndexDBVersion +
+                ",\n cppProgramTableDBVersion=" + cppProgramTableDBVersion +
+                ",\n javaSyntaxDBVersionPremium='" + javaSyntaxDBVersionPremium + '\'' +
+                ",\n javaModuleDBVersionPremium='" + javaModuleDBVersionPremium + '\'' +
+                ",\n javaWikiDBVersionPremium='" + javaWikiDBVersionPremium + '\'' +
+                ",\n javaProgramIndexDBVersionPremium=" + javaProgramIndexDBVersionPremium +
+                ",\n javaProgramTableDBVersionPremium=" + javaProgramTableDBVersionPremium +
+                ",\n cSyntaxDBVersionPremium='" + cSyntaxDBVersionPremium + '\'' +
+                ",\n cModuleDBVersionPremium='" + cModuleDBVersionPremium + '\'' +
+                ",\n cWikiDBVersionPremium='" + cWikiDBVersionPremium + '\'' +
+                ",\n cProgramIndexDBVersionPremium=" + cProgramIndexDBVersionPremium +
+                ",\n cProgramTableDBVersionPremium=" + cProgramTableDBVersionPremium +
+                ",\n cppSyntaxDBVersionPremium='" + cppSyntaxDBVersionPremium + '\'' +
+                ",\n cppModuleDBVersionPremium='" + cppModuleDBVersionPremium + '\'' +
+                ",\n cppWikiDBVersionPremium='" + cppWikiDBVersionPremium + '\'' +
+                ",\n cppProgramIndexDBVersionPremium=" + cppProgramIndexDBVersionPremium +
+                ",\n cppProgramTableDBVersionPremium=" + cppProgramTableDBVersionPremium +
+                '}';
     }
 }

@@ -204,20 +204,20 @@ public class CreekPreferences {
         sharedPreferences.edit().putBoolean(WIKI_HELP, wikiHelp).apply();
     }
 
-    public boolean getModulesInserted() {
+    public int getModulesInserted() {
         switch ( getProgramLanguage() ) {
             case "java" :
-                return sharedPreferences.getBoolean(KEY_JAVA_MODULE, false);
+                return sharedPreferences.getInt(KEY_JAVA_MODULE, -1);
             case "c" :
-                return sharedPreferences.getBoolean(KEY_C_MODULE, false);
+                return sharedPreferences.getInt(KEY_C_MODULE, -1);
             case "c++" :
             case "cpp" :
-                return sharedPreferences.getBoolean(KEY_CPP_MODULE, false);
+                return sharedPreferences.getInt(KEY_CPP_MODULE, -1);
         }
-        return false;
+        return -1;
     }
 
-    public void setModulesInserted( boolean modulesInserted ) {
+    public void setModulesInserted( String modulesInserted ) {
         switch ( getProgramLanguage() ) {
             case "java" :
                 setJavaModulesInserted(modulesInserted);
@@ -232,44 +232,44 @@ public class CreekPreferences {
         }
     }
 
-    private void setCPPModulesInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_CPP_MODULE, modulesInserted).apply();
+    private void setCPPModulesInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_CPP_MODULE, modulesInserted).apply();
     }
 
-    private void setCModulesInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_C_MODULE, modulesInserted).apply();
+    private void setCModulesInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_C_MODULE, modulesInserted).apply();
     }
 
-    private void setJavaModulesInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_JAVA_MODULE, modulesInserted).apply();
+    private void setJavaModulesInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_JAVA_MODULE, modulesInserted).apply();
     }
 
-    public boolean getProgramWikiInserted() {
+    public String getProgramWikiInserted() {
         switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
-                return sharedPreferences.getBoolean(KEY_JAVA_WIKI, false);
+                return sharedPreferences.getString(KEY_JAVA_WIKI, "0");
             case "c" :
-                return sharedPreferences.getBoolean(KEY_C_WIKI, false);
+                return sharedPreferences.getString(KEY_C_WIKI, "0");
             case "c++" :
             case "cpp" :
-                return sharedPreferences.getBoolean(KEY_CPP_WIKI, false);
+                return sharedPreferences.getString(KEY_CPP_WIKI, "0");
         }
-        return false;
+        return "0";
     }
 
-    public boolean getSyntaxInserted() {
+    public String getSyntaxInserted() {
         switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
-                return sharedPreferences.getBoolean(KEY_JAVA_SYNTAX, false);
+                return sharedPreferences.getString(KEY_JAVA_SYNTAX, "0");
             case "c" :
-                return sharedPreferences.getBoolean(KEY_C_SYNTAX, false);
+                return sharedPreferences.getString(KEY_C_SYNTAX, "0");
             case "c++" :
             case "cpp" :
-                return sharedPreferences.getBoolean(KEY_CPP_SYNTAX, false);
+                return sharedPreferences.getString(KEY_CPP_SYNTAX, "0");
         }
-        return false;
+        return "0";
     }
-    public void setProgramWikiInserted( boolean modulesInserted ) {
+    public void setProgramWikiInserted( String modulesInserted ) {
         switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
                 setJavaWikiInserted( modulesInserted );
@@ -284,7 +284,7 @@ public class CreekPreferences {
         }
     }
 
-    public void setSyntaxInserted( boolean modulesInserted ) {
+    public void setSyntaxInserted( String modulesInserted ) {
         switch ( getProgramLanguage().toLowerCase() ) {
             case "java" :
                 setJavaSyntaxInserted( modulesInserted );
@@ -299,28 +299,28 @@ public class CreekPreferences {
         }
     }
 
-    private void setCPPSyntaxInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_CPP_SYNTAX, modulesInserted).apply();
+    private void setCPPSyntaxInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_CPP_SYNTAX, modulesInserted).apply();
     }
 
-    private void setCSyntaxInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_C_SYNTAX, modulesInserted).apply();
+    private void setCSyntaxInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_C_SYNTAX, modulesInserted).apply();
     }
 
-    private void setJavaSyntaxInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_JAVA_SYNTAX, modulesInserted).apply();
+    private void setJavaSyntaxInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_JAVA_SYNTAX, modulesInserted).apply();
     }
 
-    private void setCPPWikiInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_CPP_WIKI, modulesInserted).apply();
+    private void setCPPWikiInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_CPP_WIKI, modulesInserted).apply();
     }
 
-    private void setCWikiInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_C_WIKI, modulesInserted).apply();
+    private void setCWikiInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_C_WIKI, modulesInserted).apply();
     }
 
-    private void setJavaWikiInserted(boolean modulesInserted) {
-        sharedPreferences.edit().putBoolean(KEY_JAVA_WIKI, modulesInserted).apply();
+    private void setJavaWikiInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_JAVA_WIKI, modulesInserted).apply();
     }
 
     public void checkUpdateDB(final CreekUserDB creekUserDB) {
@@ -337,7 +337,7 @@ public class CreekPreferences {
                         if( !creekUserDB.equals(localDB) ) {
                             //Check which db needs to be updated
                             if( creekUserDB.getcModuleDBVersion() > (localDB.getcModuleDBVersion()) ) {
-                                setCModulesInserted(false);
+                                setCModulesInserted("0");
                                 new RushSearch().whereEqual("moduleLanguage", "c").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
                                     public void complete(List<LanguageModule> list) {
@@ -354,7 +354,7 @@ public class CreekPreferences {
                                 setCProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getcSyntaxDBVersion() > (localDB.getcSyntaxDBVersion()) ) {
-                                setCSyntaxInserted(false);
+                                setCSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "c").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
                                     @Override
@@ -369,7 +369,7 @@ public class CreekPreferences {
 
                             //Cpp
                             if( creekUserDB.getCppModuleDBVersion() > (localDB.getCppModuleDBVersion()) ) {
-                                setCPPModulesInserted(false);
+                                setCPPModulesInserted("0");
                                 new RushSearch().whereEqual("moduleLanguage", "cpp").or().whereEqual("moduleLanguage", "c++").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
                                     public void complete(List<LanguageModule> list) {
@@ -386,7 +386,7 @@ public class CreekPreferences {
                                 setCPPProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getCppSyntaxDBVersion() > (localDB.getCppSyntaxDBVersion()) ) {
-                                setCPPSyntaxInserted(false);
+                                setCPPSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "cpp").or().whereEqual("syntaxLanguage", "c++").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
                                             @Override
@@ -400,7 +400,7 @@ public class CreekPreferences {
 
                             //Java
                             if( creekUserDB.getJavaModuleDBVersion() > (localDB.getJavaModuleDBVersion()) ) {
-                                setJavaModulesInserted(false);
+                                setJavaModulesInserted("0");
                                 new RushSearch().whereEqual("moduleLanguage", "java").find(LanguageModule.class, new RushSearchCallback<LanguageModule>() {
                                     @Override
                                     public void complete(List<LanguageModule> list) {
@@ -417,7 +417,7 @@ public class CreekPreferences {
                                 setJavaProgramTablesIndex(-1);
                             }
                             if( creekUserDB.getJavaSyntaxDBVersion() > (localDB.getJavaSyntaxDBVersion()) ) {
-                                setJavaSyntaxInserted(false);
+                                setJavaSyntaxInserted("0");
                                 new RushSearch().whereEqual("syntaxLanguage", "java").find(SyntaxModule.class,
                                         new RushSearchCallback<SyntaxModule>() {
                                             @Override

@@ -74,7 +74,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             dashboardViewPager.setCurrentItem(1);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
-
+        getFirebaseDBVerion();
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -89,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
-        CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
+        //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {

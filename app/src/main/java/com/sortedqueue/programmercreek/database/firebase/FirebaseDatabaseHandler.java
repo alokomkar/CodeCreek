@@ -266,7 +266,7 @@ public class FirebaseDatabaseHandler {
     }
     public void getProgramIndexInBackGround(final int mProgramIndex, final GetProgramIndexListener getProgramIndexListener ) {
 
-        if( creekPreferences.getProgramIndex() != -1 ) {
+        /*if( creekPreferences.getProgramIndex() != -1 ) {
             new AsyncTask<Void, Void, ProgramIndex>() {
 
                 @Override
@@ -296,7 +296,7 @@ public class FirebaseDatabaseHandler {
                 }
             }.execute();
         }
-        else {
+        else */{
             mProgramDatabase.child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -388,7 +388,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getWikiModel(final String wizardUrl, final GetWikiModelListener getWikiModelListener ) {
-        if( creekPreferences.getProgramWikiInserted() ) {
+       /* if( creekPreferences.getProgramWikiInserted() ) {
             new AsyncTask<Void, Void, WikiModel>() {
 
                 @Override
@@ -419,7 +419,7 @@ public class FirebaseDatabaseHandler {
             }.execute();
 
         }
-        else {
+        else */{
             mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -472,7 +472,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void initializeProgramWiki( final ProgramWikiInterface programWikiInterface ) {
-        if( !creekPreferences.getProgramWikiInserted() ) {
+        if( creekPreferences.getProgramWikiInserted().equals("0") ) {
 
             mProgramWikiDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -490,7 +490,7 @@ public class FirebaseDatabaseHandler {
                         programWikis.add(wiki);
                     }
                     programWikiInterface.getProgramWiki(programWikis);
-                    creekPreferences.setProgramWikiInserted(true);
+                    creekPreferences.setProgramWikiInserted(programWikis.get( programWikis.size() -1 ).getWikiId());
                 }
 
                 @Override
@@ -550,7 +550,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
-        if( !creekPreferences.getSyntaxInserted() ) {
+        if( creekPreferences.getSyntaxInserted().equals("0") ) {
 
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -569,7 +569,7 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     syntaxInterface.getSyntaxModules(syntaxModules);
-                    creekPreferences.setSyntaxInserted(true);
+                    creekPreferences.setSyntaxInserted( syntaxModules.get(syntaxModules.size() -1 ).getSyntaxModuleId());
                 }
 
                 @Override
@@ -617,7 +617,7 @@ public class FirebaseDatabaseHandler {
 
 
     public void initializeModules( final ModuleInterface moduleInterface ) {
-        if( !creekPreferences.getModulesInserted() ) {
+        if( creekPreferences.getModulesInserted() == -1 ) {
 
             mLanguageModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -634,7 +634,7 @@ public class FirebaseDatabaseHandler {
                         languageModules.add(languageModule);
                     }
                     moduleInterface.getModules(languageModules);
-                    creekPreferences.setModulesInserted(true);
+                    creekPreferences.setModulesInserted(languageModules.get(languageModules.size() - 1 ).getModuleId());
                 }
 
                 @Override
@@ -712,7 +712,7 @@ public class FirebaseDatabaseHandler {
                                 });
                                 program_indices.add(program_index);
                             }
-                            creekPreferences.setProgramIndex(program_indices.size());
+                            creekPreferences.setProgramIndex(program_indices.get(program_indices.size() - 1 ).getProgram_index());
                             Log.d(TAG, "Inserted program indexes : " + program_indices.size());
                             CommonUtils.dismissProgressDialog();
                             programIndexInterface.getProgramIndexes(program_indices);
@@ -791,7 +791,7 @@ public class FirebaseDatabaseHandler {
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                         }
                     }
-                    creekPreferences.setProgramTables(program_tables.size());
+                    creekPreferences.setProgramTables(program_tables.get(program_tables.size() - 1).getProgram_index());
                     programTableInterface.getProgramTables(program_tables);
 
                 }
