@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
@@ -46,6 +47,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     private Chapter chapter;
     private ChapterDetailsPagerAdapter chapterDetailsPagerAdapter;
+    private CreekUserStats creekUserStats;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +83,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             }
         });
         toggleFabDrawable( progressBar.getProgress() );
+        changeViewPagerBehavior(1);
         syntaxLearnViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -103,18 +106,39 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     }
 
     private void changeViewPagerBehavior(int position) {
+        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        int chapterProgress = 0;
+        switch ( chapter.getProgram_Language() ) {
+            case "c" :
+                chapterProgress = creekUserStats.getcProgramIndex();
+                break;
+            case "cpp" :
+            case "c++" :
+                chapterProgress = creekUserStats.getCppProgramIndex();
+                break;
+            case "java" :
+                chapterProgress = creekUserStats.getJavaProgressIndex();
+                break;
+        }
+
         Fragment fragment = chapterDetailsPagerAdapter.getItem(position);
         if( fragment instanceof ProgramWikiFragment ) {
             syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
         }
         else {
-            TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
-            if( testCompletionListener.isTestComplete() != -1 ) {
+            if( chapterProgress != 0 && chapterProgress >= chapter.getMinStats() ) {
                 syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
             }
             else {
-                syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
+                TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
+                if( testCompletionListener.isTestComplete() != -1 ) {
+                    syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
+                }
+                else {
+                    syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
+                }
             }
+
         }
     }
 
@@ -126,27 +150,46 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     @Override
     public void onScrollForward() {
         //Add validations here : if answer is complete - track and allow scrolling
+        //if chapter is already complete, don't restrict movement
+        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        int chapterProgress = 0;
+        switch ( chapter.getProgram_Language() ) {
+            case "c" :
+                chapterProgress = creekUserStats.getcProgramIndex();
+                break;
+            case "cpp" :
+            case "c++" :
+                chapterProgress = creekUserStats.getCppProgramIndex();
+                break;
+            case "java" :
+                chapterProgress = creekUserStats.getJavaProgressIndex();
+                break;
+        }
         Fragment fragment = chapterDetailsPagerAdapter.getItem(syntaxLearnViewPager.getCurrentItem());
-
-        if( fragment instanceof TestCompletionListener ) {
-            TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
-            switch ( testCompletionListener.isTestComplete() ) {
-                case ProgrammingBuddyConstants.KEY_MATCH :
-                case ProgrammingBuddyConstants.KEY_TEST : //Has same index as wiki - no changes for wiki
-                case ProgrammingBuddyConstants.KEY_QUIZ :
-                case ChapterDetails.TYPE_SYNTAX_MODULE :
-                    fabAction();
-                    break;
-                case -1 :
-                    CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
-                    break;
+        if( chapterProgress != 0 && chapterProgress >= chapter.getMinStats() ) {
+            fabAction();
+        }
+        else {
+            if( fragment instanceof TestCompletionListener ) {
+                TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
+                switch ( testCompletionListener.isTestComplete() ) {
+                    case ProgrammingBuddyConstants.KEY_MATCH :
+                    case ProgrammingBuddyConstants.KEY_TEST : //Has same index as wiki - no changes for wiki
+                    case ProgrammingBuddyConstants.KEY_QUIZ :
+                    case ChapterDetails.TYPE_SYNTAX_MODULE :
+                        fabAction();
+                        updateCreekStats();
+                        break;
+                    case -1 :
+                        CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
+                        break;
+                }
             }
         }
-
     }
 
     private void fabAction() {
-        updateCreekStats();
+
         if (syntaxLearnViewPager.getCurrentItem() + 1 == chapter.getChapterDetailsArrayList().size()) {
             getActivity().onBackPressed();
         } else {
@@ -156,17 +199,20 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     private void updateCreekStats() {
         ChapterDetails chapterDetails = chapterDetailsPagerAdapter.getChapterDetailsForPosition(syntaxLearnViewPager.getCurrentItem());
-        CreekUserStats creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+
         switch ( new CreekPreferences(getContext()).getProgramLanguage() ) {
             case "c" :
-                creekUserStats.setcProgramIndex(chapterDetails.getProgressIndex());
+                if( creekUserStats.getcProgramIndex() < chapterDetails.getProgressIndex() )
+                    creekUserStats.setcProgramIndex(chapterDetails.getProgressIndex());
                 break;
             case "c++" :
             case "cpp" :
-                creekUserStats.setCppProgramIndex(chapterDetails.getProgressIndex());
+                if( creekUserStats.getCppProgramIndex() < chapterDetails.getProgressIndex() )
+                    creekUserStats.setCppProgramIndex(chapterDetails.getProgressIndex());
                 break;
             case "java" :
-                creekUserStats.setJavaProgressIndex(chapterDetails.getProgressIndex());
+                if( creekUserStats.getJavaProgressIndex() < chapterDetails.getProgressIndex() )
+                    creekUserStats.setJavaProgressIndex(chapterDetails.getProgressIndex());
                 break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -71,10 +72,15 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
                 break;
         }
         int maxProgress = chapter.getChapterDetailsArrayList().size();
-        holder.progressBar.setMax(maxProgress);
+        holder.appCompatSeekBar.setMax( maxProgress);
+        chapterProgress = chapterProgress - chapter.getMinStats();
+        if( chapterProgress < 0 ) {
+            chapterProgress = 0;
+        }
         chapterProgress = chapterProgress <= maxProgress ? chapterProgress : maxProgress;
-        holder.progressBar.setProgress( chapterProgress );
-        holder.progressBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
+        holder.appCompatSeekBar.setProgress( chapterProgress );
+        holder.appCompatSeekBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
+
 
     }
 
@@ -92,14 +98,16 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         TextView headerTextView;
         @Bind(R.id.lockedImageView)
         ImageView lockedImageView;
-        @Bind(R.id.progressBar)
-        ProgressBar progressBar;
+        @Bind(R.id.appCompatSeekBar)
+        SeekBar appCompatSeekBar;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             headerTextView.setText("Chapter");
-            progressBar.setVisibility(View.VISIBLE);
+            appCompatSeekBar.setVisibility(View.VISIBLE);
+            appCompatSeekBar.setActivated(false);
+            appCompatSeekBar.setEnabled(false);
             view.setOnClickListener(this);
         }
 

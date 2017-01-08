@@ -52,19 +52,19 @@
             android:id="@+id/moduleDescriptionTextView"
             android:text="@string/printf_solution"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/appCompatSeekBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:visibility="gone"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_8"
+            android:max="100"
+            android:progress="20"
             android:indeterminate="false"
             android:maxHeight="4dp"
             android:minHeight="4dp"
-            android:max="4"
-            android:progress="1"
-            android:progressDrawable="@drawable/greenprogress" />
+             />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
