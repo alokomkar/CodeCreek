@@ -817,7 +817,7 @@ public class FirebaseDatabaseHandler {
 
     public void getCreekUserStatsInBackground(final CreekUserStatsListener creekUserStatsListener ) {
 
-        mUserStatsDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
+        mUserStatsDatabase.child( creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -831,6 +831,7 @@ public class FirebaseDatabaseHandler {
                 else {
                     creekUserStatsListener.onFailure(null);
                     creekPreferences.saveCreekUserStats(new CreekUserStats());
+                    Log.d(TAG, "getCreekUserStatsInBackground : " + new CreekUserStats().toString());
                 }
 
             }
@@ -845,7 +846,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeCreekUserStats( CreekUserStats creekUserStats ) {
-        mUserStatsDatabase.child( programLanguage +"/"+ creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+        mUserStatsDatabase.child( creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
         creekPreferences.saveCreekUserStats(creekUserStats);
     }
 

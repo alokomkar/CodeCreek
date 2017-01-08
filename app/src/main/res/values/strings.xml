@@ -104,4 +104,5 @@
     <string name="unable_to_fetch_data">Unable to fetch data</string>
     <string name="congratulations">Congratulations, You\'ve got it right</string>
     <string name="proceed">Proceed</string>
+    <string name="chapter_locked">This chapter is currently locked, Complete the previous chapter to unlock this.</string>
 </resources>

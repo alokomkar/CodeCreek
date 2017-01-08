@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -50,24 +52,22 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         holder.moduleDescriptionTextView.setText(chapter.getChapteBrief());
         boolean isChapterEnabled;
         int chapterProgress = 0;
+
         switch ( chapter.getProgram_Language() ) {
             case "c":
                 isChapterEnabled = creekUserStats.getcProgramIndex() >= chapter.getMinStats();
                 chapterProgress = creekUserStats.getcProgramIndex();
-                holder.itemView.setEnabled(isChapterEnabled);
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
             case "cpp":
             case "c++":
                 isChapterEnabled = creekUserStats.getCppProgramIndex() >= chapter.getMinStats();
                 chapterProgress = creekUserStats.getCppProgramIndex();
-                holder.itemView.setEnabled(isChapterEnabled);
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
             case "java":
                 isChapterEnabled = creekUserStats.getJavaProgressIndex() >= chapter.getMinStats();
                 chapterProgress = creekUserStats.getJavaProgressIndex();
-                holder.itemView.setEnabled(isChapterEnabled);
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
         }
@@ -114,8 +114,14 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            if( position != RecyclerView.NO_POSITION )
+            if( position != RecyclerView.NO_POSITION ) {
+                if( lockedImageView.getVisibility() == View.VISIBLE ) {
+                    CommonUtils.displaySnackBar((Activity) context, R.string.chapter_locked);
+                    return;
+                }
                 adapterClickListner.onItemClick(position);
+            }
+
         }
     }
 }

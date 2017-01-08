@@ -106,27 +106,14 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     }
 
     private void changeViewPagerBehavior(int position) {
-        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        int chapterProgress = 0;
-        switch ( chapter.getProgram_Language() ) {
-            case "c" :
-                chapterProgress = creekUserStats.getcProgramIndex();
-                break;
-            case "cpp" :
-            case "c++" :
-                chapterProgress = creekUserStats.getCppProgramIndex();
-                break;
-            case "java" :
-                chapterProgress = creekUserStats.getJavaProgressIndex();
-                break;
-        }
-
+        int chapterProgress = getChapterProgress();
         Fragment fragment = chapterDetailsPagerAdapter.getItem(position);
+        ChapterDetails chapterDetails = chapter.getChapterDetailsArrayList().get(position);
         if( fragment instanceof ProgramWikiFragment ) {
             syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
         }
         else {
-            if( chapterProgress != 0 && chapterProgress >= chapter.getMinStats() ) {
+            if( chapterProgress != 0 && chapterProgress > chapterDetails.getProgressIndex() ) {
                 syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
             }
             else {
@@ -142,15 +129,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         }
     }
 
-    private void toggleFabDrawable(final int progress) {
-        int drawable = progress == progressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
-        doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
-    }
-
-    @Override
-    public void onScrollForward() {
-        //Add validations here : if answer is complete - track and allow scrolling
-        //if chapter is already complete, don't restrict movement
+    private int getChapterProgress() {
         creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         int chapterProgress = 0;
         switch ( chapter.getProgram_Language() ) {
@@ -165,8 +144,22 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 chapterProgress = creekUserStats.getJavaProgressIndex();
                 break;
         }
+        return chapterProgress;
+    }
+
+    private void toggleFabDrawable(final int progress) {
+        int drawable = progress == progressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
+        doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
+    }
+
+    @Override
+    public void onScrollForward() {
+        //Add validations here : if answer is complete - track and allow scrolling
+        //if chapter is already complete, don't restrict movement
+        int chapterProgress = getChapterProgress();
         Fragment fragment = chapterDetailsPagerAdapter.getItem(syntaxLearnViewPager.getCurrentItem());
-        if( chapterProgress != 0 && chapterProgress >= chapter.getMinStats() ) {
+        ChapterDetails chapterDetails = chapter.getChapterDetailsArrayList().get(syntaxLearnViewPager.getCurrentItem());
+        if( chapterProgress != 0 && chapterProgress > chapterDetails.getProgressIndex() ) {
             fabAction();
         }
         else {
