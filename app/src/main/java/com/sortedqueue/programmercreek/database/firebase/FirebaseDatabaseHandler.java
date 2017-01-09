@@ -244,11 +244,13 @@ public class FirebaseDatabaseHandler {
     public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
             if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
                 return new ArrayList<>(new RushSearch()
+                        .whereEqual("program_index", mProgramIndex)
+                        .and()
+                        .startGroup()
                         .whereEqual("program_Language", "c++")
                         .or()
                         .whereEqual("program_Language", "cpp")
-                        .and()
-                        .whereEqual("program_index", mProgramIndex)
+                        .endGroup()
                         .orderAsc("line_No")
                         .find(ProgramTable.class));
             }
@@ -513,9 +515,11 @@ public class FirebaseDatabaseHandler {
                     ArrayList<WikiModel> programWikis;
                     if( creekPreferences.getProgramLanguage().equals("c++") ) {
                         programWikis = new ArrayList<>(new RushSearch()
+                                .startGroup()
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
                                 .or()
                                 .whereEqual("syntaxLanguage", "cpp")
+                                .endGroup()
                                 .orderAsc("wikiId")
                                 .find(WikiModel.class));
                     }
@@ -592,11 +596,13 @@ public class FirebaseDatabaseHandler {
                     ArrayList<SyntaxModule> syntaxModules;
                     if( creekPreferences.getProgramLanguage().equals("c++") ) {
                         syntaxModules = new ArrayList<>(new RushSearch()
+                                .whereEqual("moduleId", languageModule.getModuleId())
+                                .and()
+                                .startGroup()
                                 .whereEqual("syntaxLanguage", creekPreferences.getProgramLanguage())
                                 .or()
                                 .whereEqual("syntaxLanguage", "cpp")
-                                .and()
-                                .whereEqual("moduleId", languageModule.getModuleId())
+                                .endGroup()
                                 .find(SyntaxModule.class));
                     }
                     else {
@@ -759,9 +765,11 @@ public class FirebaseDatabaseHandler {
     private ArrayList<ProgramIndex> getProgramIndexes() {
         if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
             return new ArrayList<>(new RushSearch()
+                    .startGroup()
                     .whereEqual("program_Language", "c++")
                     .or()
                     .whereEqual("program_Language", "cpp")
+                    .endGroup()
                     .orderAsc("program_index")
                     .find(ProgramIndex.class));
         }
