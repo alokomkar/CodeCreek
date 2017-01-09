@@ -591,4 +591,65 @@ public class CreekPreferences {
         }
         return result;
     }
+
+    public int checkModulesUpdate() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        AlphaNumComparator alphaNumComparator = new AlphaNumComparator();
+        String modulesInserted = getModulesInserted();
+        int result = 0;
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = (int)(alphaNumComparator.compare( modulesInserted, creekUserDB.getcModuleDBVersion()));
+                break;
+            case "c++":
+            case "cpp":
+                result = (int)(alphaNumComparator.compare(modulesInserted, creekUserDB.getCppModuleDBVersion() ));
+                break;
+            case "java":
+                result = (int)(alphaNumComparator.compare(modulesInserted, creekUserDB.getCppModuleDBVersion()));
+                break;
+        }
+        return result;
+    }
+
+    public int checkWikiUpdate() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        AlphaNumComparator alphaNumComparator = new AlphaNumComparator();
+        String wikiInserted = getProgramWikiInserted();
+        int result = 0;
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = (int)(alphaNumComparator.compare( wikiInserted, creekUserDB.getcWikiDBVersion()));
+                break;
+            case "c++":
+            case "cpp":
+                result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getCppWikiDBVersion() ));
+                break;
+            case "java":
+                result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getJavaWikiDBVersion()));
+                break;
+        }
+        return result;
+    }
+
+    public int checkSyntaxUpdate() {
+
+        CreekUserDB creekUserDB = getCreekUserDB();
+        AlphaNumComparator alphaNumComparator = new AlphaNumComparator();
+        String syntaxInserted = getSyntaxInserted();
+        int result = 0;
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = (int)(alphaNumComparator.compare( syntaxInserted, creekUserDB.getcSyntaxDBVersion()));
+                break;
+            case "c++":
+            case "cpp":
+                result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getCppSyntaxDBVersion() ));
+                break;
+            case "java":
+                result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getJavaSyntaxDBVersion()));
+                break;
+        }
+        return result;
+    }
 }

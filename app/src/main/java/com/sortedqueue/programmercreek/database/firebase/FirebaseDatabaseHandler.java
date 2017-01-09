@@ -331,9 +331,9 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError error );
     }
     public void getSyntaxModule(String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
-        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + ( wizardUrl + " : " + (creekPreferences.getSyntaxInserted())));
-        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getSyntaxInserted())));
-        if( new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getSyntaxInserted())) <= 0 ) {
+        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + ( syntaxId + "_" +wizardUrl + " : " + (creekPreferences.getSyntaxInserted())));
+        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + new AlphaNumComparator().compare( syntaxId + "_" +wizardUrl, (creekPreferences.getSyntaxInserted())));
+        if( new AlphaNumComparator().compare( syntaxId + "_" +wizardUrl, (creekPreferences.getSyntaxInserted())) <= 0 ) {
             Log.d(TAG, "getSyntaxModule : Running Async task");
             new AsyncTask<Void, Void, SyntaxModule>( ) {
 
@@ -488,7 +488,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void initializeProgramWiki( final ProgramWikiInterface programWikiInterface ) {
-        if( creekPreferences.getProgramWikiInserted().equals("0") ) {
+        if( creekPreferences.checkWikiUpdate()  < 0 ) {
 
             mProgramWikiDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -568,7 +568,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
-        if( creekPreferences.getSyntaxInserted().equals("0") ) {
+        if( creekPreferences.checkSyntaxUpdate() < 0 ) {
 
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -587,7 +587,8 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     syntaxInterface.getSyntaxModules(syntaxModules);
-                    creekPreferences.setSyntaxInserted( syntaxModules.get(syntaxModules.size() -1 ).getSyntaxModuleId());
+                    SyntaxModule lastSyntaxModule = syntaxModules.get(syntaxModules.size() - 1);
+                    creekPreferences.setSyntaxInserted( lastSyntaxModule.getModuleId() + "_" + lastSyntaxModule.getSyntaxModuleId());
                 }
 
                 @Override
@@ -637,8 +638,9 @@ public class FirebaseDatabaseHandler {
 
 
     public void initializeModules( final ModuleInterface moduleInterface ) {
-        if( creekPreferences.getModulesInserted() == -1 ) {
 
+        if( creekPreferences.checkModulesUpdate() < 0 ) {
+            Log.d(TAG, "initializeModules : FirebaseDBTask");
             mLanguageModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -666,6 +668,7 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
+            Log.d(TAG, "initializeModules : Asnctask");
             new AsyncTask<Void, Void, ArrayList<LanguageModule>>() {
 
                 @Override
