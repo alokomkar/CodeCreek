@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -683,9 +682,8 @@ public class FirebaseDatabaseHandler {
     public void initializeProgramIndexes( final ProgramIndexInterface programIndexInterface ) {
 
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
-        int initialPrograms = 31;
 
-        if( creekPreferences.checkProgramIndexUpdate() ) {
+        if( !creekPreferences.checkProgramIndexUpdate() ) {
             CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
@@ -702,13 +700,14 @@ public class FirebaseDatabaseHandler {
                     }
                 });
             }
+
             mProgramDatabase.child(PROGRAM_INDEX_CHILD)
-                    .startAt(String.valueOf(creekPreferences.getProgramIndex()))
-                    .orderByChild("program_index")
+                    .orderByKey()
+                    .limitToLast(creekPreferences.getProgramIndexDifference())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            ArrayList<ProgramIndex> program_indices = new ArrayList<ProgramIndex>();
+                            ArrayList<ProgramIndex> program_indices = new ArrayList<>();
                             for( DataSnapshot programIndexSnapshot : dataSnapshot.getChildren() ) {
                                 ProgramIndex program_index = programIndexSnapshot.getValue(ProgramIndex.class);
                                 program_index.save(new RushCallback() {
@@ -780,9 +779,13 @@ public class FirebaseDatabaseHandler {
     }
 
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
-        if( creekPreferences.getProgramTables() == -1 ) {
+        if( !creekPreferences.checkProgramTableUpdate() ) {
             program_tables = new ArrayList<>();
-            mProgramDatabase.child(PROGRAM_TABLE_CHILD).addListenerForSingleValueEvent(new ValueEventListener() {
+            mProgramDatabase
+                    .child(PROGRAM_TABLE_CHILD)
+                    .orderByKey()
+                    .limitToLast(creekPreferences.getProgramTableDifference())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildrenCount() );

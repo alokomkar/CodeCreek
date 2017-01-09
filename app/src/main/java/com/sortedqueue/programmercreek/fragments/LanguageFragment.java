@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -135,6 +134,8 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onError(DatabaseError databaseError) {
                 CommonUtils.dismissProgressDialog();
+                Log.d("LanguageFragment", databaseError.getMessage());
+                databaseError.toException().printStackTrace();
             }
         });
 
@@ -148,7 +149,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
 
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
-        if( creekPreferences.checkProgramIndexUpdate() ) {
+        if( !creekPreferences.checkProgramIndexUpdate() ) {
             firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
                 @Override

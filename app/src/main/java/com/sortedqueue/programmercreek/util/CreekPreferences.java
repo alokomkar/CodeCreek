@@ -4,16 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.google.firebase.database.DatabaseError;
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import co.uk.rushorm.core.RushCore;
@@ -67,14 +64,14 @@ public class CreekPreferences {
     public int getProgramIndex() {
         switch ( getProgramLanguage() ) {
             case "c" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, 1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
                 break;
             case "java" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, 1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, -1);
                 break;
             case "cpp" :
             case "c++" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, 1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, -1);
                 break;
         }
         return programIndex;
@@ -515,15 +512,83 @@ public class CreekPreferences {
 
     public boolean checkProgramIndexUpdate() {
         CreekUserDB creekUserDB = getCreekUserDB();
+        boolean result = true;
         switch ( getProgramLanguage() ) {
             case "c" :
-                return getProgramIndex() == creekUserDB.getcProgramIndexDBVersion();
+                result = (getProgramIndex() == creekUserDB.getcProgramIndexDBVersion());
+                break;
             case "c++":
             case "cpp":
-                return getProgramIndex() == creekUserDB.getCppProgramIndexDBVersion();
+                result = (getProgramIndex() == (int)creekUserDB.getCppProgramIndexDBVersion());
+                break;
             case "java":
-                return getProgramIndex() == creekUserDB.getJavaProgramIndexDBVersion();
+                result = (getProgramIndex() == (int)creekUserDB.getJavaProgramIndexDBVersion());
+                break;
         }
-        return false;
+        return result;
+    }
+
+    public boolean checkProgramTableUpdate() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        boolean result = true;
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = getProgramTables() == (int)creekUserDB.getcProgramTableDBVersion();
+                break;
+            case "c++":
+            case "cpp":
+                result = getProgramTables() == (int)creekUserDB.getCppProgramTableDBVersion();
+                break;
+            case "java":
+                result = getProgramTables() == (int)creekUserDB.getJavaProgramTableDBVersion();
+                break;
+        }
+        return result;
+    }
+
+    public int getProgramIndexDifference() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        int result;
+        result = getProgramIndex();
+        if( result == -1 ) {
+            result = 0;
+        }
+
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = (int)(creekUserDB.getcProgramIndexDBVersion() - result);
+                break;
+            case "c++":
+            case "cpp":
+                result = (int)(creekUserDB.getCppProgramIndexDBVersion() - result);
+                break;
+            case "java":
+                result = (int)(creekUserDB.getJavaProgramIndexDBVersion() - result);
+                break;
+        }
+        return result;
+    }
+
+    public int getProgramTableDifference() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        int result;
+        result = getProgramTables();
+        if( result == -1 ) {
+            result = 0;
+        }
+
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                result = (int)(creekUserDB.getcProgramTableDBVersion() - result);
+                break;
+            case "c++":
+            case "cpp":
+                result = (int)(creekUserDB.getCppProgramTableDBVersion() - result);
+                break;
+            case "java":
+                result = (int)(creekUserDB.getJavaProgramTableDBVersion() - result);
+                break;
+        }
+        return result;
     }
 }
