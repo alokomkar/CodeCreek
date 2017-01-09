@@ -205,17 +205,17 @@ public class CreekPreferences {
         sharedPreferences.edit().putBoolean(WIKI_HELP, wikiHelp).apply();
     }
 
-    public int getModulesInserted() {
+    public String getModulesInserted() {
         switch ( getProgramLanguage() ) {
             case "java" :
-                return sharedPreferences.getInt(KEY_JAVA_MODULE, -1);
+                return sharedPreferences.getString(KEY_JAVA_MODULE, "0");
             case "c" :
-                return sharedPreferences.getInt(KEY_C_MODULE, -1);
+                return sharedPreferences.getString(KEY_C_MODULE, "0");
             case "c++" :
             case "cpp" :
-                return sharedPreferences.getInt(KEY_CPP_MODULE, -1);
+                return sharedPreferences.getString(KEY_CPP_MODULE, "0");
         }
-        return -1;
+        return "0";
     }
 
     public void setModulesInserted( String modulesInserted ) {

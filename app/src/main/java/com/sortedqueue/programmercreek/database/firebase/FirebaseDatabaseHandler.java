@@ -399,18 +399,22 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getWikiModel(final String wizardUrl, final GetWikiModelListener getWikiModelListener ) {
-       /* if( creekPreferences.getProgramWikiInserted() ) {
+        Log.d(TAG, "getWikiModel : Wiki module comparison : " + ( wizardUrl + " : " + (creekPreferences.getProgramWikiInserted())));
+        Log.d(TAG, "getWikiModel : Wiki module comparison : " + new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getProgramWikiInserted())));
+        if( new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getProgramWikiInserted())) <= 0 ) {
             new AsyncTask<Void, Void, WikiModel>() {
 
                 @Override
                 protected WikiModel doInBackground(Void... voids) {
                     if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
                         return new RushSearch()
+                                .whereEqual("wikiId", wizardUrl)
+                                .and()
+                                .startGroup()
                                 .whereEqual("syntaxLanguage", "c++")
                                 .or()
                                 .whereEqual("syntaxLanguage", "cpp")
-                                .and()
-                                .whereEqual("wikiId", wizardUrl)
+                                .endGroup()
                                 .findSingle(WikiModel.class);
                     }
                     else {
@@ -430,7 +434,7 @@ public class FirebaseDatabaseHandler {
             }.execute();
 
         }
-        else */{
+        else {
             mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
