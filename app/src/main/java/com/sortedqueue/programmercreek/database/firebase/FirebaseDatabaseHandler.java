@@ -452,6 +452,7 @@ public class FirebaseDatabaseHandler {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if( dataSnapshot != null ) {
                     CreekUserDB creekUserDB = dataSnapshot.getValue(CreekUserDB.class);
+                    creekPreferences.setCreekUserDB(creekUserDB);
                     if( creekUserDB != null ) {
                         getCreekUserDBListener.onSuccess(creekUserDB);
                     }
@@ -684,7 +685,7 @@ public class FirebaseDatabaseHandler {
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
         int initialPrograms = 31;
 
-        if( creekPreferences.getProgramIndex() == -1 ) {
+        if( creekPreferences.checkProgramIndexUpdate() ) {
             CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
@@ -701,7 +702,9 @@ public class FirebaseDatabaseHandler {
                     }
                 });
             }
-            mProgramDatabase.child(PROGRAM_INDEX_CHILD).limitToFirst(initialPrograms)
+            mProgramDatabase.child(PROGRAM_INDEX_CHILD)
+                    .startAt(String.valueOf(creekPreferences.getProgramIndex()))
+                    .orderByChild("program_index")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -732,6 +735,7 @@ public class FirebaseDatabaseHandler {
                     });
         }
         else {
+            CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             new AsyncTask<Void, Void, ArrayList<ProgramIndex>>() {
 
                 @Override
@@ -743,6 +747,7 @@ public class FirebaseDatabaseHandler {
                 @Override
                 protected void onPostExecute(ArrayList<ProgramIndex> programIndices) {
                     super.onPostExecute(programIndices);
+                    CommonUtils.dismissProgressDialog();
                     programIndexInterface.getProgramIndexes(programIndices);
                 }
             }.execute();

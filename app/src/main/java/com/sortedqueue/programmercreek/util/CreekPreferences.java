@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -66,14 +67,14 @@ public class CreekPreferences {
     public int getProgramIndex() {
         switch ( getProgramLanguage() ) {
             case "c" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, 1);
                 break;
             case "java" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, -1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_JAVA, 1);
                 break;
             case "cpp" :
             case "c++" :
-                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, -1);
+                programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, 1);
                 break;
         }
         return programIndex;
@@ -494,5 +495,35 @@ public class CreekPreferences {
         creekUserStats.setcProgramIndex(sharedPreferences.getInt("cProgressIndex", 0));
         creekUserStats.setJavaProgressIndex(sharedPreferences.getInt("javaProgressIndex", 0));
         return creekUserStats;
+    }
+
+    public void setCreekUserDB(CreekUserDB creekUserDB) {
+        Gson gson = new Gson();
+        String creekUserDBString = gson.toJson(creekUserDB);
+        sharedPreferences.edit().putString("CreekUserDB", creekUserDBString).apply();
+    }
+
+    public CreekUserDB getCreekUserDB() {
+        String jsonString = sharedPreferences.getString("CreekUserDB", "");
+        if( !jsonString.equals("") ) {
+            return new Gson().fromJson(jsonString, CreekUserDB.class);
+        }
+        else {
+            return null;
+        }
+    }
+
+    public boolean checkProgramIndexUpdate() {
+        CreekUserDB creekUserDB = getCreekUserDB();
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                return getProgramIndex() == creekUserDB.getcProgramIndexDBVersion();
+            case "c++":
+            case "cpp":
+                return getProgramIndex() == creekUserDB.getCppProgramIndexDBVersion();
+            case "java":
+                return getProgramIndex() == creekUserDB.getJavaProgramIndexDBVersion();
+        }
+        return false;
     }
 }

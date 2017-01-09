@@ -28,7 +28,11 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<ChapterDetails> chapterDetailsArrayList;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
-    public ChapterDetailsPagerAdapter(Context context, ModuleDetailsScrollPageListener moduleDetailsScrollPageListener, FragmentManager childFragmentManager, ArrayList<ChapterDetails> chapterDetailsArrayList, WikiNavigationListner wikiNavigationListner) {
+    public ChapterDetailsPagerAdapter(Context context,
+                                      ModuleDetailsScrollPageListener moduleDetailsScrollPageListener,
+                                      FragmentManager childFragmentManager,
+                                      ArrayList<ChapterDetails> chapterDetailsArrayList,
+                                      WikiNavigationListner wikiNavigationListner) {
         super(childFragmentManager);
         chapterFragments = new ArrayList<>();
         this.chapterDetailsArrayList = chapterDetailsArrayList;
@@ -60,7 +64,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                 case ChapterDetails.TYPE_SYNTAX_MODULE:
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
                     syntaxLearnActivityFragment.setSyntaxModule(chapterDetails.getSyntaxId(), chapterDetails.getChapterReferenceId());
-                    syntaxLearnActivityFragment.setModulteDetailsScrollPageListener(moduleDetailsScrollPageListener);
+                    syntaxLearnActivityFragment.setModulteDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
                     chapterFragments.add(syntaxLearnActivityFragment);
                     break;
                 case ChapterDetails.TYPE_WIKI:

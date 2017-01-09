@@ -16,9 +16,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.DashboardActivity;
+import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -106,11 +109,35 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserValues() {
-        Glide.with(getContext()).load(creekPreferences.getAccountPhoto()).fitCenter().into(profileImageView);
+        Glide.with(getContext())
+                .load(creekPreferences.getAccountPhoto())
+                .fitCenter()
+                .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
         if( creekPreferences.getProgramLanguage().equals("")) {
-            selectAndInitDb(0);
+            getFirebaseDBVerion();
+
         }
+    }
+
+    public void getFirebaseDBVerion() {
+        //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
+        //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
+        CommonUtils.displayProgressDialog(getContext(), "Fetching database...");
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
+            @Override
+            public void onSuccess(CreekUserDB creekUserDB) {
+                CommonUtils.dismissProgressDialog();
+                selectAndInitDb(0);
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                CommonUtils.dismissProgressDialog();
+            }
+        });
+
     }
 
     @Override
@@ -121,7 +148,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
 
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
-        if( creekPreferences.getProgramIndex() == -1 ) {
+        if( creekPreferences.checkProgramIndexUpdate() ) {
             firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
                 @Override
