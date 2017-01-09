@@ -19,6 +19,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
+import com.sortedqueue.programmercreek.util.AlphaNumComparator;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -271,16 +272,18 @@ public class FirebaseDatabaseHandler {
     }
     public void getProgramIndexInBackGround(final int mProgramIndex, final GetProgramIndexListener getProgramIndexListener ) {
 
-        /*if( creekPreferences.getProgramIndex() != -1 ) {
+        if( mProgramIndex <= creekPreferences.getProgramIndex() ) {
             new AsyncTask<Void, Void, ProgramIndex>() {
 
                 @Override
                 protected ProgramIndex doInBackground(Void... voids) {
                     if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
                         return new RushSearch()
+                                .startGroup()
                                 .whereEqual("program_Language", "c++")
                                 .or()
                                 .whereEqual("program_Language", "cpp")
+                                .endGroup()
                                 .and()
                                 .whereEqual("program_index", mProgramIndex)
                                 .findSingle(ProgramIndex.class);
@@ -301,7 +304,7 @@ public class FirebaseDatabaseHandler {
                 }
             }.execute();
         }
-        else */{
+        else {
             mProgramDatabase.child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -328,8 +331,10 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError error );
     }
     public void getSyntaxModule(String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
-
-        /*if( creekPreferences.getSyntaxInserted() ) {
+        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + ( wizardUrl + " : " + (creekPreferences.getSyntaxInserted())));
+        Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getSyntaxInserted())));
+        if( new AlphaNumComparator().compare( wizardUrl, (creekPreferences.getSyntaxInserted())) <= 0 ) {
+            Log.d(TAG, "getSyntaxModule : Running Async task");
             new AsyncTask<Void, Void, SyntaxModule>( ) {
 
                 @Override
@@ -359,7 +364,8 @@ public class FirebaseDatabaseHandler {
                 }
             }.execute();
         }
-        else */{
+        else {
+            Log.d(TAG, "getSyntaxModule : Running Firebase task");
             mSyntaxModuleDatabase.child(programLanguage + "_" + syntaxId + "_" + wizardUrl ).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
