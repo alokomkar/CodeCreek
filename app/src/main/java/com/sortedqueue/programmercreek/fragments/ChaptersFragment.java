@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,25 +63,14 @@ public class ChaptersFragment extends Fragment {
 
     private void getModules() {
         CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
-        /*
-        new FirebaseDatabaseHandler(getContext()).initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
-            @Override
-            public void getModules(ArrayList<LanguageModule> chapters) {
-                setupRecyclerView( chapters );
-            }
-
-            @Override
-            public void onError(DatabaseError error) {
-                Log.e(TAG, "Error : " + error.getMessage() + " : Details : " + error.getDetails() );
-                CommonUtils.dismissProgressDialog();
-            }
-        });*/
+        chapters = new ArrayList<>();
+        int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
-        chapter.setMinStats(0);
+        chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("c");
         chapter.setChapterId("c_w_1");
         chapter.setChapterName("Simple I/O : Hello world");
-        chapter.setChapteBrief("Learn about simple input and output commands, write your very first program");
+        chapter.setChapteBrief("Learn about simple input and output commands,\nWrite your very first program : Hello world");
         String syntaxId = "c_1";
         ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
         int index = 1;
@@ -166,16 +154,17 @@ public class ChaptersFragment extends Fragment {
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
-        chapters = new ArrayList<>();
+
         chapters.add(chapter);
 
         //Second Chapter
         chapter = new Chapter();
-        chapter.setMinStats(chapterDetailsArrayList.size());
+        prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
+        chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("c");
         chapter.setChapterId("c_w_2");
         chapter.setChapterName("Variables and Constants : Sum of two numbers");
-        chapter.setChapteBrief("How to use variables and constants, practice program to find sum of two numbers ");
+        chapter.setChapteBrief("How to use variables and constants,\nPractice program to find sum of two numbers ");
 
         syntaxId = "c_2";
         chapterDetailsArrayList = new ArrayList<>();
@@ -240,8 +229,101 @@ public class ChaptersFragment extends Fragment {
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
-        Log.d("Chapter", "Chapter details : " + chapter.toString());
         chapters.add(chapter);
+
+        //Third chapter :
+        chapter = new Chapter();
+        prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
+        chapter.setMinStats(prevChapterMinStats);
+        chapter.setProgram_Language("c");
+        chapter.setChapterId("c_w_2");
+        chapter.setChapterName("Operators : Sum of two numbers");
+        chapter.setChapteBrief("How to perform mathematical and logical operations using operators,\nPractice program : Pythagoras theorem, Odd and Even using ? Operator ");
+
+        syntaxId = "c_4";
+        chapterDetailsArrayList = new ArrayList<>();
+        index = 1;
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c3");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("3");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c8");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("14");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
+        chapters.add(chapter);
+
         setupRecyclerView(chapters);
     }
 
