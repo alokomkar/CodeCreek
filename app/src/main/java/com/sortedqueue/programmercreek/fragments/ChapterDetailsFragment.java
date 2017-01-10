@@ -202,7 +202,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                             creekUserStats.setUnlockedCSyntaxModuleId( chapterDetails.getSyntaxId() +"_"+ chapterDetails.getChapterReferenceId());
                             break;
                         case ChapterDetails.TYPE_PROGRAM_INDEX:
-                            creekUserStats.setUnlockedCProgramIndex( Integer.parseInt(chapterDetails.getChapterReferenceId()) );
+                            creekUserStats.setUnlockedCProgramIndex( Integer.parseInt(chapterDetails.getChapterReferenceId()) + 1 );
                             break;
                         case ChapterDetails.TYPE_WIKI:
                             creekUserStats.setUnlockedCWikiId( chapterDetails.getChapterReferenceId() );

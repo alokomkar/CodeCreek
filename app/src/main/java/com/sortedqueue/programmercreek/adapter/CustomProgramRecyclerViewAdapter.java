@@ -54,6 +54,11 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         topDownAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
     }
 
+    public void resetAdapter() {
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View adapterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.index_list, parent, false);

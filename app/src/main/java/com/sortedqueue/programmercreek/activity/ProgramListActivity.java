@@ -47,6 +47,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 	private ProgramIndex program_Index;
 	@Bind(R.id.adView)
 	AdView adView;
+	private CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter;
 
 	private void logDebugMessage( String message ) {
 		Log.d(TAG, message);
@@ -63,6 +64,14 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if( customProgramRecyclerViewAdapter != null ) {
+			customProgramRecyclerViewAdapter.resetAdapter();
+		}
 	}
 
 	private void initAds() {
@@ -99,7 +108,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				mProgram_Indexs = new ArrayList<>(program_indices);
 				CreekApplication.getInstance().setProgramIndexes( mProgram_Indexs );
 				PROGRAM_LIST_SIZE = mProgram_Indexs.size();
-				CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
+				customProgramRecyclerViewAdapter = new CustomProgramRecyclerViewAdapter(ProgramListActivity.this, mProgram_Indexs);
 				RecyclerView programListRecyclerView = (RecyclerView) findViewById(R.id.programListRecyclerView);
 				programListRecyclerView.setLayoutManager( new LinearLayoutManager(ProgramListActivity.this, LinearLayoutManager.VERTICAL, false));
 				programListRecyclerView.setAdapter(customProgramRecyclerViewAdapter);
@@ -209,7 +218,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Select Mode");
-		String[] boxTypes = {"Explanation", "Revise Mode", "Memorize Mode", "Test Mode", "Quiz Mode", "Match Mode" };
+		String[] boxTypes = {/*"Explanation", */"Revise Mode", "Memorize Mode", "Test Mode", "Quiz Mode", "Match Mode" };
 		builder.setItems(boxTypes, optionTypeListener);
 		builder.setNegativeButton("Cancel", null);
 		AlertDialog alertDialog  = builder.create();
@@ -217,12 +226,12 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 	}
 
-	public static final int INDEX_KEY_EXPLANATION = 0;
-	public static final int INDEX_KEY_REVISE = 1;
-	public static final int INDEX_KEY_MEMORIZE = 2;
-	public static final int INDEX_KEY_TEST = 3;
-	public static final int INDEX_KEY_QUIZ = 4;
-	public static final int INDEX_KEY_MATCH = 5;
+	//public static final int INDEX_KEY_EXPLANATION = 0;
+	public static final int INDEX_KEY_REVISE = 0;
+	public static final int INDEX_KEY_MEMORIZE = 1;
+	public static final int INDEX_KEY_TEST = 2;
+	public static final int INDEX_KEY_QUIZ = 3;
+	public static final int INDEX_KEY_MATCH = 4;
 
 
 	/**
@@ -274,10 +283,10 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 							newIntent.putExtras(newIntentBundle);
 							startActivity(newIntent);
 							break;
-						case INDEX_KEY_EXPLANATION :
+						/*case INDEX_KEY_EXPLANATION :
 							String programWiki = program_Index.getWiki();
 							loadProgramExplanation( programWiki );
-							break;
+							break;*/
 
 
 

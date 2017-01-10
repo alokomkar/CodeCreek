@@ -21,10 +21,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -79,7 +81,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private int programSize;
     private View view;
     private Bundle bundle;
-
+    private CreekUserStats creekUserStats;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,6 +103,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 getActivity().finish();
             }
         });
+        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         return view;
     }
 
@@ -336,6 +339,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             checkQuizButton.setEnabled(false);
 
             mQuizComplete = true;
+            updateCreekStats();
             if( mWizard == true ) {
                 timerButton.setText("Finish");
                 timerButton.setEnabled(true);
@@ -347,6 +351,21 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         }
     }
 
+    private void updateCreekStats() {
+        switch ( mProgramIndex.getProgram_Language().toLowerCase()) {
+            case "c" :
+                creekUserStats.setUnlockedCProgramIndex(mProgramIndex.getProgram_index() + 1);
+                break;
+            case "cpp":
+            case "c++":
+                creekUserStats.setUnlockedCppProgramIndex(mProgramIndex.getProgram_index()+ 1);
+                break;
+            case "java":
+                creekUserStats.setUnlockedJavaProgramIndex(mProgramIndex.getProgram_index()+ 1);
+                break;
+        }
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
+    }
 
 
     private void showConfirmSubmitDialog( final int programSize, final CountDownTimer countDownTimer ) {
