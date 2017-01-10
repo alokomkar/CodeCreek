@@ -1,11 +1,12 @@
 package com.sortedqueue.programmercreek.database;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok Omkar on 2016-12-26.
  */
-
+@RushTableAnnotation
 public class CreekUserDB extends RushObject {
 
     //Free version database versions

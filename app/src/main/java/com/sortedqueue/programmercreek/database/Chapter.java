@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushList;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok on 05/01/17.
  */
-
+@RushTableAnnotation
 public class Chapter extends RushObject implements Parcelable {
 
     private String program_Language;

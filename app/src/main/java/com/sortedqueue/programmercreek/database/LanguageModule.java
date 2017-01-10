@@ -3,11 +3,12 @@ package com.sortedqueue.programmercreek.database;
 import java.io.Serializable;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok Omkar on 2016-12-25.
  */
-
+@RushTableAnnotation
 public class LanguageModule extends RushObject implements Serializable {
 
     private String moduleId;

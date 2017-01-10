@@ -6,11 +6,12 @@ import android.os.Parcelable;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok on 04/01/17.
  */
-
+@RushTableAnnotation
 public class ProgramTable extends RushObject implements Parcelable {
 
     private int program_index;

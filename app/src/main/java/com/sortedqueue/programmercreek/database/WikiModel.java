@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushList;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok Omkar on 2016-12-31.
  */
-
+@RushTableAnnotation
 public class WikiModel extends RushObject implements Parcelable {
 
     private String wikiHeader;

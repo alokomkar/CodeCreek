@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushSearch;
+import co.uk.rushorm.core.annotations.RushDisableAutodelete;
 
 /**
  * Created by binay on 05/12/16.

@@ -4,11 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by Alok Omkar on 2016-12-31.
  */
-
+@RushTableAnnotation
 public class ProgramWiki extends RushObject implements Parcelable {
 
 
