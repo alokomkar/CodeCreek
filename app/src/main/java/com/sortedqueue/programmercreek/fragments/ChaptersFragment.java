@@ -239,16 +239,6 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetailsArrayList.add(chapterDetails);
 
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         Log.d("Chapter", "Chapter details : " + chapter.toString());
         chapters.add(chapter);
