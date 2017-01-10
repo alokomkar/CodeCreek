@@ -482,18 +482,20 @@ public class CreekPreferences {
     }
 
     public void saveCreekUserStats(CreekUserStats creekUserStats) {
-        sharedPreferences.edit().putInt("javaProgressIndex", creekUserStats.getJavaProgressIndex()).apply();
-        sharedPreferences.edit().putInt("cProgressIndex", creekUserStats.getcProgramIndex()).apply();
-        sharedPreferences.edit().putInt("cppProgressIndex", creekUserStats.getCppProgramIndex()).apply();
+        Gson gson = new Gson();
+        String creekUserDBString = gson.toJson(creekUserStats);
+        sharedPreferences.edit().putString("creekUserStats", creekUserDBString).apply();
         CreekApplication.getInstance().setCreekUserStats(creekUserStats);
     }
 
     public CreekUserStats getCreekUserStats( ) {
-        CreekUserStats creekUserStats = new CreekUserStats();
-        creekUserStats.setCppProgramIndex(sharedPreferences.getInt("cppProgressIndex", 0));
-        creekUserStats.setcProgramIndex(sharedPreferences.getInt("cProgressIndex", 0));
-        creekUserStats.setJavaProgressIndex(sharedPreferences.getInt("javaProgressIndex", 0));
-        return creekUserStats;
+        String jsonString = sharedPreferences.getString("creekUserStats", "");
+        if( !jsonString.equals("") ) {
+            return new Gson().fromJson(jsonString, CreekUserStats.class);
+        }
+        else {
+            return null;
+        }
     }
 
     public void setCreekUserDB(CreekUserDB creekUserDB) {

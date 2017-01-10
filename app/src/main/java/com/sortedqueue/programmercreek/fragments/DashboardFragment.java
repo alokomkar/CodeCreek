@@ -123,9 +123,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 startActivity(syntaxIntent);
                 break;
             case R.id.indexLayout:
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_LIST);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
                 break;
 
+            //TODO : To be removed later
             case R.id.reviseLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_REVISE);
                 break;

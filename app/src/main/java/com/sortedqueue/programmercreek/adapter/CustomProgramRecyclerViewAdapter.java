@@ -1,18 +1,21 @@
 package com.sortedqueue.programmercreek.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -26,9 +29,11 @@ import butterknife.ButterKnife;
 public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<CustomProgramRecyclerViewAdapter.ViewHolder> {
 
     private String mProgramType;
+    private String programLanguage;
     private Context mContext;
     private ArrayList<ProgramIndex> mProgram_Indexs;
     private AdapterClickListner mAdapterClickListner;
+    private CreekUserStats creekUserStats;
 
     private int lastPosition = -1;
     private Animation bottomUpAnimation;
@@ -42,7 +47,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mContext = context;
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;
-        mProgramType = new CreekPreferences(mContext).getProgramLanguage().substring(0, 1).toUpperCase();
+        this.programLanguage =new CreekPreferences(mContext).getProgramLanguage();
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        mProgramType = programLanguage.substring(0, 1).toUpperCase();
         bottomUpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
         topDownAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
     }
@@ -56,7 +63,23 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.programTypeTextView.setText(mProgramType);
-        holder.txtViewProgDescription.setText(mProgram_Indexs.get(position).getProgram_Description());
+        ProgramIndex programIndex = mProgram_Indexs.get(position);
+
+        boolean isAvailable = true;
+        switch (programLanguage) {
+            case "c" :
+                isAvailable = (creekUserStats.getUnlockedCProgramIndex() >= programIndex.getProgram_index());
+                break;
+            case "c++" :
+            case "cpp" :
+                isAvailable = (creekUserStats.getUnlockedCppProgramIndex() >= programIndex.getProgram_index());
+                break;
+            case "java" :
+                isAvailable = (creekUserStats.getUnlockedJavaProgramIndex() >= programIndex.getProgram_index());
+                break;
+        }
+        holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
+        holder.txtViewProgDescription.setText(programIndex.getProgram_Description());
         //holder.itemView.startAnimation((position > lastPosition) ? bottomUpAnimation : topDownAnimation );
         //lastPosition = position;
     }
@@ -71,12 +94,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         TextView programTypeTextView;
         @Bind(R.id.txtViewProgDescription)
         TextView txtViewProgDescription;
-        @Bind(R.id.programIndexLayout)
-        RelativeLayout programIndexLayout;
-        @Bind(R.id.wikiTextView)
-        TextView wikiTextView;
-        @Bind(R.id.RelativeLayout1)
-        CardView RelativeLayout1;
+        @Bind(R.id.lockedImageView)
+        ImageView lockedImageView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -87,6 +107,10 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         public void onClick(View view) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
+                if( lockedImageView.getVisibility() == View.VISIBLE ) {
+                    CommonUtils.displaySnackBar((Activity) mContext, R.string.program_locked);
+                    return;
+                }
                 mAdapterClickListner.onItemClick(position);
             }
         }

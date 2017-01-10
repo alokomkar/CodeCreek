@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -55,14 +54,14 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
         switch ( chapter.getProgram_Language() ) {
             case "c":
-                isChapterEnabled = creekUserStats.getcProgramIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getcProgramIndex();
+                isChapterEnabled = creekUserStats.getcProgressIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getcProgressIndex();
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
             case "cpp":
             case "c++":
-                isChapterEnabled = creekUserStats.getCppProgramIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getCppProgramIndex();
+                isChapterEnabled = creekUserStats.getCppProgressIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getCppProgressIndex();
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
             case "java":

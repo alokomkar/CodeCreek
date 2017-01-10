@@ -105,4 +105,6 @@
     <string name="congratulations">Congratulations, You\'ve got it right</string>
     <string name="proceed">Proceed</string>
     <string name="chapter_locked">This chapter is currently locked, Complete the previous chapter to unlock this.</string>
+    <string name="module_locked">This module is currently locked, Complete the previous module to unlock this.</string>
+    <string name="program_locked">This program is currently locked, Complete the previous programs to unlock this.</string>
 </resources>

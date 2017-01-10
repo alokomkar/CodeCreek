@@ -17,7 +17,6 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
@@ -134,11 +133,11 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         int chapterProgress = 0;
         switch ( chapter.getProgram_Language() ) {
             case "c" :
-                chapterProgress = creekUserStats.getcProgramIndex();
+                chapterProgress = creekUserStats.getcProgressIndex();
                 break;
             case "cpp" :
             case "c++" :
-                chapterProgress = creekUserStats.getCppProgramIndex();
+                chapterProgress = creekUserStats.getCppProgressIndex();
                 break;
             case "java" :
                 chapterProgress = creekUserStats.getJavaProgressIndex();
@@ -195,17 +194,56 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
         switch ( new CreekPreferences(getContext()).getProgramLanguage() ) {
             case "c" :
-                if( creekUserStats.getcProgramIndex() < chapterDetails.getProgressIndex() )
-                    creekUserStats.setcProgramIndex(chapterDetails.getProgressIndex());
+                if( creekUserStats.getcProgressIndex() < chapterDetails.getProgressIndex() ) {
+                    creekUserStats.setcProgressIndex(chapterDetails.getProgressIndex());
+                    switch (chapterDetails.getChapterType()) {
+                        case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            creekUserStats.setUnlockedCLanguageModuleId( chapterDetails.getSyntaxId() );
+                            creekUserStats.setUnlockedCSyntaxModuleId( chapterDetails.getSyntaxId() +"_"+ chapterDetails.getChapterReferenceId());
+                            break;
+                        case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            creekUserStats.setUnlockedCProgramIndex( Integer.parseInt(chapterDetails.getChapterReferenceId()) );
+                            break;
+                        case ChapterDetails.TYPE_WIKI:
+                            creekUserStats.setUnlockedCWikiId( chapterDetails.getChapterReferenceId() );
+                            break;
+                    }
+                }
                 break;
             case "c++" :
             case "cpp" :
-                if( creekUserStats.getCppProgramIndex() < chapterDetails.getProgressIndex() )
-                    creekUserStats.setCppProgramIndex(chapterDetails.getProgressIndex());
+                if( creekUserStats.getCppProgressIndex() < chapterDetails.getProgressIndex() ) {
+                    creekUserStats.setCppProgressIndex(chapterDetails.getProgressIndex());
+                    switch (chapterDetails.getChapterType()) {
+                        case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            creekUserStats.setUnlockedCppLanguageModuleId( chapterDetails.getSyntaxId() );
+                            creekUserStats.setUnlockedCppSyntaxModuleId( chapterDetails.getSyntaxId() +"_"+ chapterDetails.getChapterReferenceId());
+                            break;
+                        case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            creekUserStats.setUnlockedCppProgramIndex( Integer.parseInt(chapterDetails.getChapterReferenceId()) );
+                            break;
+                        case ChapterDetails.TYPE_WIKI:
+                            creekUserStats.setUnlockedCppWikiId( chapterDetails.getChapterReferenceId() );
+                            break;
+                    }
+                }
                 break;
             case "java" :
-                if( creekUserStats.getJavaProgressIndex() < chapterDetails.getProgressIndex() )
+                if( creekUserStats.getJavaProgressIndex() < chapterDetails.getProgressIndex() ) {
                     creekUserStats.setJavaProgressIndex(chapterDetails.getProgressIndex());
+                    switch (chapterDetails.getChapterType()) {
+                        case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            creekUserStats.setUnlockedJavaLanguageModuleId( chapterDetails.getSyntaxId() );
+                            creekUserStats.setUnlockedJavaSyntaxModuleId( chapterDetails.getSyntaxId() +"_"+ chapterDetails.getChapterReferenceId());
+                            break;
+                        case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            creekUserStats.setUnlockedJavaProgramIndex( Integer.parseInt(chapterDetails.getChapterReferenceId()) );
+                            break;
+                        case ChapterDetails.TYPE_WIKI:
+                            creekUserStats.setUnlockedJavaWikiId( chapterDetails.getChapterReferenceId() );
+                            break;
+                    }
+                }
                 break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);

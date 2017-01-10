@@ -1,14 +1,22 @@
 package com.sortedqueue.programmercreek.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.util.AlphaNumComparator;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -23,11 +31,18 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
     private Context context;
     private ArrayList<LanguageModule> languageModules;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
+    private CreekUserStats creekUserStats;
+    private AlphaNumComparator alphaNumComparator;
+    private String programLanguage;
+    private String TAG = ModulesRecyclerViewAdapter.class.getSimpleName();
 
     public ModulesRecyclerViewAdapter(Context context, ArrayList<LanguageModule> languageModules, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.context = context;
         this.languageModules = languageModules;
         this.adapterClickListner = adapterClickListner;
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        this.alphaNumComparator = new AlphaNumComparator();
+        this.programLanguage = new CreekPreferences(context).getProgramLanguage();
     }
 
     @Override
@@ -41,6 +56,24 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         LanguageModule languageModule = languageModules.get(position);
         holder.moduleNameTextView.setText(languageModule.getModuleName());
         holder.moduleDescriptionTextView.setText(languageModule.getModuleDescription());
+        boolean isLocked = true;
+        switch ( programLanguage ) {
+            case "c" :
+                Log.d(TAG, "Compare : " + languageModule.getModuleId()
+                        + " : " + creekUserStats.getUnlockedCLanguageModuleId()
+                        + " : result : " + alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCLanguageModuleId()));
+                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCLanguageModuleId()) > 0;
+                break;
+            case "c++" :
+            case "cpp" :
+                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCppLanguageModuleId()) > 0;
+                break;
+            case "java" :
+                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedJavaLanguageModuleId()) > 0;
+                break;
+        }
+
+        holder.lockedImageView.setVisibility(isLocked ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -54,6 +87,8 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         TextView moduleNameTextView;
         @Bind(R.id.moduleDescriptionTextView)
         TextView moduleDescriptionTextView;
+        @Bind(R.id.lockedImageView)
+        ImageView lockedImageView;
 
 
         public ViewHolder(View view) {
@@ -66,6 +101,10 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         public void onClick(View view) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION )
+                if( lockedImageView.getVisibility() == View.VISIBLE ) {
+                    CommonUtils.displaySnackBar((Activity) context, R.string.module_locked);
+                    return;
+                }
                 adapterClickListner.onItemClick(position);
         }
     }
