@@ -18,7 +18,7 @@ public class SyntaxPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<SyntaxLearnActivityFragment> syntaxLearnActivityFragments;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
-    public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, ArrayList<SyntaxModule> syntaxModules, ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
+    public SyntaxPagerAdapter(FragmentManager fm, LanguageModule module, LanguageModule nextModule, ArrayList<SyntaxModule> syntaxModules, ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
         super(fm);
         this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
         syntaxLearnActivityFragments = new ArrayList<>();
@@ -28,7 +28,7 @@ public class SyntaxPagerAdapter extends FragmentPagerAdapter {
             SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
             syntaxLearnActivityFragment.setSyntaxModule( syntaxModule );
             syntaxLearnActivityFragment.setModulteDetailsScrollPageListener( moduleDetailsScrollPageListener );
-            syntaxLearnActivityFragment.setIsLastFragment( position == syntaxModules.size() );
+            syntaxLearnActivityFragment.setIsLastFragment( position == syntaxModules.size(), nextModule );
             syntaxLearnActivityFragments.add(syntaxLearnActivityFragment);
         }
 

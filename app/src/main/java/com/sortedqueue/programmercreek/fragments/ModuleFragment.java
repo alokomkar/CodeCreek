@@ -36,6 +36,7 @@ public class ModuleFragment extends Fragment {
     private SyntaxNavigationListener syntaxNavigationListener;
     private ArrayList<LanguageModule> languageModules;
     private String TAG = ModuleFragment.class.getSimpleName();
+    private ModulesRecyclerViewAdapter moduleRecyclerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,12 +81,19 @@ public class ModuleFragment extends Fragment {
     private void setupRecyclerView(ArrayList<LanguageModule> languageModulesList) {
         this.languageModules = languageModulesList;
         modulesRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        modulesRecyclerView.setAdapter( new ModulesRecyclerViewAdapter(getContext(), languageModules, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        moduleRecyclerAdapter = new ModulesRecyclerViewAdapter(getContext(), languageModules, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
-                syntaxNavigationListener.onModuleLoad(languageModules.get(position));
+                if( position + 1 < languageModules.size() ) {
+                    syntaxNavigationListener.onModuleLoad(languageModules.get(position), languageModules.get(position+1));
+                }
+                else {
+                    syntaxNavigationListener.onModuleLoad(languageModules.get(position), null);
+                }
+
             }
-        }));
+        });
+        modulesRecyclerView.setAdapter( moduleRecyclerAdapter );
         CommonUtils.dismissProgressDialog();
     }
 
@@ -93,5 +101,13 @@ public class ModuleFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if( moduleRecyclerAdapter != null ) {
+            moduleRecyclerAdapter.resetAdapter();
+        }
     }
 }

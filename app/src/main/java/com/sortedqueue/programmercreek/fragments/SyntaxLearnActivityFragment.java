@@ -25,10 +25,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -91,6 +94,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
     private ModuleDetailsScrollPageListener modulteDetailsScrollPageListener;
     private boolean isLastFragment;
+    private LanguageModule nextModule;
     private String wizardUrl = null;
     private String syntaxId;
     private boolean isAnswered = false;
@@ -169,6 +173,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         hintSyntaxImageView.setVisibility(visibility);
         voiceTypeImageView.setVisibility(visibility);
         isAnswered = syntaxOptions.size() == 0;
+        if( isAnswered )
+            updateCreekUserStats();
 
     }
 
@@ -265,6 +271,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
             isAnswered = true;
+            updateCreekUserStats();
+
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Check the syntax again", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText("Error..!!");
@@ -272,12 +280,43 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         }
     }
 
+    private void updateCreekUserStats() {
+        CreekUserStats creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        switch ( syntaxModule.getSyntaxLanguage().toLowerCase() ) {
+            case "c":
+                creekUserStats.setUnlockedCLanguageModuleId(syntaxModule.getModuleId());
+                creekUserStats.setUnlockedCSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                if( isLastFragment && nextModule != null ) {
+                    creekUserStats.setUnlockedCLanguageModuleId(nextModule.getModuleId());
+                }
+                break;
+            case "cpp":
+            case "c++":
+                creekUserStats.setUnlockedCppLanguageModuleId(syntaxModule.getModuleId());
+                creekUserStats.setUnlockedCppSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                if( isLastFragment && nextModule != null ) {
+                    creekUserStats.setUnlockedCppLanguageModuleId(nextModule.getModuleId());
+                }
+                break;
+            case "java":
+                creekUserStats.setUnlockedCppLanguageModuleId(syntaxModule.getModuleId());
+                creekUserStats.setUnlockedCppSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                if( isLastFragment && nextModule != null ) {
+                    creekUserStats.setUnlockedCppLanguageModuleId(nextModule.getModuleId());
+                }
+                break;
+        }
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
+
+    }
+
     public void setModulteDetailsScrollPageListener(ModuleDetailsScrollPageListener modulteDetailsScrollPageListener) {
         this.modulteDetailsScrollPageListener = modulteDetailsScrollPageListener;
     }
 
-    public void setIsLastFragment(boolean isLastFragment) {
+    public void setIsLastFragment(boolean isLastFragment, LanguageModule nextModule) {
         this.isLastFragment = isLastFragment;
+        this.nextModule = nextModule;
     }
 
     public void setSyntaxModule(String syntaxId, String wizardUrl) {

@@ -84,13 +84,13 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     }
 
     @Override
-    public void onModuleLoad(final LanguageModule module) {
+    public void onModuleLoad(final LanguageModule module, final LanguageModule nextModule ) {
 
         CommonUtils.displayProgressDialog(SyntaxLearnActivity.this, "Loading material");
         new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initializeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
             @Override
             public void getSyntaxModules(ArrayList<SyntaxModule> syntaxModules) {
-                loadModuleDetailsFragment(module, syntaxModules);
+                loadModuleDetailsFragment(module, nextModule, syntaxModules);
             }
 
             @Override
@@ -101,7 +101,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         });
     }
 
-    private void loadModuleDetailsFragment(LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
+    private void loadModuleDetailsFragment(LanguageModule module, LanguageModule nextModule, ArrayList<SyntaxModule> syntaxModules) {
         getSupportActionBar().setTitle( new CreekPreferences(SyntaxLearnActivity.this).getProgramLanguage().toUpperCase() + " Syntax Learner");
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -109,7 +109,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         if( moduleDetailsFragment == null ) {
             moduleDetailsFragment = new ModuleDetailsFragment();
         }
-        moduleDetailsFragment.setParameters( module, syntaxModules );
+        moduleDetailsFragment.setParameters( module, syntaxModules, nextModule );
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, moduleDetailsFragment, ModuleDetailsFragment.class.getSimpleName());
         mFragmentTransaction.commit();

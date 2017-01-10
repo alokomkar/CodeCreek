@@ -38,6 +38,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
     @Bind(R.id.doneFAB)
     FloatingActionButton doneFAB;
     private LanguageModule module;
+    private LanguageModule nextModule;
     private ArrayList<SyntaxModule> syntaxModules;
     private SyntaxPagerAdapter syntaxPagerAdapter;
 
@@ -53,7 +54,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
     private void setupViews() {
 
         syntaxLearnViewPager.setOffscreenPageLimit(syntaxModules.size());
-        syntaxPagerAdapter = new SyntaxPagerAdapter(getChildFragmentManager(), module, syntaxModules, this);
+        syntaxPagerAdapter = new SyntaxPagerAdapter(getChildFragmentManager(), module, nextModule, syntaxModules, this);
         syntaxLearnViewPager.setAdapter(syntaxPagerAdapter);
         syntaxLearnViewPager.setCanScroll(true);
         progressBar.setMax(syntaxModules.size());
@@ -90,9 +91,10 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
     }
 
-    public void setParameters(LanguageModule module, ArrayList<SyntaxModule> syntaxModules) {
+    public void setParameters(LanguageModule module, ArrayList<SyntaxModule> syntaxModules, LanguageModule nextModule) {
         this.module = module;
         this.syntaxModules = syntaxModules;
+        this.nextModule = nextModule;
     }
 
     @Override

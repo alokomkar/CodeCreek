@@ -81,6 +81,11 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         return languageModules.size();
     }
 
+    public void resetAdapter() {
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        notifyDataSetChanged();
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.moduleNameTextView)
