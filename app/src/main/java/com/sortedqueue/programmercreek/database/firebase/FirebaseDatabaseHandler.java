@@ -330,7 +330,7 @@ public class FirebaseDatabaseHandler {
         void onSuccess( SyntaxModule syntaxModule );
         void onError( DatabaseError error );
     }
-    public void getSyntaxModule(String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
+    public void getSyntaxModule(final String syntaxId, final String wizardUrl, final SyntaxModuleInterface syntaxModuleInterface ) {
         Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + ( syntaxId + "_" +wizardUrl + " : " + (creekPreferences.getSyntaxInserted())));
         Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + new AlphaNumComparator().compare( syntaxId + "_" +wizardUrl, (creekPreferences.getSyntaxInserted())));
         if( new AlphaNumComparator().compare( syntaxId + "_" +wizardUrl, (creekPreferences.getSyntaxInserted())) <= 0 ) {
@@ -346,6 +346,8 @@ public class FirebaseDatabaseHandler {
                                 .whereEqual("syntaxLanguage", "cpp")
                                 .and()
                                 .whereEqual("syntaxModuleId", wizardUrl)
+                                .and()
+                                .whereEqual("moduleId", syntaxId)
                                 .findSingle(SyntaxModule.class);
                     }
                     else {
@@ -353,6 +355,8 @@ public class FirebaseDatabaseHandler {
                                 .whereEqual("syntaxLanguage", programLanguage)
                                 .and()
                                 .whereEqual("syntaxModuleId", wizardUrl)
+                                .and()
+                                .whereEqual("moduleId", syntaxId)
                                 .findSingle(SyntaxModule.class);
                     }
                 }
