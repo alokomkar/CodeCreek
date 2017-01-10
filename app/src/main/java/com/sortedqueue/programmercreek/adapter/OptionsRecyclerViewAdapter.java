@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,9 +21,9 @@ import butterknife.ButterKnife;
 public class OptionsRecyclerViewAdapter extends RecyclerView.Adapter<OptionsRecyclerViewAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<ModuleOption> moduleOptions;
+    private List<ModuleOption> moduleOptions;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
-    public OptionsRecyclerViewAdapter(Context context, ArrayList<ModuleOption> syntaxOptions, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
+    public OptionsRecyclerViewAdapter(Context context, List<ModuleOption> syntaxOptions, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.adapterClickListner = adapterClickListner;
         this.context = context;
         this.moduleOptions = syntaxOptions;

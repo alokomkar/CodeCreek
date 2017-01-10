@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushList;
@@ -22,12 +23,12 @@ public class Chapter extends RushObject implements Parcelable {
     private int minStats;
 
     @RushList(classType = ChapterDetails.class)
-    private ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
+    private List<ChapterDetails> chapterDetailsArrayList;
 
     public Chapter() {
     }
 
-    public Chapter(String program_Language, String chapterId, String chapterName, String chapteBrief, int minStats, ArrayList<ChapterDetails> chapterDetailsArrayList) {
+    public Chapter(String program_Language, String chapterId, String chapterName, String chapteBrief, int minStats, List<ChapterDetails> chapterDetailsArrayList) {
         this.program_Language = program_Language;
         this.chapterId = chapterId;
         this.chapteBrief = chapteBrief;
@@ -68,7 +69,7 @@ public class Chapter extends RushObject implements Parcelable {
         this.chapterName = chapterName;
     }
 
-    public ArrayList<ChapterDetails> getChapterDetailsArrayList() {
+    public List<ChapterDetails> getChapterDetailsArrayList() {
         return chapterDetailsArrayList;
     }
 

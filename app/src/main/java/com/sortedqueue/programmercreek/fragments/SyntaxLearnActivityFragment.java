@@ -28,7 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -88,7 +87,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     @Bind(R.id.progressBar)
     ContentLoadingProgressBar progressBar;
     private SyntaxModule syntaxModule;
-    private ArrayList<ModuleOption> moduleOptions;
+    private List<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
     private ModuleDetailsScrollPageListener modulteDetailsScrollPageListener;
     private boolean isLastFragment;
@@ -139,6 +138,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         syntaxQuestionOutputTextView.setText("Expected Output : " + syntaxModule.getSyntaxQuestionOutput());
         if (syntaxModule.getSyntaxOptions() != null) {
             setupRecyclerView(syntaxModule.getSyntaxOptions());
+            Log.d(TAG, "SyntaxModule : " + syntaxModule.toString());
         }
         checkSyntaxImageView.setOnClickListener(this);
         clearSyntaxImageView.setOnClickListener(this);
@@ -148,7 +148,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     private ArrayList<String> solutionList = new ArrayList<>();
 
-    private void setupRecyclerView(ArrayList<ModuleOption> syntaxOptions) {
+    private void setupRecyclerView(List<ModuleOption> syntaxOptions) {
         moduleOptions = syntaxOptions;
         Log.d(TAG, "Module Options : " + syntaxOptions.toString());
         optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

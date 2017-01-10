@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListene
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alok on 05/01/17.
@@ -25,13 +26,13 @@ import java.util.ArrayList;
 public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> chapterFragments;
-    private ArrayList<ChapterDetails> chapterDetailsArrayList;
+    private List<ChapterDetails> chapterDetailsArrayList;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
     public ChapterDetailsPagerAdapter(Context context,
                                       ModuleDetailsScrollPageListener moduleDetailsScrollPageListener,
                                       FragmentManager childFragmentManager,
-                                      ArrayList<ChapterDetails> chapterDetailsArrayList,
+                                      List<ChapterDetails> chapterDetailsArrayList,
                                       WikiNavigationListner wikiNavigationListner) {
         super(childFragmentManager);
         chapterFragments = new ArrayList<>();

@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -55,6 +56,7 @@ public class CreekPreferences {
     private SharedPreferences sharedPreferences;
     private String WIKI_HELP = "Wiki_help";
     private String KEY_WELCOME_DONE = "welcome_done";
+    private String TAG = CreekPreferences.class.getSimpleName();
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -638,16 +640,20 @@ public class CreekPreferences {
         AlphaNumComparator alphaNumComparator = new AlphaNumComparator();
         String syntaxInserted = getSyntaxInserted();
         int result = 0;
+
         switch ( getProgramLanguage() ) {
             case "c" :
                 result = (int)(alphaNumComparator.compare( syntaxInserted, creekUserDB.getcSyntaxDBVersion()));
+                Log.d(TAG, "Compare : checkSyntaxUpdate : " + syntaxInserted + " : " + creekUserDB.getcSyntaxDBVersion() + " : result : " + result);
                 break;
             case "c++":
             case "cpp":
                 result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getCppSyntaxDBVersion() ));
+                Log.d(TAG, "Compare : checkSyntaxUpdate : " + syntaxInserted + " : " + creekUserDB.getCppSyntaxDBVersion() + " : result : " + result);
                 break;
             case "java":
                 result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getJavaSyntaxDBVersion()));
+                Log.d(TAG, "Compare : checkSyntaxUpdate : " + syntaxInserted + " : " + creekUserDB.getJavaSyntaxDBVersion() + " : result : " + result);
                 break;
         }
         return result;

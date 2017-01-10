@@ -4,9 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.uk.rushorm.core.RushObject;
-import co.uk.rushorm.core.annotations.RushDisableAutodelete;
 import co.uk.rushorm.core.annotations.RushList;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
@@ -42,7 +42,7 @@ public class SyntaxModule extends RushObject implements Parcelable {
     private String syntaxSolution;
 
     @RushList(classType = ModuleOption.class)
-    private ArrayList<ModuleOption> syntaxOptions = new ArrayList<>();
+    private List<ModuleOption> syntaxOptions;
 
     public SyntaxModule(String syntaxModuleId,
                         String moduleId,
@@ -54,7 +54,7 @@ public class SyntaxModule extends RushObject implements Parcelable {
                         String syntaxQuestion,
                         String syntaxQuestionOutput,
                         String syntaxSolution,
-                        ArrayList<ModuleOption> syntaxOptions) {
+                        List<ModuleOption> syntaxOptions) {
         this.syntaxModuleId = syntaxModuleId;
         this.moduleId = moduleId;
         this.syntaxLanguage = syntaxLanguage;
@@ -151,7 +151,7 @@ public class SyntaxModule extends RushObject implements Parcelable {
         this.syntaxSolution = syntaxSolution;
     }
 
-    public ArrayList<ModuleOption> getSyntaxOptions() {
+    public List<ModuleOption> getSyntaxOptions() {
         return syntaxOptions;
     }
 

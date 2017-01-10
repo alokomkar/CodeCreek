@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushSearch;
-import co.uk.rushorm.core.annotations.RushDisableAutodelete;
 
 /**
  * Created by binay on 05/12/16.
@@ -574,13 +573,23 @@ public class FirebaseDatabaseHandler {
 
     public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
         if( creekPreferences.checkSyntaxUpdate() < 0 ) {
-
+            Log.d(TAG, "initializeSyntax : Firebase task");
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ArrayList<SyntaxModule> syntaxModules = new ArrayList<>();
+                    String largestSyntaxId = "";
+                    AlphaNumComparator alphaNumComparator = new AlphaNumComparator();
                     for( DataSnapshot childDataSnapShot : dataSnapshot.getChildren() ) {
                         SyntaxModule syntaxModule = childDataSnapShot.getValue(SyntaxModule.class);
+                        if( largestSyntaxId.equals("") ) {
+                            largestSyntaxId = syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId();
+                        }
+                        else {
+                            if( alphaNumComparator.compare(largestSyntaxId, syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId()) <= 0 ) {
+                                largestSyntaxId = syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId();
+                            }
+                        }
                         syntaxModule.save(new RushCallback() {
                             @Override
                             public void complete() {
@@ -592,8 +601,8 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     syntaxInterface.getSyntaxModules(syntaxModules);
-                    SyntaxModule lastSyntaxModule = syntaxModules.get(syntaxModules.size() - 1);
-                    creekPreferences.setSyntaxInserted( lastSyntaxModule.getModuleId() + "_" + lastSyntaxModule.getSyntaxModuleId());
+                    Log.d(TAG, "initialize Syntax : Largest Syntax : " + largestSyntaxId);
+                    creekPreferences.setSyntaxInserted( largestSyntaxId );
                 }
 
                 @Override
@@ -605,6 +614,7 @@ public class FirebaseDatabaseHandler {
             });
         }
         else {
+            Log.d(TAG, "initializeSyntax : Async task");
             new AsyncTask<Void, Void, ArrayList<SyntaxModule>>() {
 
                 @Override

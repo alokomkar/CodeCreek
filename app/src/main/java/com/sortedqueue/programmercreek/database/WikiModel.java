@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushList;
@@ -19,7 +20,7 @@ public class WikiModel extends RushObject implements Parcelable {
     private String wikiId;
 
     @RushList(classType = ProgramWiki.class)
-    private ArrayList<ProgramWiki> programWikis = new ArrayList<>();
+    private List<ProgramWiki> programWikis;
     private String syntaxLanguage;
 
     public WikiModel(String wikiId, String wikiHeader, ArrayList<ProgramWiki> programWikis, String syntaxLanguage) {
@@ -48,11 +49,11 @@ public class WikiModel extends RushObject implements Parcelable {
         this.wikiHeader = wikiHeader;
     }
 
-    public ArrayList<ProgramWiki> getProgramWikis() {
+    public List<ProgramWiki> getProgramWikis() {
         return programWikis;
     }
 
-    public void setProgramWikis(ArrayList<ProgramWiki> programWikis) {
+    public void setProgramWikis(List<ProgramWiki> programWikis) {
         this.programWikis = programWikis;
     }
 

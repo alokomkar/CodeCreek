@@ -12,7 +12,7 @@ import com.protectsoft.webviewcode.Codeview;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
  */
 public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private ArrayList<ProgramWiki> programWikis;
+    private List<ProgramWiki> programWikis;
 
-    public ProgramWikiRecyclerAdapter(Context context, ArrayList<ProgramWiki> programWikis) {
+    public ProgramWikiRecyclerAdapter(Context context, List<ProgramWiki> programWikis) {
         this.context = context;
         this.programWikis = programWikis;
     }
