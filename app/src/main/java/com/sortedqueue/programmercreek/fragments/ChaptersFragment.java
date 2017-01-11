@@ -236,7 +236,7 @@ public class ChaptersFragment extends Fragment {
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_2");
+        chapter.setChapterId("c_w_3");
         chapter.setChapterName("Operators : Sum of two numbers");
         chapter.setChapteBrief("How to perform mathematical and logical operations using operators,\nPractice program : Pythagoras theorem, Odd and Even using ? Operator ");
 
@@ -318,6 +318,163 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("14");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
+        chapters.add(chapter);
+
+        //4th chapter :
+        chapter = new Chapter();
+        prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
+        chapter.setMinStats(prevChapterMinStats);
+        chapter.setProgram_Language("c");
+        chapter.setChapterId("c_w_4");
+        chapter.setChapterName("Decision Making : use of if condition");
+        chapter.setChapteBrief("Explore decision making C language,\nPractice program : Read a file - use of if keyword");
+
+        syntaxId = "c_5";
+        chapterDetailsArrayList = new ArrayList<>();
+        index = 1;
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c22");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("29");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
+        chapters.add(chapter);
+
+        //5th chapter :
+        chapter = new Chapter();
+        prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
+        chapter.setMinStats(prevChapterMinStats);
+        chapter.setProgram_Language("c");
+        chapter.setChapterId("c_w_5");
+        chapter.setChapterName("Looping : while, for, do...while");
+        chapter.setChapteBrief("Often times, we come across a scenario requiring us to execute a statement multiple times, how do we do it?,\nPractice program : Palindrome number, Bubble sort");
+
+        syntaxId = "c_6";
+        chapterDetailsArrayList = new ArrayList<>();
+        index = 1;
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c12");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("19");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_2");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("c19");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("25");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_3");
 
         chapterDetailsArrayList.add(chapterDetails);
 
