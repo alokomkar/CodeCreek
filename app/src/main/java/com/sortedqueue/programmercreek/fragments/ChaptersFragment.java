@@ -334,7 +334,7 @@ public class ChaptersFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Chapter nextChapter = null;
-                if( position < ChaptersFragment.this.chapters.size() ) {
+                if( position + 1 < ChaptersFragment.this.chapters.size() ) {
                     nextChapter = ChaptersFragment.this.chapters.get( position + 1 );
                 }
                 chapterNavigationListener.onChapterSelected(ChaptersFragment.this.chapters.get(position), nextChapter);
