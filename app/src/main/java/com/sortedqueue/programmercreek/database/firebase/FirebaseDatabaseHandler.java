@@ -872,14 +872,14 @@ public class FirebaseDatabaseHandler {
                 CreekUserStats creekUserStats = dataSnapshot.getValue(CreekUserStats.class);
                 if( creekUserStats != null ) {
                     creekPreferences.saveCreekUserStats( creekUserStats );
-                    Log.d(TAG, "getCreekUserStatsInBackground : " + creekUserStats.toString());
+                    Log.d(TAG, "getCreekUserStatsInBackground : success : retrieved stats are : " + creekUserStats.toString());
                     creekUserStatsListener.onSuccess(creekUserStats);
 
                 }
                 else {
                     creekUserStatsListener.onFailure(null);
                     creekPreferences.saveCreekUserStats(new CreekUserStats());
-                    Log.d(TAG, "getCreekUserStatsInBackground : " + new CreekUserStats().toString());
+                    Log.d(TAG, "getCreekUserStatsInBackground : Failed : creating new stats : " + new CreekUserStats().toString());
                 }
 
             }

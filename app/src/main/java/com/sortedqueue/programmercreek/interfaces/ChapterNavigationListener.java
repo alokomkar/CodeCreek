@@ -7,5 +7,5 @@ import com.sortedqueue.programmercreek.database.Chapter;
  */
 
 public interface ChapterNavigationListener {
-    void onChapterSelected(Chapter chapter);
+    void onChapterSelected(Chapter chapter, Chapter nextChapter);
 }

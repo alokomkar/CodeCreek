@@ -27,8 +27,8 @@ import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
-import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
@@ -103,7 +103,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 getActivity().finish();
             }
         });
-        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+
         return view;
     }
 
@@ -352,6 +352,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void updateCreekStats() {
+        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         switch ( mProgramIndex.getProgram_Language().toLowerCase()) {
             case "c" :
                 creekUserStats.addToUnlockedCProgramIndexList(mProgramIndex.getProgram_index() + 1);

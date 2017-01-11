@@ -29,6 +29,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
@@ -98,6 +99,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private String wizardUrl = null;
     private String syntaxId;
     private boolean isAnswered = false;
+    private Chapter nextChapter;
 
     public SyntaxLearnActivityFragment() {
     }
@@ -286,23 +288,45 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case "c":
                 creekUserStats.addToUnlockedCLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedCSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment && nextModule != null ) {
-                    creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId());
+                if( isLastFragment ) {
+                    if( nextModule != null ) {
+                        creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                    }
+                    else if( nextChapter != null ) {
+                        creekUserStats.addToUnlockedCLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                    }
                 }
+
                 break;
             case "cpp":
             case "c++":
                 creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment && nextModule != null ) {
-                    creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
+                if( isLastFragment ) {
+                    if( nextModule != null ) {
+                        creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                    }
+                    else if( nextChapter != null ) {
+                        creekUserStats.addToUnlockedCppLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                    }
                 }
                 break;
             case "java":
                 creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment && nextModule != null ) {
-                    creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
+                if( isLastFragment ) {
+                    if( nextModule != null ) {
+                        creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                    }
+                    else if( nextChapter != null ) {
+                        creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
+                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                    }
                 }
                 break;
         }
@@ -317,6 +341,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     public void setIsLastFragment(boolean isLastFragment, LanguageModule nextModule) {
         this.isLastFragment = isLastFragment;
         this.nextModule = nextModule;
+    }
+
+    public void setIsLastFragment(boolean isLastFragment, Chapter nextChapter) {
+        this.isLastFragment = isLastFragment;
+        this.nextChapter = nextChapter;
     }
 
     public void setSyntaxModule(String syntaxId, String wizardUrl) {

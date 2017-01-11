@@ -47,6 +47,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private Chapter chapter;
     private ChapterDetailsPagerAdapter chapterDetailsPagerAdapter;
     private CreekUserStats creekUserStats;
+    private Chapter nextChapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +71,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private void setupViews() {
 
         syntaxLearnViewPager.setOffscreenPageLimit(3);
-        chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), this, getChildFragmentManager(), chapter.getChapterDetailsArrayList(), this);
+        chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), this, getChildFragmentManager(), chapter.getChapterDetailsArrayList(), this, nextChapter);
         syntaxLearnViewPager.setAdapter(chapterDetailsPagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
         progressBar.setMax(chapter.getChapterDetailsArrayList().size());
@@ -191,7 +192,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     private void updateCreekStats() {
         ChapterDetails chapterDetails = chapterDetailsPagerAdapter.getChapterDetailsForPosition(syntaxLearnViewPager.getCurrentItem());
-
+        creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         switch ( new CreekPreferences(getContext()).getProgramLanguage() ) {
             case "c" :
                 if( creekUserStats.getcProgressIndex() < chapterDetails.getProgressIndex() ) {
@@ -252,5 +253,9 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     @Override
     public void onBackPressed() {
         syntaxLearnViewPager.setCurrentItem( syntaxLearnViewPager.getCurrentItem() - 1);
+    }
+
+    public void setNextChapter(Chapter nextChapter) {
+        this.nextChapter = nextChapter;
     }
 }

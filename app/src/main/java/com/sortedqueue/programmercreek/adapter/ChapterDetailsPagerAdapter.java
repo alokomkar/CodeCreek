@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
@@ -33,11 +34,13 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                                       ModuleDetailsScrollPageListener moduleDetailsScrollPageListener,
                                       FragmentManager childFragmentManager,
                                       List<ChapterDetails> chapterDetailsArrayList,
-                                      WikiNavigationListner wikiNavigationListner) {
+                                      WikiNavigationListner wikiNavigationListner,
+                                      Chapter nextChapter) {
         super(childFragmentManager);
         chapterFragments = new ArrayList<>();
         this.chapterDetailsArrayList = chapterDetailsArrayList;
         this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
+        SyntaxLearnActivityFragment lastSyntaxLearnActivityFragment = null;
         for( ChapterDetails chapterDetails : chapterDetailsArrayList ) {
             switch ( chapterDetails.getChapterType() ) {
                 case ChapterDetails.TYPE_PROGRAM_INDEX:
@@ -66,6 +69,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                     SyntaxLearnActivityFragment syntaxLearnActivityFragment = new SyntaxLearnActivityFragment();
                     syntaxLearnActivityFragment.setSyntaxModule(chapterDetails.getSyntaxId(), chapterDetails.getChapterReferenceId());
                     syntaxLearnActivityFragment.setModulteDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
+                    lastSyntaxLearnActivityFragment = syntaxLearnActivityFragment;
                     chapterFragments.add(syntaxLearnActivityFragment);
                     break;
                 case ChapterDetails.TYPE_WIKI:
@@ -75,6 +79,9 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                     chapterFragments.add(ProgramWikiFragment);
                     break;
             }
+        }
+        if( lastSyntaxLearnActivityFragment != null ) {
+            lastSyntaxLearnActivityFragment.setIsLastFragment(true, nextChapter);
         }
     }
 

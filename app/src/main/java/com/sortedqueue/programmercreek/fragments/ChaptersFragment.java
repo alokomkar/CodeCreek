@@ -333,7 +333,11 @@ public class ChaptersFragment extends Fragment {
         chaptersRecyclerView.setAdapter( new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
-                chapterNavigationListener.onChapterSelected(ChaptersFragment.this.chapters.get(position));
+                Chapter nextChapter = null;
+                if( position < ChaptersFragment.this.chapters.size() ) {
+                    nextChapter = ChaptersFragment.this.chapters.get( position + 1 );
+                }
+                chapterNavigationListener.onChapterSelected(ChaptersFragment.this.chapters.get(position), nextChapter);
             }
         }));
         CommonUtils.dismissProgressDialog();

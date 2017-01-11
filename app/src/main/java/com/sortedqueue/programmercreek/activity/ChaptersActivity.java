@@ -99,7 +99,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     }
 
     @Override
-    public void onChapterSelected(Chapter chapter) {
+    public void onChapterSelected(Chapter chapter, Chapter nextChapter) {
         Log.d("ChaptersActivity", "Selected chapter : " + chapter.toString());
         getSupportActionBar().setTitle(chapter.getChapterName());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -108,6 +108,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
             chapterDetailsFragment = new ChapterDetailsFragment();
         }
         chapterDetailsFragment.setChapter(chapter);
+        chapterDetailsFragment.setNextChapter( nextChapter );
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, chapterDetailsFragment, ChapterDetailsFragment.class.getSimpleName());
         mFragmentTransaction.commit();

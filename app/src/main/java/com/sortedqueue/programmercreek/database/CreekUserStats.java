@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -334,6 +335,7 @@ public class CreekUserStats implements Parcelable {
     public void addToUnlockedCLanguageModuleIdList(String syntaxId) {
         if( !unlockedCLanguageModuleIdList.contains(syntaxId) ) {
             unlockedCLanguageModuleIdList.add(syntaxId);
+            Log.d("CreekUserStats", "Unlocked Language Modules : " + unlockedCLanguageModuleIdList.toString());
         }
     }
 
