@@ -354,14 +354,14 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private void updateCreekStats() {
         switch ( mProgramIndex.getProgram_Language().toLowerCase()) {
             case "c" :
-                creekUserStats.setUnlockedCProgramIndex(mProgramIndex.getProgram_index() + 1);
+                creekUserStats.addToUnlockedCProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
             case "cpp":
             case "c++":
-                creekUserStats.setUnlockedCppProgramIndex(mProgramIndex.getProgram_index()+ 1);
+                creekUserStats.addToUnlockedCppProgramIndexList(mProgramIndex.getProgram_index()+ 1);
                 break;
             case "java":
-                creekUserStats.setUnlockedJavaProgramIndex(mProgramIndex.getProgram_index()+ 1);
+                creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index()+ 1);
                 break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);

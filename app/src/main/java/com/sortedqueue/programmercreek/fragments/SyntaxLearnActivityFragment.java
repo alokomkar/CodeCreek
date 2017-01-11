@@ -284,25 +284,25 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         CreekUserStats creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         switch ( syntaxModule.getSyntaxLanguage().toLowerCase() ) {
             case "c":
-                creekUserStats.setUnlockedCLanguageModuleId(syntaxModule.getModuleId());
-                creekUserStats.setUnlockedCSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                creekUserStats.addToUnlockedCLanguageModuleIdList(syntaxModule.getModuleId());
+                creekUserStats.addToUnlockedCSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
                 if( isLastFragment && nextModule != null ) {
-                    creekUserStats.setUnlockedCLanguageModuleId(nextModule.getModuleId());
+                    creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId());
                 }
                 break;
             case "cpp":
             case "c++":
-                creekUserStats.setUnlockedCppLanguageModuleId(syntaxModule.getModuleId());
-                creekUserStats.setUnlockedCppSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
+                creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
                 if( isLastFragment && nextModule != null ) {
-                    creekUserStats.setUnlockedCppLanguageModuleId(nextModule.getModuleId());
+                    creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
                 }
                 break;
             case "java":
-                creekUserStats.setUnlockedCppLanguageModuleId(syntaxModule.getModuleId());
-                creekUserStats.setUnlockedCppSyntaxModuleId(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
+                creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
                 if( isLastFragment && nextModule != null ) {
-                    creekUserStats.setUnlockedCppLanguageModuleId(nextModule.getModuleId());
+                    creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
                 }
                 break;
         }

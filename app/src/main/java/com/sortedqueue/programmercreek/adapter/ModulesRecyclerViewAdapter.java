@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
-import com.sortedqueue.programmercreek.util.AlphaNumComparator;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -32,7 +30,6 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
     private ArrayList<LanguageModule> languageModules;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
     private CreekUserStats creekUserStats;
-    private AlphaNumComparator alphaNumComparator;
     private String programLanguage;
     private String TAG = ModulesRecyclerViewAdapter.class.getSimpleName();
 
@@ -41,7 +38,6 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         this.languageModules = languageModules;
         this.adapterClickListner = adapterClickListner;
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.alphaNumComparator = new AlphaNumComparator();
         this.programLanguage = new CreekPreferences(context).getProgramLanguage();
     }
 
@@ -59,17 +55,14 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         boolean isLocked = true;
         switch ( programLanguage ) {
             case "c" :
-                Log.d(TAG, "Compare : " + languageModule.getModuleId()
-                        + " : " + creekUserStats.getUnlockedCLanguageModuleId()
-                        + " : result : " + alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCLanguageModuleId()));
-                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCLanguageModuleId()) > 0;
+                isLocked = !(creekUserStats.getUnlockedCLanguageModuleIdList().contains(languageModule.getModuleId()));
                 break;
             case "c++" :
             case "cpp" :
-                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedCppLanguageModuleId()) > 0;
+                isLocked = !(creekUserStats.getUnlockedCppLanguageModuleIdList().contains(languageModule.getModuleId()));
                 break;
             case "java" :
-                isLocked = alphaNumComparator.compare(languageModule.getModuleId(), creekUserStats.getUnlockedJavaLanguageModuleId()) > 0;
+                isLocked = !(creekUserStats.getUnlockedJavaLanguageModuleIdList().contains(languageModule.getModuleId()));
                 break;
         }
 

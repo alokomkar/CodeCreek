@@ -69,18 +69,19 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.programTypeTextView.setText(mProgramType);
         ProgramIndex programIndex = mProgram_Indexs.get(position);
-
+        int program_Index = programIndex.getProgram_index();
         boolean isAvailable = true;
+
         switch (programLanguage) {
             case "c" :
-                isAvailable = (creekUserStats.getUnlockedCProgramIndex() >= programIndex.getProgram_index());
+                isAvailable = (creekUserStats.getUnlockedCProgramIndexList().contains(program_Index));
                 break;
             case "c++" :
             case "cpp" :
-                isAvailable = (creekUserStats.getUnlockedCppProgramIndex() >= programIndex.getProgram_index());
+                isAvailable = (creekUserStats.getUnlockedCppProgramIndexList().contains(program_Index));
                 break;
             case "java" :
-                isAvailable = (creekUserStats.getUnlockedJavaProgramIndex() >= programIndex.getProgram_index());
+                isAvailable = (creekUserStats.getUnlockedJavaProgramIndexList().contains(program_Index));
                 break;
         }
         holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
