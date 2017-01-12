@@ -19,6 +19,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
@@ -313,10 +314,12 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
             String checkedSolution = "";
             int i = 0;
+            int rightAnswers = 1;
             if( answer1RadioButton1.isChecked() ) {
                 checkedSolution = answer1RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer1RadioButton1.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer1RadioButton1.setTextColor(Color.RED);
@@ -326,6 +329,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer1RadioButton2.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer1RadioButton2.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer1RadioButton2.setTextColor(Color.RED);
@@ -335,6 +339,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer1RadioButton3.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer1RadioButton3.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer1RadioButton3.setTextColor(Color.RED);
@@ -345,6 +350,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer2RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer2RadioButton1.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer2RadioButton1.setTextColor(Color.RED);
@@ -363,6 +369,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer2RadioButton3.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer2RadioButton3.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer2RadioButton3.setTextColor(Color.RED);
@@ -373,6 +380,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer3RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer3RadioButton1.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer3RadioButton1.setTextColor(Color.RED);
@@ -382,6 +390,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer3RadioButton2.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer3RadioButton2.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer3RadioButton2.setTextColor(Color.RED);
@@ -401,6 +410,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer4RadioButton1.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer4RadioButton1.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer4RadioButton1.setTextColor(Color.RED);
@@ -410,6 +420,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer4RadioButton2.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer4RadioButton2.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer4RadioButton2.setTextColor(Color.RED);
@@ -419,12 +430,30 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer4RadioButton3.getText().toString();
                 if( checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim()) ) {
                     answer4RadioButton3.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 }
                 else {
                     answer4RadioButton3.setTextColor(Color.RED);
                 }
             }
             isAnswered = true;
+            String message = "";
+            switch ( rightAnswers ) {
+                case 1:
+                    message = "You need improvement, retry again";
+                    break;
+                case 2:
+                    message = "You are half way there, Keep coming back";
+                    break;
+                case 3:
+                    message = "Almost perfect, you are one step away, retry";
+                    break;
+                case 4:
+                    message = "Congratulations, you've got it";
+                    break;
+            }
+            isAnswered = rightAnswers == 4;
+            CommonUtils.displaySnackBar(getActivity(), message);
             //Check and disable radio groups, mark correct answers - as green and wrong ones as red
         }
 
