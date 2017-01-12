@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
@@ -63,6 +64,10 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                             quizFragment.setBundle(bundle);
                             chapterFragments.add(quizFragment);
                             break;
+                        case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
+                            FillBlankFragment fillBlankFragment = new FillBlankFragment();
+                            fillBlankFragment.setmProgram_Index(Integer.parseInt(chapterDetails.getChapterReferenceId()));
+                            chapterFragments.add(fillBlankFragment);
                     }
                     break;
                 case ChapterDetails.TYPE_SYNTAX_MODULE:

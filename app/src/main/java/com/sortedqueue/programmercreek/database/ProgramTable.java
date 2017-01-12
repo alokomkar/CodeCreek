@@ -5,6 +5,12 @@ import android.os.Parcelable;
 
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
@@ -153,4 +159,51 @@ public class ProgramTable extends RushObject implements Parcelable {
             return new ProgramTable[size];
         }
     };
+
+    public interface FillBlanksSolutionListener {
+        void getSolution( ArrayList<Integer> fillBlanksIndex );
+    }
+
+    public static ArrayList<String> getFillTheBlanksList(List<ProgramTable> program_tableList, FillBlanksSolutionListener fillBlanksSolutionListener) {
+        ArrayList<String> fillBlanksQuestionList = new ArrayList<>();
+        ArrayList<Integer> fillBlanksIndex = new ArrayList<>();
+        for( ProgramTable program_table : program_tableList ) {
+            fillBlanksQuestionList.add(program_table.getProgram_Line().trim());
+        }
+        for( int i = 0; i < 4; i++ ) {
+            int randomIndex = getRandomNumberInRange(0, fillBlanksQuestionList.size() - 1);
+            ProgramTable program_table = program_tableList.get(randomIndex);
+            if( !program_table.getProgram_Line().trim().equals("{") &&
+                    !program_table.getProgram_Line().trim().equals("}") ) {
+                if( fillBlanksQuestionList.get(randomIndex).equals("") ) {
+                    //Line already cleared
+                    i--;
+                }
+                else {
+                    fillBlanksIndex.add(program_table.getLine_No() - 1);
+                    fillBlanksQuestionList.set(randomIndex, "");
+                }
+            }
+            else i--;
+
+        }
+        Collections.sort(fillBlanksIndex, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer int1, Integer int2) {
+                return int1 < int2 ? -1 : int1 == int2 ? 0 : 1;
+            }
+        });
+        fillBlanksSolutionListener.getSolution(fillBlanksIndex);
+        return fillBlanksQuestionList;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
 }

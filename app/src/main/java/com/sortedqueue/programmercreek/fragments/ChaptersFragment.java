@@ -435,7 +435,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("19");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -464,7 +464,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("25");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 

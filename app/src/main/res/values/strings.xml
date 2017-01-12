@@ -109,4 +109,13 @@
     <string name="program_locked">This program is currently locked, Complete the previous programs to unlock this.</string>
     <string name="new_module_unlocked">A new module has been unlocked</string>
     <string name="new_chapter_unlocked">A new chapter has been unlocked</string>
+    <string name="program_inserter">Program Inserter</string>
+    <string name="wiki_header">Wiki Header</string>
+    <string name="wiki_id">Wiki Id</string>
+    <string name="syntax_language">Syntax Language</string>
+    <string name="save_button">Save</string>
+    <string name="insert_button">Insert</string>
+    <string name="delete">Delete</string>
+    <string name="program_wiki_header">Program Wiki header</string>
+    <string name="explanation">Explanation</string>
 </resources>

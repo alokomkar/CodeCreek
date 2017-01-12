@@ -169,6 +169,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                     case ProgrammingBuddyConstants.KEY_MATCH :
                     case ProgrammingBuddyConstants.KEY_TEST : //Has same index as wiki - no changes for wiki
                     case ProgrammingBuddyConstants.KEY_QUIZ :
+                    case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
                     case ChapterDetails.TYPE_SYNTAX_MODULE :
                         fabAction();
                         updateCreekStats();

@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
+import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -128,7 +129,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             //TODO : To be removed later
             case R.id.reviseLayout:
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_REVISE);
+                Intent programInserterIntent = new Intent(getContext(), ProgramInserterActivity.class);
+                startActivity(programInserterIntent);
+                //LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_REVISE);
                 break;
 
             case R.id.wizardLayout:
