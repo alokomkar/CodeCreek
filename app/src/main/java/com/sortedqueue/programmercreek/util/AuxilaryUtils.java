@@ -18,6 +18,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -93,6 +94,54 @@ public class AuxilaryUtils {
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show it
+        alertDialog.show();
+    }
+
+    public interface InputTextListener {
+        void onSuccess( String text );
+        void onDismiss();
+    }
+    public static void displayInputDialog(Context context, String title, String message, final InputTextListener inputTextListener ) {
+        Builder alertDialogBuilder = new Builder(
+                context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_input, null);
+        ButterKnife.bind(view);
+        final EditText inputEditText = (EditText) view.findViewById(R.id.inputEditText);
+        TextView headerTextView = (TextView) view.findViewById(R.id.headerTextView);
+        headerTextView.setText(title);
+        if( message != null ) {
+            inputEditText.setText(message);
+        }
+        alertDialogBuilder.setView(view);
+        // set title
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialogBuilder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                inputTextListener.onSuccess(inputEditText.getText().toString());
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         alertDialog.show();
     }
 

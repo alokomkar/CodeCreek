@@ -88,7 +88,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            android:descendantFocusability="beforeDescendants"
             android:fastScrollEnabled="false"
             tools:listItem="@layout/item_wiki_inserter"
             android:id="@+id/programWikiRecyclerView"

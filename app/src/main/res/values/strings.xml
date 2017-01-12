@@ -118,4 +118,6 @@
     <string name="delete">Delete</string>
     <string name="program_wiki_header">Program Wiki header</string>
     <string name="explanation">Explanation</string>
+    <string name="cancel">Cancel</string>
+    <string name="example">Example</string>
 </resources>

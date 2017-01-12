@@ -1,15 +1,16 @@
 package com.sortedqueue.programmercreek.adapter;
 
-import android.support.v7.widget.AppCompatEditText;
+
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ import butterknife.ButterKnife;
 public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ProgramWiki> programWikis;
-
+    private Context context;
     public ProgramInserterWikiAdapter(List<ProgramWiki> programWikis) {
         this.programWikis = programWikis;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        this.context = parent.getContext();
         View adapterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wiki_inserter, parent, false);
         switch (viewType) {
             case ProgramWiki.CONTENT_HEADER :
@@ -60,18 +61,18 @@ public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void initExplanation(RecyclerView.ViewHolder holder, ProgramWiki programWiki) {
         ExplanationViewHolder explanationViewHolder = (ExplanationViewHolder) holder;
-        explanationViewHolder.wikiExplanationEditText.setText(programWiki.getProgramExplanation());
+        explanationViewHolder.wikiExplanationTextView.setText(programWiki.getProgramExplanation());
     }
 
     private void initProgram(RecyclerView.ViewHolder holder, ProgramWiki programWiki) {
         ExampleViewHolder exampleViewHolder = (ExampleViewHolder) holder;
-        exampleViewHolder.wikiExampleEditText.setText(programWiki.getProgramExample());
-        exampleViewHolder.wikiOuptputEditText.setText(programWiki.getOutput());
+        exampleViewHolder.wikiExampleTextView.setText(programWiki.getProgramExample());
+        exampleViewHolder.wikiOuptputTextView.setText(programWiki.getOutput());
     }
 
     private void initHeader(RecyclerView.ViewHolder holder, ProgramWiki programWiki) {
         HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-        headerViewHolder.wikiHeaderEditText.setText(programWiki.getHeader());
+        headerViewHolder.wikiHeaderTextView.setText(programWiki.getHeader());
     }
 
 
@@ -86,141 +87,145 @@ public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerVie
         return programWikis.size();
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder implements TextWatcher {
-        @Bind(R.id.wikiHeaderEditText)
-        AppCompatEditText wikiHeaderEditText;
-        @Bind(R.id.wikiExplanationEditText)
-        AppCompatEditText wikiExplanationEditText;
-        @Bind(R.id.wikiExampleEditText)
-        AppCompatEditText wikiExampleEditText;
-        @Bind(R.id.wikiOuptputEditText)
-        AppCompatEditText wikiOuptputEditText;
+    public class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
+        @Bind(R.id.wikiHeaderTextView)
+        TextView wikiHeaderTextView;
+        @Bind(R.id.wikiExplanationTextView)
+        TextView wikiExplanationTextView;
+        @Bind(R.id.wikiExampleTextView)
+        TextView wikiExampleTextView;
+        @Bind(R.id.wikiOuptputTextView)
+        TextView wikiOuptputTextView;
         public HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            wikiExplanationEditText.setVisibility(View.GONE);
-            wikiExampleEditText.setVisibility(View.GONE);
-            wikiOuptputEditText.setVisibility(View.GONE);
-            wikiHeaderEditText.addTextChangedListener(this);
+            wikiExplanationTextView.setVisibility(View.GONE);
+            wikiExampleTextView.setVisibility(View.GONE);
+            wikiOuptputTextView.setVisibility(View.GONE);
+            wikiHeaderTextView.setOnClickListener(this);
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
+        public void onClick(View v) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
-                String wikiHeader = editable.toString();
-                ProgramWiki programWiki = programWikis.get(position);
-                programWiki.setHeader(wikiHeader);
+                final ProgramWiki programWiki = programWikis.get(position);
+                showInputDialog("Wiki Header", programWiki.getHeader(), new AuxilaryUtils.InputTextListener() {
+                    @Override
+                    public void onSuccess(String text) {
+                        programWiki.setHeader(text);
+                        wikiHeaderTextView.setText(programWiki.getHeader());
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
             }
         }
     }
 
-    public class ExplanationViewHolder extends RecyclerView.ViewHolder implements TextWatcher {
-        @Bind(R.id.wikiHeaderEditText)
-        AppCompatEditText wikiHeaderEditText;
-        @Bind(R.id.wikiExplanationEditText)
-        AppCompatEditText wikiExplanationEditText;
-        @Bind(R.id.wikiExampleEditText)
-        AppCompatEditText wikiExampleEditText;
-        @Bind(R.id.wikiOuptputEditText)
-        AppCompatEditText wikiOuptputEditText;
+    public class ExplanationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Bind(R.id.wikiHeaderTextView)
+        TextView wikiHeaderTextView;
+        @Bind(R.id.wikiExplanationTextView)
+        TextView wikiExplanationTextView;
+        @Bind(R.id.wikiExampleTextView)
+        TextView wikiExampleTextView;
+        @Bind(R.id.wikiOuptputTextView)
+        TextView wikiOuptputTextView;
         public ExplanationViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            wikiHeaderEditText.setVisibility(View.GONE);
-            wikiExampleEditText.setVisibility(View.GONE);
-            wikiOuptputEditText.setVisibility(View.GONE);
-            wikiExplanationEditText.addTextChangedListener(this);
+            wikiHeaderTextView.setVisibility(View.GONE);
+            wikiExampleTextView.setVisibility(View.GONE);
+            wikiOuptputTextView.setVisibility(View.GONE);
+            wikiExplanationTextView.setOnClickListener(this);
         }
 
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
+        public void onClick(View v) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
-                String wikiExplanation = editable.toString();
-                ProgramWiki programWiki = programWikis.get(position);
-                programWiki.setProgramExplanation(wikiExplanation);
+                final ProgramWiki programWiki = programWikis.get(position);
+                showInputDialog("Explanation", programWiki.getProgramExplanation(), new AuxilaryUtils.InputTextListener() {
+                    @Override
+                    public void onSuccess(String text) {
+                        programWiki.setProgramExplanation(text);
+                        wikiExplanationTextView.setText(programWiki.getProgramExplanation());
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
             }
         }
     }
 
-    public class ExampleViewHolder extends RecyclerView.ViewHolder implements TextWatcher {
-        @Bind(R.id.wikiHeaderEditText)
-        AppCompatEditText wikiHeaderEditText;
-        @Bind(R.id.wikiExplanationEditText)
-        AppCompatEditText wikiExplanationEditText;
-        @Bind(R.id.wikiExampleEditText)
-        AppCompatEditText wikiExampleEditText;
-        @Bind(R.id.wikiOuptputEditText)
-        AppCompatEditText wikiOuptputEditText;
+    public class ExampleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
+        @Bind(R.id.wikiHeaderTextView)
+        TextView wikiHeaderTextView;
+        @Bind(R.id.wikiExplanationTextView)
+        TextView wikiExplanationTextView;
+        @Bind(R.id.wikiExampleTextView)
+        TextView wikiExampleTextView;
+        @Bind(R.id.wikiOuptputTextView)
+        TextView wikiOuptputTextView;
         public ExampleViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            wikiExplanationEditText.setVisibility(View.GONE);
-            wikiHeaderEditText.setVisibility(View.GONE);
-            wikiOuptputEditText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    int position = getAdapterPosition();
-                    if( position != RecyclerView.NO_POSITION ) {
-                        String output = editable.toString();
-                        ProgramWiki programWiki = programWikis.get(position);
-                        programWiki.setOutput(output);
-                    }
-                }
-            });
-            wikiExampleEditText.addTextChangedListener(this);
+            wikiExplanationTextView.setVisibility(View.GONE);
+            wikiHeaderTextView.setVisibility(View.GONE);
+            wikiOuptputTextView.setOnClickListener(this);
+            wikiExampleTextView.setOnClickListener(this);
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
+        public void onClick(View v) {
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
-                String example = editable.toString();
-                ProgramWiki programWiki = programWikis.get(position);
-                programWiki.setProgramExample(example);
+                final ProgramWiki programWiki = programWikis.get(position);
+                switch ( v.getId() ) {
+                    case R.id.wikiOuptputTextView :
+                        showInputDialog("Output", programWiki.getOutput(), new AuxilaryUtils.InputTextListener() {
+                            @Override
+                            public void onSuccess(String text) {
+                                programWiki.setOutput(text);
+                                wikiOuptputTextView.setText(programWiki.getOutput());
+                            }
+
+                            @Override
+                            public void onDismiss() {
+
+                            }
+                        });
+                        break;
+                    case R.id.wikiExampleTextView :
+                        showInputDialog("Example", programWiki.getProgramExample(), new AuxilaryUtils.InputTextListener() {
+                            @Override
+                            public void onSuccess(String text) {
+                                programWiki.setProgramExample(text);
+                                wikiExampleTextView.setText(programWiki.getProgramExample());
+                            }
+
+                            @Override
+                            public void onDismiss() {
+
+                            }
+                        });
+                        break;
+                }
+
             }
         }
+    }
+    
+    public void showInputDialog(String title, String content, AuxilaryUtils.InputTextListener inputTextListener) {
+        AuxilaryUtils.displayInputDialog(context, title, content, inputTextListener );
     }
 
 }

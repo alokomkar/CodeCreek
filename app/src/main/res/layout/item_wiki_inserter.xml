@@ -3,12 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:id="@+id/wikiHeaderEditText"
-        android:inputType="none"
+        
+        android:id="@+id/wikiHeaderTextView"
         android:textColor="@color/md_black_1000"
         android:hint="@string/program_wiki_header"
         android:padding="@dimen/margin_16"/>
@@ -18,12 +18,12 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:inputType="none"
-        android:id="@+id/wikiExplanationEditText"
+        android:enabled="false"
+        android:id="@+id/wikiExplanationTextView"
         android:textColor="@color/md_black_1000"
         android:gravity="top"
         android:hint="@string/explanation"
@@ -34,15 +34,15 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:inputType="none"
-        android:id="@+id/wikiExampleEditText"
+        android:enabled="false"
+        android:id="@+id/wikiExampleTextView"
         android:textColor="@color/md_black_1000"
         android:gravity="top"
-        android:hint="@string/explanation"
+        android:hint="@string/example"
         android:padding="@dimen/margin_16"/>
 
     <View
@@ -50,13 +50,13 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_black_1000"
-        android:id="@+id/wikiOuptputEditText"
+        android:id="@+id/wikiOuptputTextView"
         android:textColor="@color/white"
-        android:inputType="none"
+        android:enabled="false"
         android:gravity="top"
         android:textColorHint="@color/bg"
         android:hint="@string/outputTxt"
