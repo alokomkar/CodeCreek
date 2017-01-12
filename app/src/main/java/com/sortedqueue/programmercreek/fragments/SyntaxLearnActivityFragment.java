@@ -173,7 +173,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         checkSyntaxImageView.setVisibility(visibility);
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
-        voiceTypeImageView.setVisibility(visibility);
+        //voiceTypeImageView.setVisibility(visibility);
         isAnswered = syntaxOptions.size() == 0;
         if( isAnswered )
             updateCreekUserStats();
@@ -236,7 +236,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private static final int SPEECH_REQUEST = 9878;
     private void openVoiceIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         try {
             startActivityForResult(intent, SPEECH_REQUEST);
         } catch ( ActivityNotFoundException e ) {
@@ -252,6 +252,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         if( requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK ) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
+            CommonUtils.displayToast(getContext(), "I heard : " + results);
             if( spokenText.equalsIgnoreCase("print formatted") ) {
                 solutionList.add("printf(");
                 syntaxSolutionTextView.setText(getSolution(solutionList));

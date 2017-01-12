@@ -5,10 +5,12 @@
     android:background="@color/white"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <WebView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/margin_8"
+        android:background="@color/bg"
+        android:textColor="@color/md_cyan_900"
         android:textSize="@dimen/text_dashboard_small"
         android:id="@+id/syntaxDescriptionTextView"
         android:text="The printf function is used to print to standard output in a formatted manner"/>

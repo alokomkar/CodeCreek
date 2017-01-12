@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@color/bg"
-    android:layout_height="match_parent">-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:background="@color/bg"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/bg"
+        android:layout_above="@+id/saveButton"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
@@ -84,24 +86,30 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
+            android:descendantFocusability="beforeDescendants"
+            android:fastScrollEnabled="false"
             tools:listItem="@layout/item_wiki_inserter"
             android:id="@+id/programWikiRecyclerView"
             android:background="@color/white">
 
         </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/saveButton"
-            style="@style/ButtonText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_sky"
-            android:layout_margin="@dimen/margin_8"
-            android:text="@string/save_button"
-            />
+
 
     </LinearLayout>
-<!--</ScrollView>-->
+
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/ButtonText"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_sky"
+        android:layout_margin="@dimen/margin_8"
+        android:text="@string/save_button"
+        />
+</RelativeLayout>
+
 

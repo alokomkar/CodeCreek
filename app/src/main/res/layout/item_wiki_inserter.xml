@@ -3,11 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:id="@+id/wikiHeaderEditText"
+        android:inputType="none"
         android:textColor="@color/md_black_1000"
         android:hint="@string/program_wiki_header"
         android:padding="@dimen/margin_16"/>
@@ -17,13 +18,13 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:inputType="none"
         android:id="@+id/wikiExplanationEditText"
         android:textColor="@color/md_black_1000"
-        android:minLines="8"
         android:gravity="top"
         android:hint="@string/explanation"
         android:padding="@dimen/margin_16"/>
@@ -33,13 +34,13 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:inputType="none"
         android:id="@+id/wikiExampleEditText"
         android:textColor="@color/md_black_1000"
-        android:minLines="8"
         android:gravity="top"
         android:hint="@string/explanation"
         android:padding="@dimen/margin_16"/>
@@ -49,13 +50,13 @@
         android:layout_height="@dimen/margin_2"
         android:background="@color/bg" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_black_1000"
         android:id="@+id/wikiOuptputEditText"
         android:textColor="@color/white"
-        android:minLines="8"
+        android:inputType="none"
         android:gravity="top"
         android:textColorHint="@color/bg"
         android:hint="@string/outputTxt"
