@@ -6,109 +6,211 @@
     android:layout_width="match_parent"
     android:background="@color/bg"
     android:layout_height="match_parent" >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:background="@color/bg"
-        android:layout_above="@+id/saveButton"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:id="@+id/wikiHeaderEditText"
-            android:textColor="@color/md_black_1000"
-            android:hint="@string/wiki_header"
-            android:padding="@dimen/margin_16"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_2"
-            android:background="@color/bg" />
-
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:id="@+id/wikiIdEditText"
-            android:textColor="@color/md_black_1000"
-            android:hint="@string/wiki_id"
-            android:padding="@dimen/margin_16"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_2"
-            android:background="@color/bg" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:id="@+id/syntaxLanguageTextView"
-            android:textColor="@color/md_black_1000"
-            android:hint="@string/syntax_language"
-            android:padding="@dimen/margin_16"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_2"
-            android:background="@color/bg" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Button
-                android:id="@+id/insertButton"
-                style="@style/ButtonText"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_sky"
-                android:layout_margin="@dimen/margin_8"
-                android:text="@string/insert_button"
-                />
-            <Button
-                android:id="@+id/deleteButton"
-                style="@style/ButtonText"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_sky"
-                android:layout_margin="@dimen/margin_8"
-                android:text="@string/delete"
-                />
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:fastScrollEnabled="false"
-            tools:listItem="@layout/item_wiki_inserter"
-            android:id="@+id/programWikiRecyclerView"
-            android:background="@color/white">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/saveButton"
-        style="@style/ButtonText"
-        android:layout_alignParentBottom="true"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_sky"
-        android:layout_margin="@dimen/margin_8"
-        android:text="@string/save_button"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/buttonLayout">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/bg"
+            android:layout_above="@+id/saveButton"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:id="@+id/wikiHeaderEditText"
+                android:textColor="@color/md_black_1000"
+                android:hint="@string/wiki_header"
+                android:padding="@dimen/margin_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_2"
+                android:background="@color/bg" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:id="@+id/wikiIdEditText"
+                android:textColor="@color/md_black_1000"
+                android:hint="@string/wiki_id"
+                android:padding="@dimen/margin_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_2"
+                android:background="@color/bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:id="@+id/syntaxLanguageTextView"
+                android:textColor="@color/md_black_1000"
+                android:hint="@string/syntax_language"
+                android:padding="@dimen/margin_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_2"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2">
+                <Button
+                    android:id="@+id/insertButton"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_sky"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/insert_button"
+                    />
+                <Button
+                    android:id="@+id/deleteButton"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_sky"
+                    android:layout_margin="@dimen/margin_8"
+                    android:text="@string/delete"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false"
+                android:fastScrollEnabled="false"
+                tools:listItem="@layout/item_wiki_inserter"
+                android:id="@+id/programWikiRecyclerView"
+                android:background="@color/white">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:id="@+id/headerEditText"
+                    android:textColor="@color/md_black_1000"
+                    android:hint="@string/program_wiki_header"
+                    android:padding="@dimen/margin_16"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_2"
+                    android:background="@color/bg" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    
+                    android:id="@+id/explanationEditText"
+                    android:textColor="@color/md_black_1000"
+                    android:gravity="top"
+                    android:hint="@string/explanation"
+                    android:padding="@dimen/margin_16"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_2"
+                    android:background="@color/bg" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    
+                    android:id="@+id/exampleEditText"
+                    android:textColor="@color/md_black_1000"
+                    android:gravity="top"
+                    android:hint="@string/example"
+                    android:padding="@dimen/margin_16"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/formatCodeButton"
+                    android:text="format"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_2"
+                    android:background="@color/bg" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/md_black_1000"
+                    android:id="@+id/ouptputEditText"
+                    android:textColor="@color/white"
+                    
+                    android:gravity="top"
+                    android:textColorHint="@color/bg"
+                    android:hint="@string/outputTxt"
+                    android:padding="@dimen/margin_16"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_2"
+                    android:background="@color/bg" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:id="@+id/buttonLayout"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/ButtonText"
+            android:layout_alignParentBottom="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/save_button"
+            />
+        <Button
+            android:id="@+id/clearButton"
+            style="@style/ButtonText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sky"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/clear"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
 
 

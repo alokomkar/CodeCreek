@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -39,9 +40,11 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mLanguageModuleDatabase;
     private DatabaseReference mSyntaxModuleDatabase;
     private DatabaseReference mProgramWikiDatabase;
+    private DatabaseReference mChapterDatabase;
     private DatabaseReference mUserDatabase;
     private DatabaseReference mUserStatsDatabase;
     private DatabaseReference mUserDetailsDatabase;
+
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
     private String CREEK_USER_CHILD = "users";
@@ -59,6 +62,7 @@ public class FirebaseDatabaseHandler {
     private String CREEK_USER_DB = "creek_user_db_version";
     private String WIKI_MODULE = "wiki_module";
     private String CREEK_USER_STATS = "user_stats";
+    private String CREEK_CHAPTERS = "creek_chapters";
 
     /***
      * Program Index storage :
@@ -118,6 +122,12 @@ public class FirebaseDatabaseHandler {
         getUserDetailsDatabase();
         getLanguageModuleDatabase();
         getSyntaxModuleDatabase();
+        getChaptersDatabase();
+    }
+
+    private void getChaptersDatabase() {
+        mChapterDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_CHAPTERS + "/" + programLanguage );
+        mChapterDatabase.keepSynced(true);
     }
 
     private void getSyntaxModuleDatabase() {
@@ -148,6 +158,16 @@ public class FirebaseDatabaseHandler {
             @Override
             public void complete() {
 
+            }
+        });
+    }
+
+    public void writeChapter(final Chapter chapter) {
+        mChapterDatabase.push().child(chapter.getChapterId()).setValue(chapter);
+        chapter.save(new RushCallback() {
+            @Override
+            public void complete() {
+                Log.d(TAG, "Rush ORM : saved successfully " + chapter.toString()  );
             }
         });
     }
@@ -190,6 +210,35 @@ public class FirebaseDatabaseHandler {
 
     public void getLatestCModules() {
 
+    }
+
+    public interface GetChapterListener {
+        void onSuccess( ArrayList<Chapter> chaptersList );
+        void onErrror( DatabaseError error );
+    }
+
+    public void getChaptersInBackground(final GetChapterListener getChapterListener ) {
+
+        mChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Chapter> chapterArrayList = new ArrayList<Chapter>();
+                for( DataSnapshot keyValue : dataSnapshot.getChildren() ) {
+                    for( DataSnapshot chapterIdValue : keyValue.getChildren() ) {
+                        Chapter chapter = chapterIdValue.getValue(Chapter.class);
+                        if (chapter != null) {
+                            chapterArrayList.add(chapter);
+                        }
+                    }
+                }
+                getChapterListener.onSuccess(chapterArrayList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getChapterListener.onErrror(databaseError);
+            }
+        });
     }
 
     public interface GetProgramTablesListener {

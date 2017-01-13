@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ChapterRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -62,9 +64,8 @@ public class ChaptersFragment extends Fragment {
     }
 
     private void getModules() {
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         chapters = new ArrayList<>();
-        int prevChapterMinStats = 0;
+        /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("c");
@@ -481,7 +482,68 @@ public class ChaptersFragment extends Fragment {
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
 
-        setupRecyclerView(chapters);
+        //6th chapter :
+        chapter = new Chapter();
+        prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
+        chapter.setMinStats(prevChapterMinStats);
+        chapter.setProgram_Language("c");
+        chapter.setChapterId("c_w_6");
+        chapter.setChapterName("Storage Classes");
+        chapter.setChapteBrief("A storage class defines the scope and life-time of variables/functions");
+
+        syntaxId = "c_3";
+        chapterDetailsArrayList = new ArrayList<>();
+        index = 1;
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_"+index);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
+        chapters.add(chapter);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        for( Chapter chapter1 : chapters ) {
+            firebaseDatabaseHandler.writeChapter(chapter1);
+        }*/
+        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
+            @Override
+            public void onSuccess(ArrayList<Chapter> chaptersList) {
+                setupRecyclerView(chaptersList);
+            }
+
+            @Override
+            public void onErrror(DatabaseError error) {
+                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.dismissProgressDialog();
+            }
+        });
+
     }
 
     private void setupRecyclerView(ArrayList<Chapter> chapters) {

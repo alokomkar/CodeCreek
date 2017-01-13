@@ -36,22 +36,6 @@ public class ChapterDetails extends RushObject implements Parcelable {
         this.progressIndex = progressIndex;
     }
 
-    public int getProgressIndex() {
-        return progressIndex;
-    }
-
-    public void setProgressIndex(int progressIndex) {
-        this.progressIndex = progressIndex;
-    }
-
-    public String getSyntaxId() {
-        return syntaxId;
-    }
-
-    public void setSyntaxId(String syntaxId) {
-        this.syntaxId = syntaxId;
-    }
-
     public int getChapterModuleIndex() {
         return chapterModuleIndex;
     }
@@ -76,6 +60,14 @@ public class ChapterDetails extends RushObject implements Parcelable {
         this.chapterReferenceId = chapterReferenceId;
     }
 
+    public String getSyntaxId() {
+        return syntaxId;
+    }
+
+    public void setSyntaxId(String syntaxId) {
+        this.syntaxId = syntaxId;
+    }
+
     public String getProgramLanguage() {
         return programLanguage;
     }
@@ -92,6 +84,13 @@ public class ChapterDetails extends RushObject implements Parcelable {
         this.chapterTestType = chapterTestType;
     }
 
+    public int getProgressIndex() {
+        return progressIndex;
+    }
+
+    public void setProgressIndex(int progressIndex) {
+        this.progressIndex = progressIndex;
+    }
 
     @Override
     public int describeContents() {

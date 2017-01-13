@@ -483,7 +483,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
             //To start drag immediately after a view has been selected.
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-            view.startDragAndDrop(data, shadowBuilder, view, 0);
+            view.startDrag(data, shadowBuilder, view, 0);
 
             return false;
         }

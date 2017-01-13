@@ -37,13 +37,6 @@ public class Chapter extends RushObject implements Parcelable {
         this.chapterDetailsArrayList = chapterDetailsArrayList;
     }
 
-    public int getMinStats() {
-        return minStats;
-    }
-
-    public void setMinStats(int minStats) {
-        this.minStats = minStats;
-    }
 
     public String getProgram_Language() {
         return program_Language;
@@ -69,20 +62,28 @@ public class Chapter extends RushObject implements Parcelable {
         this.chapterName = chapterName;
     }
 
-    public List<ChapterDetails> getChapterDetailsArrayList() {
-        return chapterDetailsArrayList;
-    }
-
-    public void setChapterDetailsArrayList(ArrayList<ChapterDetails> chapterDetailsArrayList) {
-        this.chapterDetailsArrayList = chapterDetailsArrayList;
-    }
-
     public String getChapteBrief() {
         return chapteBrief;
     }
 
     public void setChapteBrief(String chapteBrief) {
         this.chapteBrief = chapteBrief;
+    }
+
+    public int getMinStats() {
+        return minStats;
+    }
+
+    public void setMinStats(int minStats) {
+        this.minStats = minStats;
+    }
+
+    public List<ChapterDetails> getChapterDetailsArrayList() {
+        return chapterDetailsArrayList;
+    }
+
+    public void setChapterDetailsArrayList(List<ChapterDetails> chapterDetailsArrayList) {
+        this.chapterDetailsArrayList = chapterDetailsArrayList;
     }
 
     @Override
