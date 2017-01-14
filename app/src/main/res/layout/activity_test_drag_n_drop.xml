@@ -6,15 +6,29 @@
     android:orientation="vertical"
     android:background="@color/md_grey_300">
 
+    <com.sortedqueue.programmercreek.view.DragNDropListView
+        android:id="@+id/dragNDropListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/margin_4"
+        android:layout_margin="@dimen/margin_8" >
+    </com.sortedqueue.programmercreek.view.DragNDropListView>
+
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:weightSum="1"
         android:padding="@dimen/margin_8"
-        android:background="@color/colorAccent" >
+        android:background="@color/md_blue_200"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/checkQuizButton"
@@ -64,17 +78,5 @@
 
 
     </LinearLayout>
-
-    <com.sortedqueue.programmercreek.view.DragNDropListView
-        android:id="@+id/dragNDropListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/margin_4"
-        android:layout_margin="@dimen/margin_8" >
-    </com.sortedqueue.programmercreek.view.DragNDropListView>
 
 </RelativeLayout>

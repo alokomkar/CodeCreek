@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
@@ -26,6 +27,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private MatchMakerFragment matchMakerFragment;
     private TestDragNDropFragment testDragNDropFragment;
     private QuizFragment quizFragment;
+    private FillBlankFragment fillBlankFragment;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -94,6 +96,21 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         quizFragment.setBundle(bundle);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, quizFragment, QuizFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    @Override
+    public void loadFillBlanksFragment(Bundle bundle) {
+        setTitle("Fill blanks : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fillBlankFragment = (FillBlankFragment) getSupportFragmentManager().findFragmentByTag(FillBlankFragment.class.getSimpleName());
+        if( fillBlankFragment == null ) {
+            fillBlankFragment = new FillBlankFragment();
+        }
+        fillBlankFragment.setmProgram_Index(((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_index());
+        fillBlankFragment.setWizardMode( true );
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, fillBlankFragment, FillBlankFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 

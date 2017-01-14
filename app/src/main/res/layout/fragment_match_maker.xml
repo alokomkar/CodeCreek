@@ -71,7 +71,7 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:padding="@dimen/margin_8"
-        android:background="@color/colorAccent" >
+        android:background="@color/md_blue_200" >
 
         <Button
             android:id="@+id/checkQuizButton"
@@ -103,7 +103,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/progressTextView"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 android:text="@string/time"/>
 
         </FrameLayout>

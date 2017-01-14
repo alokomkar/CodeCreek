@@ -83,6 +83,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     int mProgramSize;
     private Bundle newProgramActivityBundle;
     private View view;
+    private ArrayList<ProgramTable> program_TableList;
 
 
     @Override
@@ -132,7 +133,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void getProgramTables() {
-        List<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
+        program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         {
             initUI(program_TableList);
         }
@@ -439,7 +440,14 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
 
-        wizardNavigationListener.loadTestFragment(newIntentBundle);
+        if( program_TableList.size() <= 15 ) {
+            wizardNavigationListener.loadTestFragment(newIntentBundle);
+        }
+        else {
+            wizardNavigationListener.loadFillBlanksFragment(newIntentBundle);
+        }
+
+
 
     }
 

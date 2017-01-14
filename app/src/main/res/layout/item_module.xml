@@ -20,13 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:id="@+id/headerTextView"
-                android:text="@string/module"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -35,6 +28,17 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@android:drawable/ic_lock_lock"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/md_blue_800"
+                android:id="@+id/headerTextView"
+                android:text="@string/module"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
 
 

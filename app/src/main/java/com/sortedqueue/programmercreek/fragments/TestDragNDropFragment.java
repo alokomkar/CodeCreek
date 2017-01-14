@@ -161,6 +161,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
         getActivity().setTitle( "Test : " + mProgramIndex.getProgram_Description());
 
+        //Split lengthy programs into modules
+        ProgramTable.splitIntoModules( program_TableList );
+
         mProgramList = new ArrayList<String>();
         mProgramCheckList = new ArrayList<String>();
         String programLine = null;
