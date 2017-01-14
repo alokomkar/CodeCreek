@@ -65,7 +65,8 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_new_program_wiki);
         ButterKnife.bind(this);
         CommonUtils.displayProgressDialog(NewProgramWikiActivity.this, "Loading");
-        new FirebaseDatabaseHandler(NewProgramWikiActivity.this).initializeProgramWiki(new FirebaseDatabaseHandler.ProgramWikiInterface() {
+        new FirebaseDatabaseHandler(NewProgramWikiActivity.this).initializeProgramWiki(
+                new FirebaseDatabaseHandler.ProgramWikiInterface() {
             @Override
             public void getProgramWiki(ArrayList<WikiModel> programWikis) {
                 programWikiPagerAdapter = new ProgramWikiPagerAdapter(getSupportFragmentManager(), programWikis);

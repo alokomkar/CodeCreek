@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_16"
-                android:textSize="@dimen/text_dashboard_small"
+                android:textSize="@dimen/text_fill_blanks"
                 android:textColor="@color/md_black_1000"
                 android:text="@string/program_fill_blanks"
                 android:id="@+id/programBlankLineTextView"/>
@@ -80,16 +80,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer1RadioButton1"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer1RadioButton2"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer1RadioButton3"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
 
                 </RadioGroup>
@@ -114,16 +117,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer2RadioButton1"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer2RadioButton2"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer2RadioButton3"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                 </RadioGroup>
 
@@ -155,16 +161,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer3RadioButton1"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer3RadioButton2"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer3RadioButton3"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                 </RadioGroup>
                 <TextView
@@ -188,16 +197,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer4RadioButton1"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer4RadioButton2"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/answer4RadioButton3"
+                        android:textSize="@dimen/text_dashboard_small"
                         android:text="@string/option"/>
                 </RadioGroup>
 

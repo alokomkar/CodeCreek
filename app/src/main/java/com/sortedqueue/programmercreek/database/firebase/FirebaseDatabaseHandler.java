@@ -26,9 +26,12 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.uk.rushorm.core.RushCallback;
+import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
+import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by binay on 05/12/16.
@@ -114,15 +117,6 @@ public class FirebaseDatabaseHandler {
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
-        getCreekUserDBDatabase();
-        getProgramWikiDatabase();
-        getProgramDatabase();
-        getUserDatabase();
-        getUserStatsDatabase();
-        getUserDetailsDatabase();
-        getLanguageModuleDatabase();
-        getSyntaxModuleDatabase();
-        getChaptersDatabase();
     }
 
     private void getChaptersDatabase() {
@@ -153,6 +147,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeProgramWiki(final WikiModel wikiModel) {
+        getProgramWikiDatabase();
         mProgramWikiDatabase.child(wikiModel.getWikiId()).setValue(wikiModel);
         wikiModel.save(new RushCallback() {
             @Override
@@ -163,6 +158,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeChapter(final Chapter chapter) {
+        getChaptersDatabase();
         mChapterDatabase.push().child(chapter.getChapterId()).setValue(chapter);
         chapter.save(new RushCallback() {
             @Override
@@ -173,6 +169,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeSyntaxModule(final SyntaxModule syntaxModule) {
+        getSyntaxModuleDatabase();
         mSyntaxModuleDatabase.child(  programLanguage + "_" + syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId()  ).setValue(syntaxModule);
         syntaxModule.save(new RushCallback() {
             @Override
@@ -183,6 +180,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeLanguageModule(final LanguageModule languageModule) {
+        getLanguageModuleDatabase();
         mLanguageModuleDatabase.child(languageModule.getModuleLanguage() + "_" + languageModule.getModuleId() ).setValue(languageModule);
         languageModule.save(new RushCallback() {
             @Override
@@ -193,18 +191,22 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeProgramIndex( ProgramIndex program_index ) {
+        getProgramDatabase();
         mProgramDatabase.child(PROGRAM_INDEX_CHILD + "/" + program_index.getProgram_index()).setValue(program_index);
     }
 
     public void writeProgramTable( ProgramTable program_table ) {
+        getProgramDatabase();
         mProgramDatabase.child(PROGRAM_TABLE_CHILD + "/" + program_table.getProgram_index() + "/" + program_table.getLine_No()).setValue(program_table);
     }
 
     public void writeCreekUser(CreekUser creekUser) {
+        getUserDatabase();
         mUserDatabase.child( creekUser.getEmailId().replaceAll("[-+.^:,]","")).setValue(creekUser);
     }
 
     public void writeCreekUserDB(CreekUserDB creekUserDB) {
+        getCreekUserDBDatabase();
         mCreekUserDBDatabase.setValue(creekUserDB);
     }
 
@@ -218,25 +220,68 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getChaptersInBackground(final GetChapterListener getChapterListener ) {
-
-        mChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Chapter> chapterArrayList = new ArrayList<Chapter>();
-                for( DataSnapshot keyValue : dataSnapshot.getChildren() ) {
-                    for( DataSnapshot chapterIdValue : keyValue.getChildren() ) {
-                        Chapter chapter = chapterIdValue.getValue(Chapter.class);
-                        if (chapter != null) {
-                            chapterArrayList.add(chapter);
+        getChaptersDatabase();
+        if( AuxilaryUtils.isNetworkAvailable() ) {
+            mChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<Chapter> chapterArrayList = new ArrayList<Chapter>();
+                    for( DataSnapshot keyValue : dataSnapshot.getChildren() ) {
+                        for( DataSnapshot chapterIdValue : keyValue.getChildren() ) {
+                            Chapter chapter = chapterIdValue.getValue(Chapter.class);
+                            if (chapter != null) {
+                                chapterArrayList.add(chapter);
+                            }
                         }
                     }
+                    updateChaptersList(chapterArrayList);
+                    getChapterListener.onSuccess(chapterArrayList);
                 }
-                getChapterListener.onSuccess(chapterArrayList);
-            }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getChapterListener.onErrror(databaseError);
+                }
+            });
+        }
+        else {
+            new AsyncTask<Void, Void, ArrayList<Chapter>>() {
+
+                @Override
+                protected ArrayList<Chapter> doInBackground(Void... voids) {
+                    return getOfflineChapters();
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<Chapter> chapters) {
+                    super.onPostExecute(chapters);
+                    if( chapters.size() > 0 )
+                        getChapterListener.onSuccess(chapters);
+                    else
+                        getChapterListener.onErrror(null);
+                }
+            }.execute();
+        }
+
+    }
+
+    private ArrayList<Chapter> getOfflineChapters() {
+        return new ArrayList<>(
+                new RushSearch()
+                .whereEqual("program_Language", programLanguage)
+                .find(Chapter.class));
+    }
+
+    private void updateChaptersList(final ArrayList<Chapter> chapterArrayList) {
+        RushCore.getInstance().deleteAll(Chapter.class, new RushCallback() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getChapterListener.onErrror(databaseError);
+            public void complete() {
+                RushCore.getInstance().save(chapterArrayList, new RushCallback() {
+                    @Override
+                    public void complete() {
+
+                    }
+                });
             }
         });
     }
@@ -264,6 +309,7 @@ public class FirebaseDatabaseHandler {
             }.execute();
         }
        else {
+            getProgramDatabase();
             mProgramDatabase.child( "program_tables/" + String.valueOf(mProgramIndex))
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -354,6 +400,7 @@ public class FirebaseDatabaseHandler {
             }.execute();
         }
         else {
+            getProgramDatabase();
             mProgramDatabase.child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -419,6 +466,7 @@ public class FirebaseDatabaseHandler {
         }
         else {
             Log.d(TAG, "getSyntaxModule : Running Firebase task");
+            getSyntaxModuleDatabase();
             mSyntaxModuleDatabase.child(programLanguage + "_" + syntaxId + "_" + wizardUrl ).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -488,6 +536,7 @@ public class FirebaseDatabaseHandler {
 
         }
         else {
+            getProgramWikiDatabase();
             mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -511,6 +560,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
     public void readCreekUserDB(final GetCreekUserDBListener getCreekUserDBListener ) {
+        getCreekUserDBDatabase();
         mCreekUserDBDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -532,6 +582,7 @@ public class FirebaseDatabaseHandler {
 
 
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
+        getUserDatabase();
         mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
 
@@ -542,7 +593,7 @@ public class FirebaseDatabaseHandler {
 
     public void initializeProgramWiki( final ProgramWikiInterface programWikiInterface ) {
         if( creekPreferences.checkWikiUpdate()  < 0 ) {
-
+            getProgramWikiDatabase();
             mProgramWikiDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -623,6 +674,7 @@ public class FirebaseDatabaseHandler {
     public void initializeSyntax(final LanguageModule languageModule, final SyntaxInterface syntaxInterface ) {
         if( creekPreferences.checkSyntaxUpdate() < 0 ) {
             Log.d(TAG, "initializeSyntax : Firebase task");
+            getSyntaxModuleDatabase();
             mSyntaxModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -705,6 +757,7 @@ public class FirebaseDatabaseHandler {
 
         if( creekPreferences.checkModulesUpdate() < 0 ) {
             Log.d(TAG, "initializeModules : FirebaseDBTask");
+            getLanguageModuleDatabase();
             mLanguageModuleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -783,7 +836,7 @@ public class FirebaseDatabaseHandler {
                     }
                 });
             }
-
+            getProgramDatabase();
             mProgramDatabase.child(PROGRAM_INDEX_CHILD)
                     .orderByKey()
                     .limitToLast(creekPreferences.getProgramIndexDifference())
@@ -866,6 +919,7 @@ public class FirebaseDatabaseHandler {
     public void initializeProgramTables(final ProgramTableInterface programTableInterface ) {
         if( !creekPreferences.checkProgramTableUpdate() ) {
             program_tables = new ArrayList<>();
+            getProgramDatabase();
             mProgramDatabase
                     .child(PROGRAM_TABLE_CHILD)
                     .orderByKey()
@@ -913,7 +967,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getCreekUserStatsInBackground(final CreekUserStatsListener creekUserStatsListener ) {
-
+        getUserStatsDatabase();
         mUserStatsDatabase.child( creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -943,6 +997,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeCreekUserStats( CreekUserStats creekUserStats ) {
+        getUserStatsDatabase();
         mUserStatsDatabase.child( creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
         creekPreferences.saveCreekUserStats(creekUserStats);
     }

@@ -16,6 +16,7 @@ import com.sortedqueue.programmercreek.fragments.ChapterDetailsFragment;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

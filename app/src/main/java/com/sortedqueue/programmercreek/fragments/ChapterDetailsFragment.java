@@ -54,6 +54,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wizard_module, container, false);
         ButterKnife.bind(this, view);
+        CommonUtils.displayProgressDialog(getContext(), "Loading modules");
         setupViews();
         return view;
     }
@@ -70,7 +71,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     private void setupViews() {
 
-        syntaxLearnViewPager.setOffscreenPageLimit(3);
+        syntaxLearnViewPager.setOffscreenPageLimit(chapter.getChapterDetailsArrayList().size());
         chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), this, getChildFragmentManager(), chapter.getChapterDetailsArrayList(), this, nextChapter);
         syntaxLearnViewPager.setAdapter(chapterDetailsPagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
@@ -102,6 +103,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
             }
         });
+        CommonUtils.dismissProgressDialog();
 
     }
 

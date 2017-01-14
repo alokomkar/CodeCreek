@@ -2,12 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="2dip" />
+            <!--<corners android:radius="2dip" />-->
             <gradient
-                android:startColor="#ff9d9e9d"
-                android:centerColor="#ff5a5d5a"
+                android:startColor="@color/md_blue_200"
+                android:centerColor="@color/md_blue_500"
                 android:centerY="0.75"
-                android:endColor="#ff747674"
+                android:endColor="@color/md_blue_200"
                 android:angle="270"
                 />
         </shape>
@@ -16,12 +16,12 @@
     <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape>
-                <corners android:radius="2dip" />
+                <!--<corners android:radius="2dip" />-->
                 <gradient
-                    android:startColor="#80ffd300"
-                    android:centerColor="#80ffb600"
+                    android:startColor="@color/md_amber_200"
+                    android:centerColor="@color/md_amber_800"
                     android:centerY="0.75"
-                    android:endColor="#a0ffcb00"
+                    android:endColor="@color/md_amber_200"
                     android:angle="270"
                     />
             </shape>
@@ -32,12 +32,14 @@
         >
         <clip>
             <shape>
-                <corners
-                    android:radius="2dip" />
+                <!--<corners
+                    android:radius="2dip" />-->
                 <gradient
-                    android:startColor="#33FF33"
-                    android:endColor="#008000"
-                    android:angle="270" />
+                    android:startColor="@color/md_blue_600"
+                    android:centerColor="@color/md_blue_900"
+                    android:endColor="@color/md_blue_600"
+                    android:angle="270"
+                    />
             </shape>
         </clip>
     </item>

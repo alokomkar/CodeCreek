@@ -21,4 +21,5 @@
     <dimen name="margin_12">12dp</dimen>
     <dimen name="detail_backdrop_height">90dp</dimen>
     <dimen name="cardview_app_radius">4dp</dimen>
+    <dimen name="text_fill_blanks">18sp</dimen>
 </resources>
