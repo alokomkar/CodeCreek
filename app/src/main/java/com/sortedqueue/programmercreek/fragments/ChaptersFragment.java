@@ -65,7 +65,7 @@ public class ChaptersFragment extends Fragment {
 
     private void getModules() {
         chapters = new ArrayList<>();
-        int prevChapterMinStats = 0;
+        /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("cpp");
@@ -692,7 +692,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
-        chapters.add(chapter);
+        chapters.add(chapter);*/
 
         /*//6th chapter :
         chapter = new Chapter();
@@ -738,12 +738,13 @@ public class ChaptersFragment extends Fragment {
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        */
+        /*FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         for( Chapter chapter1 : chapters ) {
             firebaseDatabaseHandler.writeChapter(chapter1);
-        }*/
-        setupRecyclerView(chapters);
-        /*CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        }
+        setupRecyclerView(chapters);*/
+        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
@@ -755,7 +756,7 @@ public class ChaptersFragment extends Fragment {
                 CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                 CommonUtils.dismissProgressDialog();
             }
-        });*/
+        });
 
     }
 

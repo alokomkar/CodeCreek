@@ -262,6 +262,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     public void disableViewPager() {
         if( syntaxLearnViewPager != null ){
             syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
+            doneFAB.setEnabled(false);
         }
     }
 
@@ -269,6 +270,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     public void enableViewPager() {
         if( syntaxLearnViewPager != null ){
             changeViewPagerBehavior(progressBar.getProgress() - 1);
+            doneFAB.setEnabled(true);
         }
 
     }
