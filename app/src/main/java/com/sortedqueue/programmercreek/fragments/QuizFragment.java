@@ -87,7 +87,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
 
         if (bundle != null) {
-            mQuizMode = bundle.getInt(ProgramListActivity.KEY_QUIZ_TYPE, ProgramListActivity.KEY_QUIZ_DESCRIPTION_QUESTION);
+            mQuizMode = bundle.getInt(ProgramListActivity.KEY_QUIZ_TYPE, ProgramListActivity.KEY_QUIZ_PROGRAM_CODE_QUESTION);
             initQuiz(mQuizMode);
         }
 

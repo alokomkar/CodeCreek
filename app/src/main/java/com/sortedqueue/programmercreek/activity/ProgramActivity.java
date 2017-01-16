@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
@@ -116,7 +117,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		mProgramExplanationList = new ArrayList<String>();
 
 		Iterator<ProgramTable> iteraor = program_TableList.iterator();
-		while(iteraor.hasNext()) { 
+		while(iteraor.hasNext()) {
 
 			ProgramTable newProgramTable = iteraor.next();
 			mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
@@ -175,22 +176,22 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		public void onClick(View v) {
 
 			switch( v.getId() ) {
-			case R.id.descriptionBtn :
-				programDescriptionAction();
-				break;
+				case R.id.descriptionBtn :
+					programDescriptionAction();
+					break;
 
-			case R.id.prevProgramBtn :
-				prevProgramBtnAction();
-				break;
+				case R.id.prevProgramBtn :
+					prevProgramBtnAction();
+					break;
 
-			case R.id.nextProgramBtn :
-				if( mWizard == true ) {
-					showSelectBox();
-				}
-				else {
-					nextProgramBtnAction();	
-				}
-				break;
+				case R.id.nextProgramBtn :
+					if( mWizard == true ) {
+						showSelectBox();
+					}
+					else {
+						nextProgramBtnAction();
+					}
+					break;
 
 			}
 
@@ -204,10 +205,10 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	private void programDescriptionAction() {
 
-		if(mProgDescriptionBtn.getText() == "Flip") { 
-			mProgDescriptionBtn.setText("Flip");	
+		if(mProgDescriptionBtn.getText() == "Flip") {
+			mProgDescriptionBtn.setText("Flip");
 		}
-		else { 
+		else {
 			mProgDescriptionBtn.setText("Flip");
 		}
 		flipit();
@@ -230,7 +231,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		return AuxilaryUtils.getProgramTitle(program_Index, ProgramActivity.this );
 	}
 
-	public void enableDisablePrevButton() { 
+	public void enableDisablePrevButton() {
 		if( mProgramIndex == 1 || mProgramIndex < 1) {
 			mPrevProgramBtn.setEnabled(false);
 
@@ -247,41 +248,52 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 
-			ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(ProgramActivity.this).getProgramTables(program_Index);
-			{
-				mAdapterProgramExplanationList.clear();
-				mAdapterProgramList.clear();
-				mListPostion = 1;
-			}
-			mProgramList = new ArrayList<String>();
-			mProgramExplanationList = new ArrayList<String>();
-			mProgram_Title = getProgramTitle(mProgramIndex);
+			new FirebaseDatabaseHandler(ProgramActivity.this)
+					.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+						@Override
+						public void onSuccess(ArrayList<ProgramTable> programTables) {
+							ArrayList<ProgramTable> program_TableList = programTables;
+							mAdapterProgramExplanationList.clear();
+							mAdapterProgramList.clear();
+							mListPostion = 1;
+							mProgramList = new ArrayList<String>();
+							mProgramExplanationList = new ArrayList<String>();
+							mProgram_Title = getProgramTitle(mProgramIndex);
 
-			if( mProgram_Title == null ) {
-				setTitle("Revise");
-				AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
-			}
-			else {
-				setTitle("Revise : " + mProgram_Title );
-				Iterator<ProgramTable> iteraor = program_TableList.iterator();
+							if( mProgram_Title == null ) {
+								setTitle("Revise");
+								AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
+							}
+							else {
+								setTitle("Revise : " + mProgram_Title );
+								Iterator<ProgramTable> iteraor = program_TableList.iterator();
 
-				while(iteraor.hasNext()) { 
-					ProgramTable newProgramTable = iteraor.next();
-					mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
-					mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
+								while(iteraor.hasNext()) {
+									ProgramTable newProgramTable = iteraor.next();
+									mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+									mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
 
-				}
+								}
 
 
-			}
+							}
 
-			// Prepare the ListView
-			mAdapterProgramList.addAll(mProgramList);
-			// Prepare the ListView
-			mAdapterProgramExplanationList.addAll(mProgramExplanationList);
+							// Prepare the ListView
+							mAdapterProgramList.addAll(mProgramList);
+							// Prepare the ListView
+							mAdapterProgramExplanationList.addAll(mProgramExplanationList);
 
-			mAdapterProgramList.setNotifyOnChange(true);
-			mAdapterProgramExplanationList.setNotifyOnChange(true);
+							mAdapterProgramList.setNotifyOnChange(true);
+							mAdapterProgramExplanationList.setNotifyOnChange(true);
+
+
+						}
+
+						@Override
+						public void onError(DatabaseError databaseError) {
+
+						}
+					});
 
 		}
 		if( program_Index > mTotalPrograms) {
@@ -331,7 +343,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	protected void showSelectBox() {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Quiz Mode - Question Type"); 
+		builder.setTitle("Quiz Mode - Question Type");
 		String[] boxTypes = {"Description","Program Code"};
 		builder.setItems(boxTypes, quizTypeListener);
 		builder.setNegativeButton("Cancel", null);
@@ -349,51 +361,63 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	/**
 	 * Quiz Type Listener 
 	 * */
-	DialogInterface.OnClickListener quizTypeListener = 
+	DialogInterface.OnClickListener quizTypeListener =
 			new DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 
-			Bundle newIntentBundle = new Bundle();
-			Intent newIntent = new Intent(ProgramActivity.this, WizardActivity.class);
-			newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
-			newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+					Bundle newIntentBundle = new Bundle();
+					Intent newIntent = new Intent(ProgramActivity.this, WizardActivity.class);
+					newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
+					newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
 
-			switch ( which ) {
+					switch ( which ) {
 
-			case KEY_QUIZ_DESCRIPTION_QUESTION :
-				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
-				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
+						case KEY_QUIZ_DESCRIPTION_QUESTION :
+							newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
+							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_DESCRIPTION_QUESTION);
 
-				break;
+							break;
 
-			case KEY_QUIZ_PROGRAM_CODE_QUESTION :
-				newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
-				newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
-				break;
+						case KEY_QUIZ_PROGRAM_CODE_QUESTION :
+							newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
+							newIntentBundle.putInt(KEY_QUIZ_TYPE, KEY_QUIZ_PROGRAM_CODE_QUESTION);
+							break;
 
-			}
+					}
 
-			newIntent.putExtras(newIntentBundle);
-			startActivity(newIntent);
-			ProgramActivity.this.finish();
+					newIntent.putExtras(newIntentBundle);
+					startActivity(newIntent);
+					ProgramActivity.this.finish();
 
-		}
-	};
+				}
+			};
 
 
 	@Override
 	public void updateUI() {
 
-		mProgramTableList = new FirebaseDatabaseHandler(ProgramActivity.this).getProgramTables(mProgramIndex);
-		if( mProgramTableList == null || mProgramTableList.size() == 0 ) { 
-			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
-			mProgramIndex--;
-		}
-		else {
-			initUI( mProgramTableList );	
-		}
+		new FirebaseDatabaseHandler(ProgramActivity.this)
+				.getProgramTablesInBackground(mProgramIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+					@Override
+					public void onSuccess(ArrayList<ProgramTable> programTables) {
+						mProgramTableList = programTables;
+						if( mProgramTableList == null || mProgramTableList.size() == 0 ) {
+							AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", ProgramActivity.this);
+							mProgramIndex--;
+						}
+						else {
+							initUI( mProgramTableList );
+						}
+					}
+
+					@Override
+					public void onError(DatabaseError databaseError) {
+
+					}
+				});
+
 
 	}
 

@@ -71,7 +71,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     private void setupViews() {
 
-        syntaxLearnViewPager.setOffscreenPageLimit(chapter.getChapterDetailsArrayList().size());
+        //syntaxLearnViewPager.setOffscreenPageLimit(chapter.getChapterDetailsArrayList().size());
         chapterDetailsPagerAdapter = new ChapterDetailsPagerAdapter(getContext(), this, getChildFragmentManager(), chapter.getChapterDetailsArrayList(), this, nextChapter);
         syntaxLearnViewPager.setAdapter(chapterDetailsPagerAdapter);
         syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);

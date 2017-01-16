@@ -65,20 +65,23 @@ public class ChaptersFragment extends Fragment {
 
     private void getModules() {
         chapters = new ArrayList<>();
-        /*int prevChapterMinStats = 0;
+        int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_1");
-        chapter.setChapterName("Simple I/O : Hello world");
-        chapter.setChapteBrief("Learn about simple input and output commands,\nWrite your very first program : Hello world");
-        String syntaxId = "c_1";
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_1");
+        chapter.setChapterName("Basic I/O : Usage in programs");
+        chapter.setChapteBrief("Learn about simple input and output commands\n" +
+                "1. Largest of 3 numbers\n" +
+                "2. Calculate discount\n" +
+                "3. To find the case of the character");
+        String syntaxId = "cpp_1";
         ArrayList<ChapterDetails> chapterDetailsArrayList = new ArrayList<>();
         int index = 1;
         int progressIndex = 1;
         ChapterDetails chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -88,7 +91,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
@@ -98,36 +101,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -137,19 +111,60 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c1");
+        chapterDetails.setChapterReferenceId("cpp1");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("1");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterReferenceId("1" );
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp2");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+        chapterDetails.setChapterReferenceId("2" );
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp3");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("3" );
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         chapterDetailsArrayList.add(chapterDetails);
@@ -162,17 +177,21 @@ public class ChaptersFragment extends Fragment {
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_2");
-        chapter.setChapterName("Variables and Constants : Sum of two numbers");
-        chapter.setChapteBrief("How to use variables and constants,\nPractice program to find sum of two numbers ");
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_2");
+        chapter.setChapterName("C++ Strings");
+        chapter.setChapteBrief("String representations in C++\n" +
+                "1. Leap year\n" +
+                "2. Total days, years, months\n" +
+                "3. Area of an isoceles triangle\n" +
+                "4. Area and Circumference of Circle");
 
-        syntaxId = "c_2";
+        syntaxId = "cpp_2";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -182,7 +201,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
@@ -192,40 +211,77 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c2");
+        chapterDetails.setChapterReferenceId("cpp4");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("2");
+        chapterDetails.setChapterReferenceId("4");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp5");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("5");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_MATCH);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp6");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("6");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp7");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("7");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -236,17 +292,21 @@ public class ChaptersFragment extends Fragment {
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_3");
-        chapter.setChapterName("Operators : Sum of two numbers");
-        chapter.setChapteBrief("How to perform mathematical and logical operations using operators,\nPractice program : Pythagoras theorem, Odd and Even using ? Operator ");
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_3");
+        chapter.setChapterName("Modifier types");
+        chapter.setChapteBrief("Explore modifiers and type qualifiers C++\n" +
+                "1. Swapping two values\n" +
+                "2. Generate electricity bill\n" +
+                "3. Factorial using loop\n" +
+                "4. Grade generator");
 
-        syntaxId = "c_4";
+        syntaxId = "cpp_3";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -256,69 +316,87 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_" + index++);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setChapterReferenceId("s_" + index++);
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c3");
+        chapterDetails.setChapterReferenceId("cpp8");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("3");
+        chapterDetails.setChapterReferenceId("8");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp9");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("9");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp10");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("10");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c8");
+        chapterDetails.setChapterReferenceId("cpp11");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("14");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+        chapterDetails.setChapterReferenceId("11");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -329,17 +407,21 @@ public class ChaptersFragment extends Fragment {
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_4");
-        chapter.setChapterName("Decision Making : use of if condition");
-        chapter.setChapteBrief("Explore decision making C language,\nPractice program : Read a file - use of if keyword");
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_4");
+        chapter.setChapterName("Loop control statements");
+        chapter.setChapteBrief("Loop control statements C++\n" +
+                "1. Sum of all digits of a number\n" +
+                "2. Fibonacci Series\n" +
+                "3. Sum and average\n" +
+                "4. Bubble sort");
 
-        syntaxId = "c_5";
+        syntaxId = "cpp_5";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -349,7 +431,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
@@ -359,7 +441,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -369,51 +451,108 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterReferenceId("s_" + index++);
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c22");
+        chapterDetails.setChapterReferenceId("cpp12");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("29");
+        chapterDetails.setChapterReferenceId("12");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp13");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("13");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp14");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("14");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp15");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("15");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
 
-        //5th chapter :
+        /*//5th chapter :
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_5");
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_5");
         chapter.setChapterName("Looping : while, for, do...while");
         chapter.setChapteBrief("Often times, we come across a scenario requiring us to execute a statement multiple times, how do we do it?,\nPractice program : Palindrome number, Bubble sort");
 
-        syntaxId = "c_6";
+        syntaxId = "cpp_6";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -423,7 +562,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
         chapterDetails.setChapterReferenceId("c12");
@@ -432,7 +571,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("19");
@@ -442,7 +581,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
@@ -452,7 +591,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
         chapterDetails.setChapterReferenceId("c19");
@@ -461,7 +600,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("25");
@@ -471,7 +610,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -486,17 +625,17 @@ public class ChaptersFragment extends Fragment {
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
-        chapter.setProgram_Language("c");
-        chapter.setChapterId("c_w_6");
+        chapter.setProgram_Language("cpp");
+        chapter.setChapterId("cpp_w_6");
         chapter.setChapterName("Storage Classes");
         chapter.setChapteBrief("A storage class defines the scope and life-time of variables/functions");
 
-        syntaxId = "c_3";
+        syntaxId = "cpp_3";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -506,7 +645,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
         chapterDetails.setSyntaxId(syntaxId);
@@ -516,7 +655,7 @@ public class ChaptersFragment extends Fragment {
 
         chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index);
-        chapterDetails.setProgramLanguage("c");
+        chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setSyntaxId(syntaxId);
         chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
@@ -530,7 +669,8 @@ public class ChaptersFragment extends Fragment {
         for( Chapter chapter1 : chapters ) {
             firebaseDatabaseHandler.writeChapter(chapter1);
         }*/
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        setupRecyclerView(chapters);
+        /*CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
@@ -542,7 +682,7 @@ public class ChaptersFragment extends Fragment {
                 CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                 CommonUtils.dismissProgressDialog();
             }
-        });
+        });*/
 
     }
 

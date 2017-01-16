@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
@@ -324,56 +325,27 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	}
 
 
-	protected void NextProgram(int program_Index) {
+	protected void NextProgram(final int program_Index) {
 		/**
 		 * Reset the list and reset adapter to change view
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 			mIndex = 0;
-			ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(MemorizeProgramActivity.this).getProgramTables(program_Index);
+			new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+					.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+						@Override
+						public void onSuccess(ArrayList<ProgramTable> programTables) {
+							ArrayList<ProgramTable> program_TableList = programTables;
+							initAdapters( program_TableList, program_Index );
+						}
 
-			if( program_TableList != null && program_TableList.size() > 0 ) {
-				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
-					flipit();
-					mProgDescriptionBtn.setText("Flip");
-				}*/
+						@Override
+						public void onError(DatabaseError databaseError) {
 
-				mAdapterProgramExplanationList.clear();
-				mAdapterProgramList.clear();
-				mProgram_Title = getProgramTitle( program_Index );
+						}
+					});
 
-				if( mProgram_Title == null ) {
-					setTitle("Memorize");
-					AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
-				}
-				else {
-					setTitle("Memorize : "+getProgramTitle(program_Index));
 
-					mProgramList = new ArrayList<String>();
-					mProgramExplanationList = new ArrayList<String>();
-
-					Iterator<ProgramTable> iteraor = program_TableList.iterator();
-
-					while(iteraor.hasNext()) { 
-						ProgramTable newProgramTable = iteraor.next();
-						mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
-						mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
-					}
-					mProgramLength = mProgramList.size();
-					Log.d("Program Length", mProgramLength+"");
-				}
-
-				mLinebylineprogramExplanationList.add(mProgramExplanationList.get(mIndex));
-				mLinebylineprogramList.add(mProgramList.get(mIndex++));
-
-				// Prepare the ListView
-				mAdapterProgramList.addAll(mLinebylineprogramList);
-				// Prepare the ListView
-				mAdapterProgramExplanationList.addAll(mLinebylineprogramExplanationList);
-
-				mAdapterProgramList.setNotifyOnChange(true);
-				mAdapterProgramExplanationList.setNotifyOnChange(true);	
-			}
 		}
 		if( program_Index > mTotalPrograms ) {
 			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
@@ -382,6 +354,50 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	}
 
+	private void initAdapters(ArrayList<ProgramTable> program_TableList, int program_Index) {
+		if( program_TableList != null && program_TableList.size() > 0 ) {
+				/*if( mProgDescriptionBtn.getText().equals("Flip")) {
+					flipit();
+					mProgDescriptionBtn.setText("Flip");
+				}*/
+
+			mAdapterProgramExplanationList.clear();
+			mAdapterProgramList.clear();
+			mProgram_Title = getProgramTitle( program_Index );
+
+			if( mProgram_Title == null ) {
+				setTitle("Memorize");
+				AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
+			}
+			else {
+				setTitle("Memorize : "+getProgramTitle(program_Index));
+
+				mProgramList = new ArrayList<String>();
+				mProgramExplanationList = new ArrayList<String>();
+
+				Iterator<ProgramTable> iteraor = program_TableList.iterator();
+
+				while(iteraor.hasNext()) {
+					ProgramTable newProgramTable = iteraor.next();
+					mProgramList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line());
+					mProgramExplanationList.add(newProgramTable.getLine_No()+". "+newProgramTable.getProgram_Line_Description());
+				}
+				mProgramLength = mProgramList.size();
+				Log.d("Program Length", mProgramLength+"");
+			}
+
+			mLinebylineprogramExplanationList.add(mProgramExplanationList.get(mIndex));
+			mLinebylineprogramList.add(mProgramList.get(mIndex++));
+
+			// Prepare the ListView
+			mAdapterProgramList.addAll(mLinebylineprogramList);
+			// Prepare the ListView
+			mAdapterProgramExplanationList.addAll(mLinebylineprogramExplanationList);
+
+			mAdapterProgramList.setNotifyOnChange(true);
+			mAdapterProgramExplanationList.setNotifyOnChange(true);
+		}
+	}
 
 
 	private Interpolator accelerator = new AccelerateInterpolator();
@@ -470,15 +486,25 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	@Override
 	public void updateUI() {
-		mProgramTableList = new FirebaseDatabaseHandler(MemorizeProgramActivity.this).getProgramTables(programIndex);;
-		if( mProgramTableList == null || mProgramTableList.size() == 0 ) { 
-			AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", this);
-			programIndex--;
-		}
-		else {
-			initUI( mProgramTableList );	
-		}
+		new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+                .getProgramTablesInBackground(programIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                    @Override
+                    public void onSuccess(ArrayList<ProgramTable> programTables) {
+                        mProgramTableList = programTables;
+                        if( mProgramTableList == null || mProgramTableList.size() == 0 ) {
+                            AuxilaryUtils.displayAlert(getString(R.string.app_name), "You are viewing the last program", MemorizeProgramActivity.this);
+                            programIndex--;
+                        }
+                        else {
+                            initUI( mProgramTableList );
+                        }
+                    }
 
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+
+                    }
+                });
 	}
 	
 	@Override

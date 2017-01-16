@@ -151,10 +151,19 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void getProgramTables() {
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-        {
-            initUI( program_TableList );
-        }
+        new FirebaseDatabaseHandler(getContext())
+                .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                    @Override
+                    public void onSuccess(ArrayList<ProgramTable> programTables) {
+                        ArrayList<ProgramTable> program_TableList = programTables;
+                        initUI( program_TableList );
+                    }
+
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
@@ -487,24 +496,36 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     @Override
     public void updateUI() {
 
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-        int prevProgramSize = 0;
-        prevProgramSize = program_TableList.size();
-        do {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-            if( prevProgramSize == program_TableList.size() ) {
-                break;
-            }
-        } while( true );
+        new FirebaseDatabaseHandler(getContext())
+                .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                    @Override
+                    public void onSuccess(ArrayList<ProgramTable> programTables) {
+                        ArrayList<ProgramTable> program_TableList = programTables;
+                        int prevProgramSize = 0;
+                        prevProgramSize = program_TableList.size();
+                        do {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
+                            if( prevProgramSize == program_TableList.size() ) {
+                                break;
+                            }
+                        } while( true );
 
-        if( program_TableList != null && program_TableList.size() > 0 ) {
-            initUI( program_TableList );
-        }
+                        if( program_TableList != null && program_TableList.size() > 0 ) {
+                            initUI( program_TableList );
+                        }
+                    }
+
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+
+                    }
+                });
+
 
     }
 

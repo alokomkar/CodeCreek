@@ -133,6 +133,18 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void getProgramTables() {
+        new FirebaseDatabaseHandler(getContext()).getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+            @Override
+            public void onSuccess(ArrayList<ProgramTable> programTables) {
+                program_TableList = programTables;
+                initUI(program_TableList);
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+
+            }
+        });
         program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
         {
             initUI(program_TableList);
