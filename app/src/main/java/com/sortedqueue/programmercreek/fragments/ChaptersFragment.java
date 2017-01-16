@@ -538,16 +538,22 @@ public class ChaptersFragment extends Fragment {
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
 
-        /*//5th chapter :
+        //5th chapter :
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("cpp");
         chapter.setChapterId("cpp_w_5");
-        chapter.setChapterName("Looping : while, for, do...while");
-        chapter.setChapteBrief("Often times, we come across a scenario requiring us to execute a statement multiple times, how do we do it?,\nPractice program : Palindrome number, Bubble sort");
+        chapter.setChapterName("Storage classes in c++");
+        chapter.setChapteBrief("Storage classes in c++\n" +
+                "The storage classs defines the scope and life time of variables and functions\n" +
+                "1. Binary search\n" +
+                "2. Sum of two matrix\n" +
+                "3. Sum of rows and columns\n" +
+                "4. Vowels and consonants count\n" +
+                "5. Largest and second largest in an array");
 
-        syntaxId = "cpp_6";
+        syntaxId = "cpp_4";
         chapterDetailsArrayList = new ArrayList<>();
         index = 1;
         chapterDetails = new ChapterDetails();
@@ -561,11 +567,98 @@ public class ChaptersFragment extends Fragment {
         chapterDetailsArrayList.add(chapterDetails);
 
         chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
+        chapterDetails.setSyntaxId(syntaxId);
+        chapterDetails.setChapterReferenceId("s_" + index++);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
         chapterDetails.setChapterModuleIndex(index++);
         chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c12");
+        chapterDetails.setChapterReferenceId("cpp16");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("16");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp17");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("17");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp18");
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
+        chapterDetails.setChapterReferenceId("18");
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+
+        chapterDetailsArrayList.add(chapterDetails);
+
+        chapterDetails = new ChapterDetails();
+        chapterDetails.setChapterModuleIndex(index++);
+        chapterDetails.setProgramLanguage("cpp");
+        chapterDetails.setProgressIndex(progressIndex++);
+        chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
+        chapterDetails.setChapterReferenceId("cpp19");
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -583,18 +676,8 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setChapterModuleIndex(index++);
         chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterReferenceId("s_2");
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("cpp");
-        chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_WIKI);
-        chapterDetails.setChapterReferenceId("c19");
+        chapterDetails.setChapterReferenceId("cpp20");
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -603,25 +686,15 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgramLanguage("cpp");
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
-        chapterDetails.setChapterReferenceId("25");
+        chapterDetails.setChapterReferenceId("20");
         chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
-
-        chapterDetailsArrayList.add(chapterDetails);
-
-        chapterDetails = new ChapterDetails();
-        chapterDetails.setChapterModuleIndex(index++);
-        chapterDetails.setProgramLanguage("cpp");
-        chapterDetails.setProgressIndex(progressIndex++);
-        chapterDetails.setSyntaxId(syntaxId);
-        chapterDetails.setChapterType(ChapterDetails.TYPE_SYNTAX_MODULE);
-        chapterDetails.setChapterReferenceId("s_3");
 
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
 
-        //6th chapter :
+        /*//6th chapter :
         chapter = new Chapter();
         prevChapterMinStats = prevChapterMinStats + chapterDetailsArrayList.size();
         chapter.setMinStats(prevChapterMinStats);
