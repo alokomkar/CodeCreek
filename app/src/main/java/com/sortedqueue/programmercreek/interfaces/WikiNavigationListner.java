@@ -6,4 +6,6 @@ package com.sortedqueue.programmercreek.interfaces;
 
 public interface WikiNavigationListner {
     void onBackPressed();
+    void disableViewPager();
+    void enableViewPager();
 }

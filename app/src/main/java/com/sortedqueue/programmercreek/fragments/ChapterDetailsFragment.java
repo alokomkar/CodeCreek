@@ -258,6 +258,21 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         syntaxLearnViewPager.setCurrentItem( syntaxLearnViewPager.getCurrentItem() - 1);
     }
 
+    @Override
+    public void disableViewPager() {
+        if( syntaxLearnViewPager != null ){
+            syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
+        }
+    }
+
+    @Override
+    public void enableViewPager() {
+        if( syntaxLearnViewPager != null ){
+            changeViewPagerBehavior(progressBar.getProgress() - 1);
+        }
+
+    }
+
     public void setNextChapter(Chapter nextChapter) {
         this.nextChapter = nextChapter;
     }

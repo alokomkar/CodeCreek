@@ -6,6 +6,16 @@
     android:background="@color/bg"
     android:layout_height="match_parent">
 
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        android:background="@color/bg"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +36,7 @@
             android:textColor="@color/md_black_1000"
             android:padding="@dimen/margin_16"
             android:textSize="@dimen/text_dashboard_small"
-            android:text="@string/about"/>
+            tools:text="@string/about"/>
     </LinearLayout>
 
 

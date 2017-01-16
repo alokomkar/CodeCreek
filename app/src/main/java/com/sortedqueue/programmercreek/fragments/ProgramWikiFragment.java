@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
     RecyclerView programWikiRecyclerView;
     @Bind(R.id.backImageView)
     ImageView backImageView;
+    @Bind(R.id.progressBar)
+    ContentLoadingProgressBar progressBar;
     private WikiNavigationListner wikiNavigationListener;
 
     @Nullable
@@ -50,6 +53,9 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
             setupRecyclerView( programWiki );
         }
         else {
+            progressBar.setVisibility(View.VISIBLE);
+            if( wikiNavigationListener != null )
+                wikiNavigationListener.disableViewPager();
             new FirebaseDatabaseHandler(getContext()).getWikiModel(wizardUrl, new FirebaseDatabaseHandler.GetWikiModelListener() {
                 @Override
                 public void onSuccess(WikiModel wikiModel) {
@@ -61,6 +67,10 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
                 @Override
                 public void onError(DatabaseError databaseError) {
                     CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                    progressBar.setVisibility(View.GONE);
+                    if( wikiNavigationListener != null ) {
+                        wikiNavigationListener.enableViewPager();
+                    }
                 }
             });
         }
@@ -84,6 +94,10 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
             }
         });
         backImageView.setVisibility( wikiNavigationListener != null ? View.VISIBLE : View.GONE );
+        progressBar.setVisibility(View.GONE);
+        if( wikiNavigationListener != null ) {
+            wikiNavigationListener.enableViewPager();
+        }
     }
 
     @Override

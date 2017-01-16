@@ -551,6 +551,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer2RadioButton2.getText().toString();
                 if (checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim())) {
                     answer2RadioButton2.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 } else {
                     answer2RadioButton2.setTextColor(Color.RED);
                 }
@@ -587,6 +588,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer3RadioButton3.getText().toString();
                 if (checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim())) {
                     answer3RadioButton3.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 } else {
                     answer3RadioButton3.setTextColor(Color.RED);
                 }
@@ -662,6 +664,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer6RadioButton2.getText().toString();
                 if (checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim())) {
                     answer6RadioButton2.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 } else {
                     answer6RadioButton2.setTextColor(Color.RED);
                 }
@@ -698,6 +701,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 checkedSolution = answer7RadioButton3.getText().toString();
                 if (checkedSolution.trim().equals(solutionTables.get(i).getProgram_Line().trim())) {
                     answer7RadioButton3.setTextColor(Color.GREEN);
+                    rightAnswers++;
                 } else {
                     answer7RadioButton3.setTextColor(Color.RED);
                 }
@@ -751,7 +755,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                     break;
             }
             isAnswered = rightAnswers == 8;
-            CommonUtils.displaySnackBar(getActivity(), message);
+            CommonUtils.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/8");
             if (wizardMode) {
                 updateCreekStats();
             }
