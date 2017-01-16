@@ -174,7 +174,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         for( ProgramTable program_table : program_tableList ) {
             fillBlanksQuestionList.add(program_table.getProgram_Line().trim());
         }
-        for( int i = 0; i < 4; i++ ) {
+        for( int i = 0; i < 8; i++ ) {
             int randomIndex = getRandomNumberInRange(0, fillBlanksQuestionList.size() - 1);
             ProgramTable program_table = program_tableList.get(randomIndex);
             if( !program_table.getProgram_Line().trim().equals("{") &&

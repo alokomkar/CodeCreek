@@ -530,29 +530,37 @@ public class FirebaseDatabaseHandler {
                 @Override
                 protected void onPostExecute(WikiModel wikiModel) {
                     super.onPostExecute(wikiModel);
-                    getWikiModelListener.onSuccess(wikiModel);
+                    if( wikiModel.getProgramWikis() == null || wikiModel.getProgramWikis().size() == 0 ) {
+                        getWikiFromFirebase(wizardUrl, getWikiModelListener);
+                    }
+                    else
+                        getWikiModelListener.onSuccess(wikiModel);
                 }
             }.execute();
 
         }
         else {
-            getProgramWikiDatabase();
-            mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    WikiModel wikiModel = dataSnapshot.getValue(WikiModel.class);
-                    getWikiModelListener.onSuccess(wikiModel);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d(TAG, "getWikiModel : " + databaseError.toException().getMessage());
-                    databaseError.toException().printStackTrace();
-                    getWikiModelListener.onError(databaseError);
-                }
-            });
+            getWikiFromFirebase(wizardUrl, getWikiModelListener);
         }
 
+    }
+
+    private void getWikiFromFirebase(String wizardUrl, final GetWikiModelListener getWikiModelListener) {
+        getProgramWikiDatabase();
+        mProgramWikiDatabase.child(wizardUrl).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                WikiModel wikiModel = dataSnapshot.getValue(WikiModel.class);
+                getWikiModelListener.onSuccess(wikiModel);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "getWikiModel : " + databaseError.toException().getMessage());
+                databaseError.toException().printStackTrace();
+                getWikiModelListener.onError(databaseError);
+            }
+        });
     }
 
     public interface GetCreekUserDBListener {
