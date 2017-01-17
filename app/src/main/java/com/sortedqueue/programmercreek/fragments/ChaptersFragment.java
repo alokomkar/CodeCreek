@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ChapterRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -64,7 +66,7 @@ public class ChaptersFragment extends Fragment {
     private void getModules() {
 
         chapters = new ArrayList<>();
-        int prevChapterMinStats = 0;
+        /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("java");
@@ -426,12 +428,13 @@ public class ChaptersFragment extends Fragment {
         chapters.add(chapter);
 
         setupRecyclerView(chapters);
-        /*FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         for( Chapter chapter1 : chapters ) {
             firebaseDatabaseHandler.writeChapter(chapter1);
-        }
+        }*/
+        /*
         */
-        /*CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
@@ -443,7 +446,7 @@ public class ChaptersFragment extends Fragment {
                 CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                 CommonUtils.dismissProgressDialog();
             }
-        });*/
+        });
 
     }
 
