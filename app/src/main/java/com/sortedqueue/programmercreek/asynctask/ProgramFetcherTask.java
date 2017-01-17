@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
@@ -45,10 +46,27 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, ArrayList<ProgramT
 	@Override
 	protected void onPostExecute(ArrayList<ProgramTable> result) {
 		super.onPostExecute(result);
-		CommonUtils.dismissProgressDialog();
-		if( mUiProgramFetcherListener != null ) {
-			mUiProgramFetcherListener.updateUI( result );
+		if( result.size() > 0 ) {
+			CommonUtils.dismissProgressDialog();
+			if( mUiProgramFetcherListener != null ) {
+				mUiProgramFetcherListener.updateUI( result );
+			}
 		}
+		else {
+			new FirebaseDatabaseHandler(mContext).getProgramTablesInBackground(mProgramIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+				@Override
+				public void onSuccess(ArrayList<ProgramTable> programTables) {
+					mUiProgramFetcherListener.updateUI(programTables);
+					CommonUtils.dismissProgressDialog();
+				}
+
+				@Override
+				public void onError(DatabaseError databaseError) {
+					CommonUtils.dismissProgressDialog();
+				}
+			});
+		}
+
 	}
 
 
