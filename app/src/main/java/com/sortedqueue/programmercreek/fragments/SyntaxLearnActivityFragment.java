@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,8 @@ import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListene
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +141,12 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void bindData(SyntaxModule syntaxModule) {
         syntaxNameTextView.setText(syntaxModule.getSyntaxName());
         syntaxDescriptionTextView.setText(syntaxModule.getSyntaxDescription());
+        /*if(Build.VERSION.SDK_INT >= 24 ) {
+            syntaxCommandTextView.setText(Html.fromHtml(PrettifyHighlighter.getInstance().highlight("cpp", syntaxModule.getSyntaxCommand()), Html.FROM_HTML_MODE_LEGACY));
+        }
+        else {
+            syntaxCommandTextView.setText(Html.fromHtml(PrettifyHighlighter.getInstance().highlight("cpp", syntaxModule.getSyntaxCommand())));
+        }*/
         syntaxCommandTextView.setText(syntaxModule.getSyntaxCommand());
         syntaxCommandOutputTextView.setText(syntaxModule.getSyntaxCommandOutput());
         syntaxQuestionTextView.setText(syntaxModule.getSyntaxQuestion());

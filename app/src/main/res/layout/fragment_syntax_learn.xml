@@ -43,7 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView 
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_8"
@@ -63,7 +64,9 @@
                     <TextView 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/white"
+                        android:textColor="@color/md_blue_800"
                         android:textSize="@dimen/text_dashboard_small"
                         android:textStyle="bold"
                         android:id="@+id/syntaxCommandTextView"
@@ -72,8 +75,10 @@
                     <TextView 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/md_black_1000"
                         android:textSize="@dimen/text_dashboard_small"
+                        android:textColor="@color/md_grey_500"
                         android:id="@+id/syntaxCommandOutputTextView"
                         tools:text="Hello world"/>
 
