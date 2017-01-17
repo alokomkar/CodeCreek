@@ -84,7 +84,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             }
         });
         toggleFabDrawable( progressBar.getProgress() );
-        changeViewPagerBehavior(1);
+        changeViewPagerBehavior(0);
         syntaxLearnViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

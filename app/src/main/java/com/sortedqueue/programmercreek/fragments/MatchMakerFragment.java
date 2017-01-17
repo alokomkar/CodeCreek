@@ -142,13 +142,11 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
             @Override
             public void onError(DatabaseError databaseError) {
+                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
 
             }
         });
-        program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-        {
-            initUI(program_TableList);
-        }
+
     }
 
     private void initUI(List<ProgramTable> program_TableList) {

@@ -184,7 +184,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
         //voiceTypeImageView.setVisibility(visibility);
-        isAnswered = syntaxOptions.size() == 0;
+        isAnswered = syntaxOptions.size() == 1  ;
         if( isAnswered )
             updateCreekUserStats();
 
@@ -366,6 +366,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     @Override
     public int isTestComplete() {
+
         return isAnswered ? ChapterDetails.TYPE_SYNTAX_MODULE : -1;
     }
 }
