@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_intro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/bg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sortedqueue.programmercreek.activity.IntroActivity"
+    tools:showIn="@layout/app_bar_intro">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content_syntax_learn"
+            tools:context="com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment"
+            tools:showIn="@layout/activity_syntax_learn">
+
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/progressBar"
+                android:background="@color/bg"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progressBar"
+                android:id="@+id/syntaxExplanationCardView"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/md_white_1000"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_8"
+                        android:textSize="@dimen/text_dashboard"
+                        android:textStyle="bold"
+                        android:id="@+id/syntaxNameTextView"
+                        android:text="Introduction"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_8"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:id="@+id/syntaxDescriptionTextView"
+                        android:text="The C programming language is a computer programming language that was developed to do system programming for the operating system UNIX and is an imperative programming language. C was developed in the early 1970 by Ken Thompson and Dennis Ritchie. It is a procedural language, which means that people can write their programs as a series of step-by-step instructions. C is a compiled language."/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/white"
+                        android:textColor="@color/md_blue_800"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:textStyle="bold"
+                        android:id="@+id/syntaxCommandTextView"
+                        android:text="The very first thing you need to do, before starting out in C, is to make sure that you have a compiler. What is a compiler, you ask? A compiler turns the program that you write into an executable that your computer can actually understand and run. If you're taking a course, you probably have one provided through your school."/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/md_black_1000"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:textColor="@color/md_grey_500"
+                        android:id="@+id/syntaxCommandOutputTextView"
+                        android:text="Example compilers : Turbo CPP, Gcc for unix"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/syntaxExplanationCardView"
+                android:id="@+id/syntaxQuestionCardView"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/md_white_1000"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_8"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:id="@+id/syntaxQuestionTextView"
+                        android:text="Every full C program begins inside a function called main. A function is simply a collection of commands that do something. The main function is always called when the program first executes. From main, we can call other functions, whether they be written by us or by others or use built-in language features. To access the standard functions that comes with your compiler, you need to include a header with the #include directive. What this does is effectively take everything in the header and paste it into your program. Let's look at a working program:"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/md_black_1000"
+                        android:textColor="@color/md_grey_500"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:id="@+id/syntaxSolutionTextView"
+                        android:text="@string/printf_solution"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/md_black_1000"
+                        android:textColor="@color/md_grey_500"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:id="@+id/syntaxQuestionOutputTextView"
+                        android:text="@string/hello_world_program"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/checkButtonLayout"
+                android:layout_below="@+id/syntaxQuestionCardView"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/voiceTypeImageView"
+                    android:elevation="@dimen/margin_4"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:visibility="gone"
+                    android:background="@drawable/button_blue"
+                    android:padding="@dimen/margin_8"
+                    android:src="@drawable/ic_record_voice_over_white_24dp"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hintSyntaxImageView"
+                    android:elevation="@dimen/margin_4"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:background="@drawable/button_sky"
+                    android:padding="@dimen/margin_8"
+                    android:src="@drawable/ic_help_outline_white_24dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearSyntaxImageView"
+                    android:elevation="@dimen/margin_4"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:background="@drawable/button_clear"
+                    android:padding="@dimen/margin_8"
+                    android:src="@drawable/ic_backspace_white_24dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkSyntaxImageView"
+                    android:elevation="@dimen/margin_4"
+                    android:background="@drawable/button_check"
+                    android:padding="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:src="@drawable/ic_assignment_turned_in"
+                    />
+
+            </LinearLayout>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/optionsCardView"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/md_white_1000"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
+                app:cardElevation="4dp"
+                android:layout_below="@+id/checkButtonLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:text="@string/options"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/md_grey_500" />
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbarSize="1dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/optionsRecyclerView">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</RelativeLayout>
