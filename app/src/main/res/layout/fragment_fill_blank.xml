@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:padding="@dimen/margin_16"
                 android:textSize="@dimen/text_fill_blanks"
                 android:textColor="@color/md_blue_900"
@@ -42,6 +42,8 @@
                 android:id="@+id/programBlankLineTextView"/>
             <io.github.kbiakov.codeview.CodeView
                 android:id="@+id/programCodeView"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </android.support.v7.widget.CardView>

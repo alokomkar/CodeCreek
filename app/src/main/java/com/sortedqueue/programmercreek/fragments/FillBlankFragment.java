@@ -245,10 +245,11 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 }
                 programBlankLineTextView.append(program_table.trim());
             }
-            programCodeView.setOptions(Options.Default.get(getContext())
+            
+            /*programCodeView.setOptions(Options.Default.get(getContext())
                     .withLanguage(programLanguage)
                     .withCode(programBlankLineTextView.getText().toString())
-                    .withTheme(ColorTheme.MONOKAI));
+                    .withTheme(ColorTheme.MONOKAI));*/
         }
     }
 
