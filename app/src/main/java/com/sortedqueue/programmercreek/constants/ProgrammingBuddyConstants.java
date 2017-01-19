@@ -22,4 +22,6 @@ public class ProgrammingBuddyConstants {
 
 	public static final String KEY_WIKI = "wiki";
 	public static final String KEY_PROGRAM_LANGUAGE = "program_language";
+	public static final String FONT_AVENIR = "fonts/avenir_regular.otf";
+	public static final String FONT_ROBOTO = "fonts/Roboto-Regular.ttf";
 }
