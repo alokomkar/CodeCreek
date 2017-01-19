@@ -15,6 +15,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.adapters.Options;
+import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 /**
  * Created by Alok Omkar on 2016-12-31.
@@ -28,6 +31,9 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         this.context = context;
         this.programWikis = programWikis;
         this.programLanguage = new CreekPreferences(context).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
     }
 
     @Override
@@ -81,6 +87,10 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         programViewHolder.syntaxDescriptionTextView.setText("Example : \n" + programWiki.getProgramExample());
         //programViewHolder.syntaxDescriptionTextView.setText( "Example : \n" + programWiki.getProgramExample());
         programViewHolder.syntaxSolutionTextView.setText(programWiki.getOutput());
+        programViewHolder.programCodeView.setOptions(Options.Default.get(context)
+                .withLanguage(programLanguage)
+                .withCode(programWiki.getProgramExample())
+                .withTheme(ColorTheme.MONOKAI));
     }
 
     private void initHeaderView(RecyclerView.ViewHolder holder, ProgramWiki programWiki, int position) {
@@ -109,6 +119,9 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
         @Bind(R.id.syntaxSolutionTextView)
         TextView syntaxSolutionTextView;
+
+        @Bind(R.id.programCodeView)
+        CodeView programCodeView;
 
         public ProgramViewHolder(View view) {
             super(view);

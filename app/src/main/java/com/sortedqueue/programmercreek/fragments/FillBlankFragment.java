@@ -24,12 +24,16 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.adapters.Options;
+import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 public class FillBlankFragment extends Fragment implements UIProgramFetcherListener, CompoundButton.OnCheckedChangeListener, TestCompletionListener {
 
@@ -38,6 +42,9 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     TextView headerTextView;
     @Bind(R.id.programBlankLineTextView)
     TextView programBlankLineTextView;
+    @Bind(R.id.programCodeView)
+    CodeView programCodeView;
+
     @Bind(R.id.programLayout)
     CardView programLayout;
     @Bind(R.id.answer1RadioButton1)
@@ -123,6 +130,8 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     private CreekUserStats creekUserStats;
     private ProgramIndex mProgramIndex;
 
+    private String programLanguage;
+
     public FillBlankFragment() {
         // Required empty public constructor
     }
@@ -139,9 +148,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        programLanguage = new CreekPreferences(getContext()).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
         getProgram();
         View view = inflater.inflate(R.layout.fragment_fill_blank, container, false);
         ButterKnife.bind(this, view);
+
         return view;
     }
 
@@ -231,6 +245,10 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 }
                 programBlankLineTextView.append(program_table.trim());
             }
+            programCodeView.setOptions(Options.Default.get(getContext())
+                    .withLanguage(programLanguage)
+                    .withCode(programBlankLineTextView.getText().toString())
+                    .withTheme(ColorTheme.MONOKAI));
         }
     }
 

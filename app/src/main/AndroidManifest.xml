@@ -122,8 +122,13 @@
             android:name="Rush_log"
             android:value="true" />
 
-        <activity android:name=".activity.ProgramInserterActivity"
-            android:label="@string/program_inserter"></activity>
+        <activity
+            android:name=".activity.ProgramInserterActivity"
+            android:label="@string/program_inserter" />
+        <activity
+            android:name=".activity.IntroActivity"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

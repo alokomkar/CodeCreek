@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
+import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -71,6 +72,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     TextView wizardTextView;
     @Bind(R.id.wizardLayout)
     FrameLayout wizardLayout;
+    @Bind(R.id.introLayout)
+    FrameLayout introLayout;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
@@ -101,6 +104,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         reviseLayout.setOnClickListener(this);
         quizLayout.setOnClickListener(this);
         wizardLayout.setOnClickListener(this);
+        introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         
     }
@@ -125,6 +129,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.indexLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
+                break;
+
+            case R.id.introLayout :
+                Intent introIntent = new Intent(getContext(), IntroActivity.class);
+                startActivity(introIntent);
                 break;
 
             //TODO : To be removed later
