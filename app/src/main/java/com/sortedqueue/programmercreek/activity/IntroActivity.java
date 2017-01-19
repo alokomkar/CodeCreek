@@ -9,13 +9,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ImageView drawerImageView;
+    private TextView drawerNameTextView;
+    private TextView drawerEmailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,7 @@ public class IntroActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -32,8 +41,21 @@ public class IntroActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        initAndSetUserValues(navigationView.getHeaderView(0));
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
+    }
+
+    private void initAndSetUserValues(View view) {
+        CreekPreferences creekPreferences = new CreekPreferences(IntroActivity.this);
+        drawerEmailTextView = (TextView) view.findViewById(R.id.drawerEmailTextView);
+        drawerNameTextView = (TextView) view.findViewById(R.id.drawerNameTextView);
+        drawerImageView = (ImageView) view.findViewById(R.id.drawerImageView);
+        /*Glide.with(IntroActivity.this)
+                .load(creekPreferences.getAccountPhoto())
+                .fitCenter()
+                .into(drawerImageView);*/
+        drawerNameTextView.setText(creekPreferences.getAccountName());
     }
 
     @Override
