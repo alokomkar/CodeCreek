@@ -67,6 +67,7 @@
         <activity
             android:name=".activity.NewProgramWikiActivity"
             android:label="@string/title_program_wiki"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WizardActivity"

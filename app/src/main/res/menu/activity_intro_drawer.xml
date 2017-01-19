@@ -18,6 +18,10 @@
             android:id="@+id/installation_item"
             android:icon="@drawable/ic_web_black_24dp"
             android:title="@string/installation" />
+        <item
+            android:id="@+id/chapters_item"
+            android:icon="@android:drawable/ic_media_ff"
+            android:title="@string/chapters" />
     </group>
 
     <!--<item android:title="Communicate">

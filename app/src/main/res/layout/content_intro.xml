@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.sortedqueue.programmercreek.activity.IntroActivity"
+    tools:context="com.sortedqueue.programmercreek.activity.NewProgramWikiActivity"
     tools:showIn="@layout/app_bar_intro">
 
     <android.support.v4.widget.NestedScrollView

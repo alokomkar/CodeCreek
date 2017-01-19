@@ -131,4 +131,5 @@
     <string name="basics_with_hello_world">Basics with hello world</string>
     <string name="comments">Using comments</string>
     <string name="installation">Installation</string>
+    <string name="chapters">Chapters</string>
 </resources>
