@@ -117,8 +117,14 @@
                         android:textColor="@color/md_grey_500"
                         android:textSize="@dimen/text_dashboard_small"
                         android:id="@+id/syntaxSolutionTextView"
+                        android:visibility="gone"
                         tools:text="@string/printf_solution"/>
+                    <io.github.kbiakov.codeview.CodeView
+                        android:id="@+id/programCodeView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                    </io.github.kbiakov.codeview.CodeView>
                     <TextView 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

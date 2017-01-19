@@ -50,6 +50,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.adapters.Options;
+import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -94,6 +97,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     ScrollView scrollView;
     @Bind(R.id.progressBar)
     ContentLoadingProgressBar progressBar;
+    @Bind(R.id.programCodeView)
+    CodeView programCodeView;
     private SyntaxModule syntaxModule;
     private List<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
@@ -104,7 +109,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private String syntaxId;
     private boolean isAnswered = false;
     private Chapter nextChapter;
-
+    private String programLanguage;
     public SyntaxLearnActivityFragment() {
     }
 
@@ -113,6 +118,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
+        programLanguage = new CreekPreferences(getContext()).getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
         if( wizardUrl == null ) {
             bindData(syntaxModule);
         }
@@ -151,6 +160,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         syntaxCommandOutputTextView.setText(syntaxModule.getSyntaxCommandOutput());
         syntaxQuestionTextView.setText(syntaxModule.getSyntaxQuestion());
         syntaxSolutionTextView.setText("");
+        setCodeView( syntaxSolutionTextView.getText().toString() );
         syntaxQuestionOutputTextView.setText("Expected Output : " + syntaxModule.getSyntaxQuestionOutput());
         if (syntaxModule.getSyntaxOptions() != null) {
             setupRecyclerView(syntaxModule.getSyntaxOptions());
@@ -160,6 +170,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         clearSyntaxImageView.setOnClickListener(this);
         hintSyntaxImageView.setOnClickListener(this);
         voiceTypeImageView.setOnClickListener(this);
+    }
+
+    private void setCodeView(String programLines) {
+        programCodeView.setOptions(Options.Default.get(getContext())
+                .withLanguage(programLanguage)
+                .withCode(programLines)
+                .withTheme(ColorTheme.MONOKAI));
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
@@ -173,6 +190,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             public void onItemClick(int position) {
                 solutionList.add(moduleOptions.get(position).getOption());
                 syntaxSolutionTextView.setText(getSolution(solutionList));
+                setCodeView(syntaxSolutionTextView.getText().toString());
             }
         }));
 
@@ -214,9 +232,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case R.id.clearSyntaxImageView:
                 if (solutionList.size() == 0) {
                     syntaxSolutionTextView.setText("");
+                    setCodeView("");
                 } else {
                     solutionList.remove(solutionList.size() - 1);
                     syntaxSolutionTextView.setText(getSolution(solutionList));
+                    setCodeView(syntaxSolutionTextView.getText().toString());
                 }
                 break;
             case R.id.checkSyntaxImageView:
@@ -266,6 +286,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             if( spokenText.equalsIgnoreCase("print formatted") ) {
                 solutionList.add("printf(");
                 syntaxSolutionTextView.setText(getSolution(solutionList));
+                setCodeView(syntaxSolutionTextView.getText().toString());
             }
         }
     }
