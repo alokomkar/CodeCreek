@@ -225,6 +225,10 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
+        }
         if (!isAdShown) {
             interstitialAd.show();
             isAdShown = true;

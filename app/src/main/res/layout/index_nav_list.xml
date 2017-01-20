@@ -1,0 +1,60 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/md_white_1000"
+    android:foreground="?android:attr/selectableItemBackground"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/programIndexLayout">
+        <TextView
+            android:layout_height="@dimen/margin_32"
+            android:layout_width="@dimen/margin_32"
+            android:text="C"
+            android:elevation="@dimen/margin_2"
+            android:id="@+id/programTypeTextView"
+            android:textStyle="bold"
+            android:textColor="@color/md_black_1000"
+            android:background="@drawable/language_view"
+            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_centerVertical="true"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtViewProgDescription"
+            android:layout_toRightOf="@+id/programTypeTextView"
+            android:layout_toLeftOf="@+id/lockedImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_16"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/md_black_1000"
+            android:text="Sample"
+            android:textSize="18sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lockedImageView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_8"
+            android:src="@android:drawable/ic_lock_lock"/>
+        <View
+            android:layout_below="@+id/txtViewProgDescription"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

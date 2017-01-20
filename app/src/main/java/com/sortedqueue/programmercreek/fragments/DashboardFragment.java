@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -93,8 +94,44 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         creekPreferences = new CreekPreferences(getContext());
 
         initUI();
+        animateViews();
         return view;
     }
+
+    public void animateViews() {
+
+        introLayout.setAlpha(0.0f);
+        wizardLayout.setAlpha(0.0f);
+        syntaxLayout.setAlpha(0.0f);
+        indexLayout.setAlpha(0.0f);
+        wikiLayout.setAlpha(0.0f);
+        quizLayout.setAlpha(0.0f);
+        matchLayout.setAlpha(0.0f);
+        testLayout.setAlpha(0.0f);
+        int delay = 0;
+        int standardDelay = 270;
+        initAnimations(introLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(wizardLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(syntaxLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(indexLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(wikiLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(quizLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(matchLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(testLayout, delay);
+
+    }
+
+    private void initAnimations(FrameLayout frameLayout, int delay) {
+        frameLayout.animate().setStartDelay(delay).setDuration(400).alpha(1.0f);
+    }
+
     private void initUI() {
         wikiLayout.setOnClickListener(this);
         syntaxLayout.setOnClickListener(this);

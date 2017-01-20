@@ -48,7 +48,7 @@ public class ProgramWikiNavRecyclerAdapter extends RecyclerView.Adapter<ProgramW
 
     @Override
     public ProgramWikiNavRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View adapterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.index_list, parent, false);
+        View adapterView = LayoutInflater.from(parent.getContext()).inflate(R.layout.index_nav_list, parent, false);
         return new ProgramWikiNavRecyclerAdapter.ViewHolder(adapterView);
     }
 

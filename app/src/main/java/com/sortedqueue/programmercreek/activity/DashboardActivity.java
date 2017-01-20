@@ -22,6 +22,7 @@ import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -196,6 +197,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void navigateToDashboard() {
         dashboardViewPager.setCurrentItem(1);
+        DashboardFragment.getInstance().animateViews();
         getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
     }
 
