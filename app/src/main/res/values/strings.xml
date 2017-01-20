@@ -85,7 +85,7 @@
     <string name="done">Done</string>
     <string name="time">00:00</string>
     <string name="url">Program explanation</string>
-    <string name="title_program_wiki">Search SyntaxDB</string>
+    <string name="title_program_wiki">Program Wiki</string>
     <string name="program_wiki">Program Wiki</string>
     <string name="program_wiki_description">Go through all the progams and explanations</string>
     <string name="select_language">Selected :</string>
