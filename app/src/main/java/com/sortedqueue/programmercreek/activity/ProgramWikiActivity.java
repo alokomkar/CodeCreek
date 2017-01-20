@@ -151,7 +151,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                mAdView.setVisibility(View.VISIBLE);
+                mAdView.setVisibility(View.GONE);
             }
         });
         interstitialAd = new InterstitialAd(this);
