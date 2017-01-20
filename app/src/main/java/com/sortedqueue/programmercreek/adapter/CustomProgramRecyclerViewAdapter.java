@@ -89,11 +89,14 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         //Remove this later
         //holder.lockedImageView.setVisibility(View.GONE);
         //holder.itemView.startAnimation((position > lastPosition) ? bottomUpAnimation : topDownAnimation );
-        //lastPosition = position;
-        startAnimation(holder.itemView, position * 250 );
+       /* if( position > lastPosition ) {
+            startAnimation(holder.itemView, position * 250 );
+        }
+        lastPosition = position;*/
     }
 
     private void startAnimation(View itemView, int delay) {
+
         itemView.setAlpha(0.0f);
         itemView.animate().setStartDelay(delay).setDuration(300).alpha(1.0f);
     }
