@@ -54,17 +54,17 @@
     <TextView
         tools:ignore="MissingPrefix"
         fontPath="fonts/Roboto-Regular.ttf"
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="#454545"
         android:gravity="center_horizontal"
         android:text="@string/bloglink"
-        android:id="@+id/textView2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        android:id="@+id/textView2" />
 
 
 </RelativeLayout>

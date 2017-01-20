@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.IntroChapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
@@ -26,12 +27,10 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
-import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by binay on 05/12/16.
@@ -47,6 +46,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mUserDatabase;
     private DatabaseReference mUserStatsDatabase;
     private DatabaseReference mUserDetailsDatabase;
+    private DatabaseReference mIntroChapterDatabase;
 
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -62,6 +62,7 @@ public class FirebaseDatabaseHandler {
     private String TAG = FirebaseDatabaseHandler.class.getSimpleName();
     private ArrayList<ProgramTable> program_tables;
     private DatabaseReference mCreekUserDBDatabase;
+    private String CREEK_INTRO_DB = "intro_db";
     private String CREEK_USER_DB = "creek_user_db_version";
     private String WIKI_MODULE = "wiki_module";
     private String CREEK_USER_STATS = "user_stats";
@@ -108,6 +109,10 @@ public class FirebaseDatabaseHandler {
     public void getCreekUserDBDatabase() {
         mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_DB );
         mCreekUserDBDatabase.keepSynced(true);
+    }
+
+    public void getIntroDB() {
+        mIntroChapterDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_INTRO_DB + "/" + programLanguage );
     }
 
     public FirebaseDatabaseHandler(Context context) {
@@ -212,6 +217,38 @@ public class FirebaseDatabaseHandler {
 
     public void getLatestCModules() {
 
+    }
+
+    public interface GetIntroChaptersListener {
+        void onSuccess( ArrayList<IntroChapter> introChapters );
+        void onError( DatabaseError error );
+    }
+
+    public void getIntroChapters(final GetIntroChaptersListener getIntroChaptersListener ) {
+        getIntroDB();
+        CommonUtils.displayProgressDialog(mContext, "Fetching chapters");
+        mIntroChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<IntroChapter> introChapters = new ArrayList<IntroChapter>();
+                for( DataSnapshot keySnapShot : dataSnapshot.getChildren() ) {
+                    introChapters.add(keySnapShot.getValue(IntroChapter.class));
+                }
+                getIntroChaptersListener.onSuccess(introChapters);
+                CommonUtils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getIntroChaptersListener.onError(databaseError);
+                CommonUtils.dismissProgressDialog();
+            }
+        });
+    }
+
+    public void writeIntroChapter(IntroChapter chapter) {
+        getIntroDB();
+        mIntroChapterDatabase.push().setValue(chapter);
     }
 
     public interface GetChapterListener {
