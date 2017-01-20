@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/progressBar"
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <WebView
         android:id="@+id/webView"
