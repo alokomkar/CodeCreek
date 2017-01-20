@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -160,6 +161,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     }
 
     private void getProgram() {
+
+        if( answerLayout1 != null ) {
+            answerLayout1.setAlpha(0.0f);
+            answerLayout2.setAlpha(0.0f);
+            answerLayout3.setAlpha(0.0f);
+            answerLayout4.setAlpha(0.0f);
+        }
+
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         firebaseDatabaseHandler.getProgramIndexInBackGround(mProgram_Index, new FirebaseDatabaseHandler.GetProgramIndexListener() {
             @Override
@@ -226,8 +235,25 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
         setSolutionViews(solution_tables);
         setupQuestionViews(fillBlanksQuestionList);
+        animateViews();
+    }
 
+    private void animateViews() {
+        int delay = 0;
+        int standardDelay = 270;
+        if( answerLayout1 != null ) {
+            initAnimations(answerLayout1, delay);
+            delay = delay + standardDelay;
+            initAnimations(answerLayout2, delay);
+            delay = delay + standardDelay;
+            initAnimations(answerLayout3, delay);
+            delay = delay + standardDelay;
+            initAnimations(answerLayout4, delay);
+        }
+    }
 
+    private void initAnimations(LinearLayout frameLayout, int delay) {
+        frameLayout.animate().setStartDelay(delay).setDuration(350).alpha(1.0f);
     }
 
     private void setupQuestionViews(ArrayList<String> fillBlanksQuestionList) {

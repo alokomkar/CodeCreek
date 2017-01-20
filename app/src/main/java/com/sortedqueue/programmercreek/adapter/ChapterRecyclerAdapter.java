@@ -79,8 +79,13 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         chapterProgress = chapterProgress <= maxProgress ? chapterProgress : maxProgress;
         holder.appCompatSeekBar.setProgress( chapterProgress );
         holder.appCompatSeekBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
+        startAnimation(holder.itemView, position * 250 );
 
+    }
 
+    private void startAnimation(View itemView, int delay) {
+        itemView.setAlpha(0.0f);
+        itemView.animate().setStartDelay(delay).setDuration(300).alpha(1.0f);
     }
 
     @Override

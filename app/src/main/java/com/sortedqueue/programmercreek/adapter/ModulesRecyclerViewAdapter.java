@@ -67,6 +67,12 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         }
 
         holder.lockedImageView.setVisibility(isLocked ? View.VISIBLE : View.INVISIBLE);
+        startAnimation(holder.itemView, position * 250 );
+    }
+
+    private void startAnimation(View itemView, int delay) {
+        itemView.setAlpha(0.0f);
+        itemView.animate().setStartDelay(delay).setDuration(300).alpha(1.0f);
     }
 
     @Override
