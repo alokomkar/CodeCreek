@@ -1,9 +1,9 @@
 package com.sortedqueue.programmercreek.fragments;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
+import com.sortedqueue.programmercreek.activity.ProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
@@ -34,9 +35,9 @@ import butterknife.ButterKnife;
  */
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
-    
+
     private static DashboardFragment instance;
-    
+
     @Bind(R.id.syntaxTextView)
     TextView syntaxTextView;
     @Bind(R.id.syntaxLayout)
@@ -75,6 +76,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     FrameLayout wizardLayout;
     @Bind(R.id.introLayout)
     FrameLayout introLayout;
+    @Bind(R.id.searchCardView)
+    CardView searchCardView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
@@ -143,8 +146,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         wizardLayout.setOnClickListener(this);
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
-        
+        searchCardView.setOnClickListener(this);
+
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -168,7 +173,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
                 break;
 
-            case R.id.introLayout :
+            case R.id.introLayout:
                 Intent introIntent = new Intent(getContext(), IntroActivity.class);
                 startActivity(introIntent);
                 break;
@@ -195,6 +200,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             case R.id.quizLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
+                break;
+
+            case R.id.searchCardView :
+                Intent searchIntent = new Intent(getContext(), ProgramWikiActivity.class);
+                startActivity(searchIntent);
                 break;
         }
 

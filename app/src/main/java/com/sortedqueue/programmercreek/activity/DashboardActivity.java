@@ -145,10 +145,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 LanguageFragment.getInstance().getFirebaseDBVerion();
                 return true;
 
-            case R.id.action_search:
+            /*case R.id.action_search:
                 Intent searchIntent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 startActivity(searchIntent);
-                return true;
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
