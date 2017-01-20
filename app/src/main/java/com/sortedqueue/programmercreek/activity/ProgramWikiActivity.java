@@ -52,7 +52,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private ContentLoadingProgressBar progressBar;
     private InterstitialAd interstitialAd;
     private AdView mAdView;
-    private String WIKI_BASE_URL = "programercreek.blogspot.in";
+    private String WIKI_BASE_URL = "https://syntaxdb.com";
     private CreekPreferences creekPreferences;
     private ArrayList<ProgramIndex> program_indices;
     private ArrayList<String> programUrls;
@@ -66,17 +66,21 @@ public class ProgramWikiActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient(new MyWebViewClient());
-        programWiki = getIntent().getExtras().getString(ProgrammingBuddyConstants.KEY_WIKI);
-        program_indices = getIntent().getExtras().getParcelableArrayList(ProgrammingBuddyConstants.KEY_PROGRAM_LANGUAGE);
-        if( program_indices != null ) {
-            programUrls = new ArrayList<>();
-            for( ProgramIndex program_index : program_indices ) {
-                programUrls.add(program_index.getWiki());
+        if( getIntent().getExtras() != null ) {
+            programWiki = getIntent().getExtras().getString(ProgrammingBuddyConstants.KEY_WIKI, WIKI_BASE_URL);
+            program_indices = getIntent().getExtras().getParcelableArrayList(ProgrammingBuddyConstants.KEY_PROGRAM_LANGUAGE);
+            if( program_indices != null ) {
+                programUrls = new ArrayList<>();
+                for( ProgramIndex program_index : program_indices ) {
+                    programUrls.add(program_index.getWiki());
+                }
             }
         }
+        programWiki = WIKI_BASE_URL;
+
         if (!creekPreferences.getWikiHelp()) {
             creekPreferences.setWikihelp(true);
-            AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "Creek", "Welcome to Wiki of programs, browse through all programs and explanations here. Feel free to leave a comment.");
+            AuxilaryUtils.generateBigTextNotification(ProgramWikiActivity.this, "SyntaxDB.com", "Search any syntax here");
         }
         try {
             WIKI_BASE_URL = new URL(programWiki).getHost();

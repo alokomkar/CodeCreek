@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:layout_above="@+id/navigationLayout"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_wiki_unit_id">
@@ -36,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:id="@+id/navigationLayout"
         android:layout_alignParentBottom="true"
         android:background="@color/md_indigo_A100"

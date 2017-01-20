@@ -16,15 +16,11 @@ import android.view.MenuItem;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
-import com.sortedqueue.programmercreek.database.CreekUserDB;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
-import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.Bind;
@@ -143,6 +139,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             case R.id.action_sync:
                 LanguageFragment.getInstance().getFirebaseDBVerion();
+                return true;
+
+            case R.id.action_search:
+                Intent searchIntent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
+                startActivity(searchIntent);
                 return true;
 
             default:
