@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -93,6 +94,8 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         cppProgrammingCardView.setOnClickListener(this);
         javaProgrammingCardView.setOnClickListener(this);
 
+        animateViews();
+
         int selectedPosition = -1;
         String selectedLanguage = creekPreferences.getProgramLanguage();
 
@@ -105,6 +108,25 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         }
         initUserValues();
         return view;
+    }
+
+    public void animateViews() {
+        if( cppProgrammingCardView != null ) {
+            cppProgrammingCardView.setAlpha(0.0f);
+            cProgrammingCardView.setAlpha(0.0f);
+            javaProgrammingCardView.setAlpha(0.0f);
+            int delay = 0;
+            int standardDelay = 270;
+            initAnimations(cProgrammingCardView, delay);
+            delay = delay + standardDelay;
+            initAnimations(cppProgrammingCardView, delay);
+            delay = delay + standardDelay;
+            initAnimations(javaProgrammingCardView, delay);
+        }
+    }
+
+    private void initAnimations(View frameLayout, int delay) {
+        frameLayout.animate().setStartDelay(delay).setDuration(400).alpha(1.0f);
     }
 
     private void initUserValues() {

@@ -3,7 +3,9 @@ package com.sortedqueue.programmercreek.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.DrawerLayout;
@@ -58,12 +60,16 @@ public class IntroActivity extends AppCompatActivity
     RelativeLayout contentIntro;
     private Toolbar toolbar;
     private ImageView drawerImageView;
+    @Bind(R.id.doneFAB)
+    FloatingActionButton doneFAB;
 
     private TextView drawerNameTextView;
     private TextView drawerEmailTextView;
 
     private ArrayList<IntroChapter> introChapters = new ArrayList<>();
     private String programLanguage;
+
+    private int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,23 @@ public class IntroActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initAndSetUserValues(navigationView.getHeaderView(0));
+        doneFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentIndex++;
+                if( currentIndex <= 3 ) {
+                    int drawable = currentIndex == 3 ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
+                    doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, drawable));
+                    initChapter(introChapters.get(currentIndex));
+                }
+                else {
+                    navigateToChapters();
+                }
+            }
+        });
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -244,6 +264,7 @@ public class IntroActivity extends AppCompatActivity
             public void onSuccess(ArrayList<IntroChapter> introChapters) {
                 IntroActivity.this.introChapters = introChapters;
                 initChapter( introChapters.get(0) );
+                currentIndex = 0;
             }
 
             @Override
@@ -258,6 +279,7 @@ public class IntroActivity extends AppCompatActivity
     }
 
     private void initChapter(IntroChapter introChapter) {
+
 
         chapterNoteTextView.setVisibility(View.GONE);
         chapterProgramCodeView.setVisibility(View.GONE);
@@ -319,15 +341,23 @@ public class IntroActivity extends AppCompatActivity
             if (id == R.id.intro_item) {
                 toolbar.setTitle(item.getTitle());
                 initChapter( introChapters.get(0) );
+                currentIndex = 0;
+                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
             } else if (id == R.id.basics_item) {
                 toolbar.setTitle(item.getTitle());
                 initChapter( introChapters.get(1) );
+                currentIndex = 1;
+                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
             } else if (id == R.id.comments_item) {
                 toolbar.setTitle(item.getTitle());
                 initChapter( introChapters.get(2) );
+                currentIndex = 2;
+                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
             } else if (id == R.id.installation_item) {
                 toolbar.setTitle(item.getTitle());
                 initChapter(introChapters.get(3));
+                currentIndex = 3;
+                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, R.drawable.ic_done_all));
             } else if( id == R.id.chapters_item ) {
                 navigateToChapters();
             }

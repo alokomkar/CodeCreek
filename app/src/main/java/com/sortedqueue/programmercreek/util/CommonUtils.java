@@ -1,11 +1,21 @@
 package com.sortedqueue.programmercreek.util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.sortedqueue.programmercreek.R;
 
 /**
  * Created by Alok on 07/12/16.
@@ -19,9 +29,24 @@ public class CommonUtils {
     public static void displayProgressDialog(Context context, String message ) {
         if( context != null ) {
             mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setMessage(message);
-            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
+            mProgressDialog.setContentView(R.layout.progress_content_view);
+
+            TextView progressTextView = (TextView) mProgressDialog.findViewById(R.id.progressTextView);
+            progressTextView.setText(message);
+            Animation animation = new AlphaAnimation(1, 0);
+            animation.setDuration(800);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.REVERSE);
+            ((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
+            /*Glide.with(context)
+                    .load(R.drawable.ip)
+                    .asGif()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into((ImageView) mProgressDialog.findViewById(R.id.progressImageView));*/
+            mProgressDialog.setCancelable(false);
+
         }
     }
 

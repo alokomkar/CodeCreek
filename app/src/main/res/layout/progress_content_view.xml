@@ -4,17 +4,15 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:padding="@dimen/margin_8"
+    android:padding="@dimen/margin_16"
     android:layout_height="wrap_content">
 
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_margin="@dimen/margin_8"
-        android:indeterminate="true"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:visibility="visible" />
+    <ImageView
+        android:layout_width="@dimen/margin_48"
+        android:layout_height="@dimen/margin_48"
+        android:id="@+id/progressImageView"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         tools:ignore="MissingPrefix"
@@ -22,20 +20,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/progressTextView"
+        android:layout_centerVertical="true"
         android:textSize="@dimen/text_dashboard_small"
-        android:textColor="@color/md_teal_800"
+        android:textColor="@color/colorPrimary"
         android:text="@string/about"
-        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toRightOf="@+id/progressImageView"
         android:layout_marginTop="@dimen/margin_4"
         android:padding="@dimen/margin_16"
         />
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_below="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_progress_bar_unit_id">
-    </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>

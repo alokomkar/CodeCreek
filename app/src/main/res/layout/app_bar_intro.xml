@@ -22,6 +22,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_intro" />
+    <include layout="@layout/content_intro"
+         />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/doneFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_alignParentRight="true"
+        app:layout_anchor="@+id/content_intro"
+        app:layout_anchorGravity="top|right"
+        app:backgroundTint="@color/md_green_400"
+        app:srcCompat="@android:drawable/ic_media_play"
+        android:layout_gravity="center_vertical|left" />
 
 </android.support.design.widget.CoordinatorLayout>

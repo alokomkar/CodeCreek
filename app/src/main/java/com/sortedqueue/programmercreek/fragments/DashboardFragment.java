@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     FrameLayout introLayout;
     @Bind(R.id.searchCardView)
     CardView searchCardView;
+    @Bind(R.id.dashboardScrollView)
+    NestedScrollView dashboardScrollView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
@@ -102,7 +105,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     public void animateViews() {
-
+        dashboardScrollView.scrollTo(0, 0);
         introLayout.setAlpha(0.0f);
         wizardLayout.setAlpha(0.0f);
         syntaxLayout.setAlpha(0.0f);

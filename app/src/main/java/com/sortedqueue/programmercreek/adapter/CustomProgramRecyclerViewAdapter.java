@@ -88,11 +88,16 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         holder.txtViewProgDescription.setText(programIndex.getProgram_Description());
         //Remove this later
         //holder.lockedImageView.setVisibility(View.GONE);
-        //holder.itemView.startAnimation((position > lastPosition) ? bottomUpAnimation : topDownAnimation );
-       /* if( position > lastPosition ) {
-            startAnimation(holder.itemView, position * 250 );
+        /*if( position > lastPosition ) {
+            startAnimation(holder.itemView, program_Index * 25);
         }
         lastPosition = position;*/
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     private void startAnimation(View itemView, int delay) {

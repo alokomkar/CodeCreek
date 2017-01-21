@@ -75,6 +75,24 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
 
+        dashboardViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if( position == 0 ) {
+                    LanguageFragment.getInstance().animateViews();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -207,6 +225,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void navigateToLanguage() {
+        LanguageFragment.getInstance().animateViews();
         dashboardViewPager.setCurrentItem(0);
     }
 }
