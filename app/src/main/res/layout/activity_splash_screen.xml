@@ -49,6 +49,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_16" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_16"
+            android:padding="@dimen/margin_8"
+            android:id="@+id/signEmailButton"
+            android:background="@drawable/button_blue"
+            android:textColor="@color/white"
+            android:text="@string/sign_in"/>
     </LinearLayout>
 
     <TextView

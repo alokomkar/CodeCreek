@@ -99,7 +99,8 @@ public class IntroActivity extends AppCompatActivity
                     initChapter(introChapters.get(currentIndex));
                 }
                 else {
-                    navigateToChapters();
+                    finish();
+                    //navigateToChapters();
                 }
             }
         });
@@ -280,7 +281,7 @@ public class IntroActivity extends AppCompatActivity
 
     private void initChapter(IntroChapter introChapter) {
 
-
+        toolbar.setTitle(introChapter.getChapterHeader());
         chapterNoteTextView.setVisibility(View.GONE);
         chapterProgramCodeView.setVisibility(View.GONE);
         chapterProgramDescriptionTextView.setVisibility(View.GONE);
@@ -358,9 +359,9 @@ public class IntroActivity extends AppCompatActivity
                 initChapter(introChapters.get(3));
                 currentIndex = 3;
                 doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, R.drawable.ic_done_all));
-            } else if( id == R.id.chapters_item ) {
+            } /*else if( id == R.id.chapters_item ) {
                 navigateToChapters();
-            }
+            }*/
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

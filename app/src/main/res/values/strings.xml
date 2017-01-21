@@ -133,4 +133,5 @@
     <string name="installation">Installation</string>
     <string name="chapters">Chapters</string>
     <string name="search">Search [Syntax]DB</string>
+    <string name="sign_in">Sign in with Email</string>
 </resources>

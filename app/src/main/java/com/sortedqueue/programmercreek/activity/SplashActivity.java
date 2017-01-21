@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -60,6 +61,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     SignInButton googleSignInButton;
     @Bind(R.id.fbLoginButton)
     LoginButton fbLoginButton;
+    @Bind(R.id.signEmailButton)
+    Button signEmailButton;
 
     private int RC_SIGN_IN = 1000;
     private String TAG = "SplashActivity";
@@ -86,9 +89,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         creekPreferences = new CreekPreferences(SplashActivity.this);
         googleSignInButton.setVisibility(View.GONE);
         fbLoginButton.setVisibility(View.GONE);
+        signEmailButton.setVisibility(View.GONE);
         if( creekPreferences.getSignInAccount().equals("") ) {
             googleSignInButton.setOnClickListener(SplashActivity.this);
             googleSignInButton.setVisibility(View.VISIBLE);
+            signEmailButton.setVisibility(View.VISIBLE);
+            signEmailButton.setOnClickListener(this);
             configureGoogleSignup();
             fbLoginButton.setVisibility(View.VISIBLE);
             List<String> fbPermissions = new ArrayList<>();
@@ -229,8 +235,32 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.googleSignInButton :
                 googleSignIn();
                 break;
+            case R.id.signEmailButton :
+                signInEmail();
+                break;
         }
 
+    }
+
+    private void signInEmail() {
+        /*mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(SplashActivity.this, "Authentication failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });*/
     }
 
     private void googleSignIn() {
