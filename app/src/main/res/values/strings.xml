@@ -65,7 +65,7 @@
     <string name="title_activity_full_screen_wizard">Learning Wizard</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="index_description">Browse through program tableIndex, your learning starts here</string>
+    <string name="index_description">Browse through program index, your learning starts here</string>
     <string name="wizard_description">Become a pro through learning wizard</string>
     <string name="revise_description">Revise line by line or in full program mode</string>
     <string name="match_description">Match code with their meaning, race against time</string>
@@ -133,5 +133,15 @@
     <string name="installation">Installation</string>
     <string name="chapters">Chapters</string>
     <string name="search">Search [Syntax]DB</string>
-    <string name="sign_in">Sign in with Email</string>
+    <string name="sign_in">Login / Signup : Email</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="err_msg_name">Enter your full name</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_password">Enter the password</string>
+    <string name="re_hint_password">Reenter Password</string>
 </resources>

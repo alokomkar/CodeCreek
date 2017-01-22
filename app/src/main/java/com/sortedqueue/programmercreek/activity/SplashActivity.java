@@ -46,6 +46,7 @@ import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.sortedqueue.programmercreek.view.LoginSignupDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private CreekPreferences creekPreferences;
     private CallbackManager callbackManager;
     private Thread splashTread;
+    private LoginSignupDialog loginSignupDialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -179,11 +181,18 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             creekUser = new CreekUser();
             creekUser.setUserFullName(user.getDisplayName());
-            creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
+            if( isEmailSignup ) {
+                creekUser.setUserFullName(userNameEmailSignup);
+            }
+            if( user.getPhotoUrl() != null )
+                creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
+            else {
+                creekUser.setUserPhotoUrl("");
+            }
             creekUser.setEmailId(user.getEmail());
             creekUser.save(SplashActivity.this);
-            creekPreferences.setAccountName(user.getDisplayName());
-            creekPreferences.setAccountPhoto(user.getPhotoUrl().toString());
+            creekPreferences.setAccountName(creekUser.getUserFullName());
+            creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
             creekPreferences.setSignInAccount(user.getEmail());
             new FirebaseDatabaseHandler(SplashActivity.this).getCreekUserStatsInBackground(new FirebaseDatabaseHandler.CreekUserStatsListener() {
                 @Override
@@ -243,7 +252,30 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signInEmail() {
-        /*mAuth.signInWithEmailAndPassword(email, password)
+        loginSignupDialog = new LoginSignupDialog(SplashActivity.this);
+        loginSignupDialog.showDialog(new LoginSignupDialog.LoginSignupListener() {
+            @Override
+            public void onSuccess(String name, String email, String password) {
+                if( name != null ) {
+                    CommonUtils.displayProgressDialog(SplashActivity.this, "Signing up...");
+                    emailSignup( name, email, password );
+                }
+                else {
+                    CommonUtils.displayProgressDialog(SplashActivity.this, "Logging in");
+                    emailLogin( email, password );
+                }
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+        /**/
+    }
+
+    private void emailLogin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -254,13 +286,45 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(SplashActivity.this, "Authentication failed",
+                            Toast.makeText(SplashActivity.this, "Authentication failed : " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
-
+                        else {
+                            loginSignupDialog.cancelDialog();
+                        }
+                        CommonUtils.dismissProgressDialog();
                         // ...
                     }
-                });*/
+                });
+    }
+
+    boolean isEmailSignup = false;
+    private String userNameEmailSignup;
+
+    private void emailSignup(String name, String email, String password) {
+        isEmailSignup = true;
+        this.userNameEmailSignup = name;
+        mAuth.createUserWithEmailAndPassword( email, password )
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            isEmailSignup = false;
+                            Log.w(TAG, "emailSignup:failed", task.getException());
+                            Toast.makeText(SplashActivity.this, "Signup failed : " + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            isEmailSignup = true;
+                            loginSignupDialog.cancelDialog();
+                        }
+                        CommonUtils.dismissProgressDialog();
+
+                    }
+                });
     }
 
     private void googleSignIn() {

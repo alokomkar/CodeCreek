@@ -69,7 +69,7 @@
 
                 <TextView 
                     android:id="@+id/languageSelectionTextView"
-                    android:text="C Programming"
+                    tools:text="C Programming"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_margin="@dimen/margin_8"
                     android:layout_width="match_parent"

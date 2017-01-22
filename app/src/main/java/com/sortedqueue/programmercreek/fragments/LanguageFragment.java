@@ -133,6 +133,8 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         Glide.with(getContext())
                 .load(creekPreferences.getAccountPhoto())
                 .fitCenter()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
         if( creekPreferences.getProgramLanguage().equals("")) {
@@ -150,7 +152,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 CommonUtils.dismissProgressDialog();
-                selectAndInitDb(0);
+                //selectAndInitDb(0);
             }
 
             @Override

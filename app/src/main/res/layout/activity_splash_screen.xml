@@ -36,9 +36,12 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_dashboard"
             android:text="@string/app_name" />
+
+
+
         <com.google.android.gms.common.SignInButton
             android:layout_below="@+id/splashLayout"
-            android:layout_margin="@dimen/margin_16"
+            android:layout_margin="@dimen/margin_8"
             android:layout_centerHorizontal="true"
             android:id="@+id/googleSignInButton"
             android:layout_width="match_parent"
@@ -48,17 +51,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/margin_16" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
-            android:padding="@dimen/margin_8"
-            android:id="@+id/signEmailButton"
-            android:background="@drawable/button_blue"
-            android:textColor="@color/white"
-            android:text="@string/sign_in"/>
+             />
+
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:padding="@dimen/margin_8"
+        android:id="@+id/signEmailButton"
+        android:background="@drawable/button_blue"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sign_in"/>
 
     <TextView
         tools:ignore="MissingPrefix"
@@ -67,9 +74,7 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="#454545"
-        android:gravity="center_horizontal"
         android:text="@string/bloglink"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:visibility="gone"
