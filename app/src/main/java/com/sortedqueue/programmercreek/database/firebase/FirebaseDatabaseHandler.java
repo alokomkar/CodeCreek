@@ -210,6 +210,37 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( creekUser.getEmailId().replaceAll("[-+.^:,]","")).setValue(creekUser);
     }
 
+    public interface GetCreekUserListner {
+        void onSuccess( CreekUser creekUser );
+        void onFailure( DatabaseError databaseError );
+    }
+    public void getCreekUser(String emailId, final GetCreekUserListner getCreekUserListner) {
+        getUserDatabase();
+        mUserDatabase.child( emailId.replaceAll("[-+.^:,]","")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CreekUser creekUser = dataSnapshot.getValue(CreekUser.class);
+                if( creekUser != null ) {
+                    creekPreferences.setSignInAccount(creekUser.getEmailId());
+                    creekPreferences.setAccountName(creekUser.getUserFullName());
+                    creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
+                    creekPreferences.setProgramLanguage(creekUser.getProgramLanguage());
+                    getCreekUserListner.onSuccess(creekUser);
+                }
+                else {
+                    getCreekUserListner.onFailure(null);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getCreekUserListner.onFailure(databaseError);
+            }
+        });
+
+    }
+
     public void writeCreekUserDB(CreekUserDB creekUserDB) {
         getCreekUserDBDatabase();
         mCreekUserDBDatabase.setValue(creekUserDB);

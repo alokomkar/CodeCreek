@@ -15,14 +15,16 @@ public class CreekUser {
     private String emailId;
     private String userFullName;
     private String userPhotoUrl;
+    private String programLanguage;
 
     public CreekUser() {
     }
 
-    public CreekUser(String emailId, String userFullName, String userPhotoUrl) {
+    public CreekUser(String emailId, String userFullName, String userPhotoUrl, String programLanguage) {
         this.emailId = emailId;
         this.userFullName = userFullName;
         this.userPhotoUrl = userPhotoUrl;
+        this.programLanguage = programLanguage;
     }
 
     public String getEmailId() {
@@ -49,12 +51,21 @@ public class CreekUser {
         this.userPhotoUrl = userPhotoUrl;
     }
 
+    public String getProgramLanguage() {
+        return programLanguage;
+    }
+
+    public void setProgramLanguage(String programLanguage) {
+        this.programLanguage = programLanguage;
+    }
+
     @Override
     public String toString() {
         return "CreekUser{" +
                 "emailId='" + emailId + '\'' +
                 ", userFullName='" + userFullName + '\'' +
                 ", userPhotoUrl='" + userPhotoUrl + '\'' +
+                ", programLanguage='" + programLanguage + '\'' +
                 '}';
     }
 

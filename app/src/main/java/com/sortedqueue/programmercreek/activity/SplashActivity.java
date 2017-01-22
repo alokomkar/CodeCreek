@@ -190,10 +190,26 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 creekUser.setUserPhotoUrl("");
             }
             creekUser.setEmailId(user.getEmail());
-            creekUser.save(SplashActivity.this);
+
             creekPreferences.setAccountName(creekUser.getUserFullName());
             creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
             creekPreferences.setSignInAccount(user.getEmail());
+            CommonUtils.displayProgressDialog(SplashActivity.this, "Loading");
+            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUser(user.getEmail(), new FirebaseDatabaseHandler.GetCreekUserListner() {
+                @Override
+                public void onSuccess(CreekUser creekUser) {
+                    CommonUtils.dismissProgressDialog();
+                    startApp();
+                }
+
+                @Override
+                public void onFailure(DatabaseError databaseError) {
+                    //New signup
+                    creekUser.save(SplashActivity.this);
+                    CommonUtils.dismissProgressDialog();
+                    startApp();
+                }
+            });
             new FirebaseDatabaseHandler(SplashActivity.this).getCreekUserStatsInBackground(new FirebaseDatabaseHandler.CreekUserStatsListener() {
                 @Override
                 public void onSuccess(CreekUserStats creekUserStats) {
@@ -205,7 +221,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             });
-            startApp();
+
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");

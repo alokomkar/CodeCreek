@@ -144,4 +144,5 @@
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
     <string name="re_hint_password">Reenter Password</string>
+    <string name="choose_language">You\'ll need to choose a language to learn</string>
 </resources>

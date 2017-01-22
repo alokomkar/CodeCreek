@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -89,6 +91,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             instance = new DashboardFragment();
         }
         return instance;
+    }
+
+    private DashboardNavigationListener dashboardNavigationListener;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof  DashboardNavigationListener ) {
+            dashboardNavigationListener = (DashboardNavigationListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        dashboardNavigationListener = null;
     }
 
     @Override
@@ -161,6 +178,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+
+        if( creekPreferences.getProgramLanguage().equals("") ) {
+            CommonUtils.displaySnackBar(getActivity(), R.string.choose_language);
+            if( dashboardNavigationListener != null ) {
+                dashboardNavigationListener.navigateToLanguage();
+            }
+            return;
+        }
 
         switch (v.getId()) {
             case R.id.wikiLayout:
