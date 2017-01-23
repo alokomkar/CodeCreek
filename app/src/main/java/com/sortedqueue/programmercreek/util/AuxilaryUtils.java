@@ -71,6 +71,53 @@ public class AuxilaryUtils {
     }
 
 
+
+    public static void displayInformation(Context context,
+                                          int title,
+                                          int description,
+                                          DialogInterface.OnDismissListener onCancelListner) {
+
+        final String preferenceString = context.getString(title).replaceAll("\\s+", "");
+        final CreekPreferences creekPreferences = new CreekPreferences(context);
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle(title)
+                .setMessage(description)
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton(R.string.got_it, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNeutralButton(R.string.dont_show_again, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        creekPreferences.setShowDialog(preferenceString, false);
+                    }
+                })
+                .setOnDismissListener( onCancelListner )
+                .create();
+        if( creekPreferences.getShowDialog(preferenceString) ) {
+            alertDialog.show();
+        }
+        else {
+            onCancelListner.onDismiss(new DialogInterface() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void dismiss() {
+
+                }
+            });
+        }
+
+    }
+
+
     public static void displayAlert(String title, String message, Context context) {
 
         Builder alertDialogBuilder = new Builder(

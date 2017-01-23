@@ -543,6 +543,9 @@ public class CreekPreferences {
     public boolean checkProgramTableUpdate() {
         CreekUserDB creekUserDB = getCreekUserDB();
         boolean result = true;
+        if( creekUserDB == null ) {
+            return false;
+        }
         switch ( getProgramLanguage() ) {
             case "c" :
                 result = getProgramTables() == (int)creekUserDB.getcProgramTableDBVersion();
@@ -667,5 +670,69 @@ public class CreekPreferences {
                 break;
         }
         return result;
+    }
+
+    public boolean getIntroChapters() {
+
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                return getCIntroChapters();
+            case "c++":
+            case "cpp":
+                return getCppIntroChapters();
+            case "java":
+                return getJavaIntroChapters();
+        }
+        return false;
+    }
+
+    public void setIntroChapters( boolean isChapters ) {
+        switch ( getProgramLanguage() ) {
+            case "c" :
+                setCIntroChapters(isChapters);
+                break;
+            case "c++":
+            case "cpp":
+                setCppIntroChapters(isChapters);
+                break;
+            case "java":
+                setJavaIntroChapters(isChapters);
+                break;
+        }
+    }
+
+    private void setJavaIntroChapters(boolean isChapters) {
+        sharedPreferences.edit().putBoolean(KEY_JAVA_INTRO, isChapters).apply();
+    }
+
+    private void setCppIntroChapters(boolean isChapters) {
+        sharedPreferences.edit().putBoolean(KEY_CPP_INTRO, isChapters).apply();
+    }
+
+    private void setCIntroChapters(boolean isChapters) {
+        sharedPreferences.edit().putBoolean(KEY_C_INTRO, isChapters).apply();
+    }
+
+    public static final String KEY_C_INTRO = "keyCIntro";
+    public static final String KEY_CPP_INTRO = "keyCppIntro";
+    public static final String KEY_JAVA_INTRO = "keyJavaIntro";
+    private boolean getCIntroChapters() {
+        return sharedPreferences.getBoolean(KEY_C_INTRO, false);
+    }
+
+    private boolean getCppIntroChapters() {
+        return sharedPreferences.getBoolean(KEY_CPP_INTRO, false);
+    }
+
+    private boolean getJavaIntroChapters() {
+        return sharedPreferences.getBoolean(KEY_JAVA_INTRO, false);
+    }
+
+    public boolean getShowDialog(String preferenceString) {
+        return sharedPreferences.getBoolean(preferenceString, true);
+    }
+
+    public void setShowDialog( String preferenceString, boolean isShowDialog ) {
+        sharedPreferences.edit().putBoolean(preferenceString, isShowDialog ).apply();
     }
 }

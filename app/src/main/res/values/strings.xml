@@ -122,7 +122,7 @@
     <string name="example">Example</string>
     <string name="clear">Clear</string>
     <string name="intro">Introduction</string>
-    <string name="intro_description">A brief introduction about the program language</string>
+    <string name="intro_description">A brief introduction about the programming language</string>
     <string name="title_activity_intro">Introduction</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -145,4 +145,8 @@
     <string name="err_msg_password">Enter the password</string>
     <string name="re_hint_password">Reenter Password</string>
     <string name="choose_language">You\'ll need to choose a language to learn</string>
+    <string name="got_it">Got It</string>
+    <string name="unlock_programs">Unlock Programs</string>
+    <string name="unlock_programs_description">Unlocking individual programs requires you to complete all tests related to a program : Quiz, Match and Test</string>
+    <string name="dont_show_again">Don\'t show again</string>
 </resources>

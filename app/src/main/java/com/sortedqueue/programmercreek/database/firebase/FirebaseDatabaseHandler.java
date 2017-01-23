@@ -258,23 +258,65 @@ public class FirebaseDatabaseHandler {
     public void getIntroChapters(final GetIntroChaptersListener getIntroChaptersListener ) {
         getIntroDB();
         CommonUtils.displayProgressDialog(mContext, "Fetching chapters");
-        mIntroChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<IntroChapter> introChapters = new ArrayList<IntroChapter>();
-                for( DataSnapshot keySnapShot : dataSnapshot.getChildren() ) {
-                    introChapters.add(keySnapShot.getValue(IntroChapter.class));
+        if( !creekPreferences.getIntroChapters() ) {
+            mIntroChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final ArrayList<IntroChapter> introChapters = new ArrayList<IntroChapter>();
+                    for( DataSnapshot keySnapShot : dataSnapshot.getChildren() ) {
+                        introChapters.add(keySnapShot.getValue(IntroChapter.class));
+                    }
+                    getIntroChaptersListener.onSuccess(introChapters);
+                    RushCore.getInstance().save(introChapters, new RushCallback() {
+                        @Override
+                        public void complete() {
+                            Log.d(TAG, "getIntroChapters : Saved to local : " + programLanguage + " : " + introChapters.toString() );
+                        }
+                    });
+                    creekPreferences.setIntroChapters(true);
+                    CommonUtils.dismissProgressDialog();
                 }
-                getIntroChaptersListener.onSuccess(introChapters);
-                CommonUtils.dismissProgressDialog();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getIntroChaptersListener.onError(databaseError);
-                CommonUtils.dismissProgressDialog();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getIntroChaptersListener.onError(databaseError);
+                    CommonUtils.dismissProgressDialog();
+                }
+            });
+        }
+        else {
+            new AsyncTask<Void, Void, ArrayList<IntroChapter>>() {
+
+                @Override
+                protected ArrayList<IntroChapter> doInBackground(Void... voids) {
+                    if( programLanguage.equals("c++") || programLanguage.equals("cpp") ) {
+                        return new ArrayList<>(new RushSearch()
+                                .startGroup()
+                                .whereEqual("chapterLanguage", "cpp")
+                                .or()
+                                .whereEqual("chapterLanguage", "c++")
+                                .endGroup()
+                                .orderAsc("chapterIndex")
+                                .find(IntroChapter.class));
+                    }
+                    else {
+                        return new ArrayList<>(new RushSearch()
+                                .whereEqual("chapterLanguage", programLanguage)
+                                .orderAsc("chapterIndex")
+                                .find(IntroChapter.class));
+                    }
+
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<IntroChapter> introChapters) {
+                    super.onPostExecute(introChapters);
+                    getIntroChaptersListener.onSuccess(introChapters);
+                    CommonUtils.dismissProgressDialog();
+                }
+            }.execute();
+        }
+
     }
 
     public void writeIntroChapter(IntroChapter chapter) {

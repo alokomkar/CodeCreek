@@ -137,10 +137,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
                 .error(R.mipmap.ic_launcher)
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
-        if( creekPreferences.getProgramLanguage().equals("")) {
-            getFirebaseDBVerion();
-
-        }
+        getFirebaseDBVerion();
     }
 
     public void getFirebaseDBVerion() {
