@@ -210,6 +210,10 @@ public class FirebaseDatabaseHandler {
         mUserDatabase.child( creekUser.getEmailId().replaceAll("[-+.^:,]","")).setValue(creekUser);
     }
 
+    public void clearAllTables() {
+        RushCore.getInstance().clearDatabase();
+    }
+
     public interface GetCreekUserListner {
         void onSuccess( CreekUser creekUser );
         void onFailure( DatabaseError databaseError );

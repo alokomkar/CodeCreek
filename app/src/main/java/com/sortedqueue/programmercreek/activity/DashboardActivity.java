@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,14 @@ import android.view.MenuItem;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
@@ -44,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private String TAG = getClass().getSimpleName();
     private CreekPreferences creekPreferences;
+    private GoogleApiClient mGoogleApiClient;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -59,6 +69,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         ButterKnife.bind(this);
         setupToolbar();
         creekPreferences = new CreekPreferences(DashboardActivity.this);
+        configureGoogleSignup();
         //adView.setVisibility(View.GONE);
 
         //initAds();
@@ -161,7 +172,24 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             case R.id.action_sync:
                 LanguageFragment.getInstance().getFirebaseDBVerion();
+
                 return true;
+            case R.id.action_log_out :
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                // ...
+                            }
+                        });
+                creekPreferences.clearCacheDetails();
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
+                Intent spashIntent = new Intent(DashboardActivity.this, SplashActivity.class);
+                startActivity(spashIntent);
+                finish();
+                return true;
+
 
             /*case R.id.action_search:
                 Intent searchIntent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
@@ -173,6 +201,23 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         }
 
+    }
+
+    private void configureGoogleSignup() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .requestProfile()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
 

@@ -735,4 +735,9 @@ public class CreekPreferences {
     public void setShowDialog( String preferenceString, boolean isShowDialog ) {
         sharedPreferences.edit().putBoolean(preferenceString, isShowDialog ).apply();
     }
+
+    public void clearCacheDetails() {
+        sharedPreferences.edit().clear().apply();
+        new FirebaseDatabaseHandler(context).clearAllTables();
+    }
 }
