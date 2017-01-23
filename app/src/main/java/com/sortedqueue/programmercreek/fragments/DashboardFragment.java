@@ -233,10 +233,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
 
-            case R.id.searchCardView :
+            /*case R.id.searchCardView :
                 Intent searchIntent = new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);
-                break;
+                break;*/
         }
 
     }

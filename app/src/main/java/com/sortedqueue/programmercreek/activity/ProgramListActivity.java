@@ -61,8 +61,28 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		ButterKnife.bind(this);
 		fetchProgramsList( );
 		initAds();
+		setActivityTitle();
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
+
+	}
+
+	private void setActivityTitle() {
+		if( getIntent().getExtras() != null ) {
+			mInvokeTest = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST);
+			switch (mInvokeTest) {
+				case ProgrammingBuddyConstants.KEY_TEST :
+					setTitle("Program List : Test");
+					break;
+				case ProgrammingBuddyConstants.KEY_MATCH :
+					setTitle("Program List : Match");
+					break;
+				case ProgrammingBuddyConstants.KEY_QUIZ :
+					setTitle("Program List : Quiz");
+					break;
+			}
+		}
+
 
 	}
 
@@ -138,6 +158,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 		switch( mInvokeTest ) {
 			case ProgrammingBuddyConstants.KEY_TEST :
+				setTitle("Program List : Test");
 				mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
                 mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_TEST);
 				mInvokeIntent.putExtras(mBundle);
@@ -147,6 +168,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				showOptionsBox();
 				break;
 			case ProgrammingBuddyConstants.KEY_MATCH :
+				setTitle("Program List : Match");
 				//mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
 				mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
                 mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_MATCH);
@@ -154,6 +176,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				startActivity(mInvokeIntent);
 				break;
 			case ProgrammingBuddyConstants.KEY_QUIZ :
+				setTitle("Program List : Quiz");
 				showSelectBox();
 				break;
 
