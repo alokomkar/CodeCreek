@@ -131,7 +131,7 @@ public class AuxilaryUtils {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        long delay = 1000 * 60 /** 60 * 24*/;
+        long delay = 1000 * 60 * 60 * 24;
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         CreekPreferences creekPreferences = new CreekPreferences(context);
