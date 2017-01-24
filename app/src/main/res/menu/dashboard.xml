@@ -11,6 +11,9 @@
     <item android:id="@+id/action_share"
         android:title="@string/share_with_friends"
         app:showAsAction="never"/>
+    <item android:id="@+id/action_feedback"
+        android:title="@string/feedback"
+        app:showAsAction="never"/>
     <item android:id="@+id/action_log_out"
         android:title="@string/logout"
         app:showAsAction="never"/>

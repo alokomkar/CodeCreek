@@ -150,4 +150,7 @@
     <string name="unlock_programs_description">Unlocking individual programs requires you to complete all tests related to a program : Quiz, Match and Test</string>
     <string name="dont_show_again">Don\'t show again</string>
     <string name="logout">Log out</string>
+    <string name="unable_to_find_app_for_email">Unable to find any app to send Email</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_email">acubetechteam@gmail.com</string>
 </resources>

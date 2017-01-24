@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.Bind;
@@ -189,7 +191,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 finish();
                 return true;
 
-
+            case R.id.action_feedback :
+                sendEmail(DashboardActivity.this);
+                return true;
             /*case R.id.action_search:
                 Intent searchIntent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 startActivity(searchIntent);
@@ -217,6 +221,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             }
         }).executeAsync();*/
+    }
+
+    public void sendEmail(Context ctx) {
+        try {
+            Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + getString(R.string.feedback_email)));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+            startActivity(intent);
+        } catch ( ActivityNotFoundException e ) {
+            CommonUtils.displaySnackBar(DashboardActivity.this, R.string.unable_to_find_app_for_email);
+        }
+
     }
 
     private void configureGoogleSignup() {
