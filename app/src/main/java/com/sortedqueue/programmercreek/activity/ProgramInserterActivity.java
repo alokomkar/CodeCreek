@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.fragments.ProgramInserterFragment;
 
@@ -26,7 +27,17 @@ public class ProgramInserterActivity extends AppCompatActivity {
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
     private void loadProgramInserterFragment() {
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         programInserterFragment

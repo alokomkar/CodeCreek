@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
+import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -191,6 +192,7 @@ public class CreekPreferences {
     
     public void setProgramLanguage( String language ) {
         sharedPreferences.edit().putString(PROGRAM_LANGUAGE, language).apply();
+
         CreekUser creekUser = new CreekUser();
         creekUser.setUserFullName(getAccountName());
         creekUser.setProgramLanguage(getProgramLanguage());
@@ -739,5 +741,13 @@ public class CreekPreferences {
     public void clearCacheDetails() {
         sharedPreferences.edit().clear().apply();
         new FirebaseDatabaseHandler(context).clearAllTables();
+    }
+
+    public boolean isNotificationScheduled() {
+        return sharedPreferences.getBoolean("isNotification", false);
+    }
+
+    public void setNotificationScheduled(boolean isNotification) {
+        sharedPreferences.edit().putBoolean("isNotification", isNotification).apply();
     }
 }

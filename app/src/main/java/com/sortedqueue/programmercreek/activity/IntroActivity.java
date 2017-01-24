@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.IntroChapter;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -277,6 +278,17 @@ public class IntroActivity extends AppCompatActivity
             firebaseDatabaseHandler.writeIntroChapter( chapter );
         }*/
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
     }
 
     private void initChapter(IntroChapter introChapter) {

@@ -67,6 +67,12 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 	}
 
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		CreekApplication.getInstance().setAppRunning(false);
+	}
 	private void setActivityTitle() {
 		if( getIntent().getExtras() != null ) {
 			mInvokeTest = getIntent().getExtras().getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST);
@@ -92,6 +98,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		if( customProgramRecyclerViewAdapter != null ) {
 			customProgramRecyclerViewAdapter.resetAdapter();
 		}
+		CreekApplication.getInstance().setAppRunning(true);
 	}
 
 	private void initAds() {

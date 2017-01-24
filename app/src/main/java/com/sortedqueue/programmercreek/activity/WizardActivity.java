@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
@@ -32,6 +33,18 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
     }
 
     @Override

@@ -27,12 +27,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -62,6 +64,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         setupToolbar();
         creekPreferences = new CreekPreferences(DashboardActivity.this);
         configureGoogleSignup();
+        if( !creekPreferences.getProgramLanguage().equals("") ) {
+            AuxilaryUtils.scheduleNotification(DashboardActivity.this);
+        }
         //adView.setVisibility(View.GONE);
 
         //initAds();
@@ -109,6 +116,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 R.anim.anim_slide_out_left);
         //initJavaIndex();
 
+
     }
 
     private void setupToolbar() {
@@ -143,9 +151,22 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }*/
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
+
     /**
      * Method to initialize UI.
      */
+
 
 
     @Override

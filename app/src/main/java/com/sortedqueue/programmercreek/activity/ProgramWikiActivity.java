@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
@@ -56,6 +57,18 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private CreekPreferences creekPreferences;
     private ArrayList<ProgramIndex> program_indices;
     private ArrayList<String> programUrls;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

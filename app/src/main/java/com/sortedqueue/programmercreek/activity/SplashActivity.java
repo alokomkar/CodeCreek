@@ -40,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -227,7 +228,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onAuthStateChanged:signed_out");
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
     @Override
     public void onStart() {
         super.onStart();

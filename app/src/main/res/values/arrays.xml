@@ -5,4 +5,30 @@
         <item>C++ Programming</item>
         <item>Java Programming</item>
     </string-array>
+    <string-array name="c_notifications_array" >
+        <item>The case labels of a switch statement can occur inside if-else statements.</item>
+        <item>Although it is a high-level language, C is capable of controlling the computer on which it operates at a low level, much like assembly language—a form of computer language that resides between machine languages and high-level languages. This enables programs written in C to perform in a very stable manner. Its mix of high-and low-level capabilities make C ideal for a wide variety of different uses</item>
+        <item>C was created in 1972 by Ken Thompson and Dennis Ritchie, researchers at AT and T\'s Bell Labs in Murray Hill, New Jersey who also invented the UNIX operating system (a program used to operate computer systems).</item>
+        <item>In the early 2000s, an enhanced version of C called C++ was widely used by programmers for just about every kind of program imaginable, especially on Windows and Macintosh systems. Developed at Bell Labs by Bjarne Stroustrup, C++ was effective for creating games, interpreters, spreadsheets, word processors, project managers, and more.</item>
+        <item>The initial development of C was devised during 1969–73, alongside the early development of the UNIX operating system. It was based on CPL (Combined Programming Language), which had been first condensed into the B programming language and later on it was called as computer programming language by Ken Thompson, an American computer scientist and a colleague of Ritchie. Ritchie rewrote and restored features from BCPL to create C-Programming Language, rewrite the development of the Unix operating system in C language</item>
+        <item>C is one of the most popular programming language.It is widely used on many different software platforms, and there are few computer architectures for which a C compiler does not exist. C has greatly influenced many other popular programming languages, most notably C++, which originally began as an extension to C.</item>
+    </string-array>
+    <string-array name="cpp_notifications_array" >
+        <item>One of the major strength of C++ is that it supports various programming styles. It is a multiparadigm programming language that not only supports Object oriented programming paradigm but also supports many other paradigms. And this is also the reason behind success of C++..</item>
+        <item>Concept of reference variables and operator overloading for C++ is borrowed from Algol 68 programming language.</item>
+        <item>Modern C++ compilers can perform plenty of optimizations to speed up your code i.e. Copy elision, Vectorizarion, De—virtualization, etc.</item>
+        <item>In the early 2000s, an enhanced version of C called C++ was widely used by programmers for just about every kind of program imaginable, especially on Windows and Macintosh systems. Developed at Bell Labs by Bjarne Stroustrup, C++ was effective for creating games, interpreters, spreadsheets, word processors, project managers, and more.</item>
+        <item>VLC media player is made using C++ so are the game engines. </item>
+        <item>C++ is not purely Object Oriented, or put it in other words, you can write C++ code without using classes and this will compile without any problem.</item>
+    </string-array>
+    <string-array name="java_notifications_array" >
+        <item>Original name for Java was Oak. Allegedly because of a big oak tree that grew outside the developer\'s window. It was eventually changed to Java by Sun\'s marketing department.</item>
+        <item>Android is based on Java.</item>
+        <item>Sun microSystem created java, but now oracle oversees java after acquiring it. Java is ranked #2 in popularity among programming languages</item>
+        <item>Who Invented Java, and when?
+James Gosling, at Sun Labs, around 1992; the group was building a set-top box and started by "cleaning up" C++ and wound up with a new language and runtime.</item>
+        <item>The Java mascot, ‘The Duke’ was created by Joe Palrang. Palrang is the same guy who has worked on the Hollywood blockbuster, Shrek.</item>
+        <item>Java practically runs on 1billion plus smartphones today because Google’s Android operating system uses Java APIs.</item>
+    </string-array>
+
 </resources>

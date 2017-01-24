@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.fragments.ChapterDetailsFragment;
@@ -35,6 +36,18 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     private FragmentTransaction mFragmentTransaction;
     private ChapterDetailsFragment chapterDetailsFragment;
     private ChaptersFragment chaptersFragment;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -35,6 +36,18 @@ public class WebViewActivity extends AppCompatActivity {
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		CreekApplication.getInstance().setAppRunning(true);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		CreekApplication.getInstance().setAppRunning(false);
 	}
 
 }

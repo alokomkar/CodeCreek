@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.util;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Notification;
@@ -15,6 +16,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -31,9 +33,14 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.receiver.NotificationPublisher;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import butterknife.ButterKnife;
 
@@ -115,6 +122,49 @@ public class AuxilaryUtils {
             });
         }
 
+    }
+
+    public static void scheduleNotification( Context context ) {
+        String notificationContent = generateRandomNotificationContent(context);
+        Notification notification = generateNotification(context, "Did you know", notificationContent );
+        Intent notificationIntent = new Intent(context, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long delay = 1000 * 60 /** 60 * 24*/;
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        CreekPreferences creekPreferences = new CreekPreferences(context);
+        if( !creekPreferences.isNotificationScheduled() ) {
+            creekPreferences.setNotificationScheduled(true);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
+    }
+
+    private static String generateRandomNotificationContent(Context context) {
+        ArrayList<String> cNotifications = new ArrayList<>();
+        cNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.c_notifications_array)));
+        ArrayList<String> cppNotifications = new ArrayList<>();
+        cppNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.cpp_notifications_array)));
+        ArrayList<String> javaNotifications = new ArrayList<>();
+        javaNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.java_notifications_array)));
+        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        String notification = "";
+        Random random = new Random();
+        switch ( programLanguage ) {
+            case "c" :
+                notification = cNotifications.get(random.nextInt(cNotifications.size()));
+                break;
+            case "java" :
+                notification = javaNotifications.get(random.nextInt(javaNotifications.size()));
+                break;
+            case "cpp" :
+            case "c++" :
+                notification = cppNotifications.get(random.nextInt(cppNotifications.size()));
+                break;
+        }
+
+        return notification;
     }
 
 
@@ -263,37 +313,43 @@ public class AuxilaryUtils {
     }
 
     public static void generateBigTextNotification(final Context context, final String notificationTitle, final String notificationContent) {
+        final Notification noti = generateNotification(context, notificationTitle, notificationContent);
+        final int mNotificationId = notificationContent.hashCode();
+        final NotificationManager mNotifyMgr =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+        mNotifyMgr.notify(mNotificationId, noti);
 
 
+    }
+
+    private static Notification generateNotification(Context context, String notificationTitle, String notificationContent) {
         Intent resultIntent;
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         resultIntent = new Intent(context, DashboardActivity.class);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context)
                         .setTicker(notificationTitle)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationContent))
                         .setContentTitle(notificationTitle)
-                        .setContentIntent(resultPendingIntent);
+                        .setAutoCancel(true)
+                        .setContentIntent(contentIntent);
         builder.setContentTitle(notificationTitle)
                 .setContentText(notificationContent)
                 .setColor(Color.parseColor("#7B1FA2"))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationContent))
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher);
         builder.setColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        final int mNotificationId = notificationContent.hashCode();
-        final NotificationManager mNotifyMgr =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        final Notification noti = builder.build();
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
-        mNotifyMgr.notify(mNotificationId, noti);
-
-
+        return builder.build();
     }
 
     public static void generateBigNotification(final Context context, final String notificationTitle, final String notificationContent) {

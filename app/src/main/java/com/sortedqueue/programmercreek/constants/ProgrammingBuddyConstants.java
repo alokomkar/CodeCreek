@@ -24,4 +24,6 @@ public class ProgrammingBuddyConstants {
 	public static final String KEY_PROGRAM_LANGUAGE = "program_language";
 	public static final String FONT_AVENIR = "fonts/avenir_regular.otf";
 	public static final String FONT_ROBOTO = "fonts/Roboto-Regular.ttf";
+
+	public static final String CUSTOM_ACTION_FACTS = "com.sortedqueue.programmercreek.did_you_know";
 }

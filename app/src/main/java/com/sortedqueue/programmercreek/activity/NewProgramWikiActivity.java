@@ -23,6 +23,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.ProgramWikiNavRecyclerAdapter;
@@ -70,6 +71,18 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
     private ProgramWikiPagerAdapter programWikiPagerAdapter;
     private InterstitialAd interstitialAd;
     private Toolbar toolbar;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

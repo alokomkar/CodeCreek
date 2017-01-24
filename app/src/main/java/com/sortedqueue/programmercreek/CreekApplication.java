@@ -101,4 +101,14 @@ public class CreekApplication extends Application {
     public void setCreekUserStats(CreekUserStats creekUserStats) {
         this.creekUserStats = creekUserStats;
     }
+
+    private boolean isAppRunning;
+
+    public boolean isAppRunning() {
+        return isAppRunning;
+    }
+
+    public void setAppRunning(boolean appRunning) {
+        isAppRunning = appRunning;
+    }
 }

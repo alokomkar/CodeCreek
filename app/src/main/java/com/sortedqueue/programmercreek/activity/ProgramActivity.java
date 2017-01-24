@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
@@ -66,6 +67,18 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	/**
 	 * http://code.tutsplus.com/tutorials/android-sdk-detecting-gestures--mobile-21161
 	 * */
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		CreekApplication.getInstance().setAppRunning(true);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		CreekApplication.getInstance().setAppRunning(false);
+	}
 
 	@Override
 	protected void attachBaseContext(Context newBase) {

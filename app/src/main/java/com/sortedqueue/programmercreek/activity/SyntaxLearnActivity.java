@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -37,7 +38,17 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     private ModuleFragment moduleFragment;
     private String TAG = SyntaxLearnActivity.class.getSimpleName();
     private ModuleDetailsFragment moduleDetailsFragment;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

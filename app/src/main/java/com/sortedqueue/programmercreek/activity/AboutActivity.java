@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -32,6 +33,18 @@ public class AboutActivity extends AppCompatActivity {
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		CreekApplication.getInstance().setAppRunning(true);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		CreekApplication.getInstance().setAppRunning(false);
 	}
 
 	@Override

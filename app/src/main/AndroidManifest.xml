@@ -84,6 +84,11 @@
             android:label="@string/title_activity_syntax_learn"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <receiver android:name=".receiver.NotificationPublisher" >
+            <!--<intent-filter>
+                <action android:name="com.sortedqueue.programmercreek.did_you_know"></action>
+            </intent-filter>-->
+        </receiver>
 
         <!--
       REQUIRED Set the package for your model classes,
