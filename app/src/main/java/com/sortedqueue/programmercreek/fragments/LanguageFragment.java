@@ -134,7 +134,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     private void initUserValues() {
         Glide.with(getContext())
                 .load(creekPreferences.getAccountPhoto())
-                .fitCenter()
+                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(profileImageView);
@@ -151,7 +151,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 CommonUtils.dismissProgressDialog();
-                selectedLanguageCardView.setVisibility(View.GONE);
+                selectedLanguageCardView.setVisibility( creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE );
                 //selectAndInitDb(0);
             }
 
@@ -216,7 +216,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         languageSelectionTextView.setText(selectedString);
         selectedString = selectedString.replace(" Programming", "").toLowerCase();
         creekPreferences.setProgramLanguage(selectedString);
-        selectedLanguageCardView.setVisibility(View.VISIBLE);
+        selectedLanguageCardView.setVisibility( creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE );
         initDB();
     }
 
