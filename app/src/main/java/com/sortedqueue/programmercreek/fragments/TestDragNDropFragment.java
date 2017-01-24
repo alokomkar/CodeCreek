@@ -73,6 +73,8 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     TextView progressTextView;
     @Bind(R.id.progressLayout)
     FrameLayout progressLayout;
+    @Bind(R.id.container)
+    FrameLayout container;
     @Bind(R.id.timerButton)
     Button timerButton;
     private InterstitialAd interstitialAd;

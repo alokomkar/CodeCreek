@@ -6,6 +6,17 @@
     android:orientation="vertical"
     android:background="@color/md_grey_300">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"
+        android:layout_above="@+id/buttonLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/margin_4"
+        android:layout_margin="@dimen/margin_8"></FrameLayout>
+
     <com.sortedqueue.programmercreek.view.DragNDropListView
         android:id="@+id/dragNDropListView"
         android:layout_width="match_parent"

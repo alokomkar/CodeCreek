@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
@@ -160,7 +161,40 @@ public class ProgramTable extends RushObject implements Parcelable {
         }
     };
 
-    public static void splitIntoModules(ArrayList<ProgramTable> program_tableList) {
+    public static ArrayList<ProgramTable>[] splitIntoModules(ArrayList<ProgramTable> program_tableList) {
+        if( program_tableList.size() <= 15 ) {
+            ArrayList<ProgramTable>[] arrayLists = new ArrayList[1];
+            arrayLists[0] = program_tableList;
+            return arrayLists;
+        }
+        else {
+            int tablesSize = program_tableList.size();
+            int size = tablesSize <= 20 ? 2 : 3;
+            int minSize = (int)(tablesSize / size);
+            ArrayList<ProgramTable>[] arrayLists = new ArrayList[size];
+            arrayLists[0] = new ArrayList<>(program_tableList.subList(0, minSize));
+            for( ProgramTable programTable : arrayLists[0] ) {
+                Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
+            }
+            if( size == 2 ) {
+                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size() - 1, Math.min(2* minSize, tablesSize)));
+                for( ProgramTable programTable : arrayLists[1] ) {
+                    Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
+                }
+            }
+            else if( size == 3 ) {
+                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size() - 1, Math.min(2* minSize, tablesSize)));
+                for( ProgramTable programTable : arrayLists[1] ) {
+                    Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
+                }
+                arrayLists[2] = new ArrayList<>(program_tableList.subList(arrayLists[1].size() - 1, Math.min(3* minSize, tablesSize)));
+                for( ProgramTable programTable : arrayLists[2] ) {
+                    Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
+                }
+            }
+
+            return arrayLists;
+        }
 
     }
 
