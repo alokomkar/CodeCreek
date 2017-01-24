@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -24,13 +26,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
-
-import com.sortedqueue.programmercreek.database.CreekUserDB;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -183,6 +181,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                             }
                         });
                 creekPreferences.clearCacheDetails();
+                logoutFromFB();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent spashIntent = new Intent(DashboardActivity.this, SplashActivity.class);
@@ -201,6 +200,23 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         }
 
+    }
+
+    private void logoutFromFB() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            return; // already logged out
+        }
+        if( LoginManager.getInstance() != null)
+            LoginManager.getInstance().logOut();
+        /*new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+
+
+
+            }
+        }).executeAsync();*/
     }
 
     private void configureGoogleSignup() {
