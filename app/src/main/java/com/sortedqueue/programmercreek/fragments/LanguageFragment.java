@@ -59,6 +59,8 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     ImageView profileImageView;
     @Bind(R.id.nameTextView)
     TextView nameTextView;
+    @Bind(R.id.selectedLanguageCardView)
+    CardView selectedLanguageCardView;
 
     private String[] languageArray;
     private CreekPreferences creekPreferences;
@@ -149,6 +151,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 CommonUtils.dismissProgressDialog();
+                selectedLanguageCardView.setVisibility(View.GONE);
                 //selectAndInitDb(0);
             }
 
@@ -213,6 +216,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         languageSelectionTextView.setText(selectedString);
         selectedString = selectedString.replace(" Programming", "").toLowerCase();
         creekPreferences.setProgramLanguage(selectedString);
+        selectedLanguageCardView.setVisibility(View.VISIBLE);
         initDB();
     }
 

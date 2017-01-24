@@ -206,8 +206,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         dragNDropListView.setDragListener(mDragListener);
 
         timerButton.setEnabled(false);
-
+        progressLayout.setVisibility(View.GONE);
         if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) != ProgrammingBuddyConstants.KEY_LESSON ) {
+            progressLayout.setVisibility(View.VISIBLE);
             time = ( programSize / 2) * 60 * 1000;
             interval = 1000;
             circularProgressBar.setMax((int) (time / 1000));

@@ -71,6 +71,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private ArrayList<QuizModel> quizModels;
     private QuizRecyclerAdapter quizRecyclerAdapter;
     private Bundle bundle;
+    private int mInvokeMode;
 
     @Nullable
     @Override
@@ -103,7 +104,9 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
-        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+        mInvokeMode = bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
+        progressLayout.setVisibility(View.GONE);
+        if( mInvokeMode  == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
             new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
@@ -227,7 +230,11 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             }
         });
 
-        mCountDownTimer.start();
+        if( mInvokeMode != ProgrammingBuddyConstants.KEY_LESSON ) {
+            progressLayout.setVisibility(View.VISIBLE);
+            mCountDownTimer.start();
+        }
+
 
 
     }

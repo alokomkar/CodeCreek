@@ -84,6 +84,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private Bundle newProgramActivityBundle;
     private View view;
     private ArrayList<ProgramTable> program_TableList;
+    private int mInvokeMode;
 
 
     @Override
@@ -105,8 +106,9 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void initUI() {
-
-        if( newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+        progressLayout.setVisibility(View.GONE);
+        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
+        if(  mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
             new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
@@ -274,7 +276,10 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
             }
         });
 
-        mCountDownTimer.start();
+        if( mInvokeMode != ProgrammingBuddyConstants.KEY_LESSON ) {
+            mCountDownTimer.start();
+            progressLayout.setVisibility(View.VISIBLE);
+        }
     }
     //On Long Press Clear the program line in summary text view
     View.OnLongClickListener mSummaryTextViewLongClickListener = new View.OnLongClickListener() {
