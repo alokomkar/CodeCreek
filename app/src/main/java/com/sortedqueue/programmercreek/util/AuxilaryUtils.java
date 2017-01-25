@@ -249,9 +249,9 @@ public class AuxilaryUtils {
         new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
-                .setMessage(message)
+                .setMessage(message + ", Good work")
                 .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton(R.string.great, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.got_it, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
