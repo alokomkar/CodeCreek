@@ -29,4 +29,13 @@
         <item name="android:background">@null</item>
     </style>
 
+    <style name="AchievementDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AchievementDialogAnimation</item>
+    </style>
+
+    <style name="AchievementDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/item_up_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/item_down_from_top</item>
+    </style>
+
 </resources>

@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -33,7 +32,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.receiver.NotificationPublisher;
 
@@ -246,7 +244,8 @@ public class AuxilaryUtils {
     }
 
     public static void displayAchievementUnlockedDialog(Context context, String title, String message ) {
-        new AlertDialog.Builder(context)
+
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
                 .setMessage(message + ", Good work")
@@ -257,7 +256,9 @@ public class AuxilaryUtils {
 
                     }
                 })
-                .create().show();
+                .create();
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
+        alertDialog.show();
     }
 
     public static void displayResultAlert(final Activity activity, String title, String message, int pointsScore, int maxScore) {
