@@ -177,17 +177,17 @@ public class ProgramTable extends RushObject implements Parcelable {
                 Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
             }
             if( size == 2 ) {
-                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size() - 1, Math.min(2* minSize, tablesSize)));
+                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size(), tablesSize));
                 for( ProgramTable programTable : arrayLists[1] ) {
                     Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
                 }
             }
             else if( size == 3 ) {
-                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size() - 1, Math.min(2* minSize, tablesSize)));
+                arrayLists[1] = new ArrayList<>(program_tableList.subList(arrayLists[0].size(), 2* minSize));
                 for( ProgramTable programTable : arrayLists[1] ) {
                     Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
                 }
-                arrayLists[2] = new ArrayList<>(program_tableList.subList(arrayLists[1].size() - 1, Math.min(3* minSize, tablesSize)));
+                arrayLists[2] = new ArrayList<>(program_tableList.subList(arrayLists[0].size() + arrayLists[1].size(), tablesSize));
                 for( ProgramTable programTable : arrayLists[2] ) {
                     Log.d("Split", "Modules : " + programTable.getLine_No() + " : " + programTable.getProgram_Line());
                 }
