@@ -24,6 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -54,7 +59,7 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener {
+public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener, RewardedVideoAdListener {
 
     @Bind(R.id.syntaxExplanationCardView)
     CardView syntaxExplanationCardView;
@@ -109,6 +114,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private String programLanguage;
     public SyntaxLearnActivityFragment() {
     }
+    private RewardedVideoAd rewardedVideoAd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,6 +122,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
         programLanguage = new CreekPreferences(getContext()).getProgramLanguage();
+        //initializeRewardedVideoAd();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
@@ -142,6 +149,32 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         }
 
         return view;
+    }
+
+    private void initializeRewardedVideoAd() {
+        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getActivity());
+        rewardedVideoAd.setRewardedVideoAdListener(this);
+        if(!rewardedVideoAd.isLoaded()) {
+            rewardedVideoAd.loadAd(getString(R.string.hint_rewarded_interstital_ad), new AdRequest.Builder().build());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        rewardedVideoAd.resume(getContext());
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        rewardedVideoAd.pause(getContext());
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        rewardedVideoAd.destroy(getContext());
+        super.onDestroy();
     }
 
     private void bindData(SyntaxModule syntaxModule) {
@@ -241,19 +274,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 checkSolution();
                 break;
             case R.id.hintSyntaxImageView:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setMessage(syntaxModule.getSyntaxSolution());
-                builder.setTitle("Solution :");
-                builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.show();
+                /*if (rewardedVideoAd.isLoaded()) {
+                    rewardedVideoAd.show();
+                }*/
+                showHint();
                 break;
             case R.id.voiceTypeImageView :
                 openVoiceIntent();
@@ -393,5 +417,61 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     public int isTestComplete() {
 
         return isAnswered ? ChapterDetails.TYPE_SYNTAX_MODULE : -1;
+    }
+
+
+    //RewardedVideoAdListener methods :
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Log.d(TAG, "onRewardedVideoAdLoaded");
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Log.d(TAG, "onRewardedVideoAdOpened");
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        Log.d(TAG, "onRewardedVideoStarted");
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        Log.d(TAG, "onRewardedVideoAdClosed");
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        if( rewardItem != null ) {
+            Log.d(TAG, "onRewarded : " + rewardItem.getAmount() + " : " + rewardItem.getType());
+            showHint();
+        }
+    }
+
+    private void showHint() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setMessage(syntaxModule.getSyntaxSolution());
+        builder.setTitle("Solution :");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.show();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Log.d(TAG, "onRewardedVideoAdLoaded");
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Log.d(TAG, "onRewardedVideoAdLoaded");
     }
 }
