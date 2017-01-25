@@ -245,6 +245,21 @@ public class AuxilaryUtils {
         alertDialog.show();
     }
 
+    public static void displayAchievementUnlockedDialog(Context context, String title, String message ) {
+        new AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle(title)
+                .setMessage(message)
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton(R.string.great, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create().show();
+    }
+
     public static void displayResultAlert(final Activity activity, String title, String message, int pointsScore, int maxScore) {
 
         Builder alertDialogBuilder = new Builder(

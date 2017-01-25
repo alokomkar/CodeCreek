@@ -320,11 +320,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if( isLastFragment ) {
                     if( nextModule != null ) {
                         creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_module_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     }
                     else if( nextChapter != null ) {
                         creekUserStats.addToUnlockedCLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_chapter_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }
 
@@ -336,11 +338,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if( isLastFragment ) {
                     if( nextModule != null ) {
                         creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_module_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     }
                     else if( nextChapter != null ) {
                         creekUserStats.addToUnlockedCppLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_chapter_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }
                 break;
@@ -350,11 +354,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if( isLastFragment ) {
                     if( nextModule != null ) {
                         creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_module_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     }
                     else if( nextChapter != null ) {
                         creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
-                        CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations", getString(R.string.new_chapter_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }
                 break;
