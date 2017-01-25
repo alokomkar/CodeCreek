@@ -161,19 +161,19 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     @Override
     public void onResume() {
-        rewardedVideoAd.resume(getContext());
+        //rewardedVideoAd.resume(getContext());
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        rewardedVideoAd.pause(getContext());
+        //rewardedVideoAd.pause(getContext());
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        rewardedVideoAd.destroy(getContext());
+        //rewardedVideoAd.destroy(getContext());
         super.onDestroy();
     }
 
