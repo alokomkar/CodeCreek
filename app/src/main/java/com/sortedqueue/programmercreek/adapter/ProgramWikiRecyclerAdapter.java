@@ -90,7 +90,8 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         programViewHolder.programCodeView.setOptions(Options.Default.get(context)
                 .withLanguage(programLanguage)
                 .withCode(programWiki.getProgramExample())
-                .withTheme(ColorTheme.MONOKAI));
+                .withTheme(ColorTheme.MONOKAI))
+                ;
     }
 
     private void initHeaderView(RecyclerView.ViewHolder holder, ProgramWiki programWiki, int position) {

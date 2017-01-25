@@ -170,10 +170,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     }
 
     private void setCodeView(String programLines) {
-        programCodeView.setOptions(Options.Default.get(getContext())
+        programCodeView
+                .setOptions(Options.Default.get(getContext())
                 .withLanguage(programLanguage)
                 .withCode(programLines)
-                .withTheme(ColorTheme.MONOKAI));
+                .withTheme(ColorTheme.SOLARIZED_LIGHT));
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
