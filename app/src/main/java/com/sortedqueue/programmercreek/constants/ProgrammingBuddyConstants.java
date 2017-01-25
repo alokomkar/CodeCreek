@@ -26,4 +26,6 @@ public class ProgrammingBuddyConstants {
 	public static final String FONT_ROBOTO = "fonts/Roboto-Regular.ttf";
 
 	public static final String CUSTOM_ACTION_FACTS = "com.sortedqueue.programmercreek.did_you_know";
+	public static final String CUSTOM_ACTION_NOTIFICATION = "com.sortedqueue.programmercreek.custom.notification";
+	public static final String INTENT_EXTRA_NOTIFICATION_MESSAGE = "remoteMessage";
 }

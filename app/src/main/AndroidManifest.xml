@@ -148,6 +148,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+        <receiver android:name=".receiver.CreekFCMReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.sortedqueue.programmercreek.custom.notification" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

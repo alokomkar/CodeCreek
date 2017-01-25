@@ -1,11 +1,11 @@
 package com.sortedqueue.programmercreek.service;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 
 /**
  * Created by Alok on 25/01/17.
@@ -23,30 +23,14 @@ public class CreekMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
-        String imageUrl = "";
-        String messageBody = "";
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-        }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            messageBody = remoteMessage.getNotification().getBody();
-        }
 
-        if( remoteMessage.getData() != null ) {
-            Log.d(TAG, "Message Notification Data: " + remoteMessage.getData());
-            if( remoteMessage.getData().containsKey("image") ) {
-                imageUrl = remoteMessage.getData().get("image");
-            }
-        }
-        if( imageUrl.equals("") ) {
-            AuxilaryUtils.generateBigTextNotification(this, getString(R.string.app_name), messageBody);
-        }
-        else {
-            //TODO AuxilaryUtils.generateImageNotification(this, getString(R.string.app_name), messageBody, imageUrl);
-        }
+        Intent intent = new Intent();
+        intent.setAction(ProgrammingBuddyConstants.CUSTOM_ACTION_NOTIFICATION);
+        intent.putExtra(ProgrammingBuddyConstants.INTENT_EXTRA_NOTIFICATION_MESSAGE, remoteMessage);
+        this.sendBroadcast(intent);
+
+
         /*String from = remoteMessage.getFrom();
         String message = remoteMessage.get*/
         // Also if you intend on generating your own notifications as a result of a received FCM
