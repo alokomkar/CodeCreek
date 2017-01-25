@@ -136,6 +136,19 @@
             android:name=".activity.IntroActivity"
             android:label="@string/title_activity_intro"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service
+            android:name=".service.CreekMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.CreekInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

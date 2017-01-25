@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.firebase.messaging.RemoteMessage;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
@@ -120,6 +121,23 @@ public class AuxilaryUtils {
             });
         }
 
+    }
+
+    public static void scheduleImmediateNotification(Context context, RemoteMessage remoteMessage) {
+        String notificationContent = generateRandomNotificationContent(context);
+        Notification notification = generateNotification(context, "Did you know", notificationContent );
+        Intent notificationIntent = new Intent(context, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long delay = 1000 * 15;
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        CreekPreferences creekPreferences = new CreekPreferences(context);
+        if( !creekPreferences.isNotificationScheduled() ) {
+            creekPreferences.setNotificationScheduled(true);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
     }
 
     public static void scheduleNotification( Context context ) {
@@ -370,10 +388,17 @@ public class AuxilaryUtils {
 
     public static void generateBigNotification(final Context context, final String notificationTitle, final String notificationContent) {
 
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/Infinite%20Programmer-feature-graphic.png?alt=media&token=7140ec19-5313-4c9d-8435-4f12a25cee34";
+        generateImageNotification(context, notificationTitle, notificationContent, imageUrl);
+
+
+    }
+
+    public static void generateImageNotification(final Context context, final String notificationTitle, final String notificationContent, final String imageUrl) {
 
         Glide
                 .with(context)
-                .load("https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/Infinite%20Programmer-feature-graphic.png?alt=media&token=7140ec19-5313-4c9d-8435-4f12a25cee34")
+                .load(imageUrl)
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(SimpleTarget.SIZE_ORIGINAL, SimpleTarget.SIZE_ORIGINAL) {
                     @Override
@@ -381,7 +406,9 @@ public class AuxilaryUtils {
                         Intent resultIntent;
                         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
                         resultIntent = new Intent(context, DashboardActivity.class);
-                        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                                Intent.FLAG_ACTIVITY_NEW_TASK);
                         stackBuilder.addNextIntent(resultIntent);
                         PendingIntent resultPendingIntent =
                                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -413,8 +440,6 @@ public class AuxilaryUtils {
                         mNotifyMgr.notify(mNotificationId, noti);
                     }
                 });
-
-
     }
 
     public static boolean isNetworkAvailable() {
