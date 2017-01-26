@@ -45,6 +45,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.LoginSignupDialog;
@@ -266,7 +267,16 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(SplashActivity.this, R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    onClick(view);
+                }
+            });
+            return;
+        }
         switch ( view.getId() ) {
             case R.id.googleSignInButton :
                 googleSignIn();
@@ -420,6 +430,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startApp() {
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(SplashActivity.this, R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    startApp();
+                }
+            });
+            return;
+        }
         Intent i = new Intent(SplashActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();

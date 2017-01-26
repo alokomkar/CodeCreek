@@ -157,4 +157,6 @@
     <string name="great">Great</string>
     <string name="divide_and_conquer">Divide and Conquer</string>
     <string name="divide_and_conquer_description">Divide and Conquer enables you to split a long program into chunks and complete the test</string>
+    <string name="internet_unavailable">Internet unavailable, Click retry once you have net connectivity</string>
+    <string name="retry">Retry</string>
 </resources>

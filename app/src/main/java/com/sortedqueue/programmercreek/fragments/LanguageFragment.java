@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.SplashActivity;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -145,6 +147,15 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     public void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    getFirebaseDBVerion();
+                }
+            });
+            return;
+        }
         CommonUtils.displayProgressDialog(getContext(), "Fetching database...");
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
@@ -197,7 +208,16 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    onClick(v);
+                }
+            });
+            return;
+        }
         switch (v.getId()) {
             case R.id.cppProgrammingCardView:
                 selectAndInitDb(INDEX_CPP);

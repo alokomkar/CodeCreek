@@ -515,7 +515,7 @@ public class FirebaseDatabaseHandler {
         }
         else {
             getProgramDatabase();
-            mProgramDatabase.child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
+            mProgramDatabase.child(PROGRAM_INDEX_CHILD).child(String.valueOf(mProgramIndex)).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ProgramIndex programIndex = dataSnapshot.getValue(ProgramIndex.class);

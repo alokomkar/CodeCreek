@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -170,7 +171,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(DashboardActivity.this, R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    onOptionsItemSelected(item);
+                }
+            });
+            return true;
+        }
 
         switch (item.getItemId()) {
 

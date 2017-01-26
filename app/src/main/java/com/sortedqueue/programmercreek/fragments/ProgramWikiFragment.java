@@ -49,6 +49,7 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
         ButterKnife.bind(this, fragmentView);
         setupViews( programWiki );
         if( wizardUrl == null ) {
+            progressBar.setVisibility(View.VISIBLE);
             headerTextView.setText(programWiki.getWikiHeader());
             setupRecyclerView( programWiki );
         }

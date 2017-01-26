@@ -180,8 +180,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(final View v) {
+        if(!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    onClick(v);
+                }
+            });
+            return;
+        }
         if( creekPreferences.getProgramLanguage().equals("") ) {
             CommonUtils.displaySnackBar(getActivity(), R.string.choose_language);
             if( dashboardNavigationListener != null ) {
