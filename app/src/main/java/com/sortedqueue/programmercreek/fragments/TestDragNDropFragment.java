@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
@@ -178,7 +179,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 });
     }
 
-    private void initUI(ArrayList<ProgramTable> program_TableList) {
+    private void initUI(final ArrayList<ProgramTable> program_TableList) {
 
         getActivity().setTitle("Test : " + mProgramIndex.getProgram_Description());
 
@@ -196,15 +197,19 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         }
         containerPager.setCanScroll(false);
         /*if (programTableArray.length > 1) */{
-            containerPager.setVisibility(View.VISIBLE);
-            testTabLayout.setVisibility(View.VISIBLE);
-            dragNDropListView.setVisibility(View.GONE);
-            subTestPagerAdapter = new SubTestPagerAdapter(getChildFragmentManager(), programTableArray, this);
-            containerPager.setAdapter(subTestPagerAdapter);
-            containerPager.setOffscreenPageLimit(programTableArray.length + 1);
-            testTabLayout.setupWithViewPager(containerPager);
-            programSize = program_TableList.size();
-            enableTimer();
+            if( programTableArray.length >  1 ) {
+                AuxilaryUtils.displayInformation(getContext(), R.string.divide_and_conquer, R.string.divide_and_conquer_description, new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                    setupSubTests(program_TableList);
+                    }
+
+                });
+
+            }
+            else {
+                setupSubTests(program_TableList);
+            }
         } /*else {
 
             containerPager.setVisibility(View.GONE);
@@ -231,6 +236,18 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             enableTimer();
         }*/
 
+    }
+
+    private void setupSubTests(ArrayList<ProgramTable> program_TableList) {
+        containerPager.setVisibility(View.VISIBLE);
+        testTabLayout.setVisibility(View.VISIBLE);
+        dragNDropListView.setVisibility(View.GONE);
+        subTestPagerAdapter = new SubTestPagerAdapter(getChildFragmentManager(), programTableArray, this);
+        containerPager.setAdapter(subTestPagerAdapter);
+        containerPager.setOffscreenPageLimit(programTableArray.length + 1);
+        testTabLayout.setupWithViewPager(containerPager);
+        programSize = program_TableList.size();
+        enableTimer();
     }
 
     private void enableTimer() {

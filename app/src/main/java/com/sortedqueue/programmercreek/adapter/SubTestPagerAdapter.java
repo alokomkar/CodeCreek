@@ -56,7 +56,7 @@ public class SubTestPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if( position == programTableArray.length ) {
-            return "Output";
+            return "Preview";
         }
         if( programTableArray.length == 1 ) {
             return "Test";
