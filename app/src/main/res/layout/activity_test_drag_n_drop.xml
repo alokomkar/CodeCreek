@@ -12,26 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
-        android:visibility="gone"
+        android:visibility="visible"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabBackground="?attr/selectableItemBackground"
         android:background="?attr/colorPrimary"
         app:tabMode="fixed"/>
-    <android.support.v4.view.ViewPager
+    <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/containerPager"
-        android:visibility="gone"
+        android:layout_below="@+id/testTabLayout"
+        android:visibility="visible"
         android:layout_above="@+id/buttonLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/margin_4"
-        android:layout_margin="@dimen/margin_8">
+        >
 
-    </android.support.v4.view.ViewPager>
+    </com.sortedqueue.programmercreek.view.ScrollableViewPager>
 
     <com.sortedqueue.programmercreek.view.DragNDropListView
         android:id="@+id/dragNDropListView"

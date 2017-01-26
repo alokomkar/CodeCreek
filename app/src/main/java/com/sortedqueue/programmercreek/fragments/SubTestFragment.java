@@ -159,4 +159,8 @@ public class SubTestFragment extends Fragment {
     public void setIndex(int index) {
         this.index = index;
     }
+
+    public void setSubmitTestCommunicationListener(SubTestCommunicationListener subTestCommunicationListener) {
+        this.subTestCommunicationListener = subTestCommunicationListener;
+    }
 }

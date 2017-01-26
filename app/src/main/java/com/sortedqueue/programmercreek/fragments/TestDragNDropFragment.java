@@ -44,6 +44,7 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
+import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -79,7 +80,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     @Bind(R.id.progressLayout)
     FrameLayout progressLayout;
     @Bind(R.id.containerPager)
-    ViewPager containerPager;
+    ScrollableViewPager containerPager;
     @Bind(R.id.timerButton)
     Button timerButton;
     @Bind(R.id.testTabLayout)
@@ -183,38 +184,35 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
         //Split lengthy programs into modules
         programTableArray = ProgramTable.splitIntoModules(program_TableList);
-        if (programTableArray.length > 1) {
+        mProgramList = new ArrayList<String>();
+        mProgramCheckList = new ArrayList<String>();
+        String programLine = null;
+        Iterator<ProgramTable> iteraor = program_TableList.iterator();
+        while (iteraor.hasNext()) {
+            ProgramTable newProgramTable = iteraor.next();
+            programLine = newProgramTable.getProgram_Line();
+            mProgramCheckList.add(programLine);
+            mProgramList.add(programLine);
+        }
+        containerPager.setCanScroll(false);
+        /*if (programTableArray.length > 1) */{
             containerPager.setVisibility(View.VISIBLE);
             testTabLayout.setVisibility(View.VISIBLE);
             dragNDropListView.setVisibility(View.GONE);
-            subTestPagerAdapter = new SubTestPagerAdapter(getChildFragmentManager(), programTableArray);
+            subTestPagerAdapter = new SubTestPagerAdapter(getChildFragmentManager(), programTableArray, this);
             containerPager.setAdapter(subTestPagerAdapter);
+            containerPager.setOffscreenPageLimit(programTableArray.length + 1);
             testTabLayout.setupWithViewPager(containerPager);
             programSize = program_TableList.size();
             enableTimer();
-        } else {
+        } /*else {
 
             containerPager.setVisibility(View.GONE);
             testTabLayout.setVisibility(View.GONE);
             dragNDropListView.setVisibility(View.VISIBLE);
 
-            mProgramList = new ArrayList<String>();
-            mProgramCheckList = new ArrayList<String>();
-            String programLine = null;
-            Iterator<ProgramTable> iteraor = program_TableList.iterator();
-            while (iteraor.hasNext()) {
 
-                ProgramTable newProgramTable = iteraor.next();
-                programLine = newProgramTable.getProgram_Line();
-                mProgramCheckList.add(programLine);
-                mProgramList.add(programLine);
-            /*if( programLine.contains("for") ) {
-				mProgramList.add(programLine);
-			}
-			else {
-				mProgramList.add(newProgramTable.getmProgram_Line_Html());
-			}*/
-            }
+
 
             mRandomTest = new ArrayList<String>(mProgramList.size());
             for (String item : mProgramList) {
@@ -231,7 +229,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             dragNDropListView.setDragListener(mDragListener);
 
             enableTimer();
-        }
+        }*/
 
     }
 
@@ -318,7 +316,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     protected void checkScore(int programLength, DragNDropListView dragNDropListView, ArrayList<String> mProgramList) {
         int programCheck = 0;
-        if (programTableArray.length == 1) {
+        /*if (programTableArray.length == 1) {
 
             ListAdapter listAdapter = dragNDropListView.getAdapter();
             for (int i = 0; i < programLength; i++) {
@@ -332,7 +330,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             }
             checkProgramScore(programCheck, programLength);
 
-        } else {
+        } else */{
             CodeViewFragment codeViewFragment = subTestPagerAdapter.getCodeViewFragment();
             ArrayList<String> programCode = codeViewFragment.getProgramCode();
             for (int i = 0; i < programLength; i++) {

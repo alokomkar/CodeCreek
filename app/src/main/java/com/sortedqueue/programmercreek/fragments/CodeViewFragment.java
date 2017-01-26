@@ -10,6 +10,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,8 +28,9 @@ public class CodeViewFragment extends Fragment {
     CodeView programCodeView;
     private View view;
     private ArrayList<String> programCode;
-    private ArrayList<ArrayList<String>> allCode;
+    private HashMap<Integer, ArrayList<String>> allCodeMap;
     private String programLanguage;
+    private int totalModules;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +43,7 @@ public class CodeViewFragment extends Fragment {
             programLanguage = "cpp";
         }
         programCode = new ArrayList<>();
-        allCode = new ArrayList<>();
+        allCodeMap = new HashMap<>();
         return view;
     }
 
@@ -57,32 +59,47 @@ public class CodeViewFragment extends Fragment {
     }
 
     public void submitSubTest(int index, ArrayList<String> content) {
-        allCode.add(index, content);
+        if( allCodeMap == null ) {
+            allCodeMap = new HashMap<>();
+        }
+        if( programCode == null ) {
+            programCode = new ArrayList<>();
+        }
+        allCodeMap.put(index, content);
         programCode.clear();
-        for( ArrayList<String> arrayList : allCode ) {
-            programCode.addAll(arrayList);
+        for( int indexKey = 0; indexKey < totalModules; indexKey++ ) {
+            ArrayList<String> arrayList = allCodeMap.get(indexKey);
+            if( arrayList != null )
+                programCode.addAll(arrayList);
         }
         initCodeView();
     }
 
     private void initCodeView() {
-        String programLines = "";
-        int position = 1;
-        String programDescription = "";
-        for (String program_table : programCode) {
-            if (position == 1) {
-                programDescription += position + ". " + program_table;
-                programLines += ((position++) + ". ");
-            } else {
-                programDescription += "\n" + position + ". " + program_table;
-                programLines += ("\n" + (position++) + ". ");
+        if( programCodeView != null ) {
+            String programLines = "";
+            int position = 1;
+            String programDescription = "";
+            for (String program_table : programCode) {
+                if (position == 1) {
+                    programDescription += position + ". " + program_table;
+                    programLines += ((position++) + ". ");
+                } else {
+                    programDescription += "\n" + position + ". " + program_table;
+                    programLines += ("\n" + (position++) + ". ");
+                }
+                programLines += (program_table.trim());
             }
-            programLines += (program_table.trim());
+            programCodeView
+                    .setOptions(Options.Default.get(getContext())
+                            .withLanguage(programLanguage)
+                            .withCode(programLines)
+                            .withTheme(ColorTheme.SOLARIZED_LIGHT));
         }
-        programCodeView
-                .setOptions(Options.Default.get(getContext())
-                        .withLanguage(programLanguage)
-                        .withCode(programLines)
-                        .withTheme(ColorTheme.SOLARIZED_LIGHT));
+
+    }
+
+    public void setTotalModules(int totalModules) {
+        this.totalModules = totalModules;
     }
 }

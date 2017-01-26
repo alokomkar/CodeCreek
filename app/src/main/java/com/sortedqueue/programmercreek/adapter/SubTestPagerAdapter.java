@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.fragments.CodeViewFragment;
 import com.sortedqueue.programmercreek.fragments.SubTestFragment;
+import com.sortedqueue.programmercreek.interfaces.SubTestCommunicationListener;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class SubTestPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<ProgramTable>[] programTableArray;
     private ArrayList<Fragment> subTestFragments;
 
-    public SubTestPagerAdapter(FragmentManager fm, ArrayList<ProgramTable>[] programTableArray) {
+    public SubTestPagerAdapter(FragmentManager fm, ArrayList<ProgramTable>[] programTableArray, SubTestCommunicationListener subTestCommunicationListener) {
         super(fm);
         this.programTableArray = programTableArray;
         subTestFragments = new ArrayList<>();
@@ -29,9 +30,11 @@ public class SubTestPagerAdapter extends FragmentPagerAdapter {
             SubTestFragment subTestFragment = new SubTestFragment();
             subTestFragment.setProgramTables( programTables );
             subTestFragment.setIndex(index++);
+            subTestFragment.setSubmitTestCommunicationListener( subTestCommunicationListener );
             subTestFragments.add(subTestFragment);
         }
         codeViewFragment = new CodeViewFragment();
+        codeViewFragment.setTotalModules(programTableArray.length);
         subTestFragments.add(codeViewFragment);
 
     }
@@ -54,6 +57,9 @@ public class SubTestPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         if( position == programTableArray.length ) {
             return "Output";
+        }
+        if( programTableArray.length == 1 ) {
+            return "Test";
         }
         ArrayList<ProgramTable> programTables = programTableArray[position];
 
