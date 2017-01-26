@@ -411,7 +411,8 @@ public class AuxilaryUtils {
                                 Intent.FLAG_ACTIVITY_NEW_TASK);
                         stackBuilder.addNextIntent(resultIntent);
                         PendingIntent resultPendingIntent =
-                                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                                PendingIntent.getActivity(context, 0,
+                                        resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Builder builder =
                                 new NotificationCompat.Builder(context)
                                         .setTicker(notificationTitle)
