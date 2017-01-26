@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sortedqueue.programmercreek.view.DragNDropListView
+        android:id="@+id/dragNDropListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/margin_4"
+        android:layout_margin="@dimen/margin_8" >
+    </com.sortedqueue.programmercreek.view.DragNDropListView>
+
+</LinearLayout>

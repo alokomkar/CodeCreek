@@ -43,7 +43,11 @@ public final class DragNDropAdapter extends BaseAdapter implements RemoveListene
     	mLayouts = layouts;
     	mContent = content;
     }
-    
+
+    public ArrayList<String> getmContent() {
+        return mContent;
+    }
+
     /**
      * The number of items in the list
      * @see android.widget.ListAdapter#getCount()

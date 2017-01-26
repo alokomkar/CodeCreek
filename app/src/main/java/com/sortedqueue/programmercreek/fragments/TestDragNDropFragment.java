@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter;
+import com.sortedqueue.programmercreek.adapter.SubTestPagerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
@@ -33,6 +37,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
+import com.sortedqueue.programmercreek.interfaces.SubTestCommunicationListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -53,7 +58,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Created by Alok on 03/01/17.
  */
 
-public class TestDragNDropFragment extends Fragment implements UIUpdateListener, TestCompletionListener {
+public class TestDragNDropFragment extends Fragment implements UIUpdateListener, TestCompletionListener, SubTestCommunicationListener {
 
     ProgramIndex mProgramIndex;
     ArrayList<String> mRandomTest;
@@ -73,10 +78,12 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     TextView progressTextView;
     @Bind(R.id.progressLayout)
     FrameLayout progressLayout;
-    @Bind(R.id.container)
-    FrameLayout container;
+    @Bind(R.id.containerPager)
+    ViewPager containerPager;
     @Bind(R.id.timerButton)
     Button timerButton;
+    @Bind(R.id.testTabLayout)
+    TabLayout testTabLayout;
     private InterstitialAd interstitialAd;
     private DragNDropListView dragNDropListView;
     private DragNDropAdapter dragNDropAdapter;
@@ -84,6 +91,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private View view;
     private Bundle bundle;
     private CreekUserStats creekUserStats;
+    private ArrayList<ProgramTable>[] programTableArray;
+    private SubTestPagerAdapter subTestPagerAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,7 +121,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void handleBundle() {
 
-        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+        if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
             mWizard = false;
             new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
@@ -126,8 +136,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                             CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
                         }
                     });
-        }
-        else {
+        } else {
             mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
             getProgramTables();
@@ -158,7 +167,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {
                         ArrayList<ProgramTable> program_TableList = programTables;
-                        initUI( program_TableList );
+                        initUI(program_TableList);
                     }
 
                     @Override
@@ -170,61 +179,81 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
 
-        getActivity().setTitle( "Test : " + mProgramIndex.getProgram_Description());
+        getActivity().setTitle("Test : " + mProgramIndex.getProgram_Description());
 
         //Split lengthy programs into modules
-        ProgramTable.splitIntoModules( program_TableList );
+        programTableArray = ProgramTable.splitIntoModules(program_TableList);
+        if (programTableArray.length > 1) {
+            containerPager.setVisibility(View.VISIBLE);
+            testTabLayout.setVisibility(View.VISIBLE);
+            dragNDropListView.setVisibility(View.GONE);
+            subTestPagerAdapter = new SubTestPagerAdapter(getChildFragmentManager(), programTableArray);
+            containerPager.setAdapter(subTestPagerAdapter);
+            testTabLayout.setupWithViewPager(containerPager);
+            programSize = program_TableList.size();
+            enableTimer();
+        } else {
 
-        mProgramList = new ArrayList<String>();
-        mProgramCheckList = new ArrayList<String>();
-        String programLine = null;
-        Iterator<ProgramTable> iteraor = program_TableList.iterator();
-        while(iteraor.hasNext()) {
+            containerPager.setVisibility(View.GONE);
+            testTabLayout.setVisibility(View.GONE);
+            dragNDropListView.setVisibility(View.VISIBLE);
 
-            ProgramTable newProgramTable = iteraor.next();
-            programLine = newProgramTable.getProgram_Line();
-            mProgramCheckList.add(programLine);
-            mProgramList.add(programLine);
-			/*if( programLine.contains("for") ) {
+            mProgramList = new ArrayList<String>();
+            mProgramCheckList = new ArrayList<String>();
+            String programLine = null;
+            Iterator<ProgramTable> iteraor = program_TableList.iterator();
+            while (iteraor.hasNext()) {
+
+                ProgramTable newProgramTable = iteraor.next();
+                programLine = newProgramTable.getProgram_Line();
+                mProgramCheckList.add(programLine);
+                mProgramList.add(programLine);
+            /*if( programLine.contains("for") ) {
 				mProgramList.add(programLine);
 			}
 			else {
 				mProgramList.add(newProgramTable.getmProgram_Line_Html());
 			}*/
+            }
+
+            mRandomTest = new ArrayList<String>(mProgramList.size());
+            for (String item : mProgramList) {
+                mRandomTest.add(item);
+            }
+
+            mRandomTest = ShuffleList.shuffleList(mRandomTest);
+            programSize = mRandomTest.size();
+            dragNDropAdapter = new DragNDropAdapter(getContext(), new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest);
+            dragNDropListView.setAdapter(dragNDropAdapter);//new DragNDropAdapter(this,content)
+            //mListView.setBackgroundResource(R.drawable.error);
+            dragNDropListView.setDropListener(mDropListener);
+            dragNDropListView.setRemoveListener(mRemoveListener);
+            dragNDropListView.setDragListener(mDragListener);
+
+            enableTimer();
         }
 
-        mRandomTest = new ArrayList<String>(mProgramList.size());
-        for( String item : mProgramList ) {
-            mRandomTest.add(item);
-        }
+    }
 
-        mRandomTest = ShuffleList.shuffleList(mRandomTest);
-        programSize = mRandomTest.size();
-        dragNDropAdapter = new DragNDropAdapter(getContext(), new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest);
-        dragNDropListView.setAdapter(dragNDropAdapter);//new DragNDropAdapter(this,content)
-        //mListView.setBackgroundResource(R.drawable.error);
-        dragNDropListView.setDropListener(mDropListener);
-        dragNDropListView.setRemoveListener(mRemoveListener);
-        dragNDropListView.setDragListener(mDragListener);
-
+    private void enableTimer() {
         timerButton.setEnabled(false);
         progressLayout.setVisibility(View.GONE);
-        if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) != ProgrammingBuddyConstants.KEY_LESSON ) {
+        if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) != ProgrammingBuddyConstants.KEY_LESSON) {
             progressLayout.setVisibility(View.VISIBLE);
-            time = ( programSize / 2) * 60 * 1000;
+            time = (programSize / 2) * 60 * 1000;
             interval = 1000;
             circularProgressBar.setMax((int) (time / 1000));
-            if( mCountDownTimer != null ) {
+            if (mCountDownTimer != null) {
                 mCountDownTimer.cancel();
                 checkQuizButton.setEnabled(true);
             }
 
-            mCountDownTimer = new CountDownTimer( time, interval) {
+            mCountDownTimer = new CountDownTimer(time, interval) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    timerButton.setText(""+String.format("%d:%02d",
-                            TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    timerButton.setText("" + String.format("%d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
                     progressTextView.setText(timerButton.getText());
@@ -238,7 +267,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                     timerButton.setText("Time up");
                     timerButton.setVisibility(View.VISIBLE);
                     progressLayout.setVisibility(View.GONE);
-                    if( mWizard == true ) {
+                    if (mWizard == true) {
                         timerButton.setText("Finish");
                         timerButton.setVisibility(View.VISIBLE);
                         progressLayout.setVisibility(View.GONE);
@@ -246,7 +275,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                         timerButton.setOnClickListener(mFinishBtnClickListener);
                     }
 
-                    checkScore( programSize );
+                    checkScore(programSize, dragNDropListView, mProgramList);
                 }
             };
             mCountDownTimer.start();
@@ -257,14 +286,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
             @Override
             public void onClick(View v) {
-                showConfirmSubmitDialog( programSize, mCountDownTimer );
+                showConfirmSubmitDialog(programSize, mCountDownTimer);
             }
         });
-
-
-
-
-
     }
 
     View.OnClickListener mFinishBtnClickListener = new View.OnClickListener() {
@@ -272,8 +296,8 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         @Override
         public void onClick(View v) {
 
-            switch( v.getId() ) {
-                case R.id.timerButton :
+            switch (v.getId()) {
+                case R.id.timerButton:
                     showAd();
                     break;
             }
@@ -283,79 +307,88 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void showAd() {
 
-        if( interstitialAd != null ) {
+        if (interstitialAd != null) {
             interstitialAd.show();
-        }
-        else
+        } else
             getActivity().finish();
     }
 
 
     int mProgramHint = 0;
-    protected void checkScore(int programLength) {
 
-        //TextView textView;
-        //LinearLayout linearLayout;
+    protected void checkScore(int programLength, DragNDropListView dragNDropListView, ArrayList<String> mProgramList) {
         int programCheck = 0;
-        for( int i = 0; i < programLength; i++ ) {
+        if (programTableArray.length == 1) {
 
-            String item = dragNDropListView.getAdapter().getItem(i).toString().trim();
-            String actualItem = mProgramList.get(i).toString().trim();
-            //linearLayout = (LinearLayout) getViewByPosition(i, mListView);
-            //textView = (TextView) linearLayout.getChildAt(1);
-
-            if( actualItem.equals(item) == true )
-            {
-                //textView.setTextColor(Color.BLUE);
-                //linearLayout.setBackgroundResource(R.drawable.answer);
-                programCheck++;
+            ListAdapter listAdapter = dragNDropListView.getAdapter();
+            for (int i = 0; i < programLength; i++) {
+                String item = listAdapter.getItem(i).toString().trim();
+                String actualItem = mProgramList.get(i).toString().trim();
+                if (actualItem.equals(item) == true) {
+                    programCheck++;
+                } else {
+                    programCheck--;
+                }
             }
-            else {
+            checkProgramScore(programCheck, programLength);
 
-                //linearLayout.setBackgroundResource(R.drawable.error);
-                programCheck--;
+        } else {
+            CodeViewFragment codeViewFragment = subTestPagerAdapter.getCodeViewFragment();
+            ArrayList<String> programCode = codeViewFragment.getProgramCode();
+            for (int i = 0; i < programLength; i++) {
+                String item = programCode.get(i).trim();
+                String actualItem = mProgramList.get(i).toString().trim();
+                if (actualItem.equals(item) == true) {
+                    programCheck++;
+                } else {
+                    programCheck--;
+                }
             }
+            checkProgramScore(programCheck, programLength);
+
         }
-        if( programCheck < programLength ) {
+
+    }
+
+    private void checkProgramScore(int programCheck, int programLength) {
+        if (programCheck < programLength) {
             displayToast("Please check the program again");
             mProgramHint++;
             return;
         }
-        if( programCheck == programLength ) {
+        if (programCheck == programLength) {
             String score = null;
             String resultAlert = "";
             int maxScore = programLength / 2;
 
-            if( mProgramHint >= maxScore ) {
+            if (mProgramHint >= maxScore) {
                 score = "0 %";
-                resultAlert = "Your score is "+ score +" in "+String.format("%d min, %d sec",
+                resultAlert = "Your score is " + score + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Good Luck next time..";
-            }
-            else if( mProgramHint == 0 ) {
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Good Luck next time..";
+            } else if (mProgramHint == 0) {
                 score = "100 %";
-                resultAlert = "Congratulations, Your score is "+ score +" in "+String.format("%d min, %d sec",
+                resultAlert = "Congratulations, Your score is " + score + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Fantastic Work..!!";
-            }
-            else if( mProgramHint < maxScore ){
-                score = String.format("%.2f",((float)(maxScore - mProgramHint) / maxScore * 100 ))+ " %" ;
-                resultAlert = "Congratulations, Your score is "+ score +" in "+String.format("%d min, %d sec",
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!";
+            } else if (mProgramHint < maxScore) {
+                score = String.format("%.2f", ((float) (maxScore - mProgramHint) / maxScore * 100)) + " %";
+                resultAlert = "Congratulations, Your score is " + score + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)))+", Keep Working..";
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Keep Working..";
             }
-            if( bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON ) {
+            if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
                 resultAlert = "You have scored " + score;
             }
-            AuxilaryUtils.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float)(maxScore - mProgramHint) / maxScore * 100), 100);
+            AuxilaryUtils.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float) (maxScore - mProgramHint) / maxScore * 100), 100);
             checkQuizButton.setEnabled(false);
 
             mQuizComplete = true;
             updateCreekStats();
-            if( mWizard == true ) {
+            if (mWizard == true) {
                 timerButton.setText("Finish");
                 timerButton.setEnabled(true);
                 timerButton.setVisibility(View.VISIBLE);
@@ -368,30 +401,30 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void updateCreekStats() {
         creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        switch ( mProgramIndex.getProgram_Language().toLowerCase()) {
-            case "c" :
+        switch (mProgramIndex.getProgram_Language().toLowerCase()) {
+            case "c":
                 creekUserStats.addToUnlockedCProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
             case "cpp":
             case "c++":
-                creekUserStats.addToUnlockedCppProgramIndexList(mProgramIndex.getProgram_index()+ 1);
+                creekUserStats.addToUnlockedCppProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
             case "java":
-                creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index()+ 1);
+                creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }
 
 
-    private void showConfirmSubmitDialog( final int programSize, final CountDownTimer countDownTimer ) {
+    private void showConfirmSubmitDialog(final int programSize, final CountDownTimer countDownTimer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                checkScore(programSize);
-                if( countDownTimer != null )
+                checkScore(programSize, dragNDropListView, mProgramList);
+                if (countDownTimer != null)
                     countDownTimer.cancel();
             }
 
@@ -417,7 +450,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         final int firstListItemPosition = listView.getFirstVisiblePosition();
         final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 
-        if (position < firstListItemPosition || position > lastListItemPosition ) {
+        if (position < firstListItemPosition || position > lastListItemPosition) {
             return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
         } else {
             final int childIndex = position - firstListItemPosition;
@@ -461,14 +494,14 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                     itemView.setVisibility(View.INVISIBLE);
                     defaultBackgroundColor = itemView.getDrawingCacheBackgroundColor();
                     //itemView.setBackgroundColor(backgroundColor);
-                    ImageView imageView = (ImageView)itemView.findViewById(R.id.dragItemImageView);
+                    ImageView imageView = (ImageView) itemView.findViewById(R.id.dragItemImageView);
                     if (imageView != null) imageView.setVisibility(View.INVISIBLE);
                 }
 
                 public void onStopDrag(View itemView) {
                     itemView.setVisibility(View.VISIBLE);
                     //itemView.setBackgroundColor(defaultBackgroundColor);
-                    ImageView imageView = (ImageView)itemView.findViewById(R.id.dragItemImageView);
+                    ImageView imageView = (ImageView) itemView.findViewById(R.id.dragItemImageView);
                     if (imageView != null) imageView.setVisibility(View.VISIBLE);
                 }
 
@@ -476,14 +509,13 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     boolean mQuizComplete = false;
 
-    public void onBackPressed(){
-        if( mQuizComplete == false ) {
+    public void onBackPressed() {
+        if (mQuizComplete == false) {
             AuxilaryUtils.showConfirmationDialog(getActivity());
-            if( mCountDownTimer != null ) {
+            if (mCountDownTimer != null) {
                 mCountDownTimer.cancel();
             }
-        }
-        else {
+        } else {
             showAd();
         }
     }
@@ -513,13 +545,13 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                                 e.printStackTrace();
                             }
                             program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
-                            if( prevProgramSize == program_TableList.size() ) {
+                            if (prevProgramSize == program_TableList.size()) {
                                 break;
                             }
-                        } while( true );
+                        } while (true);
 
-                        if( program_TableList != null && program_TableList.size() > 0 ) {
-                            initUI( program_TableList );
+                        if (program_TableList != null && program_TableList.size() > 0) {
+                            initUI(program_TableList);
                         }
                     }
 
@@ -546,5 +578,17 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     @Override
     public int isTestComplete() {
         return mQuizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
+    }
+
+    @Override
+    public void submitSubTest(int index, ArrayList<String> content) {
+        CodeViewFragment codeViewFragment = subTestPagerAdapter.getCodeViewFragment();
+        codeViewFragment.submitSubTest(index, content);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
