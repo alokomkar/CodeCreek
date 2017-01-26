@@ -21,7 +21,7 @@ public class CustomProgramLineListAdapter extends ArrayAdapter<String> {
 	private Context mContext;
 	private ArrayList <String> mProgramLineList;
 	private static LayoutInflater mLayoutInflater = null;
-	PrettifyHighlighter highlighter = new PrettifyHighlighter();
+	PrettifyHighlighter highlighter = PrettifyHighlighter.getInstance();
 	String highlighted = null;
 	private boolean isExplanation;
 

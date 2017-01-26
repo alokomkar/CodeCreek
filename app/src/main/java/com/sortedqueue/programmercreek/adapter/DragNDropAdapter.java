@@ -24,7 +24,7 @@ public final class DragNDropAdapter extends BaseAdapter implements RemoveListene
     private LayoutInflater mInflater;
     private ArrayList<String> mContent;
     
-    PrettifyHighlighter highlighter = new PrettifyHighlighter();
+    PrettifyHighlighter highlighter = PrettifyHighlighter.getInstance();
 	//String highlighted = null;
 	
 

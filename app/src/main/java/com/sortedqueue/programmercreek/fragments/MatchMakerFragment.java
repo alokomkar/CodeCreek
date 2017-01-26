@@ -72,7 +72,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     ArrayList<String> mProgramExplanationList;
     ProgramIndex mProgramIndex;
     View mSelectedProgramLineView = null;
-    PrettifyHighlighter mHighlighter = new PrettifyHighlighter();
+    PrettifyHighlighter mHighlighter = PrettifyHighlighter.getInstance();
     long remainingTime = 0;
     long time = 0;
     long interval = 0;
