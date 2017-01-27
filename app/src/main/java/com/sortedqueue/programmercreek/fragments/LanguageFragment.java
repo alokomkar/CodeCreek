@@ -208,7 +208,7 @@ public class LanguageFragment extends Fragment {
         }
         String selectedString = programLanguages.get(position).getLanguageId();
         languageSelectionTextView.setText(programLanguages.get(position).getProgramLanguage());
-        creekPreferences.setProgramLanguage(selectedString);
+        creekPreferences.setProgramLanguage(selectedString.toLowerCase());
         selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
         initDB();
     }

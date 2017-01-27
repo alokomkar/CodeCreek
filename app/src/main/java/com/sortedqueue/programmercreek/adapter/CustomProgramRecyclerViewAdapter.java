@@ -83,6 +83,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
             case "java" :
                 isAvailable = (creekUserStats.getUnlockedJavaProgramIndexList().contains(program_Index));
                 break;
+            case "usp" :
+                isAvailable = creekUserStats.getUnlockedUspProgramIndexList().contains(program_Index);
+                break;
         }
         holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
         holder.txtViewProgDescription.setText(programIndex.getProgram_Description());

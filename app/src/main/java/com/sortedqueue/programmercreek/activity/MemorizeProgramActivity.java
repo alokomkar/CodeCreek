@@ -106,17 +106,22 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 	}
 
 	private void getProgramTableFromDB(final int program_Index) {
-		
-		new ProgramFetcherTask(this, new UIProgramFetcherListener() {
-			
-			@Override
-			public void updateUI(ArrayList<ProgramTable> program_TableList) {
-				mProgramTableList = program_TableList;
-				{
-					initUI( mProgramTableList );
-				}		
-			}
-		}, program_Index).execute();
+
+		new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+				.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+					@Override
+					public void onSuccess(ArrayList<ProgramTable> programTables) {
+						mProgramTableList = programTables;
+						{
+							initUI( mProgramTableList );
+						}
+					}
+
+					@Override
+					public void onError(DatabaseError databaseError) {
+
+					}
+				});
 		
 		
 	}

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.MemorizeProgramActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
@@ -130,7 +131,20 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     private void getProgramTables() {
-        new ProgramFetcherTask(getContext(), this, mProgramIndex).execute();
+        new FirebaseDatabaseHandler(getContext())
+                .getProgramTablesInBackground(mProgramIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                    @Override
+                    public void onSuccess(ArrayList<ProgramTable> programTables) {
+                        {
+                            initUI( programTables );
+                        }
+                    }
+
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {

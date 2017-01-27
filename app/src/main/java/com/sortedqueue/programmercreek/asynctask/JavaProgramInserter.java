@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.sortedqueue.programmercreek.database.ModuleOption;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
@@ -26,7 +27,7 @@ public class JavaProgramInserter {
         this.context = context;
     }
 
-    /*public void insertPrograms( ) {
+    public void insertPrograms( ) {
         CommonUtils.displayProgressDialog(context, "Inserting programs");
         int index = 1;
 
@@ -61,7 +62,7 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "Sine series ", "https://programercreek.blogspot.in/", "c++"));
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "Polynomial", "https://programercreek.blogspot.in/", "c++"));
         CommonUtils.dismissProgressDialog();
-    }*/
+    }
 
     public void insertProgramTables( ) {
         CommonUtils.displayProgressDialog((Activity) context, "Inserting program tables");
@@ -1062,5 +1063,40 @@ public class JavaProgramInserter {
 
         wikiModel = new WikiModel("c21", "Character's frequency ", programWikis, "c" );
         firebaseDatabaseHandler.writeProgramWiki(wikiModel);*/
+    }
+
+    public void insertProgramIndex() {
+
+        int index = 1;
+        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ POSIX compliant program to check the following limits:\n" +
+                "(i) No. of clock ticks (ii) Max. no. of child processes (iii) Max. path length (iv) Max. no. of characters in a file name (v) Max. no. of open files/ process",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ POSIX compliant program that prints the POSIX defined configuration options supported on any given system using feature test macros",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Consider the last 100 bytes as a region. Write a C/C++ program to check whether the region is locked or not. If the region is locked, print pid of the process which has locked. If the region is not locked, lock the region with an exclusive lock, read the last 50 bytes and unlock the region.",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program which demonstrates interprocess communication between a reader process and a writer process. Use mkfifo, open, read, write and close APIs in your program.",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program which demonstrates interprocess communication between a reader process and a writer process. Use mkfifo, open, read, write and close APIs in your program.",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program that outputs the contents of its Environment list",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C / C++ program to emulate the unix \"ln\" command ",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to illustrate the race condition.",
+                programLanguage, ""));
+
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program that creates a zombie and then calls system to execute the ps command to verify that the process is zombie",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to avoid zombie process by forking twice",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to implement the system function.",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to set up a real-time clock interval timer using the alarm API. ",
+                programLanguage, ""));
+
+
     }
 }

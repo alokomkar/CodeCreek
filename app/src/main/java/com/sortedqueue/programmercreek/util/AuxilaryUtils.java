@@ -213,6 +213,11 @@ public class AuxilaryUtils {
         alertDialog.show();
     }
 
+    public static ArrayList<String> splitProgramIntolines(String programCode) {
+        String lines[] = programCode.split("\\r?\\n");
+        return new ArrayList<>(Arrays.asList(lines));
+    }
+
     public interface InputTextListener {
         void onSuccess( String text );
         void onDismiss();

@@ -288,7 +288,8 @@ public class FirebaseDatabaseHandler {
                     creekPreferences.setSignInAccount(creekUser.getEmailId());
                     creekPreferences.setAccountName(creekUser.getUserFullName());
                     creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
-                    creekPreferences.setProgramLanguage(creekUser.getProgramLanguage());
+                    if( creekUser.getProgramLanguage() != null )
+                        creekPreferences.setProgramLanguage(creekUser.getProgramLanguage().toLowerCase());
                     getCreekUserListner.onSuccess(creekUser);
                 }
                 else {

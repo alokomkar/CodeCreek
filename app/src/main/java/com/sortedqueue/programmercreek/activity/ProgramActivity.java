@@ -110,17 +110,21 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	private void getProgramTableFromDB(int program_Index) {
 
-		new ProgramFetcherTask(this, new UIProgramFetcherListener() {
+		new FirebaseDatabaseHandler(ProgramActivity.this)
+				.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+					@Override
+					public void onSuccess(ArrayList<ProgramTable> programTables) {
+						mProgramTableList = programTables;
+						{
+							initUI( mProgramTableList );
+						}
+					}
 
-			@Override
-			public void updateUI(ArrayList<ProgramTable> program_TableList) {
-				mProgramTableList = program_TableList;
-				{
-					initUI( mProgramTableList );
-				}
-			}
-		}, program_Index).execute();
+					@Override
+					public void onError(DatabaseError databaseError) {
 
+					}
+				});
 
 	}
 

@@ -42,6 +42,8 @@ public class CreekPreferences {
     public static final String KEY_PROG_TABLE_INSERT_JAVA = "insertProgramTableJava";
     public static final String KEY_PROG_INDEX_INSERT_CPP = "insertProgramIndexCpp";
     public static final String KEY_PROG_TABLE_INSERT_CPP = "insertProgramTableCpp";
+    public static final String KEY_PROG_TABLE_INSERT_USP = "insertProgramTableUsp";
+    public static final String KEY_PROG_INDEX_INSERT_USP = "insertProgramIndexUsp";
     public static final String KEY_C_MODULE = "keyCModule";
     public static final String KEY_CPP_MODULE = "keyCppModule";
     public static final String KEY_JAVA_MODULE = "keyJavaModule";
@@ -66,6 +68,7 @@ public class CreekPreferences {
     }
 
     public int getProgramIndex() {
+        String programLanguage = getProgramLanguage();
         switch ( getProgramLanguage() ) {
             case "c" :
                 programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT, -1);
@@ -76,6 +79,9 @@ public class CreekPreferences {
             case "cpp" :
             case "c++" :
                 programIndex = sharedPreferences.getInt(KEY_PROG_INDEX_INSERT_CPP, -1);
+                break;
+            case "usp":
+                programIndex = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_USP, -1);
                 break;
         }
         return programIndex;
@@ -94,8 +100,15 @@ public class CreekPreferences {
             case "c++" :
                 setCppProgramIndex( programIndex );
                 break;
+            case "usp" :
+                setUspProgramIndex( programIndex );
+                break;
 
         }
+    }
+
+    private void setUspProgramIndex(int programIndex) {
+        sharedPreferences.edit().putInt(KEY_PROG_INDEX_INSERT_USP, programIndex).apply();
     }
 
     private void setCppProgramIndex(int programIndex) {
@@ -123,6 +136,9 @@ public class CreekPreferences {
             case "c++" :
                 programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_CPP, -1);
                 break;
+            case "usp" :
+                programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_USP, -1);
+                break;
         }
         return programTables;
     }
@@ -140,7 +156,14 @@ public class CreekPreferences {
             case "c++" :
                 setCPPProgramTablesIndex(programTables);
                 break;
+            case "usp" :
+                setUSPProgramTablesIndex(programTables);
+                break;
         }
+    }
+
+    private void setUSPProgramTablesIndex(int programTables) {
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_USP, programTables).apply();
     }
 
     private void setCPPProgramTablesIndex(int programTables) {
@@ -537,6 +560,9 @@ public class CreekPreferences {
             case "java":
                 result = (getProgramIndex() == (int)creekUserDB.getJavaProgramIndexDBVersion());
                 break;
+            case "usp":
+                result = (getProgramIndex() == (int)creekUserDB.getUspProgramIndexDBVersion());
+                break;
         }
         return result;
     }
@@ -557,6 +583,9 @@ public class CreekPreferences {
                 break;
             case "java":
                 result = getProgramTables() == (int)creekUserDB.getJavaProgramTableDBVersion();
+                break;
+            case "usp" :
+                result = getProgramTables() == (int)creekUserDB.getUspProgramTableDBVersion();
                 break;
         }
         return result;
@@ -581,6 +610,9 @@ public class CreekPreferences {
             case "java":
                 result = (int)(creekUserDB.getJavaProgramIndexDBVersion() - result);
                 break;
+            case "usp" :
+                result = (int)(creekUserDB.getUspProgramIndexDBVersion() - result);
+                break;
         }
         return result;
     }
@@ -603,6 +635,9 @@ public class CreekPreferences {
                 break;
             case "java":
                 result = (int)(creekUserDB.getJavaProgramTableDBVersion() - result);
+                break;
+            case "usp" :
+                result = (int)(creekUserDB.getUspProgramTableDBVersion() - result);
                 break;
         }
         return result;
