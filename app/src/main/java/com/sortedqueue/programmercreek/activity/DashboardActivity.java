@@ -229,6 +229,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 Intent searchIntent = new Intent(DashboardActivity.this, ProgramWikiActivity.class);
                 startActivity(searchIntent);
                 return true;*/
+            case R.id.action_rate :
+                try {
+                    Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                    rateIntent.setData(Uri.parse("market://details?id=" + DashboardActivity.this.getPackageName() ));
+                    startActivity(rateIntent);
+                } catch (Exception e) { //google play app is not installed
+                    Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                    rateIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id="+ DashboardActivity.this.getPackageName()));
+                    startActivity(rateIntent);
+                }
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

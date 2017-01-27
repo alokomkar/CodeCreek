@@ -37,7 +37,7 @@
     <string name="checkMatch">Check</string>
     <string name="viewProfile">View Profile</string>
     <string name="about_string">
-        An attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammer.creek@gmail.com\n\nHow to :\nYou can go through available programs in Revise and Memorize.\n\nProgram Wiki : A brief on programs\n\nLearn Syntax : Go through and practice program syntax\n\nRevise : Displays program and description.\n\nWizard : Learning Wizard\n\nIndex : To view program Index.\n\nTest : Drag and drop the program into proper sequence as per the given program order.\nDifficulty : High\n\nQuiz : Take quiz with two modes of questions.\nDifficulty : Low\n\nMatch : Match program lines with their description. - Drag and drop, select program line and click on description to place it.\nDifficulty : Medium</string>
+        An attempt to make testing your programming and memorizing skills fun.\n\nImprovement is constant, communicate your feedback, application bugs to : \nprogrammer.creek@gmail.com\n\nHow to :\n\nIntroduction : You can go through introduction in the Introduction section\n\nProgram Wiki : A brief on programs\n\nLearn Syntax : Go through and practice program syntax\n\nIndex : Complete all tests with revision in one go\n\nTest : Drag and drop the program into proper sequence as per the given program order.\nDifficulty : High\n\nQuiz : Take quiz with two modes of questions.\nDifficulty : Low\n\nMatch : Match program lines with their description. - Drag and drop, select program line and click on description to place it.\nDifficulty : Medium</string>
 
     <style name="ButtonText">
         <item name="android:layout_width">fill_parent</item>
@@ -159,4 +159,8 @@
     <string name="divide_and_conquer_description">Divide and Conquer enables you to split a long program into chunks and complete the test</string>
     <string name="internet_unavailable">Internet unavailable, Click retry once you have net connectivity</string>
     <string name="retry">Retry</string>
+    <string name="action_terms_and_conditions">Terms and Conditions</string>
+    <string name="terms_and_conditions">Personal Information\n\n ACube technologies is the licensed owner of the brand Infinite Programmer. Infinite Programmer respects your privacy. This Privacy Policy provides succinctly the manner your data is collected and used by Infinite Programmer. As a visitor to the mobile application you are advised to please read the Privacy Policy carefully. By accessing the services provided by the application you agree to the collection and use of your data by Infinite programmer in the manner provided in this Privacy Policy. \n\nServices overview\n\n As part of the registration process on the mobile application, Infinite programmer will collect the following personally identifiable information about you: Full name, email address, profile photo in case you have opted for gmail / facebook login and information about the screens on the app you visit/access, the links you click on the app, the number of times you access the page for optimization of the app.\n\nEligibility\n\nServices of the app would be available to all geographies. Content in the app is rated to be used by everyone, for the region of Brazil : Classificação Livre, The Americas : Everyone, Europe : PEGI 3,  Germany : USK ab 0 Jahren, and Other Regions : Ages 3+.
+</string>
+    <string name="rate_us">Rate Us</string>
 </resources>
