@@ -114,10 +114,6 @@ public class IntroActivity extends AppCompatActivity
         drawerEmailTextView = (TextView) view.findViewById(R.id.drawerEmailTextView);
         drawerNameTextView = (TextView) view.findViewById(R.id.drawerNameTextView);
         drawerImageView = (ImageView) view.findViewById(R.id.drawerImageView);
-        /*Glide.with(IntroActivity.this)
-                .load(creekPreferences.getAccountPhoto())
-                .fitCenter()
-                .into(drawerImageView);*/
         drawerNameTextView.setText(creekPreferences.getAccountName());
         loadChapters();
     }

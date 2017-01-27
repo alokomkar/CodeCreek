@@ -103,7 +103,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             @Override
             public void onPageSelected(int position) {
                 if( position == 0 ) {
-                    LanguageFragment.getInstance().animateViews();
+                    //LanguageFragment.getInstance().animateViews();
                 }
             }
 
@@ -116,9 +116,22 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
         //initJavaIndex();
+        //initProgramLanguages();
 
 
     }
+
+    /*private void initProgramLanguages() {
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
+        ProgramLanguage programLanguage = new ProgramLanguage("C Programming", "C", "C is a high-level and general purpose programming language that is ideal for developing firmware or portable applications.");
+        firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
+        programLanguage = new ProgramLanguage("C++ Programming", "C++", "C++ is a general-purpose, statically typed, free-form, multi-paradigm programming language supporting procedural programming, data abstraction, and generic programming.");
+        firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
+        programLanguage = new ProgramLanguage("Java Programming", "Java", "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.");
+        firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
+        programLanguage = new ProgramLanguage("Unix Shell Programming", "USP", "Unix Shell Programming : 10CSL68 (VTU) : This course will enable students to Understand the UNIX Architecture, File systems and use of basic Commands. \\n\\nUse of editors and Networking commands. \\n\\nUnderstand Shell Programming and to write shell scripts. \\n\\nUnderstand and analyze UNIX System calls, Process Creation, Control & Relationship.");
+        firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
+    }*/
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
@@ -343,7 +356,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void navigateToLanguage() {
-        LanguageFragment.getInstance().animateViews();
+        //LanguageFragment.getInstance().animateViews();
         dashboardViewPager.setCurrentItem(0);
     }
 }

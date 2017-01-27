@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
-import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.CreekUser;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -749,5 +748,13 @@ public class CreekPreferences {
 
     public void setNotificationScheduled(boolean isNotification) {
         sharedPreferences.edit().putBoolean("isNotification", isNotification).apply();
+    }
+
+    public int getTotalLanguages() {
+        return sharedPreferences.getInt("totalLanguages", 0);
+    }
+
+    public void setTotalLanguages( int totalLanguages ) {
+        sharedPreferences.edit().putInt( "totalLanguages", totalLanguages );
     }
 }

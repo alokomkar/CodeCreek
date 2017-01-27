@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.IntroChapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
@@ -47,6 +48,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mUserStatsDatabase;
     private DatabaseReference mUserDetailsDatabase;
     private DatabaseReference mIntroChapterDatabase;
+    private DatabaseReference mProgramLanguageDatabase;
 
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -67,6 +69,7 @@ public class FirebaseDatabaseHandler {
     private String WIKI_MODULE = "wiki_module";
     private String CREEK_USER_STATS = "user_stats";
     private String CREEK_CHAPTERS = "creek_chapters";
+    private String CREEK_PROGRAM_LANGUAGE = "program_language";
 
     /***
      * Program Index storage :
@@ -114,6 +117,63 @@ public class FirebaseDatabaseHandler {
     public void getIntroDB() {
         mIntroChapterDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_INTRO_DB + "/" + programLanguage );
     }
+
+    public void getProgramLanguageDB() {
+        mProgramLanguageDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PROGRAM_LANGUAGE );
+    }
+
+    public void writeProgramLanguage(ProgramLanguage programLanguage) {
+        getProgramLanguageDB();
+        mProgramLanguageDatabase.push().setValue(programLanguage);
+    }
+
+    public interface GetProgramLanguageListener {
+        void onSuccess( ArrayList<ProgramLanguage> programLanguages );
+        void onError(DatabaseError databaseError);
+    }
+
+    public void getAllProgramLanguages(final GetProgramLanguageListener getProgramLanguageListener ) {
+        CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
+        int totalLocalLanguages = creekPreferences.getTotalLanguages();
+        if( totalLocalLanguages == 0 || (creekUserStats != null && totalLocalLanguages < creekUserStats.getTotalLanguages()) ) {
+            getProgramLanguageDB();
+            mProgramLanguageDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<ProgramLanguage> programLanguages = new ArrayList<>();
+                    for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                        ProgramLanguage programLanguage = child.getValue(ProgramLanguage.class);
+                        programLanguages.add(programLanguage);
+                    }
+                    getProgramLanguageListener.onSuccess(programLanguages);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getProgramLanguageListener.onError(databaseError);
+
+                }
+            });
+        }
+        else {
+            new AsyncTask<Void, Void, ArrayList<ProgramLanguage>>() {
+
+                @Override
+                protected ArrayList<ProgramLanguage> doInBackground(Void... params) {
+                    return new ArrayList<>(new RushSearch().find(ProgramLanguage.class));
+                }
+
+                @Override
+                protected void onPostExecute(ArrayList<ProgramLanguage> programLanguages) {
+                    super.onPostExecute(programLanguages);
+                    getProgramLanguageListener.onSuccess(programLanguages);
+                }
+            }.execute();
+
+        }
+
+    }
+
 
     public FirebaseDatabaseHandler(Context context) {
         this.mContext = context;

@@ -15,30 +15,46 @@ public class CreekUserStats implements Parcelable {
     private int javaProgressIndex = 0;
     private int cProgressIndex = 0;
     private int cppProgressIndex = 0;
+    private int uspProgramIndex = 0;
+
+    private int totalLanguages = 0;
 
     private ArrayList<Integer> unlockedCProgramIndexList = new ArrayList<>();
+    private ArrayList<Integer> unlockedUspProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedCppProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedJavaProgramIndexList = new ArrayList<>();
 
     private ArrayList<String> unlockedCLanguageModuleIdList = new ArrayList<>();
+    private ArrayList<String> unlockedUspLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaLanguageModuleIdList = new ArrayList<>();
 
     private ArrayList<String> unlockedCSyntaxModuleIdList = new ArrayList<>();
+    private ArrayList<String> unlockedUspSyntaxModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppSyntaxModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaSyntaxModuleIdList = new ArrayList<>();
 
     private ArrayList<String> unlockedCWikiIdList = new ArrayList<>();
+    private ArrayList<String> unlockedUspWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaWikiIdList = new ArrayList<>();
 
-    public CreekUserStats(int javaProgressIndex, int cProgressIndex, int cppProgressIndex) {
+    public CreekUserStats(int javaProgressIndex, int cProgressIndex, int cppProgressIndex, int uspProgramIndex) {
         this.javaProgressIndex = javaProgressIndex;
         this.cProgressIndex = cProgressIndex;
         this.cppProgressIndex = cppProgressIndex;
+        this.uspProgramIndex = uspProgramIndex;
     }
 
     public CreekUserStats() {
+    }
+
+    public int getTotalLanguages() {
+        return totalLanguages;
+    }
+
+    public void setTotalLanguages(int totalLanguages) {
+        this.totalLanguages = totalLanguages;
     }
 
     public int getJavaProgressIndex() {
@@ -197,6 +213,59 @@ public class CreekUserStats implements Parcelable {
         this.unlockedJavaWikiIdList = unlockedJavaWikiIdList;
     }
 
+    public int getUspProgramIndex() {
+        return uspProgramIndex;
+    }
+
+    public void setUspProgramIndex(int uspProgramIndex) {
+        this.uspProgramIndex = uspProgramIndex;
+    }
+
+    public ArrayList<Integer> getUnlockedUspProgramIndexList() {
+        if( unlockedUspProgramIndexList.size() == 0 ) {
+            unlockedUspProgramIndexList.add(1);
+        }
+        return unlockedUspProgramIndexList;
+    }
+
+    public void setUnlockedUspProgramIndexList(ArrayList<Integer> unlockedUspProgramIndexList) {
+
+        this.unlockedUspProgramIndexList = unlockedUspProgramIndexList;
+    }
+
+    public ArrayList<String> getUnlockedUspLanguageModuleIdList() {
+        if( unlockedUspLanguageModuleIdList.size() == 0 ) {
+            unlockedUspLanguageModuleIdList.add("usp_1");
+        }
+        return unlockedUspLanguageModuleIdList;
+    }
+
+    public void setUnlockedUspLanguageModuleIdList(ArrayList<String> unlockedUspLanguageModuleIdList) {
+        this.unlockedUspLanguageModuleIdList = unlockedUspLanguageModuleIdList;
+    }
+
+    public ArrayList<String> getUnlockedUspSyntaxModuleIdList() {
+        if( unlockedUspSyntaxModuleIdList.size() == 0 ) {
+            unlockedUspSyntaxModuleIdList.add("usp_1_s_1");
+        }
+        return unlockedUspSyntaxModuleIdList;
+    }
+
+    public void setUnlockedUspSyntaxModuleIdList(ArrayList<String> unlockedUspSyntaxModuleIdList) {
+        this.unlockedUspSyntaxModuleIdList = unlockedUspSyntaxModuleIdList;
+    }
+
+    public ArrayList<String> getUnlockedUspWikiIdList() {
+        if( unlockedUspWikiIdList.size() == 0 ) {
+            unlockedUspWikiIdList.add("usp1");
+        }
+        return unlockedUspWikiIdList;
+    }
+
+    public void setUnlockedUspWikiIdList(ArrayList<String> unlockedUspWikiIdList) {
+        this.unlockedUspWikiIdList = unlockedUspWikiIdList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -207,7 +276,11 @@ public class CreekUserStats implements Parcelable {
         if (javaProgressIndex != that.javaProgressIndex) return false;
         if (cProgressIndex != that.cProgressIndex) return false;
         if (cppProgressIndex != that.cppProgressIndex) return false;
+        if (uspProgramIndex != that.uspProgramIndex) return false;
+        if (totalLanguages != that.totalLanguages) return false;
         if (unlockedCProgramIndexList != null ? !unlockedCProgramIndexList.equals(that.unlockedCProgramIndexList) : that.unlockedCProgramIndexList != null)
+            return false;
+        if (unlockedUspProgramIndexList != null ? !unlockedUspProgramIndexList.equals(that.unlockedUspProgramIndexList) : that.unlockedUspProgramIndexList != null)
             return false;
         if (unlockedCppProgramIndexList != null ? !unlockedCppProgramIndexList.equals(that.unlockedCppProgramIndexList) : that.unlockedCppProgramIndexList != null)
             return false;
@@ -215,17 +288,23 @@ public class CreekUserStats implements Parcelable {
             return false;
         if (unlockedCLanguageModuleIdList != null ? !unlockedCLanguageModuleIdList.equals(that.unlockedCLanguageModuleIdList) : that.unlockedCLanguageModuleIdList != null)
             return false;
+        if (unlockedUspLanguageModuleIdList != null ? !unlockedUspLanguageModuleIdList.equals(that.unlockedUspLanguageModuleIdList) : that.unlockedUspLanguageModuleIdList != null)
+            return false;
         if (unlockedCppLanguageModuleIdList != null ? !unlockedCppLanguageModuleIdList.equals(that.unlockedCppLanguageModuleIdList) : that.unlockedCppLanguageModuleIdList != null)
             return false;
         if (unlockedJavaLanguageModuleIdList != null ? !unlockedJavaLanguageModuleIdList.equals(that.unlockedJavaLanguageModuleIdList) : that.unlockedJavaLanguageModuleIdList != null)
             return false;
         if (unlockedCSyntaxModuleIdList != null ? !unlockedCSyntaxModuleIdList.equals(that.unlockedCSyntaxModuleIdList) : that.unlockedCSyntaxModuleIdList != null)
             return false;
+        if (unlockedUspSyntaxModuleIdList != null ? !unlockedUspSyntaxModuleIdList.equals(that.unlockedUspSyntaxModuleIdList) : that.unlockedUspSyntaxModuleIdList != null)
+            return false;
         if (unlockedCppSyntaxModuleIdList != null ? !unlockedCppSyntaxModuleIdList.equals(that.unlockedCppSyntaxModuleIdList) : that.unlockedCppSyntaxModuleIdList != null)
             return false;
         if (unlockedJavaSyntaxModuleIdList != null ? !unlockedJavaSyntaxModuleIdList.equals(that.unlockedJavaSyntaxModuleIdList) : that.unlockedJavaSyntaxModuleIdList != null)
             return false;
         if (unlockedCWikiIdList != null ? !unlockedCWikiIdList.equals(that.unlockedCWikiIdList) : that.unlockedCWikiIdList != null)
+            return false;
+        if (unlockedUspWikiIdList != null ? !unlockedUspWikiIdList.equals(that.unlockedUspWikiIdList) : that.unlockedUspWikiIdList != null)
             return false;
         if (unlockedCppWikiIdList != null ? !unlockedCppWikiIdList.equals(that.unlockedCppWikiIdList) : that.unlockedCppWikiIdList != null)
             return false;
@@ -238,99 +317,29 @@ public class CreekUserStats implements Parcelable {
         int result = javaProgressIndex;
         result = 31 * result + cProgressIndex;
         result = 31 * result + cppProgressIndex;
+        result = 31 * result + uspProgramIndex;
+        result = 31 * result + totalLanguages;
         result = 31 * result + (unlockedCProgramIndexList != null ? unlockedCProgramIndexList.hashCode() : 0);
+        result = 31 * result + (unlockedUspProgramIndexList != null ? unlockedUspProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedCppProgramIndexList != null ? unlockedCppProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedJavaProgramIndexList != null ? unlockedJavaProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedCLanguageModuleIdList != null ? unlockedCLanguageModuleIdList.hashCode() : 0);
+        result = 31 * result + (unlockedUspLanguageModuleIdList != null ? unlockedUspLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppLanguageModuleIdList != null ? unlockedCppLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaLanguageModuleIdList != null ? unlockedJavaLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCSyntaxModuleIdList != null ? unlockedCSyntaxModuleIdList.hashCode() : 0);
+        result = 31 * result + (unlockedUspSyntaxModuleIdList != null ? unlockedUspSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppSyntaxModuleIdList != null ? unlockedCppSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaSyntaxModuleIdList != null ? unlockedJavaSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCWikiIdList != null ? unlockedCWikiIdList.hashCode() : 0);
+        result = 31 * result + (unlockedUspWikiIdList != null ? unlockedUspWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppWikiIdList != null ? unlockedCppWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaWikiIdList != null ? unlockedJavaWikiIdList.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "CreekUserStats{" +
-                "javaProgressIndex=" + javaProgressIndex +
-                ", cProgressIndex=" + cProgressIndex +
-                ", cppProgressIndex=" + cppProgressIndex +
-                ", unlockedCProgramIndexList=" + unlockedCProgramIndexList +
-                ", unlockedCppProgramIndexList=" + unlockedCppProgramIndexList +
-                ", unlockedJavaProgramIndexList=" + unlockedJavaProgramIndexList +
-                ", unlockedCLanguageModuleIdList=" + unlockedCLanguageModuleIdList +
-                ", unlockedCppLanguageModuleIdList=" + unlockedCppLanguageModuleIdList +
-                ", unlockedJavaLanguageModuleIdList=" + unlockedJavaLanguageModuleIdList +
-                ", unlockedCSyntaxModuleIdList=" + unlockedCSyntaxModuleIdList +
-                ", unlockedCppSyntaxModuleIdList=" + unlockedCppSyntaxModuleIdList +
-                ", unlockedJavaSyntaxModuleIdList=" + unlockedJavaSyntaxModuleIdList +
-                ", unlockedCWikiIdList=" + unlockedCWikiIdList +
-                ", unlockedCppWikiIdList=" + unlockedCppWikiIdList +
-                ", unlockedJavaWikiIdList=" + unlockedJavaWikiIdList +
-                '}';
-    }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.javaProgressIndex);
-        dest.writeInt(this.cProgressIndex);
-        dest.writeInt(this.cppProgressIndex);
-        dest.writeList(this.unlockedCProgramIndexList);
-        dest.writeList(this.unlockedCppProgramIndexList);
-        dest.writeList(this.unlockedJavaProgramIndexList);
-        dest.writeStringList(this.unlockedCLanguageModuleIdList);
-        dest.writeStringList(this.unlockedCppLanguageModuleIdList);
-        dest.writeStringList(this.unlockedJavaLanguageModuleIdList);
-        dest.writeStringList(this.unlockedCSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedJavaSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedCWikiIdList);
-        dest.writeStringList(this.unlockedCppWikiIdList);
-        dest.writeStringList(this.unlockedJavaWikiIdList);
-    }
-
-    protected CreekUserStats(Parcel in) {
-        this.javaProgressIndex = in.readInt();
-        this.cProgressIndex = in.readInt();
-        this.cppProgressIndex = in.readInt();
-        this.unlockedCProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedCProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedCppProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedCppProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedJavaProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedJavaProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedCLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedCppLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedJavaLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedCSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedJavaSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedCWikiIdList = in.createStringArrayList();
-        this.unlockedCppWikiIdList = in.createStringArrayList();
-        this.unlockedJavaWikiIdList = in.createStringArrayList();
-    }
-
-    public static final Parcelable.Creator<CreekUserStats> CREATOR = new Parcelable.Creator<CreekUserStats>() {
-        @Override
-        public CreekUserStats createFromParcel(Parcel source) {
-            return new CreekUserStats(source);
-        }
-
-        @Override
-        public CreekUserStats[] newArray(int size) {
-            return new CreekUserStats[size];
-        }
-    };
 
     public void addToUnlockedCLanguageModuleIdList(String syntaxId) {
         if( !unlockedCLanguageModuleIdList.contains(syntaxId) ) {
@@ -404,4 +413,98 @@ public class CreekUserStats implements Parcelable {
             unlockedJavaWikiIdList.add(chapterReferenceId);
         }
     }
+
+    public void addToUnlockedUspProgramIndexList(int i) {
+        if( !unlockedUspProgramIndexList.contains(i) ) {
+            unlockedUspProgramIndexList.add(i);
+        }
+    }
+
+    public void addToUnlockedUspLanguageModuleIdList(String syntaxId) {
+        if( !unlockedUspLanguageModuleIdList.contains(syntaxId) ) {
+            unlockedUspLanguageModuleIdList.add(syntaxId);
+        }
+    }
+
+    public void addToUnlockedUspSyntaxModuleIdList(String s) {
+        if( !unlockedUspSyntaxModuleIdList.contains(s) ) {
+            unlockedUspSyntaxModuleIdList.add(s);
+        }
+    }
+
+    public void addToUnlockedUspWikiIdList(String chapterReferenceId) {
+        if( !unlockedUspWikiIdList.contains(chapterReferenceId) ) {
+            unlockedUspWikiIdList.add(chapterReferenceId);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.javaProgressIndex);
+        dest.writeInt(this.cProgressIndex);
+        dest.writeInt(this.cppProgressIndex);
+        dest.writeInt(this.uspProgramIndex);
+        dest.writeInt(this.totalLanguages);
+        dest.writeList(this.unlockedCProgramIndexList);
+        dest.writeList(this.unlockedUspProgramIndexList);
+        dest.writeList(this.unlockedCppProgramIndexList);
+        dest.writeList(this.unlockedJavaProgramIndexList);
+        dest.writeStringList(this.unlockedCLanguageModuleIdList);
+        dest.writeStringList(this.unlockedUspLanguageModuleIdList);
+        dest.writeStringList(this.unlockedCppLanguageModuleIdList);
+        dest.writeStringList(this.unlockedJavaLanguageModuleIdList);
+        dest.writeStringList(this.unlockedCSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedUspSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedJavaSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedCWikiIdList);
+        dest.writeStringList(this.unlockedUspWikiIdList);
+        dest.writeStringList(this.unlockedCppWikiIdList);
+        dest.writeStringList(this.unlockedJavaWikiIdList);
+    }
+
+    protected CreekUserStats(Parcel in) {
+        this.javaProgressIndex = in.readInt();
+        this.cProgressIndex = in.readInt();
+        this.cppProgressIndex = in.readInt();
+        this.uspProgramIndex = in.readInt();
+        this.totalLanguages = in.readInt();
+        this.unlockedCProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedCProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedUspProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedUspProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedCppProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedCppProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedJavaProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedJavaProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedCLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedUspLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedCppLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedJavaLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedCSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedUspSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedJavaSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedCWikiIdList = in.createStringArrayList();
+        this.unlockedUspWikiIdList = in.createStringArrayList();
+        this.unlockedCppWikiIdList = in.createStringArrayList();
+        this.unlockedJavaWikiIdList = in.createStringArrayList();
+    }
+
+    public static final Creator<CreekUserStats> CREATOR = new Creator<CreekUserStats>() {
+        @Override
+        public CreekUserStats createFromParcel(Parcel source) {
+            return new CreekUserStats(source);
+        }
+
+        @Override
+        public CreekUserStats[] newArray(int size) {
+            return new CreekUserStats[size];
+        }
+    };
 }

@@ -4,22 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.SplashActivity;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.ProgramLanguageAdapter;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -35,42 +36,23 @@ import butterknife.ButterKnife;
  * Created by Alok on 02/01/17.
  */
 
-public class LanguageFragment extends Fragment implements View.OnClickListener {
+public class LanguageFragment extends Fragment {
     private static LanguageFragment instance;
     @Bind(R.id.languageSelectionTextView)
     TextView languageSelectionTextView;
-    @Bind(R.id.cProgrammingTextView)
-    TextView cProgrammingTextView;
-    @Bind(R.id.cProgressBar)
-    ProgressBar cProgressBar;
-    @Bind(R.id.cProgrammingCardView)
-    CardView cProgrammingCardView;
-    @Bind(R.id.cppProgrammingTextView)
-    TextView cppProgrammingTextView;
-    @Bind(R.id.cppProgressBar)
-    ProgressBar cppProgressBar;
-    @Bind(R.id.cppProgrammingCardView)
-    CardView cppProgrammingCardView;
-    @Bind(R.id.javaProgrammingTextView)
-    TextView javaProgrammingTextView;
-    @Bind(R.id.javaProgressBar)
-    ProgressBar javaProgressBar;
-    @Bind(R.id.javaProgrammingCardView)
-    CardView javaProgrammingCardView;
     @Bind(R.id.profileImageView)
     ImageView profileImageView;
     @Bind(R.id.nameTextView)
     TextView nameTextView;
     @Bind(R.id.selectedLanguageCardView)
     CardView selectedLanguageCardView;
+    @Bind(R.id.programLanguageRecyclerView)
+    RecyclerView programLanguageRecyclerView;
 
-    private String[] languageArray;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
-    private int INDEX_CPP = 1;
-    private int INDEX_C = 0;
-    private int INDEX_JAVA = 2;
     private DashboardNavigationListener dashboardNavigationListener;
+    private ArrayList<ProgramLanguage> programLanguages;
 
     public static LanguageFragment getInstance() {
         if (instance == null) {
@@ -86,52 +68,60 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_language, container, false);
         ButterKnife.bind(this, view);
         creekPreferences = new CreekPreferences(getContext());
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.language_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        languageArray = getResources().getStringArray(R.array.language_array);
-
-        cProgrammingCardView.setOnClickListener(this);
-        cppProgrammingCardView.setOnClickListener(this);
-        javaProgrammingCardView.setOnClickListener(this);
-
-        animateViews();
-
-        int selectedPosition = -1;
-        String selectedLanguage = creekPreferences.getProgramLanguage();
-
-        for (String language : languageArray) {
-            selectedPosition++;
-            language = language.replace("Programming", "").trim().toLowerCase();
-            if (language.equals(selectedLanguage)) {
-                languageSelectionTextView.setText(languageArray[selectedPosition]);
-            }
-        }
-        initUserValues();
+        getProgramLanguages();
         return view;
     }
 
-    public void animateViews() {
-        if( cppProgrammingCardView != null ) {
-            cppProgrammingCardView.setAlpha(0.0f);
-            cProgrammingCardView.setAlpha(0.0f);
-            javaProgrammingCardView.setAlpha(0.0f);
-            int delay = 0;
-            int standardDelay = 270;
-            initAnimations(cProgrammingCardView, delay);
-            delay = delay + standardDelay;
-            initAnimations(cppProgrammingCardView, delay);
-            delay = delay + standardDelay;
-            initAnimations(javaProgrammingCardView, delay);
+    private void getProgramLanguages() {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
+            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View snackBarView) {
+                    getProgramLanguages();
+                }
+            });
+            return;
         }
+        CommonUtils.displayProgressDialog(getContext(), "Fetching all languages...");
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
+            @Override
+            public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
+                setupRecyclerview( programLanguages );
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                CommonUtils.dismissProgressDialog();
+                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+            }
+        });
     }
 
-    private void initAnimations(View frameLayout, int delay) {
-        frameLayout.animate().setStartDelay(delay).setDuration(400).alpha(1.0f);
+    private void setupRecyclerview(ArrayList<ProgramLanguage> programLanguages) {
+        this.programLanguages = programLanguages;
+        programLanguageRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
+        programLanguageRecyclerView.setAdapter( new ProgramLanguageAdapter(getContext(), programLanguages, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+            @Override
+            public void onItemClick(int position) {
+                selectAndInitDb(position);
+            }
+        }));
+        CommonUtils.dismissProgressDialog();
+        int selectedPosition = -1;
+        String selectedLanguage = creekPreferences.getProgramLanguage();
+
+        for (ProgramLanguage programLanguage : programLanguages) {
+            selectedPosition++;
+            String language = programLanguage.getLanguageId();
+            if (language.equals(selectedLanguage)) {
+                languageSelectionTextView.setText(programLanguage.getProgramLanguage());
+            }
+        }
+        initUserValues();
+
     }
+
 
     private void initUserValues() {
         Glide.with(getContext())
@@ -147,7 +137,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     public void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
-        if(!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -162,7 +152,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
                 CommonUtils.dismissProgressDialog();
-                selectedLanguageCardView.setVisibility( creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE );
+                selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
                 //selectAndInitDb(0);
             }
 
@@ -184,7 +174,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
 
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
-        if( !creekPreferences.checkProgramIndexUpdate() ) {
+        if (!creekPreferences.checkProgramIndexUpdate()) {
             firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
                 @Override
@@ -197,8 +187,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
 
                 }
             });
-        }
-        else {
+        } else {
             dashboardNavigationListener.navigateToDashboard();
         }
     }
@@ -207,36 +196,21 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
         Log.d("LFragment", message);
     }
 
-    @Override
-    public void onClick(final View v) {
-        if(!AuxilaryUtils.isNetworkAvailable()) {
+    private void selectAndInitDb(final int position) {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
-                    onClick(v);
+                    selectAndInitDb(position);
                 }
             });
             return;
         }
-        switch (v.getId()) {
-            case R.id.cppProgrammingCardView:
-                selectAndInitDb(INDEX_CPP);
-                break;
-            case R.id.cProgrammingCardView:
-                selectAndInitDb(INDEX_C);
-                break;
-            case R.id.javaProgrammingCardView:
-                selectAndInitDb(INDEX_JAVA);
-                break;
-        }
-    }
-
-    private void selectAndInitDb(int position) {
-        String selectedString = languageArray[position];
+        String selectedString = programLanguages.get(position).getLanguageId();
         languageSelectionTextView.setText(selectedString);
         selectedString = selectedString.replace(" Programming", "").toLowerCase();
         creekPreferences.setProgramLanguage(selectedString);
-        selectedLanguageCardView.setVisibility( creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE );
+        selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
         initDB();
     }
 
@@ -249,7 +223,7 @@ public class LanguageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             this.dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }
