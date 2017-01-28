@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -37,6 +38,7 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
@@ -454,7 +456,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-
+        Log.d("MatchFragment", "Preference Language : " + new CreekPreferences(getContext()).getProgramLanguage() );
         if( program_TableList.size() <= 15 ) {
             wizardNavigationListener.loadTestFragment(newIntentBundle);
         }

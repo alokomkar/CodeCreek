@@ -427,6 +427,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             case "java":
                 creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
+            case "usp":
+                creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }

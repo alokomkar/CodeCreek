@@ -824,6 +824,9 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             case "java":
                 creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
+            case "usp":
+                creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                break;
         }
         new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }
