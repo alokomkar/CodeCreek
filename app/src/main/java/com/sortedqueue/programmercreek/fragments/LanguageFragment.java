@@ -114,7 +114,7 @@ public class LanguageFragment extends Fragment {
         for (ProgramLanguage programLanguage : programLanguages) {
             selectedPosition++;
             String language = programLanguage.getLanguageId();
-            if (language.equals(selectedLanguage)) {
+            if (language.equalsIgnoreCase(selectedLanguage)) {
                 languageSelectionTextView.setText(programLanguage.getProgramLanguage());
             }
         }
