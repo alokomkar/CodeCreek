@@ -144,8 +144,17 @@ public class FirebaseDatabaseHandler {
                     for( DataSnapshot child : dataSnapshot.getChildren() ) {
                         ProgramLanguage programLanguage = child.getValue(ProgramLanguage.class);
                         programLanguages.add(programLanguage);
+                        programLanguage.save(new RushCallback() {
+                            @Override
+                            public void complete() {
+
+                            }
+                        });
                     }
+
+                    creekPreferences.setTotalLanguages(programLanguages.size());
                     getProgramLanguageListener.onSuccess(programLanguages);
+
                 }
 
                 @Override

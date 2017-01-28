@@ -46,18 +46,15 @@
         android:layout_above="@+id/adView">
         <LinearLayout
             android:orientation="vertical"
+            android:paddingTop="@dimen/margin_16"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_grey_300">
-
-
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/introLayout"
-                android:layout_marginTop="@dimen/margin_16"
-
                 >
 
                 <android.support.v7.widget.CardView

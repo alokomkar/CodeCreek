@@ -53,6 +53,7 @@ public class CreekPreferences {
 
     public static final String KEY_C_WIKI = "keyCWiki";
     public static final String KEY_CPP_WIKI = "keyCppWiki";
+    public static final String KEY_USP_WIKI = "keyUspWiki";
     public static final String KEY_JAVA_WIKI = "keyJavaWiki";
 
     private static final String PROGRAM_LANGUAGE = "program_language";
@@ -288,6 +289,8 @@ public class CreekPreferences {
             case "c++" :
             case "cpp" :
                 return sharedPreferences.getString(KEY_CPP_WIKI, "0");
+            case "usp" :
+                return sharedPreferences.getString(KEY_USP_WIKI, "0");
         }
         return "0";
     }
@@ -679,6 +682,9 @@ public class CreekPreferences {
             case "java":
                 result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getJavaWikiDBVersion()));
                 break;
+            case "usp":
+                result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getUspWikiDBVersion()));
+                break;
         }
         return result;
     }
@@ -790,6 +796,14 @@ public class CreekPreferences {
     }
 
     public void setTotalLanguages( int totalLanguages ) {
-        sharedPreferences.edit().putInt( "totalLanguages", totalLanguages );
+        sharedPreferences.edit().putInt( "totalLanguages", totalLanguages ).apply();
+    }
+
+    public void setIsProgramsOnly(boolean programsOnly) {
+        sharedPreferences.edit().putBoolean("programsOnly", programsOnly).apply();
+    }
+
+    public boolean isProgramsOnly() {
+        return sharedPreferences.getBoolean("programsOnly", false);
     }
 }

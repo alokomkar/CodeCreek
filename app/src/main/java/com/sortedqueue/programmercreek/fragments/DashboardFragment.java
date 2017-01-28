@@ -125,6 +125,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     public void animateViews() {
+        if( creekPreferences.isProgramsOnly() ) {
+            introLayout.setVisibility(View.GONE);
+            wizardLayout.setVisibility(View.GONE);
+            syntaxLayout.setVisibility(View.GONE);
+        }
+        else {
+            introLayout.setVisibility(View.VISIBLE);
+            wizardLayout.setVisibility(View.VISIBLE);
+            syntaxLayout.setVisibility(View.VISIBLE);
+        }
         dashboardScrollView.scrollTo(0, 0);
         introLayout.setAlpha(0.0f);
         wizardLayout.setAlpha(0.0f);

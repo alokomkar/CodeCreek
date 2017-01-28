@@ -14,11 +14,13 @@ public class ProgramLanguage extends RushObject implements Parcelable {
     private String programLanguage;
     private String languageId;
     private String description;
+    private String isProgramsOnly;
 
-    public ProgramLanguage(String programLanguage, String languageId, String description) {
+    public ProgramLanguage(String programLanguage, String languageId, String description, String isProgramsOnly) {
         this.programLanguage = programLanguage;
         this.languageId = languageId;
         this.description = description;
+        this.isProgramsOnly = isProgramsOnly;
     }
 
     public ProgramLanguage() {
@@ -48,6 +50,14 @@ public class ProgramLanguage extends RushObject implements Parcelable {
         this.description = description;
     }
 
+    public String getIsProgramsOnly() {
+        return isProgramsOnly;
+    }
+
+    public void setIsProgramsOnly(String isProgramsOnly) {
+        this.isProgramsOnly = isProgramsOnly;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,6 +65,7 @@ public class ProgramLanguage extends RushObject implements Parcelable {
 
         ProgramLanguage that = (ProgramLanguage) o;
 
+        if (isProgramsOnly != that.isProgramsOnly) return false;
         if (programLanguage != null ? !programLanguage.equals(that.programLanguage) : that.programLanguage != null)
             return false;
         if (languageId != null ? !languageId.equals(that.languageId) : that.languageId != null)
@@ -68,7 +79,18 @@ public class ProgramLanguage extends RushObject implements Parcelable {
         int result = programLanguage != null ? programLanguage.hashCode() : 0;
         result = 31 * result + (languageId != null ? languageId.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (isProgramsOnly != null ? isProgramsOnly.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ProgramLanguage{" +
+                "programLanguage='" + programLanguage + '\'' +
+                ", languageId='" + languageId + '\'' +
+                ", description='" + description + '\'' +
+                ", isProgramsOnly=" + isProgramsOnly +
+                '}';
     }
 
 
@@ -82,15 +104,17 @@ public class ProgramLanguage extends RushObject implements Parcelable {
         dest.writeString(this.programLanguage);
         dest.writeString(this.languageId);
         dest.writeString(this.description);
+        dest.writeString(this.isProgramsOnly);
     }
 
     protected ProgramLanguage(Parcel in) {
         this.programLanguage = in.readString();
         this.languageId = in.readString();
         this.description = in.readString();
+        this.isProgramsOnly = in.readString();
     }
 
-    public static final Parcelable.Creator<ProgramLanguage> CREATOR = new Parcelable.Creator<ProgramLanguage>() {
+    public static final Creator<ProgramLanguage> CREATOR = new Creator<ProgramLanguage>() {
         @Override
         public ProgramLanguage createFromParcel(Parcel source) {
             return new ProgramLanguage(source);

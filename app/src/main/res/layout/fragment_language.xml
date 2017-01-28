@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginRight="@dimen/margin_16"
-                android:layout_marginBottom="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_8"
                 android:layout_below="@+id/profileLayout"
                 android:id="@+id/selectedLanguageCardView"
                 app:cardBackgroundColor="@color/md_white_1000"
@@ -75,7 +75,7 @@
                     <TextView
                         android:id="@+id/languageSelectionTextView"
                         tools:text="C Programming"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/md_light_blue_900"
                         android:layout_margin="@dimen/margin_8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>

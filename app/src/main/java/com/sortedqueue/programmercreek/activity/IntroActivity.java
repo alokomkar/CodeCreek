@@ -121,139 +121,99 @@ public class IntroActivity extends AppCompatActivity
     private void loadChapters() {
         introChapters = new ArrayList<>();
         programLanguage = new CreekPreferences(IntroActivity.this).getProgramLanguage();
-        /*
-        IntroChapter introChapter = new IntroChapter();
+        /*IntroChapter introChapter = new IntroChapter();
         introChapter.setChapterHeader("Introduction");
-        introChapter.setChapterId("java_intro_1");
+        introChapter.setChapterId("usp_intro_1");
         introChapter.setChapterIndex(1);
-        introChapter.setChapterIntro("Java is a high-level programming " +
-                "language originally developed by Sun Microsystems and released in 1995. " +
-                "Java runs on a variety of platforms, such as Windows, Mac OS, and the various versions of UNIX." +
-                "\n\nThe latest release of the Java Standard Edition is Java SE 8. With the advancement of Java and its widespread popularity, multiple configurations were built to suit various types of platforms. " +
-                "\n\nFor example: J2EE for Enterprise Applications, J2ME for Mobile Applications.");
-        introChapter.setChapterNote("Java is −\n" +
-                "\n" +
-                "Object Oriented − In Java, everything is an Object. Java can be easily extended since it is based on the Object model.\n" +
-                "\n" +
-                "Platform Independent − Unlike many other programming languages including C and C++, when Java is compiled, it is not compiled into platform specific machine, rather into platform independent byte code. This byte code is distributed over the web and interpreted by the Virtual Machine (JVM) on whichever platform it is being run on.\n" +
-                "\n" +
-                "Simple − Java is designed to be easy to learn. If you understand the basic concept of OOP Java, it would be easy to master.\n" +
-                "\n" +
-                "Secure − With Java's secure feature it enables to develop virus-free, tamper-free systems. Authentication techniques are based on public-key encryption.\n" +
-                "\n" +
-                "Architecture-neutral − Java compiler generates an architecture-neutral object file format, which makes the compiled code executable on many processors, with the presence of Java runtime system.\n" +
-                "\n" +
-                "Portable − Being architecture-neutral and having no implementation dependent aspects of the specification makes Java portable. Compiler in Java is written in ANSI C with a clean portability boundary, which is a POSIX subset.\n" +
-                "\n" +
-                "Robust − Java makes an effort to eliminate error prone situations by emphasizing mainly on compile time error checking and runtime checking.\n" +
-                "\n" +
-                "Multithreaded − With Java's multithreaded feature it is possible to write programs that can perform many tasks simultaneously. This design feature allows the developers to construct interactive applications that can run smoothly.\n" +
-                "\n" +
-                "Interpreted − Java byte code is translated on the fly to native machine instructions and is not stored anywhere. The development process is more rapid and analytical since the linking is an incremental and light-weight process.\n" +
-                "\n" +
-                "High Performance − With the use of Just-In-Time compilers, Java enables high performance.\n" +
-                "\n" +
-                "Distributed − Java is designed for the distributed environment of the internet.\n" +
-                "\n" +
-                "Dynamic − Java is considered to be more dynamic than C or C++ since it is designed to adapt to an evolving environment. Java programs can carry extensive amount of run-time information that can be used to verify and resolve accesses to objects on run-time.");
+        introChapter.setChapterIntro("UNIX is a computer operating system originally developed in 1969 by a group of AT&T employees at Bell Labs, including Ken Thompson, Dennis Ritchie, Douglas McElroy and Joe Ossanna. Today UNIX systems are split into various branches, developed over time by AT&T as well as various commercial vendors and non-profit organizations." +
+                "");
+        introChapter.setChapterNote("The ANSI C Standard\n" +
+                "In 1989, American National Standard Institute (ANSI) proposed C programming language standard X3.159-1989 to standardise the language constructs and libraries. This is termed as ANSI C standard. This attempt to unify the implementation of the C language supported on all computer system. The major differences between ANSI C and K&R C [Kernighan and Ritchie] are as follows:\n" +
+                "\uF0B7 Function prototyping\n" +
+                "\uF0B7 Support of the const and volatile data type qualifiers.\n" +
+                "\uF0B7 Support wide characters and internationalization.\n" +
+                "\uF0B7 Permit function pointers to be used without dereferencing.");
         introChapter.setChapterLanguage(programLanguage);
         introChapters.add(introChapter);
 
         introChapter = new IntroChapter();
         introChapter.setChapterHeader("Basics with your first program");
-        introChapter.setChapterId("java_intro_2");
+        introChapter.setChapterId("usp_intro_2");
         introChapter.setChapterIndex(2);
-        introChapter.setChapterIntro("* Let us look at a simple code that will print the words Hello World.");
+        introChapter.setChapterIntro("The POSIX Environment\n" +
+                "Although POSIX was developed on UNIX, a POSIX complaint system is not necessarily a UNIX system. A few UNIX conventions have different meanings according to the POSIX standards. Most C and C++ header files are stored under the /usr/include directory in any UNIX system and each of them is referenced by #include<header-file-name> This method is adopted in POSIX. There need not be a physical file of that name existing on a POSIX conforming system.\n" +
+                "The POSIX Feature Test Macros\n" +
+                "POSIX.1 defines a set of feature test macro’s which if defined on a system, means that the system has implemented the corresponding features.");
+        introChapter.setChapterNote(
+                "_POSIX_JOB_CONTROL : The system supports the BSD style job control.\n" +
+                "_POSIX_SAVED_IDS :" +
+                "Each process running on the system keeps the saved set UID and the set-GID, so that they can change its effective user-ID and group-ID to those values via seteuid and setegid API's. _POSIX_CHOWN_RESTRICTED If the defined value is -1, users may change ownership of files owned by them, otherwise only users with special privilege may change ownership of any file on the system.\n" +
+                "_POSIX_NO_TRUNC :" +
+                "If the defined value is -1, any long pathname passed to an API is silently truncated to NAME_MAX bytes, otherwise error is generated.\n " +
+                        "_POSIX_VDISABLE : If defined value is -1, there is no disabling character for special characters for all terminal device files. Otherwise the value is the disabling character value.");
         introChapter.setChapterProgram(
-                "public class MyFirstJavaProgram {\n" +
-                        "\n" +
-                        "   *//* This is my first java program.\n" +
-                        "    * This will print 'Hello World' as the output\n" +
-                        "    *//*\n" +
-                        "\n" +
-                        "   public static void main(String []args) {\n" +
-                        "      System.out.println(\"Hello World\"); // prints Hello World\n" +
-                        "   }\n" +
+                "The following test_config.C illustrates the use of sysconf, pathcong and fpathconf:\n " +
+                        "#define _POSIX_SOURCE\n" +
+                        "#define _POSIX_C_SOURCE 199309L\n " +
+                        "#include<stdio.h>\n " +
+                        "#include<iostream.h>\n " +
+                        "#include<unistd.h>\n " +
+                        "int main() {\n " +
+                        "int res;\n " +
+                        "if((res=sysconf(_SC_OPEN_MAX))==-1)\n " +
+                        "perror(“sysconf”);\n " +
+                        "else\n" +
+                        "cout<<”OPEN_MAX:”<<res<<endl;\n" +
+                        "if((res=pathconf(“/”,_PC_PATH_MAX))==-1)\n " +
+                        "perror(“pathconf”);\n " +
+                        "else cout<<”max path name:”<<(res+1)<<endl;\n " +
+                        "if((res=fpathconf(0,_PC_CHOWN_RESTRICTED))==-1)\n " +
+                        "perror(“fpathconf”);\n " +
+                        "else\n " +
+                        "cout<<”chown_restricted for stdin:”<<res<<endl;\n " +
+                        "return 0;\n " +
                         "}");
-        introChapter.setChapterProgramDescription(
-                "Basic Syntax\n" +
-                        "About Java programs, it is very important to keep in mind the following points.\n" +
-                        "\n" +
-                        "Case Sensitivity − Java is case sensitive, which means identifier Hello and hello would have different meaning in Java.\n" +
-                        "\n" +
-                        "Class Names − For all class names the first letter should be in Upper Case. If several words are used to form a name of the class, each inner word's first letter should be in Upper Case.\n" +
-                        "\n" +
-                        "Example: class MyFirstJavaClass\n" +
-                        "\n" +
-                        "Method Names − All method names should start with a Lower Case letter. If several words are used to form the name of the method, then each inner word's first letter should be in Upper Case.\n" +
-                        "\n" +
-                        "Example: public void myMethodName()\n" +
-                        "\n" +
-                        "Program File Name − Name of the program file should exactly match the class name.\n" +
-                        "\n" +
-                        "When saving the file, you should save it using the class name (Remember Java is case sensitive) and append '.java' to the end of the name (if the file name and the class name do not match, your program will not compile).\n" +
-                        "\n" +
-                        "Example: Assume 'MyFirstJavaProgram' is the class name. Then the file should be saved as 'MyFirstJavaProgram.java'\n" +
-                        "\n" +
-                        "public static void main(String args[]) − Java program processing starts from the main() method which is a mandatory part of every Java program."
-                       );
-        introChapter.setChapterProgramOutput("Hello World");
+
         introChapter.setChapterLanguage(programLanguage);
 
         introChapters.add(introChapter);
 
         introChapter = new IntroChapter();
-        introChapter.setChapterHeader("Using comments");
-        introChapter.setChapterId("java_intro_3");
+        introChapter.setChapterHeader("Using APIs");
+        introChapter.setChapterId("usp_intro_3");
         introChapter.setChapterIndex(3);
-        introChapter.setChapterIntro("Java supports single-line and multi-line comments very similar to C and C++. All characters available inside any comment are ignored by Java compiler.");
-        introChapter.setChapterProgram(
-                "public class MyFirstJavaProgram {\n" +
-                        "\n" +
-                        "   *//* This is my first java program.\n" +
-                        "    * This will print 'Hello World' as the output\n" +
-                        "    * This is an example of multi-line comments.\n" +
-                        "    *//*\n" +
-                        "\n" +
-                        "   public static void main(String []args) {\n" +
-                        "      // This is an example of single line comment\n" +
-                        "      *//* This is also an example of single line comment. *//*\n" +
-                        "      System.out.println(\"Hello World\");\n" +
-                        "   }\n" +
-                        "}");
+        introChapter.setChapterIntro("UNIX AND POSIX APIs\n" +
+                "API \uF0E0 A set of application programming interface functions that can be called by user programs to perform system specific functions. Most UNIX systems provide a common set of API’s to perform the following functions.\n" +
+                "\uF0A7 Determine the system configuration and user information.\n" +
+                "\uF0A7 Files manipulation.\n" +
+                "\uF0A7 Processes creation and control.\n" +
+                "\uF0A7 Inter-process communication.\n" +
+                "\uF0A7 Signals and daemons\n" +
+                "\uF0A7 Network communication.\n" +
+                "The POSIX APIs\n" +
+                "In general POSIX API’s uses and behaviours’ are similar to those of Unix API’s. However, user’s programs should define the _POSIX_SOURCE or _POSIX_C_SOURCE in their programs to enable the POSIX API’s declaration in header files that they include.");
+        introChapter.setChapterNote("API Common Characteristics\n" +
+                "\uF0A7 Many APIs returns an integer value which indicates the termination status of their execution\n" +
+                "\uF0A7 API return -1 to indicate the execution has failed, and the global variable errno is set with an error code.\n" +
+                "\uF0A7 a user process may call perror function to print a diagnostic message of the failure to the std o/p, or it may call strerror function and gives it errno as the actual argument value; the strerror function returns a diagnostic message string and the user process may print that message in its preferred way\n" +
+                "\uF0A7 the possible error status codes that may be assigned to errno by any API are defined in the <errno.h> header.");
+
         introChapter.setChapterLanguage(programLanguage);
 
         introChapters.add(introChapter);
 
         introChapter = new IntroChapter();
-        introChapter.setChapterHeader("Installation");
-        introChapter.setChapterId("java_intro_4");
+        introChapter.setChapterHeader("The UNIX and POSIX Development Environment");
+        introChapter.setChapterId("usp_intro_4");
         introChapter.setChapterIndex(4);
-        introChapter.setChapterIntro("Setting Up the Path for Windows\n" +
-                "Assuming you have installed Java in c:\\Program Files\\java\\jdk directory −\n" +
-                "\n" +
-                "Right-click on 'My Computer' and select 'Properties'.\n" +
-                "\n" +
-                "Click the 'Environment variables' button under the 'Advanced' tab.\n" +
-                "\n" +
-                "Now, alter the 'Path' variable so that it also contains the path to the Java executable. Example, if the path is currently set to 'C:\\WINDOWS\\SYSTEM32', then change your path to read 'C:\\WINDOWS\\SYSTEM32;c:\\Program Files\\java\\jdk\\bin'.\n" +
-                "\n" +
-                "Setting Up the Path for Linux, UNIX, Solaris, FreeBSD\n" +
-                "Environment variable PATH should be set to point to where the Java binaries have been installed. Refer to your shell documentation, if you have trouble doing this.\n" +
-                "\n" +
-                "Example, if you use bash as your shell, then you would add the following line to the end of your '.bashrc: export PATH = /path/to/java:$PATH'");
-        introChapter.setChapterProgramDescription(
-                "Popular Java Editors\n" +
-                        "To write your Java programs, you will need a text editor. There are even more sophisticated IDEs available in the market. But for now, you can consider one of the following −\n" +
-                        "\n" +
-                        "Notepad − On Windows machine, you can use any simple text editor like Notepad (Recommended for this tutorial), TextPad.\n" +
-                        "\n" +
-                        "Netbeans − A Java IDE that is open-source and free which can be downloaded from https://www.netbeans.org/index.html.\n" +
-                        "\n" +
-                        "Eclipse − A Java IDE developed by the eclipse open-source community and can be downloaded from https://www.eclipse.org/.");
+        introChapter.setChapterIntro("The UNIX and POSIX Development Environment\n" +
+                "POSIX provides portability at the source level. This means that you transport your source program to the target machine, compile it with the standard C compiler using conforming headers and link it with the standard libraries." +
+                "\nSome commonly used POSIX.1 and UNIX API’s are declared in <unistd.h> header. Most of POSIX.1, POSIX>1b and UNIX API object code is stored in the libc.a and lib.so libraries.");
         introChapter.setChapterLanguage(programLanguage);
 
-        introChapters.add(introChapter);*/
+        introChapters.add(introChapter);
+
+        initChapter( introChapters.get(0) );*/
 
 
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(IntroActivity.this);
