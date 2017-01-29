@@ -78,7 +78,7 @@
             style="@style/ButtonText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_sky"
+            android:background="@drawable/button_blue"
             android:text="@string/checkMatch"
             android:layout_weight="0.75" />
 

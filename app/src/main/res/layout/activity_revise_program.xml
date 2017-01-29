@@ -34,7 +34,7 @@
         android:id="@+id/btnLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/md_blue_200"
         android:orientation="horizontal"
         android:padding="10dp"
         android:gravity="center_horizontal" >
@@ -44,7 +44,7 @@
             style="@style/ButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_sky"
+            android:background="@drawable/button_blue"
             android:src="@android:drawable/ic_media_rew"
             android:text=">" />
 
@@ -53,7 +53,7 @@
             style="@style/ButtonText"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_sky"
+            android:background="@drawable/button_blue"
             android:text="@string/description" />
 
         <ImageButton
@@ -62,7 +62,7 @@
             android:layout_width="50dp"
             android:src="@android:drawable/ic_menu_help"
             android:layout_height="match_parent"
-            android:background="@drawable/button_sky"
+            android:background="@drawable/button_blue"
             android:text="@string/hintBtn" />
 
         <ImageButton
@@ -71,14 +71,14 @@
             android:layout_width="50dp"
             android:src="@drawable/ic_remove"
             android:layout_height="match_parent"
-            android:background="@drawable/button_sky" />
+            android:background="@drawable/button_blue" />
 
         <ImageButton
             android:id="@+id/nextProgramBtn_revise"
             style="@style/ButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_sky"
+            android:background="@drawable/button_blue"
             android:src="@android:drawable/ic_media_ff"
             android:text=">" />
     </LinearLayout>
