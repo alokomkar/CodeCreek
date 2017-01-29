@@ -29,6 +29,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChaptersActivity extends AppCompatActivity implements ChapterNavigationListener {
 
+    //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.container)

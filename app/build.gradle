@@ -70,6 +70,13 @@ dependencies {
     //Codeview android
     compile 'com.github.softwee:codeview-android:1.2.0'
 
+    /**
+     * Any other dependencies your module has are placed in this dependency configuration
+     */
+    compile 'com.adcolony:sdk:3.0.7'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.android.support:support-annotations:25.0.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

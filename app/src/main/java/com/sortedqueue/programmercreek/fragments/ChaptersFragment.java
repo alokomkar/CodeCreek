@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class ChaptersFragment extends Fragment {
 
-
+    //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @Bind(R.id.modulesRecyclerView)
     RecyclerView chaptersRecyclerView;
 

@@ -37,6 +37,7 @@ public class ModuleFragment extends Fragment {
     private ArrayList<LanguageModule> languageModules;
     private String TAG = ModuleFragment.class.getSimpleName();
     private ModulesRecyclerViewAdapter moduleRecyclerAdapter;
+    //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

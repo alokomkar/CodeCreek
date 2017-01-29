@@ -77,3 +77,8 @@
 #-dontwarn javax.**
 #-dontwarn java.**
 -libraryjars /libs/JavaPrettify-1.2.1.jar
+
+# For communication with AdColony's WebView
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
