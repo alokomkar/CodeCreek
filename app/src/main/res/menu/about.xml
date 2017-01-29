@@ -4,6 +4,12 @@
     tools:context="com.example.mydashboard.AboutActivity" >
 
     <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_terms_and_conditions"
         android:orderInCategory="100"
         android:title="@string/action_terms_and_conditions"

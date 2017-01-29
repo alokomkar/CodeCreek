@@ -36,7 +36,7 @@ public class ProgramLanguageAdapter extends RecyclerView.Adapter<ProgramLanguage
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_program_language, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_language, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,7 +45,8 @@ public class ProgramLanguageAdapter extends RecyclerView.Adapter<ProgramLanguage
         ProgramLanguage programLanguage = programLanguages.get(position);
         holder.programmingTextView.setText(programLanguage.getProgramLanguage());
         holder.programLanguageDescriptionTextView.setText(programLanguage.getDescription());
-        //startAnimation(holder.itemView, position * 250 );
+        holder.languageIdTextView.setText(programLanguage.getLanguageId());
+        startAnimation(holder.itemView, position * 250 );
     }
 
     private void startAnimation(View itemView, int delay) {
@@ -65,10 +66,11 @@ public class ProgramLanguageAdapter extends RecyclerView.Adapter<ProgramLanguage
         TextView programmingTextView;
         @Bind(R.id.progressBar)
         ProgressBar progressBar;
-        @Bind(R.id.cProgrammingCardView)
-        CardView programmingCardView;
         @Bind(R.id.programLanguageDescriptionTextView)
         TextView programLanguageDescriptionTextView;
+        @Bind(R.id.languageIdTextView)
+        TextView languageIdTextView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

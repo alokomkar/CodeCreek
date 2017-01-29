@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/bg"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_8"
+    >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/margin_32"
+        android:elevation="@dimen/margin_8"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            tools:text="Java"
+            android:minWidth="@dimen/margin_48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:background="@color/md_blue_900"
+            android:textColor="@color/md_white_1000"
+            android:gravity="center"
+            android:id="@+id/languageIdTextView" />
+    </FrameLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/md_white_1000"
+        app:cardCornerRadius="@dimen/cardview_app_radius"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_16">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/intro"
+                android:id="@+id/programmingTextView"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:textColor="@color/md_blue_900"
+                android:textSize="@dimen/text_dashboard_small"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/programLanguageDescriptionTextView"
+                android:layout_below="@+id/programmingTextView"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
+                tools:text="@string/intro_description"
+                />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:maxHeight="4dp"
+                android:minHeight="4dp"
+                android:max="4"
+                android:progress="1"
+                android:progressDrawable="@drawable/greenprogress" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</FrameLayout>
