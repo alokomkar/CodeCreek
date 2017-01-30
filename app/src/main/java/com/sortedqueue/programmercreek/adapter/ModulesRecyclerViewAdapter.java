@@ -64,9 +64,13 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
             case "java" :
                 isLocked = !(creekUserStats.getUnlockedJavaLanguageModuleIdList().contains(languageModule.getModuleId()));
                 break;
+            case "sql" :
+                isLocked = !(creekUserStats.getUnlockedSqlLanguageModuleIdList().contains(languageModule.getModuleId()));
+                break;
         }
 
         holder.lockedImageView.setVisibility(isLocked ? View.VISIBLE : View.INVISIBLE);
+        //holder.lockedImageView.setVisibility(View.INVISIBLE);
         startAnimation(holder.itemView, position * 250 );
     }
 

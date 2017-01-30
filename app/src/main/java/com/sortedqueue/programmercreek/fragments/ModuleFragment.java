@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Alok Omkar on 2016-12-25.
  */
 
-public class ModuleFragment extends Fragment {
+public class  ModuleFragment extends Fragment {
 
     @Bind(R.id.modulesRecyclerView)
     RecyclerView modulesRecyclerView;

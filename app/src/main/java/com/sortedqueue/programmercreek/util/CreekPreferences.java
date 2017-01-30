@@ -46,6 +46,8 @@ public class CreekPreferences {
     public static final String KEY_PROG_INDEX_INSERT_USP = "insertProgramIndexUsp";
     public static final String KEY_C_MODULE = "keyCModule";
     public static final String KEY_CPP_MODULE = "keyCppModule";
+    public static final String KEY_SQL_MODULE = "keySqlModule";
+
     public static final String KEY_JAVA_MODULE = "keyJavaModule";
     public static final String KEY_C_SYNTAX = "keyCSyntax";
     public static final String KEY_CPP_SYNTAX = "keyCppSyntax";
@@ -249,6 +251,8 @@ public class CreekPreferences {
             case "c++" :
             case "cpp" :
                 return sharedPreferences.getString(KEY_CPP_MODULE, "0");
+            case "sql" :
+                return sharedPreferences.getString(KEY_SQL_MODULE, "0");
         }
         return "0";
     }
@@ -265,7 +269,14 @@ public class CreekPreferences {
             case "cpp" :
                 setCPPModulesInserted(modulesInserted);
                 break;
+            case "sql" :
+                setSqlModulesInserted(modulesInserted);
+                break;
         }
+    }
+
+    private void setSqlModulesInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_SQL_MODULE, modulesInserted).apply();
     }
 
     private void setCPPModulesInserted(String modulesInserted) {
@@ -661,6 +672,9 @@ public class CreekPreferences {
                 break;
             case "java":
                 result = (int)(alphaNumComparator.compare(modulesInserted, creekUserDB.getCppModuleDBVersion()));
+                break;
+            case "sql" :
+                result = (int)(alphaNumComparator.compare(modulesInserted, creekUserDB.getSqlModuleDBVersion()));
                 break;
         }
         return result;

@@ -28,6 +28,7 @@ public class CreekUserStats implements Parcelable {
     private ArrayList<String> unlockedUspLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaLanguageModuleIdList = new ArrayList<>();
+    private ArrayList<String> unlockedSqlLanguageModuleIdList = new ArrayList<>();
 
     private ArrayList<String> unlockedCSyntaxModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedUspSyntaxModuleIdList = new ArrayList<>();
@@ -141,6 +142,17 @@ public class CreekUserStats implements Parcelable {
             unlockedJavaLanguageModuleIdList.add("java_1");
         }
         return unlockedJavaLanguageModuleIdList;
+    }
+
+    public ArrayList<String> getUnlockedSqlLanguageModuleIdList() {
+        if( unlockedSqlLanguageModuleIdList.size() == 0 ) {
+            unlockedSqlLanguageModuleIdList.add("sql_1");
+        }
+        return unlockedSqlLanguageModuleIdList;
+    }
+
+    public void setUnlockedSqlLanguageModuleIdList(ArrayList<String> unlockedSqlLanguageModuleIdList) {
+        this.unlockedSqlLanguageModuleIdList = unlockedSqlLanguageModuleIdList;
     }
 
     public void setUnlockedJavaLanguageModuleIdList(ArrayList<String> unlockedJavaLanguageModuleIdList) {
@@ -294,6 +306,8 @@ public class CreekUserStats implements Parcelable {
             return false;
         if (unlockedJavaLanguageModuleIdList != null ? !unlockedJavaLanguageModuleIdList.equals(that.unlockedJavaLanguageModuleIdList) : that.unlockedJavaLanguageModuleIdList != null)
             return false;
+        if (unlockedSqlLanguageModuleIdList != null ? !unlockedSqlLanguageModuleIdList.equals(that.unlockedSqlLanguageModuleIdList) : that.unlockedSqlLanguageModuleIdList != null)
+            return false;
         if (unlockedCSyntaxModuleIdList != null ? !unlockedCSyntaxModuleIdList.equals(that.unlockedCSyntaxModuleIdList) : that.unlockedCSyntaxModuleIdList != null)
             return false;
         if (unlockedUspSyntaxModuleIdList != null ? !unlockedUspSyntaxModuleIdList.equals(that.unlockedUspSyntaxModuleIdList) : that.unlockedUspSyntaxModuleIdList != null)
@@ -327,6 +341,7 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedUspLanguageModuleIdList != null ? unlockedUspLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppLanguageModuleIdList != null ? unlockedCppLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaLanguageModuleIdList != null ? unlockedJavaLanguageModuleIdList.hashCode() : 0);
+        result = 31 * result + (unlockedSqlLanguageModuleIdList != null ? unlockedSqlLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCSyntaxModuleIdList != null ? unlockedCSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedUspSyntaxModuleIdList != null ? unlockedUspSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppSyntaxModuleIdList != null ? unlockedCppSyntaxModuleIdList.hashCode() : 0);
@@ -337,9 +352,6 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedJavaWikiIdList != null ? unlockedJavaWikiIdList.hashCode() : 0);
         return result;
     }
-
-
-
 
     public void addToUnlockedCLanguageModuleIdList(String syntaxId) {
         if( !unlockedCLanguageModuleIdList.contains(syntaxId) ) {
@@ -396,6 +408,12 @@ public class CreekUserStats implements Parcelable {
         }
     }
 
+    public void addToUnlockedSqlLanguageModuleIdList(String syntaxId) {
+        if( !unlockedSqlLanguageModuleIdList.contains(syntaxId) ) {
+            unlockedSqlLanguageModuleIdList.add(syntaxId);
+        }
+    }
+
     public void addToUnlockedJavaSyntaxModuleIdList(String s) {
         if( !unlockedJavaSyntaxModuleIdList.contains(s) ) {
             unlockedJavaSyntaxModuleIdList.add(s);
@@ -438,6 +456,7 @@ public class CreekUserStats implements Parcelable {
         }
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -458,6 +477,7 @@ public class CreekUserStats implements Parcelable {
         dest.writeStringList(this.unlockedUspLanguageModuleIdList);
         dest.writeStringList(this.unlockedCppLanguageModuleIdList);
         dest.writeStringList(this.unlockedJavaLanguageModuleIdList);
+        dest.writeStringList(this.unlockedSqlLanguageModuleIdList);
         dest.writeStringList(this.unlockedCSyntaxModuleIdList);
         dest.writeStringList(this.unlockedUspSyntaxModuleIdList);
         dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
@@ -486,6 +506,7 @@ public class CreekUserStats implements Parcelable {
         this.unlockedUspLanguageModuleIdList = in.createStringArrayList();
         this.unlockedCppLanguageModuleIdList = in.createStringArrayList();
         this.unlockedJavaLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedSqlLanguageModuleIdList = in.createStringArrayList();
         this.unlockedCSyntaxModuleIdList = in.createStringArrayList();
         this.unlockedUspSyntaxModuleIdList = in.createStringArrayList();
         this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();

@@ -180,12 +180,6 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void bindData(SyntaxModule syntaxModule) {
         syntaxNameTextView.setText(syntaxModule.getSyntaxName());
         syntaxDescriptionTextView.setText(syntaxModule.getSyntaxDescription());
-        /*if(Build.VERSION.SDK_INT >= 24 ) {
-            syntaxCommandTextView.setText(Html.fromHtml(PrettifyHighlighter.getInstance().highlight("cpp", syntaxModule.getSyntaxCommand()), Html.FROM_HTML_MODE_LEGACY));
-        }
-        else {
-            syntaxCommandTextView.setText(Html.fromHtml(PrettifyHighlighter.getInstance().highlight("cpp", syntaxModule.getSyntaxCommand())));
-        }*/
         syntaxCommandTextView.setText(syntaxModule.getSyntaxCommand());
         syntaxCommandOutputTextView.setText(syntaxModule.getSyntaxCommandOutput());
         syntaxQuestionTextView.setText(syntaxModule.getSyntaxQuestion());

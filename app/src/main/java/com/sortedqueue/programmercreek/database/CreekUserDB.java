@@ -35,6 +35,10 @@ public class CreekUserDB extends RushObject {
     private double cppProgramIndexDBVersion = 1.0;
     private double cppProgramTableDBVersion = 1.0;
 
+    private String sqlSyntaxDBVersion;
+    private String sqlModuleDBVersion = "sql_7";
+    private String sqlWikiDBVersion;
+
     //Premium version database versions
     private String javaSyntaxDBVersionPremium;
     private String javaModuleDBVersionPremium;
@@ -337,6 +341,30 @@ public class CreekUserDB extends RushObject {
         this.cppProgramTableDBVersionPremium = cppProgramTableDBVersionPremium;
     }
 
+    public String getSqlSyntaxDBVersion() {
+        return sqlSyntaxDBVersion;
+    }
+
+    public void setSqlSyntaxDBVersion(String sqlSyntaxDBVersion) {
+        this.sqlSyntaxDBVersion = sqlSyntaxDBVersion;
+    }
+
+    public String getSqlModuleDBVersion() {
+        return sqlModuleDBVersion;
+    }
+
+    public void setSqlModuleDBVersion(String sqlModuleDBVersion) {
+        this.sqlModuleDBVersion = sqlModuleDBVersion;
+    }
+
+    public String getSqlWikiDBVersion() {
+        return sqlWikiDBVersion;
+    }
+
+    public void setSqlWikiDBVersion(String sqlWikiDBVersion) {
+        this.sqlWikiDBVersion = sqlWikiDBVersion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -394,6 +422,12 @@ public class CreekUserDB extends RushObject {
             return false;
         if (cppWikiDBVersion != null ? !cppWikiDBVersion.equals(that.cppWikiDBVersion) : that.cppWikiDBVersion != null)
             return false;
+        if (sqlSyntaxDBVersion != null ? !sqlSyntaxDBVersion.equals(that.sqlSyntaxDBVersion) : that.sqlSyntaxDBVersion != null)
+            return false;
+        if (sqlModuleDBVersion != null ? !sqlModuleDBVersion.equals(that.sqlModuleDBVersion) : that.sqlModuleDBVersion != null)
+            return false;
+        if (sqlWikiDBVersion != null ? !sqlWikiDBVersion.equals(that.sqlWikiDBVersion) : that.sqlWikiDBVersion != null)
+            return false;
         if (javaSyntaxDBVersionPremium != null ? !javaSyntaxDBVersionPremium.equals(that.javaSyntaxDBVersionPremium) : that.javaSyntaxDBVersionPremium != null)
             return false;
         if (javaModuleDBVersionPremium != null ? !javaModuleDBVersionPremium.equals(that.javaModuleDBVersionPremium) : that.javaModuleDBVersionPremium != null)
@@ -446,6 +480,9 @@ public class CreekUserDB extends RushObject {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cppProgramTableDBVersion);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (sqlSyntaxDBVersion != null ? sqlSyntaxDBVersion.hashCode() : 0);
+        result = 31 * result + (sqlModuleDBVersion != null ? sqlModuleDBVersion.hashCode() : 0);
+        result = 31 * result + (sqlWikiDBVersion != null ? sqlWikiDBVersion.hashCode() : 0);
         result = 31 * result + (javaSyntaxDBVersionPremium != null ? javaSyntaxDBVersionPremium.hashCode() : 0);
         result = 31 * result + (javaModuleDBVersionPremium != null ? javaModuleDBVersionPremium.hashCode() : 0);
         result = 31 * result + (javaWikiDBVersionPremium != null ? javaWikiDBVersionPremium.hashCode() : 0);
