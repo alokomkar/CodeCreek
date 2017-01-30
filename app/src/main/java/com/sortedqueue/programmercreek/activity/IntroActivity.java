@@ -121,24 +121,44 @@ public class IntroActivity extends AppCompatActivity
     private void loadChapters() {
         introChapters = new ArrayList<>();
         programLanguage = new CreekPreferences(IntroActivity.this).getProgramLanguage();
-        /*IntroChapter introChapter = new IntroChapter();
+        IntroChapter introChapter = new IntroChapter();
         introChapter.setChapterHeader("Introduction");
-        introChapter.setChapterId("usp_intro_1");
+        introChapter.setChapterId("sql_intro_1");
         introChapter.setChapterIndex(1);
-        introChapter.setChapterIntro("UNIX is a computer operating system originally developed in 1969 by a group of AT&T employees at Bell Labs, including Ken Thompson, Dennis Ritchie, Douglas McElroy and Joe Ossanna. Today UNIX systems are split into various branches, developed over time by AT&T as well as various commercial vendors and non-profit organizations." +
+        introChapter.setChapterIntro(
+                "SQL is a special-purpose domain-specific language used " +
+                        "in programming and designed for managing data held " +
+                        "in a relational database management system (RDBMS), " +
+                        "or for stream processing in a relational data " +
+                        "stream management system (RDSMS)." +
+                        "\n\nThe SQL language is subdivided into several language elements, including:\n" +
+                "\n" +
+                "** Clauses : which are constituent components of statements and queries. (In some cases, these are optional.)\n\n" +
+                "** Expressions : which can produce either scalar values, or tables consisting of columns and rows of data\n\n" +
+                "** Predicates : which specify conditions that can be evaluated to SQL three-valued logic (3VL) (true/false/unknown) or Boolean truth values and are used to limit the effects of statements and queries, or to change program flow.\n\n" +
+                "** Queries : which retrieve the data based on specific criteria. This is an important element of SQL.\n\n" +
+                "** Statements : which may have a persistent effect on schemata and data, or may control transactions, program flow, connections, sessions, or diagnostics.\n\n" +
+                "** SQL statements also include the semicolon (\";\") statement terminator. Though not required on every platform, it is defined as a standard part of the SQL grammar.\n\n" +
+                "** Insignificant whitespace is generally ignored in SQL statements and queries, making it easier to format SQL code for readability.\n\n" +
                 "");
-        introChapter.setChapterNote("The ANSI C Standard\n" +
-                "In 1989, American National Standard Institute (ANSI) proposed C programming language standard X3.159-1989 to standardise the language constructs and libraries. This is termed as ANSI C standard. This attempt to unify the implementation of the C language supported on all computer system. The major differences between ANSI C and K&R C [Kernighan and Ritchie] are as follows:\n" +
-                "\uF0B7 Function prototyping\n" +
-                "\uF0B7 Support of the const and volatile data type qualifiers.\n" +
-                "\uF0B7 Support wide characters and internationalization.\n" +
-                "\uF0B7 Permit function pointers to be used without dereferencing.");
+        introChapter.setChapterProgram("An example of a complete statement with \n" +
+                "several of its language elements.\n\n" +
+                "UPDATE user \n" +
+                "SET level = level + 1\n" +
+                "WHERE name = 'Infinite Programmer';\n\n" +
+                "Description\n" +
+                "UPDATE CLAUSE : UPDATE user \n" +
+                "SET CLAUSE : SET level = level + 1\n" +
+                "EXPRESSION : level + 1\n" +
+                "WHERE CLAUSE : WHERE name = 'Infinite Programmer'\n" +
+                "Predicate : name = 'Infinite Programmer'"
+                );
         introChapter.setChapterLanguage(programLanguage);
         introChapters.add(introChapter);
 
         introChapter = new IntroChapter();
         introChapter.setChapterHeader("Basics with your first program");
-        introChapter.setChapterId("usp_intro_2");
+        introChapter.setChapterId("sql_intro_2");
         introChapter.setChapterIndex(2);
         introChapter.setChapterIntro("The POSIX Environment\n" +
                 "Although POSIX was developed on UNIX, a POSIX complaint system is not necessarily a UNIX system. A few UNIX conventions have different meanings according to the POSIX standards. Most C and C++ header files are stored under the /usr/include directory in any UNIX system and each of them is referenced by #include<header-file-name> This method is adopted in POSIX. There need not be a physical file of that name existing on a POSIX conforming system.\n" +
@@ -180,7 +200,7 @@ public class IntroActivity extends AppCompatActivity
 
         introChapter = new IntroChapter();
         introChapter.setChapterHeader("Using APIs");
-        introChapter.setChapterId("usp_intro_3");
+        introChapter.setChapterId("sql_intro_3");
         introChapter.setChapterIndex(3);
         introChapter.setChapterIntro("UNIX AND POSIX APIs\n" +
                 "API \uF0E0 A set of application programming interface functions that can be called by user programs to perform system specific functions. Most UNIX systems provide a common set of API’s to perform the following functions.\n" +
@@ -204,7 +224,7 @@ public class IntroActivity extends AppCompatActivity
 
         introChapter = new IntroChapter();
         introChapter.setChapterHeader("The UNIX and POSIX Development Environment");
-        introChapter.setChapterId("usp_intro_4");
+        introChapter.setChapterId("sql_intro_4");
         introChapter.setChapterIndex(4);
         introChapter.setChapterIntro("The UNIX and POSIX Development Environment\n" +
                 "POSIX provides portability at the source level. This means that you transport your source program to the target machine, compile it with the standard C compiler using conforming headers and link it with the standard libraries." +
@@ -213,10 +233,10 @@ public class IntroActivity extends AppCompatActivity
 
         introChapters.add(introChapter);
 
-        initChapter( introChapters.get(0) );*/
+        initChapter( introChapters.get(0) );
 
 
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(IntroActivity.this);
+        /*FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(IntroActivity.this);
         firebaseDatabaseHandler.getIntroChapters(new FirebaseDatabaseHandler.GetIntroChaptersListener() {
             @Override
             public void onSuccess(ArrayList<IntroChapter> introChapters) {
@@ -229,7 +249,7 @@ public class IntroActivity extends AppCompatActivity
             public void onError(DatabaseError error) {
                 CommonUtils.displaySnackBar(IntroActivity.this, R.string.unable_to_fetch_data);
             }
-        });
+        });*/
         /*for( IntroChapter chapter : introChapters ) {
             firebaseDatabaseHandler.writeIntroChapter( chapter );
         }*/

@@ -16,7 +16,11 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="14dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,87 +36,107 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:visibility="gone" />
-
-            <android.support.v7.widget.CardView
+                android:visibility="visible" />
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                tools:background="@color/bg"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/progressBar"
-                android:id="@+id/syntaxExplanationCardView"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/md_white_1000"
-                app:cardCornerRadius="@dimen/cardview_app_radius"
-                app:cardElevation="4dp">
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chapterFrameLayout"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:elevation="@dimen/margin_8"
+                    >
 
-                <LinearLayout
+                    <TextView
+                        tools:text="Introduction"
+                        android:minWidth="@dimen/margin_48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_8"
+                        android:textStyle="bold"
+                        android:background="@color/md_blue_900"
+                        android:textColor="@color/md_white_1000"
+                        android:gravity="center"
+                        android:id="@+id/chapterHeaderTextView" />
+                </FrameLayout>
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:id="@+id/syntaxExplanationCardView"
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/md_white_1000"
+                    app:cardCornerRadius="@dimen/cardview_app_radius"
+                    app:cardElevation="4dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8"
-                        android:textSize="@dimen/text_dashboard"
-                        android:textStyle="bold"
-                        android:id="@+id/chapterHeaderTextView"
-                        tools:text="Introduction"/>
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8"
-                        android:textSize="@dimen/text_dashboard_small"
-                        android:id="@+id/chapterIntroTextView"
-                        tools:text="The C programming language is a computer programming language that was developed to do system programming for the operating system UNIX and is an imperative programming language. C was developed in the early 1970 by Ken Thompson and Dennis Ritchie. It is a procedural language, which means that people can write their programs as a series of step-by-step instructions. C is a compiled language."/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_8"
+                            android:textSize="@dimen/text_dashboard_small"
+                            android:id="@+id/chapterIntroTextView"
+                            tools:text="The C programming language is a computer programming language that was developed to do system programming for the operating system UNIX and is an imperative programming language. C was developed in the early 1970 by Ken Thompson and Dennis Ritchie. It is a procedural language, which means that people can write their programs as a series of step-by-step instructions. C is a compiled language."/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_8"
-                        android:background="@color/white"
-                        android:textColor="@color/md_blue_800"
-                        android:textSize="@dimen/text_dashboard_small"
-                        android:textStyle="bold"
-                        android:id="@+id/chapterNoteTextView"
-                        tools:text="The very first thing you need to do, before starting out in C, is to make sure that you have a compiler. What is a compiler, you ask? A compiler turns the program that you write into an executable that your computer can actually understand and run. If you're taking a course, you probably have one provided through your school."/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/margin_8"
+                            android:background="@color/white"
+                            android:textColor="@color/md_blue_800"
+                            android:textSize="@dimen/text_dashboard_small"
+                            android:textStyle="bold"
+                            android:id="@+id/chapterNoteTextView"
+                            tools:text="The very first thing you need to do, before starting out in C, is to make sure that you have a compiler. What is a compiler, you ask? A compiler turns the program that you write into an executable that your computer can actually understand and run. If you're taking a course, you probably have one provided through your school."/>
 
-                    <io.github.kbiakov.codeview.CodeView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chapterProgramCodeView">
-                        
-                    </io.github.kbiakov.codeview.CodeView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_8"
-                        android:background="@color/md_black_1000"
-                        android:textSize="@dimen/text_dashboard_small"
-                        android:textColor="@color/md_grey_500"
-                        android:id="@+id/chapterProgramOutputTextView"
-                        tools:text="Example compilers : Turbo CPP, Gcc for unix"/>
+                        <io.github.kbiakov.codeview.CodeView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/chapterProgramCodeView">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_8"
-                        android:background="@color/white"
-                        android:textSize="@dimen/text_dashboard_small"
-                        android:textStyle="bold"
-                        android:id="@+id/chapterProgramDescriptionTextView"
-                        tools:text="The very first thing you need to do, before starting out in C, is to make sure that you have a compiler. What is a compiler, you ask? A compiler turns the program that you write into an executable that your computer can actually understand and run. If you're taking a course, you probably have one provided through your school."/>
+                        </io.github.kbiakov.codeview.CodeView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/margin_8"
+                            android:background="@color/md_black_1000"
+                            android:textSize="@dimen/text_dashboard_small"
+                            android:textColor="@color/md_grey_500"
+                            android:id="@+id/chapterProgramOutputTextView"
+                            tools:text="Example compilers : Turbo CPP, Gcc for unix"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/margin_8"
+                            android:background="@color/white"
+                            android:textSize="@dimen/text_dashboard_small"
+                            android:textStyle="bold"
+                            android:id="@+id/chapterProgramDescriptionTextView"
+                            tools:text="The very first thing you need to do, before starting out in C, is to make sure that you have a compiler. What is a compiler, you ask? A compiler turns the program that you write into an executable that your computer can actually understand and run. If you're taking a course, you probably have one provided through your school."/>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
+            </FrameLayout>
+
 
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </RelativeLayout>
