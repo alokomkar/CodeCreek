@@ -3,11 +3,11 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.app.Activity;
 import android.content.Context;
 
-import com.sortedqueue.programmercreek.activity.DashboardActivity;
+import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -226,13 +226,71 @@ public class JavaProgramInserter {
     }
 
     public void insertLanguageModules() {
+
+        int moduleIndex = 1;
+        String programLanguage = "sql";
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Syntax",
+                        "SQL is followed by unique set " +
+                                "of rules and guidelines called Syntax. " +
+                                "This tutorial gives you a quick start " +
+                                "with SQL by listing all the basic SQL Syntax",
+                        programLanguage));
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Data Types",
+                        "SQL data type is an attribute " +
+                                "that specifies type of " +
+                                "data of any object. " +
+                                "Each column, variable and expression " +
+                                "has related data type in SQL.",  programLanguage));
+
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Expressions",
+                        "An expression is a combination of " +
+                                "one or more values, operators, and " +
+                                "SQL functions that evaluate to a value.",  programLanguage));
+
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Database commands",
+                        "In this module, we will take a closer look at commands involved in creation, selection and deletion of database",  programLanguage));
+
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Table commands",
+                        "In this module, we will take a closer look at commands involved in creation and deletion of table",  programLanguage));
+
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - CRUD Operations",
+                        "In this module, we will take a closer look at commands involved in insertion, selection, update and deletion of rows of a table",  programLanguage));
+
+        firebaseDatabaseHandler.writeLanguageModule(
+                new LanguageModule(
+                        "sql_" + moduleIndex++,
+                        "SQL - Extras",
+                        "In this module, we will explore sorting, ordering and filtering of rows of a table",  programLanguage));
+    }
+
+    public void insertSyntaxModules( ) {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         int moduleId = 1;
-        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        /*String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
-        }
-
+        }*/
+        String programLanguage = "sql";
+        new CreekPreferences(context).setProgramLanguage("sql");
         moduleId = 1;
         String generatedId = programLanguage + "_" + moduleId++;
         ArrayList<ModuleOption> moduleOptions = new ArrayList<>();
@@ -346,7 +404,7 @@ public class JavaProgramInserter {
                         "",
                         "",
                         moduleOptions
-                        ));
+                ));
 
         moduleOptions = new ArrayList<>();
         index = 0;
@@ -656,14 +714,6 @@ public class JavaProgramInserter {
         moduleOptions.add(new ModuleOption(index++, "getchar("));
         moduleOptions.add(new ModuleOption(index++, " &a"));*/
 
-
-
-
-    }
-
-    public void insertSyntaxModules( ) {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        firebaseDatabaseHandler.writeSyntaxModule( new SyntaxModule());
 
     }
 

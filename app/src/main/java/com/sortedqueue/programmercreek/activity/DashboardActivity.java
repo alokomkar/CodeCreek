@@ -32,18 +32,12 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
-import com.sortedqueue.programmercreek.database.ProgramLanguage;
-import com.sortedqueue.programmercreek.database.ProgramTable;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -127,7 +121,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     }
 
-    private void initProgramLanguages() {
+    /*private void initProgramLanguages() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         ProgramLanguage programLanguage = new ProgramLanguage(
                 "SQL : Structured Query Language",
@@ -139,7 +133,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                         "stream management system (RDSMS).",
                 "false");
         firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
-    }
+    }*/
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
@@ -149,11 +143,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
 
     private void initJavaIndex() {
-        creekPreferences.setProgramLanguage("usp");
+        creekPreferences.setProgramLanguage("sql");
 
 
 
-        new JavaProgramInserter(DashboardActivity.this).insertProgramWiki();
+        new JavaProgramInserter(DashboardActivity.this).insertLanguageModules();
     }
 
     /*private void initAds() {
