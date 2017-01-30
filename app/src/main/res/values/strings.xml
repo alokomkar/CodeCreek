@@ -130,8 +130,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="hello_world_program"><![CDATA[#include <stdio.h> int main() {     printf( \"I am alive!  Beware.\\n\" );     getchar();     return 0; }]]></string>
-    <string name="basics_with_hello_world">Basics with hello world</string>
-    <string name="comments">Using comments</string>
+    <string name="basics_with_hello_world">Basics</string>
+    <string name="comments">Extras</string>
     <string name="installation">Installation</string>
     <string name="chapters">Chapters</string>
     <string name="search">Search [Syntax]DB</string>
