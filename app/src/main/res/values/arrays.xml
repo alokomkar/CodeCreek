@@ -38,6 +38,12 @@ James Gosling, at Sun Labs, around 1992; the group was building a set-top box an
         <item>In the early 2000s, an enhanced version of C called C++ was widely used by programmers for just about every kind of program imaginable, especially on Windows and Macintosh systems. Developed at Bell Labs by Bjarne Stroustrup, C++ was effective for creating games, interpreters, spreadsheets, word processors, project managers, and more.</item>
         <item>The initial development of C was devised during 1969–73, alongside the early development of the UNIX operating system. It was based on CPL (Combined Programming Language), which had been first condensed into the B programming language and later on it was called as computer programming language by Ken Thompson, an American computer scientist and a colleague of Ritchie. Ritchie rewrote and restored features from BCPL to create C-Programming Language, rewrite the development of the Unix operating system in C language</item>
         <item>C is one of the most popular programming language.It is widely used on many different software platforms, and there are few computer architectures for which a C compiler does not exist. C has greatly influenced many other popular programming languages, most notably C++, which originally began as an extension to C.</item>
+        <item>One of the major strength of C++ is that it supports various programming styles. It is a multiparadigm programming language that not only supports Object oriented programming paradigm but also supports many other paradigms. And this is also the reason behind success of C++..</item>
+        <item>Concept of reference variables and operator overloading for C++ is borrowed from Algol 68 programming language.</item>
+        <item>Modern C++ compilers can perform plenty of optimizations to speed up your code i.e. Copy elision, Vectorizarion, De—virtualization, etc.</item>
+        <item>In the early 2000s, an enhanced version of C called C++ was widely used by programmers for just about every kind of program imaginable, especially on Windows and Macintosh systems. Developed at Bell Labs by Bjarne Stroustrup, C++ was effective for creating games, interpreters, spreadsheets, word processors, project managers, and more.</item>
+        <item>VLC media player is made using C++ so are the game engines. </item>
+        <item>C++ is not purely Object Oriented, or put it in other words, you can write C++ code without using classes and this will compile without any problem.</item>
     </string-array>
 
 </resources>

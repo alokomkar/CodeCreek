@@ -164,6 +164,8 @@ public class AuxilaryUtils {
         cppNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.cpp_notifications_array)));
         ArrayList<String> javaNotifications = new ArrayList<>();
         javaNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.java_notifications_array)));
+        ArrayList<String> uspNotifications = new ArrayList<>();
+        uspNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.usp_notifications_array)));
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         String notification = "";
         Random random = new Random();
@@ -177,6 +179,9 @@ public class AuxilaryUtils {
             case "cpp" :
             case "c++" :
                 notification = cppNotifications.get(random.nextInt(cppNotifications.size()));
+                break;
+            case "usp" :
+                notification = uspNotifications.get(random.nextInt(uspNotifications.size()));
                 break;
         }
 
