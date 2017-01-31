@@ -293,7 +293,7 @@ public class JavaProgramInserter {
         }*/
         String programLanguage = "sql";
         new CreekPreferences(context).setProgramLanguage("sql");
-        moduleId = 3;
+        moduleId = 6;
         String generatedId = programLanguage + "_" + moduleId++;
         int syntaxIndex = 1;
 
@@ -301,31 +301,44 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Expressions");
+        syntaxModule.setSyntaxName("SQL - INSERT Query");
         syntaxModule.setSyntaxDescription(
-                "An expression is a combination of one or more values, operators, and SQL functions that evaluate to a value.\n" +
-                        "\n" +
-                        "SQL EXPRESSIONs are like formulas and they are written in query language. You can also use them to query the database for specific set of data.");
+                "The SQL INSERT INTO Statement is used to add new rows of data to a table in the database.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "There are two basic syntaxes of INSERT INTO statement as follows:\n" +
                         "\n" +
-                        "Consider the basic syntax of the SELECT statement as follows:\n" +
+                        "INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)  \n" +
+                        "VALUES (value1, value2, value3,...valueN);\n" +
+                        "Here, column1, column2,...columnN are the names of the columns in the table into which you want to insert data.\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN \n" +
-                        "FROM table_name \n" +
-                        "WHERE [CONDITION|EXPRESSION];");
+                        "You may not need to specify the column(s) name in the SQL query if you are adding values for all the columns of the table. But make sure the order of the values is in the same order as the columns in the table. The SQL INSERT INTO syntax would be as follows:\n" +
+                        "\n" +
+                        "INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);\n\n" +
+                        "Example:\n" +
+                        "Following statements would create one record in CUSTOMERS table:\n" +
+                        "\n" +
+                        "INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)\n" +
+                        "VALUES (1, 'Ramesh', 32, 'Ahmedabad', 2000.00 );\n\n" +
+                        "You can also create a record in CUSTOMERS table using second syntax as follows:\n" +
+                        "\n" +
+                        "INSERT INTO CUSTOMERS \n" +
+                        "VALUES (7, 'Muffy', 24, 'Indore', 10000.00 );");
 
-
-        syntaxModule.setSyntaxCommandOutput("");
-        syntaxModule.setSyntaxQuestion("");
-        syntaxModule.setSyntaxQuestionOutput("");
-        syntaxModule.setSyntaxSolution("");
+        syntaxModule.setSyntaxCommandOutput("A new row in Customers will be created");
+        syntaxModule.setSyntaxQuestion("Create a new row in table : codeTable[id, programLine] containing entries id : 1 and row : Infinite_Programmer");
+        syntaxModule.setSyntaxQuestionOutput("A new database called infiniteDB will be created");
+        syntaxModule.setSyntaxSolution("INSERT INTO CODETABLE VALUES (1, 'Infinite_Programmer');");
         syntaxModule.setSyntaxLanguage("sql");
 
 
         moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, ""));
+        String[] options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option+ " "));
+        }
+        Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
         firebaseDatabaseHandler.writeSyntaxModule(
                 syntaxModule);
@@ -334,29 +347,61 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Boolean Expressions");
+        syntaxModule.setSyntaxName("SQL - SELECT Query");
         syntaxModule.setSyntaxDescription(
-                "SQL Boolean Expressions fetch the data on the basis of matching single value.");
+                "SQL SELECT statement is used to fetch the data from a database table which returns data in the form of result table. These result tables are called result-sets.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of SELECT statement is as follows:\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN \n" +
-                        "FROM table_name \n" +
-                        "WHERE SINGLE VALUE MATCHING EXPRESSION;\n\n" +
-                        "Here is simple example showing usage of SQL Boolean Expressions:\n\n" +
-                        "SELECT * FROM CUSTOMERS WHERE SALARY = 10000;");
+                        "SELECT column1, column2, columnN FROM table_name;\n" +
+                        "Here, column1, column2...are the fields of a table whose values you want to fetch. If you want to fetch all the fields available in the field, then you can use the following syntax:\n" +
+                        "\n" +
+                        "SELECT * FROM table_name;\n\n" +
+                        "Following is an example, which would fetch ID, Name and Salary fields of the customers available in CUSTOMERS table:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY FROM CUSTOMERS;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+----------+\n" +
+                        "| ID | NAME     | SALARY   |\n" +
+                        "+----+----------+----------+\n" +
+                        "|  1 | Ramesh   |  2000.00 |\n" +
+                        "|  2 | Khilan   |  1500.00 |\n" +
+                        "|  3 | kaushik  |  2000.00 |\n" +
+                        "|  4 | Chaitali |  6500.00 |\n" +
+                        "|  5 | Hardik   |  8500.00 |\n" +
+                        "|  6 | Komal    |  4500.00 |\n" +
+                        "|  7 | Muffy    | 10000.00 |\n" +
+                        "+----+----------+----------+\n" +
+                        "If you want to fetch all the fields of CUSTOMERS table, then use the following query:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+");
 
 
-        syntaxModule.setSyntaxCommandOutput("Retrieves Customer record with salary 10000");
-        syntaxModule.setSyntaxQuestion("Retrieve a customer with age 25");
-        syntaxModule.setSyntaxSolution("SELECT * FROM CUSTOMERS WHERE AGE = 25;");
-        syntaxModule.setSyntaxQuestionOutput("Retrieves a customer with age 25");
+        syntaxModule.setSyntaxCommandOutput("Shows relevant rows as per the query");
+        syntaxModule.setSyntaxQuestion("Select all fields from table codeTable [id, programLine] ");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE;");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
         syntaxModule.setSyntaxLanguage("sql");
 
 
         moduleOptions = new ArrayList<>();
         index = 0;
-        String[] options = syntaxModule.getSyntaxSolution().split(" ");
+        options = syntaxModule.getSyntaxSolution().split(" ");
         for( String option : options ) {
             moduleOptions.add(new ModuleOption(index++, option+ " "));
         }
@@ -370,25 +415,69 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Numeric Expression");
+        syntaxModule.setSyntaxName("SQL - WHERE Clause");
         syntaxModule.setSyntaxDescription(
-                "This expression is used to perform any mathematical operation in any query. Following is the syntax:");
+                "The SQL WHERE clause is used to specify a condition while fetching the data from single table or joining with multiple tables.\n" +
+                        "\n" +
+                        "If the given condition is satisfied then only it returns specific value from the table. You would use WHERE clause to filter the records and fetching only necessary records.\n" +
+                        "\n" +
+                        "The WHERE clause is not only used in SELECT statement, but it is also used in UPDATE, DELETE statement, etc., which we would examine in subsequent chapters.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of SELECT statement with WHERE clause is as follows:\n" +
                         "\n" +
-                        "SELECT numerical_expression as  OPERATION_NAME\n" +
-                        "[FROM table_name\n" +
-                        "WHERE CONDITION] ;\n\n" +
-                        "Here numerical_expression is used for mathematical " +
-                        "expression or any formula. Following is a simple examples showing " +
-                        "usage of SQL Numeric Expressions:\n\n" +
-                        "SELECT (15 + 6) AS ADDITION");
+                        "SELECT column1, column2, columnN \n" +
+                        "FROM table_name\n" +
+                        "WHERE [condition]\n" +
+                        "You can specify a condition using comparison or logical operators like >, <, =, LIKE, NOT, etc. Below examples would make this concept clear.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY \n" +
+                        "FROM CUSTOMERS\n" +
+                        "WHERE SALARY > 2000;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+----------+\n" +
+                        "| ID | NAME     | SALARY   |\n" +
+                        "+----+----------+----------+\n" +
+                        "|  4 | Chaitali |  6500.00 |\n" +
+                        "|  5 | Hardik   |  8500.00 |\n" +
+                        "|  6 | Komal    |  4500.00 |\n" +
+                        "|  7 | Muffy    | 10000.00 |\n" +
+                        "+----+----------+----------+\n" +
+                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table for a customer with name Hardik. Here, it is important to note that all the strings should be given inside single quotes ('') where as numeric values should be given without any quote as in above example:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY \n" +
+                        "FROM CUSTOMERS\n" +
+                        "WHERE NAME = 'Hardik';\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+----------+\n" +
+                        "| ID | NAME     | SALARY   |\n" +
+                        "+----+----------+----------+\n" +
+                        "|  5 | Hardik   |  8500.00 |\n" +
+                        "+----+----------+----------+");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays a table with sum of addition : 21");
-        syntaxModule.setSyntaxQuestion("Display a table with difference between 15 and 6 presented as DIFFERENCE");
-        syntaxModule.setSyntaxSolution("SELECT (15 - 6) AS DIFFERENCE");
-        syntaxModule.setSyntaxQuestionOutput("Displays a table with differnce of subtraction : 9");
+        syntaxModule.setSyntaxCommandOutput("Displays relevant data from table");
+        syntaxModule.setSyntaxQuestion("Select all row values from codeTable[id, programLine] where id = 1");
+        syntaxModule.setSyntaxSolution("SELECT ID, PROGRAMLINE FROM CODETABLE WHERE ID = 1;");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
         syntaxModule.setSyntaxLanguage("sql");
 
 
@@ -407,35 +496,295 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Date Expression");
+        syntaxModule.setSyntaxName("SQL - AND and OR Conjunctive Operators");
         syntaxModule.setSyntaxDescription(
-                "Date Expressions return current system date and time values:");
+                "The SQL AND and OR operators are used to combine multiple conditions to narrow data in an SQL statement. These two operators are called conjunctive operators.\n" +
+                        "\n" +
+                        "These operators provide a means to make multiple comparisons with different operators in the same SQL statement.\n" +
+                        "\n" +
+                        "The AND Operator:\n" +
+                        "The AND operator allows the existence of multiple conditions in an SQL statement's WHERE clause.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of AND operator with WHERE clause is as follows:\n" +
                         "\n" +
-                        "SELECT CURRENT_TIMESTAMP;\n\n" +
-                        "Another date expression is as follows:\n\n" +
-                        "SELECT  GETDATE();\n\n" +
-                        "");
+                        "SELECT column1, column2, columnN \n" +
+                        "FROM table_name\n" +
+                        "WHERE [condition1] AND [condition2]...AND [conditionN];\n" +
+                        "You can combine N number of conditions using AND operator. For an action to be taken by the SQL statement, whether it be a transaction or query, all conditions separated by the AND must be TRUE.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000 AND age is less tan 25 years:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY \n" +
+                        "FROM CUSTOMERS\n" +
+                        "WHERE SALARY > 2000 AND age < 25;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+-------+----------+\n" +
+                        "| ID | NAME  | SALARY   |\n" +
+                        "+----+-------+----------+\n" +
+                        "|  6 | Komal |  4500.00 |\n" +
+                        "|  7 | Muffy | 10000.00 |\n" +
+                        "+----+-------+----------+");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays current time stamp and get date respectively");
-        syntaxModule.setSyntaxQuestion("");
-        syntaxModule.setSyntaxQuestionOutput("");
-        syntaxModule.setSyntaxSolution("");
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant rows matching values for specified query");
+        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] where id = 1 and programLine = 'Infinite_Programmer'");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE ID = 1 AND PROGRAMLINE = 'Infinite_Programmer';");
         syntaxModule.setSyntaxLanguage("sql");
 
 
         moduleOptions = new ArrayList<>();
-        moduleOptions.add( new ModuleOption(0, ""));
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
         firebaseDatabaseHandler.writeSyntaxModule(
                 syntaxModule);
 
 
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - AND and OR Conjunctive Operators");
+        syntaxModule.setSyntaxDescription(
+                "The OR Operator:\n" +
+                        "The OR operator is used to combine multiple conditions in an SQL statement's WHERE clause.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of OR operator with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "SELECT column1, column2, columnN \n" +
+                        "FROM table_name\n" +
+                        "WHERE [condition1] OR [condition2]...OR [conditionN]\n" +
+                        "You can combine N number of conditions using OR operator. For an action to be taken by the SQL statement, whether it be a transaction or query, only any ONE of the conditions separated by the OR must be TRUE.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000 OR age is less tan 25 years:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY \n" +
+                        "FROM CUSTOMERS\n" +
+                        "WHERE SALARY > 2000 OR age < 25;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+----------+\n" +
+                        "| ID | NAME     | SALARY   |\n" +
+                        "+----+----------+----------+\n" +
+                        "|  3 | kaushik  |  2000.00 |\n" +
+                        "|  4 | Chaitali |  6500.00 |\n" +
+                        "|  5 | Hardik   |  8500.00 |\n" +
+                        "|  6 | Komal    |  4500.00 |\n" +
+                        "|  7 | Muffy    | 10000.00 |\n" +
+                        "+----+----------+----------+");
 
 
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant rows matching values for specified query");
+        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] where id = 1 or programLine = 'Infinite_Programmer'");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE ID = 1 OR PROGRAMLINE = 'Infinite_Programmer';");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);
+
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - UPDATE Query");
+        syntaxModule.setSyntaxDescription(
+                "The SQL UPDATE Query is used to modify the existing records in a table.\n" +
+                        "\n" +
+                        "You can use WHERE clause with UPDATE query to update selected rows otherwise all the rows would be affected.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of UPDATE query with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "UPDATE table_name\n" +
+                        "SET column1 = value1, column2 = value2...., columnN = valueN\n" +
+                        "WHERE [condition];\n" +
+                        "You can combine N number of conditions using AND or OR operators.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would update ADDRESS for a customer whose ID is 6:\n" +
+                        "\n" +
+                        "SQL> UPDATE CUSTOMERS\n" +
+                        "SET ADDRESS = 'Pune'\n" +
+                        "WHERE ID = 6;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | Pune      |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "If you want to modify all ADDRESS and SALARY column values in CUSTOMERS table, you do not need to use WHERE clause and UPDATE query would be as follows:\n" +
+                        "\n" +
+                        "SQL> UPDATE CUSTOMERS\n" +
+                        "SET ADDRESS = 'Pune', SALARY = 1000.00;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+---------+---------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS | SALARY  |\n" +
+                        "+----+----------+-----+---------+---------+\n" +
+                        "|  1 | Ramesh   |  32 | Pune    | 1000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Pune    | 1000.00 |\n" +
+                        "|  3 | kaushik  |  23 | Pune    | 1000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Pune    | 1000.00 |\n" +
+                        "|  5 | Hardik   |  27 | Pune    | 1000.00 |\n" +
+                        "|  6 | Komal    |  22 | Pune    | 1000.00 |\n" +
+                        "|  7 | Muffy    |  24 | Pune    | 1000.00 |\n" +
+                        "+----+----------+-----+---------+---------+");
+
+
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant number rows matching values for specified update query affected");
+        syntaxModule.setSyntaxQuestion("Update programLine column from codeTable[id, programLine] where id = 1 to programLine = 'Learning_made_easy'");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Learning_made_easy |");
+        syntaxModule.setSyntaxSolution("UPDATE CODETABLE SET PROGRAMLINE = 'Learning_made_easy' WHERE ID = 1;");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);
+
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - DELETE Query");
+        syntaxModule.setSyntaxDescription(
+                "The SQL DELETE Query is used to delete the existing records from a table.\n" +
+                        "\n" +
+                        "You can use WHERE clause with DELETE query to delete selected rows, otherwise all the records would be deleted.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of DELETE query with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "DELETE FROM table_name\n" +
+                        "WHERE [condition];\n" +
+                        "You can combine N number of conditions using AND or OR operators.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would DELETE a customer, whose ID is 6:\n" +
+                        "\n" +
+                        "SQL> DELETE FROM CUSTOMERS\n" +
+                        "WHERE ID = 6;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "If you want to DELETE all the records from CUSTOMERS table, you do not need to use WHERE clause and DELETE query would be as follows:\n" +
+                        "\n" +
+                        "SQL> DELETE FROM CUSTOMERS;\n" +
+                        "Now, CUSTOMERS table would not have any record.");
+
+
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant number rows matching values for specified update query deleted");
+        syntaxModule.setSyntaxQuestion("Delete row from codeTable[id, programLine] where id = 1");
+        syntaxModule.setSyntaxQuestionOutput("1 row deleted");
+        syntaxModule.setSyntaxSolution("DELETE FROM CODETABLE WHERE ID = 1;");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);
 
 
 
