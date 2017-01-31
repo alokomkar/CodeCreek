@@ -293,7 +293,7 @@ public class JavaProgramInserter {
         }*/
         String programLanguage = "sql";
         new CreekPreferences(context).setProgramLanguage("sql");
-        moduleId = 6;
+        moduleId = 7;
         String generatedId = programLanguage + "_" + moduleId++;
         int syntaxIndex = 1;
 
@@ -301,34 +301,70 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - INSERT Query");
+        syntaxModule.setSyntaxName("SQL - LIKE Clause");
         syntaxModule.setSyntaxDescription(
-                "The SQL INSERT INTO Statement is used to add new rows of data to a table in the database.");
+                "The SQL LIKE clause is used to compare a value to similar values using wildcard operators. There are two wildcards used in conjunction with the LIKE operator:\n" +
+                        "\n" +
+                        "The percent sign (%)\n" +
+                        "\n" +
+                        "The underscore (_)\n" +
+                        "\n" +
+                        "The percent sign represents zero, one, or multiple characters. The underscore represents a single number or character. The symbols can be used in combinations.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
-                        "There are two basic syntaxes of INSERT INTO statement as follows:\n" +
+                        "The basic syntax of % and _ is as follows:\n" +
                         "\n" +
-                        "INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)  \n" +
-                        "VALUES (value1, value2, value3,...valueN);\n" +
-                        "Here, column1, column2,...columnN are the names of the columns in the table into which you want to insert data.\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE 'XXXX%'\n" +
                         "\n" +
-                        "You may not need to specify the column(s) name in the SQL query if you are adding values for all the columns of the table. But make sure the order of the values is in the same order as the columns in the table. The SQL INSERT INTO syntax would be as follows:\n" +
+                        "or \n" +
                         "\n" +
-                        "INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);\n\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '%XXXX%'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE 'XXXX_'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '_XXXX'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '_XXXX_'\n" +
+                        "You can combine N number of conditions using AND or OR operators. Here, XXXX could be any numeric or string value.\n" +
+                        "\n" +
                         "Example:\n" +
-                        "Following statements would create one record in CUSTOMERS table:\n" +
+                        "Here are number of examples showing WHERE part having different LIKE clause with '%' and '_' operators:\n\n" +
+                        "WHERE SALARY LIKE '200%'\tFinds any values that start with 200\n" +
+                        "WHERE SALARY LIKE '%200%'\tFinds any values that have 200 in any position\n" +
+                        "WHERE SALARY LIKE '_00%'\tFinds any values that have 00 in the second and third positions\n" +
+                        "WHERE SALARY LIKE '2_%_%'\tFinds any values that start with 2 and are at least 3 characters in length\n" +
+                        "WHERE SALARY LIKE '%2'\tFinds any values that end with 2\n" +
+                        "WHERE SALARY LIKE '_2%3'\tFinds any values that have a 2 in the second position and end with a 3\n" +
+                        "WHERE SALARY LIKE '2___3'\tFinds any values in a five-digit number that start with 2 and end with 3\n\n" +
+                        "Following is an example, which would display all the records from CUSTOMERS table where SALARY starts with 200:\n" +
                         "\n" +
-                        "INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)\n" +
-                        "VALUES (1, 'Ramesh', 32, 'Ahmedabad', 2000.00 );\n\n" +
-                        "You can also create a record in CUSTOMERS table using second syntax as follows:\n" +
-                        "\n" +
-                        "INSERT INTO CUSTOMERS \n" +
-                        "VALUES (7, 'Muffy', 24, 'Indore', 10000.00 );");
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "WHERE SALARY LIKE '200%';\n" +
+                        "This would produce the following result:\n" +
+                        "\n"
+                        );
 
-        syntaxModule.setSyntaxCommandOutput("A new row in Customers will be created");
-        syntaxModule.setSyntaxQuestion("Create a new row in table : codeTable[id, programLine] containing entries id : 1 and row : Infinite_Programmer");
-        syntaxModule.setSyntaxQuestionOutput("A new database called infiniteDB will be created");
-        syntaxModule.setSyntaxSolution("INSERT INTO CODETABLE VALUES (1, 'Infinite_Programmer');");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----+----------+-----+-----------+----------+\n" +
+                "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                "+----+----------+-----+-----------+----------+\n" +
+                "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                "+----+----------+-----+-----------+----------+");
+        syntaxModule.setSyntaxQuestion("Select a row in table : codeTable[id, programLine] containing entry programLine starting with Infinite");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE PROGRAMLINE LIKE 'Infinite%'");
         syntaxModule.setSyntaxLanguage("sql");
 
 
@@ -347,37 +383,21 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - SELECT Query");
+        syntaxModule.setSyntaxName("SQL - ORDER BY Clause");
         syntaxModule.setSyntaxDescription(
-                "SQL SELECT statement is used to fetch the data from a database table which returns data in the form of result table. These result tables are called result-sets.");
+                "The SQL ORDER BY clause is used to sort the data in ascending or descending order, based on one or more columns. Some database sorts query results in ascending order by default.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
-                        "The basic syntax of SELECT statement is as follows:\n" +
+                        "The basic syntax of ORDER BY clause is as follows:\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN FROM table_name;\n" +
-                        "Here, column1, column2...are the fields of a table whose values you want to fetch. If you want to fetch all the fields available in the field, then you can use the following syntax:\n" +
+                        "SELECT column-list \n" +
+                        "FROM table_name \n" +
+                        "[WHERE condition] \n" +
+                        "[ORDER BY column1, column2, .. columnN] [ASC | DESC];\n" +
+                        "You can use more than one column in the ORDER BY clause. Make sure whatever column you are using to sort, that column should be in column-list.\n" +
                         "\n" +
-                        "SELECT * FROM table_name;\n\n" +
-                        "Following is an example, which would fetch ID, Name and Salary fields of the customers available in CUSTOMERS table:\n" +
-                        "\n" +
-                        "SQL> SELECT ID, NAME, SALARY FROM CUSTOMERS;\n" +
-                        "This would produce the following result:\n" +
-                        "\n" +
-                        "+----+----------+----------+\n" +
-                        "| ID | NAME     | SALARY   |\n" +
-                        "+----+----------+----------+\n" +
-                        "|  1 | Ramesh   |  2000.00 |\n" +
-                        "|  2 | Khilan   |  1500.00 |\n" +
-                        "|  3 | kaushik  |  2000.00 |\n" +
-                        "|  4 | Chaitali |  6500.00 |\n" +
-                        "|  5 | Hardik   |  8500.00 |\n" +
-                        "|  6 | Komal    |  4500.00 |\n" +
-                        "|  7 | Muffy    | 10000.00 |\n" +
-                        "+----+----------+----------+\n" +
-                        "If you want to fetch all the fields of CUSTOMERS table, then use the following query:\n" +
-                        "\n" +
-                        "SQL> SELECT * FROM CUSTOMERS;\n" +
-                        "This would produce the following result:\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
                         "\n" +
                         "+----+----------+-----+-----------+----------+\n" +
                         "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
@@ -389,12 +409,45 @@ public class JavaProgramInserter {
                         "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
                         "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
                         "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
-                        "+----+----------+-----+-----------+----------+");
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would sort the result in ascending order by NAME and SALARY:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "     ORDER BY NAME, SALARY;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would sort the result in descending order by NAME:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "     ORDER BY NAME DESC;\n" +
+                        "This would produce the following result:");
 
 
-        syntaxModule.setSyntaxCommandOutput("Shows relevant rows as per the query");
-        syntaxModule.setSyntaxQuestion("Select all fields from table codeTable [id, programLine] ");
-        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE;");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----+----------+-----+-----------+----------+\n" +
+                "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                "+----+----------+-----+-----------+----------+\n" +
+                "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                "+----+----------+-----+-----------+----------+");
+        syntaxModule.setSyntaxQuestion("Select all fields from table codeTable [id, programLine] order by id - descending order[DESC]\n\nSIDE NOTE: For Ascending order its ASC");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE ORDER BY ID DESC;");
         syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
         syntaxModule.setSyntaxLanguage("sql");
 
@@ -415,24 +468,22 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - WHERE Clause");
+        syntaxModule.setSyntaxName("SQL - Group By");
         syntaxModule.setSyntaxDescription(
-                "The SQL WHERE clause is used to specify a condition while fetching the data from single table or joining with multiple tables.\n" +
+                "The SQL GROUP BY clause is used in collaboration with the SELECT statement to arrange identical data into groups.\n" +
                         "\n" +
-                        "If the given condition is satisfied then only it returns specific value from the table. You would use WHERE clause to filter the records and fetching only necessary records.\n" +
-                        "\n" +
-                        "The WHERE clause is not only used in SELECT statement, but it is also used in UPDATE, DELETE statement, etc., which we would examine in subsequent chapters.");
+                        "The GROUP BY clause follows the WHERE clause in a SELECT statement and precedes the ORDER BY clause.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
-                        "The basic syntax of SELECT statement with WHERE clause is as follows:\n" +
+                        "The basic syntax of GROUP BY clause is given below. The GROUP BY clause must follow the conditions in the WHERE clause and must precede the ORDER BY clause if one is used.\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN \n" +
+                        "SELECT column1, column2\n" +
                         "FROM table_name\n" +
-                        "WHERE [condition]\n" +
-                        "You can specify a condition using comparison or logical operators like >, <, =, LIKE, NOT, etc. Below examples would make this concept clear.\n" +
-                        "\n" +
+                        "WHERE [ conditions ]\n" +
+                        "GROUP BY column1, column2\n" +
+                        "ORDER BY column1, column2\n" +
                         "Example:\n" +
-                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "Consider the CUSTOMERS table is having the following records:\n" +
                         "\n" +
                         "+----+----------+-----+-----------+----------+\n" +
                         "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
@@ -445,38 +496,55 @@ public class JavaProgramInserter {
                         "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
                         "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
                         "+----+----------+-----+-----------+----------+\n" +
-                        "Following is an example which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000:\n" +
+                        "If you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
                         "\n" +
-                        "SQL> SELECT ID, NAME, SALARY \n" +
-                        "FROM CUSTOMERS\n" +
-                        "WHERE SALARY > 2000;\n" +
+                        "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
+                        "     GROUP BY NAME;\n" +
                         "This would produce the following result:\n" +
                         "\n" +
-                        "+----+----------+----------+\n" +
-                        "| ID | NAME     | SALARY   |\n" +
-                        "+----+----------+----------+\n" +
-                        "|  4 | Chaitali |  6500.00 |\n" +
-                        "|  5 | Hardik   |  8500.00 |\n" +
-                        "|  6 | Komal    |  4500.00 |\n" +
-                        "|  7 | Muffy    | 10000.00 |\n" +
-                        "+----+----------+----------+\n" +
-                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table for a customer with name Hardik. Here, it is important to note that all the strings should be given inside single quotes ('') where as numeric values should be given without any quote as in above example:\n" +
+                        "+----------+-------------+\n" +
+                        "| NAME     | SUM(SALARY) |\n" +
+                        "+----------+-------------+\n" +
+                        "| Chaitali |     6500.00 |\n" +
+                        "| Hardik   |     8500.00 |\n" +
+                        "| kaushik  |     2000.00 |\n" +
+                        "| Khilan   |     1500.00 |\n" +
+                        "| Komal    |     4500.00 |\n" +
+                        "| Muffy    |    10000.00 |\n" +
+                        "| Ramesh   |     2000.00 |\n" +
+                        "+----------+-------------+\n" +
+                        "Now, let us have following table where CUSTOMERS table has the following records with duplicate names:\n" +
                         "\n" +
-                        "SQL> SELECT ID, NAME, SALARY \n" +
-                        "FROM CUSTOMERS\n" +
-                        "WHERE NAME = 'Hardik';\n" +
-                        "This would produce the following result:\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Ramesh   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | kaushik  |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Now again, if you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
                         "\n" +
-                        "+----+----------+----------+\n" +
-                        "| ID | NAME     | SALARY   |\n" +
-                        "+----+----------+----------+\n" +
-                        "|  5 | Hardik   |  8500.00 |\n" +
-                        "+----+----------+----------+");
+                        "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
+                        "     GROUP BY NAME;\n" +
+                        "This would produce the following result:");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays relevant data from table");
-        syntaxModule.setSyntaxQuestion("Select all row values from codeTable[id, programLine] where id = 1");
-        syntaxModule.setSyntaxSolution("SELECT ID, PROGRAMLINE FROM CODETABLE WHERE ID = 1;");
+        syntaxModule.setSyntaxCommandOutput(
+                "+---------+-------------+\n" +
+                "| NAME    | SUM(SALARY) |\n" +
+                "+---------+-------------+\n" +
+                "| Hardik  |     8500.00 |\n" +
+                "| kaushik |     8500.00 |\n" +
+                "| Komal   |     4500.00 |\n" +
+                "| Muffy   |    10000.00 |\n" +
+                "| Ramesh  |     3500.00 |\n" +
+                "+---------+-------------+");
+        syntaxModule.setSyntaxQuestion("Select all row values from codeTable[id, programLine] GROUP BY programLine");
+        syntaxModule.setSyntaxSolution("SELECT ID, PROGRAMLINE FROM CODETABLE GROUP BY PROGRAMLINE;");
         syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
         syntaxModule.setSyntaxLanguage("sql");
 
@@ -496,23 +564,18 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - AND and OR Conjunctive Operators");
+        syntaxModule.setSyntaxName("SQL - Distinct Keyword");
         syntaxModule.setSyntaxDescription(
-                "The SQL AND and OR operators are used to combine multiple conditions to narrow data in an SQL statement. These two operators are called conjunctive operators.\n" +
+                "The SQL DISTINCT keyword is used in conjunction with SELECT statement to eliminate all the duplicate records and fetching only unique records.\n" +
                         "\n" +
-                        "These operators provide a means to make multiple comparisons with different operators in the same SQL statement.\n" +
-                        "\n" +
-                        "The AND Operator:\n" +
-                        "The AND operator allows the existence of multiple conditions in an SQL statement's WHERE clause.");
+                        "There may be a situation when you have multiple duplicate records in a table. While fetching such records, it makes more sense to fetch only unique records instead of fetching duplicate records.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
-                        "The basic syntax of AND operator with WHERE clause is as follows:\n" +
+                        "The basic syntax of DISTINCT keyword to eliminate duplicate records is as follows:\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN \n" +
+                        "SELECT DISTINCT column1, column2,.....columnN \n" +
                         "FROM table_name\n" +
-                        "WHERE [condition1] AND [condition2]...AND [conditionN];\n" +
-                        "You can combine N number of conditions using AND operator. For an action to be taken by the SQL statement, whether it be a transaction or query, all conditions separated by the AND must be TRUE.\n" +
-                        "\n" +
+                        "WHERE [condition]\n" +
                         "Example:\n" +
                         "Consider the CUSTOMERS table having the following records:\n" +
                         "\n" +
@@ -527,25 +590,44 @@ public class JavaProgramInserter {
                         "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
                         "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
                         "+----+----------+-----+-----------+----------+\n" +
-                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000 AND age is less tan 25 years:\n" +
+                        "First, let us see how the following SELECT query returns duplicate salary records:\n" +
                         "\n" +
-                        "SQL> SELECT ID, NAME, SALARY \n" +
-                        "FROM CUSTOMERS\n" +
-                        "WHERE SALARY > 2000 AND age < 25;\n" +
-                        "This would produce the following result:\n" +
+                        "SQL> SELECT SALARY FROM CUSTOMERS\n" +
+                        "     ORDER BY SALARY;\n" +
+                        "This would produce the following result where salary 2000 is coming twice which is a duplicate record from the original table.\n" +
                         "\n" +
-                        "+----+-------+----------+\n" +
-                        "| ID | NAME  | SALARY   |\n" +
-                        "+----+-------+----------+\n" +
-                        "|  6 | Komal |  4500.00 |\n" +
-                        "|  7 | Muffy | 10000.00 |\n" +
-                        "+----+-------+----------+");
+                        "+----------+\n" +
+                        "| SALARY   |\n" +
+                        "+----------+\n" +
+                        "|  1500.00 |\n" +
+                        "|  2000.00 |\n" +
+                        "|  2000.00 |\n" +
+                        "|  4500.00 |\n" +
+                        "|  6500.00 |\n" +
+                        "|  8500.00 |\n" +
+                        "| 10000.00 |\n" +
+                        "+----------+\n" +
+                        "Now, let us use DISTINCT keyword with the above SELECT query and see the result:\n" +
+                        "\n" +
+                        "SQL> SELECT DISTINCT SALARY FROM CUSTOMERS\n" +
+                        "     ORDER BY SALARY;\n" +
+                        "This would produce the following result where we do not have any duplicate entry:");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays all relevant rows matching values for specified query");
-        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] where id = 1 and programLine = 'Infinite_Programmer'");
-        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
-        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE ID = 1 AND PROGRAMLINE = 'Infinite_Programmer';");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----------+\n" +
+                "| SALARY   |\n" +
+                "+----------+\n" +
+                "|  1500.00 |\n" +
+                "|  2000.00 |\n" +
+                "|  4500.00 |\n" +
+                "|  6500.00 |\n" +
+                "|  8500.00 |\n" +
+                "| 10000.00 |\n" +
+                "+----------+");
+        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] with distict programLine");
+        syntaxModule.setSyntaxQuestionOutput("| 1 |");
+        syntaxModule.setSyntaxSolution("SELECT DISTINCT ID FROM CODETABLE ORDER BY ID;\n");
         syntaxModule.setSyntaxLanguage("sql");
 
 
@@ -625,8 +707,8 @@ public class JavaProgramInserter {
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
-        firebaseDatabaseHandler.writeSyntaxModule(
-                syntaxModule);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
 
         syntaxModule = new SyntaxModule();
 
@@ -712,8 +794,8 @@ public class JavaProgramInserter {
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
-        firebaseDatabaseHandler.writeSyntaxModule(
-                syntaxModule);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
 
         syntaxModule = new SyntaxModule();
 
@@ -783,8 +865,8 @@ public class JavaProgramInserter {
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
-        firebaseDatabaseHandler.writeSyntaxModule(
-                syntaxModule);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
 
 
 
