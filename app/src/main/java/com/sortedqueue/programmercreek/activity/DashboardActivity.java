@@ -218,8 +218,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             case R.id.action_sync:
                 LanguageFragment.getInstance().getFirebaseDBVerion();
-
                 return true;
+
             case R.id.action_log_out :
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {

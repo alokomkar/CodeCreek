@@ -169,7 +169,6 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                finish();
             }
 
             @Override
