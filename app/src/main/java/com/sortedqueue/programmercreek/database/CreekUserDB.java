@@ -35,7 +35,7 @@ public class CreekUserDB extends RushObject {
     private double cppProgramIndexDBVersion = 1.0;
     private double cppProgramTableDBVersion = 1.0;
 
-    private String sqlSyntaxDBVersion;
+    private String sqlSyntaxDBVersion = "sql_3_s_4";
     private String sqlModuleDBVersion = "sql_7";
     private String sqlWikiDBVersion;
 

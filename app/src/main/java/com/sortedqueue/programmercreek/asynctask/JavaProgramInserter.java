@@ -358,7 +358,7 @@ public class JavaProgramInserter {
         index = 0;
         String[] options = syntaxModule.getSyntaxSolution().split(" ");
         for( String option : options ) {
-            moduleOptions.add(new ModuleOption(index++, option));
+            moduleOptions.add(new ModuleOption(index++, option+ " "));
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
@@ -396,7 +396,7 @@ public class JavaProgramInserter {
         index = 0;
         options = syntaxModule.getSyntaxSolution().split(" ");
         for( String option : options ) {
-            moduleOptions.add(new ModuleOption(index++, option));
+            moduleOptions.add(new ModuleOption(index++, option + " "));
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);

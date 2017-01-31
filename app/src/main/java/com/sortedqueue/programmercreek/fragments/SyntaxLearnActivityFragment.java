@@ -368,8 +368,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 }
                 break;
             case "java":
-                creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
-                creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                creekUserStats.addToUnlockedJavaLanguageModuleIdList(syntaxModule.getModuleId());
+                creekUserStats.addToUnlockedJavaSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
                 if( isLastFragment ) {
                     if( nextModule != null ) {
                         creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId());
@@ -378,6 +378,22 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                     }
                     else if( nextChapter != null ) {
                         creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
+                    }
+                }
+                break;
+            case "sql":
+                creekUserStats.addToUnlockedSqlLanguageModuleIdList(syntaxModule.getModuleId());
+                creekUserStats.addToUnlockedSqlSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
+                if( isLastFragment ) {
+                    if( nextModule != null ) {
+                        creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextModule.getModuleId());
+                        AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
+                        //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
+                    }
+                    else if( nextChapter != null ) {
+                        creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId());
                         AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }

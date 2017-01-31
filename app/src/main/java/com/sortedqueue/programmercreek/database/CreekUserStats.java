@@ -34,6 +34,7 @@ public class CreekUserStats implements Parcelable {
     private ArrayList<String> unlockedUspSyntaxModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppSyntaxModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaSyntaxModuleIdList = new ArrayList<>();
+    private ArrayList<String> unlockedSqlSyntaxModuleIdList = new ArrayList<>();
 
     private ArrayList<String> unlockedCWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedUspWikiIdList = new ArrayList<>();
@@ -190,6 +191,17 @@ public class CreekUserStats implements Parcelable {
 
     public void setUnlockedJavaSyntaxModuleIdList(ArrayList<String> unlockedJavaSyntaxModuleIdList) {
         this.unlockedJavaSyntaxModuleIdList = unlockedJavaSyntaxModuleIdList;
+    }
+
+    public ArrayList<String> getUnlockedSqlSyntaxModuleIdList() {
+        if( unlockedSqlSyntaxModuleIdList.size() == 0 ) {
+            unlockedSqlSyntaxModuleIdList.add("sql_1_s_1");
+        }
+        return unlockedSqlSyntaxModuleIdList;
+    }
+
+    public void setUnlockedSqlSyntaxModuleIdList(ArrayList<String> unlockedSqlSyntaxModuleIdList) {
+        this.unlockedSqlSyntaxModuleIdList = unlockedSqlSyntaxModuleIdList;
     }
 
     public ArrayList<String> getUnlockedCWikiIdList() {
@@ -420,6 +432,12 @@ public class CreekUserStats implements Parcelable {
         }
     }
 
+    public void addToUnlockedSqlSyntaxModuleIdList(String s) {
+        if( !unlockedSqlSyntaxModuleIdList.contains(s) ) {
+            unlockedSqlSyntaxModuleIdList.add(s);
+        }
+    }
+
     public void addToUnlockedJavaProgramIndexList(int i) {
         if( !unlockedJavaProgramIndexList.contains(i) ) {
             unlockedJavaProgramIndexList.add(i);
@@ -482,6 +500,7 @@ public class CreekUserStats implements Parcelable {
         dest.writeStringList(this.unlockedUspSyntaxModuleIdList);
         dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
         dest.writeStringList(this.unlockedJavaSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedSqlSyntaxModuleIdList);
         dest.writeStringList(this.unlockedCWikiIdList);
         dest.writeStringList(this.unlockedUspWikiIdList);
         dest.writeStringList(this.unlockedCppWikiIdList);
@@ -511,6 +530,7 @@ public class CreekUserStats implements Parcelable {
         this.unlockedUspSyntaxModuleIdList = in.createStringArrayList();
         this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();
         this.unlockedJavaSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedSqlSyntaxModuleIdList = in.createStringArrayList();
         this.unlockedCWikiIdList = in.createStringArrayList();
         this.unlockedUspWikiIdList = in.createStringArrayList();
         this.unlockedCppWikiIdList = in.createStringArrayList();
