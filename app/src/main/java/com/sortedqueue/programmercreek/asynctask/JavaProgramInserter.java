@@ -293,7 +293,7 @@ public class JavaProgramInserter {
         }*/
         String programLanguage = "sql";
         new CreekPreferences(context).setProgramLanguage("sql");
-        moduleId = 3;
+        moduleId = 7;
         String generatedId = programLanguage + "_" + moduleId++;
         int syntaxIndex = 1;
 
@@ -301,94 +301,154 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Expressions");
+        syntaxModule.setSyntaxName("SQL - LIKE Clause");
         syntaxModule.setSyntaxDescription(
-                "An expression is a combination of one or more values, operators, and SQL functions that evaluate to a value.\n" +
+                "The SQL LIKE clause is used to compare a value to similar values using wildcard operators. There are two wildcards used in conjunction with the LIKE operator:\n" +
                         "\n" +
-                        "SQL EXPRESSIONs are like formulas and they are written in query language. You can also use them to query the database for specific set of data.");
+                        "The percent sign (%)\n" +
+                        "\n" +
+                        "The underscore (_)\n" +
+                        "\n" +
+                        "The percent sign represents zero, one, or multiple characters. The underscore represents a single number or character. The symbols can be used in combinations.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of % and _ is as follows:\n" +
                         "\n" +
-                        "Consider the basic syntax of the SELECT statement as follows:\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE 'XXXX%'\n" +
                         "\n" +
-                        "SELECT column1, column2, columnN \n" +
-                        "FROM table_name \n" +
-                        "WHERE [CONDITION|EXPRESSION];");
+                        "or \n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '%XXXX%'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE 'XXXX_'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '_XXXX'\n" +
+                        "\n" +
+                        "or\n" +
+                        "\n" +
+                        "SELECT FROM table_name\n" +
+                        "WHERE column LIKE '_XXXX_'\n" +
+                        "You can combine N number of conditions using AND or OR operators. Here, XXXX could be any numeric or string value.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Here are number of examples showing WHERE part having different LIKE clause with '%' and '_' operators:\n\n" +
+                        "WHERE SALARY LIKE '200%'\tFinds any values that start with 200\n" +
+                        "WHERE SALARY LIKE '%200%'\tFinds any values that have 200 in any position\n" +
+                        "WHERE SALARY LIKE '_00%'\tFinds any values that have 00 in the second and third positions\n" +
+                        "WHERE SALARY LIKE '2_%_%'\tFinds any values that start with 2 and are at least 3 characters in length\n" +
+                        "WHERE SALARY LIKE '%2'\tFinds any values that end with 2\n" +
+                        "WHERE SALARY LIKE '_2%3'\tFinds any values that have a 2 in the second position and end with a 3\n" +
+                        "WHERE SALARY LIKE '2___3'\tFinds any values in a five-digit number that start with 2 and end with 3\n\n" +
+                        "Following is an example, which would display all the records from CUSTOMERS table where SALARY starts with 200:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "WHERE SALARY LIKE '200%';\n" +
+                        "This would produce the following result:\n" +
+                        "\n"
+                        );
 
-
-        syntaxModule.setSyntaxCommandOutput("");
-        syntaxModule.setSyntaxQuestion("");
-        syntaxModule.setSyntaxQuestionOutput("");
-        syntaxModule.setSyntaxSolution("");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----+----------+-----+-----------+----------+\n" +
+                "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                "+----+----------+-----+-----------+----------+\n" +
+                "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                "+----+----------+-----+-----------+----------+");
+        syntaxModule.setSyntaxQuestion("Select a row in table : codeTable[id, programLine] containing entry programLine starting with Infinite");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE PROGRAMLINE LIKE 'Infinite%'");
         syntaxModule.setSyntaxLanguage("sql");
 
 
         moduleOptions = new ArrayList<>();
         int index = 0;
-        moduleOptions.add(new ModuleOption(index++, ""));
-        syntaxModule.setSyntaxOptions(moduleOptions);
-        firebaseDatabaseHandler.writeSyntaxModule(
-                syntaxModule);
-
-        syntaxModule = new SyntaxModule();
-
-        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
-        syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Boolean Expressions");
-        syntaxModule.setSyntaxDescription(
-                "SQL Boolean Expressions fetch the data on the basis of matching single value.");
-        syntaxModule.setSyntaxCommand(
-                "Syntax:\n" +
-                        "\n" +
-                        "SELECT column1, column2, columnN \n" +
-                        "FROM table_name \n" +
-                        "WHERE SINGLE VALUE MATCHING EXPRESSION;\n\n" +
-                        "Here is simple example showing usage of SQL Boolean Expressions:\n\n" +
-                        "SELECT * FROM CUSTOMERS WHERE SALARY = 10000;");
-
-
-        syntaxModule.setSyntaxCommandOutput("Retrieves Customer record with salary 10000");
-        syntaxModule.setSyntaxQuestion("Retrieve a customer with age 25");
-        syntaxModule.setSyntaxSolution("SELECT * FROM CUSTOMERS WHERE AGE = 25;");
-        syntaxModule.setSyntaxQuestionOutput("Retrieves a customer with age 25");
-        syntaxModule.setSyntaxLanguage("sql");
-
-
-        moduleOptions = new ArrayList<>();
-        index = 0;
         String[] options = syntaxModule.getSyntaxSolution().split(" ");
         for( String option : options ) {
-            moduleOptions.add(new ModuleOption(index++, option));
+            moduleOptions.add(new ModuleOption(index++, option+ " "));
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
         firebaseDatabaseHandler.writeSyntaxModule(
                 syntaxModule);
 
-
         syntaxModule = new SyntaxModule();
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Numeric Expression");
+        syntaxModule.setSyntaxName("SQL - ORDER BY Clause");
         syntaxModule.setSyntaxDescription(
-                "This expression is used to perform any mathematical operation in any query. Following is the syntax:");
+                "The SQL ORDER BY clause is used to sort the data in ascending or descending order, based on one or more columns. Some database sorts query results in ascending order by default.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of ORDER BY clause is as follows:\n" +
                         "\n" +
-                        "SELECT numerical_expression as  OPERATION_NAME\n" +
-                        "[FROM table_name\n" +
-                        "WHERE CONDITION] ;\n\n" +
-                        "Here numerical_expression is used for mathematical " +
-                        "expression or any formula. Following is a simple examples showing " +
-                        "usage of SQL Numeric Expressions:\n\n" +
-                        "SELECT (15 + 6) AS ADDITION");
+                        "SELECT column-list \n" +
+                        "FROM table_name \n" +
+                        "[WHERE condition] \n" +
+                        "[ORDER BY column1, column2, .. columnN] [ASC | DESC];\n" +
+                        "You can use more than one column in the ORDER BY clause. Make sure whatever column you are using to sort, that column should be in column-list.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would sort the result in ascending order by NAME and SALARY:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "     ORDER BY NAME, SALARY;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would sort the result in descending order by NAME:\n" +
+                        "\n" +
+                        "SQL> SELECT * FROM CUSTOMERS\n" +
+                        "     ORDER BY NAME DESC;\n" +
+                        "This would produce the following result:");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays a table with sum of addition : 21");
-        syntaxModule.setSyntaxQuestion("Display a table with difference between 15 and 6 presented as DIFFERENCE");
-        syntaxModule.setSyntaxSolution("SELECT (15 - 6) AS DIFFERENCE");
-        syntaxModule.setSyntaxQuestionOutput("Displays a table with differnce of subtraction : 9");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----+----------+-----+-----------+----------+\n" +
+                "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                "+----+----------+-----+-----------+----------+\n" +
+                "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                "+----+----------+-----+-----------+----------+");
+        syntaxModule.setSyntaxQuestion("Select all fields from table codeTable [id, programLine] order by id - descending order[DESC]\n\nSIDE NOTE: For Ascending order its ASC");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE ORDER BY ID DESC;");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
         syntaxModule.setSyntaxLanguage("sql");
 
 
@@ -396,7 +456,104 @@ public class JavaProgramInserter {
         index = 0;
         options = syntaxModule.getSyntaxSolution().split(" ");
         for( String option : options ) {
-            moduleOptions.add(new ModuleOption(index++, option));
+            moduleOptions.add(new ModuleOption(index++, option+ " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);
+
+
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - Group By");
+        syntaxModule.setSyntaxDescription(
+                "The SQL GROUP BY clause is used in collaboration with the SELECT statement to arrange identical data into groups.\n" +
+                        "\n" +
+                        "The GROUP BY clause follows the WHERE clause in a SELECT statement and precedes the ORDER BY clause.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of GROUP BY clause is given below. The GROUP BY clause must follow the conditions in the WHERE clause and must precede the ORDER BY clause if one is used.\n" +
+                        "\n" +
+                        "SELECT column1, column2\n" +
+                        "FROM table_name\n" +
+                        "WHERE [ conditions ]\n" +
+                        "GROUP BY column1, column2\n" +
+                        "ORDER BY column1, column2\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table is having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "If you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
+                        "\n" +
+                        "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
+                        "     GROUP BY NAME;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----------+-------------+\n" +
+                        "| NAME     | SUM(SALARY) |\n" +
+                        "+----------+-------------+\n" +
+                        "| Chaitali |     6500.00 |\n" +
+                        "| Hardik   |     8500.00 |\n" +
+                        "| kaushik  |     2000.00 |\n" +
+                        "| Khilan   |     1500.00 |\n" +
+                        "| Komal    |     4500.00 |\n" +
+                        "| Muffy    |    10000.00 |\n" +
+                        "| Ramesh   |     2000.00 |\n" +
+                        "+----------+-------------+\n" +
+                        "Now, let us have following table where CUSTOMERS table has the following records with duplicate names:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Ramesh   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | kaushik  |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Now again, if you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
+                        "\n" +
+                        "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
+                        "     GROUP BY NAME;\n" +
+                        "This would produce the following result:");
+
+
+        syntaxModule.setSyntaxCommandOutput(
+                "+---------+-------------+\n" +
+                "| NAME    | SUM(SALARY) |\n" +
+                "+---------+-------------+\n" +
+                "| Hardik  |     8500.00 |\n" +
+                "| kaushik |     8500.00 |\n" +
+                "| Komal   |     4500.00 |\n" +
+                "| Muffy   |    10000.00 |\n" +
+                "| Ramesh  |     3500.00 |\n" +
+                "+---------+-------------+");
+        syntaxModule.setSyntaxQuestion("Select all row values from codeTable[id, programLine] GROUP BY programLine");
+        syntaxModule.setSyntaxSolution("SELECT ID, PROGRAMLINE FROM CODETABLE GROUP BY PROGRAMLINE;");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
         }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
@@ -407,35 +564,309 @@ public class JavaProgramInserter {
 
         syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
         syntaxModule.setModuleId(generatedId);
-        syntaxModule.setSyntaxName("SQL - Date Expression");
+        syntaxModule.setSyntaxName("SQL - Distinct Keyword");
         syntaxModule.setSyntaxDescription(
-                "Date Expressions return current system date and time values:");
+                "The SQL DISTINCT keyword is used in conjunction with SELECT statement to eliminate all the duplicate records and fetching only unique records.\n" +
+                        "\n" +
+                        "There may be a situation when you have multiple duplicate records in a table. While fetching such records, it makes more sense to fetch only unique records instead of fetching duplicate records.");
         syntaxModule.setSyntaxCommand(
                 "Syntax:\n" +
+                        "The basic syntax of DISTINCT keyword to eliminate duplicate records is as follows:\n" +
                         "\n" +
-                        "SELECT CURRENT_TIMESTAMP;\n\n" +
-                        "Another date expression is as follows:\n\n" +
-                        "SELECT  GETDATE();\n\n" +
-                        "");
+                        "SELECT DISTINCT column1, column2,.....columnN \n" +
+                        "FROM table_name\n" +
+                        "WHERE [condition]\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "First, let us see how the following SELECT query returns duplicate salary records:\n" +
+                        "\n" +
+                        "SQL> SELECT SALARY FROM CUSTOMERS\n" +
+                        "     ORDER BY SALARY;\n" +
+                        "This would produce the following result where salary 2000 is coming twice which is a duplicate record from the original table.\n" +
+                        "\n" +
+                        "+----------+\n" +
+                        "| SALARY   |\n" +
+                        "+----------+\n" +
+                        "|  1500.00 |\n" +
+                        "|  2000.00 |\n" +
+                        "|  2000.00 |\n" +
+                        "|  4500.00 |\n" +
+                        "|  6500.00 |\n" +
+                        "|  8500.00 |\n" +
+                        "| 10000.00 |\n" +
+                        "+----------+\n" +
+                        "Now, let us use DISTINCT keyword with the above SELECT query and see the result:\n" +
+                        "\n" +
+                        "SQL> SELECT DISTINCT SALARY FROM CUSTOMERS\n" +
+                        "     ORDER BY SALARY;\n" +
+                        "This would produce the following result where we do not have any duplicate entry:");
 
 
-        syntaxModule.setSyntaxCommandOutput("Displays current time stamp and get date respectively");
-        syntaxModule.setSyntaxQuestion("");
-        syntaxModule.setSyntaxQuestionOutput("");
-        syntaxModule.setSyntaxSolution("");
+        syntaxModule.setSyntaxCommandOutput(
+                "+----------+\n" +
+                "| SALARY   |\n" +
+                "+----------+\n" +
+                "|  1500.00 |\n" +
+                "|  2000.00 |\n" +
+                "|  4500.00 |\n" +
+                "|  6500.00 |\n" +
+                "|  8500.00 |\n" +
+                "| 10000.00 |\n" +
+                "+----------+");
+        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] with distict programLine");
+        syntaxModule.setSyntaxQuestionOutput("| 1 |");
+        syntaxModule.setSyntaxSolution("SELECT DISTINCT ID FROM CODETABLE ORDER BY ID;\n");
         syntaxModule.setSyntaxLanguage("sql");
 
 
         moduleOptions = new ArrayList<>();
-        moduleOptions.add( new ModuleOption(0, ""));
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
         Collections.shuffle(moduleOptions);
         syntaxModule.setSyntaxOptions(moduleOptions);
         firebaseDatabaseHandler.writeSyntaxModule(
                 syntaxModule);
 
 
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - AND and OR Conjunctive Operators");
+        syntaxModule.setSyntaxDescription(
+                "The OR Operator:\n" +
+                        "The OR operator is used to combine multiple conditions in an SQL statement's WHERE clause.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of OR operator with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "SELECT column1, column2, columnN \n" +
+                        "FROM table_name\n" +
+                        "WHERE [condition1] OR [condition2]...OR [conditionN]\n" +
+                        "You can combine N number of conditions using OR operator. For an action to be taken by the SQL statement, whether it be a transaction or query, only any ONE of the conditions separated by the OR must be TRUE.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would fetch ID, Name and Salary fields from the CUSTOMERS table where salary is greater than 2000 OR age is less tan 25 years:\n" +
+                        "\n" +
+                        "SQL> SELECT ID, NAME, SALARY \n" +
+                        "FROM CUSTOMERS\n" +
+                        "WHERE SALARY > 2000 OR age < 25;\n" +
+                        "This would produce the following result:\n" +
+                        "\n" +
+                        "+----+----------+----------+\n" +
+                        "| ID | NAME     | SALARY   |\n" +
+                        "+----+----------+----------+\n" +
+                        "|  3 | kaushik  |  2000.00 |\n" +
+                        "|  4 | Chaitali |  6500.00 |\n" +
+                        "|  5 | Hardik   |  8500.00 |\n" +
+                        "|  6 | Komal    |  4500.00 |\n" +
+                        "|  7 | Muffy    | 10000.00 |\n" +
+                        "+----+----------+----------+");
 
 
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant rows matching values for specified query");
+        syntaxModule.setSyntaxQuestion("Select all columns from codeTable[id, programLine] where id = 1 or programLine = 'Infinite_Programmer'");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Infinite_Programmer |");
+        syntaxModule.setSyntaxSolution("SELECT * FROM CODETABLE WHERE ID = 1 OR PROGRAMLINE = 'Infinite_Programmer';");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
+
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - UPDATE Query");
+        syntaxModule.setSyntaxDescription(
+                "The SQL UPDATE Query is used to modify the existing records in a table.\n" +
+                        "\n" +
+                        "You can use WHERE clause with UPDATE query to update selected rows otherwise all the rows would be affected.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of UPDATE query with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "UPDATE table_name\n" +
+                        "SET column1 = value1, column2 = value2...., columnN = valueN\n" +
+                        "WHERE [condition];\n" +
+                        "You can combine N number of conditions using AND or OR operators.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would update ADDRESS for a customer whose ID is 6:\n" +
+                        "\n" +
+                        "SQL> UPDATE CUSTOMERS\n" +
+                        "SET ADDRESS = 'Pune'\n" +
+                        "WHERE ID = 6;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | Pune      |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "If you want to modify all ADDRESS and SALARY column values in CUSTOMERS table, you do not need to use WHERE clause and UPDATE query would be as follows:\n" +
+                        "\n" +
+                        "SQL> UPDATE CUSTOMERS\n" +
+                        "SET ADDRESS = 'Pune', SALARY = 1000.00;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+---------+---------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS | SALARY  |\n" +
+                        "+----+----------+-----+---------+---------+\n" +
+                        "|  1 | Ramesh   |  32 | Pune    | 1000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Pune    | 1000.00 |\n" +
+                        "|  3 | kaushik  |  23 | Pune    | 1000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Pune    | 1000.00 |\n" +
+                        "|  5 | Hardik   |  27 | Pune    | 1000.00 |\n" +
+                        "|  6 | Komal    |  22 | Pune    | 1000.00 |\n" +
+                        "|  7 | Muffy    |  24 | Pune    | 1000.00 |\n" +
+                        "+----+----------+-----+---------+---------+");
+
+
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant number rows matching values for specified update query affected");
+        syntaxModule.setSyntaxQuestion("Update programLine column from codeTable[id, programLine] where id = 1 to programLine = 'Learning_made_easy'");
+        syntaxModule.setSyntaxQuestionOutput("| 1 | Learning_made_easy |");
+        syntaxModule.setSyntaxSolution("UPDATE CODETABLE SET PROGRAMLINE = 'Learning_made_easy' WHERE ID = 1;");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
+
+        syntaxModule = new SyntaxModule();
+
+        syntaxModule.setSyntaxModuleId("s_" + syntaxIndex++);
+        syntaxModule.setModuleId(generatedId);
+        syntaxModule.setSyntaxName("SQL - DELETE Query");
+        syntaxModule.setSyntaxDescription(
+                "The SQL DELETE Query is used to delete the existing records from a table.\n" +
+                        "\n" +
+                        "You can use WHERE clause with DELETE query to delete selected rows, otherwise all the records would be deleted.");
+        syntaxModule.setSyntaxCommand(
+                "Syntax:\n" +
+                        "The basic syntax of DELETE query with WHERE clause is as follows:\n" +
+                        "\n" +
+                        "DELETE FROM table_name\n" +
+                        "WHERE [condition];\n" +
+                        "You can combine N number of conditions using AND or OR operators.\n" +
+                        "\n" +
+                        "Example:\n" +
+                        "Consider the CUSTOMERS table having the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  6 | Komal    |  22 | MP        |  4500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "Following is an example, which would DELETE a customer, whose ID is 6:\n" +
+                        "\n" +
+                        "SQL> DELETE FROM CUSTOMERS\n" +
+                        "WHERE ID = 6;\n" +
+                        "Now, CUSTOMERS table would have the following records:\n" +
+                        "\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "| ID | NAME     | AGE | ADDRESS   | SALARY   |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |\n" +
+                        "|  2 | Khilan   |  25 | Delhi     |  1500.00 |\n" +
+                        "|  3 | kaushik  |  23 | Kota      |  2000.00 |\n" +
+                        "|  4 | Chaitali |  25 | Mumbai    |  6500.00 |\n" +
+                        "|  5 | Hardik   |  27 | Bhopal    |  8500.00 |\n" +
+                        "|  7 | Muffy    |  24 | Indore    | 10000.00 |\n" +
+                        "+----+----------+-----+-----------+----------+\n" +
+                        "If you want to DELETE all the records from CUSTOMERS table, you do not need to use WHERE clause and DELETE query would be as follows:\n" +
+                        "\n" +
+                        "SQL> DELETE FROM CUSTOMERS;\n" +
+                        "Now, CUSTOMERS table would not have any record.");
+
+
+        syntaxModule.setSyntaxCommandOutput("Displays all relevant number rows matching values for specified update query deleted");
+        syntaxModule.setSyntaxQuestion("Delete row from codeTable[id, programLine] where id = 1");
+        syntaxModule.setSyntaxQuestionOutput("1 row deleted");
+        syntaxModule.setSyntaxSolution("DELETE FROM CODETABLE WHERE ID = 1;");
+        syntaxModule.setSyntaxLanguage("sql");
+
+
+        moduleOptions = new ArrayList<>();
+        index = 0;
+        options = syntaxModule.getSyntaxSolution().split(" ");
+        for( String option : options ) {
+            moduleOptions.add(new ModuleOption(index++, option + " "));
+        }
+        Collections.shuffle(moduleOptions);
+        syntaxModule.setSyntaxOptions(moduleOptions);
+        /*firebaseDatabaseHandler.writeSyntaxModule(
+                syntaxModule);*/
 
 
 

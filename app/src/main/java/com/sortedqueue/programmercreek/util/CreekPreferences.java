@@ -724,6 +724,10 @@ public class CreekPreferences {
                 result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getJavaSyntaxDBVersion()));
                 Log.d(TAG, "Compare : checkSyntaxUpdate : " + syntaxInserted + " : " + creekUserDB.getJavaSyntaxDBVersion() + " : result : " + result);
                 break;
+            case "sql":
+                result = (int)(alphaNumComparator.compare(syntaxInserted, creekUserDB.getSqlSyntaxDBVersion()));
+                Log.d(TAG, "Compare : checkSyntaxUpdate : " + syntaxInserted + " : " + creekUserDB.getSqlSyntaxDBVersion() + " : result : " + result);
+                break;
         }
         return result;
     }
