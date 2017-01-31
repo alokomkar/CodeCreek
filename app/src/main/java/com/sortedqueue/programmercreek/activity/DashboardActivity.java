@@ -115,7 +115,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-        initJavaIndex();
+        //initJavaIndex();
         //initProgramLanguages();
 
 
