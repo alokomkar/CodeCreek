@@ -1277,88 +1277,87 @@ public class JavaProgramInserter {
         int index = 1;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ POSIX compliant program to check the following limits:\n" +
-                "(i) No. of clock ticks (ii) Max. no. of child processes (iii) Max. path length (iv) Max. no. of characters in a file name (v) Max. no. of open files/ process",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Getting database connection : JDBC MySQL",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ POSIX compliant program that prints the POSIX defined configuration options supported on any given system using feature test macros",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Create Database",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Consider the last 100 bytes as a region. Write a C/C++ program to check whether the region is locked or not. If the region is locked, print pid of the process which has locked. If the region is not locked, lock the region with an exclusive lock, read the last 50 bytes and unlock the region.",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Select Database",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program which demonstrates interprocess communication between a reader process and a writer process. Use mkfifo, open, read, write and close APIs in your program.",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Drop Database",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program which demonstrates interprocess communication between a reader process and a writer process. Use mkfifo, open, read, write and close APIs in your program.",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Create Tables",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program that outputs the contents of its Environment list",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Drop Tables",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C / C++ program to emulate the unix \"ln\" command ",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Insert Records",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to illustrate the race condition.",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Select Records",
                 programLanguage, ""));
 
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program that creates a zombie and then calls system to execute the ps command to verify that the process is zombie",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Update Records",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to avoid zombie process by forking twice",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Delete Records",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to implement the system function.",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - WHERE Clause",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "C/C++ program to set up a real-time clock interval timer using the alarm API. ",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Like Clause",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Sorting Data",
                 programLanguage, ""));
 
 
     }
 
-    public void insertUSPProgramTables() {
+    public void insertSQLProgramTables() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         //http://man7.org/linux/man-pages/man3/mkfifo.3.html
         String programCode =
-                "#include <stdio.h>\n" +
-                        "#include <sys/wait.h>\n" +
-                        "#include <errno.h>\n" +
-                        "#include <stdlib.h>\n" +
-                        "#include <unistd.h>\n" +
-                        "int main(){\n" +
-                        "pid_t pid;\n" +
-                        "if ((pid = fork()) < 0){\n" +
-                        "printf(\"fork error\");\n" +
-                        "}\n" +
-                        "else if (pid == 0){\n" +
-                        "if ((pid = fork()) < 0)\n" +
-                        "printf(\"fork error\");\n" +
-                        "else if (pid > 0)\n" +
-                        "exit(0);\n" +
-                        "sleep(2);\n" +
-                        "printf(\"second child, parent pid = %d\\n\", getppid());\n" +
-                        "exit(0);\n" +
-                        "}\n" +
-                        "if (waitpid(pid, NULL, 0) != pid)\n" +
-                        "printf(\"waitpid error\");\n" +
-                        "exit(0);\n" +
-                        "}";
+                "import java.sql.Connection;  \n" +
+                        "import java.sql.DriverManager;  \n" +
+                        "import java.sql.SQLException;  \n" +
+                        "public class DBConnector {  \n" +
+                        "  private static Connection conn;  \n" +
+                        "  private static String url = \"jdbc:mysql://localhost:3306/UserDB\", user = \"root\", pass = \"password\";\n" +
+                        "  public static Connection connect() throws SQLException{  \n" +
+                        "    try{  \n" +
+                        "      Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        "    }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
+                        "      System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
+                        "    } \n" +
+                        "    conn = DriverManager.getConnection(url,user,pass);  \n" +
+                        "    return conn;  \n" +
+                        "  }  \n" +
+                        "  public static Connection getConnection() throws SQLException, ClassNotFoundException{  \n" +
+                        "    if(conn !=null && !conn.isClosed())  \n" +
+                        "      return conn;  \n" +
+                        "    connect();  \n" +
+                        "    return conn;  \n" +
+                        "  }  \n" +
+                        "}  ";
         //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
         String programExplanation =
-                "include header <stdio.h>\n" +
-                        "include header <sys/wait.h>\n" +
-                        "include header <errno.h>\n" +
-                        "include header <stdlib.h>\n" +
-                        "include header <unistd.h>\n" +
-                        "Main declaration\n" +
-                        "variable declaration pid_t pid;\n" +
-                        "check if ((pid = fork()) < 0)\n" +
-                        "print \"fork error\"\n" +
-                        "end if\n" +
-                        "else check if (pid == 0)\n" +
-                        "check if ((pid = fork()) < 0)\n" +
-                        "print \"fork error\";\n" +
-                        "else check if (pid > 0)\n" +
-                        "normal exit with 0;\n" +
-                        "sleep for 2 seconds;\n" +
-                        "print \"second child, parent pid = %d\\n\", getppid()\n" +
-                        "normal exit 0;\n" +
-                        "end\n" +
-                        "check if (waitpid(pid, NULL, 0) != pid)\n" +
-                        "print \"waitpid error\"\n" +
-                        "normal exit with status 0\n" +
-                        "end main";
+                "import class java.sql.Connection;  \n" +
+                        "import class java.sql.DriverManager;  \n" +
+                        "import class java.sql.SQLException;  \n" +
+                        "public class DBConnector definition  \n" +
+                        "Variable declaration : Connection conn;  \n" +
+                        "Variable declaration : url = \"jdbc:mysql://localhost:3306/UserDB\", user = \"root\", pass = \"password\";\n" +
+                        "Connection connect() method definition throws SQLException{  \n" +
+                        "try block start\n" +
+                        "create new instance : Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        "catch 3 types of exception\n" +
+                        "Print error with exception message (\"Error: \"+cnfe.getMessage())  \n" +
+                        "end of try catch block\n" +
+                        "initialize con with DriverManager.getConnection function\n" +
+                        "return conn  \n" +
+                        "End of connect method\n" +
+                        "Function definition Connection getConnection() which throws SQLException, ClassNotFoundException \n" +
+                        "check if(conn !=null && !conn.isClosed())  \n" +
+                        "return conn \n" +
+                        "call connect()  \n" +
+                        "return conn  \n" +
+                        "End of getConnection  \n" +
+                        "End of class  ";
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         int programIndex = 10;
