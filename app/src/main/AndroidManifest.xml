@@ -154,7 +154,7 @@
         <receiver android:name=".receiver.CreekFCMReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.sortedqueue.programmercreek.custom.notification" />
+                <action android:name="custom.intent.action.BROADCAST_RECEIVE" />
             </intent-filter>
         </receiver>
         <!--<activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
