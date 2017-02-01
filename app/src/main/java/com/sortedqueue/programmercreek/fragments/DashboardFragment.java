@@ -116,7 +116,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
         ButterKnife.bind(this, view);
         creekPreferences = new CreekPreferences(getContext());
-        creekPreferences.setProgramLanguage("sql");
+        //creekPreferences.setProgramLanguage("sql");
         initUI();
         animateViews();
         return view;
@@ -133,6 +133,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             wizardLayout.setVisibility(View.VISIBLE);
             syntaxLayout.setVisibility(View.VISIBLE);
         }
+
+        if( creekPreferences.getProgramLanguage().equals("sql") ) {
+            introLayout.setVisibility(View.VISIBLE);
+            wizardLayout.setVisibility(View.GONE);
+            syntaxLayout.setVisibility(View.VISIBLE);
+            wikiLayout.setVisibility(View.GONE);
+            indexLayout.setVisibility(View.GONE);
+            testLayout.setVisibility(View.GONE);
+            matchLayout.setVisibility(View.GONE);
+            quizLayout.setVisibility(View.GONE);
+        }
+
         dashboardScrollView.scrollTo(0, 0);
         introLayout.setAlpha(0.0f);
         wizardLayout.setAlpha(0.0f);
