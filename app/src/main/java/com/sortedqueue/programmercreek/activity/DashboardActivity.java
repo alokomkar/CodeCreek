@@ -144,7 +144,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private void initJavaIndex() {
         creekPreferences.setProgramLanguage("sql");
-        new JavaProgramInserter(DashboardActivity.this).insertProgramIndex();
+        new JavaProgramInserter(DashboardActivity.this).insertSQLProgramTables();
     }
 
     /*private void initAds() {

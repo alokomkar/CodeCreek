@@ -1317,7 +1317,7 @@ public class JavaProgramInserter {
                         "import java.sql.SQLException;  \n" +
                         "public class DBConnector {  \n" +
                         "  private static Connection conn;  \n" +
-                        "  private static String url = \"jdbc:mysql://localhost:3306/UserDB\", user = \"root\", pass = \"password\";\n" +
+                        "  private static String url = \"jdbc:mysql://localhost:3306/\", user = \"root\", pass = \"password\";\n" +
                         "  public static Connection connect() throws SQLException{  \n" +
                         "    try{  \n" +
                         "      Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
@@ -1341,7 +1341,7 @@ public class JavaProgramInserter {
                         "import class java.sql.SQLException;  \n" +
                         "public class DBConnector definition  \n" +
                         "Variable declaration : Connection conn;  \n" +
-                        "Variable declaration : url = \"jdbc:mysql://localhost:3306/UserDB\", user = \"root\", pass = \"password\";\n" +
+                        "Variable declaration : url = \"jdbc:mysql://localhost:3306/\", user = \"root\", pass = \"password\";\n" +
                         "Connection connect() method definition throws SQLException{  \n" +
                         "try block start\n" +
                         "create new instance : Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
@@ -1360,81 +1360,131 @@ public class JavaProgramInserter {
                         "End of class  ";
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
-        int programIndex = 10;
+        int programIndex = 1;
         for( int i = 0; i < programLines.size(); i++ ) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
                             i+1,
-                            "usp",
+                            "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
         programCode =
-                "#include<errno.h>\n" +
-                        "#include<unistd.h>\n" +
-                        "#include<stdio.h>\n" +
-                        "#include<stdlib.h>\n" +
-                        "int mySystem(const char *cmdstring){\n" +
-                        "pid_t pid; int status;\n" +
-                        "if (cmdstring == NULL)\n" +
-                        "return(1);\n" +
-                        "if ((pid = fork()) < 0) {\n" +
-                        "status = -1;\n" +
-                        "}\n" +
-                        "else if (pid == 0){\n" +
-                        "execl(\"/bin/sh\", \"sh\", \"-c\", cmdstring, NULL);\n" +
-                        "_exit(127);\n" +
-                        "}\n" +
-                        "else\n" +
-                        "while (waitpid(pid, &status, 0) < 0) {\n" +
-                        "if (errno != EINTR)\n" +
-                        "status = -1; /* error other than EINTR from waitpid()*/\n" +
-                        "break;\n" +
-                        "}\n" +
-                        "return(status);\n" +
-                        "}\n" +
-                        "int main() {\n" +
-                        "int status;\n" +
-                        "if ((status = mySystem(\"what\")) < 0)\n" +
-                        "printf(\"system() error\");\n" +
-                        "if ((status = mySystem(\"who\")) < 0)\n" +
-                        "printf(\"system() error\");\n" +
-                        "exit(0);\n" +
-                        "}";
+                "import java.sql.Connection;  \n" +
+                        "import java.sql.DriverManager;  \n" +
+                        "import java.sql.SQLException;  \n" +
+                        "public class DBConnector {  \n" +
+                        "  private static Connection conn;  \n" +
+                        "  private static String url = \"jdbc:mysql://localhost:3306/STUDENTDB\", user = \"root\", pass = \"password\";\n" +
+                        "  public static Connection connect() throws SQLException{  \n" +
+                        "    try{  \n" +
+                        "      Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        "    }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
+                        "      System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
+                        "    } \n" +
+                        "    conn = DriverManager.getConnection(url,user,pass);  \n" +
+                        "    return conn;  \n" +
+                        "  }  \n" +
+                        "  public static void main(String[] args) throws SQLException, ClassNotFoundException{  \n" +
+                        "    if(conn !=null && !conn.isClosed())  \n" +
+                        "      return conn;  \n" +
+                        "    connect();  \n" +
+                        "    return conn;  \n" +
+                        "  }  \n" +
+                        "}  ";
+        //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
         programExplanation =
-                "include header<errno.h>\n" +
-                        "include header<unistd.h>\n" +
-                        "include header<stdio.h>\n" +
-                        "include header<stdlib.h>\n" +
-                        "define function mySystem\n" +
-                        "declare variable pid_t pid; int status;\n" +
-                        "check if (cmdstring == NULL)\n" +
-                        "return 1;\n" +
-                        "check if ((pid = fork()) < 0)\n" +
-                        "Assign status = -1;\n" +
-                        "end if\n" +
-                        "check else if (pid == 0)\n" +
-                        "call execl(\"/bin/sh\", \"sh\", \"-c\", cmdstring, NULL)\n" +
-                        "exit with error code 127\n" +
-                        "end else if\n" +
-                        "else\n" +
-                        "loop while (waitpid(pid, &status, 0) < 0) {\n" +
-                        "check if (errno != EINTR)\n" +
-                        "assign status = -1; /* error other than EINTR from waitpid()*/\n" +
-                        "break loop\n" +
-                        "end while\n" +
-                        "return(status);\n" +
-                        "end function\n" +
-                        "Main declaration\n" +
-                        "variable declaration status;\n" +
-                        "check if ((status = mySystem(\"what\")) < 0)\n" +
-                        "print \"system() error\"\n" +
-                        "check if status = mySystem(\"who\")) < 0\n" +
-                        "print \"system() error\"\n" +
-                        "normal exit with status 0;\n" +
-                        "end main";
+                "import class java.sql.Connection;  \n" +
+                        "import class java.sql.DriverManager;  \n" +
+                        "import class java.sql.SQLException;  \n" +
+                        "public class DBConnector definition  \n" +
+                        "Variable declaration : Connection conn;  \n" +
+                        "Variable declaration : url = \"jdbc:mysql://localhost:3306/STUDENTDB\", user = \"root\", pass = \"password\";\n" +
+                        "Connection connect() method definition throws SQLException{  \n" +
+                        "try block start\n" +
+                        "create new instance : Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        "catch 3 types of exception\n" +
+                        "Print error with exception message (\"Error: \"+cnfe.getMessage())  \n" +
+                        "end of try catch block\n" +
+                        "initialize con with DriverManager.getConnection function\n" +
+                        "return conn  \n" +
+                        "End of connect method\n" +
+                        "Function definition main which throws SQLException, ClassNotFoundException \n" +
+                        "check if(conn !=null && !conn.isClosed())  \n" +
+                        "return conn \n" +
+                        "call connect() to select and connect to db \n" +
+                        "return conn  \n" +
+                        "End of getConnection  \n" +
+                        "End of class  ";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex++;
+        for( int i = 0; i < programLines.size(); i++ ) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i+1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                        "import java.sql.*;\n" +
+                        "public class JDBCExample {\n" +
+                        "   public static void main(String[] args) {\n" +
+                        "   Connection conn = null;\n" +
+                        "   Statement stmt = null;\n" +
+                        "   try{\n" +
+                        "      conn = DBConnector.getConnection();\n" +
+                        "      stmt = conn.createStatement();\n" +
+                        "      String sql = \"CREATE DATABASE STUDENTSDB\";\n" +
+                        "      stmt.executeUpdate(sql);\n" +
+                        "      System.out.println(\"Database created successfully...\");\n" +
+                        "   }catch(SQLException se){\n" +
+                        "      se.printStackTrace();\n" +
+                        "   }catch(Exception e){\n" +
+                        "      e.printStackTrace();\n" +
+                        "   }finally{\n" +
+                        "      try{\n" +
+                        "         if(stmt!=null)\n" +
+                        "            stmt.close();\n" +
+                        "         if(conn!=null)\n" +
+                        "            conn.close();\n" +
+                                "}catch(SQLException se2){\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        "}\n" +
+                        "} ";
+        programExplanation =
+                "import java.sql.*\n" +
+                        "class definition JDBCExample \n" +
+                        "   Main declaration\n" +
+                        "   Variable declaration Connection conn;\n" +
+                        "   Variable declaration Statement stmt;\n" +
+                        "   try block start\n" +
+                        "      initialize conn = call DBConnector class getConnection();\n" +
+                        "      initialize stmt = conn.createStatement()\n" +
+                        "      initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
+                        "      call stmt.executeUpdate(sql)\n" +
+                        "      Print (\"Database created successfully...\")\n" +
+                        "   catch SQLException se \n" +
+                        "   Print stacktrace se\n" +
+                        "   catch Exception e \n" +
+                        "   Print stacktrace e\n" +
+                        "   finally block start\n" +
+                        "      try block start\n" +
+                        "      check if(stmt!=null)\n" +
+                        "            close stmt\n" +
+                        "      check if(conn!=null)\n" +
+                        "            close connection\n" +
+                        " catch SQLException se2 \n" +
+                        "      End catch block\n" +
+                        "   End finally block\n" +
+                        "End of main\n" +
+                        "End of class ";
 
 
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
@@ -1445,45 +1495,65 @@ public class JavaProgramInserter {
                     new ProgramTable(
                             programIndex,
                             i+1,
-                            "usp",
+                            "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
         programCode =
-                "#include<signal.h>\n" +
-                        "#include<stdio.h>\n" +
-                        "#include<unistd.h>\n" +
-                        "#include<errno.h>\n" +
-                        "void wakeup(){\n" +
-                        "printf(\"Hello\\n\");\n" +
+                "import java.sql.*;\n" +
+                        "public class JDBCExample {\n" +
+                        "   public static void main(String[] args) {\n" +
+                        "   Connection conn = null;\n" +
+                        "   Statement stmt = null;\n" +
+                        "   try{\n" +
+                        "      conn = DBConnector.getConnection();\n" +
+                        "      stmt = conn.createStatement();\n" +
+                        "      String sql = \"DROP DATABASE STUDENTSDB\";\n" +
+                        "      stmt.executeUpdate(sql);\n" +
+                        "      System.out.println(\"Database created successfully...\");\n" +
+                        "   }catch(SQLException se){\n" +
+                        "      se.printStackTrace();\n" +
+                        "   }catch(Exception e){\n" +
+                        "      e.printStackTrace();\n" +
+                        "   }finally{\n" +
+                        "      try{\n" +
+                        "         if(stmt!=null)\n" +
+                        "            stmt.close();\n" +
+                        "         if(conn!=null)\n" +
+                        "            conn.close();\n" +
+                        "}catch(SQLException se2){\n" +
+                        "      }\n" +
+                        "   }\n" +
                         "}\n" +
-                        "int main(){\n" +
-                        "signal(SIGALRM,&wakeup);\n" +
-                        "while(1){\n" +
-                        "alarm(5);\n" +
-                        "pause();\n" +
-                        "printf(\"Waiting For Alarm\\n\");\n" +
-                        "}\n" +
-                        "return 0;\n" +
-                        "}";
+                        "} ";
         programExplanation =
-                "include header<signal.h>\n" +
-                        "include header<stdio.h>\n" +
-                        "include header<unistd.h>\n" +
-                        "include header<errno.h>\n" +
-                        "define function wakeup\n" +
-                        "print \"Hello\\n\"\n" +
-                        "end function\n" +
-                        "define main\n" +
-                        "call signal(SIGALRM, &wakeup);\n" +
-                        "loop till while(1)\n" +
-                        "call alarm(5);\n" +
-                        "call pause();\n" +
-                        "print \"Waiting For Alarm\\n\"\n" +
-                        "end while\n" +
-                        "return 0;\n" +
-                        "end main";
+                "import java.sql.*\n" +
+                        "class definition JDBCExample \n" +
+                        "   Main declaration\n" +
+                        "   Variable declaration Connection conn;\n" +
+                        "   Variable declaration Statement stmt;\n" +
+                        "   try block start\n" +
+                        "      initialize conn = call DBConnector class getConnection();\n" +
+                        "      initialize stmt = conn.createStatement()\n" +
+                        "      initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
+                        "      call stmt.executeUpdate(sql)\n" +
+                        "      Print (\"Database created successfully...\")\n" +
+                        "   catch SQLException se \n" +
+                        "   Print stacktrace se\n" +
+                        "   catch Exception e \n" +
+                        "   Print stacktrace e\n" +
+                        "   finally block start\n" +
+                        "      try block start\n" +
+                        "      check if(stmt!=null)\n" +
+                        "            close stmt\n" +
+                        "      check if(conn!=null)\n" +
+                        "            close connection\n" +
+                        " catch SQLException se2 \n" +
+                        "      End catch block\n" +
+                        "   End finally block\n" +
+                        "End of main\n" +
+                        "End of class ";
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
@@ -1492,7 +1562,7 @@ public class JavaProgramInserter {
                     new ProgramTable(
                             programIndex,
                             i+1,
-                            "usp",
+                            "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
