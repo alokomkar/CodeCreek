@@ -140,7 +140,7 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++," {",  "Start",  "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"  if(isprime(i))",  "Check isprime(i)",  "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"  {",  "Start",  "c++"));
-        firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"   cout<<I<<endl;",  "Print l",  "c++"));
+        firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"cout<<I<<endl;",  "Print l",  "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"  }",  "End",  "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++," }",  "End",  "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++, " getch();", "Wait for keyboard input", "c++"));
@@ -413,7 +413,7 @@ public class JavaProgramInserter {
                         "Following is an example, which would sort the result in ascending order by NAME and SALARY:\n" +
                         "\n" +
                         "SQL> SELECT * FROM CUSTOMERS\n" +
-                        "     ORDER BY NAME, SALARY;\n" +
+                        "  ORDER BY NAME, SALARY;\n" +
                         "This would produce the following result:\n" +
                         "\n" +
                         "+----+----------+-----+-----------+----------+\n" +
@@ -430,7 +430,7 @@ public class JavaProgramInserter {
                         "Following is an example, which would sort the result in descending order by NAME:\n" +
                         "\n" +
                         "SQL> SELECT * FROM CUSTOMERS\n" +
-                        "     ORDER BY NAME DESC;\n" +
+                        "  ORDER BY NAME DESC;\n" +
                         "This would produce the following result:");
 
 
@@ -499,7 +499,7 @@ public class JavaProgramInserter {
                         "If you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
                         "\n" +
                         "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
-                        "     GROUP BY NAME;\n" +
+                        "  GROUP BY NAME;\n" +
                         "This would produce the following result:\n" +
                         "\n" +
                         "+----------+-------------+\n" +
@@ -529,7 +529,7 @@ public class JavaProgramInserter {
                         "Now again, if you want to know the total amount of salary on each customer, then GROUP BY query would be as follows:\n" +
                         "\n" +
                         "SQL> SELECT NAME, SUM(SALARY) FROM CUSTOMERS\n" +
-                        "     GROUP BY NAME;\n" +
+                        "  GROUP BY NAME;\n" +
                         "This would produce the following result:");
 
 
@@ -593,7 +593,7 @@ public class JavaProgramInserter {
                         "First, let us see how the following SELECT query returns duplicate salary records:\n" +
                         "\n" +
                         "SQL> SELECT SALARY FROM CUSTOMERS\n" +
-                        "     ORDER BY SALARY;\n" +
+                        "  ORDER BY SALARY;\n" +
                         "This would produce the following result where salary 2000 is coming twice which is a duplicate record from the original table.\n" +
                         "\n" +
                         "+----------+\n" +
@@ -610,7 +610,7 @@ public class JavaProgramInserter {
                         "Now, let us use DISTINCT keyword with the above SELECT query and see the result:\n" +
                         "\n" +
                         "SQL> SELECT DISTINCT SALARY FROM CUSTOMERS\n" +
-                        "     ORDER BY SALARY;\n" +
+                        "  ORDER BY SALARY;\n" +
                         "This would produce the following result where we do not have any duplicate entry:");
 
 
@@ -897,27 +897,27 @@ public class JavaProgramInserter {
                                 " \n" +
                                 "int main()\n" +
                                 "{\n" +
-                                "   char ch, file_name[25];\n" +
-                                "   FILE *fp;\n" +
+                                "char ch, file_name[25];\n" +
+                                "FILE *fp;\n" +
                                 " \n" +
-                                "   printf(\"Enter the name of file you wish to see\\n\");\n" +
-                                "   gets(file_name);\n" +
+                                "printf(\"Enter the name of file you wish to see\\n\");\n" +
+                                "gets(file_name);\n" +
                                 " \n" +
-                                "   fp = fopen(file_name,\"r\"); // read mode\n" +
+                                "fp = fopen(file_name,\"r\"); // read mode\n" +
                                 " \n" +
-                                "   if( fp == NULL )\n" +
-                                "   {\n" +
-                                "      perror(\"Error while opening the file.\\n\");\n" +
-                                "      exit(EXIT_FAILURE);\n" +
-                                "   }\n" +
+                                "if( fp == NULL )\n" +
+                                "{\n" +
+                                "perror(\"Error while opening the file.\\n\");\n" +
+                                "exit(EXIT_FAILURE);\n" +
+                                "}\n" +
                                 " \n" +
-                                "   printf(\"The contents of %s file are :\\n\", file_name);\n" +
+                                "printf(\"The contents of %s file are :\\n\", file_name);\n" +
                                 " \n" +
-                                "   while( ( ch = fgetc(fp) ) != EOF )\n" +
-                                "      printf(\"%c\",ch);\n" +
+                                "while( ( ch = fgetc(fp) ) != EOF )\n" +
+                                "printf(\"%c\",ch);\n" +
                                 " \n" +
-                                "   fclose(fp);\n" +
-                                "   return 0;\n" +
+                                "fclose(fp);\n" +
+                                "return 0;\n" +
                                 "}\n" +
                                 "\n");
         programWiki.setOutput("" +
@@ -955,47 +955,47 @@ public class JavaProgramInserter {
                                 "int match(char*, char*);\n" +
                                 "main()\n" +
                                 "{\n" +
-                                "   char a[100], b[100];\n" +
-                                "   int position;\n" +
+                                "char a[100], b[100];\n" +
+                                "int position;\n" +
                                 "  printf(“Enter some text\\n”);\n" +
                                 "  gets(a);\n" +
                                 "  printf(“Enter a string to find\\n”);\n" +
                                 "  gets(b);\n" +
                                 "  position = match(a, b);\n" +
                                 "  if(position!=-1)\n" +
-                                "    printf(“Found at location %d\\n”, position+1);\n" +
+                                " printf(“Found at location %d\\n”, position+1);\n" +
                                 "  else\n" +
-                                "    printf(“Not found.\\n”);\n" +
+                                " printf(“Not found.\\n”);\n" +
                                 "  getch();\n" +
                                 "}\n" +
                                 "\n" +
                                 "int match(char *a, char *b)\n" +
                                 "{\n" +
-                                "   int c;\n" +
-                                "   int position = 0;\n" +
-                                "   char *x, *y;\n" +
-                                "   x = a;\n" +
-                                "   y = b;\n" +
-                                "   while(*a)\n" +
-                                "   {\n" +
-                                "     while(*x==*y)\n" +
-                                "    {\n" +
-                                "      x++;\n" +
-                                "      y++;\n" +
-                                "     if(*x==”||*y==”)\n" +
-                                "      break;\n" +
-                                "    }\n" +
-                                "    if(*y==”)\n" +
-                                "     break;\n" +
-                                "    a++;\n" +
-                                "    position++;\n" +
-                                "   x = a;\n" +
-                                "   y = b;\n" +
+                                "int c;\n" +
+                                "int position = 0;\n" +
+                                "char *x, *y;\n" +
+                                "x = a;\n" +
+                                "y = b;\n" +
+                                "while(*a)\n" +
+                                "{\n" +
+                                "  while(*x==*y)\n" +
+                                " {\n" +
+                                "x++;\n" +
+                                "y++;\n" +
+                                "  if(*x==”||*y==”)\n" +
+                                "break;\n" +
+                                " }\n" +
+                                " if(*y==”)\n" +
+                                "  break;\n" +
+                                " a++;\n" +
+                                " position++;\n" +
+                                "x = a;\n" +
+                                "y = b;\n" +
                                 "  }\n" +
-                                "   if(*a)\n" +
-                                "     return position;\n" +
-                                "   else\n" +
-                                "     return -1;\n" +
+                                "if(*a)\n" +
+                                "  return position;\n" +
+                                "else\n" +
+                                "  return -1;\n" +
                                 "}" );
         programWiki.setOutput("" +
                 "Output\n" +
@@ -1033,19 +1033,19 @@ public class JavaProgramInserter {
                         " \n" +
                         "int main()\n" +
                         "{\n" +
-                        "   char a[1000], b[1000];\n" +
+                        "char a[1000], b[1000];\n" +
                         " \n" +
-                        "   printf(\"Enter the first string\\n\");\n" +
-                        "   gets(a);\n" +
+                        "printf(\"Enter the first string\\n\");\n" +
+                        "gets(a);\n" +
                         " \n" +
-                        "   printf(\"Enter the second string\\n\");\n" +
-                        "   gets(b);\n" +
+                        "printf(\"Enter the second string\\n\");\n" +
+                        "gets(b);\n" +
                         " \n" +
-                        "   strcat(a,b);\n" +
+                        "strcat(a,b);\n" +
                         " \n" +
-                        "   printf(\"String obtained on concatenation is %s\\n\",a);\n" +
+                        "printf(\"String obtained on concatenation is %s\\n\",a);\n" +
                         " \n" +
-                        "   return 0;\n" +
+                        "return 0;\n" +
                         "}" );
         programWiki.setOutput("" +
                 "Output\n" +
@@ -1069,39 +1069,39 @@ public class JavaProgramInserter {
                         " \n" +
                         "int main()\n" +
                         "{\n" +
-                        "   char p[100], q[100];\n" +
+                        "char p[100], q[100];\n" +
                         " \n" +
-                        "   printf(\"Input a string\\n\");\n" +
-                        "   gets(p);\n" +
+                        "printf(\"Input a string\\n\");\n" +
+                        "gets(p);\n" +
                         " \n" +
-                        "   printf(\"Input a string to concatenate\\n\");\n" +
-                        "   gets(q);\n" +
+                        "printf(\"Input a string to concatenate\\n\");\n" +
+                        "gets(q);\n" +
                         " \n" +
-                        "   concatenate(p, q); \n" +
+                        "concatenate(p, q); \n" +
                         " \n" +
-                        "   printf(\"String obtained on concatenation is \\\"%s\\\"\\n\", p);\n" +
+                        "printf(\"String obtained on concatenation is \\\"%s\\\"\\n\", p);\n" +
                         " \n" +
-                        "   return 0;\n" +
+                        "return 0;\n" +
                         "}\n" +
                         " \n" +
                         "void concatenate(char p[], char q[]) {\n" +
-                        "   int c, d;\n" +
+                        "int c, d;\n" +
                         " \n" +
-                        "   c = 0;\n" +
+                        "c = 0;\n" +
                         " \n" +
-                        "   while (p[c] != '\\0') {\n" +
-                        "      c++;   \n" +
-                        "   }\n" +
+                        "while (p[c] != '\\0') {\n" +
+                        "c++;   \n" +
+                        "}\n" +
                         " \n" +
-                        "   d = 0;\n" +
+                        "d = 0;\n" +
                         " \n" +
-                        "   while (q[d] != '\\0') {\n" +
-                        "      p[c] = q[d];\n" +
-                        "      d++;\n" +
-                        "      c++; \n" +
-                        "   }\n" +
+                        "while (q[d] != '\\0') {\n" +
+                        "p[c] = q[d];\n" +
+                        "d++;\n" +
+                        "c++; \n" +
+                        "}\n" +
                         " \n" +
-                        "   p[c] = '\\0';\n" +
+                        "p[c] = '\\0';\n" +
                         "}\n" +
                         "\n" );
         programWiki.setOutput("" +
@@ -1146,25 +1146,25 @@ public class JavaProgramInserter {
                         "  printf(\"Enter %d integers\\n\", n);\n" +
                         " \n" +
                         "  for (c = 0; c < n; c++) {\n" +
-                        "    scanf(\"%d\", &array[c]);\n" +
+                        " scanf(\"%d\", &array[c]);\n" +
                         "  }\n" +
                         " \n" +
                         "  for (c = 1 ; c <= n - 1; c++) {\n" +
-                        "    d = c;\n" +
+                        " d = c;\n" +
                         " \n" +
-                        "    while ( d > 0 && array[d] < array[d-1]) {\n" +
-                        "      t          = array[d];\n" +
-                        "      array[d]   = array[d-1];\n" +
-                        "      array[d-1] = t;\n" +
+                        " while ( d > 0 && array[d] < array[d-1]) {\n" +
+                        "t          = array[d];\n" +
+                        "array[d]   = array[d-1];\n" +
+                        "array[d-1] = t;\n" +
                         " \n" +
-                        "      d--;\n" +
-                        "    }\n" +
+                        "d--;\n" +
+                        " }\n" +
                         "  }\n" +
                         " \n" +
                         "  printf(\"Sorted list in ascending order:\\n\");\n" +
                         " \n" +
                         "  for (c = 0; c <= n - 1; c++) {\n" +
-                        "    printf(\"%d\\n\", array[c]);\n" +
+                        " printf(\"%d\\n\", array[c]);\n" +
                         "  }\n" +
                         " \n" +
                         "  return 0;\n" +
@@ -1207,33 +1207,33 @@ public class JavaProgramInserter {
                         " \n" +
                         "int main()\n" +
                         "{\n" +
-                        "   char string[100];\n" +
-                        "   int c = 0, count[26] = {0};\n" +
+                        "char string[100];\n" +
+                        "int c = 0, count[26] = {0};\n" +
                         " \n" +
-                        "   printf(\"Enter a string\\n\");\n" +
-                        "   gets(string);\n" +
+                        "printf(\"Enter a string\\n\");\n" +
+                        "gets(string);\n" +
                         " \n" +
-                        "   while (string[c] != '\\0')\n" +
-                        "   {\n" +
-                        "      *//** Considering characters from 'a' to 'z' only\n" +
-                        "          and ignoring others *//*\n" +
+                        "while (string[c] != '\\0')\n" +
+                        "{\n" +
+                        "*//** Considering characters from 'a' to 'z' only\n" +
+                        "    and ignoring others *//*\n" +
                         " \n" +
-                        "      if (string[c] >= 'a' && string[c] <= 'z') \n" +
-                        "         count[string[c]-'a']++;\n" +
+                        "if (string[c] >= 'a' && string[c] <= 'z') \n" +
+                        "   count[string[c]-'a']++;\n" +
                         " \n" +
-                        "      c++;\n" +
-                        "   }\n" +
+                        "c++;\n" +
+                        "}\n" +
                         " \n" +
-                        "   for (c = 0; c < 26; c++)\n" +
-                        "   {\n" +
-                        "      *//** Printing only those characters \n" +
-                        "          whose count is at least 1 *//*\n" +
+                        "for (c = 0; c < 26; c++)\n" +
+                        "{\n" +
+                        "*//** Printing only those characters \n" +
+                        "    whose count is at least 1 *//*\n" +
                         " \n" +
-                        "      if (count[c] != 0)\n" +
-                        "         printf(\"%c occurs %d times in the entered string.\\n\",c+'a',count[c]);\n" +
-                        "   }\n" +
+                        "if (count[c] != 0)\n" +
+                        "   printf(\"%c occurs %d times in the entered string.\\n\",c+'a',count[c]);\n" +
+                        "}\n" +
                         " \n" +
-                        "   return 0;\n" +
+                        "return 0;\n" +
                         "}\n" +
                         "\n" );
         programWiki.setOutput("" +
@@ -1311,6 +1311,7 @@ public class JavaProgramInserter {
     public void insertSQLProgramTables() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         //http://man7.org/linux/man-pages/man3/mkfifo.3.html
+        //Getting database connection : JDBC MySQL
         String programCode =
                 "import java.sql.Connection;  \n" +
                         "import java.sql.DriverManager;  \n" +
@@ -1319,19 +1320,19 @@ public class JavaProgramInserter {
                         "  private static Connection conn;  \n" +
                         "  private static String url = \"jdbc:mysql://localhost:3306/\", user = \"root\", pass = \"password\";\n" +
                         "  public static Connection connect() throws SQLException{  \n" +
-                        "    try{  \n" +
-                        "      Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
-                        "    }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
-                        "      System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
-                        "    } \n" +
-                        "    conn = DriverManager.getConnection(url,user,pass);  \n" +
-                        "    return conn;  \n" +
+                        " try{  \n" +
+                        "Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        " }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
+                        "System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
+                        " } \n" +
+                        " conn = DriverManager.getConnection(url,user,pass);  \n" +
+                        " return conn;  \n" +
                         "  }  \n" +
                         "  public static Connection getConnection() throws SQLException, ClassNotFoundException{  \n" +
-                        "    if(conn !=null && !conn.isClosed())  \n" +
-                        "      return conn;  \n" +
-                        "    connect();  \n" +
-                        "    return conn;  \n" +
+                        " if(conn !=null && !conn.isClosed())  \n" +
+                        "return conn;  \n" +
+                        " connect();  \n" +
+                        " return conn;  \n" +
                         "  }  \n" +
                         "}  ";
         //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
@@ -1361,11 +1362,82 @@ public class JavaProgramInserter {
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         int programIndex = 1;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+
+        //Create db
+        programCode =
+                "import java.sql.*;\n" +
+                        "public class JDBCExample {\n" +
+                        "public static void main(String[] args) {\n" +
+                        "Connection conn = null;\n" +
+                        "Statement stmt = null;\n" +
+                        "try{\n" +
+                        "conn = DBConnector.getConnection();\n" +
+                        "stmt = conn.createStatement();\n" +
+                        "String sql = \"CREATE DATABASE STUDENTSDB\";\n" +
+                        "stmt.executeUpdate(sql);\n" +
+                        "System.out.println(\"Database created successfully...\");\n" +
+                        "}catch(SQLException se){\n" +
+                        "se.printStackTrace();\n" +
+                        "}catch(Exception e){\n" +
+                        "e.printStackTrace();\n" +
+                        "}finally{\n" +
+                        "try{\n" +
+                        "   if(stmt!=null)\n" +
+                        "      stmt.close();\n" +
+                        "   if(conn!=null)\n" +
+                        "      conn.close();\n" +
+                        "}catch(SQLException se2){\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "} ";
+        programExplanation =
+                "import java.sql.*\n" +
+                        "class definition JDBCExample \n" +
+                        "Main declaration\n" +
+                        "Variable declaration Connection conn;\n" +
+                        "Variable declaration Statement stmt;\n" +
+                        "try block start\n" +
+                        "initialize conn = call DBConnector class getConnection();\n" +
+                        "initialize stmt = conn.createStatement()\n" +
+                        "initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
+                        "call stmt.executeUpdate(sql)\n" +
+                        "Print (\"Database created successfully...\")\n" +
+                        "catch SQLException se \n" +
+                        "Print stacktrace se\n" +
+                        "catch Exception e \n" +
+                        "Print stacktrace e\n" +
+                        "finally block start\n" +
+                        "try block start\n" +
+                        "check if(stmt!=null)\n" +
+                        "      close stmt\n" +
+                        "check if(conn!=null)\n" +
+                        "      close connection\n" +
+                        " catch SQLException se2 \n" +
+                        "End catch block\n" +
+                        "End finally block\n" +
+                        "End of main\n" +
+                        "End of class ";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
@@ -1379,22 +1451,22 @@ public class JavaProgramInserter {
                         "  private static Connection conn;  \n" +
                         "  private static String url = \"jdbc:mysql://localhost:3306/STUDENTDB\", user = \"root\", pass = \"password\";\n" +
                         "  public static Connection connect() throws SQLException{  \n" +
-                        "    try{  \n" +
-                        "      Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
-                        "    }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
-                        "      System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
-                        "    } \n" +
-                        "    conn = DriverManager.getConnection(url,user,pass);  \n" +
-                        "    return conn;  \n" +
+                        " try{  \n" +
+                        "Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
+                        " }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
+                        "System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
+                        " } \n" +
+                        " conn = DriverManager.getConnection(url,user,pass);  \n" +
+                        " return conn;  \n" +
                         "  }  \n" +
                         "  public static void main(String[] args) throws SQLException, ClassNotFoundException{  \n" +
-                        "    if(conn !=null && !conn.isClosed())  \n" +
-                        "      return conn;  \n" +
-                        "    connect();  \n" +
-                        "    return conn;  \n" +
+                        " if(conn !=null && !conn.isClosed())  \n" +
+                        "return conn;  \n" +
+                        " connect();  \n" +
+                        " return conn;  \n" +
                         "  }  \n" +
                         "}  ";
-        //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
+        //Select db
         programExplanation =
                 "import class java.sql.Connection;  \n" +
                         "import class java.sql.DriverManager;  \n" +
@@ -1421,169 +1493,102 @@ public class JavaProgramInserter {
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex++;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
-        programCode =
-                        "import java.sql.*;\n" +
-                        "public class JDBCExample {\n" +
-                        "   public static void main(String[] args) {\n" +
-                        "   Connection conn = null;\n" +
-                        "   Statement stmt = null;\n" +
-                        "   try{\n" +
-                        "      conn = DBConnector.getConnection();\n" +
-                        "      stmt = conn.createStatement();\n" +
-                        "      String sql = \"CREATE DATABASE STUDENTSDB\";\n" +
-                        "      stmt.executeUpdate(sql);\n" +
-                        "      System.out.println(\"Database created successfully...\");\n" +
-                        "   }catch(SQLException se){\n" +
-                        "      se.printStackTrace();\n" +
-                        "   }catch(Exception e){\n" +
-                        "      e.printStackTrace();\n" +
-                        "   }finally{\n" +
-                        "      try{\n" +
-                        "         if(stmt!=null)\n" +
-                        "            stmt.close();\n" +
-                        "         if(conn!=null)\n" +
-                        "            conn.close();\n" +
-                                "}catch(SQLException se2){\n" +
-                        "      }\n" +
-                        "   }\n" +
-                        "}\n" +
-                        "} ";
-        programExplanation =
-                "import java.sql.*\n" +
-                        "class definition JDBCExample \n" +
-                        "   Main declaration\n" +
-                        "   Variable declaration Connection conn;\n" +
-                        "   Variable declaration Statement stmt;\n" +
-                        "   try block start\n" +
-                        "      initialize conn = call DBConnector class getConnection();\n" +
-                        "      initialize stmt = conn.createStatement()\n" +
-                        "      initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
-                        "      call stmt.executeUpdate(sql)\n" +
-                        "      Print (\"Database created successfully...\")\n" +
-                        "   catch SQLException se \n" +
-                        "   Print stacktrace se\n" +
-                        "   catch Exception e \n" +
-                        "   Print stacktrace e\n" +
-                        "   finally block start\n" +
-                        "      try block start\n" +
-                        "      check if(stmt!=null)\n" +
-                        "            close stmt\n" +
-                        "      check if(conn!=null)\n" +
-                        "            close connection\n" +
-                        " catch SQLException se2 \n" +
-                        "      End catch block\n" +
-                        "   End finally block\n" +
-                        "End of main\n" +
-                        "End of class ";
-
-
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
-        programIndex = ++programIndex;
-        for( int i = 0; i < programLines.size(); i++ ) {
-            firebaseDatabaseHandler.writeProgramTable(
-                    new ProgramTable(
-                            programIndex,
-                            i+1,
-                            "sql",
-                            programLines.get(i),
-                            programExplanations.get(i)));
-        }
-
+        //drop db
         programCode =
                 "import java.sql.*;\n" +
                         "public class JDBCExample {\n" +
-                        "   public static void main(String[] args) {\n" +
-                        "   Connection conn = null;\n" +
-                        "   Statement stmt = null;\n" +
-                        "   try{\n" +
-                        "      conn = DBConnector.getConnection();\n" +
-                        "      stmt = conn.createStatement();\n" +
-                        "      String sql = \"DROP DATABASE STUDENTSDB\";\n" +
-                        "      stmt.executeUpdate(sql);\n" +
-                        "      System.out.println(\"Database created successfully...\");\n" +
-                        "   }catch(SQLException se){\n" +
-                        "      se.printStackTrace();\n" +
-                        "   }catch(Exception e){\n" +
-                        "      e.printStackTrace();\n" +
-                        "   }finally{\n" +
-                        "      try{\n" +
-                        "         if(stmt!=null)\n" +
-                        "            stmt.close();\n" +
-                        "         if(conn!=null)\n" +
-                        "            conn.close();\n" +
+                        "public static void main(String[] args) {\n" +
+                        "Connection conn = null;\n" +
+                        "Statement stmt = null;\n" +
+                        "try{\n" +
+                        "conn = DBConnector.getConnection();\n" +
+                        "stmt = conn.createStatement();\n" +
+                        "String sql = \"DROP DATABASE STUDENTSDB\";\n" +
+                        "stmt.executeUpdate(sql);\n" +
+                        "System.out.println(\"Database created successfully...\");\n" +
+                        "}catch(SQLException se){\n" +
+                        "se.printStackTrace();\n" +
+                        "}catch(Exception e){\n" +
+                        "e.printStackTrace();\n" +
+                        "}finally{\n" +
+                        "try{\n" +
+                        "   if(stmt!=null)\n" +
+                        "      stmt.close();\n" +
+                        "   if(conn!=null)\n" +
+                        "      conn.close();\n" +
                         "}catch(SQLException se2){\n" +
-                        "      }\n" +
-                        "   }\n" +
+                        "}\n" +
+                        "}\n" +
                         "}\n" +
                         "} ";
         programExplanation =
                 "import java.sql.*\n" +
                         "class definition JDBCExample \n" +
-                        "   Main declaration\n" +
-                        "   Variable declaration Connection conn;\n" +
-                        "   Variable declaration Statement stmt;\n" +
-                        "   try block start\n" +
-                        "      initialize conn = call DBConnector class getConnection();\n" +
-                        "      initialize stmt = conn.createStatement()\n" +
-                        "      initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
-                        "      call stmt.executeUpdate(sql)\n" +
-                        "      Print (\"Database created successfully...\")\n" +
-                        "   catch SQLException se \n" +
-                        "   Print stacktrace se\n" +
-                        "   catch Exception e \n" +
-                        "   Print stacktrace e\n" +
-                        "   finally block start\n" +
-                        "      try block start\n" +
-                        "      check if(stmt!=null)\n" +
-                        "            close stmt\n" +
-                        "      check if(conn!=null)\n" +
-                        "            close connection\n" +
+                        "Main declaration\n" +
+                        "Variable declaration Connection conn;\n" +
+                        "Variable declaration Statement stmt;\n" +
+                        "try block start\n" +
+                        "initialize conn = call DBConnector class getConnection();\n" +
+                        "initialize stmt = conn.createStatement()\n" +
+                        "initialize sql = \"CREATE DATABASE STUDENTSDB\"\n" +
+                        "call stmt.executeUpdate(sql)\n" +
+                        "Print (\"Database created successfully...\")\n" +
+                        "catch SQLException se \n" +
+                        "Print stacktrace se\n" +
+                        "catch Exception e \n" +
+                        "Print stacktrace e\n" +
+                        "finally block start\n" +
+                        "try block start\n" +
+                        "check if(stmt!=null)\n" +
+                        "      close stmt\n" +
+                        "check if(conn!=null)\n" +
+                        "      close connection\n" +
                         " catch SQLException se2 \n" +
-                        "      End catch block\n" +
-                        "   End finally block\n" +
+                        "End catch block\n" +
+                        "End finally block\n" +
                         "End of main\n" +
                         "End of class ";
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
+        //Create table
         programCode =
                 "public void createTable() throws SQLException {\n" +
-                        "    String createString =\n" +
-                        "        \"Create table StudentTable (\\n\" +\n" +
+                        " String createString =\n" +
+                        "  \"Create table StudentTable (\\n\" +\n" +
                         "\t\t\"Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
                         "\t\t\"FirstName varchar(100) NOT NULL, \\n\" +\n" +
                         "\t\t\"LastName varchar(100) NOT NULL );\";\n" +
-                        "    Statement stmt = null;\n" +
-                        "    try {\n" +
+                        " Statement stmt = null;\n" +
+                        " try {\n" +
                         "\t    Connection con = DBConnection.connect();\n" +
-                        "        stmt = con.createStatement();\n" +
-                        "        stmt.executeUpdate(createString);\n" +
-                        "    } catch (SQLException e) {\n" +
-                        "        e.printStackTrace();\n" +
-                        "    } finally {\n" +
-                        "        if (stmt != null) { stmt.close(); }\n" +
-                        "    }\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  stmt.executeUpdate(createString);\n" +
+                        " } catch (SQLException e) {\n" +
+                        "  e.printStackTrace();\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
                         "}";
         programExplanation =
                 "Function defnition createTable() throws SQLException {\n" +
@@ -1593,101 +1598,141 @@ public class JavaProgramInserter {
                         "FirstName varchar(100) NOT NULL, \\n\" +\n" +
                         "LastName varchar(100) NOT NULL );\";\n" +
                         "Variable declare : Statement stmt = null;\n" +
-                        "    try block\n" +
+                        " try block\n" +
                         "Initialize : Connection con = DBConnection.connect();\n" +
                         "Initialize : stmt = con.createStatement();\n" +
                         "Execute update : stmt.executeUpdate(createString);\n" +
                         "catch SQLException e\n" +
                         "Print exception stack trace\n" +
                         "} finally block\n" +
-                        "   check if (stmt != null), stmt.close(); \n" +
-                        "   end of if block\n" +
+                        "check if (stmt != null), stmt.close(); \n" +
+                        "end of if block\n" +
                         "End of function ";
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
+        //drop table
         programCode =
                 "public void dropTable() throws SQLException {\n" +
-                        "    String createString =\n" +
-                        "        \"Drop table StudentTable (\\n\" +\n" +
-                        "\t\t\"Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
-                        "\t\t\"FirstName varchar(100) NOT NULL, \\n\" +\n" +
-                        "\t\t\"LastName varchar(100) NOT NULL );\";\n" +
-                        "    Statement stmt = null;\n" +
-                        "    try {\n" +
+                        " String createString =\n" +
+                        "  \"Drop table StudentTable\";\n" +
+                        " Statement stmt = null;\n" +
+                        " try {\n" +
                         "\t    Connection con = DBConnection.connect();\n" +
-                        "        stmt = con.createStatement();\n" +
-                        "        stmt.executeUpdate(createString);\n" +
-                        "    } catch (SQLException e) {\n" +
-                        "        e.printStackTrace();\n" +
-                        "    } finally {\n" +
-                        "        if (stmt != null) { stmt.close(); }\n" +
-                        "    }\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  stmt.executeUpdate(createString);\n" +
+                        " } catch (SQLException e) {\n" +
+                        "  e.printStackTrace();\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
                         "}";
         programExplanation =
                 "Function defnition dropTable() throws SQLException {\n" +
                         "Variable declaration String createString =\n" +
-                        "Drop table StudentTable (\\n\" +\n" +
-                        "Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
-                        "FirstName varchar(100) NOT NULL, \\n\" +\n" +
-                        "LastName varchar(100) NOT NULL );\";\n" +
+                        "Drop table StudentTable\n" +
                         "Variable declare : Statement stmt = null;\n" +
-                        "    try block\n" +
+                        " try block\n" +
                         "Initialize : Connection con = DBConnection.connect();\n" +
                         "Initialize : stmt = con.createStatement();\n" +
                         "Execute update : stmt.executeUpdate(createString);\n" +
                         "catch SQLException e\n" +
                         "Print exception stack trace\n" +
                         "} finally block\n" +
-                        "   check if (stmt != null), stmt.close(); \n" +
-                        "   end of if block\n" +
+                        "check if (stmt != null), stmt.close(); \n" +
+                        "end of if block\n" +
                         "End of function ";
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
         }
 
+        //TODO Insert table
         programCode =
-                "public static void viewTable(Connection con, String dbName) throws SQLException {\n" +
-                        "    Statement stmt = null;\n" +
-                        "    String query =\n" +
-                        "        \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
-                        "        \"from STUDENTTABLE\";\n" +
-                        "    try {\n" +
-                        "        stmt = con.createStatement();\n" +
-                        "        ResultSet rs = stmt.executeQuery(query);\n" +
-                        "        while (rs.next()) {\n" +
-                        "            String studentId = rs.getString(\"STUDENTID\");\n" +
-                        "            String firstName = rs.getString(\"FIRSTNAME\");\n" +
-                        "            String lastName = rs.getString(\"LASTNAME\");\n" +
-                        "            System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
-                        "        }\n" +
-                        "    } catch (SQLException e ) {\n" +
-                        "        e.print;\n" +
-                        "    } finally {\n" +
-                        "        if (stmt != null) { stmt.close(); }\n" +
-                        "    }\n" +
+                "public void insertTable(String studentId, String firstName, String lastName) throws SQLException {\n" +
+                        " String insertString =\n" +
+                        " \"Insert into StudentTabe values (\"+studentId+\",\"+firstName+\",\"+lastName+\")\";\n" +
+                        " Statement stmt = null;\n" +
+                        " try {\n" +
+                        "\t    Connection con = DBConnection.connect();\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  stmt.executeUpdate(createString);\n" +
+                        " } catch (SQLException e) {\n" +
+                        "  e.printStackTrace();\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
                         "}";
         programExplanation =
-                "Function definition viewTable(Connection con, String dbName) throws SQLException {\n" +
+                "Function defnition insertTable(String studentId, String firstName, String lastName) throws SQLException {\n" +
+                        "Variable declaration String insertString =\n" +
+                        " \"Insert into StudentTabe values (\"+studentId+\",\"+firstName+\",\"+lastName+\")\"\n" +
+                        "Variable declare : Statement stmt = null;\n" +
+                        " try block\n" +
+                        "Initialize : Connection con = DBConnection.connect();\n" +
+                        "Initialize : stmt = con.createStatement();\n" +
+                        "Execute update : stmt.executeUpdate(createString);\n" +
+                        "catch SQLException e\n" +
+                        "Print exception stack trace\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null), stmt.close(); \n" +
+                        "end of if block\n" +
+                        "End of function ";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+
+        programCode =
+                "public static void viewTable(Connection con) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "  \"from STUDENTTABLE\";\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeQuery(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "Function definition viewTable(Connection con) throws SQLException {\n" +
                         "Variable declaration : Statement stmt = null;\n" +
                         "Variable initialization : String query =\n" +
                         "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
@@ -1710,11 +1755,289 @@ public class JavaProgramInserter {
         programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
-        for( int i = 0; i < programLines.size(); i++ ) {
+        for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
                     new ProgramTable(
                             programIndex,
-                            i+1,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void updateTable(Connection con, String userName) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "  \"from STUDENTTABLE\";\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeQuery(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "      rs.updateString(\"FIRSTNAME\", userName);\n" +
+                        "      rs.updateRow();\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "Function definition updateTable(Connection con, String userName) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "\"from STUDENTTABLE\";\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeQuery(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        " Update field in row to : rs.updateString(\"FIRSTNAME\", userName)\n" +
+                        " Update row rs.updateRow()\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void deleteRow(Connection con, String studentID) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Delete from StudentTable where STUDENTID = \" + studentId\" + \";\"\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeUpdate(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "Function definition deleteRow(Connection con, String studentID) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "Delete from StudentTable where STUDENTID = studentId\"\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeUpdate(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void viewRowForId(Connection con, String studentId) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "  \"from STUDENTTABLE where STUDENTID = \"+studentId+\"\";\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeQuery(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "Function definition viewRowForId(Connection con, String studentId) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "\"from STUDENTTABLE where STUDENTID = \"+studentId+\"\"\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeQuery(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void viewSimilarRowForId(Connection con, String studentId) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "  \"from STUDENTTABLE where STUDENTID LIKE '% \"+studentId+\" %' \";\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeQuery(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "Function definition viewSortedRows(Connection con, String studentId) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "from STUDENTTABLE where STUDENTID LIKE '%studentId%'\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeQuery(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void viewSortedRows(Connection con, String sortOrder) throws SQLException {\n" +
+                        " Statement stmt = null;\n" +
+                        " String query =\n" +
+                        "  \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "  \"from STUDENTTABLE order by STUDENTID \"+sortOrder+\";//ASC :Ascending / DESC : descending\n" +
+                        " try {\n" +
+                        "  stmt = con.createStatement();\n" +
+                        "  ResultSet rs = stmt.executeQuery(query);\n" +
+                        "  while (rs.next()) {\n" +
+                        "      String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "      String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "      String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "      System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "  }\n" +
+                        " } catch (SQLException e ) {\n" +
+                        "  e.print;\n" +
+                        " } finally {\n" +
+                        "  if (stmt != null) { stmt.close(); }\n" +
+                        " }\n" +
+                        "}";
+
+        programExplanation =
+                "Function definition viewSortedRows(Connection con, String sortOrder) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "from STUDENTTABLE order by STUDENTID sortOrder\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeQuery(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
                             "sql",
                             programLines.get(i),
                             programExplanations.get(i)));
