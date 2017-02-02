@@ -1566,5 +1566,158 @@ public class JavaProgramInserter {
                             programLines.get(i),
                             programExplanations.get(i)));
         }
+
+        programCode =
+                "public void createTable() throws SQLException {\n" +
+                        "    String createString =\n" +
+                        "        \"Create table StudentTable (\\n\" +\n" +
+                        "\t\t\"Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
+                        "\t\t\"FirstName varchar(100) NOT NULL, \\n\" +\n" +
+                        "\t\t\"LastName varchar(100) NOT NULL );\";\n" +
+                        "    Statement stmt = null;\n" +
+                        "    try {\n" +
+                        "\t    Connection con = DBConnection.connect();\n" +
+                        "        stmt = con.createStatement();\n" +
+                        "        stmt.executeUpdate(createString);\n" +
+                        "    } catch (SQLException e) {\n" +
+                        "        e.printStackTrace();\n" +
+                        "    } finally {\n" +
+                        "        if (stmt != null) { stmt.close(); }\n" +
+                        "    }\n" +
+                        "}";
+        programExplanation =
+                "Function defnition createTable() throws SQLException {\n" +
+                        "Variable declaration String createString =\n" +
+                        "Create table StudentTable (\\n\" +\n" +
+                        "Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
+                        "FirstName varchar(100) NOT NULL, \\n\" +\n" +
+                        "LastName varchar(100) NOT NULL );\";\n" +
+                        "Variable declare : Statement stmt = null;\n" +
+                        "    try block\n" +
+                        "Initialize : Connection con = DBConnection.connect();\n" +
+                        "Initialize : stmt = con.createStatement();\n" +
+                        "Execute update : stmt.executeUpdate(createString);\n" +
+                        "catch SQLException e\n" +
+                        "Print exception stack trace\n" +
+                        "} finally block\n" +
+                        "   check if (stmt != null), stmt.close(); \n" +
+                        "   end of if block\n" +
+                        "End of function ";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for( int i = 0; i < programLines.size(); i++ ) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i+1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public void dropTable() throws SQLException {\n" +
+                        "    String createString =\n" +
+                        "        \"Drop table StudentTable (\\n\" +\n" +
+                        "\t\t\"Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
+                        "\t\t\"FirstName varchar(100) NOT NULL, \\n\" +\n" +
+                        "\t\t\"LastName varchar(100) NOT NULL );\";\n" +
+                        "    Statement stmt = null;\n" +
+                        "    try {\n" +
+                        "\t    Connection con = DBConnection.connect();\n" +
+                        "        stmt = con.createStatement();\n" +
+                        "        stmt.executeUpdate(createString);\n" +
+                        "    } catch (SQLException e) {\n" +
+                        "        e.printStackTrace();\n" +
+                        "    } finally {\n" +
+                        "        if (stmt != null) { stmt.close(); }\n" +
+                        "    }\n" +
+                        "}";
+        programExplanation =
+                "Function defnition dropTable() throws SQLException {\n" +
+                        "Variable declaration String createString =\n" +
+                        "Drop table StudentTable (\\n\" +\n" +
+                        "Usn varchar(10) NOT NULL PRIMARY KEY, \\n\" + \n" +
+                        "FirstName varchar(100) NOT NULL, \\n\" +\n" +
+                        "LastName varchar(100) NOT NULL );\";\n" +
+                        "Variable declare : Statement stmt = null;\n" +
+                        "    try block\n" +
+                        "Initialize : Connection con = DBConnection.connect();\n" +
+                        "Initialize : stmt = con.createStatement();\n" +
+                        "Execute update : stmt.executeUpdate(createString);\n" +
+                        "catch SQLException e\n" +
+                        "Print exception stack trace\n" +
+                        "} finally block\n" +
+                        "   check if (stmt != null), stmt.close(); \n" +
+                        "   end of if block\n" +
+                        "End of function ";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for( int i = 0; i < programLines.size(); i++ ) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i+1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "public static void viewTable(Connection con, String dbName) throws SQLException {\n" +
+                        "    Statement stmt = null;\n" +
+                        "    String query =\n" +
+                        "        \"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "        \"from STUDENTTABLE\";\n" +
+                        "    try {\n" +
+                        "        stmt = con.createStatement();\n" +
+                        "        ResultSet rs = stmt.executeQuery(query);\n" +
+                        "        while (rs.next()) {\n" +
+                        "            String studentId = rs.getString(\"STUDENTID\");\n" +
+                        "            String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        "            String lastName = rs.getString(\"LASTNAME\");\n" +
+                        "            System.out.println(studentId + \"\\t\" + firstName + \"\\t\" + lastName);\n" +
+                        "        }\n" +
+                        "    } catch (SQLException e ) {\n" +
+                        "        e.print;\n" +
+                        "    } finally {\n" +
+                        "        if (stmt != null) { stmt.close(); }\n" +
+                        "    }\n" +
+                        "}";
+        programExplanation =
+                "Function definition viewTable(Connection con, String dbName) throws SQLException {\n" +
+                        "Variable declaration : Statement stmt = null;\n" +
+                        "Variable initialization : String query =\n" +
+                        "\"Select STUDENTID, FIRSTNAME, LASTNAME \" +\n" +
+                        "\"from STUDENTTABLE\";\n" +
+                        "try block\n" +
+                        "initialize stmt = con.createStatement();\n" +
+                        "initialize ResultSet rs = stmt.executeQuery(query);\n" +
+                        "while (rs.next()) start\n" +
+                        " initialize : String studentId = rs.getString(\"STUDENTID\");\n" +
+                        " initialize : String firstName = rs.getString(\"FIRSTNAME\");\n" +
+                        " initialize : String lastName = rs.getString(\"LASTNAME\");\n" +
+                        " print (studentId + \"\\t\" + firstName + \"\\t\" + lastName)\n" +
+                        "end while\n" +
+                        "catch SQLException e \n" +
+                        "Print stack trace for exception;\n" +
+                        "} finally block\n" +
+                        "check if (stmt != null) { stmt.close(); }\n" +
+                        "end finally block\n" +
+                        "End function";
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for( int i = 0; i < programLines.size(); i++ ) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i+1,
+                            "sql",
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
     }
 }
