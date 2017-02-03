@@ -38,6 +38,8 @@ public class CreekUserDB extends RushObject {
     private String sqlSyntaxDBVersion = "sql_7_s_4";
     private String sqlModuleDBVersion = "sql_7";
     private String sqlWikiDBVersion;
+    private double sqlProgramIndexDBVersion = 13.0;
+    private double sqlProgramTableDBVersion = 13.0;
 
     //Premium version database versions
     private String javaSyntaxDBVersionPremium;
@@ -67,6 +69,22 @@ public class CreekUserDB extends RushObject {
 
     public void setJavaSyntaxDBVersion(String javaSyntaxDBVersion) {
         this.javaSyntaxDBVersion = javaSyntaxDBVersion;
+    }
+
+    public double getSqlProgramIndexDBVersion() {
+        return sqlProgramIndexDBVersion;
+    }
+
+    public void setSqlProgramIndexDBVersion(double sqlProgramIndexDBVersion) {
+        this.sqlProgramIndexDBVersion = sqlProgramIndexDBVersion;
+    }
+
+    public double getSqlProgramTableDBVersion() {
+        return sqlProgramTableDBVersion;
+    }
+
+    public void setSqlProgramTableDBVersion(double sqlProgramTableDBVersion) {
+        this.sqlProgramTableDBVersion = sqlProgramTableDBVersion;
     }
 
     public String getJavaModuleDBVersion() {
@@ -386,6 +404,10 @@ public class CreekUserDB extends RushObject {
             return false;
         if (Double.compare(that.cppProgramTableDBVersion, cppProgramTableDBVersion) != 0)
             return false;
+        if (Double.compare(that.sqlProgramIndexDBVersion, sqlProgramIndexDBVersion) != 0)
+            return false;
+        if (Double.compare(that.sqlProgramTableDBVersion, sqlProgramTableDBVersion) != 0)
+            return false;
         if (Double.compare(that.javaProgramIndexDBVersionPremium, javaProgramIndexDBVersionPremium) != 0)
             return false;
         if (Double.compare(that.javaProgramTableDBVersionPremium, javaProgramTableDBVersionPremium) != 0)
@@ -483,6 +505,10 @@ public class CreekUserDB extends RushObject {
         result = 31 * result + (sqlSyntaxDBVersion != null ? sqlSyntaxDBVersion.hashCode() : 0);
         result = 31 * result + (sqlModuleDBVersion != null ? sqlModuleDBVersion.hashCode() : 0);
         result = 31 * result + (sqlWikiDBVersion != null ? sqlWikiDBVersion.hashCode() : 0);
+        temp = Double.doubleToLongBits(sqlProgramIndexDBVersion);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(sqlProgramTableDBVersion);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (javaSyntaxDBVersionPremium != null ? javaSyntaxDBVersionPremium.hashCode() : 0);
         result = 31 * result + (javaModuleDBVersionPremium != null ? javaModuleDBVersionPremium.hashCode() : 0);
         result = 31 * result + (javaWikiDBVersionPremium != null ? javaWikiDBVersionPremium.hashCode() : 0);

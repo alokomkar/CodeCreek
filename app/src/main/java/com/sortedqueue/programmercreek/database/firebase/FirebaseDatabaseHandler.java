@@ -1134,6 +1134,7 @@ public class FirebaseDatabaseHandler {
                             Log.d(TAG, "Inserted program tables : " + program_tables.size());
                         }
                     }
+                    Log.d(TAG, "Set Program Tables : " + programLanguage + " : " + program_tables.get(program_tables.size() - 1).getProgram_index());
                     creekPreferences.setProgramTables(program_tables.get(program_tables.size() - 1).getProgram_index());
                     programTableInterface.getProgramTables(program_tables);
 

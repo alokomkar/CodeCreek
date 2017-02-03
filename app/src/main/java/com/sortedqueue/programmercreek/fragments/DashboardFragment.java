@@ -134,7 +134,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             syntaxLayout.setVisibility(View.VISIBLE);
         }
 
-        if( creekPreferences.getProgramLanguage().equals("sql") ) {
+        /*if( creekPreferences.getProgramLanguage().equals("sql") ) {
             introLayout.setVisibility(View.VISIBLE);
             wizardLayout.setVisibility(View.GONE);
             syntaxLayout.setVisibility(View.VISIBLE);
@@ -143,7 +143,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             testLayout.setVisibility(View.GONE);
             matchLayout.setVisibility(View.GONE);
             quizLayout.setVisibility(View.GONE);
-        }
+        }*/
 
         dashboardScrollView.scrollTo(0, 0);
         introLayout.setAlpha(0.0f);

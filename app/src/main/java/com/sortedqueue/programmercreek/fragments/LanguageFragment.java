@@ -87,6 +87,14 @@ public class LanguageFragment extends Fragment {
         firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
             @Override
             public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
+                ProgramLanguage programLanguage = new ProgramLanguage();
+                programLanguage.setLanguageId("SQL");
+                programLanguage.setIsProgramsOnly("false");
+                programLanguage.setProgramLanguage("JDBC - SQL Programming");
+                programLanguage.setDescription("Any project requires you to understand how to store " +
+                        "data in database. In this unit are going to teach " +
+                        "SQL Database programming and use of JDBC API of Java to connect SQL database with your project");
+                programLanguages.add(programLanguage);
                 setupRecyclerview( programLanguages );
             }
 

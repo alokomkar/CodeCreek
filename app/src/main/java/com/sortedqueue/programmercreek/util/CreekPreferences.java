@@ -43,6 +43,7 @@ public class CreekPreferences {
     public static final String KEY_PROG_INDEX_INSERT_CPP = "insertProgramIndexCpp";
     public static final String KEY_PROG_TABLE_INSERT_CPP = "insertProgramTableCpp";
     public static final String KEY_PROG_TABLE_INSERT_USP = "insertProgramTableUsp";
+    public static final String KEY_PROG_TABLE_INSERT_SQL = "insertProgramTableSQL";
     public static final String KEY_PROG_INDEX_INSERT_USP = "insertProgramIndexUsp";
     public static final String KEY_C_MODULE = "keyCModule";
     public static final String KEY_CPP_MODULE = "keyCppModule";
@@ -85,6 +86,9 @@ public class CreekPreferences {
                 break;
             case "usp":
                 programIndex = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_USP, -1);
+                break;
+            case "sql" :
+                programIndex = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_SQL, -1);
                 break;
         }
         return programIndex;
@@ -142,6 +146,9 @@ public class CreekPreferences {
             case "usp" :
                 programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_USP, -1);
                 break;
+            case "sql" :
+                programTables = sharedPreferences.getInt(KEY_PROG_TABLE_INSERT_SQL, -1);
+                break;
         }
         return programTables;
     }
@@ -162,7 +169,14 @@ public class CreekPreferences {
             case "usp" :
                 setUSPProgramTablesIndex(programTables);
                 break;
+            case "sql" :
+                setSqlProgramTablesIndex(programTables);
+                break;
         }
+    }
+
+    private void setSqlProgramTablesIndex(int programTables) {
+        sharedPreferences.edit().putInt(KEY_PROG_TABLE_INSERT_SQL, programTables).apply();
     }
 
     private void setUSPProgramTablesIndex(int programTables) {
@@ -577,6 +591,9 @@ public class CreekPreferences {
             case "usp":
                 result = (getProgramIndex() == (int)creekUserDB.getUspProgramIndexDBVersion());
                 break;
+            case "sql" :
+                result = (getProgramIndex() == (int)creekUserDB.getUspProgramIndexDBVersion());
+                break;
         }
         return result;
     }
@@ -600,6 +617,9 @@ public class CreekPreferences {
                 break;
             case "usp" :
                 result = getProgramTables() == (int)creekUserDB.getUspProgramTableDBVersion();
+                break;
+            case "sql" :
+                result = getProgramTables() == (int)creekUserDB.getSqlProgramTableDBVersion();
                 break;
         }
         return result;
@@ -627,6 +647,11 @@ public class CreekPreferences {
             case "usp" :
                 result = (int)(creekUserDB.getUspProgramIndexDBVersion() - result);
                 break;
+            case "sql" :
+                if( creekUserDB.getSqlProgramIndexDBVersion() - result != 0 ) {
+                    result = (int)(creekUserDB.getSqlProgramIndexDBVersion() - result);
+                }
+                break;
         }
         return result;
     }
@@ -652,6 +677,9 @@ public class CreekPreferences {
                 break;
             case "usp" :
                 result = (int)(creekUserDB.getUspProgramTableDBVersion() - result);
+                break;
+            case "sql" :
+                result = (int)(creekUserDB.getSqlProgramTableDBVersion() - result);
                 break;
         }
         return result;
