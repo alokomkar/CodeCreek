@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -79,6 +80,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         for( String string : solutionList ) {
             solution += string + "\n";
         }
+        Log.d("SolutionProgram", solution);
         AuxilaryUtils.displayAlert("Solution", solution, WizardActivity.this);
     }
 

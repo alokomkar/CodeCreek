@@ -53,10 +53,12 @@ public class CreekPreferences {
     public static final String KEY_C_SYNTAX = "keyCSyntax";
     public static final String KEY_CPP_SYNTAX = "keyCppSyntax";
     public static final String KEY_JAVA_SYNTAX = "keyJavaSyntax";
+    public static final String KEY_SQL_SYNTAX = "keySqlSyntax";
 
     public static final String KEY_C_WIKI = "keyCWiki";
     public static final String KEY_CPP_WIKI = "keyCppWiki";
     public static final String KEY_USP_WIKI = "keyUspWiki";
+    public static final String KEY_SQL_WIKI = "keySqlWiki";
     public static final String KEY_JAVA_WIKI = "keyJavaWiki";
 
     private static final String PROGRAM_LANGUAGE = "program_language";
@@ -316,6 +318,8 @@ public class CreekPreferences {
                 return sharedPreferences.getString(KEY_CPP_WIKI, "0");
             case "usp" :
                 return sharedPreferences.getString(KEY_USP_WIKI, "0");
+            case "sql" :
+                return sharedPreferences.getString(KEY_SQL_WIKI, "0");
         }
         return "0";
     }
@@ -344,6 +348,9 @@ public class CreekPreferences {
             case "cpp" :
                 setCPPWikiInserted( modulesInserted );
                 break;
+            case "sql" :
+                setSqlWikiInserted( modulesInserted );
+                break;
         }
     }
 
@@ -359,7 +366,14 @@ public class CreekPreferences {
             case "cpp" :
                setCPPSyntaxInserted( modulesInserted );
                break;
+            case "sql" :
+                setSqlSyntaxInserted( modulesInserted );
+                break;
         }
+    }
+
+    private void setSqlSyntaxInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_SQL_SYNTAX, modulesInserted).apply();
     }
 
     private void setCPPSyntaxInserted(String modulesInserted) {
@@ -376,6 +390,10 @@ public class CreekPreferences {
 
     private void setCPPWikiInserted(String modulesInserted) {
         sharedPreferences.edit().putString(KEY_CPP_WIKI, modulesInserted).apply();
+    }
+
+    private void setSqlWikiInserted(String modulesInserted) {
+        sharedPreferences.edit().putString(KEY_SQL_WIKI, modulesInserted).apply();
     }
 
     private void setCWikiInserted(String modulesInserted) {
@@ -726,6 +744,9 @@ public class CreekPreferences {
                 break;
             case "usp":
                 result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getUspWikiDBVersion()));
+                break;
+            case "sql":
+                result = (int)(alphaNumComparator.compare(wikiInserted, creekUserDB.getSqlWikiDBVersion()));
                 break;
         }
         return result;
