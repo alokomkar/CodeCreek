@@ -20,13 +20,12 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.MemorizeProgramActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
 import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
@@ -94,6 +93,10 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         }
 
         return view;
+    }
+
+    public ArrayList<String> getmProgramList() {
+        return mProgramList;
     }
 
     public void setBundle(Bundle bundle) {

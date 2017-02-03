@@ -2,19 +2,16 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +40,6 @@ import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.ShuffleList;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
@@ -119,6 +115,10 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         });
 
         return view;
+    }
+
+    public ArrayList<String> getmProgramList() {
+        return mProgramList;
     }
 
     private void handleBundle() {

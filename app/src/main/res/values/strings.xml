@@ -165,4 +165,5 @@
 </string>
     <string name="rate_us">Rate Us</string>
     <string name="usp_description"><![CDATA[This course will enable students to Understand the UNIX Architecture, File systems and use of basic Commands. \n\nUse of editors and Networking commands. \n\nUnderstand Shell Programming and to write shell scripts. \n\nUnderstand and analyze UNIX System calls, Process Creation, Control & Relationship.]]></string>
+    <string name="hint_solution">Solution</string>
 </resources>

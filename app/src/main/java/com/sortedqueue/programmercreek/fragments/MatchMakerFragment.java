@@ -88,6 +88,9 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private ArrayList<ProgramTable> program_TableList;
     private int mInvokeMode;
 
+    public ArrayList<String> getmProgramList() {
+        return mProgramList;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

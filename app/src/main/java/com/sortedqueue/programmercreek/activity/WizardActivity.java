@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -15,6 +17,10 @@ import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +39,47 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.wizard, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+
+        if( item.getItemId() == R.id.action_hint ) {
+            showSolutionFromFragment();
+        }
+        return true;
+
+
+    }
+
+    private void showSolutionFromFragment() {
+        if( matchMakerFragment != null ) {
+            showSolutionDialog( matchMakerFragment.getmProgramList() );
+        }
+        else if( testDragNDropFragment != null ) {
+            showSolutionDialog( testDragNDropFragment.getmProgramList() );
+        }
+        else if( fillBlankFragment != null ) {
+            CommonUtils.displaySnackBar(WizardActivity.this, "No hints available");
+        }
+        else if( quizFragment != null ) {
+            showSolutionDialog( quizFragment.getmProgramList() );
+        }
+    }
+
+    private void showSolutionDialog( ArrayList<String> solutionList ) {
+        String solution = "";
+        for( String string : solutionList ) {
+            solution += string + "\n";
+        }
+        AuxilaryUtils.displayAlert("Solution", solution, WizardActivity.this);
     }
 
     @Override
