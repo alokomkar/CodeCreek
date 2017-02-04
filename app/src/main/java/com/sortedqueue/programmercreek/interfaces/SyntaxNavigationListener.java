@@ -8,4 +8,5 @@ import com.sortedqueue.programmercreek.database.LanguageModule;
 
 public interface SyntaxNavigationListener {
     void onModuleLoad(LanguageModule module, LanguageModule nextModule );
+    void setImageDrawable( int drawable );
 }

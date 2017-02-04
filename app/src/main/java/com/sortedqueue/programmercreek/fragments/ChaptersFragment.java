@@ -66,7 +66,7 @@ public class ChaptersFragment extends Fragment {
     private void getModules() {
 
         chapters = new ArrayList<>();
-        int prevChapterMinStats = 0;
+        /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
         chapter.setMinStats(prevChapterMinStats);
         chapter.setProgram_Language("sql");
@@ -274,7 +274,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("5");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -293,7 +293,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("6");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -401,7 +401,8 @@ public class ChaptersFragment extends Fragment {
         chapter.setChapteBrief("In this module, we will take a closer " +
                 "look at commands involved in creation and deletion of table\n\n" +
                 "1. Update Query\n" +
-                "2. Delete Row"
+                "2. Delete Row\n" +
+                "3. Where clause"
                 );
 
         syntaxId = "sql_5";
@@ -461,7 +462,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("10");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
 
         chapterDetailsArrayList.add(chapterDetails);
 
@@ -479,7 +480,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("11");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
@@ -495,8 +496,7 @@ public class ChaptersFragment extends Fragment {
         chapter.setChapteBrief("In this module, we will take a closer look at " +
                 "commands involved in insertion, selection, " +
                 "update and deletion of rows of a table\n\n" +
-                "1. Where clause \n" +
-                "2. Like clause"
+                "1. Like clause"
         );
 
         syntaxId = "sql_6";
@@ -579,7 +579,7 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("12");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
         chapterDetailsArrayList.add(chapterDetails);
 
 
@@ -652,18 +652,18 @@ public class ChaptersFragment extends Fragment {
         chapterDetails.setProgressIndex(progressIndex++);
         chapterDetails.setChapterType(ChapterDetails.TYPE_PROGRAM_INDEX);
         chapterDetails.setChapterReferenceId("13");
-        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_QUIZ);
+        chapterDetails.setChapterTestType(ProgrammingBuddyConstants.KEY_TEST);
         chapterDetailsArrayList.add(chapterDetails);
 
         chapter.setChapterDetailsArrayList(chapterDetailsArrayList);
         chapters.add(chapter);
 
         setupRecyclerView(chapters);
-        /*FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         for( Chapter chapter1 : chapters ) {
             firebaseDatabaseHandler.writeChapter(chapter1);
         }*/
-        /*CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
@@ -675,7 +675,7 @@ public class ChaptersFragment extends Fragment {
                 CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                 CommonUtils.dismissProgressDialog();
             }
-        });*/
+        });
 
     }
 

@@ -60,7 +60,17 @@ public class CreekUserDB extends RushObject {
     private double cppProgramIndexDBVersionPremium = 1.0;
     private double cppProgramTableDBVersionPremium = 1.0;
 
+    private int totalLanguages;
+
     public CreekUserDB() {
+    }
+
+    public int getTotalLanguages() {
+        return totalLanguages;
+    }
+
+    public void setTotalLanguages(int totalLanguages) {
+        this.totalLanguages = totalLanguages;
     }
 
     public String getJavaSyntaxDBVersion() {
@@ -420,6 +430,7 @@ public class CreekUserDB extends RushObject {
             return false;
         if (Double.compare(that.cppProgramTableDBVersionPremium, cppProgramTableDBVersionPremium) != 0)
             return false;
+        if (totalLanguages != that.totalLanguages) return false;
         if (javaSyntaxDBVersion != null ? !javaSyntaxDBVersion.equals(that.javaSyntaxDBVersion) : that.javaSyntaxDBVersion != null)
             return false;
         if (javaModuleDBVersion != null ? !javaModuleDBVersion.equals(that.javaModuleDBVersion) : that.javaModuleDBVersion != null)
@@ -530,6 +541,7 @@ public class CreekUserDB extends RushObject {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(cppProgramTableDBVersionPremium);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + totalLanguages;
         return result;
     }
 }

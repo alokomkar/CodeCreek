@@ -262,6 +262,25 @@ public class CreekUserStats implements Parcelable {
         return unlockedUspProgramIndexList;
     }
 
+    public ArrayList<Integer> getUnlockedSqlProgramIndexList() {
+        if( unlockedSqlProgramIndexList.size() == 0 ) {
+            unlockedSqlProgramIndexList.add(1);
+        }
+        return unlockedSqlProgramIndexList;
+    }
+
+    public void setUnlockedSqlProgramIndexList(ArrayList<Integer> unlockedSqlProgramIndexList) {
+        this.unlockedSqlProgramIndexList = unlockedSqlProgramIndexList;
+    }
+
+    public ArrayList<String> getUnlockedSqlWikiIdList() {
+        return unlockedSqlWikiIdList;
+    }
+
+    public void setUnlockedSqlWikiIdList(ArrayList<String> unlockedSqlWikiIdList) {
+        this.unlockedSqlWikiIdList = unlockedSqlWikiIdList;
+    }
+
     public void setUnlockedUspProgramIndexList(ArrayList<Integer> unlockedUspProgramIndexList) {
 
         this.unlockedUspProgramIndexList = unlockedUspProgramIndexList;

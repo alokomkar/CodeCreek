@@ -29,6 +29,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
+import co.uk.rushorm.core.Rush;
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
@@ -70,6 +71,7 @@ public class FirebaseDatabaseHandler {
     private String CREEK_USER_STATS = "user_stats";
     private String CREEK_CHAPTERS = "creek_chapters";
     private String CREEK_PROGRAM_LANGUAGE = "program_language";
+    private ArrayList<ProgramLanguage> programLanguages;
 
     /***
      * Program Index storage :
@@ -133,27 +135,42 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getAllProgramLanguages(final GetProgramLanguageListener getProgramLanguageListener ) {
-        CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
+        CreekUserDB creekUserDB = creekPreferences.getCreekUserDB();
         int totalLocalLanguages = creekPreferences.getTotalLanguages();
-        if( totalLocalLanguages == 0 || (creekUserStats != null && totalLocalLanguages < creekUserStats.getTotalLanguages()) ) {
+        if( totalLocalLanguages == 0 || (creekUserDB != null && totalLocalLanguages < creekUserDB.getTotalLanguages()) ) {
             getProgramLanguageDB();
             mProgramLanguageDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<ProgramLanguage> programLanguages = new ArrayList<>();
-                    for( DataSnapshot child : dataSnapshot.getChildren() ) {
-                        ProgramLanguage programLanguage = child.getValue(ProgramLanguage.class);
-                        programLanguages.add(programLanguage);
-                        programLanguage.save(new RushCallback() {
-                            @Override
-                            public void complete() {
+                public void onDataChange(final DataSnapshot dataSnapshot) {
+                    programLanguages = new ArrayList<>();
+                    new AsyncTask<Void, Void,Void>() {
 
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            RushCore.getInstance().deleteAll(ProgramLanguage.class);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                                ProgramLanguage programLanguage = child.getValue(ProgramLanguage.class);
+                                programLanguages.add(programLanguage);
+                                programLanguage.save(new RushCallback() {
+                                    @Override
+                                    public void complete() {
+
+                                    }
+                                });
                             }
-                        });
-                    }
 
-                    creekPreferences.setTotalLanguages(programLanguages.size());
-                    getProgramLanguageListener.onSuccess(programLanguages);
+                            creekPreferences.setTotalLanguages(programLanguages.size());
+                            getProgramLanguageListener.onSuccess(programLanguages);
+                        }
+                    }.execute();
+
+
 
                 }
 
@@ -169,6 +186,7 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 protected ArrayList<ProgramLanguage> doInBackground(Void... params) {
+
                     return new ArrayList<>(new RushSearch().find(ProgramLanguage.class));
                 }
 

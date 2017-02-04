@@ -207,10 +207,15 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private ArrayList<String> solutionList = new ArrayList<>();
 
     private void setupRecyclerView(List<ModuleOption> syntaxOptions) {
-        moduleOptions = syntaxOptions;
-        Log.d(TAG, "Module Options : " + syntaxOptions.toString());
+        moduleOptions = new ArrayList<>();
+        for( ModuleOption moduleOption : syntaxOptions ) {
+            if( moduleOption.getOption().trim().length() != 0 ) {
+                moduleOptions.add(moduleOption);
+            }
+        }
+        Log.d(TAG, "Module Options : " + moduleOptions.toString());
         optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        optionsRecyclerView.setAdapter(new OptionsRecyclerViewAdapter(getContext(), syntaxOptions, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        optionsRecyclerView.setAdapter(new OptionsRecyclerViewAdapter(getContext(), moduleOptions, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 solutionList.add(moduleOptions.get(position).getOption());

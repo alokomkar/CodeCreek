@@ -18,6 +18,7 @@ import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
@@ -48,6 +49,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private ChapterDetailsPagerAdapter chapterDetailsPagerAdapter;
     private CreekUserStats creekUserStats;
     private Chapter nextChapter;
+    private ChapterNavigationListener onChapterNavigationListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -155,6 +157,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private void toggleFabDrawable(final int progress) {
         int drawable = progress == progressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
+        onChapterNavigationListener.toggleFabDrawable(drawable);
     }
 
     @Override
@@ -297,5 +300,9 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
     public void setNextChapter(Chapter nextChapter) {
         this.nextChapter = nextChapter;
+    }
+
+    public void setOnChapterNavigationListener(ChapterNavigationListener onChapterNavigationListener) {
+        this.onChapterNavigationListener = onChapterNavigationListener;
     }
 }

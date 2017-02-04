@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_8"
         android:layout_marginTop="@dimen/margin_8"
+        android:visibility="gone"
         android:foregroundGravity="right"
         android:layout_alignParentRight="true"
         app:backgroundTint="@color/md_green_400"

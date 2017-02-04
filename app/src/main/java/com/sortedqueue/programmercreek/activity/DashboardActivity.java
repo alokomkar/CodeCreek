@@ -32,6 +32,8 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
+import com.sortedqueue.programmercreek.database.ProgramLanguage;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -123,15 +125,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     /*private void initProgramLanguages() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
-        ProgramLanguage programLanguage = new ProgramLanguage(
-                "SQL : Structured Query Language",
-                "SQL",
-                "SQL is a special-purpose domain-specific language used " +
-                        "in programming and designed for managing data held " +
-                        "in a relational database management system (RDBMS), " +
-                        "or for stream processing in a relational data " +
-                        "stream management system (RDSMS).",
-                "false");
+        ProgramLanguage programLanguage = new ProgramLanguage();
+        programLanguage.setLanguageId("SQL");
+        programLanguage.setIsProgramsOnly("false");
+        programLanguage.setProgramLanguage("JDBC - SQL Programming");
+        programLanguage.setDescription("Any project requires you to understand how to store " +
+                "data in database. In this unit are going to teach " +
+                "SQL Database programming and use of JDBC API of Java to connect SQL database with your project");
         firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
     }*/
 

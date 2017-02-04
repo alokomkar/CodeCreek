@@ -12,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
 import com.sortedqueue.programmercreek.adapter.SyntaxPagerAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
+import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
     private LanguageModule nextModule;
     private ArrayList<SyntaxModule> syntaxModules;
     private SyntaxPagerAdapter syntaxPagerAdapter;
+    private SyntaxNavigationListener syntaxNavigationListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +92,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
     private void toggleFabDrawable(final int progress) {
         int drawable = progress == progressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
         doneFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), drawable));
+        syntaxNavigationListener.setImageDrawable(drawable);
     }
 
     public void setParameters(LanguageModule module, ArrayList<SyntaxModule> syntaxModules, LanguageModule nextModule) {
@@ -111,5 +115,9 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
             syntaxLearnViewPager.setCurrentItem(syntaxLearnViewPager.getCurrentItem() + 1);
         }
 
+    }
+
+    public void setSyntaxNavigationListener(SyntaxNavigationListener syntaxNavigationListener) {
+        this.syntaxNavigationListener = syntaxNavigationListener;
     }
 }

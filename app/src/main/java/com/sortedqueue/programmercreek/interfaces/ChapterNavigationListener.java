@@ -8,4 +8,5 @@ import com.sortedqueue.programmercreek.database.Chapter;
 
 public interface ChapterNavigationListener {
     void onChapterSelected(Chapter chapter, Chapter nextChapter);
+    void toggleFabDrawable( int drawable );
 }
