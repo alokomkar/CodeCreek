@@ -145,6 +145,9 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             case "java" :
                 chapterProgress = creekUserStats.getJavaProgressIndex();
                 break;
+            case "sql" :
+                chapterProgress = creekUserStats.getSqlProgressIndex();
+                break;
         }
         return chapterProgress;
     }
@@ -245,6 +248,23 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                             break;
                         case ChapterDetails.TYPE_WIKI:
                             creekUserStats.addToUnlockedJavaWikiIdList( chapterDetails.getChapterReferenceId() );
+                            break;
+                    }
+                }
+                break;
+            case "sql" :
+                if( creekUserStats.getSqlProgressIndex() < chapterDetails.getProgressIndex() ) {
+                    creekUserStats.setSqlProgressIndex(chapterDetails.getProgressIndex());
+                    switch (chapterDetails.getChapterType()) {
+                        case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            creekUserStats.addToUnlockedSqlLanguageModuleIdList( chapterDetails.getSyntaxId() );
+                            creekUserStats.addToUnlockedSqlSyntaxModuleIdList( chapterDetails.getSyntaxId() +"_"+ chapterDetails.getChapterReferenceId());
+                            break;
+                        case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            creekUserStats.addToUnlockedSqlProgramIndexList( Integer.parseInt(chapterDetails.getChapterReferenceId()) );
+                            break;
+                        case ChapterDetails.TYPE_WIKI:
+                            creekUserStats.addToUnlockedSqlWikiIdList( chapterDetails.getChapterReferenceId() );
                             break;
                     }
                 }

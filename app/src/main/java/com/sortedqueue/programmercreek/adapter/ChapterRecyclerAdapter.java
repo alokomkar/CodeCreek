@@ -69,6 +69,11 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
                 chapterProgress = creekUserStats.getJavaProgressIndex();
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
+            case "sql":
+                isChapterEnabled = creekUserStats.getSqlProgressIndex() >= chapter.getMinStats();
+                chapterProgress = creekUserStats.getSqlProgressIndex();
+                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                break;
         }
         int maxProgress = chapter.getChapterDetailsArrayList().size();
         holder.appCompatSeekBar.setMax( maxProgress);

@@ -16,13 +16,14 @@ public class CreekUserStats implements Parcelable {
     private int cProgressIndex = 0;
     private int cppProgressIndex = 0;
     private int uspProgramIndex = 0;
-
+    private int sqlProgressIndex = 0;
     private int totalLanguages = 0;
 
     private ArrayList<Integer> unlockedCProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedUspProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedCppProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedJavaProgramIndexList = new ArrayList<>();
+    private ArrayList<Integer> unlockedSqlProgramIndexList = new ArrayList<>();
 
     private ArrayList<String> unlockedCLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedUspLanguageModuleIdList = new ArrayList<>();
@@ -40,6 +41,7 @@ public class CreekUserStats implements Parcelable {
     private ArrayList<String> unlockedUspWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedCppWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedJavaWikiIdList = new ArrayList<>();
+    private ArrayList<String> unlockedSqlWikiIdList = new ArrayList<>();
 
     public CreekUserStats(int javaProgressIndex, int cProgressIndex, int cppProgressIndex, int uspProgramIndex) {
         this.javaProgressIndex = javaProgressIndex;
@@ -65,6 +67,14 @@ public class CreekUserStats implements Parcelable {
 
     public void setJavaProgressIndex(int javaProgressIndex) {
         this.javaProgressIndex = javaProgressIndex;
+    }
+
+    public int getSqlProgressIndex() {
+        return sqlProgressIndex;
+    }
+
+    public void setSqlProgressIndex(int sqlProgressIndex) {
+        this.sqlProgressIndex = sqlProgressIndex;
     }
 
     public int getcProgressIndex() {
@@ -301,6 +311,7 @@ public class CreekUserStats implements Parcelable {
         if (cProgressIndex != that.cProgressIndex) return false;
         if (cppProgressIndex != that.cppProgressIndex) return false;
         if (uspProgramIndex != that.uspProgramIndex) return false;
+        if (sqlProgressIndex != that.sqlProgressIndex) return false;
         if (totalLanguages != that.totalLanguages) return false;
         if (unlockedCProgramIndexList != null ? !unlockedCProgramIndexList.equals(that.unlockedCProgramIndexList) : that.unlockedCProgramIndexList != null)
             return false;
@@ -328,6 +339,8 @@ public class CreekUserStats implements Parcelable {
             return false;
         if (unlockedJavaSyntaxModuleIdList != null ? !unlockedJavaSyntaxModuleIdList.equals(that.unlockedJavaSyntaxModuleIdList) : that.unlockedJavaSyntaxModuleIdList != null)
             return false;
+        if (unlockedSqlSyntaxModuleIdList != null ? !unlockedSqlSyntaxModuleIdList.equals(that.unlockedSqlSyntaxModuleIdList) : that.unlockedSqlSyntaxModuleIdList != null)
+            return false;
         if (unlockedCWikiIdList != null ? !unlockedCWikiIdList.equals(that.unlockedCWikiIdList) : that.unlockedCWikiIdList != null)
             return false;
         if (unlockedUspWikiIdList != null ? !unlockedUspWikiIdList.equals(that.unlockedUspWikiIdList) : that.unlockedUspWikiIdList != null)
@@ -344,6 +357,7 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + cProgressIndex;
         result = 31 * result + cppProgressIndex;
         result = 31 * result + uspProgramIndex;
+        result = 31 * result + sqlProgressIndex;
         result = 31 * result + totalLanguages;
         result = 31 * result + (unlockedCProgramIndexList != null ? unlockedCProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedUspProgramIndexList != null ? unlockedUspProgramIndexList.hashCode() : 0);
@@ -358,6 +372,7 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedUspSyntaxModuleIdList != null ? unlockedUspSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppSyntaxModuleIdList != null ? unlockedCppSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaSyntaxModuleIdList != null ? unlockedJavaSyntaxModuleIdList.hashCode() : 0);
+        result = 31 * result + (unlockedSqlSyntaxModuleIdList != null ? unlockedSqlSyntaxModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCWikiIdList != null ? unlockedCWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedUspWikiIdList != null ? unlockedUspWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppWikiIdList != null ? unlockedCppWikiIdList.hashCode() : 0);
@@ -365,113 +380,165 @@ public class CreekUserStats implements Parcelable {
         return result;
     }
 
-    public void addToUnlockedCLanguageModuleIdList(String syntaxId) {
+    public boolean addToUnlockedCLanguageModuleIdList(String syntaxId) {
         if( !unlockedCLanguageModuleIdList.contains(syntaxId) ) {
             unlockedCLanguageModuleIdList.add(syntaxId);
             Log.d("CreekUserStats", "Unlocked Language Modules : " + unlockedCLanguageModuleIdList.toString());
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCSyntaxModuleIdList(String s) {
+    public boolean addToUnlockedCSyntaxModuleIdList(String s) {
         if( !unlockedCSyntaxModuleIdList.contains(s) ) {
             unlockedCSyntaxModuleIdList.add(s);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCProgramIndexList(int i) {
+    public boolean addToUnlockedCProgramIndexList(int i) {
         if( !unlockedCProgramIndexList.contains(i) ) {
             unlockedCProgramIndexList.add(i);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCWikiIdList(String chapterReferenceId) {
+    public boolean addToUnlockedCWikiIdList(String chapterReferenceId) {
         if( !unlockedCWikiIdList.contains(chapterReferenceId) ) {
             unlockedCWikiIdList.add(chapterReferenceId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCppLanguageModuleIdList(String syntaxId) {
+    public boolean addToUnlockedCppLanguageModuleIdList(String syntaxId) {
         if( !unlockedCppLanguageModuleIdList.contains(syntaxId) ) {
             unlockedCppLanguageModuleIdList.add(syntaxId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCppSyntaxModuleIdList(String s) {
+    public boolean addToUnlockedCppSyntaxModuleIdList(String s) {
         if( !unlockedCppSyntaxModuleIdList.contains(s) ) {
             unlockedCppSyntaxModuleIdList.add(s);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCppProgramIndexList(int i) {
+    public boolean addToUnlockedCppProgramIndexList(int i) {
         if( !unlockedCppProgramIndexList.contains(i) ) {
             unlockedCppProgramIndexList.add(i);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedCppWikiIdList(String chapterReferenceId) {
+    public boolean addToUnlockedCppWikiIdList(String chapterReferenceId) {
         if( !unlockedCppWikiIdList.contains(chapterReferenceId) ) {
             unlockedCppWikiIdList.add(chapterReferenceId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedJavaLanguageModuleIdList(String syntaxId) {
+    public boolean addToUnlockedJavaLanguageModuleIdList(String syntaxId) {
         if( !unlockedJavaLanguageModuleIdList.contains(syntaxId) ) {
             unlockedJavaLanguageModuleIdList.add(syntaxId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedSqlLanguageModuleIdList(String syntaxId) {
+    public boolean addToUnlockedSqlLanguageModuleIdList(String syntaxId) {
         if( !unlockedSqlLanguageModuleIdList.contains(syntaxId) ) {
             unlockedSqlLanguageModuleIdList.add(syntaxId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedJavaSyntaxModuleIdList(String s) {
+    public boolean addToUnlockedJavaSyntaxModuleIdList(String s) {
         if( !unlockedJavaSyntaxModuleIdList.contains(s) ) {
             unlockedJavaSyntaxModuleIdList.add(s);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedSqlSyntaxModuleIdList(String s) {
+    public boolean addToUnlockedSqlSyntaxModuleIdList(String s) {
         if( !unlockedSqlSyntaxModuleIdList.contains(s) ) {
             unlockedSqlSyntaxModuleIdList.add(s);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedJavaProgramIndexList(int i) {
+    public boolean addToUnlockedJavaProgramIndexList(int i) {
         if( !unlockedJavaProgramIndexList.contains(i) ) {
             unlockedJavaProgramIndexList.add(i);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedJavaWikiIdList(String chapterReferenceId) {
+    public boolean addToUnlockedSqlProgramIndexList(int i) {
+        if( !unlockedSqlProgramIndexList.contains(i) ) {
+            unlockedSqlProgramIndexList.add(i);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addToUnlockedJavaWikiIdList(String chapterReferenceId) {
         if( !unlockedJavaWikiIdList.contains(chapterReferenceId) ) {
             unlockedJavaWikiIdList.add(chapterReferenceId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedUspProgramIndexList(int i) {
+    public boolean addToUnlockedSqlWikiIdList(String chapterReferenceId) {
+        if( !unlockedSqlWikiIdList.contains(chapterReferenceId) ) {
+            unlockedSqlWikiIdList.add(chapterReferenceId);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addToUnlockedUspProgramIndexList(int i) {
         if( !unlockedUspProgramIndexList.contains(i) ) {
             unlockedUspProgramIndexList.add(i);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedUspLanguageModuleIdList(String syntaxId) {
+    public boolean addToUnlockedUspLanguageModuleIdList(String syntaxId) {
         if( !unlockedUspLanguageModuleIdList.contains(syntaxId) ) {
             unlockedUspLanguageModuleIdList.add(syntaxId);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedUspSyntaxModuleIdList(String s) {
+    public boolean addToUnlockedUspSyntaxModuleIdList(String s) {
         if( !unlockedUspSyntaxModuleIdList.contains(s) ) {
             unlockedUspSyntaxModuleIdList.add(s);
+            return true;
         }
+        return false;
     }
 
-    public void addToUnlockedUspWikiIdList(String chapterReferenceId) {
+    public boolean addToUnlockedUspWikiIdList(String chapterReferenceId) {
         if( !unlockedUspWikiIdList.contains(chapterReferenceId) ) {
             unlockedUspWikiIdList.add(chapterReferenceId);
+            return true;
         }
+        return false;
     }
 
 
@@ -486,6 +553,7 @@ public class CreekUserStats implements Parcelable {
         dest.writeInt(this.cProgressIndex);
         dest.writeInt(this.cppProgressIndex);
         dest.writeInt(this.uspProgramIndex);
+        dest.writeInt(this.sqlProgressIndex);
         dest.writeInt(this.totalLanguages);
         dest.writeList(this.unlockedCProgramIndexList);
         dest.writeList(this.unlockedUspProgramIndexList);
@@ -512,6 +580,7 @@ public class CreekUserStats implements Parcelable {
         this.cProgressIndex = in.readInt();
         this.cppProgressIndex = in.readInt();
         this.uspProgramIndex = in.readInt();
+        this.sqlProgressIndex = in.readInt();
         this.totalLanguages = in.readInt();
         this.unlockedCProgramIndexList = new ArrayList<Integer>();
         in.readList(this.unlockedCProgramIndexList, Integer.class.getClassLoader());

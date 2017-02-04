@@ -70,7 +70,7 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         }
 
         holder.lockedImageView.setVisibility(isLocked ? View.VISIBLE : View.INVISIBLE);
-        holder.lockedImageView.setVisibility(View.INVISIBLE);
+        //holder.lockedImageView.setVisibility(View.INVISIBLE);
         startAnimation(holder.itemView, position * 250 );
     }
 
