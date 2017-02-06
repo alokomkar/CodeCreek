@@ -21,6 +21,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.ProgramLanguageAdapter;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -76,8 +77,11 @@ public class LanguageFragment extends Fragment {
         creekPreferences = new CreekPreferences(getContext());
         getProgramLanguages();
         handler = new Handler();
+        animateProgress();
         return view;
     }
+
+
 
     private void getProgramLanguages() {
         if (!AuxilaryUtils.isNetworkAvailable()) {
@@ -139,6 +143,16 @@ public class LanguageFragment extends Fragment {
                 .error(R.mipmap.ic_launcher)
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
+        if( creekPreferences == null ) {
+            creekPreferences = new CreekPreferences(getContext());
+        }
+        if( creekPreferences.getCreekUserStats() != null ) {
+            int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
+            if( level > 0 ) {
+                nameTextView.setText(creekPreferences.getAccountName());
+                nameTextView.append("\nLevel " + level);
+            }
+        }
         getFirebaseDBVerion();
     }
 
@@ -233,36 +247,57 @@ public class LanguageFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof DashboardNavigationListener) {
             this.dashboardNavigationListener = (DashboardNavigationListener) context;
+            dashboardNavigationListener.calculateReputation();
         }
     }
 
     private int progressBarStatus;
-    public void animateProgress() {
+    public void animateProgress( ) {
+
         if( reputationProgressBar != null ) {
 
             if (handler == null) {
                 handler = new Handler();
             }
+            if( creekPreferences == null ) {
+                creekPreferences = new CreekPreferences(getContext());
+            }
+            CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
+            if( creekUserStats == null ) {
+                reputationProgressBar.setVisibility(View.GONE);
+                return;
+            }
+            final int progress = creekUserStats.getCreekUserReputation() % 100;
+            if( progress > 0 ) {
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (progressBarStatus = 0; progressBarStatus <= 100; progressBarStatus++) {
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    reputationProgressBar.setProgress(progressBarStatus);
+                                    int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
+                                    if( level > 0 ) {
+                                        nameTextView.setText(creekPreferences.getAccountName());
+                                        nameTextView.append("\nLevel " + level);
+                                    }
+                                }
+                            });
 
-                        handler.post(new Runnable() {
-                            public void run() {
-                                reputationProgressBar.setProgress(progressBarStatus);
+
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
                             }
-                        });
-
-
-                        try {
-                            Thread.sleep(40);
-                        } catch (Exception ex) {
                         }
                     }
-                }
-            }).start();
+                }).start();
+            }
+            else {
+                reputationProgressBar.setVisibility(View.GONE);
+            }
         }
     }
 }

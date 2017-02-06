@@ -7,4 +7,5 @@ package com.sortedqueue.programmercreek.interfaces;
 public interface DashboardNavigationListener {
     void navigateToDashboard();
     void navigateToLanguage();
+    void calculateReputation();
 }

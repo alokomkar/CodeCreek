@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.SystemClock;
@@ -27,8 +28,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.messaging.RemoteMessage;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -408,6 +413,8 @@ public class AuxilaryUtils {
 
 
     }
+
+    //GIF : https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/congratulations.gif?alt=media&token=90c039af-2a96-465b-ad72-3df6f03b7c19
 
     public static void generateImageNotification(final Context context, final String notificationTitle, final String notificationContent, final String imageUrl) {
 
