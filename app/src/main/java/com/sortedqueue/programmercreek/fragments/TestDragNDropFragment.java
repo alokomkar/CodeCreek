@@ -118,7 +118,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     public ArrayList<String> getmProgramList() {
-        return mProgramList;
+        return mProgramCheckList;
     }
 
     private void handleBundle() {
