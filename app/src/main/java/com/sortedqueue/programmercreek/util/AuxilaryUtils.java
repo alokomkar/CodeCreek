@@ -183,6 +183,9 @@ public class AuxilaryUtils {
             case "usp" :
                 notification = uspNotifications.get(random.nextInt(uspNotifications.size()));
                 break;
+            case "sql" :
+                notification = javaNotifications.get(random.nextInt(javaNotifications.size()));
+                break;
         }
 
         return notification;
