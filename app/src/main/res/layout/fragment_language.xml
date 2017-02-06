@@ -21,9 +21,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_16"
-                android:layout_marginBottom="@dimen/margin_8"
                 android:id="@+id/profileLayout"
                 android:background="@color/white"
+                android:layout_marginBottom="@dimen/margin_8"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -46,6 +46,20 @@
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
+            <ProgressBar
+                xmlns:tools="http://schemas.android.com/tools"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_below="@+id/profileLayout"
+                android:id="@+id/reputationProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:progressDrawable="@drawable/gradient_progress"
+                tools:progress="60"
+                />
 
 
             <android.support.v7.widget.CardView
@@ -54,7 +68,7 @@
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginRight="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_8"
-                android:layout_below="@+id/profileLayout"
+                android:layout_below="@+id/reputationProgressBar"
                 android:id="@+id/selectedLanguageCardView"
                 app:cardBackgroundColor="@color/md_white_1000"
                 app:cardCornerRadius="@dimen/cardview_app_radius"
