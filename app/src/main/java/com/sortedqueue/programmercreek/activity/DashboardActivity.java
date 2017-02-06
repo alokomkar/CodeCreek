@@ -32,7 +32,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
-import com.sortedqueue.programmercreek.database.ProgramLanguage;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
@@ -171,6 +171,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     protected void onResume() {
         super.onResume();
         CreekApplication.getInstance().setAppRunning(true);
+        if( !creekPreferences.getProgramLanguage().equals("") ) {
+            CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
+            if( creekUserStats != null && creekUserStats.getCreekUserReputation() == 0) {
+                creekUserStats.calculateReputation();
+                new FirebaseDatabaseHandler(DashboardActivity.this).writeCreekUserStats(creekUserStats);
+            }
+        }
     }
 
     @Override

@@ -158,6 +158,8 @@ public class AuxilaryUtils {
     }
 
     private static String generateRandomNotificationContent(Context context) {
+
+        /** generateRandomNotificationContent : TODO On New Language*/
         ArrayList<String> cNotifications = new ArrayList<>();
         cNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.c_notifications_array)));
         ArrayList<String> cppNotifications = new ArrayList<>();

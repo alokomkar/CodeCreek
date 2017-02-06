@@ -678,4 +678,63 @@ public class CreekUserStats implements Parcelable {
             return new CreekUserStats[size];
         }
     };
+
+    public void calculateReputation() {
+        creekUserReputation = 0;
+
+        int userStats = 0;
+        /** Chapters unlocked : TODO On New Language*/
+        if( getUnlockedCLanguageModuleIdList().size() > 1 ) {
+            userStats += getUnlockedCLanguageModuleIdList().size() * CHAPTER_SCORE;
+        }
+        if( getUnlockedCppLanguageModuleIdList().size() > 1 ) {
+            userStats += getUnlockedCppLanguageModuleIdList().size() * CHAPTER_SCORE;
+        }
+        if( getUnlockedJavaLanguageModuleIdList().size() > 1 ) {
+            userStats += getUnlockedJavaLanguageModuleIdList().size() * CHAPTER_SCORE;
+        }
+        if( getUnlockedUspLanguageModuleIdList().size() > 1 ) {
+            userStats += getUnlockedUspLanguageModuleIdList().size() * CHAPTER_SCORE;
+        }
+        if( getUnlockedSqlLanguageModuleIdList().size() > 1 ) {
+            userStats += getUnlockedSqlLanguageModuleIdList().size() * CHAPTER_SCORE;
+        }
+
+        /** Program Index unlocked : TODO On New Language*/
+        if( getUnlockedCProgramIndexList().size() > 1 ) {
+            userStats += getUnlockedCProgramIndexList().size() * PROGRAM_SCORE;
+        }
+        if( getUnlockedCppProgramIndexList().size() > 1 ) {
+            userStats += getUnlockedCppProgramIndexList().size() * PROGRAM_SCORE;
+        }
+        if( getUnlockedUspProgramIndexList().size() > 1 ) {
+            userStats += getUnlockedUspProgramIndexList().size() * PROGRAM_SCORE;
+        }
+        if( getUnlockedJavaProgramIndexList().size() > 1 ) {
+            userStats += getUnlockedJavaProgramIndexList().size() * PROGRAM_SCORE;
+        }
+        if( getUnlockedSqlProgramIndexList().size() > 1 ) {
+            userStats += getUnlockedSqlProgramIndexList().size() * PROGRAM_SCORE;
+        }
+
+        /**  Syntax modules unlocked : TODO On New Language*/
+        if( getUnlockedCSyntaxModuleIdList().size() > 1 ) {
+            userStats += getUnlockedCSyntaxModuleIdList().size() * MODULE_SCORE;
+        }
+        if( getUnlockedCppSyntaxModuleIdList().size() > 1 ) {
+            userStats += getUnlockedCppSyntaxModuleIdList().size() * MODULE_SCORE;
+        }
+        if( getUnlockedUspSyntaxModuleIdList().size() > 1 ) {
+            userStats += getUnlockedUspSyntaxModuleIdList().size() * MODULE_SCORE;
+        }
+        if( getUnlockedJavaSyntaxModuleIdList().size() > 1 ) {
+            userStats += getUnlockedJavaSyntaxModuleIdList().size() * MODULE_SCORE;
+        }
+        if( getUnlockedSqlSyntaxModuleIdList().size() > 1 ) {
+            userStats += getUnlockedSqlSyntaxModuleIdList().size() * MODULE_SCORE;
+        }
+
+        creekUserReputation += userStats;
+
+    }
 }
