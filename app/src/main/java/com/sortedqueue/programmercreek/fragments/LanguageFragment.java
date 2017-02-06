@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +50,10 @@ public class LanguageFragment extends Fragment {
     CardView selectedLanguageCardView;
     @Bind(R.id.programLanguageRecyclerView)
     RecyclerView programLanguageRecyclerView;
+    @Bind(R.id.reputationProgressBar)
+    ProgressBar reputationProgressBar;
+
+    private Handler handler;
 
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
@@ -69,6 +75,7 @@ public class LanguageFragment extends Fragment {
         ButterKnife.bind(this, view);
         creekPreferences = new CreekPreferences(getContext());
         getProgramLanguages();
+        handler = new Handler();
         return view;
     }
 
@@ -88,7 +95,7 @@ public class LanguageFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
 
-                setupRecyclerview( programLanguages );
+                setupRecyclerview(programLanguages);
             }
 
             @Override
@@ -101,8 +108,8 @@ public class LanguageFragment extends Fragment {
 
     private void setupRecyclerview(ArrayList<ProgramLanguage> programLanguages) {
         this.programLanguages = programLanguages;
-        programLanguageRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
-        programLanguageRecyclerView.setAdapter( new ProgramLanguageAdapter(getContext(), programLanguages, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        programLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        programLanguageRecyclerView.setAdapter(new ProgramLanguageAdapter(getContext(), programLanguages, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 selectAndInitDb(position);
@@ -226,6 +233,36 @@ public class LanguageFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof DashboardNavigationListener) {
             this.dashboardNavigationListener = (DashboardNavigationListener) context;
+        }
+    }
+
+    private int progressBarStatus;
+    public void animateProgress() {
+        if( reputationProgressBar != null ) {
+
+            if (handler == null) {
+                handler = new Handler();
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (progressBarStatus = 0; progressBarStatus <= 100; progressBarStatus++) {
+
+                        handler.post(new Runnable() {
+                            public void run() {
+                                reputationProgressBar.setProgress(progressBarStatus);
+                            }
+                        });
+
+
+                        try {
+                            Thread.sleep(40);
+                        } catch (Exception ex) {
+                        }
+                    }
+                }
+            }).start();
         }
     }
 }

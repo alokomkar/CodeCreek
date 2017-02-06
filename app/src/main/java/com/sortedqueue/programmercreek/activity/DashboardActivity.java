@@ -105,6 +105,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             @Override
             public void onPageSelected(int position) {
                 if( position == 0 ) {
+                    LanguageFragment.getInstance().animateProgress();
                     //LanguageFragment.getInstance().animateViews();
                 }
             }
