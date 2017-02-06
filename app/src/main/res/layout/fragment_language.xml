@@ -23,7 +23,6 @@
                 android:padding="@dimen/margin_16"
                 android:id="@+id/profileLayout"
                 android:background="@color/white"
-                android:layout_marginBottom="@dimen/margin_8"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -52,11 +51,11 @@
                 android:layout_below="@+id/profileLayout"
                 android:id="@+id/reputationProgressBar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginLeft="@dimen/margin_16"
-                android:layout_marginRight="@dimen/margin_16"
-                android:layout_marginBottom="@dimen/margin_16"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16"
+                android:paddingLeft="@dimen/margin_16"
+                android:paddingRight="@dimen/margin_16"
+                android:paddingBottom="@dimen/margin_16"
                 android:progressDrawable="@drawable/gradient_progress"
                 tools:progress="60"
                 />
@@ -68,6 +67,7 @@
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginRight="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_8"
+                android:paddingTop="@dimen/margin_8"
                 android:layout_below="@+id/reputationProgressBar"
                 android:id="@+id/selectedLanguageCardView"
                 app:cardBackgroundColor="@color/md_white_1000"
