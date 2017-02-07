@@ -350,16 +350,22 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         } else */{
             CodeViewFragment codeViewFragment = subTestPagerAdapter.getCodeViewFragment();
             ArrayList<String> programCode = codeViewFragment.getProgramCode();
-            for (int i = 0; i < programLength; i++) {
-                String item = programCode.get(i).trim();
-                String actualItem = mProgramList.get(i).toString().trim();
-                if (actualItem.equals(item) == true) {
-                    programCheck++;
-                } else {
-                    programCheck--;
+            if( programCode != null && programCode.size() == programLength ) {
+                for (int i = 0; i < programLength; i++) {
+                    String item = programCode.get(i).trim();
+                    String actualItem = mProgramList.get(i).toString().trim();
+                    if (actualItem.equals(item) == true) {
+                        programCheck++;
+                    } else {
+                        programCheck--;
+                    }
                 }
+                checkProgramScore(programCheck, programLength);
             }
-            checkProgramScore(programCheck, programLength);
+            else {
+                CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
+            }
+
 
         }
 
