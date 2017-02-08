@@ -344,7 +344,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private void onInviteClicked() {
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
-                .setEmailSubject(getString(R.string.app_invite))
                 .setMessage(getString(R.string.invitation_message))
                 .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
                 .setCustomImage(getUriToDrawable(DashboardActivity.this, R.mipmap.ic_launcher))
