@@ -81,7 +81,7 @@ public class AuxilaryUtils {
         void onLaterClick();
     }
     public static void displayAppInviteDialog(Context context, final InviteDialogListener inviteDialogListener ) {
-        new AlertDialog.Builder(context)
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle("Invite Friends")
                 .setMessage("Congratulations on your progress!!\nHow are you liking the app so far?\n\nWould you like to invite your friends to join you in the journey of learning?")
@@ -106,7 +106,10 @@ public class AuxilaryUtils {
 
                     }
                 })
-                .create().show();
+                .create();
+
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
+        alertDialog.show();
 
     }
 
