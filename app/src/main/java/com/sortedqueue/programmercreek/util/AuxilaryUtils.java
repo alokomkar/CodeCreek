@@ -23,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,10 +44,13 @@ import java.util.Random;
 
 import butterknife.ButterKnife;
 
+import static android.R.id.message;
+
 
 public class AuxilaryUtils {
 
     private static int progressBarStatus;
+    private static String CONGRATS_GIF = "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/congratulations.gif?alt=media&token=90c039af-2a96-465b-ad72-3df6f03b7c19";
 
 
     public static void showConfirmationDialog(final Activity activity) {
@@ -81,36 +85,51 @@ public class AuxilaryUtils {
         void onLaterClick();
     }
     public static void displayAppInviteDialog(Context context, final InviteDialogListener inviteDialogListener ) {
-        AlertDialog alertDialog = new AlertDialog.Builder(context)
-                .setCancelable(true)
-                .setTitle("Invite Friends")
-                .setMessage("Congratulations on your progress!!\nHow are you liking the app so far?\n\nWould you like to invite your friends to join you in the journey of learning?")
-                .setIcon(R.mipmap.ic_launcher)
+
+        Builder alertDialogBuilder = new Builder(
+                context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_app_invite, null);
+        ButterKnife.bind(view);
+        alertDialogBuilder.setView(view);
+
+        TextView resultTextView = (TextView) view.findViewById(R.id.inviteTextView);
+        resultTextView.setText("Congratulations on your progress!!\nHow do you like the app so far?\n\n" +
+                "Would you like to invite your friends in your journey of learning?");
+        ImageView imageView = (ImageView) view.findViewById(R.id.congratsImageView);
+        // set title
+        Glide.with(context)
+                .load(CONGRATS_GIF)
+                .asGif()
+                .into(imageView);
+        alertDialogBuilder.setTitle("Invite Friends");
+
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
                 .setPositiveButton(R.string.invite, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
                         inviteDialogListener.onInviteClick();
-                        dialogInterface.dismiss();
+                        dialog.dismiss();
                     }
                 })
-                .setNeutralButton(R.string.may_be_later, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        inviteDialogListener.onLaterClick();
-                        dialogInterface.dismiss();
-                    }
-                })
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
+        .setNegativeButton(R.string.may_be_later, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                inviteDialogListener.onLaterClick();
+                dialogInterface.dismiss();
+            }
+        });
 
-                    }
-                })
-                .create();
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
 
+        // show it
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
-        alertDialog.show();
 
+        alertDialog.show();
     }
 
     public static void displayInformation(Context context,
@@ -364,28 +383,6 @@ public class AuxilaryUtils {
 
         // show it
         alertDialog.show();
-        /*final Handler handler = new Handler();
-        if( alertDialog.isShowing() ) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (progressBarStatus = 0; progressBarStatus <= 100; progressBarStatus++) {
-
-                        handler.post(new Runnable() {
-                            public void run() {
-                                progressBar.setProgress(progressBarStatus);
-                            }
-                        });
-
-
-                        try {
-                            Thread.sleep(50);
-                        } catch (Exception ex) {
-                        }
-                    }
-                }
-            }).start();
-        }*/
 
     }
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/driverScoreLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateTimeTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_16"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:minHeight="100dp"
+            android:id="@+id/congratsImageView"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inviteTextView"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/margin_16"
+        android:textColor="@color/md_blue_800"
+        android:textSize="@dimen/text_dashboard_small"
+        tools:text="Congratulations!! Good work"/>
+
+
+</LinearLayout>

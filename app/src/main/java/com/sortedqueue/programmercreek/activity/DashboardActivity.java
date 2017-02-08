@@ -125,7 +125,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initJavaIndex();
         //initProgramLanguages();
 
-
     }
 
     /*private void initProgramLanguages() {
@@ -215,12 +214,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 return true;
 
             case R.id.action_invite:
-                tellYourFriends();
+                //tellYourFriends();
+                onInviteClicked();
                 return true;
 
             case R.id.action_share:
-                //shareInfo();
-                onInviteClicked();
+                shareInfo();
+                //onInviteClicked();
                 return true;
 
             case R.id.action_sync:
