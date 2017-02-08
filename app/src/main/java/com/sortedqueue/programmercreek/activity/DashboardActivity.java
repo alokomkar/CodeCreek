@@ -174,13 +174,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     protected void onResume() {
         super.onResume();
         CreekApplication.getInstance().setAppRunning(true);
-        if( !creekPreferences.getProgramLanguage().equals("") ) {
-            CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
-            if( creekUserStats != null && creekUserStats.getCreekUserReputation() == 0) {
-                creekUserStats.calculateReputation();
-                new FirebaseDatabaseHandler(DashboardActivity.this).writeCreekUserStats(creekUserStats);
-            }
-        }
+        calculateReputation();
     }
 
     @Override
@@ -398,5 +392,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     public void navigateToLanguage() {
         //LanguageFragment.getInstance().animateViews();
         dashboardViewPager.setCurrentItem(0);
+    }
+
+    @Override
+    public void calculateReputation() {
+        if( !creekPreferences.getProgramLanguage().equals("") ) {
+            CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
+            if( creekUserStats != null && creekUserStats.getCreekUserReputation() == 0) {
+                creekUserStats.calculateReputation();
+                LanguageFragment.getInstance().animateProgress();
+                new FirebaseDatabaseHandler(DashboardActivity.this).writeCreekUserStats(creekUserStats);
+            }
+        }
     }
 }
