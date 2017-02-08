@@ -175,6 +175,7 @@ public class LanguageFragment extends Fragment {
             public void onSuccess(CreekUserDB creekUserDB) {
                 CommonUtils.dismissProgressDialog();
                 selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
+                dashboardNavigationListener.showInviteDialog();
                 //selectAndInitDb(0);
             }
 
@@ -187,6 +188,7 @@ public class LanguageFragment extends Fragment {
         });
 
     }
+
 
     @Override
     public void onDestroyView() {

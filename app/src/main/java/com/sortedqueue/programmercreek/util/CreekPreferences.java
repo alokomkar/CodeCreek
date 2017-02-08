@@ -873,4 +873,12 @@ public class CreekPreferences {
     public boolean isProgramsOnly() {
         return sharedPreferences.getBoolean("programsOnly", false);
     }
+
+    public void setShowInviteDialog(boolean showInviteDialog) {
+        sharedPreferences.edit().putBoolean("showInviteDialog", showInviteDialog).apply();
+    }
+
+    public boolean getShowInviteDialog() {
+        return sharedPreferences.getBoolean("showInviteDialog", false);
+    }
 }

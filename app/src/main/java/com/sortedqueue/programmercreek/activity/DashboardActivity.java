@@ -327,6 +327,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 for (String id : ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id);
                 }
+                creekPreferences.setShowInviteDialog(false);
             } else {
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
@@ -420,5 +421,23 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 new FirebaseDatabaseHandler(DashboardActivity.this).writeCreekUserStats(creekUserStats);
             }
         }
+    }
+
+    @Override
+    public void showInviteDialog() {
+        if( creekPreferences.getShowInviteDialog() ) {
+            AuxilaryUtils.displayAppInviteDialog(DashboardActivity.this, new AuxilaryUtils.InviteDialogListener() {
+                @Override
+                public void onInviteClick() {
+                    onInviteClicked();
+                }
+
+                @Override
+                public void onLaterClick() {
+
+                }
+            });
+        }
+
     }
 }

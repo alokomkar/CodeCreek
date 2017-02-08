@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.SystemClock;
@@ -28,12 +27,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.google.firebase.messaging.RemoteMessage;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -81,7 +76,39 @@ public class AuxilaryUtils {
         builder.show();
     }
 
+    public interface InviteDialogListener {
+        void onInviteClick();
+        void onLaterClick();
+    }
+    public static void displayAppInviteDialog(Context context, final InviteDialogListener inviteDialogListener ) {
+        new AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle("Invite Friends")
+                .setMessage("Congratulations on your progress!!\nHow are you liking the app so far?\n\nWould you like to invite your friends to join you in the journey of learning?")
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton(R.string.invite, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        inviteDialogListener.onInviteClick();
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setNeutralButton(R.string.may_be_later, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        inviteDialogListener.onLaterClick();
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
 
+                    }
+                })
+                .create().show();
+
+    }
 
     public static void displayInformation(Context context,
                                           int title,
@@ -295,6 +322,7 @@ public class AuxilaryUtils {
                     }
                 })
                 .create();
+        new CreekPreferences(context).setShowInviteDialog(true);
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
         alertDialog.show();
     }
