@@ -53,6 +53,8 @@ public class LanguageFragment extends Fragment {
     RecyclerView programLanguageRecyclerView;
     @Bind(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
+    @Bind(R.id.reputationTextView)
+    TextView reputationTextView;
 
     private Handler handler;
 
@@ -80,7 +82,6 @@ public class LanguageFragment extends Fragment {
         animateProgress();
         return view;
     }
-
 
 
     private void getProgramLanguages() {
@@ -143,12 +144,12 @@ public class LanguageFragment extends Fragment {
                 .error(R.mipmap.ic_launcher)
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
-        if( creekPreferences == null ) {
+        if (creekPreferences == null) {
             creekPreferences = new CreekPreferences(getContext());
         }
-        if( creekPreferences.getCreekUserStats() != null ) {
+        if (creekPreferences.getCreekUserStats() != null) {
             int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
-            if( level > 0 ) {
+            if (level > 0) {
                 nameTextView.setText(creekPreferences.getAccountName());
                 nameTextView.append("\nLevel " + level);
             }
@@ -254,24 +255,27 @@ public class LanguageFragment extends Fragment {
     }
 
     private int progressBarStatus;
-    public void animateProgress( ) {
 
-        if( reputationProgressBar != null ) {
+    public void animateProgress() {
+
+        if (reputationProgressBar != null) {
 
             if (handler == null) {
                 handler = new Handler();
             }
-            if( creekPreferences == null ) {
+            if (creekPreferences == null) {
                 creekPreferences = new CreekPreferences(getContext());
             }
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
-            if( creekUserStats == null ) {
+            if (creekUserStats == null) {
                 reputationProgressBar.setVisibility(View.GONE);
+                reputationTextView.setVisibility(View.GONE);
                 return;
             }
             final int progress = creekUserStats.getCreekUserReputation() % 100;
-            if( progress > 0 ) {
+            if (progress > 0) {
                 reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -280,8 +284,9 @@ public class LanguageFragment extends Fragment {
                             handler.post(new Runnable() {
                                 public void run() {
                                     reputationProgressBar.setProgress(progressBarStatus);
+                                    reputationTextView.setText(progressBarStatus +"% Complete");
                                     int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
-                                    if( level > 0 ) {
+                                    if (level > 0) {
                                         nameTextView.setText(creekPreferences.getAccountName());
                                         nameTextView.append("\nLevel " + level);
                                     }
@@ -296,9 +301,9 @@ public class LanguageFragment extends Fragment {
                         }
                     }
                 }).start();
-            }
-            else {
+            } else {
                 reputationProgressBar.setVisibility(View.GONE);
+                reputationTextView.setVisibility(View.GONE);
             }
         }
     }

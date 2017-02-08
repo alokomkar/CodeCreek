@@ -53,8 +53,10 @@
                 <ProgressBar
                     xmlns:tools="http://schemas.android.com/tools"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:background="@color/bg"
-                    android:padding="@dimen/margin_16"
+                    android:background="@color/md_blue_grey_500"
+                    android:paddingLeft="@dimen/margin_16"
+                    android:paddingRight="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_16"
                     android:layout_below="@+id/profileLayout"
                     android:id="@+id/reputationProgressBar"
                     android:layout_width="match_parent"
@@ -62,6 +64,19 @@
                     android:progressDrawable="@drawable/gradient_progress"
                     tools:progress="60"
                     />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:paddingTop="@dimen/margin_8"
+                    android:paddingRight="@dimen/margin_16"
+                    android:paddingBottom="@dimen/margin_8"
+                    android:paddingLeft="@dimen/margin_16"
+                    android:background="@color/md_blue_grey_500"
+                    android:id="@+id/reputationTextView"
+                    android:gravity="left"
+                    tools:text="45% Complete"/>
             </LinearLayout>
 
 
