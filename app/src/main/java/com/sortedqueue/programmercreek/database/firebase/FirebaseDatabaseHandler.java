@@ -9,6 +9,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.CreekUser;
@@ -29,7 +31,6 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import co.uk.rushorm.core.Rush;
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
@@ -127,6 +128,43 @@ public class FirebaseDatabaseHandler {
     public void writeProgramLanguage(ProgramLanguage programLanguage) {
         getProgramLanguageDB();
         mProgramLanguageDatabase.push().setValue(programLanguage);
+    }
+
+    public void updateInviteCount(final int inviteCount) {
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/invite_count")
+                .runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData currentData) {
+                if (currentData.getValue() == null) {
+                    currentData.setValue(1);
+                } else {
+                    currentData.setValue((Long) currentData.getValue() + 1);
+                }
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/total_invites")
+                .runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData currentData) {
+                        if (currentData.getValue() == null) {
+                            currentData.setValue(inviteCount);
+                        } else {
+                            currentData.setValue((Long) currentData.getValue() + inviteCount);
+                        }
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    }
+                });
     }
 
     public interface GetProgramLanguageListener {

@@ -327,6 +327,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 for (String id : ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id);
                 }
+                new FirebaseDatabaseHandler(DashboardActivity.this).updateInviteCount(ids.length);
                 creekPreferences.setShowInviteDialog(false);
             } else {
                 // Sending failed or it was canceled, show failure message to the user
