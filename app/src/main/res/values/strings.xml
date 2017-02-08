@@ -166,4 +166,9 @@
     <string name="rate_us">Rate Us</string>
     <string name="usp_description"><![CDATA[This course will enable students to Understand the UNIX Architecture, File systems and use of basic Commands. \n\nUse of editors and Networking commands. \n\nUnderstand Shell Programming and to write shell scripts. \n\nUnderstand and analyze UNIX System calls, Process Creation, Control & Relationship.]]></string>
     <string name="hint_solution">Solution</string>
+    <string name="invitation_title">Infinite Programmer App Invite</string>
+    <string name="invitation_message">Hey, I have started to learn programming via Infinite Programmer, You should check this too...</string>
+    <string name="invitation_deep_link">https://ug6e2.app.goo.gl/V9Hh</string>
+    <string name="invitation_custom_image"><![CDATA[https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/Infinite%20Programmer-feature-graphic.png?alt=media&token=7140ec19-5313-4c9d-8435-4f12a25cee34]]></string>
+    <string name="invitation_cta">Invite</string>
 </resources>
