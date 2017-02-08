@@ -223,7 +223,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 return true;
 
             case R.id.action_share:
-                shareInfo();
+                //shareInfo();
+                onInviteClicked();
                 return true;
 
             case R.id.action_sync:
