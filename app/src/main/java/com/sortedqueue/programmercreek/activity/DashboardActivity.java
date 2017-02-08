@@ -2,10 +2,12 @@ package com.sortedqueue.programmercreek.activity;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -344,10 +346,24 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
                 .setMessage(getString(R.string.invitation_message))
                 .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
-                .setCustomImage(Uri.parse(getString(R.string.invitation_custom_image)))
+                .setCustomImage(getUriToDrawable(DashboardActivity.this, R.mipmap.ic_launcher))
                 .setCallToActionText(getString(R.string.invitation_cta))
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
+    }
+
+    /**
+     * get uri to drawable or any other resource type if u wish
+     * @param context - context
+     * @param drawableId - drawable res id
+     * @return - uri
+     */
+    public static final Uri getUriToDrawable(@NonNull Context context, @AnyRes int drawableId) {
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId) );
+        return imageUri;
     }
 
     @Override
