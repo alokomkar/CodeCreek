@@ -31,11 +31,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.UserRanking;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
@@ -43,6 +45,9 @@ import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -122,6 +127,18 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
+        new FirebaseDatabaseHandler(DashboardActivity.this).getTopLearners(new FirebaseDatabaseHandler.GetTopLearnersInterface() {
+            @Override
+            public void onSuccess(ArrayList<UserRanking> userRankings) {
+                Collections.reverse(userRankings);
+                Log.d(TAG, "Top learners : " + userRankings);
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+
+            }
+        });
         //initJavaIndex();
         //initProgramLanguages();
 

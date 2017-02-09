@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.database.Chapter;
@@ -23,6 +24,7 @@ import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
+import com.sortedqueue.programmercreek.database.UserRanking;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.util.AlphaNumComparator;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -1249,8 +1251,49 @@ public class FirebaseDatabaseHandler {
         getUserStatsDatabase();
         mUserStatsDatabase.child( creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
         creekPreferences.saveCreekUserStats(creekUserStats);
+        updateUserRanking(creekUserStats);
     }
 
+    private void updateUserRanking(CreekUserStats creekUserStats) {
+        if( creekUserStats.getCreekUserReputation() > 0 ) {
+            getUserDatabase();
+            UserRanking userRanking = new UserRanking();
+            userRanking.setEmailId(creekPreferences.getSignInAccount());
+            userRanking.setUserPhotoUrl(creekPreferences.getAccountPhoto());
+            userRanking.setUserFullName(creekPreferences.getAccountName());
+            userRanking.setReputation( creekUserStats.getCreekUserReputation() );
+            mUserDatabase.child("ranking/" + creekPreferences.getSignInAccount().replaceAll("[-+.^:,]",""))
+                    .setValue(userRanking);
+        }
+
+    }
+
+    public interface GetTopLearnersInterface {
+        void onSuccess( ArrayList<UserRanking> userRankings );
+        void onFailure( DatabaseError databaseError );
+    }
+    public void getTopLearners(final GetTopLearnersInterface getTopLearnersInterface ) {
+        getUserDatabase();
+        Query query = mUserDatabase.child("ranking");
+        query.orderByChild("reputation")
+                .limitToFirst(10)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "UserRanking : " + dataSnapshot.toString());
+                ArrayList<UserRanking> userRankings = new ArrayList<UserRanking>();
+                for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                    userRankings.add(child.getValue(UserRanking.class));
+                }
+                getTopLearnersInterface.onSuccess(userRankings);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getTopLearnersInterface.onFailure(databaseError);
+            }
+        });
+    }
 
 
 }
