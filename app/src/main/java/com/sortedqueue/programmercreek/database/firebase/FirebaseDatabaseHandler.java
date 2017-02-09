@@ -511,6 +511,7 @@ public class FirebaseDatabaseHandler {
         return new ArrayList<>(
                 new RushSearch()
                 .whereEqual("program_Language", programLanguage)
+                .orderAsc("chapterId")
                 .find(Chapter.class));
     }
 
@@ -1046,11 +1047,13 @@ public class FirebaseDatabaseHandler {
                                 .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
                                 .or()
                                 .whereEqual("moduleLanguage", "cpp")
+                                .orderAsc("moduleId")
                                 .find(LanguageModule.class));
                     }
                     else {
                         return new ArrayList<LanguageModule>(new RushSearch()
                                 .whereEqual("moduleLanguage", creekPreferences.getProgramLanguage())
+                                .orderAsc("moduleId")
                                 .find(LanguageModule.class));
                     }
                 }
