@@ -127,7 +127,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
-        new FirebaseDatabaseHandler(DashboardActivity.this).getTopLearners(new FirebaseDatabaseHandler.GetTopLearnersInterface() {
+        //calculateTopLearners();
+        //initJavaIndex();
+        //initProgramLanguages();
+
+    }
+
+    private void calculateTopLearners() {
+        new FirebaseDatabaseHandler(DashboardActivity.this)
+                .getTopLearners(
+                        new FirebaseDatabaseHandler.GetTopLearnersInterface() {
             @Override
             public void onSuccess(ArrayList<UserRanking> userRankings) {
                 Collections.reverse(userRankings);
@@ -139,9 +148,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             }
         });
-        //initJavaIndex();
-        //initProgramLanguages();
-
     }
 
     /*private void initProgramLanguages() {
@@ -431,7 +437,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void calculateReputation() {
-        if( !creekPreferences.getProgramLanguage().equals("") ) {
+        if( creekPreferences == null ) {
+            creekPreferences = new CreekPreferences(DashboardActivity.this);
+        }
+        if( creekPreferences != null && !creekPreferences.getProgramLanguage().equals("") ) {
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
             if( creekUserStats != null && creekUserStats.getCreekUserReputation() == 0) {
                 creekUserStats.calculateReputation();

@@ -558,11 +558,12 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
                         //the tag is the view id already dropped here
                         int existingID = (Integer) tag;
                         //set the original view visible again
-                        if( view != null )
+                        if( view != null && view.findViewById(existingID) != null )
                             view.findViewById(existingID).setVisibility(View.VISIBLE);
                     }
                     //set the tag in the target view being dropped on - to the ID of the view being dropped
-                    dropTarget.setTag(dropped.getId());
+                    if( dropTarget != null && dropped != null )
+                        dropTarget.setTag(dropped.getId());
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     //no action necessary
