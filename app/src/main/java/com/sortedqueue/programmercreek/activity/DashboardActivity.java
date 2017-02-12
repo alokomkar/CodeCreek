@@ -97,6 +97,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
+        dashboardTabLayout.getTabAt(2).setIcon(android.R.drawable.sym_contact_card);
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }
@@ -138,26 +139,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         new FirebaseDatabaseHandler(DashboardActivity.this).getAllCreekUserStatsInBackground();
     }
 
-    private void calculateTopLearners() {
-        new FirebaseDatabaseHandler(DashboardActivity.this)
-                .getTopLearners(
-                        new FirebaseDatabaseHandler.GetTopLearnersInterface() {
-            @Override
-            public void onSuccess(ArrayList<UserRanking> userRankings) {
-                Collections.reverse(userRankings);
-                Log.d(TAG, "Top learners : " + userRankings);
-                int index = 1;
-                for( UserRanking userRanking : userRankings ) {
-                    Log.d(TAG, "Top Learners Index : " + (index++) + " : " + userRanking.toString());
-                }
-            }
 
-            @Override
-            public void onFailure(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     /*private void initProgramLanguages() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);

@@ -173,4 +173,5 @@
     <string name="invitation_cta">Accept</string>
     <string name="app_invite">Infinite Programme Invite</string>
     <string name="may_be_later">May be later</string>
+    <string name="top_learners">The list of top learners on Infinite Programmer</string>
 </resources>
