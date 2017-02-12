@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushCore;
@@ -1215,6 +1216,64 @@ public class FirebaseDatabaseHandler {
         }
     }
 
+    public void getAllCreekUserStatsInBackground() {
+        getUserStatsDatabase();
+        getUserDatabase();
+        mUserStatsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, CreekUserStats> creekUserStatsHashMap = new HashMap<>();
+                for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                    CreekUserStats creekUserStats = child.getValue(CreekUserStats.class);
+                    Log.d(TAG, "CreekUserStats : account : " + child.getKey() );
+                    creekUserStats.calculateReputation();
+                    creekUserStatsHashMap.put(child.getKey(), creekUserStats);
+                    mUserStatsDatabase.child( child.getKey().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+                    updateRankingForAllUsers(creekUserStatsHashMap);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateRankingForAllUsers(final HashMap<String, CreekUserStats> creekUserStatsHashMap) {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                    CreekUser creekUser = child.getValue(CreekUser.class);
+                    if( creekUser != null && creekUser.getEmailId() != null ) {
+                        String accountEmail = creekUser.getEmailId().replaceAll("[-+.^:,]","");
+                        CreekUserStats creekUserStats = creekUserStatsHashMap.get(accountEmail);
+                        if( creekUserStats != null ) {
+                            UserRanking userRanking = new UserRanking();
+                            userRanking.setEmailId(creekUser.getEmailId());
+                            userRanking.setUserPhotoUrl(creekUser.getUserPhotoUrl());
+                            userRanking.setUserFullName(creekUser.getUserFullName());
+                            userRanking.setReputation( creekUserStats.getCreekUserReputation() );
+                            mUserDatabase.child("ranking/" + creekUser.getEmailId().replaceAll("[-+.^:,]",""))
+                                    .setValue(userRanking);
+                        }
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     public interface CreekUserStatsListener {
         void onSuccess( CreekUserStats creekUserStats );
         void onFailure( DatabaseError databaseError );
@@ -1279,7 +1338,7 @@ public class FirebaseDatabaseHandler {
         getUserDatabase();
         Query query = mUserDatabase.child("ranking");
         query.orderByChild("reputation")
-                .limitToFirst(10)
+                .limitToLast(10)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -130,7 +130,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //calculateTopLearners();
         //initJavaIndex();
         //initProgramLanguages();
+        //calculateUserRankings();
 
+    }
+
+    private void calculateUserRankings ( ) {
+        new FirebaseDatabaseHandler(DashboardActivity.this).getAllCreekUserStatsInBackground();
     }
 
     private void calculateTopLearners() {
@@ -141,6 +146,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             public void onSuccess(ArrayList<UserRanking> userRankings) {
                 Collections.reverse(userRankings);
                 Log.d(TAG, "Top learners : " + userRankings);
+                int index = 1;
+                for( UserRanking userRanking : userRankings ) {
+                    Log.d(TAG, "Top Learners Index : " + (index++) + " : " + userRanking.toString());
+                }
             }
 
             @Override
