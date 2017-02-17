@@ -195,6 +195,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             QuizModel quizModel = new QuizModel();
             quizModel.setQuestionIndex(questionIndex + 1);
             quizModel.setQuestion(mProgramList.get(questionIndex).trim());
+            quizModel.setCorrectOption(mProgramTableList.get(questionIndex).getProgram_Line());
             //Get Options List
             optionList = getOptionsList(questionIndex, programSize);
             //Shuffle Options

@@ -13,11 +13,24 @@ public class QuizModel {
 
     private ArrayList<String> optionsList = new ArrayList<>();
     private String selectedOption = "";
+    private String correctOption = "correctOption";
 
     public QuizModel(int questionIndex, String question, ArrayList<String> optionsList) {
         this.questionIndex = questionIndex;
         this.question = question;
         this.optionsList = optionsList;
+    }
+
+    public String getCorrectOption() {
+        return correctOption;
+    }
+
+    public void setCorrectOption(String correctOption) {
+        this.correctOption = correctOption;
+    }
+
+    public boolean isCorrectAnswer() {
+        return correctOption.equals(selectedOption);
     }
 
     public String getSelectedOption() {

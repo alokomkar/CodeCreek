@@ -79,7 +79,7 @@ public class LanguageFragment extends Fragment {
         creekPreferences = new CreekPreferences(getContext());
         getProgramLanguages();
         handler = new Handler();
-        //animateProgress();
+        animateProgress();
         return view;
     }
 
