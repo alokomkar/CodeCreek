@@ -174,4 +174,6 @@
     <string name="app_invite">Infinite Programme Invite</string>
     <string name="may_be_later">May be later</string>
     <string name="top_learners">The list of top learners on Infinite Programmer</string>
+    <string name="top_learners_heading">Top Learners</string>
+    <string name="level_10">Level 10</string>
 </resources>

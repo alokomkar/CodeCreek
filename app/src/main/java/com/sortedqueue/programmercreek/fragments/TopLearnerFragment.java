@@ -2,6 +2,8 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +13,8 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.adapter.ModulesRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.TopLearnersRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.UserRanking;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -30,10 +32,8 @@ import butterknife.ButterKnife;
 
 public class TopLearnerFragment extends Fragment {
 
-    @Bind(R.id.modulesRecyclerView)
-    RecyclerView modulesRecyclerView;
-    @Bind(R.id.topLearnerTextView)
-    TextView topLearnerTextView;
+    @Bind(R.id.topLearnersRecyclerView)
+    RecyclerView topLearnersRecyclerView;
 
     private SyntaxNavigationListener syntaxNavigationListener;
     private ArrayList<LanguageModule> languageModules;
@@ -45,7 +45,7 @@ public class TopLearnerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_module, container, false);
+        View view = inflater.inflate(R.layout.fragment_top_learners, container, false);
         ButterKnife.bind(this, view);
         calculateTopLearners();
         return view;
@@ -59,20 +59,20 @@ public class TopLearnerFragment extends Fragment {
                             public void onSuccess(ArrayList<UserRanking> userRankings) {
                                 Collections.reverse(userRankings);
                                 Log.d(TAG, "Top learners : " + userRankings);
-                                int index = 1;
-                                topLearnerTextView.setText("");
-                                for( UserRanking userRanking : userRankings ) {
-                                    topLearnerTextView.append((index++) + " : " + userRanking.toString() + "\n");
-                                }
-                                topLearnerTextView.setVisibility(View.VISIBLE);
-                                modulesRecyclerView.setVisibility(View.GONE);
+                                setupAdapter( userRankings );
+                                topLearnersRecyclerView.setVisibility(View.VISIBLE);
                             }
 
                             @Override
                             public void onFailure(DatabaseError databaseError) {
-
+                                topLearnersRecyclerView.setVisibility(View.GONE);
                             }
                         });
+    }
+
+    private void setupAdapter(ArrayList<UserRanking> userRankings) {
+        topLearnersRecyclerView.setLayoutManager( new GridLayoutManager(getContext(), 2) );
+        topLearnersRecyclerView.setAdapter(new TopLearnersRecyclerAdapter(getContext(), userRankings));
     }
 
     @Override
@@ -82,8 +82,9 @@ public class TopLearnerFragment extends Fragment {
     }
 
     private static TopLearnerFragment instance;
+
     public static TopLearnerFragment getInstance() {
-        if( instance == null ) {
+        if (instance == null) {
             instance = new TopLearnerFragment();
         }
         return instance;

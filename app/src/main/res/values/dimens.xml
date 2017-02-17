@@ -29,4 +29,7 @@
     <dimen name="margin_54">54dp</dimen>
     <dimen name="margin_58">58dp</dimen>
     <dimen name="margin_6">6dp</dimen>
+    <dimen name="image_height">100dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="title_height">24dp</dimen>
 </resources>

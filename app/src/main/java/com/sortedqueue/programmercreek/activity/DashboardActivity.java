@@ -97,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
-        dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
+        //dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }
@@ -105,7 +105,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             dashboardViewPager.setCurrentItem(1);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
-        dashboardViewPager.setOffscreenPageLimit(3);
+        dashboardViewPager.setOffscreenPageLimit(2);
         dashboardViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
