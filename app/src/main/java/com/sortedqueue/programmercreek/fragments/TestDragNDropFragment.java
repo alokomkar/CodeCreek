@@ -91,6 +91,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private CreekUserStats creekUserStats;
     private ArrayList<ProgramTable>[] programTableArray;
     private SubTestPagerAdapter subTestPagerAdapter;
+    private ArrayList<ProgramTable> mProgramTableList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,7 +119,11 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     public ArrayList<String> getmProgramList() {
-        return mProgramCheckList;
+        ArrayList<String> programList = new ArrayList<>();
+        for( ProgramTable programTable : mProgramTableList ) {
+            programList.add(programTable.getProgram_Line());
+        }
+        return programList;
     }
 
     private void handleBundle() {
@@ -182,7 +187,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private void initUI(final ArrayList<ProgramTable> program_TableList) {
 
         getActivity().setTitle("Test : " + mProgramIndex.getProgram_Description());
-
+        mProgramTableList = program_TableList;
         //Split lengthy programs into modules
         programTableArray = ProgramTable.splitIntoModules(program_TableList);
         mProgramList = new ArrayList<String>();

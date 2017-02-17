@@ -72,6 +72,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private QuizRecyclerAdapter quizRecyclerAdapter;
     private Bundle bundle;
     private int mInvokeMode;
+    private ArrayList<ProgramTable> mProgramTableList;
 
     @Nullable
     @Override
@@ -96,7 +97,11 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     public ArrayList<String> getmProgramList() {
-        return mProgramList;
+        ArrayList<String> programList = new ArrayList<>();
+        for( ProgramTable programTable : mProgramTableList ) {
+            programList.add(programTable.getProgram_Line());
+        }
+        return programList;
     }
 
     public void setBundle(Bundle bundle) {
@@ -153,7 +158,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private void initUI(ArrayList<ProgramTable> program_TableList) {
 
         getActivity().setTitle("Quiz : " + program_index.getProgram_Description());
-
+        mProgramTableList = program_TableList;
         if (program_TableList != null && program_TableList.size() > 0) {
             mProgramList = new ArrayList<String>();
             mProgramExplanationList = new ArrayList<String>();

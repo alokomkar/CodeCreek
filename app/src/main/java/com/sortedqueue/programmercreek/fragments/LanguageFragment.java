@@ -79,10 +79,17 @@ public class LanguageFragment extends Fragment {
         creekPreferences = new CreekPreferences(getContext());
         getProgramLanguages();
         handler = new Handler();
-        animateProgress();
+        //animateProgress();
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if( isVisibleToUser ) {
+            animateProgress();
+        }
+    }
 
     private void getProgramLanguages() {
         if (!AuxilaryUtils.isNetworkAvailable()) {
@@ -283,13 +290,16 @@ public class LanguageFragment extends Fragment {
 
                             handler.post(new Runnable() {
                                 public void run() {
-                                    reputationProgressBar.setProgress(progressBarStatus);
-                                    reputationTextView.setText(progressBarStatus +"% Complete");
-                                    int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
-                                    if (level > 0) {
-                                        nameTextView.setText(creekPreferences.getAccountName());
-                                        nameTextView.append("\nLevel " + level);
+                                    if( reputationProgressBar != null ) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+                                        reputationTextView.setText(progressBarStatus +"% Complete");
+                                        int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
+                                        if (level > 0) {
+                                            nameTextView.setText(creekPreferences.getAccountName());
+                                            nameTextView.append("\nLevel " + level);
+                                        }
                                     }
+
                                 }
                             });
 

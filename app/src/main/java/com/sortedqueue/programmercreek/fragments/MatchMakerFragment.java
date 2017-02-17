@@ -87,9 +87,14 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private View view;
     private ArrayList<ProgramTable> program_TableList;
     private int mInvokeMode;
+    private List<ProgramTable> mProgramTableList;
 
     public ArrayList<String> getmProgramList() {
-        return mProgramList;
+        ArrayList<String> programList = new ArrayList<>();
+        for( ProgramTable programTable : mProgramTableList ) {
+            programList.add(programTable.getProgram_Line());
+        }
+        return programList;
     }
 
     @Override
@@ -157,6 +162,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void initUI(List<ProgramTable> program_TableList) {
+        mProgramTableList = program_TableList;
         if (program_TableList != null && program_TableList.size() > 0) {
             //TODO
             getActivity().setTitle("Match : " + mProgramIndex.getProgram_Description());
