@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':tappx-sdk-3.0.0'

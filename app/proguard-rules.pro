@@ -82,3 +82,12 @@
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }
+
+#Tappx Proguard
+-keepattributes *Annotation*
+-keepclassmembers class com.google.**.R$* {
+    public static <fields>;
+}
+-keep public class com.google.ads.** {*;}
+-keep public class com.google.android.gms.** {*;}
+-keep public class com.tappx.** { *; }

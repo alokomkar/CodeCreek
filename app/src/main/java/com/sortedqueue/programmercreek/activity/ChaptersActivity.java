@@ -21,6 +21,9 @@ import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.tappx.sdk.android.TappxAdError;
+import com.tappx.sdk.android.TappxInterstitial;
+import com.tappx.sdk.android.TappxInterstitialListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +58,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         CreekApplication.getInstance().setAppRunning(false);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +68,49 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         loadChapterFragment();
+        loadTappxFullScreenAd();
         checkFAB.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
+    }
+
+    private TappxInterstitial tappxInterstitial;
+    private void loadTappxFullScreenAd() {
+        tappxInterstitial = new TappxInterstitial(ChaptersActivity.this, getString(R.string.id_ad_tappx));
+        tappxInterstitial.setAutoShowWhenReady(false);
+        tappxInterstitial.loadAd();
+        tappxInterstitial.setListener(new TappxInterstitialListener() {
+            @Override
+            public void onInterstitialLoaded(TappxInterstitial tappxInterstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialLoadFailed(TappxInterstitial tappxInterstitial, TappxAdError tappxAdError) {
+
+            }
+
+            @Override
+            public void onInterstitialShown(TappxInterstitial tappxInterstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialClicked(TappxInterstitial tappxInterstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialDismissed(TappxInterstitial tappxInterstitial) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tappxInterstitial != null) tappxInterstitial.destroy();
     }
 
     private boolean isFirstTime = true;
@@ -111,7 +155,13 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         if (!title.equals("Chapters : " + new CreekPreferences(ChaptersActivity.this).getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
-            finish();
+            if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
+                tappxInterstitial.show();
+            }
+            else {
+                finish();
+            }
+            //finish();
         }
     }
 

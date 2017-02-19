@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -33,7 +34,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by Alok Omkar on 2016-12-22.
  */
 
-public class CreekApplication extends Application {
+public class CreekApplication extends MultiDexApplication {
 
     static CreekApplication creekApplication;
     private ArrayList<ProgramIndex> programIndexes;

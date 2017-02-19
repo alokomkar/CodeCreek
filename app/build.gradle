@@ -17,6 +17,8 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
     buildTypes {
         buildTypes {
@@ -39,6 +41,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':tappx-sdk-3.0.0')
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
@@ -50,7 +54,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.google.firebase:firebase-ads:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.google.firebase:firebase-invites:10.0.1'
 
     //Facebook
@@ -77,6 +81,7 @@ dependencies {
     /*compile 'com.adcolony:sdk:3.0.7'
     compile 'com.google.android.gms:play-services-ads:10.0.1'
     compile 'com.android.support:support-annotations:25.0.1'*/
+    compile 'com.android.support:multidex:1.0.1'
 
 }
 
