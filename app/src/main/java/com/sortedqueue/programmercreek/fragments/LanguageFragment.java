@@ -121,7 +121,10 @@ public class LanguageFragment extends Fragment {
     private void setupRecyclerview(ArrayList<ProgramLanguage> programLanguages) {
         this.programLanguages = programLanguages;
         programLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        programLanguageRecyclerView.setAdapter(new ProgramLanguageAdapter(getContext(), programLanguages, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        programLanguageRecyclerView.setAdapter(
+                new ProgramLanguageAdapter(getContext(),
+                        programLanguages,
+                        new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 selectAndInitDb(position);

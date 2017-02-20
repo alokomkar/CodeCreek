@@ -123,6 +123,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     public void animateViews() {
+        if( creekPreferences == null ) {
+            creekPreferences = new CreekPreferences(getContext());
+        }
         if( creekPreferences.isProgramsOnly() ) {
             introLayout.setVisibility(View.GONE);
             wizardLayout.setVisibility(View.GONE);
