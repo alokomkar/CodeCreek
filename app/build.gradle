@@ -17,7 +17,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        //multiDexEnabled true
 
     }
     buildTypes {
@@ -54,7 +54,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.google.firebase:firebase-ads:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
     compile 'com.google.firebase:firebase-invites:10.0.1'
 
     //Facebook
@@ -81,7 +82,7 @@ dependencies {
     /*compile 'com.adcolony:sdk:3.0.7'
     compile 'com.google.android.gms:play-services-ads:10.0.1'
     compile 'com.android.support:support-annotations:25.0.1'*/
-    compile 'com.android.support:multidex:1.0.1'
+    //compile 'com.android.support:multidex:1.0.1'
 
 }
 

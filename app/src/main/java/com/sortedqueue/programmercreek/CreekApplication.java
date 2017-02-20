@@ -1,11 +1,11 @@
 package com.sortedqueue.programmercreek;
 
 import android.app.Application;
-import android.support.multidex.MultiDexApplication;
 
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Chapter;
+import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.IntroChapter;
@@ -17,8 +17,6 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
-import com.sortedqueue.programmercreek.database.ChapterDetails;
-import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by Alok Omkar on 2016-12-22.
  */
 
-public class CreekApplication extends MultiDexApplication {
+public class CreekApplication extends Application {
 
     static CreekApplication creekApplication;
     private ArrayList<ProgramIndex> programIndexes;
@@ -50,7 +48,7 @@ public class CreekApplication extends MultiDexApplication {
         super.onCreate();
         creekApplication = this;
         program_indexHashMap = new HashMap<>();
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath(ProgrammingBuddyConstants.FONT_ROBOTO)
