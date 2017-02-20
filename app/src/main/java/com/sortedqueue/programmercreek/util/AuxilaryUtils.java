@@ -44,8 +44,6 @@ import java.util.Random;
 
 import butterknife.ButterKnife;
 
-import static android.R.id.message;
-
 
 public class AuxilaryUtils {
 
@@ -501,6 +499,46 @@ public class AuxilaryUtils {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnected;
+    }
+
+    public static HashMap<String, String> parseStringArray(Context context, int stringArrayResourceId) {
+        String[] stringArray = context.getResources().getStringArray(stringArrayResourceId);
+        HashMap<String, String> outputArrayMap = new HashMap<String, String>(stringArray.length);
+        for (String entry : stringArray) {
+            String[] splitResult = entry.split("\\|", 2);
+            outputArrayMap.put((splitResult[0]), splitResult[1]);
+        }
+        return outputArrayMap;
+    }
+
+    public static ArrayList<String> mapCodeToComments(Context context, String programCode, String language) {
+        ArrayList<String> programComments = new ArrayList<>();
+        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+
+        HashMap<String, String> commandExplanationMap = parseStringArray(context, R.array.c_command_map_array);
+        for( String programLine : programLines ) {
+            String explanation = "";
+            switch ( language ) {
+
+                case "c" :
+
+
+                    break;
+                case "cpp" :
+                case "usp" :
+                    break;
+                case "c++" :
+                    break;
+                case "java" :
+                case "jdbc" :
+                    break;
+
+            }
+        }
+
+
+        return programComments;
+
     }
 
 }

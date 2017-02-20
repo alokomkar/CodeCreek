@@ -46,4 +46,52 @@ James Gosling, at Sun Labs, around 1992; the group was building a set-top box an
         <item>C++ is not purely Object Oriented, or put it in other words, you can write C++ code without using classes and this will compile without any problem.</item>
     </string-array>
 
+    <string-array name="c_command_map_array">
+        <item>printf|Print Output</item>
+        <item>scanf|Read Input</item>
+        <item>puts|Print string</item>
+        <item>gets|Read string</item>
+        <item>putc|Put character</item>
+        <item>getc|Get character</item>
+        <item>for|for loop</item>
+        <item>while|while loop</item>
+        <item>do|do block</item>
+        <item>#include|Include header</item>
+        <item>#define|define constant</item>
+        <item>return;|return from here</item>
+        <item>return|return value</item>
+        <item>int|Declare integer</item>
+        <item>if|if condition</item>
+        <item>else|else block</item>
+        <item>malloc|Allocate memory</item>
+        <item>exit|exit with value</item>
+        <item>auto|declare auto</item>
+        <item>break|break block</item>
+        <item>case|case block</item>
+        <item>char|declare char</item>
+        <item>const|declare constant</item>
+        <item>continue|continue with execution</item>
+        <item>default|default block</item>
+        <item>double|declare double</item>
+        <item>enum|declare enum</item>
+        <item>extern|declare extern</item>
+        <item>float|declare float</item>
+        <item>for|declare for</item>
+        <item>goto|goto statement</item>
+        <item>long|declare long</item>
+        <item>register|declare register variable</item>
+        <item>short|declare short</item>
+        <item>signed|declare signed</item>
+        <item>sizeof|get sizeof</item>
+        <item>static|declare static</item>
+        <item>struct|declare struct</item>
+        <item>switch|switch block</item>
+        <item>typedef|Define Type</item>
+        <item>union|declare union</item>
+        <item>unsigned|delcare unsigned</item>
+        <item>void|void</item>
+        <item>volatile|delcare volative</item>
+
+    </string-array>
+
 </resources>
