@@ -1,8 +1,14 @@
 package com.sortedqueue.programmercreek;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.appevents.AppEventsLogger;
+import com.sortedqueue.programmercreek.activity.SplashActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
@@ -73,6 +79,26 @@ public class CreekApplication extends Application {
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);
+        setupExceptionHandler();
+    }
+
+    private void setupExceptionHandler() {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                if( ex != null ) {
+                    Log.e("ExceptionHandler", ex.getMessage());
+                    ex.printStackTrace();
+                }
+                Log.d("ExceptionHandler", "Restarted App");
+                Intent mStartActivity = new Intent(getInstance(), SplashActivity.class);
+                int mPendingIntentId = 123456;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(creekApplication, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager mgr = (AlarmManager) creekApplication.getSystemService(Context.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                System.exit(0);
+            }
+        });
     }
 
 

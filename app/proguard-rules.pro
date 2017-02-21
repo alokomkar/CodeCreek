@@ -91,3 +91,4 @@
 -keep public class com.google.ads.** {*;}
 -keep public class com.google.android.gms.** {*;}
 -keep public class com.tappx.** { *; }
+-dontobfuscate
