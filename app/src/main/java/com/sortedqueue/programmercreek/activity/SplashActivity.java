@@ -262,6 +262,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
+                .addOnConnectionFailedListener(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
@@ -446,8 +447,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(SplashActivity.this, "Connection failed.",
-                Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(SplashActivity.this, "Connection failed.",
+                    Toast.LENGTH_SHORT).show();
+
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

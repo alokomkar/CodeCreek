@@ -1277,35 +1277,323 @@ public class JavaProgramInserter {
         int index = 1;
         String programLanguage = new CreekPreferences(context).getProgramLanguage();
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Getting database connection : JDBC MySQL",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Swap by reference - inline",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Create Database",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Display Array",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Select Database",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Generate Random input",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Drop Database",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Function to partition an int Array using First element as Pivot",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Create Tables",
-                programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Drop Tables",
-                programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Insert Records",
-                programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Select Records",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Quicksort method",
                 programLanguage, ""));
 
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Update Records",
+        /************************************************************************************************/
+
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Topological ordering of vertices in a given digraph",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Delete Records",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Transitive closure of a given\n" +
+                "directed graph using Warshall's algorithm",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - WHERE Clause",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "0/1 Knapsack problem using Dynamic Programming",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Like Clause",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Find shortest paths to other vertices using Dijkstra's algorithm",
                 programLanguage, ""));
-        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "JDBC - Sorting Data",
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Print all the nodes reachable from a given starting node in a digraph using BFS method",
+                programLanguage, ""));
+
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Check whether a\n" +
+                "given graph is connected or not using DFS method",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Find a subset of a given set S = {sl, s2,.....,sn} of n positive integers whose sum is equal to a given positive integer\n" +
+                "d.",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Traveling Salesperson problem",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "All-Pairs Shortest Paths Problem using Floyd's algorithm",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "N Queen's problem using Back Tracking",
                 programLanguage, ""));
 
 
+    }
+
+    public void insertADAProgramTables() {
+        String programLanguage = "ada";
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        //http://man7.org/linux/man-pages/man3/mkfifo.3.html
+        //Getting database connection : JDBC MySQL
+        String programCode =
+                "inline void swapByReference(int *a, int *b){\n" +
+                        "int temp = *a;\n" +
+                        "*a = *b;\n" +
+                        "*b = temp;\n" +
+                        "}";
+        //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
+        String programExplanation =
+                "inline void swapByReference(int *a, int *b){\n" +
+                        "int temp = *a;\n" +
+                        "*a = *b;\n" +
+                        "*b = temp;\n" +
+                        "}";
+        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        int programIndex = 1;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        //Create db
+        programCode =
+                "void displayArray( int X[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "printf(\" %5d \\n\",X[i]);\n" +
+                        "}";
+        programExplanation =
+                "void displayArray( int X[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "printf(\" %5d \\n\",X[i]);\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void generateRandomInput(int X[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "srand(time(NULL));\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "X[i] = rand()%10000;\n" +
+                        "}\n" +
+                        "}";
+        programExplanation =
+                "void generateRandomInput(int X[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "srand(time(NULL));\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "X[i] = rand()%10000;\n" +
+                        "}\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "int partitionByPivot(int a[], int startIndex, int endIndex)\n" +
+                        "{\n" +
+                        "int i,j,temp;\n" +
+                        "int p;\n" +
+                        "p = a[startIndex];\n" +
+                        "i = startIndex;\n" +
+                        "j = endIndex+1;\n" +
+                        "do\n" +
+                        "{\n" +
+                        "do { i++; } while (a[i] < p);\n" +
+                        "do { j--; } while (a[j] > p);\n" +
+                        "swapByReference(&a[i], &a[j]);\n" +
+                        "}\n" +
+                        "while (i<j);\n" +
+                        "swapByReference(&a[i], &a[j]);\n" +
+                        "swapByReference(&a[startIndex], &a[j]);\n" +
+                        "return j;\n" +
+                        "}";
+        programExplanation =
+                "int partitionByPivot(int a[], int startIndex, int endIndex)\n" +
+                        "{\n" +
+                        "int i,j,temp;\n" +
+                        "int p;\n" +
+                        "p = a[startIndex];\n" +
+                        "i = startIndex;\n" +
+                        "j = endIndex+1;\n" +
+                        "do\n" +
+                        "{\n" +
+                        "do { i++; } while (a[i] < p);\n" +
+                        "do { j--; } while (a[j] > p);\n" +
+                        "swapByReference(&a[i], &a[j]);\n" +
+                        "}\n" +
+                        "while (i<j);\n" +
+                        "swapByReference(&a[i], &a[j]);\n" +
+                        "swapByReference(&a[startIndex], &a[j]);\n" +
+                        "return j;\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void quickSort(int a[], int startIndex, int endIndex)\n" +
+                        "{\n" +
+                        "int s;\n" +
+                        "if (startIndex < endIndex)\n" +
+                        "{\n" +
+                        "s = partitionByPivot(a, startIndex, endIndex);\n" +
+                        "quickSort(a, startIndex, s-1);\n" +
+                        "quickSort(a, s+1, endIndex);\n" +
+                        "}\n" +
+                        "}";
+        programExplanation =
+                "void quickSort(int a[], int startIndex, int endIndex)\n" +
+                        "{\n" +
+                        "int s;\n" +
+                        "if (startIndex < endIndex)\n" +
+                        "{\n" +
+                        "s = partitionByPivot(a, startIndex, endIndex);\n" +
+                        "quickSort(a, startIndex, s-1);\n" +
+                        "quickSort(a, s+1, endIndex);\n" +
+                        "}\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void printTopologicalOrder(int a[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int in[MAX], out[MAX], stack[MAX], top=-1;\n" +
+                        "int i,j,k=0;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "in[i] = 0;\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "if (a[j][i] == 1)\n" +
+                        "in[i]++;\n" +
+                        "}\n" +
+                        "while(1)\n" +
+                        "{\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (in[i] == 0)\n" +
+                        "{\n" +
+                        "stack[++top] = i;\n" +
+                        "in[i] = -1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (top == -1)\n" +
+                        "break;\n" +
+                        "out[k] = stack[top--];\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (a[out[k]][i] == 1)\n" +
+                        "in[i]--;\n" +
+                        "}\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
+                        "for (i=0;i<k;i++)\n" +
+                        "printf(\"%d \",out[i] + 1);\n" +
+                        "}";
+        programExplanation =
+                "void printTopologicalOrder(int a[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int in[MAX], out[MAX], stack[MAX], top=-1;\n" +
+                        "int i,j,k=0;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "in[i] = 0;\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "if (a[j][i] == 1)\n" +
+                        "in[i]++;\n" +
+                        "}\n" +
+                        "while(1)\n" +
+                        "{\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (in[i] == 0)\n" +
+                        "{\n" +
+                        "stack[++top] = i;\n" +
+                        "in[i] = -1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (top == -1)\n" +
+                        "break;\n" +
+                        "out[k] = stack[top--];\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (a[out[k]][i] == 1)\n" +
+                        "in[i]--;\n" +
+                        "}\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
+                        "for (i=0;i<k;i++)\n" +
+                        "printf(\"%d \",out[i] + 1);\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
     }
 
     public void insertSQLProgramTables() {
@@ -1313,52 +1601,18 @@ public class JavaProgramInserter {
         //http://man7.org/linux/man-pages/man3/mkfifo.3.html
         //Getting database connection : JDBC MySQL
         String programCode =
-                "import java.sql.Connection;  \n" +
-                        "import java.sql.DriverManager;  \n" +
-                        "import java.sql.SQLException;  \n" +
-                        "public class DBConnector {  \n" +
-                        "  private static Connection conn;  \n" +
-                        "  private static String url = \"jdbc:mysql://localhost:3306/\", user = \"root\", pass = \"password\";\n" +
-                        "  public static Connection connect() throws SQLException{  \n" +
-                        " try{  \n" +
-                        "Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
-                        " }catch( IllegalAccessException | InstantiationException | ClassNotFoundException e ){  \n" +
-                        "System.err.println(\"Error: \"+cnfe.getMessage());  \n" +
-                        " } \n" +
-                        " conn = DriverManager.getConnection(url,user,pass);  \n" +
-                        " return conn;  \n" +
-                        "  }  \n" +
-                        "  public static Connection getConnection() throws SQLException, ClassNotFoundException{  \n" +
-                        " if(conn !=null && !conn.isClosed())  \n" +
-                        "return conn;  \n" +
-                        " connect();  \n" +
-                        " return conn;  \n" +
-                        "  }  \n" +
-                        "}  ";
+                "inline void swapByReference(int *a, int *b){\n" +
+                        "int temp = *a;\n" +
+                        "*a = *b;\n" +
+                        "*b = temp;\n" +
+                        "}";
         //https://gcc.gnu.org/onlinedocs/cpp/Ifdef.html
         String programExplanation =
-                "import class java.sql.Connection;  \n" +
-                        "import class java.sql.DriverManager;  \n" +
-                        "import class java.sql.SQLException;  \n" +
-                        "public class DBConnector definition  \n" +
-                        "Variable declaration : Connection conn;  \n" +
-                        "Variable declaration : url = \"jdbc:mysql://localhost:3306/\", user = \"root\", pass = \"password\";\n" +
-                        "Connection connect() method definition throws SQLException{  \n" +
-                        "try block start\n" +
-                        "create new instance : Class.forName(\"com.mysql.jdbc.Driver\").newInstance();  \n" +
-                        "catch 3 types of exception\n" +
-                        "Print error with exception message (\"Error: \"+cnfe.getMessage())  \n" +
-                        "end of try catch block\n" +
-                        "initialize con with DriverManager.getConnection function\n" +
-                        "return conn  \n" +
-                        "End of connect method\n" +
-                        "Function definition Connection getConnection() which throws SQLException, ClassNotFoundException \n" +
-                        "check if(conn !=null && !conn.isClosed())  \n" +
-                        "return conn \n" +
-                        "call connect()  \n" +
-                        "return conn  \n" +
-                        "End of getConnection  \n" +
-                        "End of class  ";
+                "inline void swapByReference(int *a, int *b){\n" +
+                        "int temp = *a;\n" +
+                        "*a = *b;\n" +
+                        "*b = temp;\n" +
+                        "}";
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
         ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
         int programIndex = 1;
