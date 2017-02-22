@@ -1292,8 +1292,16 @@ public class JavaProgramInserter {
 
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Topological ordering of vertices in a given digraph",
                 programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Read adjacency matrix and topologically sort them",
+                programLanguage, ""));
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Transitive closure of a given\n" +
                 "directed graph using Warshall's algorithm",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Read adjacency matrix and compute transitive closure using Warshall's algorithm",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Function to construct profit table for 0/1 Knapsack problem",
+                programLanguage, ""));
+        firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Function to determine optimal subset that fits into the knapsack",
                 programLanguage, ""));
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "0/1 Knapsack problem using Dynamic Programming",
                 programLanguage, ""));
@@ -1579,6 +1587,368 @@ public class JavaProgramInserter {
                         "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
                         "for (i=0;i<k;i++)\n" +
                         "printf(\"%d \",out[i] + 1);\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void printTopologicalOrder(int a[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int in[MAX], out[MAX], stack[MAX], top=-1;\n" +
+                        "int i,j,k=0;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "in[i] = 0;\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "if (a[j][i] == 1)\n" +
+                        "in[i]++;\n" +
+                        "}\n" +
+                        "while(1)\n" +
+                        "{\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (in[i] == 0)\n" +
+                        "{\n" +
+                        "stack[++top] = i;\n" +
+                        "in[i] = -1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (top == -1)\n" +
+                        "break;\n" +
+                        "out[k] = stack[top--];\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (a[out[k]][i] == 1)\n" +
+                        "in[i]--;\n" +
+                        "}\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
+                        "for (i=0;i<k;i++)\n" +
+                        "printf(\"%d \",out[i] + 1);\n" +
+                        "}";
+        programExplanation =
+                "void printTopologicalOrder(int a[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int in[MAX], out[MAX], stack[MAX], top=-1;\n" +
+                        "int i,j,k=0;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "in[i] = 0;\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "if (a[j][i] == 1)\n" +
+                        "in[i]++;\n" +
+                        "}\n" +
+                        "while(1)\n" +
+                        "{\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (in[i] == 0)\n" +
+                        "{\n" +
+                        "stack[++top] = i;\n" +
+                        "in[i] = -1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (top == -1)\n" +
+                        "break;\n" +
+                        "out[k] = stack[top--];\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (a[out[k]][i] == 1)\n" +
+                        "in[i]--;\n" +
+                        "}\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
+                        "for (i=0;i<k;i++)\n" +
+                        "printf(\"%d \",out[i] + 1);\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "#include <stdio.h>\n" +
+                        "const int MAX = 10;\n" +
+                        "void printTopologicalOrder(int a[MAX][MAX], int n);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        " int a[MAX][MAX],n;\n" +
+                        " int i,j;\n" +
+                        " printf(\"Topological Sorting Algorithm -\\n\");\n" +
+                        " printf(\"\\nEnter the number of vertices : \");\n" +
+                        " scanf(\"%d\",&n);\n" +
+                        " printf(\"Enter the adjacency matrix -\\n\");\n" +
+                        " for (i=0; i<n; i++)\n" +
+                        " for (j=0; j<n; j++)\n" +
+                        " scanf(\"%d\",&a[i][j]);\n" +
+                        " printTopologicalOrder(a,n);\n" +
+                        " printf(\"\\n\");\n" +
+                        " return 0;\n" +
+                        "}";
+        programExplanation =
+                "#include <stdio.h>\n" +
+                        "const int MAX = 10;\n" +
+                        "void printTopologicalOrder(int a[MAX][MAX], int n);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        " int a[MAX][MAX],n;\n" +
+                        " int i,j;\n" +
+                        " printf(\"Topological Sorting Algorithm -\\n\");\n" +
+                        " printf(\"\\nEnter the number of vertices : \");\n" +
+                        " scanf(\"%d\",&n);\n" +
+                        " printf(\"Enter the adjacency matrix -\\n\");\n" +
+                        " for (i=0; i<n; i++)\n" +
+                        " for (j=0; j<n; j++)\n" +
+                        " scanf(\"%d\",&a[i][j]);\n" +
+                        " printTopologicalOrder(a,n);\n" +
+                        " printf(\"\\n\");\n" +
+                        " return 0;\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void computeWarshallClosure(int graph[MAX][MAX], int numVert)\n" +
+                        "{\n" +
+                        " int i,j,k;\n" +
+                        " for (k=0; k<numVert; k++)\n" +
+                        " {\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " {\n" +
+                        " for (j=0; j<numVert; j++)\n" +
+                        " {\n" +
+                        " if (graph[i][j] || (graph[i][k] && graph[k][j]))\n" +
+                        " graph[i][j] = 1;\n" +
+                        " }\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "void computeWarshallClosure(int graph[MAX][MAX], int numVert)\n" +
+                        "{\n" +
+                        " int i,j,k;\n" +
+                        " for (k=0; k<numVert; k++)\n" +
+                        " {\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " {\n" +
+                        " for (j=0; j<numVert; j++)\n" +
+                        " {\n" +
+                        " if (graph[i][j] || (graph[i][k] && graph[k][j]))\n" +
+                        " graph[i][j] = 1;\n" +
+                        " }\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "#include<stdio.h>\n" +
+                        "const int MAX = 100;\n" +
+                        "void computeWarshallClosure(int graph[MAX][MAX], int numVert);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        " int i, j, numVert;\n" +
+                        " int graph[MAX][MAX];\n" +
+                        " printf(\"Warshall's Transitive Closure\\n\");\n" +
+                        " printf(\"Enter the number of vertices : \");\n" +
+                        " scanf(\"%d\",&numVert);\n" +
+                        " printf(\"Enter the adjacency matrix :-\\n\");\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " for (j=0; j<numVert; j++)\n" +
+                        " scanf(\"%d\",&graph[i][j]);\n" +
+                        " computeWarshallClosure(graph, numVert);\n" +
+                        " printf(\"\\nThe transitive closure for the given graph is :-\\n\");\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " {\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        " {\n" +
+                        " printf(\"%d\\t\",graph[i][j]);\n" +
+                        " }\n" +
+                        " printf(\"\\n\");\n" +
+                        " }\n" +
+                        " return 0;\n" +
+                        "}";
+        programExplanation =
+                "#include<stdio.h>\n" +
+                        "const int MAX = 100;\n" +
+                        "void computeWarshallClosure(int graph[MAX][MAX], int numVert);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        " int i, j, numVert;\n" +
+                        " int graph[MAX][MAX];\n" +
+                        " printf(\"Warshall's Transitive Closure\\n\");\n" +
+                        " printf(\"Enter the number of vertices : \");\n" +
+                        " scanf(\"%d\",&numVert);\n" +
+                        " printf(\"Enter the adjacency matrix :-\\n\");\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " for (j=0; j<numVert; j++)\n" +
+                        " scanf(\"%d\",&graph[i][j]);\n" +
+                        " computeWarshallClosure(graph, numVert);\n" +
+                        " printf(\"\\nThe transitive closure for the given graph is :-\\n\");\n" +
+                        " for (i=0; i<numVert; i++)\n" +
+                        " {\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        " {\n" +
+                        " printf(\"%d\\t\",graph[i][j]);\n" +
+                        " }\n" +
+                        " printf(\"\\n\");\n" +
+                        " }\n" +
+                        " return 0;\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
+
+        programCode =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
                         "}";
 
 
