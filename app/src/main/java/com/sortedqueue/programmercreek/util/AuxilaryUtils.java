@@ -35,6 +35,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
 import com.sortedqueue.programmercreek.receiver.NotificationPublisher;
 
 import java.util.ArrayList;
@@ -128,6 +129,40 @@ public class AuxilaryUtils {
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
 
         alertDialog.show();
+    }
+
+    public static void displayInviteDialog(Context context,
+                                           int title,
+                                           int description,
+                                           final UnlockByInviteInterface unlockByInviteInterface ) {
+        final String preferenceString = context.getString(title).replaceAll("\\s+", "");
+        final CreekPreferences creekPreferences = new CreekPreferences(context);
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle(title)
+                .setMessage(description)
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton(R.string.got_it, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        unlockByInviteInterface.onUnlockClick(i);
+                    }
+                })
+                .setNeutralButton(R.string.dont_show_again, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        creekPreferences.setShowDialog(preferenceString, false);
+                        dialogInterface.dismiss();
+                        unlockByInviteInterface.onDismiss();
+                    }
+                })
+                .create();
+        if( creekPreferences.getShowDialog(preferenceString) ) {
+            alertDialog.show();
+        }
+        else {
+            unlockByInviteInterface.onDismiss();
+        }
     }
 
     public static void displayInformation(Context context,

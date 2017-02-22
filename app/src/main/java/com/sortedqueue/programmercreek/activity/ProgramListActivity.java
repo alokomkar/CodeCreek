@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -26,6 +28,9 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
+import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -34,7 +39,7 @@ import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class ProgramListActivity extends AppCompatActivity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
+public class ProgramListActivity extends AppCompatActivity implements UIUpdateListener, CustomProgramRecyclerViewAdapter.AdapterClickListner, UnlockByInviteInterface {
 
 
 	int mInvokeTest = 0;
@@ -118,6 +123,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 			}
 		});
 	}
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -469,5 +475,53 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 	@Override
 	public void onBackPressed() {
 		finish();
+	}
+
+	private CreekPreferences creekPreferences;
+	private int REQUEST_INVITE = 9999;
+	private int mToBeUnlockedIndex = -1;
+
+	@Override
+	public void onUnlockClick(int programIndex) {
+		mToBeUnlockedIndex = programIndex;
+		creekPreferences = new CreekPreferences(ProgramListActivity.this);
+		Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+				.setMessage(getString(R.string.invitation_message))
+				.setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
+				.setCustomImage(CommonUtils.getUriToDrawable(ProgramListActivity.this, R.mipmap.ic_launcher))
+				.setCallToActionText(getString(R.string.invitation_cta))
+				.build();
+		startActivityForResult(intent, REQUEST_INVITE);
+	}
+
+	@Override
+	public void onDismiss() {
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+		if (requestCode == REQUEST_INVITE) {
+			if (resultCode == RESULT_OK) {
+				// Get the invitation IDs of all sent messages
+				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+				for (String id : ids) {
+					Log.d(TAG, "onActivityResult: sent invitation " + id);
+				}
+				new FirebaseDatabaseHandler(ProgramListActivity.this).updateInviteCount(ids.length);
+				creekPreferences.setShowInviteDialog(false);
+				if( ids.length > 0 ) {
+					creekPreferences.setUnlockedByInviteIndex(mToBeUnlockedIndex);
+					if( customProgramRecyclerViewAdapter != null )
+						customProgramRecyclerViewAdapter.notifyDataSetChanged();
+				}
+			} else {
+				// Sending failed or it was canceled, show failure message to the user
+				// ...
+			}
+		}
 	}
 }

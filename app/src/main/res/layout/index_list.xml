@@ -52,7 +52,18 @@
                 android:id="@+id/lockedImageView"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:visibility="visible"
                 android:layout_marginRight="@dimen/margin_8"
+                android:src="@android:drawable/ic_lock_lock"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/unlockedByInviteImageView"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_8"
+                android:alpha="0.2"
                 android:src="@android:drawable/ic_lock_lock"/>
         </RelativeLayout>
 

@@ -2,6 +2,9 @@ package com.sortedqueue.programmercreek.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +16,11 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -33,11 +39,15 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     private Context mContext;
     private ArrayList<ProgramIndex> mProgram_Indexs;
     private AdapterClickListner mAdapterClickListner;
+    private UnlockByInviteInterface mUnlockByInviteInterface;
     private CreekUserStats creekUserStats;
+    private CreekPreferences creekPreferences;
 
     private int lastPosition = -1;
     private Animation bottomUpAnimation;
     private Animation topDownAnimation;
+    private Drawable unlockByInviteDrawable;
+    private Drawable lockedDrawable;
 
     public interface AdapterClickListner {
         void onItemClick( int position );
@@ -47,8 +57,12 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mContext = context;
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;
+        this.mUnlockByInviteInterface = (UnlockByInviteInterface) context;
         this.programLanguage =new CreekPreferences(mContext).getProgramLanguage();
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        this.creekPreferences = new CreekPreferences(context);
+        this.unlockByInviteDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_media_ff);
+        this.lockedDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_lock_lock);
         mProgramType = programLanguage.substring(0, 1).toUpperCase();
         bottomUpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
         topDownAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
@@ -90,7 +104,22 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
-        holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
+        if( !isAvailable ) {
+            if( creekPreferences.isUnlockedByInvite(program_Index) ) {
+                holder.unlockedByInviteImageView.setVisibility(View.VISIBLE);
+                holder.lockedImageView.setVisibility(View.GONE);
+            }
+            else {
+                holder.unlockedByInviteImageView.setVisibility(View.GONE);
+                holder.lockedImageView.setVisibility(View.VISIBLE);
+            }
+
+        }
+        else {
+            holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
+        }
+
+
         holder.txtViewProgDescription.setText(programIndex.getProgram_Description());
         //Remove this later
         //holder.lockedImageView.setVisibility(View.GONE);
@@ -117,30 +146,61 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         return mProgram_Indexs.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnContextClickListener {
         @Bind(R.id.programTypeTextView)
         TextView programTypeTextView;
         @Bind(R.id.txtViewProgDescription)
         TextView txtViewProgDescription;
         @Bind(R.id.lockedImageView)
         ImageView lockedImageView;
+        @Bind(R.id.unlockedByInviteImageView)
+        ImageView unlockedByInviteImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            itemView.setOnContextClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
+            final int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
                 if( lockedImageView.getVisibility() == View.VISIBLE ) {
+                    if( unlockedByInviteImageView.getVisibility() == View.VISIBLE ) {
+                        mAdapterClickListner.onItemClick(position);
+                        return;
+                    }
+                    AuxilaryUtils.displayInviteDialog(mContext, R.string.unlock_by_invite, R.string.unlock_by_invite_description, new UnlockByInviteInterface() {
+                        @Override
+                        public void onUnlockClick(int index) {
+                            if( mUnlockByInviteInterface != null ) {
+                                mUnlockByInviteInterface.onUnlockClick(position);
+                            }
+                        }
+
+                        @Override
+                        public void onDismiss() {
+                            mUnlockByInviteInterface.onDismiss();
+                        }
+                    });
                     CommonUtils.displaySnackBar((Activity) mContext, R.string.program_locked);
                     return;
                 }
                 mAdapterClickListner.onItemClick(position);
             }
+        }
+
+        @Override
+        public boolean onContextClick(View view) {
+            final int position = getAdapterPosition();
+            if( position != RecyclerView.NO_POSITION ) {
+                if( mUnlockByInviteInterface != null ) {
+                    mUnlockByInviteInterface.onUnlockClick(position);
+                }
+            }
+            return false;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -14,7 +15,9 @@ import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
@@ -880,5 +883,34 @@ public class CreekPreferences {
 
     public boolean getShowInviteDialog() {
         return sharedPreferences.getBoolean("showInviteDialog", false);
+    }
+
+    public static final String UNLOCK_BY_INVITE = "unlock_by_invite";
+    public void setUnlockedByInviteIndex(int mToBeUnlockedIndex) {
+        String programLanguage = getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
+        Set<String> unlockedPrograms = getUnlockedByInviteIndex();
+        if( !unlockedPrograms.contains(String.valueOf(mToBeUnlockedIndex) ) ) {
+            unlockedPrograms.add(String.valueOf(mToBeUnlockedIndex));
+            sharedPreferences.edit().putStringSet(programLanguage + "_" + UNLOCK_BY_INVITE, unlockedPrograms ).apply();
+        }
+    }
+
+    public Set<String> getUnlockedByInviteIndex() {
+        String programLanguage = getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
+        Set<String> unlockedPrograms = sharedPreferences.getStringSet(programLanguage + "_" + UNLOCK_BY_INVITE, null);
+        if( unlockedPrograms == null ) {
+            unlockedPrograms = new HashSet<>();
+        }
+        return unlockedPrograms;
+    }
+
+    public boolean isUnlockedByInvite( int programIndex ) {
+        return getUnlockedByInviteIndex().contains(String.valueOf(programIndex));
     }
 }

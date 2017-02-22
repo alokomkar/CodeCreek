@@ -362,25 +362,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
                 .setMessage(getString(R.string.invitation_message))
                 .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
-                .setCustomImage(getUriToDrawable(DashboardActivity.this, R.mipmap.ic_launcher))
+                .setCustomImage(CommonUtils.getUriToDrawable(DashboardActivity.this, R.mipmap.ic_launcher))
                 .setCallToActionText(getString(R.string.invitation_cta))
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
-    /**
-     * get uri to drawable or any other resource type if u wish
-     * @param context - context
-     * @param drawableId - drawable res id
-     * @return - uri
-     */
-    public static final Uri getUriToDrawable(@NonNull Context context, @AnyRes int drawableId) {
-        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                "://" + context.getResources().getResourcePackageName(drawableId)
-                + '/' + context.getResources().getResourceTypeName(drawableId)
-                + '/' + context.getResources().getResourceEntryName(drawableId) );
-        return imageUri;
-    }
+
 
     @Override
     public void onBackPressed() {
