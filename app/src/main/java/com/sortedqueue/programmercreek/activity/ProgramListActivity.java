@@ -29,6 +29,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -401,7 +402,10 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
 		switch (item.getItemId()) {
 
-			case R.id.action_refresh_database:
+			case R.id.action_unlock_programs:
+				AuxilaryUtils.displayAlert(getString(R.string.unlock_by_invite),
+						getString(R.string.unlock_by_invite_description),
+						ProgramListActivity.this);
 				//insertProgramIndexes();
 				return true;
 

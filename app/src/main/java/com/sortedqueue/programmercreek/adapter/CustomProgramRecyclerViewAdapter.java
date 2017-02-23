@@ -83,6 +83,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.programTypeTextView.setText(mProgramType);
         ProgramIndex programIndex = mProgram_Indexs.get(position);
+        holder.txtViewProgDescription.setText(programIndex.getProgram_Description());
         int program_Index = programIndex.getProgram_index();
         boolean isAvailable = true;
 
@@ -104,6 +105,8 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
+        holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
+
         if( !isAvailable ) {
             if( creekPreferences.isUnlockedByInvite(program_Index) ) {
                 holder.unlockedByInviteImageView.setVisibility(View.VISIBLE);
@@ -113,14 +116,8 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 holder.unlockedByInviteImageView.setVisibility(View.GONE);
                 holder.lockedImageView.setVisibility(View.VISIBLE);
             }
-
-        }
-        else {
-            holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
         }
 
-
-        holder.txtViewProgDescription.setText(programIndex.getProgram_Description());
         //Remove this later
         //holder.lockedImageView.setVisibility(View.GONE);
         /*if( position > lastPosition ) {
@@ -146,7 +143,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         return mProgram_Indexs.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnContextClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         @Bind(R.id.programTypeTextView)
         TextView programTypeTextView;
         @Bind(R.id.txtViewProgDescription)
@@ -160,13 +157,15 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            itemView.setOnContextClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             final int position = getAdapterPosition();
+
             if( position != RecyclerView.NO_POSITION ) {
+                final ProgramIndex programIndex = mProgram_Indexs.get(position);
                 if( lockedImageView.getVisibility() == View.VISIBLE ) {
                     if( unlockedByInviteImageView.getVisibility() == View.VISIBLE ) {
                         mAdapterClickListner.onItemClick(position);
@@ -176,7 +175,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                         @Override
                         public void onUnlockClick(int index) {
                             if( mUnlockByInviteInterface != null ) {
-                                mUnlockByInviteInterface.onUnlockClick(position);
+                                mUnlockByInviteInterface.onUnlockClick(programIndex.getProgram_index());
                             }
                         }
 
@@ -188,19 +187,26 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                     CommonUtils.displaySnackBar((Activity) mContext, R.string.program_locked);
                     return;
                 }
+                if( unlockedByInviteImageView.getVisibility() == View.VISIBLE ) {
+                    mAdapterClickListner.onItemClick(position);
+                    return;
+                }
                 mAdapterClickListner.onItemClick(position);
             }
+
+
         }
 
         @Override
-        public boolean onContextClick(View view) {
+        public boolean onLongClick(View view) {
             final int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
                 if( mUnlockByInviteInterface != null ) {
-                    mUnlockByInviteInterface.onUnlockClick(position);
+                    final ProgramIndex programIndex = mProgram_Indexs.get(position);
+                    mUnlockByInviteInterface.onUnlockClick(programIndex.getProgram_index());
                 }
             }
-            return false;
+            return true;
         }
     }
 

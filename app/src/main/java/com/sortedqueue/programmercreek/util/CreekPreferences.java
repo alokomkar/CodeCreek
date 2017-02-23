@@ -894,6 +894,8 @@ public class CreekPreferences {
         Set<String> unlockedPrograms = getUnlockedByInviteIndex();
         if( !unlockedPrograms.contains(String.valueOf(mToBeUnlockedIndex) ) ) {
             unlockedPrograms.add(String.valueOf(mToBeUnlockedIndex));
+            Log.d(TAG, "UnlockByInvite : " + programLanguage + " : Adding " + mToBeUnlockedIndex + "");
+            Log.d(TAG, "UnlockByInvite : " + programLanguage + " : Post addition " + unlockedPrograms + "");
             sharedPreferences.edit().putStringSet(programLanguage + "_" + UNLOCK_BY_INVITE, unlockedPrograms ).apply();
         }
     }
@@ -907,10 +909,14 @@ public class CreekPreferences {
         if( unlockedPrograms == null ) {
             unlockedPrograms = new HashSet<>();
         }
+        Log.d(TAG, "UnlockByInvite : " + programLanguage + " : " + unlockedPrograms);
         return unlockedPrograms;
     }
 
     public boolean isUnlockedByInvite( int programIndex ) {
-        return getUnlockedByInviteIndex().contains(String.valueOf(programIndex));
+        Log.d(TAG, "UnlockByInvite : " + getProgramLanguage() + " : Checking " + programIndex + "");
+        boolean isPresent = getUnlockedByInviteIndex().contains(String.valueOf(programIndex));
+        Log.d(TAG, "UnlockByInvite : " + getProgramLanguage() + " : Tag Present ? " + isPresent + "");
+        return isPresent;
     }
 }

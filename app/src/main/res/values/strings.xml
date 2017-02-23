@@ -177,6 +177,7 @@
     <string name="top_learners_heading">Top Learners</string>
     <string name="level_10">Level 10</string>
     <string name="id_ad_tappx">/120940746/Pub-14577-Android-9430</string>
-    <string name="unlock_by_invite_description">You can choose to unlock programs by completing the previous program tests or optionally invite friends and unlock the program\n\nYou can always invoke invite by long pressing program index...</string>
+    <string name="unlock_by_invite_description">You can choose to unlock programs by completing the previous program tests or optionally invite friends and unlock the program\n\nYou can always invoke invite by long pressing program title...</string>
     <string name="unlock_by_invite">Unlock By Invite</string>
+    <string name="unlock">Unlock</string>
 </resources>
