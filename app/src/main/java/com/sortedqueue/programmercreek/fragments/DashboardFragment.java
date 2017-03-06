@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -290,20 +289,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 }
             });
         } else {
-            AuxilaryUtils.displayInformation(getContext(), R.string.unlock_programs, R.string.unlock_programs_description, new DialogInterface.OnDismissListener() {
+            Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
+            programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
+            boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
+            programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, isWizard);
+            if (isWizard) {
+                programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
+            }
+            startActivity(programListIntent);
+            /*AuxilaryUtils.displayInformation(getContext(), R.string.unlock_programs, R.string.unlock_programs_description, new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialogInterface) {
-                    Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
-                    programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
-                    boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
-                    programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, isWizard);
-                    if (isWizard) {
-                        programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
-                    }
-                    startActivity(programListIntent);
+
                 }
 
-            });
+            });*/
 
             /*this.overridePendingTransition(R.anim.animation_leave,
                     R.anim.animation_enter);*/
