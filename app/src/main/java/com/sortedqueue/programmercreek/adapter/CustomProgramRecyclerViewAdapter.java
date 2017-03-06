@@ -105,7 +105,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
-        holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
+        /*holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
 
         if( !isAvailable ) {
             if( creekPreferences.isUnlockedByInvite(program_Index) ) {
@@ -116,10 +116,10 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 holder.unlockedByInviteImageView.setVisibility(View.GONE);
                 holder.lockedImageView.setVisibility(View.VISIBLE);
             }
-        }
+        }*/
 
         //Remove this later
-        //holder.lockedImageView.setVisibility(View.GONE);
+        holder.lockedImageView.setVisibility(View.GONE);
         /*if( position > lastPosition ) {
             startAnimation(holder.itemView, program_Index * 25);
         }

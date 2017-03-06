@@ -109,8 +109,8 @@
     <string name="chapter_locked">This chapter is currently locked, Complete the previous chapter to unlock this.</string>
     <string name="module_locked">This module is currently locked, Complete the previous module to unlock this.</string>
     <string name="program_locked">This program is currently locked, Complete the previous programs to unlock this.</string>
-    <string name="new_module_unlocked">A new module has been unlocked</string>
-    <string name="new_chapter_unlocked">A new chapter has been unlocked</string>
+    <string name="new_module_unlocked">You have completed the module</string>
+    <string name="new_chapter_unlocked">You have completed the chapter</string>
     <string name="program_inserter">Program Inserter</string>
     <string name="wiki_header">Wiki Header</string>
     <string name="wiki_id">Wiki Id</string>

@@ -75,6 +75,7 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
                 holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
                 break;
         }
+        holder.lockedImageView.setVisibility(View.INVISIBLE);
         int maxProgress = chapter.getChapterDetailsArrayList().size();
         holder.appCompatSeekBar.setMax( maxProgress);
         chapterProgress = chapterProgress - chapter.getMinStats();
