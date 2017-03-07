@@ -239,11 +239,11 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown) {
+        /*if (!isAdShown) {
             interstitialAd.show();
             isAdShown = true;
             return;
-        }
+        }*/
         finish();
     }
 }

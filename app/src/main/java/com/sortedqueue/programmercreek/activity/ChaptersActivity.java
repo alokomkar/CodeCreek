@@ -155,13 +155,13 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         if (!title.equals("Chapters : " + new CreekPreferences(ChaptersActivity.this).getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
-            if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
+            /*if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
                 tappxInterstitial.show();
             }
             else {
                 finish();
-            }
-            //finish();
+            }*/
+            finish();
         }
     }
 

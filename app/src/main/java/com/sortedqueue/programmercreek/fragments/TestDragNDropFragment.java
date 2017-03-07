@@ -327,9 +327,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void showAd() {
 
-        if (interstitialAd != null) {
+        /*if (interstitialAd != null) {
             interstitialAd.show();
-        } else
+        } else*/
             getActivity().finish();
     }
 

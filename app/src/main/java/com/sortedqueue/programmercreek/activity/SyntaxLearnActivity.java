@@ -205,10 +205,10 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             loadModulesFragment();
         }
         else {
-            if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
+            /*if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
                 tappxInterstitial.show();
             }
-            else {
+            else */{
                 finish();
             }
         }
