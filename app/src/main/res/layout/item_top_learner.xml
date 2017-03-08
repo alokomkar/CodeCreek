@@ -45,7 +45,6 @@
             android:paddingLeft="@dimen/margin_8"
             android:paddingRight="@dimen/margin_8"
             android:paddingTop="@dimen/margin_4"
-            android:textColor="@color/md_black_1000"
             tools:text="@string/level_10"/>
 
     </RelativeLayout>

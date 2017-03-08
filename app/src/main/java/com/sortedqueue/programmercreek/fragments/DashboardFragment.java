@@ -73,6 +73,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     TextView testTextView;
     @Bind(R.id.testLayout)
     FrameLayout testLayout;
+    @Bind(R.id.interviewLayout)
+    FrameLayout interviewLayout;
     @Bind(R.id.wizardTextView)
     TextView wizardTextView;
     @Bind(R.id.wizardLayout)
@@ -156,6 +158,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         quizLayout.setAlpha(0.0f);
         matchLayout.setAlpha(0.0f);
         testLayout.setAlpha(0.0f);
+        interviewLayout.setAlpha(0.0f);
         int delay = 0;
         int standardDelay = 270;
         initAnimations(introLayout, delay);
@@ -173,6 +176,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         initAnimations(matchLayout, delay);
         delay = delay + standardDelay;
         initAnimations(testLayout, delay);
+        delay = delay + standardDelay;
+        initAnimations(interviewLayout, delay);
 
     }
 
@@ -186,6 +191,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         indexLayout.setOnClickListener(this);
         matchLayout.setOnClickListener(this);
         testLayout.setOnClickListener(this);
+        interviewLayout.setOnClickListener(this);
         reviseLayout.setOnClickListener(this);
         quizLayout.setOnClickListener(this);
         wizardLayout.setOnClickListener(this);
@@ -220,9 +226,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             return;
         }
 
+        Intent intent;
         switch (v.getId()) {
             case R.id.wikiLayout:
-                Intent intent = new Intent(getContext(), NewProgramWikiActivity.class);
+                intent = new Intent(getContext(), NewProgramWikiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.interviewLayout:
+                intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:

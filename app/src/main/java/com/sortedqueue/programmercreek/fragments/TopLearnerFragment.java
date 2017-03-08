@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +33,8 @@ public class TopLearnerFragment extends Fragment {
 
     @Bind(R.id.topLearnersRecyclerView)
     RecyclerView topLearnersRecyclerView;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private SyntaxNavigationListener syntaxNavigationListener;
     private ArrayList<LanguageModule> languageModules;
@@ -45,11 +48,27 @@ public class TopLearnerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_top_learners, container, false);
         ButterKnife.bind(this, view);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        // Setup refresh listener which triggers new data loading
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                calculateTopLearners();
+            }
+        });
+
         calculateTopLearners();
         return view;
     }
 
     private void calculateTopLearners() {
+        swipeRefreshLayout.setRefreshing(true);
         new FirebaseDatabaseHandler(getContext())
                 .getTopLearners(
                         new FirebaseDatabaseHandler.GetTopLearnersInterface() {
@@ -64,6 +83,7 @@ public class TopLearnerFragment extends Fragment {
                             @Override
                             public void onFailure(DatabaseError databaseError) {
                                 topLearnersRecyclerView.setVisibility(View.GONE);
+                                swipeRefreshLayout.setRefreshing(false);
                             }
                         });
     }
@@ -71,6 +91,7 @@ public class TopLearnerFragment extends Fragment {
     private void setupAdapter(ArrayList<UserRanking> userRankings) {
         topLearnersRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
         topLearnersRecyclerView.setAdapter(new TopLearnersRecyclerAdapter(getContext(), userRankings));
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

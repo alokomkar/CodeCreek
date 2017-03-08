@@ -180,4 +180,6 @@
     <string name="unlock_by_invite_description">You can choose to unlock programs by completing the previous program tests or optionally invite friends and unlock the program\n\nYou can always invoke invite by long pressing program title...</string>
     <string name="unlock_by_invite">Unlock By Invite</string>
     <string name="unlock">Unlock</string>
+    <string name="interview">Interview Questions</string>
+    <string name="interview_description">Checkout interview questions on the language</string>
 </resources>

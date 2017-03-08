@@ -46,18 +46,22 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg"
-            android:paddingTop="@dimen/margin_8"
-            android:nestedScrollingEnabled="false"
-            android:paddingBottom="@dimen/margin_16"
             android:layout_below="@+id/profileLayout"
-            android:id="@+id/topLearnersRecyclerView"
-            >
+            android:id="@+id/swipeRefreshLayout">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingBottom="@dimen/margin_16"
+                android:id="@+id/topLearnersRecyclerView"
+                >
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 
