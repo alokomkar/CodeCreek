@@ -1964,6 +1964,59 @@ public class JavaProgramInserter {
                             programLines.get(i),
                             programExplanations.get(i)));
         }
+
+        programCode =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+        programExplanation =
+                "void calculateProfitTable(int weight[MAX], int profit[MAX], int n, int c, int profitTable[MAX][MAX])\n" +
+                        "{\n" +
+                        " int i,j;\n" +
+                        " for (j=0; j<=c; j++)\n" +
+                        " profitTable[0][j] = 0;\n" +
+                        " for (i=0; i<=n; i++)\n" +
+                        " profitTable[i][0] = 0;\n" +
+                        " for (i=1; i<=n; i++)\n" +
+                        " {\n" +
+                        " for (j=1; j<=c; j++)\n" +
+                        " {\n" +
+                        " if (j-weight[i] < 0)\n" +
+                        " profitTable[i][j] = profitTable[i-1][j];\n" +
+                        " else\n" +
+                        " profitTable[i][j] = max( t[i-1][j], profit[i] + profitTable[i-1][j-weight[i]]);\n" +
+                        " }\n" +
+                        " }\n" +
+                        "}";
+
+
+        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programIndex = ++programIndex;
+        for (int i = 0; i < programLines.size(); i++) {
+            firebaseDatabaseHandler.writeProgramTable(
+                    new ProgramTable(
+                            programIndex,
+                            i + 1,
+                            programLanguage,
+                            programLines.get(i),
+                            programExplanations.get(i)));
+        }
     }
 
     public void insertSQLProgramTables() {
