@@ -4,62 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movieGridCardView"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     cardView:cardCornerRadius="5dp"
     cardView:cardElevation="2dp"
     android:layout_margin="@dimen/margin_8">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_8"
-                android:minHeight="@dimen/image_height"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:background="@android:color/holo_blue_dark"
-                android:id="@+id/movieGridItemImageView"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/margin_48"
+            android:layout_height="@dimen/margin_48"
+            android:layout_margin="@dimen/margin_8"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:background="@android:color/holo_blue_dark"
+            android:id="@+id/movieGridItemImageView"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                android:id="@+id/titleTextView"
-                android:visibility="invisible"
-                android:padding="@dimen/margin_4"
-                android:layout_marginLeft="@dimen/margin_8"
-                android:layout_marginRight="@dimen/margin_8"
-                android:background="@color/transparent_black"
-                android:textColor="@android:color/white"
-                android:text="@string/app_name"
-                android:gravity="center"
-                android:layout_gravity="center" />
-        </FrameLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userNameTextView"
+            android:layout_toRightOf="@+id/movieGridItemImageView"
             android:paddingLeft="@dimen/margin_8"
             android:paddingRight="@dimen/margin_8"
-            android:paddingTop="@dimen/margin_8"
+            android:paddingTop="@dimen/margin_4"
+            android:textSize="@dimen/text_dashboard"
             android:textColor="@color/md_black_1000"
             tools:text="@string/about"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/levelTextView"
-            android:padding="@dimen/margin_8"
+            android:textSize="@dimen/text_dashboard_small"
+            android:layout_below="@+id/userNameTextView"
+            android:layout_toRightOf="@+id/movieGridItemImageView"
+            android:paddingLeft="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_8"
+            android:paddingTop="@dimen/margin_4"
             android:textColor="@color/md_black_1000"
             tools:text="@string/level_10"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

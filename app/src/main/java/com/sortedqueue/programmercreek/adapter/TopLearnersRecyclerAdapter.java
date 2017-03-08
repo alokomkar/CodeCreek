@@ -56,8 +56,6 @@ public class TopLearnersRecyclerAdapter extends RecyclerView.Adapter<TopLearners
     public class ViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.movieGridItemImageView)
         ImageView movieGridItemImageView;
-        @Bind(R.id.titleTextView)
-        TextView titleTextView;
         @Bind(R.id.userNameTextView)
         TextView userNameTextView;
         @Bind(R.id.levelTextView)

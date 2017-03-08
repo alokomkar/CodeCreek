@@ -2,14 +2,12 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
@@ -71,7 +69,7 @@ public class TopLearnerFragment extends Fragment {
     }
 
     private void setupAdapter(ArrayList<UserRanking> userRankings) {
-        topLearnersRecyclerView.setLayoutManager( new GridLayoutManager(getContext(), 2) );
+        topLearnersRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
         topLearnersRecyclerView.setAdapter(new TopLearnersRecyclerAdapter(getContext(), userRankings));
     }
 

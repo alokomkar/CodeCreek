@@ -2,12 +2,10 @@ package com.sortedqueue.programmercreek.activity;
 
 
 import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -31,13 +29,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
-import com.sortedqueue.programmercreek.database.UserRanking;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
@@ -45,9 +41,6 @@ import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -97,7 +91,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
-        //dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
+        dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }
@@ -105,7 +99,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             dashboardViewPager.setCurrentItem(1);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
-        dashboardViewPager.setOffscreenPageLimit(2);
+        dashboardViewPager.setOffscreenPageLimit(3);
         dashboardViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
