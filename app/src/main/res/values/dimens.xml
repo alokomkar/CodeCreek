@@ -32,4 +32,5 @@
     <dimen name="image_height">100dp</dimen>
     <dimen name="margin5">5dp</dimen>
     <dimen name="title_height">24dp</dimen>
+    <dimen name="margin_1">1dp</dimen>
 </resources>

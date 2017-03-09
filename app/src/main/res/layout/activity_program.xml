@@ -5,17 +5,17 @@
     android:orientation="vertical"
     android:background="@color/md_grey_300">
 
-     <ListView
+    <ListView
         android:id="@+id/list_program"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1.0"
-         android:divider="@android:color/transparent"
-         android:headerDividersEnabled="true"
-         android:footerDividersEnabled="true"
-         android:dividerHeight="@dimen/margin_8"
-         android:layout_margin="@dimen/margin_8"
-         android:background="@color/md_grey_300"/>
+        android:divider="@android:color/transparent"
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true"
+        android:dividerHeight="@dimen/margin_8"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@color/md_grey_300"/>
 
     <ListView
         android:id="@+id/list_explanation"
@@ -29,7 +29,7 @@
         android:dividerHeight="@dimen/margin_8"
         android:layout_margin="@dimen/margin_8"
         android:background="@color/md_grey_300"/>
-    
+
     <LinearLayout
         android:id="@+id/btnLayout"
         android:layout_width="fill_parent"
@@ -40,7 +40,7 @@
         android:weightSum="3"
         android:gravity="center_horizontal">
 
-         <ImageButton
+        <ImageButton
             android:id="@+id/prevProgramBtn"
             android:layout_width="0dp"
             android:layout_weight="0.8"
@@ -65,8 +65,8 @@
             android:src="@android:drawable/ic_media_ff"
             android:background="@drawable/button_blue"
             style="@style/ButtonText" />
-       
+
     </LinearLayout>
 
-   
+
 </LinearLayout>
