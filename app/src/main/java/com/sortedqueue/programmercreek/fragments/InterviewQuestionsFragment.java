@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.InterviewQuestinsAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,7 +48,13 @@ public class InterviewQuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interview_questions, container, false);
         ButterKnife.bind(this, view);
+        setupRecyclerView();
         return view;
+    }
+
+    private void setupRecyclerView() {
+        optionsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
+        optionsRecyclerView.setAdapter( new InterviewQuestinsAdapter() );
     }
 
     @Override

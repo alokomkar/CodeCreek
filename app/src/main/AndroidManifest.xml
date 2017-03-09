@@ -57,7 +57,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InterviewActivity"
-            android:label="@string/title_activity_about"
+            android:label="@string/title_interview_activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebViewActivity"

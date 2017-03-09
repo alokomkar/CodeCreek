@@ -28,7 +28,7 @@
                 android:id="@+id/questionTextView"
                 android:padding="@dimen/margin_16"
                 android:textSize="@dimen/text_dashboard_small"
-                tools:text="@string/java_description"/>
+                android:text="@string/java_description"/>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.RecyclerView

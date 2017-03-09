@@ -182,4 +182,5 @@
     <string name="unlock">Unlock</string>
     <string name="interview">Interview Questions</string>
     <string name="interview_description">Checkout interview questions on the language</string>
+    <string name="title_interview_activity">Interview Questions</string>
 </resources>
