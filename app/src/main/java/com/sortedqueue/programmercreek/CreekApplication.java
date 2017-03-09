@@ -79,7 +79,7 @@ public class CreekApplication extends Application {
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);
-        setupExceptionHandler();
+        //setupExceptionHandler();
     }
 
     private void setupExceptionHandler() {
