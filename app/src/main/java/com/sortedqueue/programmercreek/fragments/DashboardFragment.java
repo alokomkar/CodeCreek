@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
+import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
@@ -233,7 +234,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.interviewLayout:
-                intent = new Intent(getContext(), NewProgramWikiActivity.class);
+                intent = new Intent(getContext(), InterviewActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:
