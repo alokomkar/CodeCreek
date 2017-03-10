@@ -12,6 +12,8 @@ public class OptionModel implements Parcelable {
     private int optionId;
     private String option;
 
+    private boolean isSelected;
+
     public OptionModel(int optionId, String option) {
         this.optionId = optionId;
         this.option = option;
@@ -51,6 +53,14 @@ public class OptionModel implements Parcelable {
     protected OptionModel(Parcel in) {
         this.optionId = in.readInt();
         this.option = in.readString();
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public static final Parcelable.Creator<OptionModel> CREATOR = new Parcelable.Creator<OptionModel>() {

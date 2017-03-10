@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_MULTIPLE_RIGHT;
 import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_REARRANGE;
 import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_SINGLE_RIGHT;
 import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_TRUE_FALSE;
@@ -54,6 +55,7 @@ public class InterviewQuestionsFragment extends Fragment {
     RelativeLayout lifeLineLayout;
 
     private InterviewQuestionModel interviewQuestionModel;
+    private InterviewQuestionsAdapter interviewQuestionsAdapter;
 
     @Nullable
     @Override
@@ -61,7 +63,7 @@ public class InterviewQuestionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_interview_questions, container, false);
         ButterKnife.bind(this, view);
 
-        setupRearrangeModel();
+        setupMultiRightModel();
 
         setupViews();
         setupRecyclerView();
@@ -69,14 +71,39 @@ public class InterviewQuestionsFragment extends Fragment {
         return view;
     }
 
+    private void setupMultiRightModel() {
+        interviewQuestionModel = new InterviewQuestionModel();
+        interviewQuestionModel.setTypeOfQuestion(TYPE_MULTIPLE_RIGHT);
+        ArrayList<OptionModel> optionModels = new ArrayList<>();
+        int index = 1;
+        optionModels.add(new OptionModel(index++, "int a = 1;"));
+        optionModels.add(new OptionModel(index++, "char b = \"ava\""));
+        optionModels.add(new OptionModel(index++, "char[] str = \"abcd\""));
+        interviewQuestionModel.setOptionModels(optionModels);
+        interviewQuestionModel.setQuestion("Which are valid?");
+        ArrayList<Integer> correctOptions = new ArrayList<>();
+        correctOptions.add(1);
+        correctOptions.add(3);
+        interviewQuestionModel.setCorrectOptions(correctOptions);
+        interviewQuestionModel.setModelId("Model_1");
+        interviewQuestionModel.setProgramLanguage("c");
+    }
+
     private void setupRearrangeModel() {
         interviewQuestionModel = new InterviewQuestionModel();
         interviewQuestionModel.setTypeOfQuestion(TYPE_REARRANGE);
         ArrayList<OptionModel> optionModels = new ArrayList<>();
         int index = 1;
-        optionModels.add(new OptionModel(index++, "True"));
-        optionModels.add(new OptionModel(index++, "False"));
-        optionModels.add(new OptionModel(index++, "No Idea"));
+        optionModels.add(new OptionModel(index++, "void main() {"));
+        optionModels.add(new OptionModel(index++, " puts(s);"));
+        optionModels.add(new OptionModel(index++, " int s = 0;"));
+        optionModels.add(new OptionModel(index++, "}"));
+        ArrayList<Integer> correctSequence = new ArrayList<>();
+        correctSequence.add(1);
+        correctSequence.add(3);
+        correctSequence.add(2);
+        correctSequence.add(4);
+        interviewQuestionModel.setCorrectSequence(correctSequence);
         interviewQuestionModel.setOptionModels(optionModels);
         interviewQuestionModel.setQuestion("Is it True that !true is false?");
         interviewQuestionModel.setCorrectOption(1);
@@ -126,7 +153,7 @@ public class InterviewQuestionsFragment extends Fragment {
 
     private void setupRecyclerView() {
         optionsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
-        InterviewQuestionsAdapter interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel);
+        interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel);
         optionsRecyclerView.setAdapter( interviewQuestionsAdapter );
         if( interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE ) {
             ItemTouchHelper.Callback callback =
@@ -140,5 +167,9 @@ public class InterviewQuestionsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public void checkAnswer() {
+        interviewQuestionsAdapter.isAnswerChecked(true);
     }
 }

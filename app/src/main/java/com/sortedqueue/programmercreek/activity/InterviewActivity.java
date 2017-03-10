@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -32,6 +33,7 @@ public class InterviewActivity extends AppCompatActivity {
     @Bind(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
+    private InterviewQuestionsFragment interviewQuestionsFragment;
 
     @Override
     protected void onResume() {
@@ -73,7 +75,7 @@ public class InterviewActivity extends AppCompatActivity {
     private void loadInterviewQuestionsFragment() {
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        InterviewQuestionsFragment interviewQuestionsFragment = (InterviewQuestionsFragment) getSupportFragmentManager().findFragmentByTag(InterviewQuestionsFragment.class.getSimpleName());
+        interviewQuestionsFragment = (InterviewQuestionsFragment) getSupportFragmentManager().findFragmentByTag(InterviewQuestionsFragment.class.getSimpleName());
         if (interviewQuestionsFragment == null) {
             interviewQuestionsFragment = new InterviewQuestionsFragment();
         }
@@ -93,5 +95,11 @@ public class InterviewActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void fabClick( View view ) {
+        if( interviewQuestionsFragment != null ) {
+            interviewQuestionsFragment.checkAnswer();
+        }
     }
 }
