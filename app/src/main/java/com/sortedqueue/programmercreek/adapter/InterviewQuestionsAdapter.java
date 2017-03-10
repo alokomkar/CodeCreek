@@ -77,13 +77,15 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
                     holder.progamLineTxtView.setTextColor(ContextCompat.getColor(context, R.color.white));
                     break;
                 case TYPE_MULTIPLE_RIGHT :
-                    holder.optionCardView.setCardBackgroundColor(
-                            ContextCompat.getColor(
-                                    context,
-                                    interviewQuestionModel.getCorrectOptions().contains(optionModel.getOptionId()) ?
-                                            R.color.md_green_500 :
-                                            R.color.md_red_500));
-                    holder.progamLineTxtView.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    if( optionModel.isSelected() ) {
+                        holder.optionCardView.setCardBackgroundColor(
+                                ContextCompat.getColor(
+                                        context,
+                                        interviewQuestionModel.getCorrectOptions().contains(optionModel.getOptionId()) ?
+                                                R.color.md_green_500 :
+                                                R.color.md_red_500));
+                        holder.progamLineTxtView.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    }
                     break;
                 case TYPE_REARRANGE :
                     holder.optionCardView.setCardBackgroundColor(
