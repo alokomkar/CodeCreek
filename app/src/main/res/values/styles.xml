@@ -38,4 +38,8 @@
         <item name="android:windowExitAnimation">@anim/item_down_from_top</item>
     </style>
 
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

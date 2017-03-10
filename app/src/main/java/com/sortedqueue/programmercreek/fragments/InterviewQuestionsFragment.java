@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -53,9 +54,12 @@ public class InterviewQuestionsFragment extends Fragment {
     ImageView lifeLine3ImageView;
     @Bind(R.id.lifeLineLayout)
     RelativeLayout lifeLineLayout;
+    @Bind(R.id.progressTextView)
+    TextView progressTextView;
 
     private InterviewQuestionModel interviewQuestionModel;
     private InterviewQuestionsAdapter interviewQuestionsAdapter;
+    private CountDownTimer mCountDownTimer;
 
     @Nullable
     @Override
@@ -63,12 +67,37 @@ public class InterviewQuestionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_interview_questions, container, false);
         ButterKnife.bind(this, view);
 
-        setupMultiRightModel();
+        setupRearrangeModel();
 
         setupViews();
         setupRecyclerView();
         hideShowLifeLine();
+        startTimer();
         return view;
+    }
+
+    private void startTimer() {
+        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                progressTextView.setText( "Remaining : " + (int) (millisUntilFinished / 1000) );
+            }
+
+            @Override
+            public void onFinish() {
+
+                progressTextView.setText("Time up");
+            }
+        };
+        mCountDownTimer.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCountDownTimer.cancel();
     }
 
     private void setupMultiRightModel() {
@@ -105,7 +134,7 @@ public class InterviewQuestionsFragment extends Fragment {
         correctSequence.add(4);
         interviewQuestionModel.setCorrectSequence(correctSequence);
         interviewQuestionModel.setOptionModels(optionModels);
-        interviewQuestionModel.setQuestion("Is it True that !true is false?");
+        interviewQuestionModel.setQuestion("Arrange in right sequence");
         interviewQuestionModel.setCorrectOption(1);
         interviewQuestionModel.setModelId("Model_1");
         interviewQuestionModel.setProgramLanguage("c");
@@ -142,8 +171,8 @@ public class InterviewQuestionsFragment extends Fragment {
 
     private void hideShowLifeLine() {
         int visibility = interviewQuestionModel.getOptionModels().size() == 2
-                        ? View.GONE
-                        : View.VISIBLE;
+                ? View.GONE
+                : View.VISIBLE;
         lifeLineLayout.setVisibility(visibility);
     }
 
@@ -152,10 +181,10 @@ public class InterviewQuestionsFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        optionsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
+        optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel);
-        optionsRecyclerView.setAdapter( interviewQuestionsAdapter );
-        if( interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE ) {
+        optionsRecyclerView.setAdapter(interviewQuestionsAdapter);
+        if (interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE) {
             ItemTouchHelper.Callback callback =
                     new SimpleItemTouchHelperCallback(interviewQuestionsAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
