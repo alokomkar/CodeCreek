@@ -97,7 +97,7 @@ public class InterviewQuestionsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mCountDownTimer.cancel();
+        cancelTimer();
     }
 
     private void setupMultiRightModel() {
@@ -200,5 +200,17 @@ public class InterviewQuestionsFragment extends Fragment {
 
     public void checkAnswer() {
         interviewQuestionsAdapter.isAnswerChecked(true);
+        cancelTimer();
+    }
+
+    private void cancelTimer() {
+        if( mCountDownTimer != null ) {
+            mCountDownTimer.cancel();
+        }
+    }
+
+    private String programLanguage;
+    public void setProgramLanguage(String programLanguage) {
+        this.programLanguage = programLanguage;
     }
 }
