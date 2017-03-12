@@ -76,6 +76,8 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onNavigateToChoice();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
 
@@ -137,12 +139,6 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         if (title.equals(  programLanguage + " Questions")) {
             onNavigateToChoice();
         } else {
-            /*if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
-                tappxInterstitial.show();
-            }
-            else {
-                finish();
-            }*/
             finish();
         }
     }
