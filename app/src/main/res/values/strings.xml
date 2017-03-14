@@ -183,4 +183,7 @@
     <string name="interview">Interview Questions</string>
     <string name="interview_description">Checkout interview questions on the language</string>
     <string name="title_interview_activity">Interview Questions</string>
+    <string name="ada_description">A brief introduction on Analysis and design of Algorithms</string>
+    <string name="algorithms_description">Browse through various algorithms</string>
+    <string name="algorithms">Algorithms</string>
 </resources>

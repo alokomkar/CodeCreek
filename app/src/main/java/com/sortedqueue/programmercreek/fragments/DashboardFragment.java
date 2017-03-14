@@ -86,6 +86,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     CardView searchCardView;
     @Bind(R.id.dashboardScrollView)
     NestedScrollView dashboardScrollView;
+    @Bind(R.id.adaIntroTextView)
+    TextView adaIntroTextView;
+    @Bind(R.id.adaIntroLayout)
+    FrameLayout adaIntroLayout;
+    @Bind(R.id.algorithmsLayout)
+    FrameLayout algorithmsLayout;
+    @Bind(R.id.adaScrollView)
+    NestedScrollView adaScrollView;
+    @Bind(R.id.interviewTextView)
+    TextView interviewTextView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
 
@@ -97,10 +107,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private DashboardNavigationListener dashboardNavigationListener;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof  DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }
@@ -125,19 +136,24 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     public void animateViews() {
-        if( creekPreferences == null ) {
+        if (creekPreferences == null) {
             creekPreferences = new CreekPreferences(getContext());
         }
-        if( creekPreferences.isProgramsOnly() ) {
-            introLayout.setVisibility(View.GONE);
-            wizardLayout.setVisibility(View.GONE);
-            syntaxLayout.setVisibility(View.GONE);
-        }
-        else {
-            introLayout.setVisibility(View.VISIBLE);
-            wizardLayout.setVisibility(View.VISIBLE);
-            syntaxLayout.setVisibility(View.VISIBLE);
-        }
+        if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
+            dashboardScrollView.setVisibility(View.GONE);
+            adaScrollView.setVisibility(View.VISIBLE);
+        } else {
+            dashboardScrollView.setVisibility(View.VISIBLE);
+            adaScrollView.setVisibility(View.GONE);
+            if (creekPreferences.isProgramsOnly()) {
+                introLayout.setVisibility(View.GONE);
+                wizardLayout.setVisibility(View.GONE);
+                syntaxLayout.setVisibility(View.GONE);
+            } else {
+                introLayout.setVisibility(View.VISIBLE);
+                wizardLayout.setVisibility(View.VISIBLE);
+                syntaxLayout.setVisibility(View.VISIBLE);
+            }
 
         /*if( creekPreferences.getProgramLanguage().equals("sql") ) {
             introLayout.setVisibility(View.VISIBLE);
@@ -150,35 +166,37 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             quizLayout.setVisibility(View.GONE);
         }*/
 
-        dashboardScrollView.scrollTo(0, 0);
-        introLayout.setAlpha(0.0f);
-        wizardLayout.setAlpha(0.0f);
-        syntaxLayout.setAlpha(0.0f);
-        indexLayout.setAlpha(0.0f);
-        wikiLayout.setAlpha(0.0f);
-        quizLayout.setAlpha(0.0f);
-        matchLayout.setAlpha(0.0f);
-        testLayout.setAlpha(0.0f);
-        interviewLayout.setAlpha(0.0f);
-        int delay = 0;
-        int standardDelay = 270;
-        initAnimations(introLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(wizardLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(syntaxLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(indexLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(wikiLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(quizLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(matchLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(testLayout, delay);
-        delay = delay + standardDelay;
-        initAnimations(interviewLayout, delay);
+            dashboardScrollView.scrollTo(0, 0);
+            introLayout.setAlpha(0.0f);
+            wizardLayout.setAlpha(0.0f);
+            syntaxLayout.setAlpha(0.0f);
+            indexLayout.setAlpha(0.0f);
+            wikiLayout.setAlpha(0.0f);
+            quizLayout.setAlpha(0.0f);
+            matchLayout.setAlpha(0.0f);
+            testLayout.setAlpha(0.0f);
+            interviewLayout.setAlpha(0.0f);
+            int delay = 0;
+            int standardDelay = 270;
+            initAnimations(introLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(wizardLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(syntaxLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(indexLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(wikiLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(quizLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(matchLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(testLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(interviewLayout, delay);
+        }
+
 
     }
 
@@ -199,6 +217,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         searchCardView.setOnClickListener(this);
+        adaIntroLayout.setOnClickListener(this);
+        algorithmsLayout.setOnClickListener(this);
 
     }
 
@@ -210,7 +230,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(final View v) {
-        if(!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -219,9 +239,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             });
             return;
         }
-        if( creekPreferences.getProgramLanguage().equals("") ) {
+        if (creekPreferences.getProgramLanguage().equals("")) {
             CommonUtils.displaySnackBar(getActivity(), R.string.choose_language);
-            if( dashboardNavigationListener != null ) {
+            if (dashboardNavigationListener != null) {
                 dashboardNavigationListener.navigateToLanguage();
             }
             return;
@@ -249,6 +269,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             case R.id.introLayout:
                 Intent introIntent = new Intent(getContext(), IntroActivity.class);
                 startActivity(introIntent);
+                break;
+
+            case R.id.adaIntroLayout:
+                intent = new Intent(getContext(), IntroActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.algorithmsLayout:
+                intent = new Intent(getContext(), IntroActivity.class);
+                startActivity(intent);
                 break;
 
             //TODO : To be removed later

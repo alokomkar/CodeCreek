@@ -106,7 +106,13 @@ public class LanguageFragment extends Fragment {
         firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
             @Override
             public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
+                ProgramLanguage programLanguage = new ProgramLanguage();
+                programLanguage.setDescription("Analysis and design of algorithms");
+                programLanguage.setProgramLanguage("Analysis and Design of Algorithms");
+                programLanguage.setIsProgramsOnly("true");
+                programLanguage.setLanguageId("ADA");
 
+                programLanguages.add(programLanguage);
                 setupRecyclerview(programLanguages);
             }
 

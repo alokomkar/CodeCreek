@@ -156,7 +156,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private void initJavaIndex() {
         creekPreferences.setProgramLanguage("ada");
-        new JavaProgramInserter(DashboardActivity.this).insertProgramIndex();
+        new JavaProgramInserter(DashboardActivity.this).insertAlgorithmIndex();
     }
 
     /*private void initAds() {
