@@ -13,6 +13,7 @@ import co.uk.rushorm.core.annotations.RushTableAnnotation;
 public class AlgorithmContent extends RushObject implements Parcelable {
 
     private int contentType;
+    private String tabTitle;
     private String programDescription;
     private String output;
     private String input;
@@ -21,6 +22,16 @@ public class AlgorithmContent extends RushObject implements Parcelable {
 
     public AlgorithmContent(int contentType, String programDescription, String output, String input, String programCode, String algorithmPseudoCode) {
         this.contentType = contentType;
+        this.programDescription = programDescription;
+        this.output = output;
+        this.input = input;
+        this.programCode = programCode;
+        this.algorithmPseudoCode = algorithmPseudoCode;
+    }
+
+    public AlgorithmContent(int contentType, String tabTitle, String programDescription, String output, String input, String programCode, String algorithmPseudoCode) {
+        this.contentType = contentType;
+        this.tabTitle = tabTitle;
         this.programDescription = programDescription;
         this.output = output;
         this.input = input;
@@ -77,6 +88,14 @@ public class AlgorithmContent extends RushObject implements Parcelable {
 
     public void setAlgorithmPseudoCode(String algorithmPseudoCode) {
         this.algorithmPseudoCode = algorithmPseudoCode;
+    }
+
+    public String getTabTitle() {
+        return tabTitle;
+    }
+
+    public void setTabTitle(String tabTitle) {
+        this.tabTitle = tabTitle;
     }
 
     @Override

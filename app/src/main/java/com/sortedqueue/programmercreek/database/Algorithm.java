@@ -5,11 +5,15 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
+
 /**
  * Created by Alok Omkar on 2017-03-15.
  */
 
-public class Algorithm implements Parcelable {
+@RushTableAnnotation
+public class Algorithm extends RushObject implements Parcelable {
 
     private AlgorithmsIndex algorithmsIndex;
     private ArrayList<AlgorithmContent> algorithmContentArrayList;

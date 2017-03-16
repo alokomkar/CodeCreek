@@ -3,6 +3,8 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.app.Activity;
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.database.Algorithm;
+import com.sortedqueue.programmercreek.database.AlgorithmContent;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.ModuleOption;
@@ -35,6 +37,8 @@ public class JavaProgramInserter {
     public void insertAlgorithmIndex() {
         int index = 1;
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        Algorithm algorithm;
+        ArrayList<AlgorithmContent> algorithmContentArrayList;
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                 "Quick Sort",
@@ -42,7 +46,17 @@ public class JavaProgramInserter {
                 "Repeat the experiment for different values of n, the number of elements in the list to be sorted and plot a graph of\n" +
                 "the time taken versus n. The elements can be read from a file or can be generated using the random number\n" +
                 "generator.", "c" ));
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Quick Sort",
+                "Sort a given set of elements using the Quicksort method and determine the time required to sort the elements.\n" +
+                        "Repeat the experiment for different values of n, the number of elements in the list to be sorted and plot a graph of\n" +
+                        "the time taken versus n. The elements can be read from a file or can be generated using the random number\n" +
+                        "generator.", "c" ));
 
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Merge Sort",
@@ -50,44 +64,91 @@ public class JavaProgramInserter {
                                 "time required to sort the elements. Repeat the experiment for different values of n, the number of elements in the\n" +
                                 "list to be sorted and plot a graph of the time taken versus n. The elements can be read from a file or can be\n" +
                                 "generated using the random number generator.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Merge Sort",
+                "Using OpenMP, implement a parallelized Merge Sort algorithm to sort a given set of elements and determine the\n" +
+                        "time required to sort the elements. Repeat the experiment for different values of n, the number of elements in the\n" +
+                        "list to be sorted and plot a graph of the time taken versus n. The elements can be read from a file or can be\n" +
+                        "generated using the random number generator.", "c"  ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Topological Ordering",
                         "Obtain the Topological ordering of vertices in a given digraph.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Topological Ordering",
+                "Obtain the Topological ordering of vertices in a given digraph.", "c"  ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Warshall's algorithm",
                         "Compute the transitive closure of a given\n" +
                                 "directed graph using Warshall's algorithm.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Warshall's algorithm",
+                "Compute the transitive closure of a given\n" +
+                        "directed graph using Warshall's algorithm.", "c"  ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "0/1 Knapsack problem",
                         "Implement 0/1 Knapsack problem using Dynamic Programming.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "0/1 Knapsack problem",
+                "Implement 0/1 Knapsack problem using Dynamic Programming.", "c"  ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Dijkstra's algorithm.",
                         "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Dijkstra's algorithm.",
+                "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Minimum cost spanning tree using Kruskal's algorithm",
                         "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Minimum cost spanning tree using Kruskal's algorithm",
+                "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "BFS Method",
                         "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "BFS Method",
+                "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "DFS Method",
                         "Check whether a\n" +
                                 "given graph is connected or not using DFS method.", "c" ));
-
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "DFS Method",
+                "Check whether a\n" +
+                        "given graph is connected or not using DFS method.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Subset sum problem",
@@ -95,27 +156,61 @@ public class JavaProgramInserter {
                                 "d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}. A suitable message is to be\n" +
                                 "displayed if the given problem instance doesn't have a solution.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Subset sum problem",
+                "Find a subset of a given set S = {sl, s2,.....,sn} of n positive integers whose sum is equal to a given positive integer\n" +
+                        "d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}. A suitable message is to be\n" +
+                        "displayed if the given problem instance doesn't have a solution.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Traveling sales person problem",
                         "Implement any scheme to find the optimal solution for the Traveling Salesperson problem and then solve the same\n" +
                                 "problem instance using any approximation algorithm and determine the error in the approximation.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Traveling sales person problem",
+                "Implement any scheme to find the optimal solution for the Traveling Salesperson problem and then solve the same\n" +
+                        "problem instance using any approximation algorithm and determine the error in the approximation.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Prim's algorithm.",
                         "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Prim's algorithm.",
+                "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Floyd's algorithm",
                         "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" +
                                 "OpenMP and determine the speed-up achieved.", "c" ));
 
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "Floyd's algorithm",
+                "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" +
+                        "OpenMP and determine the speed-up achieved.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "N Queen's problem",
                         "Implement N Queen's problem using Back Tracking.", "c" ));
+        algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
+        algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
+                "N Queen's problem",
+                "Implement N Queen's problem using Back Tracking.", "c" ));
+        algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
+        firebaseDatabaseHandler.writeAlgorithm( algorithm );
     }
 
     public void insertPrograms( ) {

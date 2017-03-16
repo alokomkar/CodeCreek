@@ -13,6 +13,7 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.CreekUser;
@@ -172,6 +173,10 @@ public class FirebaseDatabaseHandler {
     }
 
     public static void writeAlgorithmIndex(AlgorithmsIndex algorithmsIndex) {
+
+    }
+
+    public void writeAlgorithm(Algorithm algorithm) {
 
     }
 
