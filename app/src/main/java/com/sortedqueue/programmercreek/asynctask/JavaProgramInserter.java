@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.app.Activity;
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmContent;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
@@ -53,6 +54,154 @@ public class JavaProgramInserter {
                         "Repeat the experiment for different values of n, the number of elements in the list to be sorted and plot a graph of\n" +
                         "the time taken versus n. The elements can be read from a file or can be generated using the random number\n" +
                         "generator.", "c" ));
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "To Sort a given set of elements using the Quicksort method and determine the time required to sort the elements.\n" +
+                        "Repeat the experiment for different values of n, the number of elements in the list to be sorted and plot a graph of the\n" +
+                        "time taken versus n. The elements can be read from a file or can be generated using the random number generator.",
+                "The program is based on the Quicksort algorithm which is an instatiation of divide and conquer method of solving the problem.\n" +
+                        "Here the given array is partitioned every time and the sub-array is sorted.Dividing is based on an element called pivot. A divide\n" +
+                        "and conquer algorithm works by recursively breaking down a problem into two or more sub-problems of the same (or related)\n" +
+                        "type, until these become simple enough to be solved directly. The solutions to the sub-problems are then combined to give a\n" +
+                        "solution to the original problem."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "1. Pick an element, called a pivot, from the list.\n" +
+                        "Reorder the list so that all elements with values less than the pivot come before the pivot, while all elements with\n" +
+                        "values greater than the pivot come after it (equal values can go either way). After this partitioning, the pivot is in its\n" +
+                        "final position. This is called the partition operation.\n" +
+                        "2.\n" +
+                        "Recursively apply the above steps to the sub-list of elements with smaller values and separately the sub-list of\n" +
+                        "elements with greater values."));
+
+        int codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <stdio.h>\n" +
+                        "#include <stdlib.h>\n" +
+                        "#include <sys/time.h>\n" +
+                        "#include <time.h>\n" +
+                        "void fnGenRandInput(int [], int);\n" +
+                        "void fnDispArray( int [], int);\n" +
+                        "int fnPartition(int [], int , int );\n" +
+                        "void fnQuickSort(int [], int , int );\n" +
+                        "inline void fnSwap(int*, int*);\n" +
+                        "inline void fnSwap(int *a, int *b)\n" +
+                        "{\n" +
+                        "int t = *a; *a = *b; *b = t;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main( int argc, char **argv)\n" +
+                        "{\n" +
+                        "FILE *fp;\n" +
+                        "struct timeval tv;\n"+
+                "double dStart,dEnd;\n" +
+                        "int iaArr[500000],iNum,iPos,iKey,i,iChoice;\n" +
+                        "for(;;)\n" +
+                        "{\n" +
+                        "printf(\"\\n1.Plot the Graph\\n2.QuickSort\\n3.Exit\");\n" +
+                        "printf(\"\\nEnter your choice\\n\");\n" +
+                        "scanf(\"%d\",&iChoice);\n" +
+                        "switch(iChoice)\n" +
+                        "{\n" +
+                        "case 1:\n" +
+                        "fp = fopen(\"QuickPlot.dat\",\"w\");\n" +
+                        "for(i=100;i<100000;i+=100)\n" +
+                        "{\n" +
+                        "fnGenRandInput(iaArr,i);\n" +
+                        "gettimeofday(&tv,NULL);\n" +
+                        "dStart = tv.tv_sec + (tv.tv_usec/1000000.0);\n" +
+                        "fnQuickSort(iaArr,0,i-1);\n" +
+                        "gettimeofday(&tv,NULL);\n" +
+                        "dEnd = tv.tv_sec + (tv.tv_usec/1000000.0);\n" +
+                        "fprintf(fp,\"%d\\t%lf\\n\",i,dEnd-dStart);\n" +
+                        "}\n" +
+                        "fclose(fp);\n" +
+                        "printf(\"\\nData File generated and stored in file < QuickPlot.dat >.\\n Use a plottin\n" +
+                        "g utility\\n\");\n" +
+                        "break;\n" +
+                        "case 2:\n" +
+                        "printf(\"\\nEnter the number of elements to sort\\n\");\n" +
+                        "scanf(\"%d\",&iNum);\n" +
+                        "printf(\"\\nUnsorted Array\\n\");\n" +
+                        "fnGenRandInput(iaArr,iNum);\n" +
+                        "fnDispArray(iaArr,iNum);\n" +
+                        "fnQuickSort(iaArr,0,iNum-1);\n" +
+                        "printf(\"\\nSorted Array\\n\");\n" +
+                        "fnDispArray(iaArr,iNum);\n" +
+                        "break;\n" +
+                        "case 3:\n" +
+                        "exit(0);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int fnPartition(int a[], int l, int r)\n" +
+                        "{\n" +
+                        "int i,j,temp;\n" +
+                        "int p;\n" +
+                        "p = a[l];\n" +
+                        "i = l;\n" +
+                        "j = r+1;\n" +
+                        "do\n" +
+                        "{\n" +
+                        "do { i++; } while (a[i] < p);\n" +
+                        "do { j--; } while (a[j] > p);\n" +
+                        "fnSwap(&a[i], &a[j]);\n" +
+                        "}\n" +
+                        "while (i<j);\n" +
+                        "fnSwap(&a[i], &a[j]);\n" +
+                        "fnSwap(&a[l], &a[j]);\n" +
+                        "return j;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnQuickSort(int a[], int l, int r)\n" +
+                        "{\n" +
+                        "int s;\n" +
+                        "if (l < r)\n" +
+                        "{\n" +
+                        "s = fnPartition(a, l, r);\n" +
+                        "fnQuickSort(a, l, s-1);\n" +
+                        "fnQuickSort(a, s+1, r);\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnGenRandInput(int X[], int n)\n" +
+                        "{\n" +
+                        "int i;+\n"+
+        "srand(time(NULL));\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "X[i] = rand()%10000;\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnDispArray( int X[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "printf(\" %5d \\n\",X[i]);\n" +
+                        "}"));
 
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         
@@ -71,6 +220,145 @@ public class JavaProgramInserter {
                         "time required to sort the elements. Repeat the experiment for different values of n, the number of elements in the\n" +
                         "list to be sorted and plot a graph of the time taken versus n. The elements can be read from a file or can be\n" +
                         "generated using the random number generator.", "c"  ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Program to sort an array using Merge Sort",
+                "Merge sort is an O(n log n) comparison-based sorting algorithm. Most implementations produce a stable sort, meaning that the\n" +
+                        "implementation preserves the input order of equal elements in the sorted output. It is a divide and conquer algorithm."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "1. Mergesort(A[O .. n - 1])\n" +
+                        "2. Sorts array A[O .. n - 1] by recursive mergesort\n" +
+                        "3. Input: An array A[O .. n - 1] of orderable elements\n" +
+                        "4. Output: Array A[O .. n - 1] sorted in nondecreasing order\n" +
+                        "5. Merge(B[O .. p- 1], C[O .. q -1], A[O.. p + q -1])\n" +
+                        "6. Merges two sorted arrays into one sorted array\n" +
+                        "7. Input: Arrays B[O .. p -1] and C[O .. q -1] both sorted\n" +
+                        "8. Output: Sorted array A[O .. p + q -1] of the elements of Band C"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <stdio.h>\n" +
+                        "#include <stdlib.h>\n" +
+                        "#include <sys/time.h>\n" +
+                        "#include <omp.h>\n" +
+                        "void simplemerge(int a[], int low, int mid, int high)\n" +
+                        "{\n" +
+                        "int i,j,k,c[20000];\n" +
+                        "i=low;\n" +
+                        "j=mid+1;\n" +
+                        "k=low;\n" +
+                        "int tid;\n" +
+                        "omp_set_num_threads(10);\n" +
+                        "{\n" +
+                        "tid=omp_get_thread_num();\n" +
+                        "while(i<=mid&&j<=high)\n" +
+                        "{\n" +
+                        "if(a[i] < a[j])\n" +
+                        "{\n"+
+                        "c[k]=a[i];\n" +
+                        "//printf(\"%d%d\",tid,c[k]);\n" +
+                        "i++;\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "else\n" +
+                        "{\n" +
+                        "c[k]=a[j];\n" +
+                        "//printf(\"%d%d\", tid, c[k]);\n" +
+                        "j++;\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "while(i<=mid)\n" +
+                        "{\n" +
+                        "c[k]=a[i];\n" +
+                        "i++;\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "while(j<=high)\n" +
+                        "{\n" +
+                        "c[k]=a[j];\n" +
+                        "j++;\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "for(k=low;k<=high;k++)\n" +
+                        "a[k]=c[k];\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void merge(int a[],int low,int high)\n" +
+                        "{\n" +
+                        "int mid;\n" +
+                        "if(low < high)\n" +
+                        "{\n" +
+                        "mid=(low+high)/2;\n" +
+                        "merge(a,low,mid);\n" +
+                        "merge(a,mid+1,high);\n" +
+                        "simplemerge(a,low,mid,high);\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void getnumber(int a[], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "for(i=0;i < n;i++)\n" +
+                        "a[i]=rand()%100;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main()\n" +
+                        "{\n" +
+                        "FILE *fp;\n" +
+                        "int a[2000],i;\n" +
+                        "struct timeval tv;\n" +
+                        "double start, end, elapse;\n" +
+                        "fp=fopen(\"mergesort.txt\",\"w\");\n" +
+                        "for(i=10;i<=1000;i+=10)\n" +
+                        "{\n" +
+                        "getnumber(a,i);\n" +
+                        "gettimeofday(&tv,NULL);\n" +
+                        "start=tv.tv_sec+(tv.tv_usec/1000000.0);\n" +
+                        "merge(a,0,i-1);\n" +
+                        "gettimeofday(&tv,NULL);\n" +
+                        "end=tv.tv_sec+(tv.tv_usec/1000000.0);\n" +
+                        "elapse=end-start;\n" +
+                        "fprintf(fp,\"%d\\t%lf\\n\",i,elapse);\n" +
+                        "}\n" +
+                        "fclose(fp);\n" +
+                        "system(\"gnuplot\");\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "GPL",
+                "mergesort.gpl\n" +
+                        "Gnuplot script file for plotting data in file \"mergesort.txt\" This file is called mergesort.gpl\n" +
+                        "set terminal png font arial\n" +
+                        "set title \"Time Complexity for Merge Sort\"\n" +
+                        "set autoscale\n" +
+                        "set xlabel \"Size of Input\"\n" +
+                        "set ylabel \"Sorting Time (microseconds)\"\n" +
+                        "set grid\n" +
+                        "set output \"mergesort.png\"\n" +
+                        "plot \"mergesort.txt\" t \"Merge Sort\" with lines"));
+
+
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -81,6 +369,91 @@ public class JavaProgramInserter {
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Topological Ordering",
                 "Obtain the Topological ordering of vertices in a given digraph.", "c"  ));
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "To obtain the Topological ordering of vertices in a given\n" +
+                        "digraph.",
+                "Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge uv, vertex u\n" +
+                        "comes before v in the ordering.Topological Sorting for a graph is not possible if the graph is not a DAG. Input parameters: int\n" +
+                        "a[MAX][MAX] - adjacency matrix of the input graph int n - no of vertices in the graph"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "L Empty list that will contain the sorted elements S Set of all nodes with no incoming edges while S is non-empty do\n" +
+                        "remove a node n from S add n to tail of L for each node m with an edge e from n to m do remove edge e from the\n" +
+                        "graph if m has no other incoming edges then insert m into S if graph has edges then return error (graph has at least\n" +
+                        "one cycle) else return L (a topologically sorted order)"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <stdio.h>\n" +
+                        "const int MAX = 10;\n" +
+                        "void fnTopological(int a[MAX][MAX], int n);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int a[MAX][MAX],n;\n" +
+                        "int i,j;\n" +
+                        "printf(\"Topological Sorting Algorithm -\\n\");\n" +
+                        "printf(\"\\nEnter the number of vertices : \");\n" +
+                        "scanf(\"%d\",&n);\n" +
+                        "printf(\"Enter the adjacency matrix -\\n\");\n" +
+                        "for (i=0; i<n; i++)\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "scanf(\"%d\",&a[i][j]);\n" +
+                        "fnTopological(a,n);\n" +
+                        "printf(\"\\n\");\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnTopological(int a[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int in[MAX], out[MAX], stack[MAX], top=-1;\n" +
+                        "int i,j,k=0;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "in[i] = 0;\n" +
+                        "for (j=0; j<n; j++)\n" +
+                        "if (a[j][i] == 1)\n" +
+                        "in[i]++;\n" +
+                        "}\n"+
+                        "while(1)\n" +
+                        "{\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (in[i] == 0)\n" +
+                        "{\n" +
+                        "stack[++top] = i;\n" +
+                        "in[i] = -1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (top == -1)\n" +
+                        "break;\n" +
+                        "out[k] = stack[top--];\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if (a[out[k]][i] == 1)\n" +
+                        "in[i]--;\n" +
+                        "}\n" +
+                        "k++;\n" +
+                        "}\n" +
+                        "printf(\"Topological Sorting (JOB SEQUENCE) is:- \\n\");\n" +
+                        "for (i=0;i<k;i++)\n" +
+                        "printf(\"%d \",out[i] + 1);\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Input Graph : 5 vertices 0 0 1 0 0 0 0 1 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0\n" +
+                        "Topological Sorting (JOB SEQUENCE) is:- 2 1 3 4 5"));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -93,6 +466,100 @@ public class JavaProgramInserter {
                 "Warshall's algorithm",
                 "Compute the transitive closure of a given\n" +
                         "directed graph using Warshall's algorithm.", "c"  ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Compute the transitive closure of a given directed graph\n" +
+                        "using Warshall's algorithm.",
+                "Warshall's algorithm determines whether there is a path between any two nodes in the graph. It does not give the number of the\n" +
+                        "paths between two nodes. According to Warshall's algorith,a path exists between two vertices i, j, iff there is a path from i to j or\n" +
+                        "there is a path from i to j through 1,..,k intermadiate nodes."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "n = |V|\n" +
+                        "t(0) = the adjacency matrix for G\n" +
+                        "for i in 1..n do\n" +
+                        "t(0)[i,i] = True\n" +
+                        "end for\n" +
+                        "for k in 1..n do\n" +
+                        "for i in 1..n do\n" +
+                        "for j in 1..n do\n" +
+                        "t(k)[i,j] = t(k-1)[i,j] OR\n" +
+                        "(t(k-1)[i,k] AND t(k-1)[k,j])\n" +
+                        "end for\n" +
+                        "end for\n" +
+                        "end for\n" +
+                        "return t(n)"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include<stdio.h>\n" +
+                        "const int MAX = 100;\n" +
+                        "void WarshallTransitiveClosure(int graph[MAX][MAX], int numVert);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int i, j, numVert;\n" +
+                        "int graph[MAX][MAX];\n" +
+                        "printf(\"Warshall's Transitive Closure\\n\");\n" +
+                        "printf(\"Enter the number of vertices : \");\n" +
+                        "scanf(\"%d\",&numVert);\n" +
+                        "printf(\"Enter the adjacency matrix :-\\n\");\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        "scanf(\"%d\",&graph[i][j]);\n" +
+                        "WarshallTransitiveClosure(graph, numVert);\n" +
+                        "printf(\"\\nThe transitive closure for the given graph is :-\\n\");\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "{\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        "{\n" +
+                        "printf(\"%d\\t\",graph[i][j]);\n" +
+                        "}\n" +
+                        "printf(\"\\n\");\n" +
+                        "}\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void WarshallTransitiveClosure(int graph[MAX][MAX], int numVert)\n" +
+                        "{\n" +
+                        "int i,j,k;\n" +
+                        "for (k=0; k<numVert; k++)\n" +
+                        "{\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "{\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        "{\n" +
+                        "if (graph[i][j] || (graph[i][k] && graph[k][j]))\n" +
+                        "graph[i][j] = 1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of vertices : 4 Enter the adjacency matrix :- 0 0 1 0 0 0 0 1 1 0 0 0 0 1 0 0\n" +
+                        "The transitive closure for the given graph is :- 1 0 1 0\n" +
+                        "0 1 0 1\n" +
+                        "1 0 1 0\n" +
+                        "0 1 0 1\n" +
+                        "Warshall's Transitive Closure Enter the number of vertices : 4 Enter the adjacency matrix :-\n" +
+                        "0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0\n" +
+                        "The transitive closure for the given graph is :- 1 1 1 1\n" +
+                        "1 1 1 1\n" +
+                        "1 1 1 1\n" +
+                        "1 1 1 1\n" +
+                        "fsmk"));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -104,6 +571,177 @@ public class JavaProgramInserter {
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "0/1 Knapsack problem",
                 "Implement 0/1 Knapsack problem using Dynamic Programming.", "c"  ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "To solve 0/1 Knapsack problem using Dynamic Programming.",
+                "The Knapsack problem is probably one of the most interesting and most popular in computer science, especially when we talk\n" +
+                        "about dynamic programming.The knapsack problem is a problem in combinatorial optimization. Given a set of items, each with a\n" +
+                        "weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a\n" +
+                        "given limit and the total value is as large as possible. It derives its name from the problem faced by someone who is constrained\n" +
+                        "by a fixed-size knapsack and must fill it with the most valuable items."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "Input:\n" +
+                        "a set of items with weights and values\n" +
+                        "output:\n" +
+                        "the greatest combined value of a subset\n" +
+                        "partition the set {1...n} into two sets A and B of approximately equal size\n" +
+                        "compute the weights and values of all subsets of each set\n" +
+                        "for each subset of A\n" +
+                        "find the subset of B of greatest value such that the combined weight is less than W\n" +
+                        "keep track of the greatest combined value seen so far\n\n" +
+                        "Explained : \n" +
+                        "Input:\n" +
+                        "Values (stored in array v or profit)\n" +
+                        "Weights (stored in array w or weight)\n" +
+                        "Number of distinct items (n)\n" +
+                        "Knapsack capacity (W)\n" +
+                        "for j from 0 to W do\n" +
+                        "m[0, j] = 0\n" +
+                        "end for\n" +
+                        "for i from 1 to n do\n" +
+                        "for j from 0 to W do\n" +
+                        "if w[i] <= j then\n" +
+                        "m[i, j] = max(m[i-1, j], m[i-1, j-w[i]] + v[i])\n" +
+                        "else\n" +
+                        "m[i, j] = m[i-1, j]\n" +
+                        "end if\n" +
+                        "end for\n" +
+                        "end for"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <cstdlib>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 10;\n" +
+                        "inline int max(int a, int b);\n" +
+                        "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX]);\n" +
+                        "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX]);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int i, j, totalProfit;\n" +
+                        "int weight[MAX];\n" +
+                        "int profit[MAX];\n" +
+                        "int capacity;\n" +
+                        "int num;\n" +
+                        "int loaded[MAX];\n" +
+                        "int table[MAX][MAX];\n" +
+                        "cout<<\"Enter the maxium number of objects : \";\n" +
+                        "cin >> num;\n" +
+                        "cout << \"Enter the weights : \\n\";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "cout << \"\\nWeight \" << i << \": \";\n" +
+                        "cin >> weight[i];\n" +
+                        "}\n" +
+                        "cout << \"\\nEnter the profits : \\n\";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "cout << \"\\nProfit \" << i << \": \";\n" +
+                        "cin >> profit[i];\n" +
+                        "}\n" +
+                        "cout << \"\\nEnter the maximum capacity : \";\n" +
+                        "cin >> capacity;\n" +
+                        "totalProfit = 0;\n" +
+                        "for( i=1; i<=num; i++)\n" +
+                        "loaded[i] = 0;\n" +
+                        "fnProfitTable(weight,profit,num,capacity,table);\n" +
+                        "fnSelectItems(num,capacity,table,weight,loaded);\n" +
+                        "cout << \"Profit Matrix\\n\";\n" +
+                        "for (i=0; i<=num; i++)\n" +
+                        "{\n" +
+                        "for(j=0; j<=capacity; j++)\n" +
+                        "{\n" +
+                        "cout <<\"\\t\"<<table[i][j];\n" +
+                        "}\n" +
+                        "cout << endl;\n" +
+                        "}\n" +
+                        "cout << \"\\nItem numbers which are loaded : \\n{ \";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "if (loaded[i])\n" +
+                        "{\n" +
+                        "cout <<i << \" \";\n" +
+                        "totalProfit += profit[i];\n" +
+                        "}\n" +
+                        "}\n" +
+                        "cout << \"}\" << endl;\n" +
+                        "cout << \"\\nTotal Profit : \" << totalProfit << endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "inline int max(int a, int b)\n" +
+                        "{\n" +
+                        "return a>b ? a : b;\n" +
+                        "}\n" +
+                        "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX])\n" +
+                        "{\n" +
+                        "int i,j;\n" +
+                        "for (j=0; j<=c; j++)\n" +
+                        "t[0][j] = 0;\n" +
+                        "for (i=0; i<=n; i++)\n" +
+                        "t[i][0] = 0;\n" +
+                        "for (i=1; i<=n; i++)\n" +
+                        "{\n" +
+                        "for (j=1; j<=c; j++)\n" +
+                        "{\n" +
+                        "if (j-w[i] < 0)\n" +
+                        "t[i][j] = t[i-1][j];\n" +
+                        "else\n" +
+                        "t[i][j] = max( t[i-1][j], p[i] + t[i-1][j-w[i]]);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX])\n" +
+                        "{\n" +
+                        "int i,j;\n" +
+                        "i = n;\n" +
+                        "j = c;\n" +
+                        "while (i >= 1 && j >= 1)\n" +
+                        "{\n" +
+                        "if (t[i][j] != t[i-1][j])\n" +
+                        "{\n" +
+                        "l[i] = 1;\n" +
+                        "j = j - w[i];\n" +
+                        "i--;\n" +
+                        "}\n" +
+                        "else\n" +
+                        "i--;\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the maxium number of objects : 4 Enter the weights :\n" +
+                        "Weight 1: 2\n" +
+                        "Weight 2: 1\n" +
+                        "Weight 3: 3\n" +
+                        "Weight 4: 2\n" +
+                        "Enter the profits :\n" +
+                        "Profit 1: 12\n" +
+                        "Profit 2: 10\n" +
+                        "Profit 3: 20\n" +
+                        "Profit 4: 15\n" +
+                        "Enter the maximum capacity : 5 Profit Matrix 0 0 0 0 0 0 0 0 12 12 12 12 0 10 12 22 22 22 0 10 12 22 30 32 0 10 15\n" +
+                        "25 30 37\n" +
+                        "Item numbers which are loaded : { 1 2 4 }\n" +
+                        "Total Profit : 37"));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(

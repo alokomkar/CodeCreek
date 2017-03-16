@@ -3,6 +3,8 @@ package com.sortedqueue.programmercreek.database;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
+
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
@@ -14,6 +16,7 @@ public class AlgorithmContent extends RushObject implements Parcelable {
 
     private int contentType;
     private String tabTitle;
+    private String aim;
     private String programDescription;
     private String output;
     private String input;
@@ -37,6 +40,27 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         this.input = input;
         this.programCode = programCode;
         this.algorithmPseudoCode = algorithmPseudoCode;
+    }
+
+    public AlgorithmContent(int contentType, String tabTitle, String aim, String programDescription) {
+        this.contentType = contentType;
+        this.tabTitle = tabTitle;
+        this.aim = aim;
+        this.programDescription = programDescription;
+    }
+
+    public AlgorithmContent(int contentType, String tabTitle, String algorithmPseudoCode) {
+        this.contentType = contentType;
+        this.tabTitle = tabTitle;
+        if( contentType == AlgorithmConstants.CONTENT_ALGORITHM ) {
+            this.algorithmPseudoCode = algorithmPseudoCode;
+        }
+        else if( contentType == AlgorithmConstants.CONTENT_OUTPUT ) {
+            this.output = algorithmPseudoCode;
+        }
+        else {
+            this.programCode = algorithmPseudoCode;
+        }
     }
 
     public AlgorithmContent() {
@@ -98,6 +122,14 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         this.tabTitle = tabTitle;
     }
 
+    public String getAim() {
+        return aim;
+    }
+
+    public void setAim(String aim) {
+        this.aim = aim;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,6 +180,8 @@ public class AlgorithmContent extends RushObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.contentType);
+        dest.writeString(this.tabTitle);
+        dest.writeString(this.aim);
         dest.writeString(this.programDescription);
         dest.writeString(this.output);
         dest.writeString(this.input);
@@ -157,6 +191,8 @@ public class AlgorithmContent extends RushObject implements Parcelable {
 
     protected AlgorithmContent(Parcel in) {
         this.contentType = in.readInt();
+        this.tabTitle = in.readString();
+        this.aim = in.readString();
         this.programDescription = in.readString();
         this.output = in.readString();
         this.input = in.readString();
@@ -164,7 +200,7 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         this.algorithmPseudoCode = in.readString();
     }
 
-    public static final Parcelable.Creator<AlgorithmContent> CREATOR = new Parcelable.Creator<AlgorithmContent>() {
+    public static final Creator<AlgorithmContent> CREATOR = new Creator<AlgorithmContent>() {
         @Override
         public AlgorithmContent createFromParcel(Parcel source) {
             return new AlgorithmContent(source);
