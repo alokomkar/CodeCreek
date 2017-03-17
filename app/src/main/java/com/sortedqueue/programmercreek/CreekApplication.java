@@ -10,6 +10,7 @@ import android.util.Log;
 import com.facebook.appevents.AppEventsLogger;
 import com.sortedqueue.programmercreek.activity.SplashActivity;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmContent;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.Chapter;
@@ -80,6 +81,7 @@ public class CreekApplication extends Application {
         dbClasses.add(ProgramLanguage.class);
         dbClasses.add(AlgorithmsIndex.class);
         dbClasses.add(AlgorithmContent.class);
+        dbClasses.add(Algorithm.class);
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);

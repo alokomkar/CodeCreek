@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
@@ -277,7 +278,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.algorithmsLayout:
-                intent = new Intent(getContext(), IntroActivity.class);
+                intent = new Intent(getContext(), AlgorithmListActivity.class);
                 startActivity(intent);
                 break;
 

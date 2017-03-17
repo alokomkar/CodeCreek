@@ -580,12 +580,12 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Dijkstra's algorithm.",
-                        "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c" ));
+                        "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c++" ));
 
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Dijkstra's algorithm.",
-                "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c" ));
+                "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c++" ));
         algorithmContentArrayList.add(new AlgorithmContent(
                 AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
                 "Aim and Description",
@@ -639,7 +639,7 @@ public class JavaProgramInserter {
         algorithmContentArrayList.add(new AlgorithmContent(
                 AlgorithmConstants.CONTENT_CODE,
                 "Code Part - " + codeIndex++,
-                "#include<ostream>\n" +
+                "#include<iostream>\n" +
                         "#include<cstdio>\n" +
                         "using namespace std;\n" +
                         "const int MAXNODES = 10,INF = 9999;\n" +
@@ -769,11 +769,11 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Minimum cost spanning tree using Kruskal's algorithm",
-                        "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c" ));
+                        "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c++" ));
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Minimum cost spanning tree using Kruskal's algorithm",
-                "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c" ));
+                "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c++" ));
 
         algorithmContentArrayList.add(new AlgorithmContent(
                 AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
@@ -981,11 +981,11 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "BFS Method",
-                        "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c" ));
+                        "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c++" ));
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "BFS Method",
-                "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c" ));
+                "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c++" ));
 
         algorithmContentArrayList.add(new AlgorithmContent(
                 AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
@@ -1192,12 +1192,12 @@ public class JavaProgramInserter {
                 new AlgorithmsIndex(index++,
                         "DFS Method",
                         "Check whether a\n" +
-                                "given graph is connected or not using DFS method.", "c" ));
+                                "given graph is connected or not using DFS method.", "c++" ));
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "DFS Method",
                 "Check whether a\n" +
-                        "given graph is connected or not using DFS method.", "c" ));
+                        "given graph is connected or not using DFS method.", "c++" ));
 
 
         algorithmContentArrayList.add(new AlgorithmContent(
@@ -1301,14 +1301,14 @@ public class JavaProgramInserter {
                         "Subset sum problem",
                         "Find a subset of a given set S = {sl, s2,.....,sn} of n positive integers whose sum is equal to a given positive integer\n" +
                                 "d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}. A suitable message is to be\n" +
-                                "displayed if the given problem instance doesn't have a solution.", "c" ));
+                                "displayed if the given problem instance doesn't have a solution.", "c++" ));
 
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Subset sum problem",
                 "Find a subset of a given set S = {sl, s2,.....,sn} of n positive integers whose sum is equal to a given positive integer\n" +
                         "d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}. A suitable message is to be\n" +
-                        "displayed if the given problem instance doesn't have a solution.", "c" ));
+                        "displayed if the given problem instance doesn't have a solution.", "c++" ));
 
 
         algorithmContentArrayList.add(new AlgorithmContent(
@@ -1459,13 +1459,13 @@ public class JavaProgramInserter {
                 new AlgorithmsIndex(index++,
                         "Traveling sales person problem",
                         "Implement any scheme to find the optimal solution for the Traveling Salesperson problem and then solve the same\n" +
-                                "problem instance using any approximation algorithm and determine the error in the approximation.", "c" ));
+                                "problem instance using any approximation algorithm and determine the error in the approximation.", "c++" ));
 
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Traveling sales person problem",
                 "Implement any scheme to find the optimal solution for the Traveling Salesperson problem and then solve the same\n" +
-                        "problem instance using any approximation algorithm and determine the error in the approximation.", "c" ));
+                        "problem instance using any approximation algorithm and determine the error in the approximation.", "c++" ));
 
 
         algorithmContentArrayList.add(new AlgorithmContent(
@@ -1693,12 +1693,170 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Prim's algorithm.",
-                        "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c" ));
+                        "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c++" ));
 
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Prim's algorithm.",
-                "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c" ));
+                "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c++" ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Find Minimum Cost Spanning Tree of a given undirected\n" +
+                        "graph using Prim's algorithm.",
+                "The program uses prim's algorithm which is based on minimum spanning tree for a connected undirected graph.A predefinined\n" +
+                        "cost adjecency matrix is the input.To find the minimum spanning tree, we choose the source node at random and in every step we\n" +
+                        "find the node which is closest as well as having the least cost from the previously selected node.And also the cost of selected\n" +
+                        "edge is being added to variable sum.Based on the value of sum, the presence of the minimum spanning tree is found."));
+
+        algorithmContentArrayList.add( new AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "Input: A non-empty connected weighted graph with vertices V and edges E (the weights can be\n" +
+                        "negative).\n" +
+                        "Initialize: Vnew = {x}, where x is an arbitrary node (starting point) from V, Enew = {}\n" +
+                        "Repeat until Vnew = V:\n" +
+                        "Choose an edge {u, v} with minimal weight such that u is in Vnew and v is not (if there\n" +
+                        "are multiple edges with the same weight, any of them may be picked)\n" +
+                        "Add v to Vnew, and {u, v} to Enew\n" +
+                        "Output: Vnew and Enew describe a minimal spanning tree"));
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include<iostream>\n" +
+                        "using namespace std;\n" +
+                        "const int MAXNODES = 10;\n" +
+                        "void fnPrims(int n, int cost[MAXNODES][MAXNODES]);\n" +
+                        "void fnGetMatrix(int n,int a[MAXNODES][MAXNODES]);\n" +
+                        "int main( int argc, char **argv)\n" +
+                        "{\n" +
+                        "int a[MAXNODES][MAXNODES] = {{0, 3, 9999, 7, 9999},\n" +
+                        "{3, 0, 4, 2, 9999},\n" +
+                        "{9999, 4, 0, 5, 6},\n" +
+                        "{7, 2, 5, 0, 4},\n" +
+                        "{9999, 9999, 6, 4, 0}};\n" +
+                        "int n = 5;\n" +
+                        "cout << \"Enter the number of vertices : \";\n" +
+                        "cin >> n;\n" +
+                        "fnGetMatrix(n,a);\n" +
+                        "fnPrims(n,a);\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnPrims(int n, int cost[MAXNODES][MAXNODES])\n" +
+                        "{\n" +
+                        "int i, j, u, v, min;\n" +
+                        "int sum, k, t[MAXNODES][2], p[MAXNODES], d[MAXNODES], s[MAXNODES];\n" +
+                        "int source, count;\n" +
+                        "min = 9999;\n" +
+                        "source = 0;\n" +
+                        "for(i=0; i<n; i++) //finding the node with minimum cost\n" +
+                        "{\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "if(cost[i][j] != 0 && cost[i][j] <= min)\n" +
+                        "{\n" +
+                        "min = cost[i][j];\n" +
+                        "source = i;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "d[i] = cost[source][i]; //initializing the array with th cost of all the nodes from sou\n" +
+                        "rce.\n" +
+                        "s[i] = 0;\n" +
+                        "p[i] = source;\n" +
+                        "}\n" +
+                        "s[source] = 1;\n" +
+                        "sum = 0;\n" +
+                        "k = 0;\n" +
+                        "count = 0;\n" +
+                        "while (count != n-1)\n" +
+                        "{\n" +
+                        "min = 9999;\n" +
+                        "u = -1;\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "if(s[j] == 0)\n" +
+                        "{\n" +
+                        "if(d[j] <= min)\n" +
+                        "{\n" +
+                        "min = d[j];\n" +
+                        "u = j;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "t[k][0] = u;\n" +
+                        "t[k][1] = p[u];\n" +
+                        "k++;\n" +
+                        "count++;\n" +
+                        "sum += cost[u][p[u]];\n" +
+                        "s[u] = 1;\n" +
+                        "for(v=0; v<n; v++)\n" +
+                        "{\n" +
+                        "if(s[v]==0 && cost[u][v]<d[v])\n" +
+                        "{\n" +
+                        "d[v] = cost[u][v];\n" +
+                        "p[v] = u;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if(sum >= 9999)\n" +
+                        "cout << \"\\nSpanning tree does not exist\\n\";\n" +
+                        "else\n" +
+                        "{\n" +
+                        "cout << \"\\nThe spanning tree exists and minimum cost spanning tree is \\n\";\n" +
+                        "for(i=0; i<k; i++)\n" +
+                        "cout << t[i][1] << \" \" << t[i][0] << endl;\n" +
+                        "cout << \"\\nThe cost of the minimum cost spanning tree is \" << sum << endl;\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnGetMatrix(int n,int a[MAXNODES][MAXNODES])\n" +
+                        "{\n" +
+                        "int i, j;\n" +
+                        "cout << \"Enter the Cost Adjacency Matrix\" << endl;\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "cin >> a[i][j];\n" +
+                        "}"));
+
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of vertices : 5 Enter the Cost Adjacency Matrix\n" +
+                        "0 3 9999 7 9999\n" +
+                        "3 0 4 2 9999\n" +
+                        "9999 4 0 5 6\n" +
+                        "7 2 5 0 4\n" +
+                        "9999 9999 6 4 0\n" +
+                        "The spanning tree exists and minimum cost spanning tree is\n" +
+                        "3 1\n" +
+                        "1 0\n" +
+                        "3 4\n" +
+                        "1 2\n" +
+                        "The cost of the minimum cost spanning tree is 13\n" +
+                        "Output Sample 2:\n" +
+                        "Enter the number of vertices : 5\n" +
+                        "Enter the Cost Adjacency Matrix\n" +
+                        "0 3 9999 7 9999\n" +
+                        "3 0 9999 2 9999\n" +
+                        "9999 9999 0 9999 9999\n" +
+                        "7 2 9999 0 4\n" +
+                        "9999 9999 9999 4 0\n" +
+                        "Spanning tree does not exist"));
+
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -1712,16 +1870,224 @@ public class JavaProgramInserter {
                 "Floyd's algorithm",
                 "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" +
                         "OpenMP and determine the speed-up achieved.", "c" ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" +
+                        "OpenMP and determine the speed-up achieved.",
+                "The Floyd's algorithm is a graph analysis algorithm for finding shortest paths in a weighted graph with positive or negative edge\n" +
+                        "weights (but with no negative cycles, see below) and also for finding transitive closure of a relation R. A single execution of the\n" +
+                        "algorithm will find the lengths (summed weights) of the shortest paths between all pairs of vertices, though it does not return\n" +
+                        "details of the paths themselves."));
+
+        algorithmContentArrayList.add( new AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "let dist be a |V| x |V| array of minimum distances initialized to infinity\n" +
+                        "for each vertex v\n" +
+                        "dist[v][v] <- 0\n" +
+                        "for each edge (u,v)\n" +
+                        "dist[u][v] <- w(u,v) // the weight of the edge (u,v)\n" +
+                        "for k from 1 to |V|\n" +
+                        "for i from 1 to |V|\n" +
+                        "for j from 1 to |V|\n" +
+                        "if dist[i][j] > dist[i][k] + dist[k][j]\n" +
+                        "dist[i][j] <- dist[i][k] + dist[k][j]\n" +
+                        "end if"));
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include<stdio.h>\n" +
+                        "#include<stdlib.h>\n" +
+                        "#include<sys/time.h>\n" +
+                        "#include<omp.h>\n" +
+                        "int min(int,int);\n" +
+                        "int main()\n" +
+                        "{\n" +
+                        "int n,k,i,j,c[10][10];\n" +
+                        "int tid;\n" +
+                        "omp_set_num_threads(0);\n" +
+                        "{\n" +
+                        "tid=omp_get_thread_num();\n" +
+                        "printf(\"Enter the number of nodes:\");\n" +
+                        "scanf(\"%d\",&n);\n" +
+                        "printf(\"Enter the cost matrix:\\n\");\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "for(j=0;j<n;j++)\n" +
+                        "scanf(\"%d\",&c[i][j]);\n" +
+                        "for(k=0;k<n;k++)\n" +
+                        "{\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "for(j=0;j<n;j++)\n" +
+                        "c[i][j]=min(c[i][j],c[i][k]+c[k][j]);\n" +
+                        "}\n" +
+                        "printf(\"\\n All pairs shortest path\\n\");\n" +
+                        "for(i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "for(j=0;j<n;j++)\n" +
+                        "printf(\"%d\\t\",c[i][j]);\n" +
+                        "printf(\"\\n\");\n" +
+                        "}\n" +
+                        "}\n" +
+                        "return 0;\n" +
+                        "}\n" +
+                        "int min(int a,int b)\n" +
+                        "{\n" +
+                        "return(a<b?a:b);\n" +
+                        "}"));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of nodes:3\n" +
+                        "Enter the cost matrix:\n" +
+                        "5 6 7\n" +
+                        "8 9 1\n" +
+                        "2 3 4\n" +
+                        "All pairs shortest path\n" +
+                        "5 6 7\n" +
+                        "3 4 1\n" +
+                        "2 3 4"));
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "N Queen's problem",
-                        "Implement N Queen's problem using Back Tracking.", "c" ));
+                        "Implement N Queen's problem using Back Tracking.", "c++" ));
         algorithm = new Algorithm(); algorithmContentArrayList = new ArrayList<>();
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "N Queen's problem",
-                "Implement N Queen's problem using Back Tracking.", "c" ));
+                "Implement N Queen's problem using Back Tracking.", "c++" ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Program to solve N Queens problem using\n" +
+                        "backtracking.",
+                "Given a CHESS BOARD of size N*N,we are supposed to place N QUEEN's such that no QUEEN is in an attacking position.\n" +
+                        "BACKTRACKING:Backtracking is a general algorithm for finding all (or some) solutions to some computational problem, that\n" +
+                        "incrementally builds candidates to the solutions, and abandons each partial candidate c (\"backtracks\") as soon as it determines\n" +
+                        "that c cannot possibly be completed to a valid solution."));
+
+        algorithmContentArrayList.add( new AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "1) Start in the leftmost column\n" +
+                        "2) If all queens are placed\n" +
+                        "return true\n" +
+                        "3) Try all rows in the current column. Do following for every tried row.\n" +
+                        "a) If the queen can be placed safely in this row then mark this [row,\n" +
+                        "column] as part of the solution and recursively check if placing\n" +
+                        "queen here leads to a solution.\n" +
+                        "b) If placing queen in [row, column] leads to a solution then return\n" +
+                        "true.\n" +
+                        "c) If placing queen doesn't lead to a solution then umark this [row,\n" +
+                        "column] (Backtrack) and go to step (a) to try other rows.\n" +
+                        "3) If all rows have been tried and nothing worked, return false to trigger\n" +
+                        "backtracking."));
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <cstdlib>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 10;\n" +
+                        "int SolnCount =0;\n" +
+                        "void fnChessBoardShow(int n, int row[MAX]);\n" +
+                        "bool fnCheckPlace(int KthQueen, int ColNum, int row[MAX]);\n" +
+                        "int NQueen(int k,int n, int row[MAX]);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int n;\n" +
+                        "int row[MAX];\n" +
+                        "cout << \"Enter the number of queens : \";\n" +
+                        "cin >> n;\n" +
+                        "if (!NQueen(0,n,row))\n" +
+                        "cout << \"No solution exists for the given problem instance.\" << endl;\n" +
+                        "else\n" +
+                        "cout << \"Number of solution for the given problem instance is : \" << SolnCount << endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int NQueen(int k,int n, int row[MAX])\n" +
+                        "{\n" +
+                        "static int flag;\n" +
+                        "for(int i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "if(fnCheckPlace(k,i,row) == true)\n" +
+                        "{\n" +
+                        "row[k] = i;\n" +
+                        "if(k == n-1)\n" +
+                        "{\n" +
+                        "fnChessBoardShow(n,row);\n" +
+                        "SolnCount++;\n" +
+                        "flag = 1;\n" +
+                        "return flag;\n" +
+                        "}\n" +
+                        "NQueen(k+1, n, row);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "return flag;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "bool fnCheckPlace(int KthQueen, int ColNum, int row[MAX])\n" +
+                        "{\n" +
+                        "for(int i=0; i<KthQueen; i++)\n" +
+                        "{\n" +
+                        "if(row[i] == ColNum || abs(row[i]-ColNum) == abs(i-KthQueen))\n" +
+                        "return false;\n" +
+                        "}\n" +
+                        "return true;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnChessBoardShow(int n, int row[MAX])\n" +
+                        "{\n" +
+                        "cout << \"\\nSolution #\" << SolnCount+1 << endl << endl;\n" +
+                        "for (int i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "for (int j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "if (j == row[i])\n" +
+                        "cout << \"Q \";\n" +
+                        "else\n" +
+                        "cout << \"# \";\n" +
+                        "}\n" +
+                        "cout << endl;\n" +
+                        "}\n" +
+                        "cout << endl;\n" +
+                        "}"));
+
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "SAMPLE 1\n" +
+                        "Enter the number of queens : 4\n" +
+                        "Solution #1\n" +
+                        "# Q # #\n" +
+                        "# # # Q\n" +
+                        "Q # # #\n" +
+                        "# # Q #\n" +
+                        "Solution #2\n" +
+                        "# # Q #\n" +
+                        "Q # # #\n" +
+                        "# # # Q\n" +
+                        "# Q # #\n" +
+                        "Number of solution for the given problem instance is : 2\n" +
+                        "SAMPLE 2\n" +
+                        "Enter the number of queens : 3 No solution exists for the given problem instance."));
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
     }

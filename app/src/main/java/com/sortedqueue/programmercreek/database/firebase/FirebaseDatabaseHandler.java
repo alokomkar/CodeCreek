@@ -13,6 +13,7 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.Chapter;
@@ -78,6 +79,8 @@ public class FirebaseDatabaseHandler {
     private String CREEK_CHAPTERS = "creek_chapters";
     private String CREEK_PROGRAM_LANGUAGE = "program_language";
     private ArrayList<ProgramLanguage> programLanguages;
+    private String ALGORITHM_INDEX = "algorithm_index";
+    private String ALGORITHM = "algorithm";
 
     /***
      * Program Index storage :
@@ -172,12 +175,77 @@ public class FirebaseDatabaseHandler {
                 });
     }
 
-    public static void writeAlgorithmIndex(AlgorithmsIndex algorithmsIndex) {
+    private DatabaseReference mAlgorithmIndexReference;
+    public void writeAlgorithmIndex(AlgorithmsIndex algorithmsIndex) {
+        mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX);
+        mAlgorithmIndexReference.push().setValue(algorithmsIndex);
 
     }
 
+    private DatabaseReference mAlgorithmReference;
     public void writeAlgorithm(Algorithm algorithm) {
+        mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM);
+        mAlgorithmReference.child( ALGORITHM + "_" + algorithm.getAlgorithmsIndex().getProgramIndex()).setValue(algorithm);
+    }
 
+    public interface GetAllAlgorithmsListener {
+        void onSuccess( ArrayList<AlgorithmsIndex> algorithmsIndexArrayList );
+        void onError( DatabaseError databaseError );
+    }
+    public void getAllAlgorithmIndex(final GetAllAlgorithmsListener getAllAlgorithmsListener ) {
+        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+        mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX);
+        mAlgorithmIndexReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<AlgorithmsIndex> algorithmsIndices = new ArrayList<AlgorithmsIndex>();
+                for( DataSnapshot snapshot : dataSnapshot.getChildren() ) {
+                    AlgorithmsIndex algorithmsIndex = snapshot.getValue(AlgorithmsIndex.class);
+                    algorithmsIndices.add(algorithmsIndex);
+                }
+                if( algorithmsIndices.size() == 0 ) {
+                    getAllAlgorithmsListener.onError(null);
+                }
+                else {
+                    getAllAlgorithmsListener.onSuccess(algorithmsIndices);
+                }
+                CommonUtils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAllAlgorithmsListener.onError(databaseError);
+                CommonUtils.dismissProgressDialog();
+            }
+        });
+    }
+
+    public interface GetAlgorithmListener {
+        void onSuccess( Algorithm algorithm );
+        void onError( DatabaseError databaseError );
+    }
+    public void getAlgorithmForIndex(int algorithmIndex, final GetAlgorithmListener getAlgorithmListener ) {
+        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+        mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM);
+        mAlgorithmReference.child( ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Algorithm algorithm = dataSnapshot.getValue(Algorithm.class);
+                if( algorithm != null ) {
+                    getAlgorithmListener.onSuccess(algorithm);
+                }
+                else {
+                    getAlgorithmListener.onError(null);
+                }
+                CommonUtils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAlgorithmListener.onError(databaseError);
+                CommonUtils.dismissProgressDialog();
+            }
+        });
     }
 
     public interface GetProgramLanguageListener {

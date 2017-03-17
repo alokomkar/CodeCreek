@@ -186,4 +186,6 @@
     <string name="ada_description">A brief introduction on Analysis and design of Algorithms</string>
     <string name="algorithms_description">Browse through various algorithms</string>
     <string name="algorithms">Algorithms</string>
+    <string name="loading">Loading</string>
+    <string name="title_algorithms">Algorithms</string>
 </resources>

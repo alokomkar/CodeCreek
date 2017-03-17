@@ -1,7 +1,7 @@
 package com.sortedqueue.programmercreek.network;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+/*import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;*/
 
 /**
  * Created by Alok on 13/03/17.
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitCreator {
 
-    //http://square.github.io/retrofit/
+    /*//http://square.github.io/retrofit/
 
     private static final String BASE_URL = "http://fa839326.compilers.sphere-engine.com/api/v3";
     private static final String TOKEN_COMPILER_API = "faed39ebdab374918efffba2d99bfd86";
@@ -30,7 +30,7 @@ public class RetrofitCreator {
 
     public static String getTokenProblemApi() {
         return TOKEN_PROBLEM_API;
-    }
+    }*/
 
     //http://fa839326.compilers.sphere-engine.com/api/v3/languages?access_token=TOKEN_COMPILER_API
     //Get all languages

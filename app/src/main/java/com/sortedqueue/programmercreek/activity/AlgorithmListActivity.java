@@ -1,0 +1,139 @@
+package com.sortedqueue.programmercreek.activity;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
+import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.database.Algorithm;
+import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
+import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
+import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+/**
+ * Created by Alok Omkar on 2017-03-17.
+ */
+
+public class AlgorithmListActivity extends AppCompatActivity implements AlgorithmNavigationListener {
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.container)
+    FrameLayout container;
+    @Bind(R.id.checkFAB)
+    FloatingActionButton checkFAB;
+    private FragmentTransaction mFragmentTransaction;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CreekApplication.getInstance().setAppRunning(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CreekApplication.getInstance().setAppRunning(false);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wizard_module);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        checkFAB.setVisibility(View.GONE);
+        loadAlgoritmsListFragment();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
+
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onBackPressed() {
+        String title = getSupportActionBar().getTitle().toString();
+        if( title.equals("Algorithms") ) {
+            finish();
+        }
+        else {
+            loadAlgoritmsListFragment();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_syntax_learn, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void loadAlgoritmsListFragment() {
+        getSupportActionBar().setTitle("Algorithms");
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, AlgorithmIndexFragment.getInstance(), AlgorithmIndexFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    @Override
+    public void loadAlgorithmFragment(AlgorithmsIndex algorithm) {
+        getSupportActionBar().setTitle(algorithm.getProgramTitle());
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, AlgorithmIndexFragment.getInstance(), AlgorithmIndexFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+}

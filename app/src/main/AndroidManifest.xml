@@ -39,6 +39,11 @@
             android:label="@string/title_activity_dummy"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.AlgorithmListActivity"
+            android:label="@string/title_algorithms"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.ProgramActivity"
             android:label="@string/title_activity_program"
             android:screenOrientation="portrait" />
@@ -109,7 +114,7 @@
         <!-- Updating this will cause a database upgrade -->
         <meta-data
             android:name="Rush_db_version"
-            android:value="7" />
+            android:value="8" />
 
         <!-- Database name -->
         <meta-data
