@@ -572,178 +572,11 @@ public class JavaProgramInserter {
                 "0/1 Knapsack problem",
                 "Implement 0/1 Knapsack problem using Dynamic Programming.", "c"  ));
 
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
-                "Aim and Description",
-                "To solve 0/1 Knapsack problem using Dynamic Programming.",
-                "The Knapsack problem is probably one of the most interesting and most popular in computer science, especially when we talk\n" +
-                        "about dynamic programming.The knapsack problem is a problem in combinatorial optimization. Given a set of items, each with a\n" +
-                        "weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a\n" +
-                        "given limit and the total value is as large as possible. It derives its name from the problem faced by someone who is constrained\n" +
-                        "by a fixed-size knapsack and must fill it with the most valuable items."));
 
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_ALGORITHM,
-                "Algorithm",
-                "Input:\n" +
-                        "a set of items with weights and values\n" +
-                        "output:\n" +
-                        "the greatest combined value of a subset\n" +
-                        "partition the set {1...n} into two sets A and B of approximately equal size\n" +
-                        "compute the weights and values of all subsets of each set\n" +
-                        "for each subset of A\n" +
-                        "find the subset of B of greatest value such that the combined weight is less than W\n" +
-                        "keep track of the greatest combined value seen so far\n\n" +
-                        "Explained : \n" +
-                        "Input:\n" +
-                        "Values (stored in array v or profit)\n" +
-                        "Weights (stored in array w or weight)\n" +
-                        "Number of distinct items (n)\n" +
-                        "Knapsack capacity (W)\n" +
-                        "for j from 0 to W do\n" +
-                        "m[0, j] = 0\n" +
-                        "end for\n" +
-                        "for i from 1 to n do\n" +
-                        "for j from 0 to W do\n" +
-                        "if w[i] <= j then\n" +
-                        "m[i, j] = max(m[i-1, j], m[i-1, j-w[i]] + v[i])\n" +
-                        "else\n" +
-                        "m[i, j] = m[i-1, j]\n" +
-                        "end if\n" +
-                        "end for\n" +
-                        "end for"));
-
-        codeIndex = 1;
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_CODE,
-                "Code Part - " + codeIndex++,
-                "#include <iostream>\n" +
-                        "#include <cstdlib>\n" +
-                        "using namespace std;\n" +
-                        "const int MAX = 10;\n" +
-                        "inline int max(int a, int b);\n" +
-                        "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX]);\n" +
-                        "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX]);\n" +
-                        "int main(void)\n" +
-                        "{\n" +
-                        "int i, j, totalProfit;\n" +
-                        "int weight[MAX];\n" +
-                        "int profit[MAX];\n" +
-                        "int capacity;\n" +
-                        "int num;\n" +
-                        "int loaded[MAX];\n" +
-                        "int table[MAX][MAX];\n" +
-                        "cout<<\"Enter the maxium number of objects : \";\n" +
-                        "cin >> num;\n" +
-                        "cout << \"Enter the weights : \\n\";\n" +
-                        "for (i=1; i<=num; i++)\n" +
-                        "{\n" +
-                        "cout << \"\\nWeight \" << i << \": \";\n" +
-                        "cin >> weight[i];\n" +
-                        "}\n" +
-                        "cout << \"\\nEnter the profits : \\n\";\n" +
-                        "for (i=1; i<=num; i++)\n" +
-                        "{\n" +
-                        "cout << \"\\nProfit \" << i << \": \";\n" +
-                        "cin >> profit[i];\n" +
-                        "}\n" +
-                        "cout << \"\\nEnter the maximum capacity : \";\n" +
-                        "cin >> capacity;\n" +
-                        "totalProfit = 0;\n" +
-                        "for( i=1; i<=num; i++)\n" +
-                        "loaded[i] = 0;\n" +
-                        "fnProfitTable(weight,profit,num,capacity,table);\n" +
-                        "fnSelectItems(num,capacity,table,weight,loaded);\n" +
-                        "cout << \"Profit Matrix\\n\";\n" +
-                        "for (i=0; i<=num; i++)\n" +
-                        "{\n" +
-                        "for(j=0; j<=capacity; j++)\n" +
-                        "{\n" +
-                        "cout <<\"\\t\"<<table[i][j];\n" +
-                        "}\n" +
-                        "cout << endl;\n" +
-                        "}\n" +
-                        "cout << \"\\nItem numbers which are loaded : \\n{ \";\n" +
-                        "for (i=1; i<=num; i++)\n" +
-                        "{\n" +
-                        "if (loaded[i])\n" +
-                        "{\n" +
-                        "cout <<i << \" \";\n" +
-                        "totalProfit += profit[i];\n" +
-                        "}\n" +
-                        "}\n" +
-                        "cout << \"}\" << endl;\n" +
-                        "cout << \"\\nTotal Profit : \" << totalProfit << endl;\n" +
-                        "return 0;\n" +
-                        "}"));
-
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_CODE,
-                "Code Part - "+ codeIndex++,
-                "inline int max(int a, int b)\n" +
-                        "{\n" +
-                        "return a>b ? a : b;\n" +
-                        "}\n" +
-                        "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX])\n" +
-                        "{\n" +
-                        "int i,j;\n" +
-                        "for (j=0; j<=c; j++)\n" +
-                        "t[0][j] = 0;\n" +
-                        "for (i=0; i<=n; i++)\n" +
-                        "t[i][0] = 0;\n" +
-                        "for (i=1; i<=n; i++)\n" +
-                        "{\n" +
-                        "for (j=1; j<=c; j++)\n" +
-                        "{\n" +
-                        "if (j-w[i] < 0)\n" +
-                        "t[i][j] = t[i-1][j];\n" +
-                        "else\n" +
-                        "t[i][j] = max( t[i-1][j], p[i] + t[i-1][j-w[i]]);\n" +
-                        "}\n" +
-                        "}\n" +
-                        "}"));
-
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_CODE,
-                "Code Part - "+ codeIndex++,
-                "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX])\n" +
-                        "{\n" +
-                        "int i,j;\n" +
-                        "i = n;\n" +
-                        "j = c;\n" +
-                        "while (i >= 1 && j >= 1)\n" +
-                        "{\n" +
-                        "if (t[i][j] != t[i-1][j])\n" +
-                        "{\n" +
-                        "l[i] = 1;\n" +
-                        "j = j - w[i];\n" +
-                        "i--;\n" +
-                        "}\n" +
-                        "else\n" +
-                        "i--;\n" +
-                        "}\n" +
-                        "}"));
-
-        algorithmContentArrayList.add(new AlgorithmContent(
-                AlgorithmConstants.CONTENT_OUTPUT,
-                "Output",
-                "Enter the maxium number of objects : 4 Enter the weights :\n" +
-                        "Weight 1: 2\n" +
-                        "Weight 2: 1\n" +
-                        "Weight 3: 3\n" +
-                        "Weight 4: 2\n" +
-                        "Enter the profits :\n" +
-                        "Profit 1: 12\n" +
-                        "Profit 2: 10\n" +
-                        "Profit 3: 20\n" +
-                        "Profit 4: 15\n" +
-                        "Enter the maximum capacity : 5 Profit Matrix 0 0 0 0 0 0 0 0 12 12 12 12 0 10 12 22 22 22 0 10 12 22 30 32 0 10 15\n" +
-                        "25 30 37\n" +
-                        "Item numbers which are loaded : { 1 2 4 }\n" +
-                        "Total Profit : 37"));
 
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
+
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Dijkstra's algorithm.",
@@ -753,8 +586,186 @@ public class JavaProgramInserter {
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Dijkstra's algorithm.",
                 "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c" ));
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "From a given vertex in a weighted connected\n" +
+                        "graph, find shortest paths to other vertices using Dijkstra's\n" +
+                        "algorithm.",
+                "To find the shortest path between points, the weight or length of a path is calculated as the sum of the weights of\n" +
+                        "the edges in the path.\n" +
+                        "1.\n" +
+                        "A path is a shortest pa 2. th is there is no path from x to y with lower weight.\n" +
+                        "Dijkstra's algorithm finds the shortest path from x to y in order of increasing distance from x. That is, it chooses the\n" +
+                        "first minimum edge, stores this value and adds the next minimum value from the next edge it selects.\n" +
+                        "3.\n" +
+                        "4. It starts out at one vertex and branches out by selecting certain edges that lead to new vertices.\n" +
+                        "5. It is similar to the minimum spanning tree algorithm, in that it is \"greedy\", always choosing the closest edge in\n" +
+                        "hopes of an optimal solution."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "function Dijkstra(Graph, source):\n" +
+                        "for each vertex v in Graph: // Initializations\n" +
+                        "dist[v] := infinity ; // Unknown distance function from\n" +
+                        "// source to v\n" +
+                        "previous[v] := undefined ; // Previous node in optimal path\n" +
+                        "end for // from source\n" +
+                        "dist[source] := 0 ; // Distance from source to sou\n" +
+                        "rce\n" +
+                        "Q := the set of all nodes in Graph ; // All nodes in the graph are\n" +
+                        "// unoptimized - thus are in Q\n" +
+                        "while Q is not empty: // The main loop\n" +
+                        "u := vertex in Q with smallest distance in dist[] ; // Source node in first case\n" +
+                        "remove u from Q ;\n" +
+                        "if dist[u] = infinity:\n" +
+                        "break ; // all remaining vertices are\n" +
+                        "end if // inaccessible from source\n" +
+                        "for each neighbor v of u: // where v has not yet been\n" +
+                        "// removed from Q.\n" +
+                        "alt := dist[u] + dist_between(u, v) ;\n" +
+                        "if alt < dist[v]: // Relax (u,v,a)\n" +
+                        "dist[v] := alt ;\n" +
+                        "previous[v] := u ;\n" +
+                        "decrease-key v in Q; // Reorder v in the Queue\n" +
+                        "end if\n" +
+                        "end for\n" +
+                        "end while\n" +
+                        "return dist;\n" +
+                        "end function"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include<ostream>\n" +
+                        "#include<cstdio>\n" +
+                        "using namespace std;\n" +
+                        "const int MAXNODES = 10,INF = 9999;\n" +
+                        "void fnDijkstra(int [][MAXNODES], int [], int [], int[], int, int, int);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int n,cost[MAXNODES][MAXNODES],dist[MAXNODES],visited[MAXNODES],path[MAXNODES],i,j,source,d\n" +
+                        "est;\n" +
+                        "cout << \"\\nEnter the number of nodes\\n\";\n" +
+                        "cin >> n;\n" +
+                        "cout << \"Enter the Cost Matrix\\n\" << endl;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "for (j=0;j<n;j++)\n" +
+                        "cin >> cost[i][j];\n" +
+                        "for (source = 0; source < n; source++)\n" +
+                        "{\n" +
+                        "getchar();\n" +
+                        "cout << \"\\n//For Source Vertex : \" << source << \" shortest path to other vertices//\"<< end\n" +
+                        "l;\n" +
+                        "for (dest=0; dest < n; dest++)\n" +
+                        "{\n" +
+                        "fnDijkstra(cost,dist,path,visited,source,dest,n);\n" +
+                        "if (dist[dest] == INF)\n" +
+                        "cout << dest << \" not reachable\" << endl;\n" +
+                        "else\n" +
+                        "{\n" +
+                        "cout << endl;\n" +
+                        "i = dest;\n" +
+                        "do\n" +
+                        "{\n" +
+                        "cout << i << \"<--\";\n" +
+                        "i = path[i];\n" +
+                        "}while (i!= source);\n" +
+                        "cout << i << \" = \" << dist[dest] << endl;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "cout << \"Press Enter to continue...\";\n" +
+                        "}\n" +
+
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnDijkstra(int c[MAXNODES][MAXNODES], int d[MAXNODES], int p[MAXNODES], int s[MAXNODES], i\n" +
+                        "nt so, int de, int n)\n" +
+                        "{\n" +
+                        "int i,j,a,b,min;\n" +
+                        "for (i=0;i<n;i++)\n" +
+                        "{\n" +
+                        "s[i] = 0;\n" +
+                        "d[i] = c[so][i];\n" +
+                        "p[i] = so;\n" +
+                        "}\n" +
+                        "s[so] = 1;\n" +
+                        "for (i=1;i<n;i++)\n" +
+                        "{\n" +
+                        "min = INF;\n" +
+                        "a = -1;\n" +
+                        "for (j=0;j<n;j++)\n" +
+                        "{\n" +
+                        "if (s[j] == 0)\n" +
+                        "{\n" +
+                        "if (d[j] < min)\n" +
+                        "{\n" +
+                        "min = d[j];\n" +
+                        "a = j;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (a == -1) return;\n" +
+                        "s[a] = 1;\n" +
+                        "if (a == de) return;\n" +
+                        "for (b=0;b<n;b++)\n" +
+                        "{\n" +
+                        "if (s[b] == 0)\n" +
+                        "{\n" +
+                        "if (d[a] + c[a][b] <d[b])\n" +
+                        "{\n" +
+                        "d[b] = d[a] + c[a][b];\n" +
+                        "p[b] = a;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of nodes 5 Enter the Cost Matrix\n" +
+                        "0 3 9999 7 9999 3 0 4 2 9999 9999 4 0 5 6 7 2 5 0 4 9999 9999 6 4 0\n" +
+                        "//For Source Vertex : 0 shortest path to other vertices//\n" +
+                        "0<--0 = 0\n" +
+                        "1<--0 = 3\n" +
+                        "2<--1<--0 = 7\n" +
+                        "3<--1<--0 = 5\n" +
+                        "4<--3<--1<--0 = 9 Press Enter to continue...\n" +
+                        "//For Source Vertex : 1 shortest path to other vertices//\n" +
+                        "0<--1 = 3\n" +
+                        "1<--1 = 0\n" +
+                        "2<--1 = 4\n" +
+                        "3<--1 = 2\n" +
+                        "4<--3<--1 = 6 Press Enter to continue...\n" +
+                        "//For Source Vertex : 2 shortest path to other vertices//\n" +
+                        "0<--1<--2 = 7\n" +
+                        "1<--2 = 4\n" +
+                        "2<--2 = 0\n" +
+                        "3<--2 = 5\n" +
+                        "4<--2 = 6 Press Enter to continue...\n" +
+                        "//For Source Vertex : 3 shortest path to other vertices//\n" +
+                        "0<--1<--3 = 5\n" +
+                        "1<--3 = 2\n" +
+                        "2<--3 = 5\n" +
+                        "3<--3 = 0\n" +
+                        "4<--3 = 4 Press Enter to continue...\n" +
+                        "//For Source Vertex : 4 shortest path to other vertices//\n" +
+                        "0<--1<--3<--4 = 9\n" +
+                        "1<--3<--4 = 6\n" +
+                        "2<--4 = 6\n" +
+                        "3<--4 = 4\n" +
+                        "4<--4 = 0 Press Enter to continue..."));
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
+
         firebaseDatabaseHandler.writeAlgorithmIndex(
                 new AlgorithmsIndex(index++,
                         "Minimum cost spanning tree using Kruskal's algorithm",
@@ -763,6 +774,208 @@ public class JavaProgramInserter {
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "Minimum cost spanning tree using Kruskal's algorithm",
                 "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c" ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Find Minimum Cost Spanning Tree of a given undirected\n" +
+                        "graph using Kruskal's algorithm.",
+                "Kruskal's algorithm is an algorithm in graph theory that finds a minimum spanning tree for a connectedweighted graph. This\n" +
+                        "means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree\n" +
+                        "is minimized. If the graph is not connected, then it finds a minimum spanning forest (a minimum spanning tree for each connected\n" +
+                        "component). Kruskal'salgorithm is an example of a greedy algorithm"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "Let G = (V, E) be the given graph, with | V| = n\n" +
+                        "{\n" +
+                        "Start with a graph T = (V,$ \\phi$) consisting of only the\n" +
+                        "vertices of G and no edges; /* This can be viewed as n connected components, each vertex b\n" +
+                        "eing one connected component */\n" +
+                        "Arrange E in the order of increasing costs;\n" +
+                        "for (i = 1, i$ \\leq$n - 1, i + +)\n" +
+                        "{\n" +
+                        "Select the next smallest cost edge;\n" +
+                        "if (the edge connects two different connected components)\n" +
+                        "add the edge to T;\n" +
+                        "}\n" +
+                        "}"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "using namespace std;\n" +
+                        "const int MAXNODES = 10;\n" +
+                        "const int INF = 9999;\n" +
+                        "// Structure to represent an edge\n" +
+                        "struct edge\n" +
+                        "{\n" +
+                        "int u, v, cost;\n" +
+                        "};\n" +
+                        "int fnFindParent(int v, int parent[]);\n" +
+                        "void fnUnion_ij(int i, int j, int parent[]);\n" +
+                        "void fnInputGraph(int m, edge e[]);\n" +
+                        "int fnGetMinEdge(edge e[], int n);\n" +
+                        "void kruskal(int n, edge e[], int m);"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main( int argc, char **argv)\n" +
+                        "{\n" +
+                        "int n = 6, m = 10;\n" +
+                        "edge e[2*MAXNODES] = {{0,1,6},{1,4,3},{4,5,6},{5,3,2},{3,0,5},{0,2,1},{1,2,5},{3,2,5},{4,2,\n" +
+                        "6},{5,2,4}};\n" +
+                        "cout << \"Enter the number of nodes : \";\n" +
+                        "cin >> n;\n" +
+                        "cout << \"Enter the number of edges : \";\n" +
+                        "cin >> m;\n" +
+                        "fnInputGraph(m, e);\n" +
+                        "kruskal(n, e, m);\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int fnFindParent(int v, int parent[])\n" +
+                        "{\n" +
+                        "while (parent[v] != v)\n" +
+                        "v = parent[v];\n" +
+                        "return v;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnUnion_ij(int i, int j, int parent[])\n" +
+                        "{\n" +
+                        "if(i < j)\n" +
+                        "parent[j] = i;\n" +
+                        "else\n" +
+                        "parent[i] = j;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnInputGraph(int m, edge e[])\n" +
+                        "{\n" +
+                        "int i, j, k, cost;\n" +
+                        "for(k=0; k<m; k++)\n" +
+                        "{\n" +
+                        "cout << \"Enter edge and cost in the form u, v, w : \\n\";\n" +
+                        "cin >> i >> j >> cost;\n" +
+                        "e[k].u = i;\n" +
+                        "e[k].v = j;\n" +
+                        "e[k].cost = cost;\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int fnGetMinEdge(edge e[], int n)\n" +
+                        "{\n" +
+                        "int i, small, pos;\n" +
+                        "small = INF;\n" +
+                        "pos = -1;\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "if(e[i].cost < small)\n" +
+                        "{\n" +
+                        "small = e[i].cost;\n" +
+                        "pos = i;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "return pos;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void kruskal(int n, edge e[], int m)\n" +
+                        "{\n" +
+                        "int i, j, count, k, sum, u, v, t[MAXNODES][2], pos;\n" +
+                        "int parent[MAXNODES];\n" +
+                        "count = 0;\n" +
+                        "k = 0;\n" +
+                        "sum = 0;\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "parent[i] = i;\n" +
+                        "}\n" +
+                        "while(count != n-1)\n" +
+                        "{\n" +
+                        "pos = fnGetMinEdge(e,m);\n" +
+                        "if(pos == -1)\n" +
+                        "{\n" +
+                        "break;\n" +
+                        "}\n" +
+                        "u = e[pos].u;\n" +
+                        "v = e[pos].v;\n" +
+                        "i = fnFindParent(u,parent);\n" +
+                        "j = fnFindParent(v,parent);\n" +
+                        "if(i != j)\n" +
+                        "{\n" +
+                        "t[k][0] = u;\n" +
+                        "t[k][1] = v;\n" +
+                        "k++;\n" +
+                        "count++;\n" +
+                        "sum += e[pos].cost;\n" +
+                        "fnUnion_ij(i, j, parent);\n" +
+                        "}\n" +
+                        "e[pos].cost = INF;\n" +
+                        "}\n" +
+                        "if(count == n-1)\n" +
+                        "{\n" +
+                        "cout << \"\\nSpanning tree exists\";\n" +
+                        "cout << \"\\nThe Spanning tree is shown below\\n\";\n" +
+                        "for(i=0; i<n-1; i++)\n" +
+                        "cout << t[i][0] << \" \" << t[i][1] << endl;\n" +
+                        "cout << \"\\nCost of the spanning tree : \" << sum;\n" +
+                        "}\n" +
+                        "else\n" +
+                        "cout << \"\\nThe spanning tree does not exist\";\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of nodes : 6\n" +
+                        "Enter the number of edges : 10\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "0 1 6\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "1 4 3\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "4 5 6\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "5 3 2\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "3 0 5\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "0 2 1\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "1 2 5\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "3 2 5\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "4 2 6\n" +
+                        "Enter edge and cost in the form u, v, w :\n" +
+                        "5 2 4\n" +
+                        "Spanning tree exists\n" +
+                        "The Spanning tree is shown below\n" +
+                        "0 2\n" +
+                        "5 3\n" +
+                        "1 4\n" +
+                        "5 2\n" +
+                        "1 2\n" +
+                        "Cost of the spanning tree : 15"));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -773,6 +986,206 @@ public class JavaProgramInserter {
         algorithm.setAlgorithmsIndex(new AlgorithmsIndex(index - 1,
                 "BFS Method",
                 "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c" ));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Program to find all nodes reachable from a given node using BFS",
+                "In graph theory, breadth-first search (BFS) is a strategy for searching in a graph when search is limited to essentially\n" +
+                        "two operations:\n" +
+                        "** Visit and inspect a node of a graph;\n" +
+                        "** Gain access to visit the nodes that neighbor the currently visited node.\n" +
+                        "The BFS begins at a root node and inspects all the neighboring nodes. Then for each of those neighbor nodes in turn,\n" +
+                        "it inspects their neighbor ##nodes which were unvisited, and so on."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "Input: A graph G and a root v of G 1 procedure BFS(G,v) is 2 create a queue Q 3 create a set V 4 enqueue v onto Q 5\n" +
+                        "add v to V 6 while Q is not empty loop 7 t â† Q.dequeue() 8 if t is what we are looking for then 9 return t 10 end if 11\n" +
+                        "for all edges e in G.adjacentEdges(t) loop 12 u â† G.adjacentVertex(t,e) 13 if u is not in V then 14 add u to V 15\n" +
+                        "enqueue u onto Q 16 end if 17 end loop 18 end loop 19 return none 20 end BFS"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <cstdlib>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 100;\n" +
+                        "void fnBreadthFirstSearchReach(int vertex, int g[MAX][MAX], int v[MAX], int n);\n" +
+                        "class Queue\n" +
+                        "{\n" +
+                        "private:\n" +
+                        "int cQueue[MAX];\n" +
+                        "int front, rear;\n" +
+                        "public:\n" +
+                        "Queue();\n" +
+                        "~Queue();\n" +
+                        "int enqueue(int data);\n" +
+                        "int dequeue();\n" +
+                        "int empty() { return front == -1 ? 1 : 0; };\n" +
+                        "};"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main(void)\n" +
+                        "{\n" +
+                        "int i,j;\n" +
+                        "int graph[MAX][MAX];\n" +
+                        "int visited[MAX];\n" +
+                        "int numVert;\n" +
+                        "int startVert;\n" +
+                        "cout << \"Enter the number of vertices : \";\n" +
+                        "cin >> numVert;\n" +
+                        "cout << \"Enter the adjacency matrix :\\n\";\n" +
+                        "for (i=0; i < numVert; i++)\n" +
+                        "visited[i] = 0;\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        "cin >> graph[i][j];\n" +
+                        "cout << \"Enter the starting vertex : \";\n" +
+                        "cin >> startVert;\n" +
+                        "fnBreadthFirstSearchReach(startVert-1,graph,visited,numVert);\n" +
+                        "cout << \"Vertices which can be reached from vertex \" << startVert << \" are :-\" << endl;\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "if (visited[i])\n" +
+                        "cout << i+1 << \", \";\n" +
+                        "cout << endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "/*Constructor*/\n" +
+                        "Queue::Queue()\n" +
+                        "{\n" +
+                        "front = rear = -1;\n" +
+                        "}\n" +
+                        "/*Destructor*/\n" +
+                        "Queue::~Queue()\n" +
+                        "{\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int Queue::enqueue(int data)\n" +
+                        "{\n" +
+                        "if (front == (rear+1)%MAX)\n" +
+                        "return 0;\n" +
+                        "if (rear == -1)\n" +
+                        "front = rear = 0;\n" +
+                        "else\n" +
+                        "rear = (rear+1)%MAX;\n" +
+                        "cQueue[rear] = data;\n" +
+                        "return 1;\n" +
+                        "}\n\n" +
+                        "int Queue::dequeue()\n" +
+                        "{\n" +
+                        "int data;\n" +
+                        "if (front == -1)\n" +
+                        "return -1;\n" +
+                        "data = cQueue[front];\n" +
+                        "if (front == rear)\n" +
+                        "front = rear = -1;\n" +
+                        "else\n" +
+                        "front = (front+1)%MAX;\n" +
+                        "return data;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnBreadthFirstSearchReach(int vertex, int g[MAX][MAX], int v[MAX], int n)\n" +
+                        "{\n" +
+                        "Queue verticesVisited;\n" +
+                        "int frontVertex;\n" +
+                        "int i;\n" +
+                        "v[vertex] = 1;\n" +
+                        "verticesVisited.enqueue(vertex);\n" +
+                        "while (!verticesVisited.empty())\n" +
+                        "{\n" +
+                        "frontVertex = verticesVisited.dequeue();\n" +
+                        "for (i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "if (g[frontVertex][i] && !v[i])\n" +
+                        "{\n" +
+                        "v[i] = 1;\n" +
+                        "verticesVisited.enqueue(i);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int fnGetMinEdge(edge e[], int n)\n" +
+                        "{\n" +
+                        "int i, small, pos;\n" +
+                        "small = INF;\n" +
+                        "pos = -1;\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "if(e[i].cost < small)\n" +
+                        "{\n" +
+                        "small = e[i].cost;\n" +
+                        "pos = i;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "return pos;\n" +
+                        "}"));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of vertices : 4\n" +
+                        "Enter the adjacency matrix :\n" +
+                        "0 1 1 0\n" +
+                        "1 0 0 1\n" +
+                        "1 0 0 1\n" +
+                        "0 1 1 0\n" +
+                        "Enter the starting vertex : 1\n" +
+                        "Vertices which can be reached from vertex 1 are :-\n" +
+                        "1, 2, 3, 4,\n" +
+                        "SAMPLE 2\n" +
+                        "Enter the number of vertices : 4\n" +
+                        "Enter the adjacency matrix :\n" +
+                        "0 1 0 0\n" +
+                        "1 0 0 0\n" +
+                        "0 0 0 1\n" +
+                        "0 0 1 0\n" +
+                        "Enter the starting vertex : 1\n" +
+                        "Vertices which can be reached from vertex 1 are :-\n" +
+                        "1, 2,\n" +
+                        "SAMPLE 3\n" +
+                        "Enter the number of vertices : 4\n" +
+                        "Enter the adjacency matrix :\n" +
+                        "0 1 0 0\n" +
+                        "0 0 1 0\n" +
+                        "0 0 0 1\n" +
+                        "0 0 0 0\n" +
+                        "Enter the starting vertex : 2\n" +
+                        "Vertices which can be reached from vertex 2 are :-\n" +
+                        "2, 3, 4,\n" +
+                        "SAMPLE 4\n" +
+                        "Enter the number of vertices : 4\n" +
+                        "Enter the adjacency matrix :\n" +
+                        "0 1 0 0\n" +
+                        "0 0 1 0\n" +
+                        "0 0 0 1\n" +
+                        "1 0 0 0\n" +
+                        "Enter the starting vertex : 2\n" +
+                        "Vertices which can be reached from vertex 2 are :-\n" +
+                        "1, 2, 3, 4"));
+
+
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -785,6 +1198,102 @@ public class JavaProgramInserter {
                 "DFS Method",
                 "Check whether a\n" +
                         "given graph is connected or not using DFS method.", "c" ));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Check whether a given graph is connected or\n" +
+                        "not using DFS method.",
+                "Depth-first search is a graph traversal algorithm, which has a very wide application area. This algorithm may be used for finding\n" +
+                        "out number of components of a graph, topological order of its nodes or detection of cycles.Itis an algorithm for traversing or\n" +
+                        "searching a tree, tree structure, or graph. One starts at the root (selecting some node as the root in the graph case) and explores\n" +
+                        "as far as possible along each branch before backtracking."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "DFS(G,v) ( v is the vertex where the search starts )\n" +
+                        "Stack S := {}; ( start with an empty stack )\n" +
+                        "for each vertex u, set visited[u] := false;\n" +
+                        "push S, v;\n" +
+                        "while (S is not empty) do\n" +
+                        "u := pop S;\n" +
+                        "if (not visited[u]) then\n" +
+                        "visited[u] := true;\n" +
+                        "for each unvisited neighbour w of u\n" +
+                        "push S, w;\n" +
+                        "end if\n" +
+                        "end while\n" +
+                        "END DFS()"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <cstdlib>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 100;\n" +
+                        "void DepthFirstSearch(int currentVertex, int v[MAX], int g[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "v[currentVertex] = 1;\n" +
+                        "for (i=0; i<n; i++)\n" +
+                        "if (g[currentVertex][i] && !v[i])\n" +
+                        "DepthFirstSearch(i,v,g,n);\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main()\n" +
+                        "{\n" +
+                        "int i,j,k;\n" +
+                        "int visited[MAX];\n" +
+                        "int graph[MAX][MAX];\n" +
+                        "int numVert;\n" +
+                        "cout << \"Enter the number of vertices : \";\n" +
+                        "cin >> numVert;\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "visited[i] = 0;\n" +
+                        "cout << \"Enter the adjacency matrix :\\n\";\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "for (j=0; j<numVert; j++)\n" +
+                        "cin >> graph[i][j];\n" +
+                        "for (i=0; i<numVert; i++)\n" +
+                        "{\n" +
+                        "for (k=0; k<numVert; k++)\n" +
+                        "visited[k] = 0;\n" +
+                        "DepthFirstSearch(i,visited,graph,numVert);\n" +
+                        "for (k=0; k<numVert; k++)\n" +
+                        "{\n" +
+                        "if (!visited[k])\n" +
+                        "{\n" +
+                        "cout << \"\\nGraph is not connected since there is no path between \" << i << \" and \"\n" +
+                        "<< k << endl;\n" +
+                        "exit(0);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "cout << \"\\nGraph is connected.\"<< endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the number of vertices : 4\n" +
+                        "Enter the adjacency matrix :\n" +
+                        "0 1 0 0\n" +
+                        "0 0 1 0\n" +
+                        "0 0 0 1\n" +
+                        "1 0 0 0\n" +
+                        "Graph is connected."));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -800,6 +1309,150 @@ public class JavaProgramInserter {
                 "Find a subset of a given set S = {sl, s2,.....,sn} of n positive integers whose sum is equal to a given positive integer\n" +
                         "d. For example, if S= {1, 2, 5, 6, 8} and d = 9 there are two solutions{1,2,6}and{1,8}. A suitable message is to be\n" +
                         "displayed if the given problem instance doesn't have a solution.", "c" ));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Program to solve Subset sum problem.",
+                "In computer science, the subset sum problem is an important problem in complexity theory and cryptography. The problem is this:\n" +
+                        "Given a set of integers, is there a non-empty subset whose sum is zero? For example, given the set {-7, -3, -2, 5, 8}, the answer is\n" +
+                        "yes because the subset {-3, -2, 5} sums to zero. The problem is NP-complete. Input: The number of elements. The Weights of\n" +
+                        "each element. Total Required Weight. Output:Subsets in which the sum of elements is equal to the given required weight(input)."));
+
+
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "using namespace std;\n" +
+                        "// Constant definitions\n" +
+                        "const int MAX = 100;\n" +
+                        "// class definitions\n" +
+                        "class SubSet\n" +
+                        "{\n" +
+                        "int stk[MAX], set[MAX];\n" +
+                        "int size, top, count;\n" +
+                        "public:\n" +
+                        "SubSet()\n" +
+                        "{\n" +
+                        "top = -1;\n" +
+                        "count = 0;\n" +
+                        "}\n" +
+                        "void getInfo(void);\n" +
+                        "void push(int data);\n" +
+                        "void pop(void);\n" +
+                        "void display(void);\n" +
+                        "int fnFindSubset(int pos, int sum);\n" +
+                        "};"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void SubSet :: getInfo(void)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "cout << \"Enter the maximum number of elements : \";\n" +
+                        "cin >> size;\n" +
+                        "cout << \"Enter the weights of the elements : \\n\";\n" +
+                        "for (i=1; i<=size; i++)\n" +
+                        "cin >> set[i];\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void SubSet :: push(int data)\n" +
+                        "{\n" +
+                        "stk[++top] = data;\n" +
+                        "}\n" +
+                        "void SubSet :: pop(void)\n" +
+                        "{\n" +
+                        "top--;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void SubSet :: display()\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "cout << \"\\nSOLUTION #\"<< ++count <<\" IS\\n{ \";\n" +
+                        "for (i=0; i<=top; i++)\n" +
+                        "cout << stk[i] << \" \";\n" +
+                        "cout << \"}\" << endl;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int SubSet :: fnFindSubset(int pos, int sum)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "static int foundSoln = 0;\n" +
+                        "if (sum>0)\n" +
+                        "{\n" +
+                        "for (i=pos; i<=size; i++)\n" +
+                        "{\n" +
+                        "push(set[i]);\n" +
+                        "fnFindSubset(i+1, sum - set[i]);\n" +
+                        "pop();\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if (sum == 0)\n" +
+                        "{\n" +
+                        "display();\n" +
+                        "foundSoln = 1;\n" +
+                        "}\n" +
+                        "return foundSoln;\n" +
+                        "}"));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main(void)\n" +
+                        "{\n" +
+                        "int i,sum;\n" +
+                        "SubSet set1;\n" +
+                        "set1.getInfo();\n" +
+                        "cout << \"Enter the total required weight : \";\n" +
+                        "cin >> sum;\n" +
+                        "cout << endl;\n" +
+                        "if (!set1.fnFindSubset(1, sum))\n" +
+                        "cout << \"\\n\\nThe given problem instance doesnt have any solution.\" << endl;\n" +
+                        "else\n" +
+                        "cout << \"\\n\\nThe above-mentioned sets are the required solution to the given instance.\"\n" +
+                        "<< endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "SAMPLE 1\n" +
+                        "Enter the maximum number of elements : 5\n" +
+                        "Enter the weights of the elements :\n" +
+                        "1 2 3 4 5\n" +
+                        "Enter the total required weight : 5\n" +
+                        "SOLUTION #1 IS\n" +
+                        "{ 1 4 }\n" +
+                        "SOLUTION #2 IS\n" +
+                        "{ 2 3 }\n" +
+                        "SOLUTION #3 IS\n" +
+                        "{ 5 }\n" +
+                        "The above-mentioned sets are the required solution to the given instance.\n" +
+                        "SAMPLE 2\n" +
+                        "Enter the maximum number of elements : 4\n" +
+                        "Enter the weights of the elements :\n" +
+                        "1 2 3 4\n" +
+                        "Enter the total required weight : 11\n" +
+                        "The given problem instance doesnt have any solution."));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -813,6 +1466,228 @@ public class JavaProgramInserter {
                 "Traveling sales person problem",
                 "Implement any scheme to find the optimal solution for the Traveling Salesperson problem and then solve the same\n" +
                         "problem instance using any approximation algorithm and determine the error in the approximation.", "c" ));
+
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "Implement any scheme to find the optimal solution for the TRAVELLING SALESMAN PROBLEM and then solve the\n" +
+                        "same problem instance using any approximation algorithm and determine the error in the approximation.",
+                "The travelling salesman problem (TSP) asks the following question: Given a list of cities and the distances between each pair of\n" +
+                        "cities, what is the shortest possible route that visits each city exactly once and returns to the origin city? It is an NP-hard problem\n" +
+                        "in combinatorial optimization, important in operations research and theoretical computer science.\n" +
+                        "The TSP has several applications even in its purest formulation, such as planning, logistics, and the manufacture of microchips.\n" +
+                        "Slightly modified, it appears as a sub-problem in many areas, such as DNA sequencing. In these applications, the concept city\n" +
+                        "represents, for example, customers, soldering points, or DNA fragments, and the concept distance represents travelling times or\n" +
+                        "cost, or a similarity measure between DNA fragments. In many applications, additional constraints such as limited resources or\n" +
+                        "time windows make the problem considerably harder. TSP is a special case of the travelling purchaser problem.\n" +
+                        "In the theory of computational complexity, the decision version of the TSP (where, given a length L, the task is to decide whether\n" +
+                        "the graph has any tour shorter than L) belongs to the class of NP-complete problems. Thus, it is possible that the worst-case\n" +
+                        "running time for any algorithm for the TSP increases superpolynomially (or perhaps exponentially) with the number of cities."));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <iomanip>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 10;\n" +
+                        "int path[MAX];\n" +
+                        "static int k=0;\n" +
+                        "int count = 0;\n" +
+                        "int perm[120][7];\n" +
+                        "int tourcost[120];\n" +
+                        "void swap (int *x, int *y)\n" +
+                        "{\n" +
+                        "int temp;\n" +
+                        "temp = *x;\n" +
+                        "*x = *y;\n" +
+                        "*y = temp;\n" +
+                        "}\n" +
+                        "void DepthFirstSearch(int currentVertex, int v[MAX], int g[MAX][MAX], int n)\n" +
+                        "{\n" +
+                        "int i;\n" +
+                        "v[currentVertex]=1;\n" +
+                        "path[k++]=currentVertex;\n" +
+                        "for (i=0; i<n; i++)\n" +
+                        "if (g[currentVertex][i] && !v[i])\n" +
+                        "DepthFirstSearch(i,v,g,n);\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void permute(int *a, int i, int n)\n" +
+                        "{\n" +
+                        "int j,k;\n" +
+                        "if (i == n)\n" +
+                        "{\n" +
+                        "for(k=0;k<=n;k++)\n" +
+                        "{\n" +
+                        "//start from 2nd column\n" +
+                        "perm[count][k+1] = a[k];\n" +
+                        "}\n" +
+                        "count++;\n" +
+                        "}\n" +
+                        "else\n" +
+                        "{\n" +
+                        "for (j = i; j <= n; j++)\n" +
+                        "{\n" +
+                        "swap((a+i), (a+j));\n" +
+                        "permute(a, i+1, n);\n" +
+                        "swap((a+i), (a+j)); //backtrack\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int AppTSP(int n, int cost[MAX][MAX])\n" +
+                        "{\n" +
+                        "int i, j, u, v, min,Excost=0;\n" +
+                        "int sum, k, t[MAX][2], p[MAX], d[MAX], s[MAX],tree[MAX][MAX];\n" +
+                        "int source, count;\n" +
+                        "int visited[MAX];\n" +
+                        "for (i=0; i<n; i++)\n" +
+                        "visited[i] = 0;\n" +
+                        "min = 9999;\n" +
+                        "source = 0;\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "if(cost[i][j] != 0 && cost[i][j] <= min)\n" +
+                        "{\n" +
+                        "min = cost[i][j];\n" +
+                        "source = i;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "d[i] = cost[source][i];\n" +
+                        "s[i] = 0;\n" +
+                        "p[i] = source;\n" +
+                        "}\n" +
+                        "s[source] = 1;\n" +
+                        "sum = 0;\n" +
+                        "k = 0;\n" +
+                        "count = 0;\n" +
+                        "while (count != n-1)\n" +
+                        "{\n" +
+                        "min = 9999;\n" +
+                        "u = -1;\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "if(s[j] == 0)\n" +
+                        "{\n" +
+                        "if(d[j] <= min)\n" +
+                        "{\n" +
+                        "min = d[j];\n" +
+                        "u = j;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "t[k][0] = u;\n" +
+                        "t[k][1] = p[u];\n" +
+                        "k++;\n" +
+                        "count++;\n" +
+                        "sum += cost[u][p[u]];\n" +
+                        "s[u] = 1;\n" +
+                        "for(v=0; v<n; v++)\n" +
+                        "{\n" +
+                        "if(s[v]==0 && cost[u][v]<d[v])\n" +
+                        "{\n" +
+                        "d[v] = cost[u][v];\n" +
+                        "p[v] = u;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}\n" +
+                        "for(i=0; i<n; i++)\n" +
+                        "{\n" +
+                        "for(j=0; j<n; j++)\n" +
+                        "{\n" +
+                        "tree[i][j]=0;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "if(sum >= 9999)\n" +
+                        "cout << \"\\nSpanning tree does not exist\";\n" +
+                        "else\n" +
+                        "{\n" +
+                        "for(i=0; i<k; i++)\n" +
+                        "{\n" +
+                        "tree[t[i][0]][t[i][1]] = tree[t[i][1]][t[i][0]] =1;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "DepthFirstSearch(0,visited,tree,n);\n" +
+                        "cout << \"\\n The Approximate Minimum Cost tour is\" << endl;\n" +
+                        "for(i=0;i<=k;i++)\n" +
+                        "{\n" +
+                        "cout << path[i] << \"->\";\n" +
+                        "Excost += cost[path[i]][path[i+1]];\n" +
+                        "}\n" +
+                        "cout << path[0];\n" +
+                        "Excost += cost[path[i]][path[0]];\n" +
+                        "cout << \"\\n The Approximate Minimum Cost of the tour is\" << Excost << endl;\n" +
+                        "return Excost;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "int main(void)\n" +
+                        "{\n" +
+                        "int a[MAX][MAX] = { { 0, 4, 8, 9, 12},\n" +
+                        "{ 4, 0, 6, 8, 9},\n" +
+                        "{ 8, 6, 0, 10, 11},\n" +
+                        "{ 9, 8, 10, 0, 7},\n" +
+                        "{12, 9, 11, 7, 0}};\n" +
+                        "int NumOfCity = 5;\n" +
+                        "int interCities = 4,i,j;\n" +
+                        "int mct=999,mctIndex,Appmct;\n" +
+                        "//Source and destination is 0 remaining are intermediary cities\n" +
+                        "int city[4] = {1,2,3,4};\n" +
+                        "permute(city, 0, interCities-1);\n" +
+                        "for(i=0;i<24;i++)\n" +
+                        "{\n" +
+                        "for(j=0;j<5;j++)\n" +
+                        "{\n" +
+                        "tourcost[i]+= a[perm[i][j]][perm[i][j+1]];\n" +
+                        "}\n" +
+                        "if( mct > tourcost[i])\n" +
+                        "{\n" +
+                        "mct = tourcost[i];\n" +
+                        "mctIndex = i;\n" +
+                        "}\n" +
+                        "}\n" +
+                        "cout << \"\\n The Exact Minimum Cost tour is\" << endl;\n" +
+                        "for(i=0;i<NumOfCity;i++)\n" +
+                        "cout << perm[mctIndex][i] << \"->\";\n" +
+                        "cout << perm[mctIndex][i];\n" +
+                        "cout << \"\\n The Exact Minimum Cost of the tour is\" << mct << endl;\n" +
+                        "Appmct = AppTSP(NumOfCity,a);\n" +
+                        "cout << \"\\n The error in Approximation is \" << Appmct - mct << \" units\" << endl;\n" +
+                        "cout << \"\\n The Accuracy ratio is \" << (float)Appmct / mct << endl;\n" +
+                        "cout << \"\\n The Approximate tour is \"<<(((float)Appmct / mct) - 1)*100<< \" percent longer t\n" +
+                        "han the optimal tour\" << endl;\n" +
+                        "return 0;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "The Exact Minimum Cost tour is\n" +
+                        "0->1->2->4->3->0\n" +
+                        "The Exact Minimum Cost of the tour is37\n" +
+                        "The Approximate Minimum Cost tour is\n" +
+                        "0->1->2->3->4->0\n" +
+                        "The Approximate Minimum Cost of the tour is39\n" +
+                        "The error in Approximation is 2 units\n" +
+                        "The Accuracy ratio is 1.05405\n" +
+                        "The Approximate tour is 5.40541 percent longer than the optimal tour"));
+
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
         firebaseDatabaseHandler.writeAlgorithmIndex(
