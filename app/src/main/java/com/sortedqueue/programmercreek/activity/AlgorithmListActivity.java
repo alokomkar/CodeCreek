@@ -26,6 +26,7 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.fragments.AlgorithmFragment;
 import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
@@ -51,6 +52,8 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
     @Bind(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
+
+    private AlgorithmFragment algorithmFragment;
 
     @Override
     protected void onResume() {
@@ -133,7 +136,8 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
         getSupportActionBar().setTitle(algorithm.getProgramTitle());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        mFragmentTransaction.replace(R.id.container, AlgorithmIndexFragment.getInstance(), AlgorithmIndexFragment.class.getSimpleName());
+        algorithmFragment = AlgorithmFragment.newInstance(algorithm);
+        mFragmentTransaction.replace(R.id.container, algorithmFragment, AlgorithmFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 }

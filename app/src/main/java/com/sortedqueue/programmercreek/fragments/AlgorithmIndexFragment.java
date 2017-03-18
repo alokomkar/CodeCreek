@@ -93,4 +93,6 @@ public class AlgorithmIndexFragment extends Fragment implements FirebaseDatabase
     public void onItemClick(int position) {
         algorithmNavigationListener.loadAlgorithmFragment(algorithmsRecyclerAdapter.getItemAtPosition( position ));
     }
+
+
 }

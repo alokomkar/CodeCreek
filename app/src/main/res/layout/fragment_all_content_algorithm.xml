@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleTextView"
+            tools:text="@string/about"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/md_black_1000"
+            android:padding="@dimen/margin_16"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contentTextView"
+            tools:text="@string/c_description"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/md_blue_900"
+            android:padding="@dimen/margin_16"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/algorithmsTextView"
+            tools:text="@string/c_description"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/md_blue_900"
+            android:padding="@dimen/margin_16"/>
+
+        <io.github.kbiakov.codeview.CodeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:visibility="gone"
+            android:id="@+id/algorithmCodeView">
+        </io.github.kbiakov.codeview.CodeView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/outputTextView"
+            android:background="@color/md_black_1000"
+            tools:text="@string/c_description"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/bg"
+            android:padding="@dimen/margin_16"/>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+
