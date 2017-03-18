@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/adaScrollView"
+
         >
         <LinearLayout
             android:orientation="vertical"
@@ -766,7 +767,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/testLayout"
-
+                android:layout_marginBottom="@dimen/margin_16"
                 >
 
                 <android.support.v7.widget.CardView
@@ -829,6 +830,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/interviewLayout"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/margin_16"
                 >
 

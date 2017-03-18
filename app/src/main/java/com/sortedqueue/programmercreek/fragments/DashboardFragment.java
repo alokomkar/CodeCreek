@@ -176,7 +176,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             quizLayout.setAlpha(0.0f);
             matchLayout.setAlpha(0.0f);
             testLayout.setAlpha(0.0f);
-            interviewLayout.setAlpha(0.0f);
+            //interviewLayout.setAlpha(0.0f);
             int delay = 0;
             int standardDelay = 270;
             initAnimations(introLayout, delay);
@@ -194,8 +194,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             initAnimations(matchLayout, delay);
             delay = delay + standardDelay;
             initAnimations(testLayout, delay);
-            delay = delay + standardDelay;
-            initAnimations(interviewLayout, delay);
+            //delay = delay + standardDelay;
+            //initAnimations(interviewLayout, delay);
         }
 
 
@@ -273,8 +273,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.adaIntroLayout:
-                intent = new Intent(getContext(), IntroActivity.class);
-                startActivity(intent);
+                CommonUtils.displaySnackBar(getActivity(), R.string.coming_soon);
                 break;
 
             case R.id.algorithmsLayout:
