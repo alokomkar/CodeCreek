@@ -177,13 +177,14 @@ public class FirebaseDatabaseHandler {
 
     private DatabaseReference mAlgorithmIndexReference;
     public void writeAlgorithmIndex(AlgorithmsIndex algorithmsIndex) {
-        mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX);
-        mAlgorithmIndexReference.push().setValue(algorithmsIndex);
+       /* mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX);
+        mAlgorithmIndexReference.push().setValue(algorithmsIndex);*/
 
     }
 
     private DatabaseReference mAlgorithmReference;
     public void writeAlgorithm(Algorithm algorithm) {
+
         mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM);
         mAlgorithmReference.child( ALGORITHM + "_" + algorithm.getAlgorithmsIndex().getProgramIndex()).setValue(algorithm);
     }

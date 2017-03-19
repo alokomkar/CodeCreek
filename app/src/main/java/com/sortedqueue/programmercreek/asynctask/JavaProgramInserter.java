@@ -558,7 +558,7 @@ public class JavaProgramInserter {
                         "1 1 1 1\n" +
                         "1 1 1 1\n" +
                         "1 1 1 1\n" +
-                        "fsmk"));
+                        ""));
 
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);
         firebaseDatabaseHandler.writeAlgorithm( algorithm );
@@ -572,6 +572,176 @@ public class JavaProgramInserter {
                 "0/1 Knapsack problem",
                 "Implement 0/1 Knapsack problem using Dynamic Programming.", "c"  ));
 
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+                "Aim and Description",
+                "To solve 0/1 Knapsack problem using Dynamic Programming.",
+                "The Knapsack problem is probably one of the most interesting and most popular in computer science, especially when we talk\n" +
+                        "about dynamic programming.The knapsack problem is a problem in combinatorial optimization. Given a set of items, each with a\n" +
+                        "weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a\n" +
+                        "given limit and the total value is as large as possible. It derives its name from the problem faced by someone who is constrained\n" +
+                        "by a fixed-size knapsack and must fill it with the most valuable items."));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_ALGORITHM,
+                "Algorithm",
+                "Input:\n" +
+                        "a set of items with weights and values\n" +
+                        "output:\n" +
+                        "the greatest combined value of a subset\n" +
+                        "partition the set {1...n} into two sets A and B of approximately equal size\n" +
+                        "compute the weights and values of all subsets of each set\n" +
+                        "for each subset of A\n" +
+                        "find the subset of B of greatest value such that the combined weight is less than W\n" +
+                        "keep track of the greatest combined value seen so far\n" +
+                        "PseudoCode Explained : \n" +
+                        "Input:\n" +
+                        "Values (stored in array v or profit)\n" +
+                        "Weights (stored in array w or weight)\n" +
+                        "Number of distinct items (n)\n" +
+                        "Knapsack capacity (W)\n" +
+                        "for j from 0 to W do\n" +
+                        "m[0, j] = 0\n" +
+                        "end for\n" +
+                        "for i from 1 to n do\n" +
+                        "for j from 0 to W do\n" +
+                        "if w[i] <= j then\n" +
+                        "m[i, j] = max(m[i-1, j], m[i-1, j-w[i]] + v[i])\n" +
+                        "else\n" +
+                        "m[i, j] = m[i-1, j]\n" +
+                        "end if\n" +
+                        "end for\n" +
+                        "end for"));
+
+        codeIndex = 1;
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - " + codeIndex++,
+                "#include <iostream>\n" +
+                        "#include <cstdlib>\n" +
+                        "using namespace std;\n" +
+                        "const int MAX = 10;\n" +
+                        "inline int max(int a, int b);\n" +
+                        "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX]);\n" +
+                        "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX]);\n" +
+                        "int main(void)\n" +
+                        "{\n" +
+                        "int i, j, totalProfit;\n" +
+                        "int weight[MAX];\n" +
+                        "int profit[MAX];\n" +
+                        "int capacity;\n" +
+                        "int num;\n" +
+                        "int loaded[MAX];\n" +
+                        "int table[MAX][MAX];\n" +
+                        "cout<<\"Enter the maxium number of objects : \";\n" +
+                        "cin >> num;\n" +
+                        "cout << \"Enter the weights : \\n\";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "cout << \"\\nWeight \" << i << \": \";\n" +
+                        "cin >> weight[i];\n" +
+                        "}\n" +
+                        "cout << \"\\nEnter the profits : \\n\";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "cout << \"\\nProfit \" << i << \": \";\n" +
+                        "cin >> profit[i];\n" +
+                        "}\n" +
+                        "cout << \"\\nEnter the maximum capacity : \";\n" +
+                        "cin >> capacity;\n" +
+                        "totalProfit = 0;\n" +
+                        "for( i=1; i<=num; i++)\n" +
+                        "loaded[i] = 0;\n" +
+                        "fnProfitTable(weight,profit,num,capacity,table);\n" +
+                        "fnSelectItems(num,capacity,table,weight,loaded);\n" +
+                        "cout << \"Profit Matrix\\n\";\n" +
+                        "for (i=0; i<=num; i++)\n" +
+                        "{\n" +
+                        "for(j=0; j<=capacity; j++)\n" +
+                        "{\n" +
+                        "cout <<\"\\t\"<<table[i][j];\n" +
+                        "}\n" +
+                        "cout << endl;\n" +
+                        "}\n" +
+                        "cout << \"\\nItem numbers which are loaded : \\n{ \";\n" +
+                        "for (i=1; i<=num; i++)\n" +
+                        "{\n" +
+                        "if (loaded[i])\n" +
+                        "{\n" +
+                        "cout <<i << \" \";\n" +
+                        "totalProfit += profit[i];\n" +
+                        "}\n" +
+                        "}\n" +
+                        "cout << \"}\" << endl;\n" +
+                        "cout << \"\\nTotal Profit : \" << totalProfit << endl;\n" +
+                        "return 0;\n" +
+                        "}\n" +
+                        "inline int max(int a, int b)\n" +
+                        "{\n" +
+                        "return a>b ? a : b;\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX])\n" +
+                        "{\n" +
+                        "int i,j;\n" +
+                        "for (j=0; j<=c; j++)\n" +
+                        "t[0][j] = 0;\n" +
+                        "for (i=0; i<=n; i++)\n" +
+                        "t[i][0] = 0;\n" +
+                        "for (i=1; i<=n; i++)\n" +
+                        "{\n" +
+                        "for (j=1; j<=c; j++)\n" +
+                        "{\n" +
+                        "if (j-w[i] < 0)\n" +
+                        "t[i][j] = t[i-1][j];\n" +
+                        "else\n" +
+                        "t[i][j] = max( t[i-1][j], p[i] + t[i-1][j-w[i]]);\n" +
+                        "}\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_CODE,
+                "Code Part - "+ codeIndex++,
+                "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX])\n" +
+                        "{\n" +
+                        "int i,j;\n" +
+                        "i = n;\n" +
+                        "j = c;\n" +
+                        "while (i >= 1 && j >= 1)\n" +
+                        "{\n" +
+                        "if (t[i][j] != t[i-1][j])\n" +
+                        "{\n" +
+                        "l[i] = 1;\n" +
+                        "j = j - w[i];\n" +
+                        "i--;\n" +
+                        "}\n" +
+                        "else\n" +
+                        "i--;\n" +
+                        "}\n" +
+                        "}"));
+
+        algorithmContentArrayList.add(new AlgorithmContent(
+                AlgorithmConstants.CONTENT_OUTPUT,
+                "Output",
+                "Enter the maxium number of objects : 4 Enter the weights :\n" +
+                        "Weight 1: 2\n" +
+                        "Weight 2: 1\n" +
+                        "Weight 3: 3\n" +
+                        "Weight 4: 2\n" +
+                        "Enter the profits :\n" +
+                        "Profit 1: 12\n" +
+                        "Profit 2: 10\n" +
+                        "Profit 3: 20\n" +
+                        "Profit 4: 15\n" +
+                        "Enter the maximum capacity : 5 Profit Matrix 0 0 0 0 0 0 0 0 12 12 12 12 0 10 12 22 22 22 0 10 12 22 30 32 0 10 15\n" +
+                        "25 30 37\n" +
+                        "Item numbers which are loaded : { 1 2 4 }\n" +
+                        "Total Profit : 37\n" +
+                        ""));
 
 
         algorithm.setAlgorithmContentArrayList(algorithmContentArrayList);

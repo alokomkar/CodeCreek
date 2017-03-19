@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class AllAlgorithmContentFragment extends Fragment {
     CodeView algorithmCodeView;
     @Bind(R.id.outputTextView)
     TextView outputTextView;
+    @Bind(R.id.algorithmNestedScrollview)
+    NestedScrollView algorithmNestedScrollview;
     private AlgorithmContent algorithmContent;
     private String programLanguage;
 
@@ -52,26 +55,30 @@ public class AllAlgorithmContentFragment extends Fragment {
         algorithmsTextView.setVisibility(View.GONE);
         algorithmCodeView.setVisibility(View.GONE);
         outputTextView.setVisibility(View.GONE);
+        algorithmNestedScrollview.setVisibility(View.GONE);
 
-        switch ( algorithmContent.getContentType() ) {
-            case AlgorithmConstants.CONTENT_AIM_DESCRIPTION :
+        switch (algorithmContent.getContentType()) {
+            case AlgorithmConstants.CONTENT_AIM_DESCRIPTION:
+                algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 titleTextView.setVisibility(View.VISIBLE);
                 contentTextView.setVisibility(View.VISIBLE);
                 titleTextView.setText(algorithmContent.getAim());
                 contentTextView.setText(algorithmContent.getProgramDescription());
                 break;
             case AlgorithmConstants.CONTENT_ALGORITHM:
+                algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 algorithmsTextView.setVisibility(View.VISIBLE);
                 algorithmsTextView.setText(algorithmContent.getAlgorithmPseudoCode());
                 break;
             case AlgorithmConstants.CONTENT_CODE:
                 algorithmCodeView.setVisibility(View.VISIBLE);
                 algorithmCodeView.setOptions(Options.Default.get(getContext())
-                    .withLanguage(programLanguage)
-                    .withCode(algorithmContent.getProgramCode())
-                    .withTheme(ColorTheme.SOLARIZED_LIGHT));
+                        .withLanguage(programLanguage)
+                        .withCode(algorithmContent.getProgramCode())
+                        .withTheme(ColorTheme.SOLARIZED_LIGHT));
                 break;
             case AlgorithmConstants.CONTENT_OUTPUT:
+                algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 outputTextView.setVisibility(View.VISIBLE);
                 outputTextView.setText(algorithmContent.getOutput());
                 break;
