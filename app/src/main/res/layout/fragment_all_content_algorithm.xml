@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+
     <io.github.kbiakov.codeview.CodeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:visibility="gone"
         android:id="@+id/algorithmCodeView">
     </io.github.kbiakov.codeview.CodeView>
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/algorithmNestedScrollview"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
@@ -30,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleTextView"
+                android:background="@color/md_grey_300"
                 tools:text="@string/about"
                 android:textSize="@dimen/text_dashboard_small"
                 android:textColor="@color/md_black_1000"
