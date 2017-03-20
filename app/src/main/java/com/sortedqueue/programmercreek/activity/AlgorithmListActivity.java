@@ -4,36 +4,20 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
-import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
-import com.sortedqueue.programmercreek.database.Algorithm;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment;
 import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
-import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
-import com.sortedqueue.programmercreek.util.AnimationUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,7 +61,7 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         checkFAB.setVisibility(View.GONE);
-        loadAlgoritmsListFragment();
+        loadAlgorithmFragment((AlgorithmsIndex) getIntent().getParcelableExtra(ProgrammingBuddyConstants.KEY_PROG_ID));
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
 
@@ -98,13 +82,14 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
 
     @Override
     public void onBackPressed() {
-        String title = getSupportActionBar().getTitle().toString();
+        /*String title = getSupportActionBar().getTitle().toString();
         if( title.equals("Algorithms") ) {
             finish();
         }
         else {
             loadAlgoritmsListFragment();
-        }
+        }*/
+        finish();
     }
 
     @Override

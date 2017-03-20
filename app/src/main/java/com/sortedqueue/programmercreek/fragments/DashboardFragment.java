@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,10 @@ import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
+import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -39,7 +44,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 02/01/17.
  */
 
-public class DashboardFragment extends Fragment implements View.OnClickListener {
+public class DashboardFragment extends Fragment implements View.OnClickListener, FirebaseDatabaseHandler.GetAllAlgorithmsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     private static DashboardFragment instance;
 
@@ -87,18 +92,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     CardView searchCardView;
     @Bind(R.id.dashboardScrollView)
     NestedScrollView dashboardScrollView;
-    @Bind(R.id.adaIntroTextView)
-    TextView adaIntroTextView;
-    @Bind(R.id.adaIntroLayout)
-    FrameLayout adaIntroLayout;
-    @Bind(R.id.algorithmsLayout)
-    FrameLayout algorithmsLayout;
     @Bind(R.id.adaScrollView)
     NestedScrollView adaScrollView;
     @Bind(R.id.interviewTextView)
     TextView interviewTextView;
+    @Bind(R.id.adaRecyclerView)
+    RecyclerView adaRecyclerView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
+    private AlgorithmsRecyclerAdapter algorithmsRecyclerAdapter;
 
     public static DashboardFragment getInstance() {
         if (instance == null) {
@@ -143,6 +145,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
             dashboardScrollView.setVisibility(View.GONE);
             adaScrollView.setVisibility(View.VISIBLE);
+            new FirebaseDatabaseHandler(getContext()).getAllAlgorithmIndex( this );
         } else {
             dashboardScrollView.setVisibility(View.VISIBLE);
             adaScrollView.setVisibility(View.GONE);
@@ -218,9 +221,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         searchCardView.setOnClickListener(this);
-        adaIntroLayout.setOnClickListener(this);
-        algorithmsLayout.setOnClickListener(this);
-
     }
 
     @Override
@@ -270,15 +270,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             case R.id.introLayout:
                 Intent introIntent = new Intent(getContext(), IntroActivity.class);
                 startActivity(introIntent);
-                break;
-
-            case R.id.adaIntroLayout:
-                CommonUtils.displaySnackBar(getActivity(), R.string.coming_soon);
-                break;
-
-            case R.id.algorithmsLayout:
-                intent = new Intent(getContext(), AlgorithmListActivity.class);
-                startActivity(intent);
                 break;
 
             //TODO : To be removed later
@@ -351,5 +342,25 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     R.anim.animation_enter);*/
         }
 
+    }
+
+    @Override
+    public void onSuccess(ArrayList<AlgorithmsIndex> algorithmsIndexArrayList) {
+        adaRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
+        algorithmsRecyclerAdapter = new AlgorithmsRecyclerAdapter( getContext(), this, algorithmsIndexArrayList );
+        adaRecyclerView.setAdapter( algorithmsRecyclerAdapter );
+        CommonUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void onError(DatabaseError databaseError) {
+        CommonUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getContext(), AlgorithmListActivity.class);
+        intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, algorithmsRecyclerAdapter.getItemAtPosition(position));
+        startActivity(intent);
     }
 }

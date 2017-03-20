@@ -194,7 +194,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
     public void getAllAlgorithmIndex(final GetAllAlgorithmsListener getAllAlgorithmsListener ) {
-        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+        //CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
         mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX);
         mAlgorithmIndexReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
