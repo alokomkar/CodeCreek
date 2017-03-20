@@ -42,7 +42,9 @@ public class TopLearnersRecyclerAdapter extends RecyclerView.Adapter<TopLearners
 
         UserRanking userRanking = userRankings.get(position);
         holder.levelTextView.setText("Level " + (int)(userRanking.getReputation() / 100) );
-        holder.userNameTextView.setText(userRanking.getUserFullName());
+        if( userRanking.getUserFullName() != null && !userRanking.getUserFullName().trim().equals(""))
+            holder.userNameTextView.setText(userRanking.getUserFullName());
+        else holder.userNameTextView.setText("Anonymous");
         Glide.with(context).load(userRanking.getUserPhotoUrl()).asBitmap().centerCrop().into(holder.movieGridItemImageView);
 
     }
