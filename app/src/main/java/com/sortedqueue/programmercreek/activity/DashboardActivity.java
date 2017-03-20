@@ -34,6 +34,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
@@ -135,17 +136,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
 
 
-    /*private void initProgramLanguages() {
+    private void initProgramLanguages() {
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         ProgramLanguage programLanguage = new ProgramLanguage();
-        programLanguage.setLanguageId("SQL");
-        programLanguage.setIsProgramsOnly("false");
-        programLanguage.setProgramLanguage("JDBC - SQL Programming");
-        programLanguage.setDescription("Any project requires you to understand how to store " +
-                "data in database. In this unit are going to teach " +
-                "SQL Database programming and use of JDBC API of Java to connect SQL database with your project");
+        programLanguage.setDescription("Analysis and design of algorithms - An alogorithm is a self contained " +
+                "sequence of actions to be performed. Algorithms can perform calculations, data processing and automated" +
+                " reasoning tasks.");
+        programLanguage.setProgramLanguage("Analysis and Design of Algorithms");
+        programLanguage.setIsProgramsOnly("true");
+        programLanguage.setLanguageId("ADA");
         firebaseDatabaseHandler.writeProgramLanguage(programLanguage);
-    }*/
+    }
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
