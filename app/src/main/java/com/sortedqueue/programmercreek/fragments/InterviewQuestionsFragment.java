@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -57,6 +58,7 @@ public class InterviewQuestionsFragment extends Fragment {
     @Bind(R.id.progressTextView)
     TextView progressTextView;
 
+    private ArrayList<InterviewQuestionModel> interviewQuestionModels;
     private InterviewQuestionModel interviewQuestionModel;
     private InterviewQuestionsAdapter interviewQuestionsAdapter;
     private CountDownTimer mCountDownTimer;
@@ -67,13 +69,20 @@ public class InterviewQuestionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_interview_questions, container, false);
         ButterKnife.bind(this, view);
 
-        setupRearrangeModel();
+        interviewQuestionModels = new ArrayList<>();
+        getAllInterviewModels( programLanguage );
 
-        setupViews();
-        setupRecyclerView();
-        hideShowLifeLine();
-        startTimer();
         return view;
+    }
+
+    private int index = 0;
+    private void getAllInterviewModels(String programLanguage) {
+        setupMultiRightModel();
+        setupRearrangeModel();
+        setupSingleRightModel();
+        setupTrueFalseModel();
+        navigateToNext();
+
     }
 
     private void startTimer() {
@@ -116,6 +125,7 @@ public class InterviewQuestionsFragment extends Fragment {
         interviewQuestionModel.setCorrectOptions(correctOptions);
         interviewQuestionModel.setModelId("Model_1");
         interviewQuestionModel.setProgramLanguage("c");
+        interviewQuestionModels.add(interviewQuestionModel);
     }
 
     private void setupRearrangeModel() {
@@ -138,6 +148,7 @@ public class InterviewQuestionsFragment extends Fragment {
         interviewQuestionModel.setCorrectOption(1);
         interviewQuestionModel.setModelId("Model_1");
         interviewQuestionModel.setProgramLanguage("c");
+        interviewQuestionModels.add(interviewQuestionModel);
     }
 
     private void setupSingleRightModel() {
@@ -153,6 +164,7 @@ public class InterviewQuestionsFragment extends Fragment {
         interviewQuestionModel.setCorrectOption(1);
         interviewQuestionModel.setModelId("Model_1");
         interviewQuestionModel.setProgramLanguage("c");
+        interviewQuestionModels.add(interviewQuestionModel);
     }
 
     private void setupTrueFalseModel() {
@@ -167,6 +179,7 @@ public class InterviewQuestionsFragment extends Fragment {
         interviewQuestionModel.setCorrectOption(1);
         interviewQuestionModel.setModelId("Model_1");
         interviewQuestionModel.setProgramLanguage("c");
+        interviewQuestionModels.add(interviewQuestionModel);
     }
 
     private void hideShowLifeLine() {
@@ -201,6 +214,22 @@ public class InterviewQuestionsFragment extends Fragment {
     public void checkAnswer() {
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                navigateToNext();
+            }
+        }, 2500);
+    }
+
+    private void navigateToNext() {
+        if( index < interviewQuestionModels.size() ) {
+            interviewQuestionModel = interviewQuestionModels.get(index++);
+            setupViews();
+            setupRecyclerView();
+            hideShowLifeLine();
+        }
+        startTimer();
     }
 
     private void cancelTimer() {

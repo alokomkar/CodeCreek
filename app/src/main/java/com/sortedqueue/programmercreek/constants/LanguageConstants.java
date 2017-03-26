@@ -6,7 +6,7 @@ package com.sortedqueue.programmercreek.constants;
 
 public interface LanguageConstants {
 
-    String C_INDEX = "11";
+    String C_INDEX = "1";
     String CPP_INDEX = "41";
     String JAVA_INDEX = "10";
     String SQL_INDEX = "40";

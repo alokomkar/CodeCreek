@@ -3,22 +3,48 @@ package com.sortedqueue.programmercreek.network;
 /*import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;*/
 
+import android.support.annotation.NonNull;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * Created by Alok on 13/03/17.
  */
 
 public class RetrofitCreator {
 
-    /*//http://square.github.io/retrofit/
+    //http://square.github.io/retrofit/
 
-    private static final String BASE_URL = "http://fa839326.compilers.sphere-engine.com/api/v3";
+    private static final String BASE_URL = "http://fa839326.compilers.sphere-engine.com/";
     private static final String TOKEN_COMPILER_API = "faed39ebdab374918efffba2d99bfd86";
     private static final String TOKEN_PROBLEM_API = "e561399f6fc1fd3d18525d8056bc209afe5a66b1";
 
+    @NonNull
+    private static HttpLoggingInterceptor getHttpLoggingInterceptor() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        return logging;
+    }
+
     public static <T> T createService(Class<T> service) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        HttpLoggingInterceptor logging = getHttpLoggingInterceptor();
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(logging).build();
+        // add your other interceptors …
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(service);
 
@@ -30,7 +56,7 @@ public class RetrofitCreator {
 
     public static String getTokenProblemApi() {
         return TOKEN_PROBLEM_API;
-    }*/
+    }
 
     //http://fa839326.compilers.sphere-engine.com/api/v3/languages?access_token=TOKEN_COMPILER_API
     //Get all languages

@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,18 +34,30 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
+import com.sortedqueue.programmercreek.constants.LanguageConstants;
+import com.sortedqueue.programmercreek.database.firebase.Code;
+import com.sortedqueue.programmercreek.database.firebase.CodeOutputResponse;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.firebase.IdResponse;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
+import com.sortedqueue.programmercreek.network.RetrofitCreator;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener {
@@ -62,6 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private CreekPreferences creekPreferences;
     private GoogleApiClient mGoogleApiClient;
     private int REQUEST_INVITE = 9999;
+    private SubmitCodeService submitCodeService;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -127,7 +141,57 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initJavaIndex();
         //initProgramLanguages();
         //calculateUserRankings();
+        executeProgram();
 
+    }
+
+    private void executeProgram() {
+        submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
+        Code code = new Code();
+        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
+        code.setSourceCode("#include <stdio.h>\n" +
+                "int main() {\n" +
+                "\tprintf(\"Hello again!\");\n" +
+                "\treturn 0;\n" +
+                "}\n");
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("language", code.getLanguage() );
+            jsonObject.put("sourceCode", code.getSourceCode());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Call<IdResponse> idResponseCall = submitCodeService.postCode(jsonObject, RetrofitCreator.getTokenCompilerApi());
+        idResponseCall.enqueue(new Callback<IdResponse>() {
+            @Override
+            public void onResponse(Call<IdResponse> call, Response<IdResponse> response) {
+                Log.d(TAG, "Execute Response : " + response.body().toString());
+                getProgramOutput(response.body());
+            }
+
+            private void getProgramOutput(IdResponse body) {
+                Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(RetrofitCreator.getTokenCompilerApi(), body.getId(), true, true, true, true);
+                codeOutputResponseCall.enqueue(new Callback<CodeOutputResponse>() {
+                    @Override
+                    public void onResponse(Call<CodeOutputResponse> call, Response<CodeOutputResponse> response) {
+                        Log.d(TAG, "Output Response : " + response.body().toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<CodeOutputResponse> call, Throwable t) {
+                        Log.e(TAG, "Output Error : " + t.getMessage());
+                        t.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<IdResponse> call, Throwable t) {
+                Log.e(TAG, "Execute Error : " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
     }
 
     private void calculateUserRankings ( ) {
