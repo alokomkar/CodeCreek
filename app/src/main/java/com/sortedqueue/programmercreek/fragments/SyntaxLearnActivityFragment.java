@@ -49,6 +49,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -287,7 +288,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private static final int SPEECH_REQUEST = 9878;
     private void openVoiceIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         try {
             startActivityForResult(intent, SPEECH_REQUEST);
         } catch ( ActivityNotFoundException e ) {

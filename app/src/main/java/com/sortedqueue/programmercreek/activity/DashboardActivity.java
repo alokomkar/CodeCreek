@@ -141,7 +141,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initJavaIndex();
         //initProgramLanguages();
         //calculateUserRankings();
-        executeProgram();
+        //executeProgram();
 
     }
 
@@ -156,7 +156,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 "}\n");
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("language", code.getLanguage() );
+            jsonObject.put("language", LanguageConstants.C_INDEX );
             jsonObject.put("sourceCode", code.getSourceCode());
         } catch (JSONException e) {
             e.printStackTrace();

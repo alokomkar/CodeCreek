@@ -191,4 +191,8 @@
     <string name="coming_soon">Coming Soon</string>
     <string name="add_notes">Add Notes</string>
     <string name="add_notes_and_earn_reputation">Now you can add your own explanation and notes to the program, Earn 25 points on addition of notes. Share your notes to friends and earn 10 more points.</string>
+    <string name="label_permissions">Allow screen recording and audio capture</string>
+    <string name="title_notes">Notes</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
 </resources>
