@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
@@ -24,12 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter;
-import com.sortedqueue.programmercreek.asynctask.ProgramFetcherTask;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
-import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
@@ -166,6 +166,52 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		mListPostion = mProgramListView.getFirstVisiblePosition();
 
 		initButtons();
+
+		AuxilaryUtils.displayInformation(
+				ProgramActivity.this,
+				R.string.add_notes,
+				R.string.add_notes_and_earn_reputation,
+				new DialogInterface.OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialogInterface) {
+
+			}
+
+		});
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.menu_notes, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if( item.getItemId() == R.id.action_notes ) {
+			addNotes();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void addNotes() {
+		Intent intent = new Intent(ProgramActivity.this, NotesActivity.class);
+		intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramTableList);
+		startActivityForResult(intent, ProgrammingBuddyConstants.RESULT_NOTES);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if( requestCode == ProgrammingBuddyConstants.RESULT_NOTES ) {
+			if( requestCode == AppCompatActivity.RESULT_OK ) {
+
+			}
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 
 	}
 

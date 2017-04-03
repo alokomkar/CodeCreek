@@ -28,4 +28,5 @@ public class ProgrammingBuddyConstants {
 	public static final String CUSTOM_ACTION_FACTS = "com.sortedqueue.programmercreek.did_you_know";
 	public static final String CUSTOM_ACTION_NOTIFICATION = "custom.intent.action.BROADCAST_RECEIVE";
 	public static final String INTENT_EXTRA_NOTIFICATION_MESSAGE = "remoteMessage";
+	public static final int RESULT_NOTES = 100;
 }
