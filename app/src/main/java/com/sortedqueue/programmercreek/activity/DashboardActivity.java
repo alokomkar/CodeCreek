@@ -143,12 +143,37 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initJavaIndex();
         //initProgramLanguages();
         //calculateUserRankings();
-        executeProgram();
+        //executeProgram();
+        submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
+        getOutputResponse(58011332);
 
     }
 
+    private void getOutputResponse(int submissionId) {
+        //TODO : Execute this after a delay
+        Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(
+                submissionId,
+                RetrofitCreator.getTokenCompilerApi(),
+                true,
+                true,
+                true,
+                true);
+        codeOutputResponseCall.enqueue(new Callback<CodeOutputResponse>() {
+            @Override
+            public void onResponse(Call<CodeOutputResponse> call, Response<CodeOutputResponse> response) {
+                Log.d(TAG, "Output Response : " + response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<CodeOutputResponse> call, Throwable t) {
+                Log.e(TAG, "Output Error : " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
+
     private void executeProgram() {
-        submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
+
         Code code = new Code();
         code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
         code.setSourceCode("#include <stdio.h>\n" +
@@ -176,25 +201,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             }
 
             private void getProgramOutput(IdResponse body) {
-                Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(
-                        body.getId(),
-                        RetrofitCreator.getTokenCompilerApi(),
-                        true,
-                        true,
-                        true,
-                        true);
-                codeOutputResponseCall.enqueue(new Callback<CodeOutputResponse>() {
-                    @Override
-                    public void onResponse(Call<CodeOutputResponse> call, Response<CodeOutputResponse> response) {
-                        Log.d(TAG, "Output Response : " + response.body().toString());
-                    }
-
-                    @Override
-                    public void onFailure(Call<CodeOutputResponse> call, Throwable t) {
-                        Log.e(TAG, "Output Error : " + t.getMessage());
-                        t.printStackTrace();
-                    }
-                });
+                getOutputResponse(body.getId());
             }
 
             @Override
