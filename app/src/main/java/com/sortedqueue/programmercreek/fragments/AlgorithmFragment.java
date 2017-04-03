@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,11 @@ import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 
 /**
  * Created by Alok Omkar on 2017-03-18.
@@ -32,6 +35,8 @@ public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandl
     ViewPager algorithmViewPager;
     private AlgorithmNavigationListener algorithmNavigationListener;
     private static AlgorithmsIndex mAlgorithmsIndex;
+    private Algorithm algorithm;
+    private String TAG = AlgorithmFragment.class.getSimpleName();
 
     @Override
     public void onAttach(Context context) {
@@ -68,18 +73,33 @@ public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandl
 
     @Override
     public void onSuccess(Algorithm algorithm) {
+        this.algorithm = algorithm;
         algorithmViewPager.setAdapter( new AlgorithmPagerAdapter(getChildFragmentManager(), algorithm));
         algorithmTabLayout.setupWithViewPager(algorithmViewPager);
     }
 
     @Override
     public void onError(DatabaseError databaseError) {
-
+        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data, R.string.retry, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchAlgorithmsIndex();
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public void shareAlgorithm() {
+        String algorithmString = algorithm.toAlgorithmString();
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, algorithmString);
+        startActivity(Intent.createChooser(shareIntent, "Share Algorithm"));
     }
 }

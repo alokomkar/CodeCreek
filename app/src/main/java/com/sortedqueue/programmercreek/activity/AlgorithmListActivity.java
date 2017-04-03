@@ -104,7 +104,16 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
+        else if( item.getItemId() == R.id.action_share ) {
+            shareProgram();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shareProgram() {
+        if( algorithmFragment != null ) {
+            algorithmFragment.shareAlgorithm();
+        }
     }
 
     @Override
