@@ -197,6 +197,7 @@ public class CodeOutputResponse {
         this.cmpinfo = cmpinfo;
     }
 
+
     public CodeOutputResponse() {
     }
 

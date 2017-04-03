@@ -53,6 +53,8 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -141,7 +143,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initJavaIndex();
         //initProgramLanguages();
         //calculateUserRankings();
-        //executeProgram();
+        executeProgram();
 
     }
 
@@ -154,15 +156,18 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 "\tprintf(\"Hello again!\");\n" +
                 "\treturn 0;\n" +
                 "}\n");
-        JSONObject jsonObject = new JSONObject();
+        HashMap<String, String> codeMap = new HashMap<>();
+        codeMap.put("language", LanguageConstants.C_INDEX);
+        codeMap.put("sourceCode", code.getSourceCode());
+        /*JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("language", LanguageConstants.C_INDEX );
             jsonObject.put("sourceCode", code.getSourceCode());
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        Call<IdResponse> idResponseCall = submitCodeService.postCode(jsonObject, RetrofitCreator.getTokenCompilerApi());
+        Call<IdResponse> idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi());
         idResponseCall.enqueue(new Callback<IdResponse>() {
             @Override
             public void onResponse(Call<IdResponse> call, Response<IdResponse> response) {
@@ -171,7 +176,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             }
 
             private void getProgramOutput(IdResponse body) {
-                Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(RetrofitCreator.getTokenCompilerApi(), body.getId(), true, true, true, true);
+                Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(
+                        body.getId(),
+                        RetrofitCreator.getTokenCompilerApi(),
+                        true,
+                        true,
+                        true,
+                        true);
                 codeOutputResponseCall.enqueue(new Callback<CodeOutputResponse>() {
                     @Override
                     public void onResponse(Call<CodeOutputResponse> call, Response<CodeOutputResponse> response) {
