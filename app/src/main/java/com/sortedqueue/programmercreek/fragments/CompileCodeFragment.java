@@ -23,11 +23,14 @@ import com.sortedqueue.programmercreek.database.firebase.IdResponse;
 import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.OnCodeLineClickListener;
 import io.github.kbiakov.codeview.adapters.Options;
 import io.github.kbiakov.codeview.highlight.ColorTheme;
 import retrofit2.Call;
@@ -74,6 +77,12 @@ public class CompileCodeFragment extends Fragment {
                 .withLanguage("C")
                 .withCode(code.getSourceCode())
                 .withTheme(ColorTheme.MONOKAI));
+        algorithmCodeView.getOptionsOrDefault().addCodeLineClickListener(new OnCodeLineClickListener() {
+            @Override
+            public void onCodeLineClicked(int i, @NotNull String s) {
+
+            }
+        });
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
         return view;
     }
@@ -107,18 +116,10 @@ public class CompileCodeFragment extends Fragment {
 
     public void executeProgram() {
 
-
         HashMap<String, String> codeMap = new HashMap<>();
         codeMap.put("language", LanguageConstants.C_INDEX);
         codeMap.put("sourceCode", code.getSourceCode());
         outputTextView.setText("");
-        /*JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("language", LanguageConstants.C_INDEX );
-            jsonObject.put("sourceCode", code.getSourceCode());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         startAnimation();
         Call<IdResponse> idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi());
         idResponseCall.enqueue(new Callback<IdResponse>() {
@@ -142,6 +143,7 @@ public class CompileCodeFragment extends Fragment {
             public void onFailure(Call<IdResponse> call, Throwable t) {
                 Log.e(TAG, "Execute Error : " + t.getMessage());
                 t.printStackTrace();
+                outputTextView.setText("Execute Error : " + t.getMessage());
                 stopAnimation();
             }
         });
@@ -158,6 +160,7 @@ public class CompileCodeFragment extends Fragment {
     }
 
     private void stopAnimation() {
+        progressImageView.clearAnimation();
         compilerProgressLayout.setVisibility(View.GONE);
     }
 
