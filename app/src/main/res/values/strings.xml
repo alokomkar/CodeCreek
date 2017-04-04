@@ -195,4 +195,8 @@
     <string name="title_notes">Notes</string>
     <string name="start_recording">Start Recording</string>
     <string name="stop_recording">Stop Recording</string>
+    <string name="code_lab">Code Lab</string>
+    <string name="code_lab_description">Check programs and their output on Compiler</string>
+    <string name="title_code_lab">Code Lab</string>
+    <string name="compiling">Compiling</string>
 </resources>

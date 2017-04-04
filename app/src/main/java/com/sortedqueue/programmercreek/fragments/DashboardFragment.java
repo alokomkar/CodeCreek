@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
+import com.sortedqueue.programmercreek.activity.CodeLabActivity;
 import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
@@ -88,6 +89,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     FrameLayout wizardLayout;
     @Bind(R.id.introLayout)
     FrameLayout introLayout;
+    @Bind(R.id.codeLabLayout)
+    FrameLayout codeLabLayout;
     @Bind(R.id.searchCardView)
     CardView searchCardView;
     @Bind(R.id.dashboardScrollView)
@@ -220,6 +223,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         wizardLayout.setOnClickListener(this);
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
+        codeLabLayout.setOnClickListener(this);
         searchCardView.setOnClickListener(this);
     }
 
@@ -294,6 +298,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
             case R.id.quizLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
+                break;
+
+            case R.id.codeLabLayout :
+                intent = new Intent(getContext(), CodeLabActivity.class);
+                startActivity(intent);
                 break;
 
             /*case R.id.searchCardView :

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.github.kbiakov.codeview.CodeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/compilerProgressLayout"
+        android:id="@+id/algorithmCodeView">
+    </io.github.kbiakov.codeview.CodeView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/white"
+        android:layout_above="@+id/outputScrollView"
+        android:id="@+id/compilerProgressLayout"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/margin_24"
+            android:layout_height="@dimen/margin_24"
+            android:layout_marginLeft="@dimen/margin_12"
+            android:id="@+id/progressImageView"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Roboto-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressTextView"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/compiling"
+            android:layout_toRightOf="@+id/progressImageView"
+            android:layout_marginTop="@dimen/margin_4"
+            android:padding="@dimen/margin_8"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/outputScrollView"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/margin_100"
+            android:textColor="@color/md_white_1000"
+            android:id="@+id/outputTextView"
+            tools:text="Hello World"
+            android:background="@color/md_black_1000"
+
+            android:padding="@dimen/margin_16"/>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+</RelativeLayout>

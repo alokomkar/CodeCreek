@@ -3,5 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.sortedqueue.programmercreek.activity.SyntaxLearnActivity">
 
+    <item android:id="@+id/action_share"
+        android:title="@string/share_with_friends"
+        android:icon="@drawable/ic_menu_share"
+        app:showAsAction="never"/>
 
 </menu>

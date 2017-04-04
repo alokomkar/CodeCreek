@@ -95,7 +95,7 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_syntax_learn, menu);
+        getMenuInflater().inflate(R.menu.menu_algorithm_list, menu);
         return true;
     }
 
