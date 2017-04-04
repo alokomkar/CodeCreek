@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.fragments.CommunityFragment;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.fragments.TopLearnerFragment;
@@ -19,6 +20,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
     public static final int INDEX_LANGUAGE = 0;
     public static final int INDEX_DASHBOARD = 1;
     public static final int INDEX_LEADER_BOARD = 2;
+    public static final int INDEX_COMMUNITY = 3;
 
     private Context context;
     private String tabTitles[] = new String[] { "Language", "Dashboard", "Top Learners" };
@@ -43,13 +45,15 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
                 return DashboardFragment.getInstance();
             case INDEX_LEADER_BOARD :
                 return TopLearnerFragment.getInstance();
+            case INDEX_COMMUNITY :
+                return CommunityFragment.getInstance();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override

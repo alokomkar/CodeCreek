@@ -93,6 +93,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
         dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
+        dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_osn_group);
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }

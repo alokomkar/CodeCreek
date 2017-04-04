@@ -199,4 +199,7 @@
     <string name="code_lab_description">Check programs and their output on Compiler</string>
     <string name="title_code_lab">Code Lab</string>
     <string name="compiling">Compiling</string>
+    <string name="connect_on_facebook">Find us on Facebook</string>
+    <string name="follow_twitter">Follow us on Twitter</string>
+    <string name="join_google_plus">Join us on Google+</string>
 </resources>
