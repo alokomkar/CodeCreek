@@ -1417,7 +1417,7 @@ public class FirebaseDatabaseHandler {
         getUserDatabase();
         Query query = mUserDatabase.child("ranking");
         query.orderByChild("reputation")
-                .limitToLast(10)
+                .limitToLast(20)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
