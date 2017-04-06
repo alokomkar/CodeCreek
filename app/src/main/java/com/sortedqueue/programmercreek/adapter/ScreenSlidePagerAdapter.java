@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
 import com.sortedqueue.programmercreek.fragments.SlideFragment;
 
@@ -39,7 +38,12 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object object){
-        return PagerAdapter.POSITION_NONE;
+    public int getItemPosition(Object object) {
+        int index = fragmentArrayList.indexOf(object);
+
+        if (index == -1)
+            return POSITION_NONE;
+        else
+            return index;
     }
 }

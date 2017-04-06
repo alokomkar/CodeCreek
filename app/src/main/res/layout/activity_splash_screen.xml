@@ -48,6 +48,7 @@
             android:layout_height="wrap_content" />
         <com.facebook.login.widget.LoginButton
             android:id="@+id/fbLoginButton"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -64,8 +65,20 @@
         android:background="@drawable/button_blue"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/signAnonButton"
         android:text="@string/sign_in"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:padding="@dimen/margin_8"
+        android:id="@+id/signAnonButton"
+        android:background="@drawable/button_anonymous"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/anonymous_signup"/>
 
     <TextView
         tools:ignore="MissingPrefix"

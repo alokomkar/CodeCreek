@@ -66,6 +66,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     LoginButton fbLoginButton;
     @Bind(R.id.signEmailButton)
     Button signEmailButton;
+    @Bind(R.id.signAnonButton)
+    Button signAnonButton;
 
     private int RC_SIGN_IN = 1000;
     private String TAG = "SplashActivity";
@@ -94,11 +96,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         googleSignInButton.setVisibility(View.GONE);
         fbLoginButton.setVisibility(View.GONE);
         signEmailButton.setVisibility(View.GONE);
-        if( creekPreferences.getSignInAccount().equals("") ) {
+        signAnonButton.setVisibility(View.GONE);
+        if (creekPreferences.getSignInAccount().equals("")) {
+
             googleSignInButton.setOnClickListener(SplashActivity.this);
+
             googleSignInButton.setVisibility(View.VISIBLE);
             signEmailButton.setVisibility(View.VISIBLE);
+            signAnonButton.setVisibility(View.VISIBLE);
+
             signEmailButton.setOnClickListener(this);
+            signAnonButton.setOnClickListener(this);
             configureGoogleSignup();
             fbLoginButton.setVisibility(View.VISIBLE);
             List<String> fbPermissions = new ArrayList<>();
@@ -129,7 +137,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        LinearLayout l=(LinearLayout) findViewById(R.id.splashLayout);
+        LinearLayout l = (LinearLayout) findViewById(R.id.splashLayout);
         l.clearAnimation();
         l.startAnimation(anim);
 
@@ -174,8 +182,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private void storeFirebaseUserDetails(FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null ) {
-            if( !creekPreferences.getSignInAccount().equals("") ) {
+        if (user != null) {
+            if (!creekPreferences.getSignInAccount().equals("")) {
                 Log.d(TAG, "Sign up complete");
                 return;
             }
@@ -183,10 +191,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             creekUser = new CreekUser();
             creekUser.setUserFullName(user.getDisplayName());
-            if( isEmailSignup ) {
+            if (isEmailSignup) {
                 creekUser.setUserFullName(userNameEmailSignup);
             }
-            if( user.getPhotoUrl() != null )
+            if (user.getPhotoUrl() != null)
                 creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
             else {
                 creekUser.setUserPhotoUrl("");
@@ -229,6 +237,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onAuthStateChanged:signed_out");
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -240,6 +249,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         super.onPause();
         CreekApplication.getInstance().setAppRunning(false);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -269,7 +279,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(final View view) {
-        if(!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(SplashActivity.this, R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -278,15 +288,39 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             });
             return;
         }
-        switch ( view.getId() ) {
-            case R.id.googleSignInButton :
+        switch (view.getId()) {
+            case R.id.googleSignInButton:
                 googleSignIn();
                 break;
-            case R.id.signEmailButton :
+            case R.id.signEmailButton:
                 signInEmail();
+                break;
+            case R.id.signAnonButton:
+                signInAnonymously();
                 break;
         }
 
+    }
+
+    private void signInAnonymously() {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInAnonymously", task.getException());
+                            Toast.makeText(SplashActivity.this, "Loading Failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     private void signInEmail() {
@@ -294,13 +328,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         loginSignupDialog.showDialog(new LoginSignupDialog.LoginSignupListener() {
             @Override
             public void onSuccess(String name, String email, String password) {
-                if( name != null ) {
+                if (name != null) {
                     CommonUtils.displayProgressDialog(SplashActivity.this, "Signing up...");
-                    emailSignup( name, email, password );
-                }
-                else {
+                    emailSignup(name, email, password);
+                } else {
                     CommonUtils.displayProgressDialog(SplashActivity.this, "Logging in");
-                    emailLogin( email, password );
+                    emailLogin(email, password);
                 }
             }
 
@@ -326,8 +359,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(SplashActivity.this, "Authentication failed : " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             loginSignupDialog.cancelDialog();
                         }
                         CommonUtils.dismissProgressDialog();
@@ -342,7 +374,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void emailSignup(String name, String email, String password) {
         isEmailSignup = true;
         this.userNameEmailSignup = name;
-        mAuth.createUserWithEmailAndPassword( email, password )
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -354,8 +386,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                             Log.w(TAG, "emailSignup:failed", task.getException());
                             Toast.makeText(SplashActivity.this, "Signup failed : " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             isEmailSignup = true;
                             loginSignupDialog.cancelDialog();
                         }
@@ -392,8 +423,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(SplashActivity.this, "Sign in failed.",
                         Toast.LENGTH_SHORT).show();
             }
-        }
-        else {
+        } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -431,7 +461,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startApp() {
-        if(!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(SplashActivity.this, R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -451,7 +481,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SplashActivity.this, "Connection failed.",
                     Toast.LENGTH_SHORT).show();
 
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -461,7 +491,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onSuccess(LoginResult loginResult) {
         Toast.makeText(SplashActivity.this, "Login success.",
                 Toast.LENGTH_SHORT).show();
-        handleFBAccessToken( loginResult.getAccessToken() );
+        handleFBAccessToken(loginResult.getAccessToken());
 
     }
 
