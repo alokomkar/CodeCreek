@@ -103,6 +103,13 @@
             android:label="@string/title_code_lab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.CreatePresentationActivity"
+            android:label="@string/title_presentation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.SyntaxLearnActivity"
             android:label="@string/title_activity_syntax_learn"

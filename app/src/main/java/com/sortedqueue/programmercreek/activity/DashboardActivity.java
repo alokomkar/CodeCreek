@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -57,6 +59,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     TabLayout dashboardTabLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.createPresentationFAB)
+    FloatingActionButton createPresentationFAB;
+
 
     private String TAG = getClass().getSimpleName();
     private CreekPreferences creekPreferences;
@@ -87,13 +92,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //adView.setVisibility(View.GONE);
 
         //initAds();
-
+        createPresentationFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, CreatePresentationActivity.class);
+                startActivity(intent);
+            }
+        });
+        createPresentationFAB.setVisibility(View.GONE);
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
         dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
-        //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_osn_group);
+        dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
         if( creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         }
@@ -101,7 +113,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             dashboardViewPager.setCurrentItem(1);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
-        dashboardViewPager.setOffscreenPageLimit(3);
+        dashboardViewPager.setOffscreenPageLimit(dashboardTabLayout.getTabCount());
         dashboardViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -110,10 +122,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             @Override
             public void onPageSelected(int position) {
-                /*if( position == 0 ) {
-                    LanguageFragment.getInstance().animateProgress();
-                    //LanguageFragment.getInstance().animateViews();
-                }*/
+                if ( position == 3 )
+                    AnimationUtils.enterReveal(createPresentationFAB);
+                else
+                    AnimationUtils.exitReveal(createPresentationFAB);
             }
 
             @Override
@@ -129,7 +141,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //initProgramLanguages();
         //calculateUserRankings();
         //executeProgram();
-
         //getOutputResponse(58011332);
 
     }

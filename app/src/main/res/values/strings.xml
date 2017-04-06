@@ -203,4 +203,9 @@
     <string name="follow_twitter">Follow us on Twitter</string>
     <string name="join_google_plus">Join us on Google+</string>
     <string name="connect_with_us">Connect with us :</string>
+    <string name="title_presentation">Create Presentation</string>
+    <string name="slide_title">Slide Title</string>
+    <string name="delete_slide">Delete Slide</string>
+    <string name="add_slide">Add Slide</string>
+    <string name="presentation_needs_one_slide">Presentation needs at least one slide</string>
 </resources>

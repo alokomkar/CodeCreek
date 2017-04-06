@@ -66,6 +66,18 @@
                     app:adUnitId="@string/banner_ad_wiki_unit_id">
                 </com.google.android.gms.ads.AdView>-->
             </RelativeLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/createPresentationFAB"
+                android:layout_gravity="bottom|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_64"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:backgroundTint="@color/md_green_400"
+                app:pressedTranslationZ="12dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add" />
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 
