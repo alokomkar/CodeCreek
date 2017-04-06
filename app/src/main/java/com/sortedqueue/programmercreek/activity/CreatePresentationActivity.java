@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ScreenSlidePagerAdapter;
 import com.sortedqueue.programmercreek.fragments.SlideFragment;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fragmentArrayList.add(new SlideFragment());
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(mPagerAdapter);
+        pager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @Override
