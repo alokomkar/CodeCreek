@@ -210,4 +210,5 @@
     <string name="presentation_needs_one_slide">Presentation needs at least one slide</string>
     <string name="sub_title">Sub Title</string>
     <string name="anonymous_signup">Take a Tour</string>
+    <string name="no_top_learners">No statistics available at the moment</string>
 </resources>

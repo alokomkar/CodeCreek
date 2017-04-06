@@ -51,6 +51,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.LoginSignupDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -191,21 +192,43 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             creekUser = new CreekUser();
             creekUser.setUserFullName(user.getDisplayName());
+
             if (isEmailSignup) {
                 creekUser.setUserFullName(userNameEmailSignup);
+            }
+
+            if( isAnonSignup && user.getDisplayName() == null ) {
+                creekUser.setUserFullName("Anonymous_" + new Date().getTime() );
             }
             if (user.getPhotoUrl() != null)
                 creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
             else {
                 creekUser.setUserPhotoUrl("");
             }
-            creekUser.setEmailId(user.getEmail());
+            if( user.getEmail() != null ) {
+                creekUser.setEmailId(user.getEmail());
+            }
+            else {
+                creekUser.setEmailId(user.getUid());
+            }
 
             creekPreferences.setAccountName(creekUser.getUserFullName());
+            Log.d(TAG, "Anon User name : " + creekPreferences.getAccountName());
             creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
-            creekPreferences.setSignInAccount(user.getEmail());
+            if( user.getEmail() != null && user.getEmail().trim().length() > 0 ) {
+                creekPreferences.setSignInAccount(user.getEmail());
+            }
+            else {
+                creekPreferences.setSignInAccount(user.getUid());
+            }
+            Log.d(TAG, "Anon User Account : " + creekPreferences.getSignInAccount());
+
             CommonUtils.displayProgressDialog(SplashActivity.this, "Loading");
-            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUser(user.getEmail(), new FirebaseDatabaseHandler.GetCreekUserListner() {
+            String email = user.getEmail();
+            if( email == null ) {
+                email = user.getUid();
+            }
+            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUser(email, new FirebaseDatabaseHandler.GetCreekUserListner() {
                 @Override
                 public void onSuccess(CreekUser creekUser) {
                     CommonUtils.dismissProgressDialog();
@@ -235,6 +258,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");
+            Log.d(TAG, "isAnonSignup : " + isAnonSignup);
         }
     }
 
@@ -302,7 +326,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    boolean isAnonSignup = false;
     private void signInAnonymously() {
+        isAnonSignup = true;
+        CommonUtils.displayProgressDialog(SplashActivity.this, "Loading");
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -314,10 +341,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInAnonymously", task.getException());
+                            isAnonSignup = false;
                             Toast.makeText(SplashActivity.this, "Loading Failed",
                                     Toast.LENGTH_SHORT).show();
                         }
-
+                        else {
+                            isAnonSignup = true;
+                        }
+                        CommonUtils.dismissProgressDialog();
                         // ...
                     }
                 });

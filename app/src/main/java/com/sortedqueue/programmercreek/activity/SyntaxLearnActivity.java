@@ -25,9 +25,9 @@ import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-import com.tappx.sdk.android.TappxAdError;
+/*import com.tappx.sdk.android.TappxAdError;
 import com.tappx.sdk.android.TappxInterstitial;
-import com.tappx.sdk.android.TappxInterstitialListener;
+import com.tappx.sdk.android.TappxInterstitialListener;*/
 
 import java.util.ArrayList;
 
@@ -71,7 +71,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        loadTappxFullScreenAd();
+        //loadTappxFullScreenAd();
         loadModulesFragment();
         checkFAB.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -81,10 +81,10 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (tappxInterstitial != null) tappxInterstitial.destroy();
+        //if (tappxInterstitial != null) tappxInterstitial.destroy();
     }
 
-    private TappxInterstitial tappxInterstitial;
+    /*private TappxInterstitial tappxInterstitial;
     private void loadTappxFullScreenAd() {
         tappxInterstitial = new TappxInterstitial(SyntaxLearnActivity.this, getString(R.string.id_ad_tappx));
         tappxInterstitial.setAutoShowWhenReady(false);
@@ -115,7 +115,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
                 finish();
             }
         });
-    }
+    }*/
 
     private boolean isFirstTime = true;
     private void loadModulesFragment() {

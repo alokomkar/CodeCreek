@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
@@ -48,6 +49,8 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
     private final String TWITTER_LINK = "https://twitter.com/Programmercreek";
     private final String FACEBOOK_LINK = "https://www.facebook.com/Infinite-Programmer-1819430981602209/?fref=ts";
     private final String GOOGLE_PLUS_LINK = "https://plus.google.com/u/1/communities/117275222080442676688";
+    @Bind(R.id.emptyTextView)
+    TextView emptyTextView;
 
     private SyntaxNavigationListener syntaxNavigationListener;
     private ArrayList<LanguageModule> languageModules;
@@ -89,21 +92,21 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ) {
-            case R.id.googleCardView :
+        switch (view.getId()) {
+            case R.id.googleCardView:
                 startIntent(GOOGLE_PLUS_LINK);
                 break;
-            case R.id.facebookCardView :
+            case R.id.facebookCardView:
                 startIntent(FACEBOOK_LINK);
                 break;
-            case R.id.twitterCardView :
+            case R.id.twitterCardView:
                 startIntent(TWITTER_LINK);
                 break;
         }
     }
 
-    private void startIntent( String url ) {
-        Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+    private void startIntent(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
 
@@ -124,6 +127,8 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
                             public void onFailure(DatabaseError databaseError) {
                                 topLearnersRecyclerView.setVisibility(View.GONE);
                                 swipeRefreshLayout.setRefreshing(false);
+                                swipeRefreshLayout.setVisibility(View.GONE);
+                                emptyTextView.setVisibility(View.VISIBLE);
                             }
                         });
     }
@@ -132,6 +137,15 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
         topLearnersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         topLearnersRecyclerView.setAdapter(new TopLearnersRecyclerAdapter(getContext(), userRankings));
         swipeRefreshLayout.setRefreshing(false);
+        if( userRankings.size() == 0 ) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
