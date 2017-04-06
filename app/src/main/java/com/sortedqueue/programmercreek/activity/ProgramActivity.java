@@ -167,7 +167,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 		initButtons();
 
-		AuxilaryUtils.displayInformation(
+		/*AuxilaryUtils.displayInformation(
 				ProgramActivity.this,
 				R.string.add_notes,
 				R.string.add_notes_and_earn_reputation,
@@ -177,7 +177,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 			}
 
-		});
+		});*/
 
 	}
 

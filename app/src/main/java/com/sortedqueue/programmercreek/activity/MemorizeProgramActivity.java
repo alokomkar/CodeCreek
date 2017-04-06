@@ -202,7 +202,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 			initButtons();
 
-			AuxilaryUtils.displayInformation(
+			/*AuxilaryUtils.displayInformation(
 					MemorizeProgramActivity.this,
 					R.string.add_notes,
 					R.string.add_notes_and_earn_reputation,
@@ -212,7 +212,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 						}
 
-					});
+					});*/
 
 
 		}
