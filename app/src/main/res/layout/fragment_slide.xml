@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_margin="@dimen/margin_16"
+    android:background="@color/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.CardView
@@ -45,6 +46,32 @@
                 android:paddingBottom="@dimen/margin_4"
                 android:hint="@string/sub_title"
                 />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="@color/bg"
+                android:id="@+id/slideImageLayout">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:minHeight="@dimen/margin_250"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/slideImageView"
+                    android:src="@android:drawable/ic_menu_gallery"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/slideHintTextView"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="@dimen/text_dashboard_small"
+                    android:padding="@dimen/margin_16"
+                    android:gravity="center"
+                    android:layout_gravity="top"
+                    android:text="@string/tap_to_insert_image"/>
+            </FrameLayout>
+
             <io.github.kbiakov.codeview.CodeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,13 +81,5 @@
 
 
         </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/recordImageView"
-            android:padding="@dimen/margin_8"
-            android:layout_gravity="center"
-            android:background="@drawable/button_clear"
-            android:src="@android:drawable/stat_notify_voicemail"/>
     </android.support.v7.widget.CardView>
 </LinearLayout>

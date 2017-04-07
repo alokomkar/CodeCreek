@@ -79,6 +79,37 @@ public class AuxilaryUtils {
         builder.show();
     }
 
+    public interface PhotoOptionListener {
+        void onChoiceSelected( int choice );
+    }
+
+    public static final int CHOICE_CAMERA = 0;
+    public static final int CHOICE_GALLERY = 1;
+    public static void displayPhotoDialog(Context context, final PhotoOptionListener photoOptionListener) {
+        final CharSequence[] items = { "Take Photo", "Choose from Library",
+                "Cancel" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (items[item].equals("Take Photo")) {
+                    photoOptionListener.onChoiceSelected(CHOICE_CAMERA);
+
+                } else if (items[item].equals("Choose from Library")) {
+                    photoOptionListener.onChoiceSelected(CHOICE_GALLERY);
+
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+
+    }
+
     public interface InviteDialogListener {
         void onInviteClick();
         void onLaterClick();

@@ -34,4 +34,5 @@
     <dimen name="title_height">24dp</dimen>
     <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_72">72dp</dimen>
+    <dimen name="margin_250">250dp</dimen>
 </resources>
