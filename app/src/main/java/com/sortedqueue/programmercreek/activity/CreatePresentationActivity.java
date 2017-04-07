@@ -74,6 +74,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fab.setOnClickListener(this);
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
+        deleteSlideTextView.setOnClickListener(this);
+        addSlideTextView.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -89,15 +91,17 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.fab:
+            case R.id.fab :
                 animateFAB();
                 break;
-            case R.id.fab1:
+            case R.id.fab1 :
+            case R.id.addSlideTextView :
                 mPagerAdapter.addNewSlideFragment(new SlideFragment());
                 mPagerAdapter.notifyDataSetChanged();
                 pager.setCurrentItem(mPagerAdapter.getCount() - 1);
                 break;
-            case R.id.fab2:
+            case R.id.fab2 :
+            case R.id.deleteSlideTextView :
                 if( mPagerAdapter.getCount() > 1 ) {
                     mPagerAdapter.removeCurrentFragment(pager.getCurrentItem());
                     mPagerAdapter.notifyDataSetChanged();

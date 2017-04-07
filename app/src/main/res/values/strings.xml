@@ -211,4 +211,6 @@
     <string name="sub_title">Sub Title</string>
     <string name="anonymous_signup">Take a Tour</string>
     <string name="no_top_learners">No statistics available at the moment</string>
+    <string name="link_account">Register Account</string>
+    <string name="register_account_for_tour_users_only">This option is available only for users taking a tour</string>
 </resources>

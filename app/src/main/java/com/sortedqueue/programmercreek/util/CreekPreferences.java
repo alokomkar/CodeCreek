@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -65,11 +64,13 @@ public class CreekPreferences {
     public static final String KEY_JAVA_WIKI = "keyJavaWiki";
 
     private static final String PROGRAM_LANGUAGE = "program_language";
+    public static final String KEY_ANON_ACCOUNT = "isAnonAccount";
 
     private SharedPreferences sharedPreferences;
     private String WIKI_HELP = "Wiki_help";
     private String KEY_WELCOME_DONE = "welcome_done";
     private String TAG = CreekPreferences.class.getSimpleName();
+
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -117,6 +118,14 @@ public class CreekPreferences {
                 break;
 
         }
+    }
+
+    public boolean getIsAnonAccount() {
+        return sharedPreferences.getBoolean(KEY_ANON_ACCOUNT, false);
+    }
+
+    public void setAnonAccount( boolean isAnonAccount ) {
+        sharedPreferences.edit().putBoolean(KEY_ANON_ACCOUNT, isAnonAccount).apply();
     }
 
     private void setUspProgramIndex(int programIndex) {
