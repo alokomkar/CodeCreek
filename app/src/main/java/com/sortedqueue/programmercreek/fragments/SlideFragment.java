@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
@@ -76,12 +78,15 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     ImageView saveImageView;
     @Bind(R.id.doneButton)
     Button doneButton;
+    @Bind(R.id.uploadProgressBar)
+    ProgressBar uploadProgressBar;
 
     private Uri selectedImageUri;
     private Bitmap selectedBitmap;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
-    private String code;
+    private String code = "";
     private PresentationCommunicationsListener presentationCommunicationsListener;
+    private SlideModel slideModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +94,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slide, container, false);
         ButterKnife.bind(this, view);
+        slideModel = new SlideModel();
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
@@ -112,7 +118,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof  PresentationCommunicationsListener ) {
+        if (context instanceof PresentationCommunicationsListener) {
             presentationCommunicationsListener = (PresentationCommunicationsListener) context;
         }
     }
@@ -132,6 +138,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
             case R.id.codeView:
                 break;
             case R.id.deleteImageView:
+                slideModel.setSlideImageUrl(null);
                 slideImageView.setImageBitmap(null);
                 slideImageLayout.setVisibility(View.GONE);
                 break;
@@ -141,24 +148,22 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
             case R.id.saveImageView:
                 uploadFileToFirebase(selectedImageUri);
                 break;
-            case R.id.doneButton :
-                saveAndExit();
+            case R.id.doneButton:
+                save();
                 break;
         }
 
     }
 
-    private void saveAndExit() {
-        save();
-        firebaseDatabaseHandler.setPresentationPushId(null);
-        presentationCommunicationsListener.onPresentationComplete();
-    }
 
-    public String save() {
-        SlideModel slideModel = new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), selectedImageUri.toString());
+    public void save() {
+        String imageUrl = null;
+        if( selectedImageUri != null ) {
+            imageUrl = selectedImageUri.toString();
+        }
+        slideModel = new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), imageUrl);
         String presentationPushId = firebaseDatabaseHandler.writeSlide(slideModel);
         presentationCommunicationsListener.onPresentationCreation(presentationPushId, slideModel);
-        return presentationPushId;
     }
 
     private void rotateImage() {
@@ -324,26 +329,27 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
 
     private void uploadFileToFirebase(final Uri selectedImageUri) {
 
-        CommonUtils.displayProgressDialog(getContext(), "Uploading Image");
+        uploadProgressBar.setVisibility(View.VISIBLE);
         if (selectedImageUri != null) {
             new FirebaseStorageHandler(getContext()).uploadSlideImage(selectedImageUri, new FirebaseStorageHandler.FileUploadListener() {
                 @Override
                 public void onSuccess(Uri downloadUri) {
-                    CommonUtils.dismissProgressDialog();
+                    uploadProgressBar.setVisibility(View.GONE);
                     CommonUtils.displayToast(getContext(), "Success");
                     Log.d(TAG, "Upload Success : " + downloadUri.toString());
                     SlideFragment.this.selectedImageUri = downloadUri;
+                    slideModel.setSlideImageUrl(downloadUri.toString());
                     Glide.with(getContext()).load(downloadUri).asBitmap().centerCrop().into(slideImageView);
                 }
 
                 @Override
                 public void onProgressUpdate(double currentProgress) {
-
+                    uploadProgressBar.setProgress((int) currentProgress);
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    CommonUtils.dismissProgressDialog();
+                    uploadProgressBar.setVisibility(View.GONE);
                     if (e != null) {
                         CommonUtils.displayToast(getContext(), "Error occurred while upload : " + e.getMessage());
                         e.printStackTrace();
@@ -351,7 +357,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                 }
             });
         } else {
-            CommonUtils.dismissProgressDialog();
+            uploadProgressBar.setVisibility(View.GONE);
             CommonUtils.displaySnackBar(getActivity(), R.string.image_upload_failed);
         }
 
@@ -364,6 +370,17 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
 
     public void insertPhoto() {
         slideImageLayout.setVisibility(View.VISIBLE);
-        slideImageLayout.callOnClick();
+        if( PermissionUtils.checkSelfPermission(this,
+                new String[]{Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE})) {
+            AuxilaryUtils.displayPhotoDialog(getContext(), this);
+        }
+    }
+
+    public void saveImage() {
+        if ( selectedImageUri != null && slideModel.getSlideImageUrl() == null ) {
+            uploadFileToFirebase(selectedImageUri);
+        }
     }
 }

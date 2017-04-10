@@ -77,7 +77,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_create_presentation);
         ButterKnife.bind(this);
         fragmentArrayList = new ArrayList<>();
-
+        slideModelArrayList = new ArrayList<>();
         initPagerAdapter();
 
         setSupportActionBar(toolbar);
@@ -85,10 +85,12 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         presentationModel = new PresentationModel();
         presentationModel.setPresenterName( new CreekPreferences(CreatePresentationActivity.this).getAccountName() );
+
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+
         optionsFAB.setOnClickListener(this);
         addSlideFAB.setOnClickListener(this);
         deleteSlideFAB.setOnClickListener(this);
@@ -98,6 +100,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         addPhotoFAB.setOnClickListener(this);
         addPhotoTextView.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
+
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -119,6 +122,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.addSlideFAB:
             case R.id.addSlideTextView:
+                SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+                slideFragment.saveImage();
                 mPagerAdapter.addNewSlideFragment(new SlideFragment());
                 mPagerAdapter.notifyDataSetChanged();
                 pager.setCurrentItem(mPagerAdapter.getCount() - 1);
@@ -162,7 +167,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_syntax_learn, menu);
+        getMenuInflater().inflate(R.menu.menu_create_presentation, menu);
         return true;
     }
 
@@ -171,7 +176,18 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
+        if( item.getItemId() == R.id.action_finish ) {
+            saveAndExit();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveAndExit() {
+        for( Fragment fragment : mPagerAdapter.getAllItems() ) {
+            ((SlideFragment)fragment).save();
+        }
+        onPresentationComplete();
+        finish();
     }
 
     @Override
@@ -236,6 +252,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onPresentationComplete() {
-        new FirebaseDatabaseHandler(CreatePresentationActivity.this).writeNewPresentation(presentationModel);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(CreatePresentationActivity.this);
+        firebaseDatabaseHandler.setPresentationPushId(null);
+        firebaseDatabaseHandler.writeNewPresentation(presentationModel);
     }
 }

@@ -46,4 +46,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         else
             return index;
     }
+
+    public ArrayList<Fragment> getAllItems() {
+        return fragmentArrayList;
+    }
 }
