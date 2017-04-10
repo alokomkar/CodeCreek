@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.fragments;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -96,7 +95,6 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         slideImageLayout.setVisibility(View.GONE);
         codeView.setVisibility(View.GONE);
         codeView.setOnClickListener(this);
-        slideImageLayout.setOnClickListener(this);
         deleteImageView.setOnClickListener(this);
         changeImageView.setOnClickListener(this);
         rotateImageView.setOnClickListener(this);
@@ -128,14 +126,6 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.slideImageLayout:
-                if (PermissionUtils.checkSelfPermission(this,
-                        new String[]{Manifest.permission.CAMERA,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
-                    AuxilaryUtils.displayPhotoDialog(getContext(), this);
-                }
-                break;
             case R.id.changeImageView:
                 startCropPhotoActivity(selectedImageUri);
                 break;
@@ -161,10 +151,13 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     private void saveAndExit() {
         save();
         firebaseDatabaseHandler.setPresentationPushId(null);
+        presentationCommunicationsListener.onPresentationComplete();
     }
 
     public String save() {
-        String presentationPushId = firebaseDatabaseHandler.writeSlide(new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), selectedImageUri.toString()));
+        SlideModel slideModel = new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), selectedImageUri.toString());
+        String presentationPushId = firebaseDatabaseHandler.writeSlide(slideModel);
+        presentationCommunicationsListener.onPresentationCreation(presentationPushId, slideModel);
         return presentationPushId;
     }
 
