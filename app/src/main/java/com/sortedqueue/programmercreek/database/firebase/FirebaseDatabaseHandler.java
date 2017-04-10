@@ -22,9 +22,11 @@ import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.IntroChapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
+import com.sortedqueue.programmercreek.database.PresentationModel;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.UserRanking;
@@ -57,6 +59,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mUserDetailsDatabase;
     private DatabaseReference mIntroChapterDatabase;
     private DatabaseReference mProgramLanguageDatabase;
+    private DatabaseReference mPresentationDatabase;
 
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -81,6 +84,9 @@ public class FirebaseDatabaseHandler {
     private ArrayList<ProgramLanguage> programLanguages;
     private String ALGORITHM_INDEX = "algorithm_index";
     private String ALGORITHM = "algorithm";
+    private String CREEK_PRESENTATIONS_SLIDES = "presentations_slides";
+    private String CREEK_PRESENTATIONS = "presentations";
+    private DatabaseReference mPresentationSlidesDatabase;
 
     /***
      * Program Index storage :
@@ -120,6 +126,18 @@ public class FirebaseDatabaseHandler {
         return mUserDetailsDatabase;
     }
 
+    public DatabaseReference getmPresentationSlidesDatabase() {
+        mPresentationSlidesDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PRESENTATIONS_SLIDES);
+        mPresentationSlidesDatabase.keepSynced(true);
+        return mPresentationSlidesDatabase;
+    }
+
+    public DatabaseReference getmPresentationDatabase() {
+        mPresentationDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PRESENTATIONS);
+        mPresentationDatabase.keepSynced(true);
+        return mPresentationDatabase;
+    }
+
     public void getCreekUserDBDatabase() {
         mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" +CREEK_USER_DB );
         mCreekUserDBDatabase.keepSynced(true);
@@ -137,6 +155,7 @@ public class FirebaseDatabaseHandler {
         getProgramLanguageDB();
         mProgramLanguageDatabase.push().setValue(programLanguage);
     }
+
 
     public void updateInviteCount(final int inviteCount) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/invite_count")
@@ -187,6 +206,30 @@ public class FirebaseDatabaseHandler {
 
         mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM);
         mAlgorithmReference.child( ALGORITHM + "_" + algorithm.getAlgorithmsIndex().getProgramIndex()).setValue(algorithm);
+    }
+
+    private String presentationPushId;
+
+    public String getPresentationPushId() {
+        return presentationPushId;
+    }
+
+    public void setPresentationPushId(String presentationPushId) {
+        this.presentationPushId = presentationPushId;
+    }
+
+    public String writeSlide(SlideModel slideModel) {
+        getmPresentationDatabase();
+        if( presentationPushId == null ) {
+            presentationPushId = mPresentationDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).push().getKey();
+        }
+        mPresentationDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","") + "/"  + presentationPushId).push().setValue(slideModel);
+        return presentationPushId;
+    }
+
+    public void writeNewPresentation(PresentationModel presentationModel) {
+        getmPresentationSlidesDatabase();
+        mPresentationSlidesDatabase.child("toBeApproved").push().setValue(presentationModel);
     }
 
     public interface GetAllAlgorithmsListener {

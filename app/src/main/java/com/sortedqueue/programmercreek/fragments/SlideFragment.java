@@ -1,9 +1,10 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,20 +14,28 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.SlideModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
+import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +44,10 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import id.zelory.compressor.Compressor;
 import io.github.kbiakov.codeview.CodeView;
+
+import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by Alok on 06/04/17.
@@ -51,13 +63,26 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     CodeView codeView;
     @Bind(R.id.slideImageView)
     ImageView slideImageView;
-    @Bind(R.id.slideHintTextView)
-    TextView slideHintTextView;
     @Bind(R.id.slideImageLayout)
     FrameLayout slideImageLayout;
     private final int ACTION_CAMERA = 1;
     private final int ACTION_GALLERY = 2;
+    @Bind(R.id.deleteImageView)
+    ImageView deleteImageView;
+    @Bind(R.id.changeImageView)
+    ImageView changeImageView;
+    @Bind(R.id.rotateImageView)
+    ImageView rotateImageView;
+    @Bind(R.id.saveImageView)
+    ImageView saveImageView;
+    @Bind(R.id.doneButton)
+    Button doneButton;
 
+    private Uri selectedImageUri;
+    private Bitmap selectedBitmap;
+    private FirebaseDatabaseHandler firebaseDatabaseHandler;
+    private String code;
+    private PresentationCommunicationsListener presentationCommunicationsListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,13 +90,18 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slide, container, false);
         ButterKnife.bind(this, view);
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
         slideImageLayout.setVisibility(View.GONE);
         codeView.setVisibility(View.GONE);
         codeView.setOnClickListener(this);
         slideImageLayout.setOnClickListener(this);
-
+        deleteImageView.setOnClickListener(this);
+        changeImageView.setOnClickListener(this);
+        rotateImageView.setOnClickListener(this);
+        saveImageView.setOnClickListener(this);
+        doneButton.setOnClickListener(this);
         return view;
     }
 
@@ -82,46 +112,95 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     }
 
     @Override
-    public void onClick(View v) {
-        if( v.getId() == R.id.slideImageLayout ) {
-            if( PermissionUtils.checkSelfPermission(this,
-                    new String[]{Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE})) {
-                AuxilaryUtils.displayPhotoDialog(getContext(), this);
-            }
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof  PresentationCommunicationsListener ) {
+            presentationCommunicationsListener = (PresentationCommunicationsListener) context;
         }
-        else if( v.getId() == R.id.codeView ) {
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        presentationCommunicationsListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.slideImageLayout:
+                if (PermissionUtils.checkSelfPermission(this,
+                        new String[]{Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
+                    AuxilaryUtils.displayPhotoDialog(getContext(), this);
+                }
+                break;
+            case R.id.changeImageView:
+                startCropPhotoActivity(selectedImageUri);
+                break;
+            case R.id.codeView:
+                break;
+            case R.id.deleteImageView:
+                slideImageView.setImageBitmap(null);
+                slideImageLayout.setVisibility(View.GONE);
+                break;
+            case R.id.rotateImageView:
+                rotateImage();
+                break;
+            case R.id.saveImageView:
+                uploadFileToFirebase(selectedImageUri);
+                break;
+            case R.id.doneButton :
+                saveAndExit();
+                break;
+        }
+
+    }
+
+    private void saveAndExit() {
+        save();
+        firebaseDatabaseHandler.setPresentationPushId(null);
+    }
+
+    public String save() {
+        String presentationPushId = firebaseDatabaseHandler.writeSlide(new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), selectedImageUri.toString()));
+        return presentationPushId;
+    }
+
+    private void rotateImage() {
+        if (selectedBitmap != null) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            selectedBitmap = Bitmap.createBitmap(selectedBitmap, 0, 0, selectedBitmap.getWidth(), selectedBitmap.getHeight(),
+                    matrix, true);
+            slideImageView.setImageBitmap(selectedBitmap);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if( requestCode == PermissionUtils.PERMISSION_REQUEST) {
-            if( PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0 ) {
+        if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
+            if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
                 AuxilaryUtils.displayPhotoDialog(getContext(), this);
-            }
-            else {
-                if( permissions.length == 3 ) {
-                    CommonUtils.displaySnackBar(getActivity(), R.string.camera_read_write_storage_permission_to_open_gallery );
+            } else {
+                if (permissions.length == 3) {
+                    CommonUtils.displaySnackBar(getActivity(), R.string.camera_read_write_storage_permission_to_open_gallery);
                 }
             }
-        }
-
-        else {
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
     @Override
     public void onChoiceSelected(int choice) {
-        switch ( choice ) {
-            case AuxilaryUtils.CHOICE_CAMERA :
+        switch (choice) {
+            case AuxilaryUtils.CHOICE_CAMERA:
                 loadCamera();
                 break;
-            case AuxilaryUtils.CHOICE_GALLERY :
+            case AuxilaryUtils.CHOICE_GALLERY:
                 loadGallery();
                 break;
         }
@@ -186,62 +265,63 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
 
     private void handleBigCameraPhoto() {
         if (mCurrentPhotoPath != null) {
-            setCameraPhoto();
+            compressAndCropPhoto(mCurrentPhotoPath);
         }
     }
 
-    private void setCameraPhoto() {
-
-		/* There isn't enough memory to open up more than a couple camera photos */
-		/* So pre-scale the target bitmap into which the file is decoded */
-
-		/* Get the size of the ImageView */
-        int targetW = slideImageView.getWidth();
-        int targetH = slideImageView.getHeight();
-
-		/* Get the size of the image */
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-		/* Figure out which way needs to be reduced less */
-        int scaleFactor = 1;
-        if ((targetW > 0) || (targetH > 0)) {
-            scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-        }
-
-		/* Set bitmap options to scale the image decode target */
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-		/* Decode the JPEG file into a Bitmap */
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-		/* Associate the Bitmap to the ImageView */
-        slideImageView.setImageBitmap(bitmap);
-        slideImageView.setVisibility(View.VISIBLE);
-        uploadFileToFirebase(Uri.fromFile(new File(mCurrentPhotoPath)));
-
+    private void compressAndCropPhoto(String mCurrentPhotoPath) {
+        Compressor compressor = new Compressor.Builder(getContext())
+                .setCompressFormat(Bitmap.CompressFormat.WEBP)
+                .setQuality(100)
+                .build();
+        Uri compressedImageUri = Uri.fromFile(compressor.compressToFile(new File(mCurrentPhotoPath)));
+        startCropPhotoActivity(compressedImageUri);
     }
+
+    private void startCropPhotoActivity(Uri selectedImageUri) {
+        CropImage.activity(selectedImageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setFixAspectRatio(true)
+                .setAspectRatio(16, 9)
+                .start(getContext(), this);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch ( requestCode ) {
-            case ACTION_CAMERA :
-                if( resultCode == AppCompatActivity.RESULT_OK ) {
+        switch (requestCode) {
+            case ACTION_CAMERA:
+                if (resultCode == AppCompatActivity.RESULT_OK) {
                     handleBigCameraPhoto();
                 }
                 break;
-            case ACTION_GALLERY :
-                if( resultCode == AppCompatActivity.RESULT_OK ) {
+            case ACTION_GALLERY:
+                if (resultCode == AppCompatActivity.RESULT_OK) {
                     Uri selectedImageUri = data.getData();
-                    Glide.with(getContext()).load(selectedImageUri).asBitmap().centerCrop().into(slideImageView);
-                    uploadFileToFirebase(selectedImageUri);
+                    compressAndCropPhoto(AuxilaryUtils.getFilePath(getContext(), selectedImageUri));
+                }
+                break;
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                if (resultCode == AppCompatActivity.RESULT_OK) {
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (result != null) {
+                        selectedImageUri = result.getUri();
+                        Glide.with(getContext()).load(result.getUri()).asBitmap().listener(new RequestListener<Uri, Bitmap>() {
+                            @Override
+                            public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
+                                return false;
+                            }
 
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                selectedBitmap = resource;
+                                return false;
+                            }
+                        }).centerCrop().into(slideImageView);
+                    } else {
+                        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_crop_image);
+                    }
                 }
                 break;
         }
@@ -249,31 +329,39 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void uploadFileToFirebase(Uri selectedImageUri) {
+    private void uploadFileToFirebase(final Uri selectedImageUri) {
+
         CommonUtils.displayProgressDialog(getContext(), "Uploading Image");
-        new FirebaseStorageHandler(getContext()).uploadSlideImage(selectedImageUri, new FirebaseStorageHandler.FileUploadListener() {
-            @Override
-            public void onSuccess(Uri downloadUri) {
-                CommonUtils.dismissProgressDialog();
-                CommonUtils.displayToast(getContext(), "Success");
-                Glide.with(getContext()).load(downloadUri).asBitmap().centerCrop().into(slideImageView);
-                slideHintTextView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onProgressUpdate(double currentProgress) {
-
-            }
-
-            @Override
-            public void onError(Exception e) {
-                CommonUtils.dismissProgressDialog();
-                if( e != null ) {
-                    CommonUtils.displayToast(getContext(), "Error occurred while upload : " + e.getMessage());
-                    e.printStackTrace();
+        if (selectedImageUri != null) {
+            new FirebaseStorageHandler(getContext()).uploadSlideImage(selectedImageUri, new FirebaseStorageHandler.FileUploadListener() {
+                @Override
+                public void onSuccess(Uri downloadUri) {
+                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.displayToast(getContext(), "Success");
+                    Log.d(TAG, "Upload Success : " + downloadUri.toString());
+                    SlideFragment.this.selectedImageUri = downloadUri;
+                    Glide.with(getContext()).load(downloadUri).asBitmap().centerCrop().into(slideImageView);
                 }
-            }
-        });
+
+                @Override
+                public void onProgressUpdate(double currentProgress) {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    CommonUtils.dismissProgressDialog();
+                    if (e != null) {
+                        CommonUtils.displayToast(getContext(), "Error occurred while upload : " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else {
+            CommonUtils.dismissProgressDialog();
+            CommonUtils.displaySnackBar(getActivity(), R.string.image_upload_failed);
+        }
+
     }
 
     public void insertCode() {

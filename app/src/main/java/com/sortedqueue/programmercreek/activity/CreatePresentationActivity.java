@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +15,13 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ScreenSlidePagerAdapter;
+import com.sortedqueue.programmercreek.database.PresentationModel;
+import com.sortedqueue.programmercreek.database.SlideModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.SlideFragment;
+import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 06/04/17.
  */
 
-public class CreatePresentationActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreatePresentationActivity extends AppCompatActivity implements View.OnClickListener, PresentationCommunicationsListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -64,6 +68,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     private ArrayList<Fragment> fragmentArrayList;
     private int OPTION_CODE = 1;
     private int OPTION_PHOTO = 2;
+    private PresentationModel presentationModel;
+    private ArrayList<SlideModel> slideModelArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +80,11 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
         initPagerAdapter();
 
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        presentationModel = new PresentationModel();
+        presentationModel.setPresenterName( new CreekPreferences(CreatePresentationActivity.this).getAccountName() );
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
@@ -212,5 +219,23 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         super.finish();
         this.overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onPresentationCreation(String presentationId, SlideModel slideModel) {
+
+        presentationModel.setPresentationPushId(presentationId);
+        if( presentationModel.getPresentationImage() == null && slideModel.getSlideImageUrl() != null ) {
+            presentationModel.setPresentationImage(slideModel.getSlideImageUrl());
+        }
+        if( !slideModelArrayList.contains(slideModel) )
+            slideModelArrayList.add(slideModel);
+        presentationModel.setSlideModelArrayList(slideModelArrayList);
+
+    }
+
+    @Override
+    public void onPresentationComplete() {
+        new FirebaseDatabaseHandler(CreatePresentationActivity.this).writeNewPresentation(presentationModel);
     }
 }

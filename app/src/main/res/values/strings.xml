@@ -217,4 +217,7 @@
     <string name="camera_read_write_storage_permission_to_open_gallery">App requires Camera and Gallery access permissions to create slide show</string>
     <string name="add_photo">Add Photo</string>
     <string name="add_code">Add Code</string>
+    <string name="unable_to_crop_image">Unable to crop image</string>
+    <string name="image_upload_failed">Image upload Failed</string>
+    <string name="finish">Finish</string>
 </resources>
