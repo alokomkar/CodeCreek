@@ -1,85 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_margin="@dimen/margin_16"
     android:background="@color/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.CardView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/md_white_1000"
-        app:cardCornerRadius="@dimen/cardview_app_radius"
-        app:cardElevation="4dp">
-        <LinearLayout
-            android:orientation="vertical"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
+            android:layout_height="match_parent"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/md_white_1000"
+            app:cardCornerRadius="@dimen/cardview_app_radius"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/titleEditText"
-                tools:text="@string/slide_title"
-                android:background="@android:color/transparent"
-                android:textColor="@color/md_blue_800"
-                android:textSize="@dimen/text_dashboard"
-                android:padding="@dimen/margin_16"
-                android:hint="@string/slide_title"
-                />
+                android:layout_height="match_parent">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/subTitleEditText"
-                tools:text="@string/slide_title"
-                android:background="@android:color/transparent"
-                android:textColor="@color/md_blue_800"
-                android:textSize="@dimen/text_dashboard_small"
-                android:paddingLeft="@dimen/margin_16"
-                android:paddingRight="@dimen/margin_16"
-                android:paddingTop="@dimen/margin_4"
-                android:paddingBottom="@dimen/margin_4"
-                android:hint="@string/sub_title"
-                />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
-                android:background="@color/bg"
-                android:id="@+id/slideImageLayout">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:minHeight="@dimen/margin_250"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/slideImageView"
-                    android:src="@android:drawable/ic_menu_gallery"/>
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/slideHintTextView"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="@dimen/text_dashboard_small"
+                    android:id="@+id/titleEditText"
+                    tools:text="@string/slide_title"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/md_blue_800"
+                    android:textSize="@dimen/text_dashboard"
                     android:padding="@dimen/margin_16"
-                    android:gravity="center"
-                    android:layout_gravity="top"
-                    android:text="@string/tap_to_insert_image"/>
-            </FrameLayout>
+                    android:hint="@string/slide_title"
+                    />
 
-            <io.github.kbiakov.codeview.CodeView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/margin_100"
-                android:id="@+id/codeView">
-            </io.github.kbiakov.codeview.CodeView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subTitleEditText"
+                    tools:text="@string/slide_title"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/md_blue_800"
+                    android:textSize="@dimen/text_dashboard_small"
+                    android:paddingLeft="@dimen/margin_16"
+                    android:paddingRight="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:paddingBottom="@dimen/margin_4"
+                    android:hint="@string/sub_title"
+                    />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:background="@color/bg"
+                    android:id="@+id/slideImageLayout">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:minHeight="@dimen/margin_250"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/slideImageView"
+                        android:src="@android:drawable/ic_menu_gallery"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/slideHintTextView"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:padding="@dimen/margin_16"
+                        android:gravity="center"
+                        android:layout_gravity="top"
+                        android:text="@string/tap_to_insert_image"/>
+                </FrameLayout>
+
+                <io.github.kbiakov.codeview.CodeView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/margin_100"
+                    android:id="@+id/codeView">
+                </io.github.kbiakov.codeview.CodeView>
 
 
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+

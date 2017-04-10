@@ -67,6 +67,9 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         ButterKnife.bind(this, view);
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
+        slideImageLayout.setVisibility(View.GONE);
+        codeView.setVisibility(View.GONE);
+        codeView.setOnClickListener(this);
         slideImageLayout.setOnClickListener(this);
 
         return view;
@@ -87,6 +90,9 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                             Manifest.permission.READ_EXTERNAL_STORAGE})) {
                 AuxilaryUtils.displayPhotoDialog(getContext(), this);
             }
+        }
+        else if( v.getId() == R.id.codeView ) {
+
         }
     }
 
@@ -268,5 +274,15 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                 }
             }
         });
+    }
+
+    public void insertCode() {
+        codeView.setVisibility(View.VISIBLE);
+        codeView.callOnClick();
+    }
+
+    public void insertPhoto() {
+        slideImageLayout.setVisibility(View.VISIBLE);
+        slideImageLayout.callOnClick();
     }
 }

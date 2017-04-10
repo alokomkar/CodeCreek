@@ -215,4 +215,6 @@
     <string name="register_account_for_tour_users_only">This option is available only for users taking a tour</string>
     <string name="tap_to_insert_image">Tap to insert Image</string>
     <string name="camera_read_write_storage_permission_to_open_gallery">App requires Camera and Gallery access permissions to create slide show</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="add_code">Add Code</string>
 </resources>

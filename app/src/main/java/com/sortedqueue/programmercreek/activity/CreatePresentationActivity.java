@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,18 +33,26 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fab2)
-    FloatingActionButton fab2;
-    @Bind(R.id.fab1)
-    FloatingActionButton fab1;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
+    @Bind(R.id.deleteSlideFAB)
+    FloatingActionButton deleteSlideFAB;
+    @Bind(R.id.addSlideFAB)
+    FloatingActionButton addSlideFAB;
+    @Bind(R.id.optionsFAB)
+    FloatingActionButton optionsFAB;
     @Bind(R.id.pager)
     ViewPager pager;
     @Bind(R.id.deleteSlideTextView)
     TextView deleteSlideTextView;
     @Bind(R.id.addSlideTextView)
     TextView addSlideTextView;
+    @Bind(R.id.addCodeTextView)
+    TextView addCodeTextView;
+    @Bind(R.id.addCodeFAB)
+    FloatingActionButton addCodeFAB;
+    @Bind(R.id.addPhotoTextView)
+    TextView addPhotoTextView;
+    @Bind(R.id.addPhotoFAB)
+    FloatingActionButton addPhotoFAB;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -53,6 +62,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private Boolean isFabOpen = false;
     private ArrayList<Fragment> fragmentArrayList;
+    private int OPTION_CODE = 1;
+    private int OPTION_PHOTO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +82,15 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
-        fab.setOnClickListener(this);
-        fab1.setOnClickListener(this);
-        fab2.setOnClickListener(this);
+        optionsFAB.setOnClickListener(this);
+        addSlideFAB.setOnClickListener(this);
+        deleteSlideFAB.setOnClickListener(this);
         deleteSlideTextView.setOnClickListener(this);
         addSlideTextView.setOnClickListener(this);
+        addCodeFAB.setOnClickListener(this);
+        addPhotoFAB.setOnClickListener(this);
+        addPhotoTextView.setOnClickListener(this);
+        addCodeTextView.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -85,32 +100,56 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(mPagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
+        pager.setOffscreenPageLimit(mPagerAdapter.getCount());
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.fab :
+            case R.id.optionsFAB:
                 animateFAB();
                 break;
-            case R.id.fab1 :
-            case R.id.addSlideTextView :
+            case R.id.addSlideFAB:
+            case R.id.addSlideTextView:
                 mPagerAdapter.addNewSlideFragment(new SlideFragment());
                 mPagerAdapter.notifyDataSetChanged();
                 pager.setCurrentItem(mPagerAdapter.getCount() - 1);
+                pager.setOffscreenPageLimit(mPagerAdapter.getCount());
                 break;
-            case R.id.fab2 :
-            case R.id.deleteSlideTextView :
-                if( mPagerAdapter.getCount() > 1 ) {
+            case R.id.deleteSlideFAB:
+            case R.id.deleteSlideTextView:
+                if (mPagerAdapter.getCount() > 1) {
                     mPagerAdapter.removeCurrentFragment(pager.getCurrentItem());
                     mPagerAdapter.notifyDataSetChanged();
-                }
-                else {
+                    pager.setOffscreenPageLimit(mPagerAdapter.getCount());
+                } else {
                     CommonUtils.displaySnackBar(CreatePresentationActivity.this, R.string.presentation_needs_one_slide);
                 }
                 break;
+            case R.id.addCodeFAB :
+            case R.id.addCodeTextView :
+                addToSlide(OPTION_CODE);
+                break;
+            case R.id.addPhotoTextView:
+            case R.id.addPhotoFAB:
+                addToSlide(OPTION_PHOTO);
+                break;
         }
+    }
+
+    private void addToSlide(int option_code) {
+        SlideFragment currentFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+        if( currentFragment != null ) {
+            if( option_code == OPTION_CODE ){
+                currentFragment.insertCode();
+            }
+            else {
+                currentFragment.insertPhoto();
+            }
+            optionsFAB.callOnClick();
+        }
+
     }
 
     @Override
@@ -136,25 +175,33 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     private void animateFAB() {
         if (isFabOpen) {
 
-            fab.startAnimation(rotate_backward);
-            fab1.startAnimation(fab_close);
-            fab2.startAnimation(fab_close);
+            optionsFAB.startAnimation(rotate_backward);
+            addSlideFAB.startAnimation(fab_close);
+            deleteSlideFAB.startAnimation(fab_close);
             addSlideTextView.startAnimation(fab_close);
             deleteSlideTextView.startAnimation(fab_close);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
+            addCodeFAB.startAnimation(fab_close);
+            addCodeTextView.startAnimation(fab_close);
+            addPhotoFAB.startAnimation(fab_close);
+            addPhotoTextView.startAnimation(fab_close);
+            addSlideFAB.setClickable(false);
+            deleteSlideFAB.setClickable(false);
             isFabOpen = false;
 
 
         } else {
 
-            fab.startAnimation(rotate_forward);
-            fab1.startAnimation(fab_open);
-            fab2.startAnimation(fab_open);
+            optionsFAB.startAnimation(rotate_forward);
+            addSlideFAB.startAnimation(fab_open);
+            deleteSlideFAB.startAnimation(fab_open);
             addSlideTextView.startAnimation(fab_open);
             deleteSlideTextView.startAnimation(fab_open);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
+            addCodeFAB.startAnimation(fab_open);
+            addCodeTextView.startAnimation(fab_open);
+            addPhotoFAB.startAnimation(fab_open);
+            addPhotoTextView.startAnimation(fab_open);
+            addSlideFAB.setClickable(true);
+            deleteSlideFAB.setClickable(true);
             isFabOpen = true;
 
         }

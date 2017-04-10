@@ -25,6 +25,64 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/addCodeTextView"
+        android:layout_marginBottom="259dp"
+        android:elevation="6dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:background="@drawable/button_check"
+        android:layout_marginRight="@dimen/margin_72"
+        android:layout_gravity="bottom|end"
+        android:padding="@dimen/margin_4"
+        android:textColor="@color/white"
+        android:text="@string/add_code"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addCodeFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="255dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/margin_24"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:fabSize="mini"
+        app:backgroundTint="@color/md_green_400"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@android:drawable/ic_input_get" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addPhotoTextView"
+        android:layout_marginBottom="204dp"
+        android:elevation="6dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:background="@drawable/button_anonymous"
+        android:layout_marginRight="@dimen/margin_72"
+        android:layout_gravity="bottom|end"
+        android:padding="@dimen/margin_4"
+        android:textColor="@color/white"
+        android:text="@string/add_photo"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addPhotoFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/margin_24"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:fabSize="mini"
+        app:backgroundTint="@color/md_green_400"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/deleteSlideTextView"
         android:layout_marginBottom="149dp"
         android:elevation="6dp"
@@ -37,7 +95,7 @@
         android:textColor="@color/white"
         android:text="@string/delete_slide"/>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/deleteSlideFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="145dp"
@@ -66,7 +124,7 @@
         android:textColor="@color/white"
         android:text="@string/add_slide"/>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab1"
+        android:id="@+id/addSlideFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"
@@ -80,7 +138,7 @@
         app:pressedTranslationZ="12dp"
         android:src="@drawable/ic_add" />
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/optionsFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
