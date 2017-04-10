@@ -219,17 +219,17 @@ public class FirebaseDatabaseHandler {
     }
 
     public String writeSlide(SlideModel slideModel) {
-        getmPresentationDatabase();
+        getmPresentationSlidesDatabase();
         if( presentationPushId == null ) {
-            presentationPushId = mPresentationDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).push().getKey();
+            presentationPushId = mPresentationSlidesDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","")).push().getKey();
         }
-        mPresentationDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","") + "/"  + presentationPushId).push().setValue(slideModel);
+        mPresentationSlidesDatabase.child(creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","") + "/"  + presentationPushId).push().setValue(slideModel);
         return presentationPushId;
     }
 
     public void writeNewPresentation(PresentationModel presentationModel) {
         getmPresentationSlidesDatabase();
-        mPresentationSlidesDatabase.child("toBeApproved").push().setValue(presentationModel);
+        mPresentationDatabase.child("toBeApproved").push().setValue(presentationModel);
     }
 
     public interface GetAllAlgorithmsListener {
