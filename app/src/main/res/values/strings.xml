@@ -220,4 +220,5 @@
     <string name="unable_to_crop_image">Unable to crop image</string>
     <string name="image_upload_failed">Image upload Failed</string>
     <string name="finish">Finish</string>
+    <string name="title_view_presentation">View Presentation</string>
 </resources>

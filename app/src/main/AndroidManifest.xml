@@ -123,7 +123,11 @@
             android:label="@string/title_presentation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".activity.ViewPresentationActivity"
+            android:label="@string/title_view_presentation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SyntaxLearnActivity"
             android:label="@string/title_activity_syntax_learn"

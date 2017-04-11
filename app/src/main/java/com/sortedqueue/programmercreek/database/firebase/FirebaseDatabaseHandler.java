@@ -265,6 +265,36 @@ public class FirebaseDatabaseHandler {
         });
     }
 
+    public interface GetAllSlidesListener {
+        void onSuccess( ArrayList<SlideModel> slideModelArrayList );
+        void onFailure( DatabaseError databaseError );
+    }
+    public void getAllSlidesListener(String presenterId, String presentationPushId, final GetAllSlidesListener getAllSlidesListener ) {
+        getmPresentationSlidesDatabase();
+        mPresentationSlidesDatabase.child(presenterId).child(presentationPushId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<SlideModel> slideModelArrayList = new ArrayList<SlideModel>();
+
+                for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                    SlideModel slideModel = child.getValue(SlideModel.class);
+                    if( slideModel != null ) {
+                        slideModelArrayList.add(slideModel);
+                    }
+                }
+                if( slideModelArrayList.size() > 0 )
+                    getAllSlidesListener.onSuccess(slideModelArrayList);
+                else
+                    getAllSlidesListener.onFailure(null);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAllSlidesListener.onFailure(databaseError);
+            }
+        });
+    }
+
     public interface GetAllAlgorithmsListener {
         void onSuccess( ArrayList<AlgorithmsIndex> algorithmsIndexArrayList );
         void onError( DatabaseError databaseError );
