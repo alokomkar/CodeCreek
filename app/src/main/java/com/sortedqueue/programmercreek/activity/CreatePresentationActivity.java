@@ -123,11 +123,12 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             case R.id.addSlideFAB:
             case R.id.addSlideTextView:
                 SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-                slideFragment.saveImage();
-                mPagerAdapter.addNewSlideFragment(new SlideFragment());
-                mPagerAdapter.notifyDataSetChanged();
-                pager.setCurrentItem(mPagerAdapter.getCount() - 1);
-                pager.setOffscreenPageLimit(mPagerAdapter.getCount());
+                if( slideFragment.validateContent() ) {
+                    mPagerAdapter.addNewSlideFragment(new SlideFragment());
+                    mPagerAdapter.notifyDataSetChanged();
+                    pager.setCurrentItem(mPagerAdapter.getCount() - 1);
+                    pager.setOffscreenPageLimit(mPagerAdapter.getCount());
+                }
                 break;
             case R.id.deleteSlideFAB:
             case R.id.deleteSlideTextView:
@@ -183,8 +184,11 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void saveAndExit() {
-        onPresentationComplete();
-        finish();
+        SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+        if( slideFragment.validateContent() ) {
+            onPresentationComplete();
+            finish();
+        }
     }
 
     @Override

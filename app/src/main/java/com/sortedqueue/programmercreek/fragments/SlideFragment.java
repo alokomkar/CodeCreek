@@ -383,4 +383,21 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
             uploadFileToFirebase(selectedImageUri);
         }
     }
+
+    public boolean validateContent() {
+        String title = titleEditText.getText().toString();
+        if( title == null || title.trim().length() == 0 ) {
+            titleEditText.requestFocus();
+            titleEditText.setError("Required");
+            return false;
+        }
+        String subTitle = subTitleEditText.getText().toString();
+        if( subTitle == null || subTitle.trim().length() == 0 ) {
+            subTitleEditText.requestFocus();
+            subTitleEditText.setError("Required");
+            return false;
+        }
+        save();
+        return true;
+    }
 }

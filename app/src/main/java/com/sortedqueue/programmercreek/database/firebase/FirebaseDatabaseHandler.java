@@ -230,8 +230,39 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeNewPresentation(PresentationModel presentationModel) {
-        getmPresentationSlidesDatabase();
+        getmPresentationDatabase();
         mPresentationDatabase.child(TO_BE_APPROVED).push().setValue(presentationModel);
+    }
+
+    public interface GetAllPresentationsListener {
+        void onSuccess( ArrayList<PresentationModel> presentationModelArrayList );
+        void onError( DatabaseError databaseError );
+    }
+    public void getAllPresentations(final GetAllPresentationsListener getAllPresentationsListener ) {
+        getmPresentationDatabase();
+        mPresentationDatabase.child(TO_BE_APPROVED).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<PresentationModel> presentationModels = new ArrayList<PresentationModel>();
+                for( DataSnapshot childSnapShot : dataSnapshot.getChildren() ) {
+                    PresentationModel presentationModel = childSnapShot.getValue(PresentationModel.class);
+                    if( presentationModel != null ) {
+                        presentationModels.add(presentationModel);
+                    }
+                }
+                if( presentationModels.size() == 0 ) {
+                    getAllPresentationsListener.onError(null);
+                }
+                else {
+                    getAllPresentationsListener.onSuccess(presentationModels);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAllPresentationsListener.onError(databaseError);
+            }
+        });
     }
 
     public interface GetAllAlgorithmsListener {

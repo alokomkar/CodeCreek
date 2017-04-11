@@ -9,8 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.database.PresentationModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,11 +24,12 @@ import butterknife.ButterKnife;
 /**
  * Created by Alok Omkar on 2017-04-04.
  */
-public class PresentationsListFragment extends Fragment implements View.OnClickListener {
+public class PresentationsListFragment extends Fragment implements View.OnClickListener, FirebaseDatabaseHandler.GetAllPresentationsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     private static PresentationsListFragment instance;
     @Bind(R.id.presentationsRecyclerView)
     RecyclerView presentationsRecyclerView;
+    private PresentationsListRecyclerAdapter adapter;
 
 
     public static PresentationsListFragment getInstance() {
@@ -38,13 +45,14 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_presentations, container, false);
         ButterKnife.bind(this, view);
-
-        setupRecyclerView();
+        new FirebaseDatabaseHandler(getContext()).getAllPresentations(this);
         return view;
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView(ArrayList<PresentationModel> presentationModelArrayList) {
         presentationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new PresentationsListRecyclerAdapter(getContext(), presentationModelArrayList, this);
+        presentationsRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -57,5 +65,21 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), CreatePresentationActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(ArrayList<PresentationModel> presentationModelArrayList) {
+        setupRecyclerView(presentationModelArrayList);
+    }
+
+    @Override
+    public void onError(DatabaseError databaseError) {
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        PresentationModel presentationModel = adapter.getItemAtPosition(position);
+
     }
 }

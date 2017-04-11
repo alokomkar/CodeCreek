@@ -35,4 +35,6 @@
     <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_72">72dp</dimen>
     <dimen name="margin_250">250dp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="margin_120">120dp</dimen>
 </resources>
