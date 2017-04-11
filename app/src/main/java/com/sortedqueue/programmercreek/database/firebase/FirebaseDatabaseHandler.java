@@ -86,6 +86,8 @@ public class FirebaseDatabaseHandler {
     private String ALGORITHM = "algorithm";
     private String CREEK_PRESENTATIONS_SLIDES = "presentations_slides";
     private String CREEK_PRESENTATIONS = "presentations";
+    private String TO_BE_APPROVED = "to_be_approved";
+
     private DatabaseReference mPresentationSlidesDatabase;
 
     /***
@@ -229,7 +231,7 @@ public class FirebaseDatabaseHandler {
 
     public void writeNewPresentation(PresentationModel presentationModel) {
         getmPresentationSlidesDatabase();
-        mPresentationDatabase.child("toBeApproved").push().setValue(presentationModel);
+        mPresentationDatabase.child(TO_BE_APPROVED).push().setValue(presentationModel);
     }
 
     public interface GetAllAlgorithmsListener {

@@ -156,7 +156,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     }
 
 
-    public void save() {
+    private void save() {
         String imageUrl = null;
         if( selectedImageUri != null ) {
             imageUrl = selectedImageUri.toString();

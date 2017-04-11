@@ -183,9 +183,6 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void saveAndExit() {
-        for( Fragment fragment : mPagerAdapter.getAllItems() ) {
-            ((SlideFragment)fragment).save();
-        }
         onPresentationComplete();
         finish();
     }
