@@ -150,8 +150,9 @@ public class CompileCodeFragment extends Fragment {
 
         HashMap<String, String> codeMap = new HashMap<>();
         codeMap.put("language", LanguageConstants.C_INDEX);
-        codeMap.put("sourceCode", codeEditorRecyclerAdapter.getCode());
-        Log.d(TAG, "Source Code to be executed : " + codeEditorRecyclerAdapter.getCode());
+        String sourceCode = codeEditorRecyclerAdapter.getCode();
+        codeMap.put("sourceCode", sourceCode);
+        Log.d(TAG, "Source Code to be executed : " + sourceCode);
         outputTextView.setText("");
         startAnimation();
         Call<IdResponse> idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi());
