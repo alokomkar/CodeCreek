@@ -12,6 +12,7 @@ public class ProgrammingBuddyConstants {
 	public static final int KEY_REVISE = 6;
 	public static final int KEY_LESSON = 7;
 	public static final int KEY_FILL_BLANKS = 8;
+	public static final int KEY_CODE_LAB = 9;
 	public static final String KEY_QUIZ_TYPE = "Quiz_Type";
 
 	public static final int KEY_QUIZ_DESCRIPTION_QUESTION = 1;

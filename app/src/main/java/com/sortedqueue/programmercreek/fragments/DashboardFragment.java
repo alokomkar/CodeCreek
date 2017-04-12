@@ -162,17 +162,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 syntaxLayout.setVisibility(View.VISIBLE);
             }
 
-        /*if( creekPreferences.getProgramLanguage().equals("sql") ) {
-            introLayout.setVisibility(View.VISIBLE);
-            wizardLayout.setVisibility(View.GONE);
-            syntaxLayout.setVisibility(View.VISIBLE);
-            wikiLayout.setVisibility(View.GONE);
-            indexLayout.setVisibility(View.GONE);
-            testLayout.setVisibility(View.GONE);
-            matchLayout.setVisibility(View.GONE);
-            quizLayout.setVisibility(View.GONE);
-        }*/
-
             dashboardScrollView.scrollTo(0, 0);
             introLayout.setAlpha(0.0f);
             wizardLayout.setAlpha(0.0f);
@@ -183,6 +172,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             matchLayout.setAlpha(0.0f);
             testLayout.setAlpha(0.0f);
             interviewLayout.setAlpha(0.0f);
+            codeLabLayout.setAlpha(0.0f);
+
             int delay = 0;
             int standardDelay = 270;
             initAnimations(introLayout, delay);
@@ -202,6 +193,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             initAnimations(testLayout, delay);
             delay = delay + standardDelay;
             initAnimations(interviewLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(codeLabLayout, delay);
         }
 
 
@@ -301,8 +294,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 break;
 
             case R.id.codeLabLayout :
-                intent = new Intent(getContext(), CodeLabActivity.class);
-                startActivity(intent);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
                 break;
 
             /*case R.id.searchCardView :
@@ -331,6 +323,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 }
             });
         } else {
+            if( invokeMode == ProgrammingBuddyConstants.KEY_CODE_LAB ) {
+                Intent intent = new Intent(getContext(), CodeLabActivity.class);
+                startActivity(intent);
+                return;
+            }
             Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
             programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
             boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
