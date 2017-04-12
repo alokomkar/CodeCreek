@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +21,6 @@ import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.CodeOutputResponse;
-import com.sortedqueue.programmercreek.database.firebase.IdResponse;
 import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -65,6 +63,7 @@ public class CompileCodeFragment extends Fragment {
     private SubmitCodeService submitCodeService;
     private String TAG = CompileCodeFragment.class.getSimpleName();
     private Code code;
+    private CodeEditorRecyclerAdapter codeEditorRecyclerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,7 +112,8 @@ public class CompileCodeFragment extends Fragment {
     private void setupRecyclerView() {
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
         codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        codeEditRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), programLines, "C"));
+        codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, "C");
+        codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);
         codeEditRecyclerView.getItemAnimator().setChangeDuration(0);
     }
 
@@ -148,9 +148,10 @@ public class CompileCodeFragment extends Fragment {
 
         HashMap<String, String> codeMap = new HashMap<>();
         codeMap.put("language", LanguageConstants.C_INDEX);
-        codeMap.put("sourceCode", code.getSourceCode());
+        codeMap.put("sourceCode", codeEditorRecyclerAdapter.getCode());
+        Log.d(TAG, "Source Code to be executed : " + codeEditorRecyclerAdapter.getCode());
         outputTextView.setText("");
-        startAnimation();
+        /*startAnimation();
         Call<IdResponse> idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi());
         idResponseCall.enqueue(new Callback<IdResponse>() {
             @Override
@@ -176,7 +177,7 @@ public class CompileCodeFragment extends Fragment {
                 outputTextView.setText("Execute Error : " + t.getMessage());
                 stopAnimation();
             }
-        });
+        });*/
     }
 
     private void startAnimation() {
