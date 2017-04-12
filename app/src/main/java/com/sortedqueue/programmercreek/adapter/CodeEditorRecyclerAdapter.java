@@ -47,7 +47,7 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         String programLine = programLines.get(position);
         //holder.codeEditText.setEnabled(position == editableIndex);
         if( programLine.contains("<") || programLine.contains(">")) {
@@ -62,6 +62,33 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
                 holder.codeEditText.setText(Html.fromHtml(prettifyHighlighter.highlight(programLanguage, programLine)));
             }
         }
+        holder.codeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editableIndex = position;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if( editableIndex == -1 ) {
+                    return;
+                }
+                String programLine = s.toString().trim();
+                Log.d(TAG, "Setting line : " + programLine);
+                if( programLine.trim().length() > 0 ) {
+                    programLines.set(position, programLine);
+                }
+                else {
+                    programLines.set(position, "");
+                }
+
+            }
+        });
     }
 
     @Override
@@ -77,7 +104,7 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
         return code;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, TextWatcher {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.codeEditText)
         EditText codeEditText;
@@ -86,51 +113,14 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
             super(itemView);
             ButterKnife.bind(this, itemView);
             codeEditText.setOnClickListener(this);
-            codeEditText.addTextChangedListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            editableIndex = getAdapterPosition();
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if( editableIndex == -1 ) {
-                return;
-            }
-            String programLine = s.toString().trim();
-            Log.d(TAG, "Setting line : " + programLine);
-            if( programLine.trim().length() > 0 ) {
-                int position = getAdapterPosition();
-                programLines.set(position, programLine);
-
-                if( position != RecyclerView.NO_POSITION ) {
-                    if( programLine.contains("<") || programLine.contains(">")) {
-                        codeEditText.setText(programLine);
-                        codeEditText.setTextColor(Color.parseColor("#006699"));
-                    }
-                    if(Build.VERSION.SDK_INT >= 24) {
-                        codeEditText.setText(Html.fromHtml(prettifyHighlighter.highlight(programLanguage, programLine), Html.FROM_HTML_MODE_LEGACY));
-                    }
-                    else {
-                        codeEditText.setText(Html.fromHtml(prettifyHighlighter.highlight(programLanguage, programLine)));
-                    }
-                }
-
-            }
-
-        }
     }
 
 }
