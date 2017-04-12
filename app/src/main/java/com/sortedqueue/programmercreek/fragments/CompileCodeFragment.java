@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +18,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.CodeOutputResponse;
 import com.sortedqueue.programmercreek.database.firebase.IdResponse;
 import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -55,6 +60,8 @@ public class CompileCodeFragment extends Fragment {
     RelativeLayout compilerProgressLayout;
     @Bind(R.id.outputScrollView)
     NestedScrollView outputScrollView;
+    @Bind(R.id.codeEditRecyclerView)
+    RecyclerView codeEditRecyclerView;
     private SubmitCodeService submitCodeService;
     private String TAG = CompileCodeFragment.class.getSimpleName();
     private Code code;
@@ -68,10 +75,25 @@ public class CompileCodeFragment extends Fragment {
         compilerProgressLayout.setVisibility(View.GONE);
         code = new Code();
         code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
-        code.setSourceCode("#include <stdio.h>\n" +
-                "int main() {\n" +
-                "\tprintf(\"Hello again!\");\n" +
-                "\treturn 0;\n" +
+        code.setSourceCode("#include<stdio.h>\n" +
+                "#include<math.h>\n" +
+                "int main(void)\n" +
+                "{\n" +
+                "   double Adjacent=2, Opposite=3, Hypotenuse=4;\n" +
+                "   //Hypotenuse\n" +
+                "   double Hypotenuse1 = (pow(Adjacent,2)) + (pow(Opposite,2));\n" +
+                "   Hypotenuse1=sqrt(Hypotenuse1);\n" +
+                "   printf(\"\\nHypotenuse: %lf\",Hypotenuse1);\n" +
+                "   //Adjacent\n" +
+                "   double Adjacent1 = (pow(Hypotenuse,2)) - (pow(Opposite,2)) ;\n" +
+                "   Adjacent1=sqrt(Adjacent1);\n" +
+                "   printf(\"\\nAdjacent: %lf\",Adjacent1);\n" +
+                "     \n" +
+                "   //Opposite\n" +
+                "   double Opposite1 = (pow(Hypotenuse,2)) - (pow(Adjacent,2));\n" +
+                "   Opposite1=sqrt(Opposite1);\n" +
+                "   printf(\"\\nOpposite: %lf\",Opposite1);\n" +
+                "   return 0;\n" +
                 "}\n");
         algorithmCodeView.setOptions(Options.Default.get(getContext())
                 .withLanguage("C")
@@ -83,8 +105,16 @@ public class CompileCodeFragment extends Fragment {
 
             }
         });
+        setupRecyclerView();
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
         return view;
+    }
+
+    private void setupRecyclerView() {
+        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
+        codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        codeEditRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), programLines, "C"));
+        codeEditRecyclerView.getItemAnimator().setChangeDuration(0);
     }
 
     private void getOutputResponse(int submissionId) {

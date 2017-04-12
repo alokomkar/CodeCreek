@@ -247,6 +247,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         if( presentationModel.getPresentationImage() == null && slideModel.getSlideImageUrl() != null ) {
             presentationModel.setPresentationImage(slideModel.getSlideImageUrl());
         }
+        if( presentationModel.getPresentationName() == null ) {
+            presentationModel.setPresentationName(slideModel.getTitle());
+            CommonUtils.displayToast(CreatePresentationActivity.this, getString(R.string.your_presentation_name_is_set_as) + " " + presentationModel.getPresenterName());
+        }
         if( !slideModelArrayList.contains(slideModel) )
             slideModelArrayList.add(slideModel);
         presentationModel.setSlideModelArrayList(slideModelArrayList);

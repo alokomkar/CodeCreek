@@ -271,7 +271,7 @@ public class FirebaseDatabaseHandler {
     }
     public void getAllSlidesListener(String presenterId, String presentationPushId, final GetAllSlidesListener getAllSlidesListener ) {
         getmPresentationSlidesDatabase();
-        mPresentationSlidesDatabase.child(presenterId).child(presentationPushId).addListenerForSingleValueEvent(new ValueEventListener() {
+        mPresentationSlidesDatabase.child(presenterId.replaceAll("[-+.^:,]","")).child(presentationPushId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<SlideModel> slideModelArrayList = new ArrayList<SlideModel>();

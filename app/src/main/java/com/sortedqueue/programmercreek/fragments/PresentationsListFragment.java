@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
 import com.sortedqueue.programmercreek.activity.ViewPresentationActivity;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.PresentationsListRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.PresentationModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;

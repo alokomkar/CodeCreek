@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,6 +33,7 @@ public class ViewPresentationActivity extends AppCompatActivity implements Fireb
     Toolbar toolbar;
     @Bind(R.id.pager)
     ViewPager pager;
+    private String TAG = ViewPresentationActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class ViewPresentationActivity extends AppCompatActivity implements Fireb
 
     private void fetchSlides(PresentationModel presentationModel) {
         CommonUtils.displayProgressDialog(ViewPresentationActivity.this, "Loading");
-        new FirebaseDatabaseHandler(ViewPresentationActivity.this).getAllSlidesListener(presentationModel.getPresenterEmail(), presentationModel.getPresentationPushId(), this);
+        onSuccess(presentationModel.getSlideModelArrayList());
     }
 
     @Override
@@ -91,6 +93,7 @@ public class ViewPresentationActivity extends AppCompatActivity implements Fireb
     @Override
     public void onSuccess(ArrayList<SlideModel> slideModelArrayList) {
         CommonUtils.dismissProgressDialog();
+        Log.d(TAG, "Slides size : " + slideModelArrayList.size());
         pager.setAdapter(new ViewSlidesPagerAdapter(getSupportFragmentManager(), slideModelArrayList));
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
         pager.setOffscreenPageLimit(slideModelArrayList.size());

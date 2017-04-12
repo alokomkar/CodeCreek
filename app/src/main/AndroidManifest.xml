@@ -115,6 +115,7 @@
         <activity
             android:name=".activity.CodeLabActivity"
             android:label="@string/title_code_lab"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.fragments;
+package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.PresentationModel;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class PresentationsListRecyclerAdapter extends RecyclerView.Adapter<Prese
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         PresentationModel presentationModel = presentationModels.get(position);
-        holder.titleTextView.setText("Presentation : " + position);
+        holder.titleTextView.setText(presentationModel.getPresentationName());
         holder.subTitleTextView.setText(presentationModel.getPresenterName());
         Glide.with(context)
                 .load(presentationModel.getPresentationImage())
