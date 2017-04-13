@@ -1,5 +1,8 @@
 package com.sortedqueue.programmercreek.database.firebase;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Alok Omkar on 2017-03-25.
  */
 
-public class Code {
+public class Code implements Parcelable {
 
     @SerializedName("language")
     @Expose
@@ -66,4 +69,33 @@ public class Code {
                 ", sourceCode='" + sourceCode + '\'' +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.language);
+        dest.writeString(this.sourceCode);
+    }
+
+    protected Code(Parcel in) {
+        this.language = in.readInt();
+        this.sourceCode = in.readString();
+    }
+
+    public static final Parcelable.Creator<Code> CREATOR = new Parcelable.Creator<Code>() {
+        @Override
+        public Code createFromParcel(Parcel source) {
+            return new Code(source);
+        }
+
+        @Override
+        public Code[] newArray(int size) {
+            return new Code[size];
+        }
+    };
 }

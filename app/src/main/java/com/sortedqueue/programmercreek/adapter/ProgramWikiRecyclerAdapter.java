@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.CodeLabActivity;
+import com.sortedqueue.programmercreek.constants.LanguageConstants;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
+import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.List;
@@ -34,6 +39,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
+
     }
 
     @Override
@@ -90,8 +96,13 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         programViewHolder.programCodeView.setOptions(Options.Default.get(context)
                 .withLanguage(programLanguage)
                 .withCode(programWiki.getProgramExample())
-                .withTheme(ColorTheme.MONOKAI))
-                ;
+                .withTheme(ColorTheme.MONOKAI));
+        if( programLanguage.equals("cpp") || programLanguage.equals("c") || programLanguage.equals("java") ) {
+            programViewHolder.codeLabTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            programViewHolder.codeLabTextView.setVisibility(View.GONE);
+        }
     }
 
     private void initHeaderView(RecyclerView.ViewHolder holder, ProgramWiki programWiki, int position) {
@@ -114,7 +125,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    public class ProgramViewHolder extends RecyclerView.ViewHolder {
+    public class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.syntaxDescriptionTextView)
         TextView syntaxDescriptionTextView;
 
@@ -124,9 +135,37 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         @Bind(R.id.programCodeView)
         CodeView programCodeView;
 
+        @Bind(R.id.codeLabTextView)
+        TextView codeLabTextView;
+
         public ProgramViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            codeLabTextView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if( position != RecyclerView.NO_POSITION ) {
+                Code code = new Code();
+                switch ( programLanguage ) {
+                    case "c" :
+                        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
+                        break;
+                    case "cpp" :
+                        code.setLanguage(Integer.parseInt(LanguageConstants.CPP_INDEX));
+                        break;
+                    case "java" :
+                        code.setLanguage(Integer.parseInt(LanguageConstants.JAVA_INDEX));
+                        break;
+                }
+                String sourceCode = programWikis.get(position).getProgramExample();
+                code.setSourceCode(sourceCode);
+                Intent intent = new Intent(context, CodeLabActivity.class);
+                intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, code);
+                context.startActivity(intent);
+            }
         }
     }
 

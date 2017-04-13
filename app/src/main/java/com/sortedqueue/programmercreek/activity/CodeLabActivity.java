@@ -14,6 +14,8 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.fragments.CodeLanguageFragment;
 import com.sortedqueue.programmercreek.fragments.CompileCodeFragment;
@@ -40,6 +42,7 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     private FragmentTransaction mFragmentTransaction;
     private CodeLanguageFragment codeLanguageFragment;
     private CompileCodeFragment compileCodeFragment;
+    private Bundle bundle;
 
     @Override
     protected void onResume() {
@@ -62,7 +65,15 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        loadCodeLanguagesFragment();
+
+        bundle = getIntent().getExtras();
+        if( bundle == null ) {
+            loadCodeLanguagesFragment();
+        }
+        else {
+            Code code = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
+            loadCompileCodeFragment(code);
+        }
         checkFAB.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -71,13 +82,14 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
 
     private boolean isFirstTime = true;
     @Override
-    public void loadCompileCodeFragment() {
+    public void loadCompileCodeFragment( Code code ) {
         getSupportActionBar().setTitle("Code Lab : Hello world" );
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         compileCodeFragment = (CompileCodeFragment) getSupportFragmentManager().findFragmentByTag(ChaptersFragment.class.getSimpleName());
         if (compileCodeFragment == null) {
             compileCodeFragment = new CompileCodeFragment();
         }
+        compileCodeFragment.setParameter( code );
         checkFAB.setImageDrawable(ContextCompat.getDrawable(CodeLabActivity.this, android.R.drawable.ic_media_play));
         AnimationUtils.enterReveal(checkFAB);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);

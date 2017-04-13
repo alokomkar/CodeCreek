@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.constants.LanguageConstants;
+import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener;
 
 import butterknife.Bind;
@@ -33,6 +35,7 @@ public class CodeLanguageFragment extends Fragment implements View.OnClickListen
     private CodeLabNavigationListener codeLabNavigationListener;
 
     private static CodeLanguageFragment instance;
+    private Code code;
 
     public static CodeLanguageFragment getInstance() {
         if (instance == null) {
@@ -46,6 +49,28 @@ public class CodeLanguageFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_code_language_list, container, false);
         ButterKnife.bind(this, view);
+        code = new Code();
+        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
+        code.setSourceCode("#include<stdio.h>\n" +
+                "#include<math.h>\n" +
+                "int main(void)\n" +
+                "{\n" +
+                "   double Adjacent=2, Opposite=3, Hypotenuse=4;\n" +
+                "   //Hypotenuse\n" +
+                "   double Hypotenuse1 = (pow(Adjacent,2)) + (pow(Opposite,2));\n" +
+                "   Hypotenuse1=sqrt(Hypotenuse1);\n" +
+                "   printf(\"\\nHypotenuse: %lf\",Hypotenuse1);\n" +
+                "   //Adjacent\n" +
+                "   double Adjacent1 = (pow(Hypotenuse,2)) - (pow(Opposite,2)) ;\n" +
+                "   Adjacent1=sqrt(Adjacent1);\n" +
+                "   printf(\"\\nAdjacent: %lf\",Adjacent1);\n" +
+                "     \n" +
+                "   //Opposite\n" +
+                "   double Opposite1 = (pow(Hypotenuse,2)) - (pow(Adjacent,2));\n" +
+                "   Opposite1=sqrt(Opposite1);\n" +
+                "   printf(\"\\nOpposite: %lf\",Opposite1);\n" +
+                "   return 0;\n" +
+                "}\n");
         setupListeners();
         return view;
     }
@@ -75,16 +100,16 @@ public class CodeLanguageFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch ( v.getId() ) {
             case R.id.cProgramsTextView :
-                codeLabNavigationListener.loadCompileCodeFragment();
+                codeLabNavigationListener.loadCompileCodeFragment(code);
                 break;
             case R.id.cppProgramsTextView :
-                codeLabNavigationListener.loadCompileCodeFragment();
+                codeLabNavigationListener.loadCompileCodeFragment(code);
                 break;
             case R.id.javaProgramsTextView :
-                codeLabNavigationListener.loadCompileCodeFragment();
+                codeLabNavigationListener.loadCompileCodeFragment(code);
                 break;
             case R.id.adaProgramsTextView:
-                codeLabNavigationListener.loadCompileCodeFragment();
+                codeLabNavigationListener.loadCompileCodeFragment(code);
                 break;
         }
     }

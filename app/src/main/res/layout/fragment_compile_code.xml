@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <io.github.kbiakov.codeview.CodeView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"
-        android:layout_above="@+id/compilerProgressLayout"
-        android:id="@+id/algorithmCodeView">
-    </io.github.kbiakov.codeview.CodeView>
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

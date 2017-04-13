@@ -27,17 +27,11 @@ import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.github.kbiakov.codeview.CodeView;
-import io.github.kbiakov.codeview.OnCodeLineClickListener;
-import io.github.kbiakov.codeview.adapters.Options;
-import io.github.kbiakov.codeview.highlight.ColorTheme;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,8 +42,6 @@ import retrofit2.Response;
 
 public class CompileCodeFragment extends Fragment {
 
-    @Bind(R.id.algorithmCodeView)
-    CodeView algorithmCodeView;
     @Bind(R.id.outputTextView)
     TextView outputTextView;
     @Bind(R.id.progressImageView)
@@ -74,38 +66,9 @@ public class CompileCodeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_compile_code, container, false);
         ButterKnife.bind(this, view);
         compilerProgressLayout.setVisibility(View.GONE);
-        code = new Code();
-        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
-        code.setSourceCode("#include<stdio.h>\n" +
-                "#include<math.h>\n" +
-                "int main(void)\n" +
-                "{\n" +
-                "   double Adjacent=2, Opposite=3, Hypotenuse=4;\n" +
-                "   //Hypotenuse\n" +
-                "   double Hypotenuse1 = (pow(Adjacent,2)) + (pow(Opposite,2));\n" +
-                "   Hypotenuse1=sqrt(Hypotenuse1);\n" +
-                "   printf(\"\\nHypotenuse: %lf\",Hypotenuse1);\n" +
-                "   //Adjacent\n" +
-                "   double Adjacent1 = (pow(Hypotenuse,2)) - (pow(Opposite,2)) ;\n" +
-                "   Adjacent1=sqrt(Adjacent1);\n" +
-                "   printf(\"\\nAdjacent: %lf\",Adjacent1);\n" +
-                "     \n" +
-                "   //Opposite\n" +
-                "   double Opposite1 = (pow(Hypotenuse,2)) - (pow(Adjacent,2));\n" +
-                "   Opposite1=sqrt(Opposite1);\n" +
-                "   printf(\"\\nOpposite: %lf\",Opposite1);\n" +
-                "   return 0;\n" +
-                "}\n");
-        algorithmCodeView.setOptions(Options.Default.get(getContext())
-                .withLanguage("C")
-                .withCode(code.getSourceCode())
-                .withTheme(ColorTheme.MONOKAI));
-        algorithmCodeView.getOptionsOrDefault().addCodeLineClickListener(new OnCodeLineClickListener() {
-            @Override
-            public void onCodeLineClicked(int i, @NotNull String s) {
 
-            }
-        });
+
+
         setupRecyclerView();
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
         return view;
@@ -202,5 +165,9 @@ public class CompileCodeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public void setParameter(Code code) {
+        this.code = code;
     }
 }
