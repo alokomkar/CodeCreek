@@ -316,7 +316,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                                 selectedBitmap = resource;
                                 return false;
                             }
-                        }).centerCrop().into(slideImageView);
+                        }).fitCenter().into(slideImageView);
                     } else {
                         CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_crop_image);
                     }
@@ -339,7 +339,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                     Log.d(TAG, "Upload Success : " + downloadUri.toString());
                     SlideFragment.this.selectedImageUri = downloadUri;
                     slideModel.setSlideImageUrl(downloadUri.toString());
-                    Glide.with(getContext()).load(downloadUri).asBitmap().centerCrop().into(slideImageView);
+                    Glide.with(getContext()).load(downloadUri).asBitmap().into(slideImageView);
                 }
 
                 @Override

@@ -49,7 +49,7 @@
         app:backgroundTint="@color/md_green_400"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@android:drawable/ic_input_get" />
+        android:src="@drawable/ic_code" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -149,10 +149,45 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
+        <android.support.design.widget.TextInputLayout
+            android:padding="@dimen/margin_16"
+            android:id="@+id/presentationInputLayout"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:padding="@dimen/margin_4"
+            android:background="@android:color/transparent"
+            android:inputType="textCapWords"
+            android:textColorHint="@color/md_grey_500"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_grey_800"
+            tools:text="@string/about"
+            android:textSize="@dimen/text_dashboard_small"
+            android:hint="@string/presentation_title"
+            android:id="@+id/presentationTitleEditText"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:id="@+id/tagsRecyclerView"
+            android:layout_below="@+id/presentationInputLayout">
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_below="@+id/tagsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -5,18 +5,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ScreenSlidePagerAdapter;
+import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.PresentationModel;
 import com.sortedqueue.programmercreek.database.SlideModel;
+import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.SlideFragment;
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
@@ -57,6 +65,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     TextView addPhotoTextView;
     @Bind(R.id.addPhotoFAB)
     FloatingActionButton addPhotoFAB;
+    @Bind(R.id.presentationTitleEditText)
+    EditText presentationTitleEditText;
+    @Bind(R.id.tagsRecyclerView)
+    RecyclerView tagsRecyclerView;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -79,14 +91,15 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fragmentArrayList = new ArrayList<>();
         slideModelArrayList = new ArrayList<>();
         initPagerAdapter();
-
+        tagsRecyclerView.setVisibility(View.GONE);
+        fetchAllTags();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         presentationModel = new PresentationModel();
         CreekPreferences creekPreferences = new CreekPreferences(CreatePresentationActivity.this);
-        presentationModel.setPresenterEmail( creekPreferences.getSignInAccount() );
-        presentationModel.setPresenterName( creekPreferences.getAccountName() );
+        presentationModel.setPresenterEmail(creekPreferences.getSignInAccount());
+        presentationModel.setPresenterName(creekPreferences.getAccountName());
 
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
@@ -102,9 +115,45 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         addPhotoFAB.setOnClickListener(this);
         addPhotoTextView.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
+        presentationTitleEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presentationModel.setPresentationName(s.toString().trim());
+            }
+        });
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
+    }
+
+    private void fetchAllTags() {
+        new FirebaseDatabaseHandler(CreatePresentationActivity.this).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
+            @Override
+            public void onError(DatabaseError databaseError) {
+
+            }
+
+            @Override
+            public void onSuccess(TagModel tagModel) {
+                setupRecyclerView(tagModel);
+            }
+        });
+    }
+
+    private void setupRecyclerView(TagModel tagModel) {
+        tagsRecyclerView.setLayoutManager( new LinearLayoutManager(CreatePresentationActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        TagsRecyclerAdapter tagsRecyclerAdapter = new TagsRecyclerAdapter( tagModel.getTagArrayList() );
+        tagsRecyclerView.setAdapter( tagsRecyclerAdapter );
     }
 
     private void initPagerAdapter() {
@@ -125,7 +174,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             case R.id.addSlideFAB:
             case R.id.addSlideTextView:
                 SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-                if( slideFragment.validateContent() ) {
+                if (slideFragment.validateContent()) {
                     mPagerAdapter.addNewSlideFragment(new SlideFragment());
                     mPagerAdapter.notifyDataSetChanged();
                     pager.setCurrentItem(mPagerAdapter.getCount() - 1);
@@ -142,8 +191,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                     CommonUtils.displaySnackBar(CreatePresentationActivity.this, R.string.presentation_needs_one_slide);
                 }
                 break;
-            case R.id.addCodeFAB :
-            case R.id.addCodeTextView :
+            case R.id.addCodeFAB:
+            case R.id.addCodeTextView:
                 addToSlide(OPTION_CODE);
                 break;
             case R.id.addPhotoTextView:
@@ -155,11 +204,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     private void addToSlide(int option_code) {
         SlideFragment currentFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-        if( currentFragment != null ) {
-            if( option_code == OPTION_CODE ){
+        if (currentFragment != null) {
+            if (option_code == OPTION_CODE) {
                 currentFragment.insertCode();
-            }
-            else {
+            } else {
                 currentFragment.insertPhoto();
             }
             optionsFAB.callOnClick();
@@ -179,7 +227,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
-        if( item.getItemId() == R.id.action_finish ) {
+        if (item.getItemId() == R.id.action_finish) {
             saveAndExit();
         }
         return super.onOptionsItemSelected(item);
@@ -187,7 +235,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     private void saveAndExit() {
         SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-        if( slideFragment.validateContent() ) {
+        if (slideFragment.validateContent()) {
             onPresentationComplete();
             finish();
         }
@@ -244,14 +292,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     public void onPresentationCreation(String presentationId, SlideModel slideModel) {
 
         presentationModel.setPresentationPushId(presentationId);
-        if( presentationModel.getPresentationImage() == null && slideModel.getSlideImageUrl() != null ) {
+        if (presentationModel.getPresentationImage() == null && slideModel.getSlideImageUrl() != null) {
             presentationModel.setPresentationImage(slideModel.getSlideImageUrl());
         }
-        if( presentationModel.getPresentationName() == null ) {
-            presentationModel.setPresentationName(slideModel.getTitle());
-            CommonUtils.displayToast(CreatePresentationActivity.this, getString(R.string.your_presentation_name_is_set_as) + " " + presentationModel.getPresenterName());
-        }
-        if( !slideModelArrayList.contains(slideModel) )
+        if (!slideModelArrayList.contains(slideModel))
             slideModelArrayList.add(slideModel);
         presentationModel.setSlideModelArrayList(slideModelArrayList);
 

@@ -50,12 +50,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
-                android:background="@color/bg"
                 android:id="@+id/slideImageLayout">
                 <ImageView
                     android:layout_width="match_parent"
+                    android:scaleType="fitXY"
                     android:layout_gravity="center"
-                    android:minHeight="@dimen/margin_250"
+                    android:minHeight="@dimen/margin_200"
                     android:layout_height="wrap_content"
                     android:id="@+id/slideImageView"
                     android:src="@android:drawable/ic_menu_gallery"/>

@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.UserRanking;
 import com.sortedqueue.programmercreek.database.WikiModel;
@@ -60,6 +61,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mIntroChapterDatabase;
     private DatabaseReference mProgramLanguageDatabase;
     private DatabaseReference mPresentationDatabase;
+    private DatabaseReference mTagDatabase;
 
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -87,6 +89,7 @@ public class FirebaseDatabaseHandler {
     private String CREEK_PRESENTATIONS_SLIDES = "presentations_slides";
     private String CREEK_PRESENTATIONS = "presentations";
     private String TO_BE_APPROVED = "to_be_approved";
+    private String CREEK_TAGS = "language_tags";
 
     private DatabaseReference mPresentationSlidesDatabase;
 
@@ -105,6 +108,12 @@ public class FirebaseDatabaseHandler {
      ***/
 
     public DatabaseReference getProgramDatabase() {
+        mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
+        mProgramDatabase.keepSynced(true);
+        return mProgramDatabase;
+    }
+
+    public DatabaseReference getmTagDatabase() {
         mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
         mProgramDatabase.keepSynced(true);
         return mProgramDatabase;
@@ -158,6 +167,70 @@ public class FirebaseDatabaseHandler {
         mProgramLanguageDatabase.push().setValue(programLanguage);
     }
 
+    public void writeTags(final String newTag ) {
+        getmTagDatabase().runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                if (mutableData.getValue() == null) {
+                    TagModel tagModel = new TagModel();
+                    tagModel.getTagArrayList().add(newTag);
+                    mutableData.setValue(tagModel);
+                } else {
+                    TagModel tagModel = mutableData.getValue(TagModel.class);
+                    ArrayList<String> tags = tagModel.getTagArrayList();
+                    if( !checkArrayList(tags, newTag) ) {
+                        tagModel.getTagArrayList().add(newTag);
+                        mutableData.setValue(tagModel);
+                    }
+
+                }
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
+    }
+
+    public static boolean checkArrayList(ArrayList<String> tags, String newTag) {
+        for( String string : tags ) {
+            if( newTag.equalsIgnoreCase(string) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public interface GetAllTagsListener {
+        void onError( DatabaseError databaseError );
+        void onSuccess( TagModel tagModel );
+    }
+
+    public void getAllTags(final GetAllTagsListener getAllTagsListener ) {
+        getmTagDatabase().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TagModel tagModel = dataSnapshot.getValue(TagModel.class);
+                if( tagModel == null ) {
+                    tagModel = new TagModel();
+                    ArrayList<String> tags = new ArrayList<>();
+                    tags.add("C");
+                    tags.add("C++");
+                    tags.add("Java");
+                    tags.add("SQL");
+                    tagModel.setTagArrayList(tags);
+                }
+                getAllTagsListener.onSuccess(tagModel);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAllTagsListener.onError(databaseError);
+            }
+        });
+    }
 
     public void updateInviteCount(final int inviteCount) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/invite_count")
