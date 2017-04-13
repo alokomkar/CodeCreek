@@ -15,7 +15,7 @@
             android:layout_weight="1"
             android:padding="@dimen/margin_16"
             android:id="@+id/cProgramsTextView"
-            android:onClick="onItemClick"
+            
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/cppProgramsTextView"
-            android:onClick="onItemClick"
+            
             android:padding="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/javaProgramsTextView"
-            android:onClick="onItemClick"
+            
             android:padding="@dimen/margin_16"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/adaProgramsTextView"
-            android:onClick="onItemClick"
+            
             android:padding="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"

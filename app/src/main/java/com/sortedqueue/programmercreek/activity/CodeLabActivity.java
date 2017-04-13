@@ -14,8 +14,8 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.fragments.ChapterDetailsFragment;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
+import com.sortedqueue.programmercreek.fragments.CodeLanguageFragment;
 import com.sortedqueue.programmercreek.fragments.CompileCodeFragment;
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
@@ -38,7 +38,7 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     @Bind(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
-    private ChapterDetailsFragment chapterDetailsFragment;
+    private CodeLanguageFragment codeLanguageFragment;
     private CompileCodeFragment compileCodeFragment;
 
     @Override
@@ -79,13 +79,6 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
             compileCodeFragment = new CompileCodeFragment();
         }
         checkFAB.setImageDrawable(ContextCompat.getDrawable(CodeLabActivity.this, android.R.drawable.ic_media_play));
-        /*if( isFirstTime ) {
-            checkFAB.setVisibility(View.GONE);
-            isFirstTime = false;
-        }
-        else {
-            AnimationUtils.exitReveal(checkFAB);
-        }*/
         AnimationUtils.enterReveal(checkFAB);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, compileCodeFragment, ChaptersFragment.class.getSimpleName());
@@ -96,21 +89,20 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     public void loadCodeLanguagesFragment() {
         getSupportActionBar().setTitle("Code Lab" );
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        compileCodeFragment = (CompileCodeFragment) getSupportFragmentManager().findFragmentByTag(ChaptersFragment.class.getSimpleName());
-        if (compileCodeFragment == null) {
-            compileCodeFragment = new CompileCodeFragment();
+        codeLanguageFragment = (CodeLanguageFragment) getSupportFragmentManager().findFragmentByTag(CodeLanguageFragment.class.getSimpleName());
+        if (codeLanguageFragment == null) {
+            codeLanguageFragment = CodeLanguageFragment.getInstance();
         }
         checkFAB.setImageDrawable(ContextCompat.getDrawable(CodeLabActivity.this, android.R.drawable.ic_media_play));
-        /*if( isFirstTime ) {
+        if( isFirstTime ) {
             checkFAB.setVisibility(View.GONE);
             isFirstTime = false;
         }
         else {
             AnimationUtils.exitReveal(checkFAB);
-        }*/
-        checkFAB.setVisibility(View.GONE);
+        }
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        mFragmentTransaction.replace(R.id.container, compileCodeFragment, ChaptersFragment.class.getSimpleName());
+        mFragmentTransaction.replace(R.id.container, codeLanguageFragment, CodeLanguageFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 
@@ -133,7 +125,7 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     public void onBackPressed() {
         String title = getSupportActionBar().getTitle().toString();
         if (!title.equals("Code Lab : Hello world")) {
-            loadCompileCodeFragment();
+            loadCodeLanguagesFragment();
         } else {
             finish();
         }
