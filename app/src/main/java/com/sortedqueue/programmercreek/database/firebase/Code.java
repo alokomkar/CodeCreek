@@ -18,10 +18,19 @@ public class Code implements Parcelable {
     @SerializedName("sourceCode")
     @Expose
     private String sourceCode;
+    @SerializedName("input")
+    @Expose
+    private String input;
 
     public Code(int language, String sourceCode) {
         this.language = language;
         this.sourceCode = sourceCode;
+    }
+
+    public Code(int language, String sourceCode, String input) {
+        this.language = language;
+        this.sourceCode = sourceCode;
+        this.input = input;
     }
 
     public Code() {
@@ -41,6 +50,14 @@ public class Code implements Parcelable {
 
     public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
     }
 
     @Override
@@ -80,14 +97,16 @@ public class Code implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.language);
         dest.writeString(this.sourceCode);
+        dest.writeString(this.input);
     }
 
     protected Code(Parcel in) {
         this.language = in.readInt();
         this.sourceCode = in.readString();
+        this.input = in.readString();
     }
 
-    public static final Parcelable.Creator<Code> CREATOR = new Parcelable.Creator<Code>() {
+    public static final Creator<Code> CREATOR = new Creator<Code>() {
         @Override
         public Code createFromParcel(Parcel source) {
             return new Code(source);

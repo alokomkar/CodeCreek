@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,7 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     private CodeLanguageFragment codeLanguageFragment;
     private CompileCodeFragment compileCodeFragment;
     private Bundle bundle;
+    private String TAG = CodeLabActivity.class.getSimpleName();
 
     @Override
     protected void onResume() {
@@ -136,11 +138,18 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
     @Override
     public void onBackPressed() {
         String title = getSupportActionBar().getTitle().toString();
-        if (!title.equals("Code Lab : Hello world")) {
-            loadCodeLanguagesFragment();
-        } else {
+        Log.d(TAG, "Title : " + title);
+        if( bundle == null ) {
+            if (!title.equals("Code Lab")) {
+                loadCodeLanguagesFragment();
+            } else {
+                finish();
+            }
+        }
+        else {
             finish();
         }
+
     }
 
     @Override
