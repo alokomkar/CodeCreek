@@ -114,9 +114,9 @@ public class FirebaseDatabaseHandler {
     }
 
     public DatabaseReference getmTagDatabase() {
-        mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
-        mProgramDatabase.keepSynced(true);
-        return mProgramDatabase;
+        mTagDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_TAGS );
+        mTagDatabase.keepSynced(true);
+        return mTagDatabase;
     }
 
     public DatabaseReference getUserDatabase() {
@@ -227,6 +227,7 @@ public class FirebaseDatabaseHandler {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException().printStackTrace();
                 getAllTagsListener.onError(databaseError);
             }
         });

@@ -91,7 +91,6 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fragmentArrayList = new ArrayList<>();
         slideModelArrayList = new ArrayList<>();
         initPagerAdapter();
-        tagsRecyclerView.setVisibility(View.GONE);
         fetchAllTags();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
