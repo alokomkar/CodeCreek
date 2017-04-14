@@ -222,5 +222,10 @@
     <string name="finish">Finish</string>
     <string name="title_view_presentation">View Presentation</string>
     <string name="your_presentation_name_is_set_as">Your presentation name is set as</string>
-    <string name="presentation_title">Enter your presentation Title here</string>
+    <string name="presentation_title">Enter your presentation title here</string>
+    <string name="tag_your_presentation">Tag your presentation</string>
+    <string name="add">Add</string>
+    <string name="add_new_tag">Add new tag</string>
+    <string name="title">Title</string>
+    <string name="tags">Tags</string>
 </resources>

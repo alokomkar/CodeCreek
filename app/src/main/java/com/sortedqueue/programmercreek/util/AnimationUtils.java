@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
-import com.sortedqueue.programmercreek.R;
-
 /**
  * Created by Alok Omkar on 2017-02-04.
  */
@@ -71,6 +69,42 @@ public class AnimationUtils {
         } catch ( Exception e ) {
             e.printStackTrace();
             myView.setVisibility(View.INVISIBLE);
+        }
+
+
+    }
+
+    public static void exitRevealGone(final View myView) {
+        try {
+            if( myView != null ) {
+                // previously visible view
+
+                // get the center for the clipping circle
+                int cx = myView.getMeasuredWidth() / 2;
+                int cy = myView.getMeasuredHeight() / 2;
+
+                // get the initial radius for the clipping circle
+                int initialRadius = myView.getWidth() / 2;
+
+                // create the animation (the final radius is zero)
+                Animator anim =
+                        ViewAnimationUtils.createCircularReveal(myView, cx, cy, initialRadius, 0);
+
+                // make the view invisible when the animation is done
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        myView.setVisibility(View.GONE);
+                    }
+                });
+
+                // start the animation
+                anim.start();
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            myView.setVisibility(View.GONE);
         }
 
 

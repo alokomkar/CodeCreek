@@ -42,8 +42,6 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
 
         boolean isSelected = selectedTags.contains(tag);
         holder.tagLayout.setSelected(isSelected);
-        holder.tagTextView.setSelected(isSelected);
-
     }
 
     public ArrayList<String> getSelectedTags() {
@@ -51,8 +49,15 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
     }
 
     public void addTag( String tag ) {
-        tagArrayList.add(tag);
-        notifyDataSetChanged();
+        if( tagArrayList.contains(tag) ) {
+            selectedTags.add(tag);
+            notifyDataSetChanged();
+        }
+        else {
+            tagArrayList.add(tag);
+            selectedTags.add(tag);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -84,7 +89,7 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
                 else {
                     selectedTags.add(tag);
                 }
-                notifyItemChanged(position);
+                notifyDataSetChanged();
             }
         }
     }

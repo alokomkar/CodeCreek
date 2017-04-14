@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
@@ -69,6 +71,22 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     EditText presentationTitleEditText;
     @Bind(R.id.tagsRecyclerView)
     RecyclerView tagsRecyclerView;
+    @Bind(R.id.headerTextView)
+    TextView headerTextView;
+    @Bind(R.id.tagsTextView)
+    TextView tagsTextView;
+    @Bind(R.id.presentationDetailsLayout)
+    LinearLayout presentationDetailsLayout;
+    @Bind(R.id.presentationInputLayout)
+    TextInputLayout presentationInputLayout;
+    @Bind(R.id.tagsHeaderTextView)
+    TextView tagsHeaderTextView;
+    @Bind(R.id.addTagEditText)
+    EditText addTagEditText;
+    @Bind(R.id.addTagTextView)
+    TextView addTagTextView;
+    @Bind(R.id.tagsLayout)
+    LinearLayout tagsLayout;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -114,6 +132,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         addPhotoFAB.setOnClickListener(this);
         addPhotoTextView.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
+        headerTextView.setOnClickListener(this);
+        tagsTextView.setOnClickListener(this);
         presentationTitleEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -150,9 +170,9 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void setupRecyclerView(TagModel tagModel) {
-        tagsRecyclerView.setLayoutManager( new LinearLayoutManager(CreatePresentationActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        TagsRecyclerAdapter tagsRecyclerAdapter = new TagsRecyclerAdapter( tagModel.getTagArrayList() );
-        tagsRecyclerView.setAdapter( tagsRecyclerAdapter );
+        tagsRecyclerView.setLayoutManager(new LinearLayoutManager(CreatePresentationActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        TagsRecyclerAdapter tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList());
+        tagsRecyclerView.setAdapter(tagsRecyclerAdapter);
     }
 
     private void initPagerAdapter() {
@@ -197,6 +217,22 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             case R.id.addPhotoTextView:
             case R.id.addPhotoFAB:
                 addToSlide(OPTION_PHOTO);
+                break;
+            case R.id.headerTextView :
+                if( presentationInputLayout.getVisibility() == View.VISIBLE ) {
+                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(presentationInputLayout);
+                }
+                else {
+                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(presentationInputLayout);
+                }
+                break;
+            case R.id.tagsTextView :
+                if( tagsLayout.getVisibility() == View.VISIBLE ) {
+                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(tagsLayout);
+                }
+                else {
+                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(tagsLayout);
+                }
                 break;
         }
     }
@@ -257,6 +293,22 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             addCodeTextView.startAnimation(fab_close);
             addPhotoFAB.startAnimation(fab_close);
             addPhotoTextView.startAnimation(fab_close);
+            fab_close.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    toggleVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
             addSlideFAB.setClickable(false);
             deleteSlideFAB.setClickable(false);
             isFabOpen = false;
@@ -278,6 +330,17 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             isFabOpen = true;
 
         }
+    }
+
+    private void toggleVisibility(int visibility) {
+        deleteSlideFAB.setVisibility(visibility);
+        addSlideTextView.setVisibility(visibility);
+        deleteSlideFAB.setVisibility(visibility);
+        deleteSlideTextView.setVisibility(visibility);
+        addSlideFAB.setVisibility(visibility);
+        addSlideTextView.setVisibility(visibility);
+        addCodeFAB.setVisibility(visibility);
+        addCodeTextView.setVisibility(visibility);
     }
 
     @Override
