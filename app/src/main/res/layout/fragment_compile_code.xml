@@ -5,15 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/codeEditRecyclerView"
-        android:descendantFocusability="beforeDescendants"
-        android:background="@color/bg"
-        android:layout_above="@+id/compilerProgressLayout">
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="wrap_content"
+        android:id="@+id/importLayout"
+        android:background="@color/md_grey_300"
+        android:padding="@dimen/margin_8"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:drawablePadding="@dimen/margin_8"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:id="@+id/languageTextView"
+            android:padding="@dimen/margin_8"
+            android:minWidth="@dimen/margin_48"
+            android:text="Java"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_blue"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:id="@+id/importFromFileTextView"
+            android:padding="@dimen/margin_8"
+            android:text="@string/import_from_file"/>
+    </LinearLayout>
 
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -62,11 +80,21 @@
             android:id="@+id/outputTextView"
             tools:text="Hello World"
             android:background="@color/md_black_1000"
-
             android:padding="@dimen/margin_16"/>
+
     </android.support.v4.widget.NestedScrollView>
 
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/codeEditRecyclerView"
+        android:layout_above="@+id/compilerProgressLayout"
+        android:descendantFocusability="beforeDescendants"
+        android:background="@color/white"
+        android:layout_below="@+id/importLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>
