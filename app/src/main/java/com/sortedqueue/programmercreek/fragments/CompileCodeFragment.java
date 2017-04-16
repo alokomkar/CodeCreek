@@ -25,12 +25,15 @@ import android.widget.Toast;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.LanguageRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.CodeOutputResponse;
 import com.sortedqueue.programmercreek.database.firebase.IdResponse;
 import com.sortedqueue.programmercreek.interfaces.retrofit.SubmitCodeService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
@@ -54,7 +57,7 @@ import retrofit2.Response;
  * Created by Alok on 04/04/17.
  */
 
-public class CompileCodeFragment extends Fragment implements View.OnClickListener {
+public class CompileCodeFragment extends Fragment implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     @Bind(R.id.outputTextView)
     TextView outputTextView;
@@ -72,10 +75,14 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     TextView languageTextView;
     @Bind(R.id.importFromFileTextView)
     TextView importFromFileTextView;
+    @Bind(R.id.languageRecyclerView)
+    RecyclerView languageRecyclerView;
     private SubmitCodeService submitCodeService;
     private String TAG = CompileCodeFragment.class.getSimpleName();
     private Code code;
     private CodeEditorRecyclerAdapter codeEditorRecyclerAdapter;
+    private ArrayList<String> languages;
+    private LanguageRecyclerAdapter languageRecyclerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,8 +94,20 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         languageTextView.setOnClickListener(this);
         importFromFileTextView.setOnClickListener(this);
         setupRecyclerView();
+        setupLanguageRecyclerView();
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
         return view;
+    }
+
+    private void setupLanguageRecyclerView() {
+        languageRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        languages = new ArrayList<>();
+        languages.add("C");
+        languages.add("C++");
+        languages.add("Java");
+        languageRecyclerAdapter = new LanguageRecyclerAdapter(languages, this);
+        languageRecyclerView.setAdapter(languageRecyclerAdapter);
+        languageRecyclerAdapter.setSelectedLanguage(languageTextView.getText().toString().trim());
     }
 
     private void setupRecyclerView() {
@@ -192,18 +211,25 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ) {
-            case R.id.languageTextView :
+        switch (view.getId()) {
+            case R.id.languageTextView:
+                if( languageRecyclerView.getVisibility() == View.GONE ) {
+                    AnimationUtils.enterReveal(languageRecyclerView);
+                }
+                else {
+                    AnimationUtils.exitRevealGone(languageRecyclerView);
+                }
                 break;
-            case R.id.importFromFileTextView :
+            case R.id.importFromFileTextView:
                 importFromFile();
                 break;
         }
     }
 
     private int REQUEST_CODE_SEARCH = 1000;
+
     private void importFromFile() {
-        if( PermissionUtils.checkSelfPermission(this,
+        if (PermissionUtils.checkSelfPermission(this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -233,12 +259,12 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK ) {
+        if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
             try {
                 Uri uri = data.getData();
-                if( uri != null ) {
+                if (uri != null) {
 
-                    Log.d(TAG, "File Uri : " +  uri.getEncodedPath() + " Path "+ uri.getPath());
+                    Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
                     String filepath = FileUtils.getPath(getContext(), uri);
                     Log.d(TAG, "File path : " + filepath);
                     InputStream fis = new FileInputStream(filepath);
@@ -249,16 +275,22 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
                     while ((line = br.readLine()) != null) {
                         completeLine += line.trim() + " ";
                     }
-                }
-                else {
+                } else {
                 }
                 // Rest of code that converts txt file's content into arraylist
             } catch (IOException e) {
                 e.printStackTrace();
                 // Codes that handles IOException
             }
-        }
-        else
+        } else
             super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        String selectedLanguage = languages.get(position);
+        languageRecyclerAdapter.setSelectedLanguage(selectedLanguage);
+        languageTextView.setText(selectedLanguage);
+        AnimationUtils.exitRevealGone(languageRecyclerView);
     }
 }

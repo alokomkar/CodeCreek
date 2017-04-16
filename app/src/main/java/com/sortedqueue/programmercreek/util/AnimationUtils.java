@@ -2,8 +2,12 @@ package com.sortedqueue.programmercreek.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+
+import com.sortedqueue.programmercreek.R;
 
 /**
  * Created by Alok Omkar on 2017-02-04.
@@ -107,6 +111,58 @@ public class AnimationUtils {
             myView.setVisibility(View.GONE);
         }
 
+
+    }
+
+    public static void slideDown(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.slide_down);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
+    public static void slideUp( final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.slide_up);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
 
     }
 }
