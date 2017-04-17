@@ -55,6 +55,14 @@ public class ViewSlideFragment extends Fragment {
                 .error(R.color.md_blue_600)
                 .placeholder(R.color.md_blue_600)
                 .into(slideImageView);
+        if( slideModel.getCode() != null && slideModel.getCode().trim().length() > 0 ) {
+            codeView.setVisibility(View.VISIBLE);
+            codeView.setCode(slideModel.getCode());
+        }
+        else {
+            codeView.setVisibility(View.GONE);
+        }
+
     }
 
     public void setParameter(SlideModel parameter) {

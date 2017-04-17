@@ -12,12 +12,12 @@ public interface LanguageConstants {
     String SQL_INDEX = "40";
 
     String C_TEMPLATE =
-            "#include <stdio.h>\n" +
+            "#include\"stdio.h\"\n" +
             "int main() {\n\n\n" +
                     "return 0;\n" +
                     "}";
     String CPP_TEMPLATE =
-            "#include <iostream>\n" +
+            "#include\"iostream\"\n" +
                     "using namespace std;\n" +
                     "int main() {\n\n\n" +
                     "return 0;\n" +

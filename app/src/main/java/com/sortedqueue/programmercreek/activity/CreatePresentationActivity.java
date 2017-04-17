@@ -316,6 +316,12 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
         } else {
 
+            SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+            if( slideFragment != null ) {
+                addPhotoTextView.setText(slideFragment.isPhotoVisible() ? R.string.remove_photo : R.string.add_photo );
+                addCodeTextView.setText(slideFragment.isCodeVisible() ? R.string.remove_code : R.string.add_code );
+            }
+
             optionsFAB.startAnimation(rotate_forward);
             addSlideFAB.startAnimation(fab_open);
             deleteSlideFAB.startAnimation(fab_open);

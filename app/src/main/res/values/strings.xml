@@ -229,4 +229,6 @@
     <string name="title">Title</string>
     <string name="tags">Tags</string>
     <string name="import_from_file">Import from File</string>
+    <string name="remove_photo">Remove Photo</string>
+    <string name="remove_code">Remove Code</string>
 </resources>

@@ -232,6 +232,9 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         if (selectedImageUri != null) {
             imageUrl = selectedImageUri.toString();
         }
+        if( codeEditRecyclerView.getVisibility() == View.VISIBLE ) {
+            code = codeEditorRecyclerAdapter.getCode();
+        }
         slideModel = new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), imageUrl);
         String presentationPushId = firebaseDatabaseHandler.writeSlide(slideModel);
         presentationCommunicationsListener.onPresentationCreation(presentationPushId, slideModel);
@@ -470,14 +473,30 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
 
     }
 
+    public boolean isPhotoVisible( ) {
+        return slideImageLayout.getVisibility() == View.VISIBLE;
+    }
+
+    public boolean isCodeVisible() {
+        return codeEditRecyclerView.getVisibility() == View.VISIBLE;
+    }
+
     public void insertCode() {
         if( importLayout.getVisibility() != View.VISIBLE ) {
             AnimationUtils.enterReveal(importLayout);
             AnimationUtils.enterReveal(codeEditRecyclerView);
         }
+        else {
+            AnimationUtils.exitRevealGone(importLayout);
+            AnimationUtils.exitRevealGone(codeEditRecyclerView);
+        }
     }
 
     public void insertPhoto() {
+        if( slideImageLayout.getVisibility() == View.VISIBLE ) {
+            slideImageLayout.setVisibility(View.GONE);
+            return;
+        }
         slideImageLayout.setVisibility(View.VISIBLE);
         if (PermissionUtils.checkSelfPermission(this,
                 new String[]{Manifest.permission.CAMERA,
