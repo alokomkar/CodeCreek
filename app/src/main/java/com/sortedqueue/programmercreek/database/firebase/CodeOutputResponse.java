@@ -23,7 +23,7 @@ public class CodeOutputResponse {
     private String langVersion;
     @SerializedName("time")
     @Expose
-    private Integer time;
+    private Double time;
     @SerializedName("date")
     @Expose
     private String date;
@@ -93,11 +93,11 @@ public class CodeOutputResponse {
         this.langVersion = langVersion;
     }
 
-    public Integer getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(Double time) {
         this.time = time;
     }
 

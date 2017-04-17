@@ -11,7 +11,24 @@ public interface LanguageConstants {
     String JAVA_INDEX = "10";
     String SQL_INDEX = "40";
 
+    String C_TEMPLATE =
+            "#include <stdio.h>\n" +
+            "int main() {\n\n\n" +
+                    "return 0;\n" +
+                    "}";
+    String CPP_TEMPLATE =
+            "#include <iostream>\n" +
+                    "using namespace std;\n" +
+                    "int main() {\n\n\n" +
+                    "return 0;\n" +
+                    "}";
 
+    String JAVA_TEMPLATE =
+            "public class Main {\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        System.out.println(\"Hello, World!\");\n" +
+                    "    }\n" +
+                    "}\n";
     //{"7":"Ada (gnat 5.1.1)",
     // "13":"Assembler (NASM 2.11.05)",
     // "45":"Assembler (gcc 4.9.3)",

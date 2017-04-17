@@ -111,11 +111,13 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     }
 
     private void setupRecyclerView() {
-        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
-        codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, "C");
-        codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);
-        codeEditRecyclerView.getItemAnimator().setChangeDuration(0);
+        if( code != null ) {
+            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
+            codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, selectedLanguage);
+            codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);
+            codeEditRecyclerView.getItemAnimator().setChangeDuration(0);
+        }
     }
 
     private void getOutputResponse(int submissionId) {
@@ -148,7 +150,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     public void executeProgram() {
 
         HashMap<String, String> codeMap = new HashMap<>();
-        codeMap.put("language", LanguageConstants.C_INDEX);
+        codeMap.put("language", selectedLanguageIndex);
         String sourceCode = codeEditorRecyclerAdapter.getCode();
         codeMap.put("sourceCode", sourceCode);
         if (code.getInput() != null) {
@@ -207,6 +209,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
     public void setParameter(Code code) {
         this.code = code;
+        this.code = null;
     }
 
     @Override
@@ -286,11 +289,36 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
             super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    private String selectedLanguageIndex;
+    private String codeTemplate;
+    private String selectedLanguage;
     @Override
     public void onItemClick(int position) {
         String selectedLanguage = languages.get(position);
         languageRecyclerAdapter.setSelectedLanguage(selectedLanguage);
         languageTextView.setText(selectedLanguage);
+        this.selectedLanguage = selectedLanguage;
+        switch ( selectedLanguage ) {
+            case "C" :
+                selectedLanguageIndex = LanguageConstants.C_INDEX;
+                codeTemplate = LanguageConstants.C_TEMPLATE;
+                break;
+            case "C++" :
+                selectedLanguageIndex = LanguageConstants.CPP_INDEX;
+                codeTemplate = LanguageConstants.CPP_TEMPLATE;
+                break;
+            case "Java" :
+                selectedLanguageIndex = LanguageConstants.JAVA_INDEX;
+                codeTemplate = LanguageConstants.JAVA_TEMPLATE;
+                break;
+        }
+
+        code = new Code();
+        code.setLanguage(Integer.parseInt(selectedLanguageIndex));
+        code.setSourceCode(codeTemplate);
+        setupRecyclerView();
+
         AnimationUtils.exitRevealGone(languageRecyclerView);
     }
 }
