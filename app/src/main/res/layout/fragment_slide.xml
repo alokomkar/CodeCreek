@@ -112,12 +112,58 @@
 
                 </FrameLayout>
 
-                <io.github.kbiakov.codeview.CodeView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/margin_100"
-                    android:id="@+id/codeView">
-                </io.github.kbiakov.codeview.CodeView>
+                    android:id="@+id/importLayout"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/md_grey_300"
+                        android:padding="@dimen/margin_8"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:drawablePadding="@dimen/margin_8"
+                            android:drawableRight="@android:drawable/arrow_down_float"
+                            android:id="@+id/languageTextView"
+                            android:padding="@dimen/margin_8"
+                            android:minWidth="@dimen/margin_48"
+                            android:text="Java"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_blue"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:id="@+id/importFromFileTextView"
+                            android:padding="@dimen/margin_8"
+                            android:text="@string/import_from_file"/>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/languageRecyclerView"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:id="@+id/codeEditRecyclerView"
+                    android:descendantFocusability="beforeDescendants"
+                    android:background="@color/white">
+                </android.support.v7.widget.RecyclerView>
 
                 <Button
                     android:layout_width="match_parent"

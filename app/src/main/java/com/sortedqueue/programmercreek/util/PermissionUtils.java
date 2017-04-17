@@ -42,6 +42,17 @@ public class PermissionUtils {
         }
     }
 
+    public static boolean checkSelfPermission(Fragment fragment, final String[] permissions, int requestCode) {
+        String[] deniedPermissions = checkDeniedPermissions((AppCompatActivity) fragment.getActivity(), permissions );
+        if( deniedPermissions.length == 0 ) {
+            return true;
+        }
+        else {
+            fragment.requestPermissions(deniedPermissions, requestCode);
+            return false;
+        }
+    }
+
     public static boolean checkSelfPermission(final AppCompatActivity activity, final String[] permissions ) {
         String[] deniedPermissions = checkDeniedPermissions( activity, permissions );
         if( deniedPermissions.length == 0 ) {

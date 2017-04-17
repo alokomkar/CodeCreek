@@ -14,6 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,31 +24,46 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.LanguageRecyclerAdapter;
+import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.SlideModel;
+import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import id.zelory.compressor.Compressor;
-import io.github.kbiakov.codeview.CodeView;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -54,14 +71,12 @@ import static com.facebook.GraphRequest.TAG;
  * Created by Alok on 06/04/17.
  */
 
-public class SlideFragment extends Fragment implements View.OnClickListener, AuxilaryUtils.PhotoOptionListener {
+public class SlideFragment extends Fragment implements View.OnClickListener, AuxilaryUtils.PhotoOptionListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     @Bind(R.id.titleEditText)
     EditText titleEditText;
     @Bind(R.id.subTitleEditText)
     EditText subTitleEditText;
-    @Bind(R.id.codeView)
-    CodeView codeView;
     @Bind(R.id.slideImageView)
     ImageView slideImageView;
     @Bind(R.id.slideImageLayout)
@@ -80,6 +95,16 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     Button doneButton;
     @Bind(R.id.uploadProgressBar)
     ProgressBar uploadProgressBar;
+    @Bind(R.id.languageTextView)
+    TextView languageTextView;
+    @Bind(R.id.importFromFileTextView)
+    TextView importFromFileTextView;
+    @Bind(R.id.languageRecyclerView)
+    RecyclerView languageRecyclerView;
+    @Bind(R.id.importLayout)
+    LinearLayout importLayout;
+    @Bind(R.id.codeEditRecyclerView)
+    RecyclerView codeEditRecyclerView;
 
     private Uri selectedImageUri;
     private Bitmap selectedBitmap;
@@ -87,6 +112,10 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     private String code = "";
     private PresentationCommunicationsListener presentationCommunicationsListener;
     private SlideModel slideModel;
+    private ArrayList<String> languages;
+    private LanguageRecyclerAdapter languageRecyclerAdapter;
+    private Code programCode;
+    private CodeEditorRecyclerAdapter codeEditorRecyclerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,14 +128,30 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
         slideImageLayout.setVisibility(View.GONE);
-        codeView.setVisibility(View.GONE);
-        codeView.setOnClickListener(this);
         deleteImageView.setOnClickListener(this);
         changeImageView.setOnClickListener(this);
         rotateImageView.setOnClickListener(this);
         saveImageView.setOnClickListener(this);
         doneButton.setOnClickListener(this);
+        languageTextView.setOnClickListener(this);
+        importFromFileTextView.setOnClickListener(this);
+        importLayout.setVisibility(View.GONE);
+        codeEditRecyclerView.setVisibility(View.GONE);
+        setupLanguageRecyclerView();
+        setupRecyclerView();
         return view;
+    }
+
+    private void setupLanguageRecyclerView() {
+        languageRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        languages = new ArrayList<>();
+        languages.add("C");
+        languages.add("C++");
+        languages.add("Java");
+        languageRecyclerAdapter = new LanguageRecyclerAdapter(languages, this);
+        languageRecyclerView.setAdapter(languageRecyclerAdapter);
+        languageRecyclerAdapter.setSelectedLanguage(languageTextView.getText().toString().trim());
+        setSelectedLanguage(languageRecyclerAdapter.getSelectedLanguage());
     }
 
     @Override
@@ -135,8 +180,6 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
             case R.id.changeImageView:
                 startCropPhotoActivity(selectedImageUri);
                 break;
-            case R.id.codeView:
-                break;
             case R.id.deleteImageView:
                 slideModel.setSlideImageUrl(null);
                 slideImageView.setImageBitmap(null);
@@ -151,14 +194,42 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
             case R.id.doneButton:
                 save();
                 break;
+            case R.id.languageTextView:
+                if( languageRecyclerView.getVisibility() == View.GONE ) {
+                    AnimationUtils.enterReveal(languageRecyclerView);
+                }
+                else {
+                    AnimationUtils.exitRevealGone(languageRecyclerView);
+                }
+                break;
+            case R.id.importFromFileTextView:
+                importFromFile();
+                break;
         }
 
     }
 
+    private int REQUEST_CODE_SEARCH = 1000;
+
+    private void importFromFile() {
+        if (PermissionUtils.checkSelfPermission(this,
+                new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 1000)) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("text/plain");
+            startActivityForResult(Intent.createChooser(intent,
+                    "Load file from directory"), REQUEST_CODE_SEARCH);
+        }
+    }
+
+
+
 
     private void save() {
         String imageUrl = null;
-        if( selectedImageUri != null ) {
+        if (selectedImageUri != null) {
             imageUrl = selectedImageUri.toString();
         }
         slideModel = new SlideModel(null, code, titleEditText.getText().toString(), subTitleEditText.getText().toString(), imageUrl);
@@ -179,6 +250,16 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1000) {
+            if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
+                importFromFile();
+            } else {
+                if (permissions.length == 3) {
+                    Toast.makeText(getContext(), "Some permissions were denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        else
         if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
             if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
                 AuxilaryUtils.displayPhotoDialog(getContext(), this);
@@ -322,8 +403,34 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                     }
                 }
                 break;
+
+
         }
 
+        if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
+            try {
+                Uri uri = data.getData();
+                if (uri != null) {
+
+                    Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
+                    String filepath = FileUtils.getPath(getContext(), uri);
+                    Log.d(TAG, "File path : " + filepath);
+                    InputStream fis = new FileInputStream(filepath);
+                    InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
+                    BufferedReader br = new BufferedReader(isr);
+                    String line;
+                    String completeLine = "";
+                    while ((line = br.readLine()) != null) {
+                        completeLine += line.trim() + " ";
+                    }
+                } else {
+                }
+                // Rest of code that converts txt file's content into arraylist
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Codes that handles IOException
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -364,13 +471,15 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     }
 
     public void insertCode() {
-        codeView.setVisibility(View.VISIBLE);
-        codeView.callOnClick();
+        if( importLayout.getVisibility() != View.VISIBLE ) {
+            AnimationUtils.enterReveal(importLayout);
+            AnimationUtils.enterReveal(codeEditRecyclerView);
+        }
     }
 
     public void insertPhoto() {
         slideImageLayout.setVisibility(View.VISIBLE);
-        if( PermissionUtils.checkSelfPermission(this,
+        if (PermissionUtils.checkSelfPermission(this,
                 new String[]{Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -379,25 +488,76 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     }
 
     public void saveImage() {
-        if ( selectedImageUri != null && slideModel.getSlideImageUrl() == null ) {
+        if (selectedImageUri != null && slideModel.getSlideImageUrl() == null) {
             uploadFileToFirebase(selectedImageUri);
         }
     }
 
     public boolean validateContent() {
         String title = titleEditText.getText().toString();
-        if( title == null || title.trim().length() == 0 ) {
+        if (title == null || title.trim().length() == 0) {
             titleEditText.requestFocus();
             titleEditText.setError("Required");
             return false;
         }
         String subTitle = subTitleEditText.getText().toString();
-        if( subTitle == null || subTitle.trim().length() == 0 ) {
+        if (subTitle == null || subTitle.trim().length() == 0) {
             subTitleEditText.requestFocus();
             subTitleEditText.setError("Required");
             return false;
         }
         save();
         return true;
+    }
+
+    private String selectedLanguageIndex;
+    private String codeTemplate;
+    private String selectedLanguage;
+
+    @Override
+    public void onItemClick(int position) {
+        String selectedLanguage = languages.get(position);
+        languageRecyclerAdapter.setSelectedLanguage(selectedLanguage);
+        languageTextView.setText(selectedLanguage);
+        setSelectedLanguage(selectedLanguage);
+
+        AnimationUtils.exitRevealGone(languageRecyclerView);
+    }
+
+    private void setupRecyclerView() {
+        if( programCode != null ) {
+            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode.getSourceCode());
+            codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, selectedLanguage);
+            codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);
+            codeEditRecyclerView.getItemAnimator().setChangeDuration(0);
+        }
+    }
+
+    public void setSelectedLanguage(String selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
+        switch ( selectedLanguage ) {
+            case "C" :
+                selectedLanguageIndex = LanguageConstants.C_INDEX;
+                codeTemplate = LanguageConstants.C_TEMPLATE;
+                break;
+            case "C++" :
+                selectedLanguageIndex = LanguageConstants.CPP_INDEX;
+                codeTemplate = LanguageConstants.CPP_TEMPLATE;
+                break;
+            case "Java" :
+                selectedLanguageIndex = LanguageConstants.JAVA_INDEX;
+                codeTemplate = LanguageConstants.JAVA_TEMPLATE;
+                break;
+        }
+
+        programCode = new Code();
+        programCode.setLanguage(Integer.parseInt(selectedLanguageIndex));
+        programCode.setSourceCode(codeTemplate);
+        setupRecyclerView();
+    }
+
+    public String getSelectedLanguage() {
+        return selectedLanguage;
     }
 }
