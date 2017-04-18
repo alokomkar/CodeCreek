@@ -55,6 +55,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:id="@+id/webView">
+
+                </WebView>
                 <!--<com.google.android.gms.ads.AdView
                     android:id="@+id/adView"
                     android:layout_width="match_parent"

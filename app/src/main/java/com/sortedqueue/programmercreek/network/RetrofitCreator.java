@@ -50,6 +50,23 @@ public class RetrofitCreator {
 
     }
 
+    public static <T> T createDownloadService(Class<T> service) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        HttpLoggingInterceptor logging = getHttpLoggingInterceptor();
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(logging).build();
+        // add your other interceptors …
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(httpClient)
+                .baseUrl("")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        return retrofit.create(service);
+
+    }
+
     public static String getTokenCompilerApi() {
         return TOKEN_COMPILER_API;
     }
