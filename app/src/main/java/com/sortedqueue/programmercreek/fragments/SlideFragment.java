@@ -363,8 +363,8 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
     private void startCropPhotoActivity(Uri selectedImageUri) {
         CropImage.activity(selectedImageUri)
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .setFixAspectRatio(true)
-                .setAspectRatio(16, 9)
+                /*.setFixAspectRatio(true)
+                .setAspectRatio(16, 9)*/
                 .start(getContext(), this);
     }
 
