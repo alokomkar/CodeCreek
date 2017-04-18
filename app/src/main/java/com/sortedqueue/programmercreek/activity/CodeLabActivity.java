@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.fragments.CodeLanguageFragment;
@@ -68,14 +66,15 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        bundle = getIntent().getExtras();
+        /*bundle = getIntent().getExtras();
         if( bundle == null ) {
             loadCodeLanguagesFragment();
         }
         else {
             Code code = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
             loadCompileCodeFragment(code);
-        }
+        }*/
+        loadCompileCodeFragment(null);
         checkFAB.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -137,7 +136,7 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
 
     @Override
     public void onBackPressed() {
-        String title = getSupportActionBar().getTitle().toString();
+        /*String title = getSupportActionBar().getTitle().toString();
         Log.d(TAG, "Title : " + title);
         if( bundle == null ) {
             if (!title.equals("Code Lab")) {
@@ -148,7 +147,8 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
         }
         else {
             finish();
-        }
+        }*/
+        finish();
 
     }
 

@@ -104,34 +104,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
         }
         //adView.setVisibility(View.GONE);
-        DownloadHTMLService downloadHTMLService = RetrofitCreator.createDownloadService(DownloadHTMLService.class);
-        Call<ResponseBody> call = downloadHTMLService.downloadFileWithDynamicUrlSync("http://365programperday.blogspot.in/2016/01/android-saving-and-restoring-activity.html");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "server contacted and has file");
 
-                    new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... voids) {
-                            boolean writtenToDisk = FileUtils.writeResponseBodyToDisk(DashboardActivity.this, response.body(), null);
-
-                            Log.d(TAG, "file download was a success? " + writtenToDisk);
-                            return null;
-                        }
-                    }.execute();
-                }
-                else {
-                    Log.d(TAG, "server contact failed");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
         //initAds();
         createPresentationFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,6 +270,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 return true;
 
             case R.id.action_sync:
+                //downloadFile();
                 LanguageFragment.getInstance().getFirebaseDBVerion();
                 return true;
 
@@ -341,6 +315,45 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         }
 
+    }
+
+    private void downloadFile() {
+        DownloadHTMLService downloadHTMLService = RetrofitCreator.createDownloadService(DownloadHTMLService.class);
+        Call<ResponseBody> call = downloadHTMLService.downloadFileWithDynamicUrlSync("http://365programperday.blogspot.in/2016/01/android-saving-and-restoring-activity.html");
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "server contacted and has file");
+
+                    new AsyncTask<Void, Void, Void>() {
+
+                        DownloadFileListner downloadFileListner;
+
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            boolean writtenToDisk = FileUtils.writeResponseBodyToDisk(DashboardActivity.this, response.body(), null);
+
+                            Log.d(TAG, "file download was a success? " + writtenToDisk);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                        }
+                    }.execute();
+                }
+                else {
+                    Log.d(TAG, "server contact failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     private void logoutFromFB() {
@@ -506,9 +519,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     @Override
-    public void onSuccess(File fileUrl) {
-        webView.setVisibility(View.VISIBLE);
-        webView.loadUrl(fileUrl.toString());
-        webView.getSettings().setJavaScriptEnabled(true);
+    public void onSuccess(final File fileUrl) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.setVisibility(View.VISIBLE);
+                Log.d(TAG, "File Url : file:///" + fileUrl.getAbsolutePath());
+                webView.loadUrl("file:///" + fileUrl.getAbsolutePath());
+                webView.getSettings().setJavaScriptEnabled(true);
+            }
+        });
+
     }
 }

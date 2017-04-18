@@ -60,7 +60,7 @@ public class RetrofitCreator {
         // add your other interceptors …
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(service);
