@@ -27,7 +27,7 @@
                 android:id="@+id/languageTextView"
                 android:padding="@dimen/margin_8"
                 android:minWidth="@dimen/margin_48"
-                android:text="Java"/>
+                android:text="C"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@color/white"
-        android:layout_above="@+id/outputScrollView"
+        android:layout_above="@+id/outputTextView"
         android:id="@+id/compilerProgressLayout"
         android:layout_height="wrap_content">
 
@@ -82,22 +82,57 @@
 
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <TextView
         android:layout_width="match_parent"
-        android:id="@+id/outputScrollView"
+        android:layout_height="wrap_content"
+        android:id="@+id/outputTextView"
+        android:textColor="@color/md_white_1000"
+        android:layout_above="@+id/dividerView"
+        tools:text="Hello World"
+        android:background="@color/md_black_1000"
+        android:padding="@dimen/margin_16"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/dividerView"
+        android:layout_above="@+id/outputLayout"
+        android:background="@color/bg" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
-        <TextView
+        android:id="@+id/outputLayout">
+
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/margin_100"
             android:textColor="@color/md_white_1000"
-            android:id="@+id/outputTextView"
-            tools:text="Hello World"
+            android:minHeight="@dimen/margin_100"
+            android:maxHeight="@dimen/margin_200"
+            android:id="@+id/inputEditText"
+            android:hint="@string/your_input_here"
+            android:textColorHint="@color/md_grey_500"
             android:background="@color/md_black_1000"
             android:padding="@dimen/margin_16"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_exec"
+            android:textColor="@color/white"
+            android:padding="@dimen/margin_8"
+            android:background="@drawable/button_check"
+            android:id="@+id/resumeTextView"
+            android:elevation="@dimen/margin_4"
+            android:layout_margin="@dimen/margin_4"
+            android:layout_gravity="right"
+             />
+    </FrameLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -110,6 +145,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </android.support.v7.widget.RecyclerView>
+
+
 
 
 </RelativeLayout>

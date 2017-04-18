@@ -54,6 +54,9 @@ public class CodeOutputResponse {
     @SerializedName("output")
     @Expose
     private String output;
+    @SerializedName("input")
+    @Expose
+    private String input;
     @SerializedName("stderr")
     @Expose
     private String stderr;
@@ -197,6 +200,13 @@ public class CodeOutputResponse {
         this.cmpinfo = cmpinfo;
     }
 
+    public String getInput() {
+        return input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
+    }
 
     public CodeOutputResponse() {
     }
@@ -227,6 +237,7 @@ public class CodeOutputResponse {
         if (outputType != null ? !outputType.equals(that.outputType) : that.outputType != null)
             return false;
         if (output != null ? !output.equals(that.output) : that.output != null) return false;
+        if (input != null ? !input.equals(that.input) : that.input != null) return false;
         if (stderr != null ? !stderr.equals(that.stderr) : that.stderr != null) return false;
         return cmpinfo != null ? cmpinfo.equals(that.cmpinfo) : that.cmpinfo == null;
 
@@ -249,6 +260,7 @@ public class CodeOutputResponse {
         result1 = 31 * result1 + (outputEncoded != null ? outputEncoded.hashCode() : 0);
         result1 = 31 * result1 + (outputType != null ? outputType.hashCode() : 0);
         result1 = 31 * result1 + (output != null ? output.hashCode() : 0);
+        result1 = 31 * result1 + (input != null ? input.hashCode() : 0);
         result1 = 31 * result1 + (stderr != null ? stderr.hashCode() : 0);
         result1 = 31 * result1 + (cmpinfo != null ? cmpinfo.hashCode() : 0);
         return result1;
@@ -272,6 +284,7 @@ public class CodeOutputResponse {
                 ", outputEncoded='" + outputEncoded + '\'' +
                 ", outputType='" + outputType + '\'' +
                 ", output='" + output + '\'' +
+                ", input='" + input + '\'' +
                 ", stderr='" + stderr + '\'' +
                 ", cmpinfo='" + cmpinfo + '\'' +
                 '}';

@@ -97,10 +97,10 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 .withLanguage(programLanguage)
                 .withCode(programWiki.getProgramExample())
                 .withTheme(ColorTheme.MONOKAI));
-        /*if( programLanguage.equals("cpp") || programLanguage.equals("c") || programLanguage.equals("java") ) {
+        if( programLanguage.equals("cpp") || programLanguage.equals("c") || programLanguage.equals("java") ) {
             programViewHolder.codeLabTextView.setVisibility(View.VISIBLE);
         }
-        else */{
+        else {
             programViewHolder.codeLabTextView.setVisibility(View.GONE);
         }
     }

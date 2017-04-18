@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,10 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,16 +63,14 @@ import retrofit2.Response;
 
 public class CompileCodeFragment extends Fragment implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @Bind(R.id.outputTextView)
-    TextView outputTextView;
+    @Bind(R.id.inputEditText)
+    EditText inputEditText;
     @Bind(R.id.progressImageView)
     ImageView progressImageView;
     @Bind(R.id.progressTextView)
     TextView progressTextView;
     @Bind(R.id.compilerProgressLayout)
     RelativeLayout compilerProgressLayout;
-    @Bind(R.id.outputScrollView)
-    NestedScrollView outputScrollView;
     @Bind(R.id.codeEditRecyclerView)
     RecyclerView codeEditRecyclerView;
     @Bind(R.id.languageTextView)
@@ -77,11 +79,22 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     TextView importFromFileTextView;
     @Bind(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
+    @Bind(R.id.importLayout)
+    LinearLayout importLayout;
+    @Bind(R.id.resumeTextView)
+    TextView resumeTextView;
+    @Bind(R.id.outputLayout)
+    FrameLayout outputLayout;
+    @Bind(R.id.outputTextView)
+    TextView outputTextView;
+    @Bind(R.id.dividerView)
+    View dividerView;
     private SubmitCodeService submitCodeService;
     private String TAG = CompileCodeFragment.class.getSimpleName();
     private Code code;
     private CodeEditorRecyclerAdapter codeEditorRecyclerAdapter;
     private ArrayList<String> languages;
+    private ArrayList<String> inputList;
     private LanguageRecyclerAdapter languageRecyclerAdapter;
 
     @Override
@@ -90,28 +103,56 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_compile_code, container, false);
         ButterKnife.bind(this, view);
+        inputList = new ArrayList<>();
         compilerProgressLayout.setVisibility(View.GONE);
         languageTextView.setOnClickListener(this);
         importFromFileTextView.setOnClickListener(this);
+        resumeTextView.setOnClickListener(this);
         setupRecyclerView();
         setupLanguageRecyclerView();
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
+        inputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if( s != null ) {
+                    inputList.add(s.toString());
+                }
+            }
+        });
+        importLayout.setVisibility( fromWiki ? View.GONE : View.VISIBLE );
+        if( fromWiki ) {
+            setupRecyclerView();
+        }
         return view;
     }
 
     private void setupLanguageRecyclerView() {
-        languageRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        languageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         languages = new ArrayList<>();
         languages.add("C");
         languages.add("C++");
         languages.add("Java");
         languageRecyclerAdapter = new LanguageRecyclerAdapter(languages, this);
         languageRecyclerView.setAdapter(languageRecyclerAdapter);
+        if( fromWiki ) {
+            return;
+        }
         languageRecyclerAdapter.setSelectedLanguage(languageTextView.getText().toString().trim());
+        getCodeTemplate(languageRecyclerAdapter.getSelectedLanguage());
     }
 
     private void setupRecyclerView() {
-        if( code != null ) {
+        if (code != null) {
             ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
             codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, selectedLanguage);
@@ -125,6 +166,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         Call<CodeOutputResponse> codeOutputResponseCall = submitCodeService.getOutput(
                 submissionId,
                 RetrofitCreator.getTokenCompilerApi(),
+                true,
                 true,
                 true,
                 true,
@@ -156,7 +198,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         if (code.getInput() != null) {
             codeMap.put("input", code.getInput());
         }
-        outputTextView.setText("");
+        inputEditText.setText("");
         startAnimation();
         Call<IdResponse> idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi());
         idResponseCall.enqueue(new Callback<IdResponse>() {
@@ -207,26 +249,38 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         ButterKnife.unbind(this);
     }
 
+    private boolean fromWiki = false;
     public void setParameter(Code code) {
         this.code = code;
-        this.code = null;
+        if( code != null ) {
+            this.selectedLanguageIndex = String.valueOf(code.getLanguage());
+            fromWiki = true;
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.languageTextView:
-                if( languageRecyclerView.getVisibility() == View.GONE ) {
+                if (languageRecyclerView.getVisibility() == View.GONE) {
                     AnimationUtils.enterReveal(languageRecyclerView);
-                }
-                else {
+                } else {
                     AnimationUtils.exitRevealGone(languageRecyclerView);
                 }
                 break;
             case R.id.importFromFileTextView:
                 importFromFile();
                 break;
+            case R.id.resumeTextView:
+                resumeExecution();
+                break;
         }
+    }
+
+    private void resumeExecution() {
+        String input = inputEditText.getText().toString();
+        code.setInput(input);
+        executeProgram();
     }
 
     private int REQUEST_CODE_SEARCH = 1000;
@@ -293,24 +347,34 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     private String selectedLanguageIndex;
     private String codeTemplate;
     private String selectedLanguage;
+
     @Override
     public void onItemClick(int position) {
         String selectedLanguage = languages.get(position);
         languageRecyclerAdapter.setSelectedLanguage(selectedLanguage);
         languageTextView.setText(selectedLanguage);
+        getCodeTemplate(selectedLanguage);
+
+        AnimationUtils.exitRevealGone(languageRecyclerView);
+    }
+
+    private void getCodeTemplate(String selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
-        switch ( selectedLanguage ) {
-            case "C" :
+        switch (selectedLanguage) {
+            case "C":
                 selectedLanguageIndex = LanguageConstants.C_INDEX;
                 codeTemplate = LanguageConstants.C_TEMPLATE;
+                inputList.clear();
                 break;
-            case "C++" :
+            case "C++":
                 selectedLanguageIndex = LanguageConstants.CPP_INDEX;
                 codeTemplate = LanguageConstants.CPP_TEMPLATE;
+                inputList.clear();
                 break;
-            case "Java" :
+            case "Java":
                 selectedLanguageIndex = LanguageConstants.JAVA_INDEX;
                 codeTemplate = LanguageConstants.JAVA_TEMPLATE;
+                inputList.clear();
                 break;
         }
 
@@ -318,7 +382,5 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         code.setLanguage(Integer.parseInt(selectedLanguageIndex));
         code.setSourceCode(codeTemplate);
         setupRecyclerView();
-
-        AnimationUtils.exitRevealGone(languageRecyclerView);
     }
 }

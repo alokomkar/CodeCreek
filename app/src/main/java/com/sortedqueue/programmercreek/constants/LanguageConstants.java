@@ -12,9 +12,18 @@ public interface LanguageConstants {
     String SQL_INDEX = "40";
 
     String C_TEMPLATE =
-            "#include\"stdio.h\"\n" +
-            "int main() {\n\n\n" +
-                    "return 0;\n" +
+            "#include <stdio.h>\n" +
+                    "int main( ) {\n" +
+                    "\n" +
+                    "   char str[100];\n" +
+                    "\n" +
+                    "   printf( \"Enter a value :\");\n" +
+                    "   gets( str );\n" +
+                    "\n" +
+                    "   printf( \"\\nYou entered: \");\n" +
+                    "   puts( str );\n" +
+                    "\n" +
+                    "   return 0;\n" +
                     "}";
     String CPP_TEMPLATE =
             "#include\"iostream\"\n" +

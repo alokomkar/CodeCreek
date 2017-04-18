@@ -27,6 +27,7 @@ public interface SubmitCodeService {
     Call<CodeOutputResponse> getOutput(@Path("id") Integer submissionId,
                                        @Query("access_token") String accessToken,
                                        @Query("withOutput") boolean withOutput,
+                                       @Query("withInput") boolean withInput,
                                        @Query("withSource") boolean withSource,
                                        @Query("withStderr") boolean withStderr,
                                        @Query("withCmpinfo") boolean withCmpinfo);

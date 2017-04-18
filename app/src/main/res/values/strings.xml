@@ -231,4 +231,6 @@
     <string name="import_from_file">Import from File</string>
     <string name="remove_photo">Remove Photo</string>
     <string name="remove_code">Remove Code</string>
+    <string name="continue_exec">Resume</string>
+    <string name="your_input_here">Your input here...</string>
 </resources>
