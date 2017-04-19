@@ -1,182 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/margin_16"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/bg"
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_margin="@dimen/margin_16"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
+        android:layout_above="@+id/doneButton"
         android:layout_height="match_parent">
-        <android.support.v7.widget.CardView
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:tools="http://schemas.android.com/tools"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/md_white_1000"
-            app:cardCornerRadius="@dimen/cardview_app_radius"
-            app:cardElevation="4dp">
-            <LinearLayout
-                android:orientation="vertical"
-                android:animateLayoutChanges="true"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/titleEditText"
-                    tools:text="@string/slide_title"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/md_blue_800"
-                    android:textSize="@dimen/text_dashboard"
-                    android:padding="@dimen/margin_16"
-                    android:hint="@string/slide_title"
-                    />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/subTitleEditText"
-                    tools:text="@string/slide_title"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/md_blue_800"
-                    android:textSize="@dimen/text_dashboard_small"
-                    android:paddingLeft="@dimen/margin_16"
-                    android:paddingRight="@dimen/margin_16"
-                    android:paddingTop="@dimen/margin_4"
-                    android:paddingBottom="@dimen/margin_4"
-                    android:hint="@string/sub_title"
-                    />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:background="@color/bg"
-                    android:id="@+id/slideImageLayout">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:minHeight="@dimen/margin_200"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/slideImageView"
-                        android:src="@android:drawable/ic_menu_gallery"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transparent_black"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_4"
-                            android:visibility="gone"
-                            android:src="@android:drawable/ic_menu_rotate"
-                            android:id="@+id/rotateImageView"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_4"
-                            android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_edit"
-                            android:id="@+id/changeImageView"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_4"
-                            android:src="@android:drawable/ic_menu_save"
-                            android:id="@+id/saveImageView"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_4"
-                            android:src="@android:drawable/ic_menu_delete"
-                            android:id="@+id/deleteImageView"/>
-                    </LinearLayout>
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:visibility="gone"
-                        android:id="@+id/uploadProgressBar"/>
-
-                </FrameLayout>
-
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/md_white_1000"
+                app:cardCornerRadius="@dimen/cardview_app_radius"
+                app:cardElevation="4dp">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/importLayout"
-                    android:animateLayoutChanges="true"
                     android:orientation="vertical"
-                    >
+                    android:animateLayoutChanges="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/titleEditText"
+                        tools:text="@string/slide_title"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/md_blue_800"
+                        android:textSize="@dimen/text_dashboard"
+                        android:padding="@dimen/margin_16"
+                        android:hint="@string/slide_title"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/subTitleEditText"
+                        tools:text="@string/slide_title"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/md_blue_800"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:paddingLeft="@dimen/margin_16"
+                        android:paddingRight="@dimen/margin_16"
+                        android:paddingTop="@dimen/margin_4"
+                        android:paddingBottom="@dimen/margin_4"
+                        android:hint="@string/sub_title"
+                        />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@color/bg"
+                        android:id="@+id/slideImageLayout">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:minHeight="@dimen/margin_200"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/slideImageView"
+                            android:src="@android:drawable/ic_menu_gallery"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent_black"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4"
+                                android:visibility="gone"
+                                android:src="@android:drawable/ic_menu_rotate"
+                                android:id="@+id/rotateImageView"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4"
+                                android:layout_gravity="right"
+                                android:src="@android:drawable/ic_menu_edit"
+                                android:id="@+id/changeImageView"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4"
+                                android:src="@android:drawable/ic_menu_save"
+                                android:id="@+id/saveImageView"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/margin_4"
+                                android:src="@android:drawable/ic_menu_delete"
+                                android:id="@+id/deleteImageView"/>
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:visibility="gone"
+                            android:id="@+id/uploadProgressBar"/>
+
+                    </FrameLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/md_grey_300"
-                        android:padding="@dimen/margin_8"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:drawablePadding="@dimen/margin_8"
-                            android:drawableRight="@android:drawable/arrow_down_float"
-                            android:id="@+id/languageTextView"
-                            android:padding="@dimen/margin_8"
-                            android:minWidth="@dimen/margin_48"
-                            android:text="Java"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                        android:id="@+id/importLayout"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_blue"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:id="@+id/importFromFileTextView"
+                            android:background="@color/md_grey_300"
                             android:padding="@dimen/margin_8"
-                            android:text="@string/import_from_file"/>
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:drawablePadding="@dimen/margin_8"
+                                android:drawableRight="@android:drawable/arrow_down_float"
+                                android:id="@+id/languageTextView"
+                                android:padding="@dimen/margin_8"
+                                android:minWidth="@dimen/margin_48"
+                                android:text="Java"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_blue"
+                                android:gravity="center"
+                                android:textColor="@color/white"
+                                android:id="@+id/importFromFileTextView"
+                                android:padding="@dimen/margin_8"
+                                android:text="@string/import_from_file"/>
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:id="@+id/languageRecyclerView"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content">
+
+                        </android.support.v7.widget.RecyclerView>
+
                     </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:id="@+id/languageRecyclerView"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content">
-
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/codeEditRecyclerView"
+                        android:descendantFocusability="beforeDescendants"
+                        android:background="@color/white">
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:id="@+id/codeEditRecyclerView"
-                    android:descendantFocusability="beforeDescendants"
-                    android:background="@color/white">
-                </android.support.v7.widget.RecyclerView>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/doneButton"
-                    android:text="@string/save_button"
-                    android:textColor="@color/white"
-                    android:layout_margin="@dimen/margin_8"
-                    android:background="@drawable/button_check"/>
+    </android.support.v4.widget.NestedScrollView>
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_40"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/doneButton"
+        android:textAllCaps="false"
+        android:text="@string/save_button"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:background="@drawable/button_sky"/>
+</RelativeLayout>
 

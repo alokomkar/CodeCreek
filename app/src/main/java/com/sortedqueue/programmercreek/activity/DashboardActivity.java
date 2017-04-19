@@ -511,7 +511,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
                 @Override
                 public void onLaterClick() {
-
+                    creekPreferences.setShowInviteDialog(false);
                 }
             });
         }
