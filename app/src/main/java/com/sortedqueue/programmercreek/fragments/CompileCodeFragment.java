@@ -81,14 +81,13 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     RecyclerView languageRecyclerView;
     @Bind(R.id.importLayout)
     LinearLayout importLayout;
-    @Bind(R.id.resumeTextView)
-    TextView resumeTextView;
     @Bind(R.id.outputLayout)
     FrameLayout outputLayout;
     @Bind(R.id.outputTextView)
     TextView outputTextView;
     @Bind(R.id.dividerView)
     View dividerView;
+
     private SubmitCodeService submitCodeService;
     private String TAG = CompileCodeFragment.class.getSimpleName();
     private Code code;
@@ -107,7 +106,6 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         compilerProgressLayout.setVisibility(View.GONE);
         languageTextView.setOnClickListener(this);
         importFromFileTextView.setOnClickListener(this);
-        resumeTextView.setOnClickListener(this);
         setupRecyclerView();
         setupLanguageRecyclerView();
         submitCodeService = RetrofitCreator.createService(SubmitCodeService.class);
@@ -124,13 +122,13 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable s) {
-                if( s != null ) {
+                if (s != null) {
                     inputList.add(s.toString());
                 }
             }
         });
-        importLayout.setVisibility( fromWiki ? View.GONE : View.VISIBLE );
-        if( fromWiki ) {
+        importLayout.setVisibility(fromWiki ? View.GONE : View.VISIBLE);
+        if (fromWiki) {
             setupRecyclerView();
         }
         return view;
@@ -144,7 +142,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         languages.add("Java");
         languageRecyclerAdapter = new LanguageRecyclerAdapter(languages, this);
         languageRecyclerView.setAdapter(languageRecyclerAdapter);
-        if( fromWiki ) {
+        if (fromWiki) {
             return;
         }
         languageRecyclerAdapter.setSelectedLanguage(languageTextView.getText().toString().trim());
@@ -191,11 +189,14 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
     public void executeProgram() {
 
+        String input = inputEditText.getText().toString();
+        code.setInput(input);
+
         HashMap<String, String> codeMap = new HashMap<>();
         codeMap.put("language", selectedLanguageIndex);
         String sourceCode = codeEditorRecyclerAdapter.getCode();
         codeMap.put("sourceCode", sourceCode);
-        if (code.getInput() != null) {
+        if (code.getInput() != null && input.trim().length() > 0) {
             codeMap.put("input", code.getInput());
         }
         inputEditText.setText("");
@@ -250,9 +251,10 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     }
 
     private boolean fromWiki = false;
+
     public void setParameter(Code code) {
         this.code = code;
-        if( code != null ) {
+        if (code != null) {
             this.selectedLanguageIndex = String.valueOf(code.getLanguage());
             fromWiki = true;
         }
@@ -271,17 +273,9 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
             case R.id.importFromFileTextView:
                 importFromFile();
                 break;
-            case R.id.resumeTextView:
-                resumeExecution();
-                break;
         }
     }
 
-    private void resumeExecution() {
-        String input = inputEditText.getText().toString();
-        code.setInput(input);
-        executeProgram();
-    }
 
     private int REQUEST_CODE_SEARCH = 1000;
 
