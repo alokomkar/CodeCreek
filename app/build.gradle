@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.sortedqueue.programmercreek"
         minSdkVersion 15
         targetSdkVersion 23
         def versionMajor = 1
         def versionMinor = 3
-        def versionPatch = 2
+        def versionPatch = 3
         def versionBuild = 0
         versionCode 1
         versionName "1.0"
