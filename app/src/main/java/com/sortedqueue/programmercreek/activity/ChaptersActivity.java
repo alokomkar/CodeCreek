@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -12,22 +13,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Chapter;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.fragments.ChapterDetailsFragment;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-/*import com.tappx.sdk.android.TappxAdError;
-import com.tappx.sdk.android.TappxInterstitial;
-import com.tappx.sdk.android.TappxInterstitialListener;*/
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+/*import com.tappx.sdk.android.TappxAdError;
+import com.tappx.sdk.android.TappxInterstitial;
+import com.tappx.sdk.android.TappxInterstitialListener;*/
 
 /**
  * Created by Alok on 05/01/17.
@@ -42,9 +48,19 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     FrameLayout container;
     @Bind(R.id.checkFAB)
     FloatingActionButton checkFAB;
+    @Bind(R.id.reputationProgressBar)
+    ProgressBar reputationProgressBar;
+    @Bind(R.id.reputationTextView)
+    TextView reputationTextView;
+    @Bind(R.id.progressLayout)
+    LinearLayout progressLayout;
     private FragmentTransaction mFragmentTransaction;
     private ChapterDetailsFragment chapterDetailsFragment;
     private ChaptersFragment chaptersFragment;
+    private Handler handler;
+    private CreekPreferences creekPreferences;
+    private CreekUserStats creekUserStats;
+    private Runnable runnable;
 
     @Override
     protected void onResume() {
@@ -114,6 +130,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     }
 
     private boolean isFirstTime = true;
+
     private void loadChapterFragment() {
         getSupportActionBar().setTitle("Chapters : " + new CreekPreferences(ChaptersActivity.this).getProgramLanguage().toUpperCase());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -122,11 +139,10 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
             chaptersFragment = new ChaptersFragment();
         }
         checkFAB.setImageDrawable(ContextCompat.getDrawable(ChaptersActivity.this, android.R.drawable.ic_media_play));
-        if( isFirstTime ) {
+        if (isFirstTime) {
             checkFAB.setVisibility(View.GONE);
             isFirstTime = false;
-        }
-        else {
+        } else {
             AnimationUtils.exitReveal(checkFAB);
         }
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
@@ -202,9 +218,82 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     }
 
     @Override
+    public void onProgessStatsUpdate(int points) {
+        progressLayout.setVisibility(View.VISIBLE);
+        animateProgress(points);
+    }
+
+    @Override
     public void onClick(View view) {
-        if( chapterDetailsFragment != null ) {
+        if (chapterDetailsFragment != null) {
             chapterDetailsFragment.onScrollForward();
         }
     }
+
+    private int progressBarStatus;
+
+    public void animateProgress(final int points) {
+        try {
+            if (reputationProgressBar != null) {
+
+                if (handler == null) {
+                    handler = new Handler();
+                }
+                if (creekPreferences == null) {
+                    creekPreferences = new CreekPreferences(ChaptersActivity.this);
+                }
+                creekUserStats = creekPreferences.getCreekUserStats();
+                if (creekUserStats == null) {
+                    reputationProgressBar.setVisibility(View.GONE);
+                    reputationTextView.setVisibility(View.GONE);
+                    progressLayout.setVisibility(View.GONE);
+                    return;
+                }
+                final int progress = creekUserStats.getCreekUserReputation() % 100;
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
+
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if( reputationProgressBar != null ) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete");
+                                        int level = creekUserStats.getCreekUserReputation() / 100;
+                                        if (level > 0) {
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete : Level : " + level);
+                                        }
+                                    }
+                                }
+                            });
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
+                            }
+                        }
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressLayout.setVisibility(View.GONE);
+                            }
+                        }, 2500);
+
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            if( progressLayout != null ) {
+                progressLayout.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+
 }

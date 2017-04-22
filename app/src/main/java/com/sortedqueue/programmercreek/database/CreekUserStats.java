@@ -342,9 +342,6 @@ public class CreekUserStats implements Parcelable {
         if (sqlProgressIndex != that.sqlProgressIndex) return false;
         if (totalLanguages != that.totalLanguages) return false;
         if (creekUserReputation != that.creekUserReputation) return false;
-        if (MODULE_SCORE != that.MODULE_SCORE) return false;
-        if (CHAPTER_SCORE != that.CHAPTER_SCORE) return false;
-        if (PROGRAM_SCORE != that.PROGRAM_SCORE) return false;
         if (unlockedCProgramIndexList != null ? !unlockedCProgramIndexList.equals(that.unlockedCProgramIndexList) : that.unlockedCProgramIndexList != null)
             return false;
         if (unlockedUspProgramIndexList != null ? !unlockedUspProgramIndexList.equals(that.unlockedUspProgramIndexList) : that.unlockedUspProgramIndexList != null)
@@ -416,15 +413,12 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedCppWikiIdList != null ? unlockedCppWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaWikiIdList != null ? unlockedJavaWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedSqlWikiIdList != null ? unlockedSqlWikiIdList.hashCode() : 0);
-        result = 31 * result + MODULE_SCORE;
-        result = 31 * result + CHAPTER_SCORE;
-        result = 31 * result + PROGRAM_SCORE;
         return result;
     }
 
-    private final int MODULE_SCORE = 15;
-    private final int CHAPTER_SCORE = 25;
-    private final int PROGRAM_SCORE = 30;
+    public static final int MODULE_SCORE = 15;
+    public static final int CHAPTER_SCORE = 25;
+    public static final int PROGRAM_SCORE = 30;
 
     public boolean addToUnlockedCLanguageModuleIdList(String syntaxId) {
         if( !unlockedCLanguageModuleIdList.contains(syntaxId) ) {

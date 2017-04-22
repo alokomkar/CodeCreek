@@ -10,6 +10,8 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/viewPagerLayout"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:animateLayoutChanges="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android">
@@ -25,11 +27,11 @@
             android:progress="1"
             android:progressDrawable="@drawable/greenprogress" />
 
+
+
         <com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/fillBlanksTextView"
-            android:layout_above="@+id/navigationLayout"
             android:id="@+id/syntaxLearnViewPager">
         </com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager>
 

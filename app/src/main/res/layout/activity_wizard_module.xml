@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/bg"
     android:fitsSystemWindows="true"
     tools:context="com.sortedqueue.programmercreek.activity.ChaptersActivity">
@@ -21,6 +22,41 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:id="@+id/progressLayout">
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:background="@color/md_blue_grey_500"
+            android:paddingLeft="@dimen/margin_16"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_16"
+            android:id="@+id/reputationProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/gradient_progress"
+            tools:progress="60"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:background="@color/md_blue_grey_500"
+            android:id="@+id/reputationTextView"
+            android:gravity="left"
+            tools:text="45% Complete"/>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
