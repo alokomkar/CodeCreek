@@ -255,7 +255,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     public void setParameter(Code code) {
         this.code = code;
         if (code != null) {
-            this.selectedLanguageIndex = String.valueOf(code.getLanguage());
+            this.selectedLanguageIndex = code.getLanguage();
             fromWiki = true;
         }
     }
@@ -373,7 +373,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         }
 
         code = new Code();
-        code.setLanguage(Integer.parseInt(selectedLanguageIndex));
+        code.setLanguage((selectedLanguageIndex));
         code.setSourceCode(codeTemplate);
         setupRecyclerView();
     }

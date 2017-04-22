@@ -50,7 +50,7 @@ public class CodeLanguageFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_code_language_list, container, false);
         ButterKnife.bind(this, view);
         code = new Code();
-        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
+        code.setLanguage((LanguageConstants.C_INDEX));
         code.setSourceCode("#include<stdio.h>\n" +
                 "#include<math.h>\n" +
                 "int main(void)\n" +

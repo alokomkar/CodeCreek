@@ -97,10 +97,10 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 .withLanguage(programLanguage)
                 .withCode(programWiki.getProgramExample())
                 .withTheme(ColorTheme.MONOKAI));
-        if( programLanguage.equals("cpp") || programLanguage.equals("c") || programLanguage.equals("java") ) {
+        /*if( programLanguage.equals("cpp") || programLanguage.equals("c") || programLanguage.equals("java") ) {
             programViewHolder.codeLabTextView.setVisibility(View.VISIBLE);
         }
-        else {
+        else */{
             programViewHolder.codeLabTextView.setVisibility(View.GONE);
         }
     }
@@ -151,13 +151,13 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 Code code = new Code();
                 switch ( programLanguage ) {
                     case "c" :
-                        code.setLanguage(Integer.parseInt(LanguageConstants.C_INDEX));
+                        code.setLanguage((LanguageConstants.C_INDEX));
                         break;
                     case "cpp" :
-                        code.setLanguage(Integer.parseInt(LanguageConstants.CPP_INDEX));
+                        code.setLanguage((LanguageConstants.CPP_INDEX));
                         break;
                     case "java" :
-                        code.setLanguage(Integer.parseInt(LanguageConstants.JAVA_INDEX));
+                        code.setLanguage((LanguageConstants.JAVA_INDEX));
                         break;
                 }
                 String sourceCode = programWikis.get(position).getProgramExample();

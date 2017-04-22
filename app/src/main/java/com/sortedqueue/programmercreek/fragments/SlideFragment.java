@@ -571,7 +571,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
         }
 
         programCode = new Code();
-        programCode.setLanguage(Integer.parseInt(selectedLanguageIndex));
+        programCode.setLanguage((selectedLanguageIndex));
         programCode.setSourceCode(codeTemplate);
         setupRecyclerView();
     }

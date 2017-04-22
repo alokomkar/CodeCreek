@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
+import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmContent;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
@@ -14,6 +15,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
+import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -33,6 +35,136 @@ public class JavaProgramInserter {
 
     public JavaProgramInserter(Context context) {
         this.context = context;
+    }
+
+    public void insertCodeLabPrograms() {
+
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        firebaseDatabaseHandler.getAllProgramTables();
+
+        Code code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\"\n" +
+                "int main()\n" +
+                "{\n" +
+                "\tprintf(\"HelloWorld\");\n" +
+                "\treturn 0;\n" +
+                "}");
+
+        firebaseDatabaseHandler.writeCode( code );
+
+
+        code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\"\n" +
+                "                                                                                          int main()\n" +
+                "                                                                                          {\n" +
+                "                                                                                            int a = 1, b = 2;\n" +
+                "                                                                                          \tprintf(\"%d\", a + b );\n" +
+                "                                                                                          \treturn 0;\n" +
+                "                                                                                          }");
+
+        firebaseDatabaseHandler.writeCode( code );
+
+        code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\" #include \"math.h\"\n" +
+                "                                                                                          int main()\n" +
+                "                                                                                          {\n" +
+                "                                                                                            int a = 1, b = 2;\n" +
+                "                                                                                          \tprintf(\"%f\", (float) sqrt((1*1)+(2*2)) );\n" +
+                "                                                                                          \treturn 0;\n" +
+                "                                                                                          }");
+
+        firebaseDatabaseHandler.writeCode( code );
+
+        code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\"\n" +
+                "                                                                                          int fibonaci( int i )\n" +
+                "                                                                                          {\n" +
+                "                                                                                            if( i == 0 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 0;\n" +
+                "                                                                                              }\n" +
+                "                                                                                            if( i == 1 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 1;\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn fibonaci(i-1) + fibonaci(i-2);\n" +
+                "                                                                                          }\n" +
+                "                                                                                          int main()\n" +
+                "                                                                                          {\n" +
+                "                                                                                            int i;\n" +
+                "                                                                                            for( i = 0; i < 10; i++ )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                printf(\"%d\\t%n\", fibonaci(i));\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn 0;\n" +
+                "                                                                                          }");
+
+        firebaseDatabaseHandler.writeCode( code );
+
+        code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\"\n" +
+                "                                                                                          int fibonaci( int i )\n" +
+                "                                                                                          {\n" +
+                "                                                                                            if( i == 0 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 0;\n" +
+                "                                                                                              }\n" +
+                "                                                                                            if( i == 1 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 1;\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn fibonaci(i-1) + fibonaci(i-2);\n" +
+                "                                                                                          }\n" +
+                "                                                                                          int main()\n" +
+                "                                                                                          {\n" +
+                "                                                                                            int i;\n" +
+                "                                                                                            for( i = 0; i < 10; i++ )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                printf(\"%d\\t%n\", fibonaci(i));\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn 0;\n" +
+                "                                                                                          }");
+
+        firebaseDatabaseHandler.writeCode( code );
+
+        code = new Code();
+        code.setLanguage((LanguageConstants.C_INDEX));
+        code.setInput("");
+        code.setSourceCode("#include \"stdio.h\"\n" +
+                "                                                                                          int fibonaci( int i )\n" +
+                "                                                                                          {\n" +
+                "                                                                                            if( i == 0 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 0;\n" +
+                "                                                                                              }\n" +
+                "                                                                                            if( i == 1 )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                return 1;\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn fibonaci(i-1) + fibonaci(i-2);\n" +
+                "                                                                                          }\n" +
+                "                                                                                          int main()\n" +
+                "                                                                                          {\n" +
+                "                                                                                            int i;\n" +
+                "                                                                                            for( i = 0; i < 10; i++ )\n" +
+                "                                                                                              {\n" +
+                "                                                                                                printf(\"%d\\t%n\", fibonaci(i));\n" +
+                "                                                                                              }\n" +
+                "                                                                                          \treturn 0;\n" +
+                "                                                                                          }");
+
+        firebaseDatabaseHandler.writeCode( code );
+
     }
 
     public void insertAlgorithmIndex() {

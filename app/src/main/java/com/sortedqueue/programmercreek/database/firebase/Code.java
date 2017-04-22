@@ -14,7 +14,7 @@ public class Code implements Parcelable {
 
     @SerializedName("language")
     @Expose
-    private int language;
+    private String language;
     @SerializedName("sourceCode")
     @Expose
     private String sourceCode;
@@ -22,12 +22,12 @@ public class Code implements Parcelable {
     @Expose
     private String input;
 
-    public Code(int language, String sourceCode) {
+    public Code(String language, String sourceCode) {
         this.language = language;
         this.sourceCode = sourceCode;
     }
 
-    public Code(int language, String sourceCode, String input) {
+    public Code(String language, String sourceCode, String input) {
         this.language = language;
         this.sourceCode = sourceCode;
         this.input = input;
@@ -36,11 +36,11 @@ public class Code implements Parcelable {
     public Code() {
     }
 
-    public int getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(int language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
 
@@ -67,15 +67,19 @@ public class Code implements Parcelable {
 
         Code code = (Code) o;
 
-        if (language != code.language) return false;
-        return sourceCode != null ? sourceCode.equals(code.sourceCode) : code.sourceCode == null;
+        if (language != null ? !language.equals(code.language) : code.language != null)
+            return false;
+        if (sourceCode != null ? !sourceCode.equals(code.sourceCode) : code.sourceCode != null)
+            return false;
+        return input != null ? input.equals(code.input) : code.input == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = language;
+        int result = language != null ? language.hashCode() : 0;
         result = 31 * result + (sourceCode != null ? sourceCode.hashCode() : 0);
+        result = 31 * result + (input != null ? input.hashCode() : 0);
         return result;
     }
 
@@ -95,13 +99,13 @@ public class Code implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.language);
+        dest.writeString(this.language);
         dest.writeString(this.sourceCode);
         dest.writeString(this.input);
     }
 
     protected Code(Parcel in) {
-        this.language = in.readInt();
+        this.language = in.readString();
         this.sourceCode = in.readString();
         this.input = in.readString();
     }

@@ -203,6 +203,10 @@ public class FirebaseDatabaseHandler {
         return false;
     }
 
+    public void writeCode(Code code) {
+
+    }
+
     public interface GetAllTagsListener {
         void onError( DatabaseError databaseError );
         void onSuccess( TagModel tagModel );
@@ -838,6 +842,38 @@ public class FirebaseDatabaseHandler {
         }
 
 
+    }
+
+    public void getAllProgramTables( ) {
+        getProgramDatabase();
+        mProgramDatabase.child( "program_tables")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<ProgramTable> programTables = new ArrayList<ProgramTable>();
+                        for( DataSnapshot indexSnapShot : dataSnapshot.getChildren() ) {
+                            Log.d(TAG, "Program_Index : " + indexSnapShot.getKey());
+                            String programCode = "";
+                            for( DataSnapshot childSnapShot : indexSnapShot.getChildren() ) {
+                                ProgramTable programTable = childSnapShot.getValue(ProgramTable.class);
+                                if( programTable != null ) {
+                                    programTables.add(programTable);
+                                    programCode += programTable.getProgram_Line() + "\n";
+                                }
+                            }
+                            Log.d(TAG, programCode);
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
