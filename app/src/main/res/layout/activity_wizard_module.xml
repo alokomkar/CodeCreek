@@ -28,12 +28,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
+        tools:visibility="visible"
         android:elevation="@dimen/margin_24"
         android:animateLayoutChanges="true"
         android:id="@+id/progressLayout">
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:background="@color/md_blue_grey_500"
+            android:background="@color/transparent_black"
             android:paddingLeft="@dimen/margin_16"
             android:paddingRight="@dimen/margin_16"
             android:paddingTop="@dimen/margin_16"
@@ -52,10 +53,10 @@
             android:paddingRight="@dimen/margin_16"
             android:paddingBottom="@dimen/margin_8"
             android:paddingLeft="@dimen/margin_16"
-            android:background="@color/md_blue_grey_500"
+            android:background="@color/transparent_black"
             android:id="@+id/reputationTextView"
             android:gravity="left"
-            tools:text="45% Complete"/>
+            tools:text="You've gained 30xp\n45% Complete : Level 10"/>
     </LinearLayout>
 
     <FrameLayout

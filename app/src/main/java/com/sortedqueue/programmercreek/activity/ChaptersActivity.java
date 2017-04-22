@@ -250,6 +250,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                     return;
                 }
                 final int progress = creekUserStats.getCreekUserReputation() % 100;
+                AnimationUtils.exitReveal(checkFAB);
                 reputationProgressBar.setVisibility(View.VISIBLE);
                 reputationTextView.setVisibility(View.VISIBLE);
                 runnable = new Runnable() {
@@ -279,6 +280,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                             @Override
                             public void run() {
                                 progressLayout.setVisibility(View.GONE);
+                                AnimationUtils.enterReveal(checkFAB);
                             }
                         }, 1500);
 
@@ -290,6 +292,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
             e.printStackTrace();
             if( progressLayout != null ) {
                 progressLayout.setVisibility(View.GONE);
+                AnimationUtils.enterReveal(checkFAB);
             }
         }
 
