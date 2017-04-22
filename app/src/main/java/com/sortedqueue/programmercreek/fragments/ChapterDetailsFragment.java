@@ -225,10 +225,12 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                     creekUserStats.setCppProgressIndex(chapterDetails.getProgressIndex());
                     switch (chapterDetails.getChapterType()) {
                         case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.MODULE_SCORE);
                             creekUserStats.addToUnlockedCppLanguageModuleIdList(chapterDetails.getSyntaxId());
                             creekUserStats.addToUnlockedCppSyntaxModuleIdList(chapterDetails.getSyntaxId() + "_" + chapterDetails.getChapterReferenceId());
                             break;
                         case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
                             creekUserStats.addToUnlockedCppProgramIndexList(Integer.parseInt(chapterDetails.getChapterReferenceId()));
                             break;
                         case ChapterDetails.TYPE_WIKI:
@@ -242,10 +244,12 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                     creekUserStats.setJavaProgressIndex(chapterDetails.getProgressIndex());
                     switch (chapterDetails.getChapterType()) {
                         case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.MODULE_SCORE);
                             creekUserStats.addToUnlockedJavaLanguageModuleIdList(chapterDetails.getSyntaxId());
                             creekUserStats.addToUnlockedJavaSyntaxModuleIdList(chapterDetails.getSyntaxId() + "_" + chapterDetails.getChapterReferenceId());
                             break;
                         case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
                             creekUserStats.addToUnlockedJavaProgramIndexList(Integer.parseInt(chapterDetails.getChapterReferenceId()));
                             break;
                         case ChapterDetails.TYPE_WIKI:
@@ -259,10 +263,12 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                     creekUserStats.setSqlProgressIndex(chapterDetails.getProgressIndex());
                     switch (chapterDetails.getChapterType()) {
                         case ChapterDetails.TYPE_SYNTAX_MODULE:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.MODULE_SCORE);
                             creekUserStats.addToUnlockedSqlLanguageModuleIdList(chapterDetails.getSyntaxId());
                             creekUserStats.addToUnlockedSqlSyntaxModuleIdList(chapterDetails.getSyntaxId() + "_" + chapterDetails.getChapterReferenceId());
                             break;
                         case ChapterDetails.TYPE_PROGRAM_INDEX:
+                            onChapterNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
                             creekUserStats.addToUnlockedSqlProgramIndexList(Integer.parseInt(chapterDetails.getChapterReferenceId()));
                             break;
                         case ChapterDetails.TYPE_WIKI:

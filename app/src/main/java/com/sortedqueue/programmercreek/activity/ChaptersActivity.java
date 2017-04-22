@@ -280,7 +280,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                             public void run() {
                                 progressLayout.setVisibility(View.GONE);
                             }
-                        }, 2500);
+                        }, 1500);
 
                     }
                 };
