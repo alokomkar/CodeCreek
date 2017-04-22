@@ -44,7 +44,6 @@ import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.retrofit.DownloadHTMLService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
-import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -119,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
         dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
-        dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
+        //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
         if (creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
         } else {
@@ -135,10 +134,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3)
+                /*if (position == 3)
                     AnimationUtils.enterReveal(createPresentationFAB);
                 else
-                    AnimationUtils.exitReveal(createPresentationFAB);
+                    AnimationUtils.exitReveal(createPresentationFAB);*/
             }
 
             @Override

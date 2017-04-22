@@ -172,7 +172,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             matchLayout.setAlpha(0.0f);
             testLayout.setAlpha(0.0f);
             interviewLayout.setAlpha(0.0f);
-            codeLabLayout.setAlpha(0.0f);
+            //codeLabLayout.setAlpha(0.0f);
 
             int delay = 0;
             int standardDelay = 270;
@@ -194,7 +194,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             delay = delay + standardDelay;
             initAnimations(interviewLayout, delay);
             delay = delay + standardDelay;
-            initAnimations(codeLabLayout, delay);
+            //initAnimations(codeLabLayout, delay);
         }
 
 

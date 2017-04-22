@@ -22,18 +22,8 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
     public static final int INDEX_LEADER_BOARD = 2;
     public static final int INDEX_PRESENTATION = 3;
 
-    private Context context;
-    private String tabTitles[] = new String[] { "Language", "Dashboard", "Top Learners" };
-
-    private int[] imageResId = {
-            R.drawable.ic_account_box_white_24dp,
-            R.drawable.ic_dns_white_24dp,
-            R.drawable.ic_star_border_black_24dp
-    };
-
     public DashboardPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
-        this.context = context;
     }
 
     @Override
@@ -53,7 +43,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Override
