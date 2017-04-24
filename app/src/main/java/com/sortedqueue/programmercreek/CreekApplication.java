@@ -61,11 +61,16 @@ public class CreekApplication extends Application {
         program_indexHashMap = new HashMap<>();
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(ProgrammingBuddyConstants.FONT_ROBOTO)
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
+        try {
+            CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                    .setDefaultFontPath(ProgrammingBuddyConstants.FONT_ROBOTO)
+                    .setFontAttrId(R.attr.fontPath)
+                    .build()
+            );
+        } catch ( NoClassDefFoundError e ) {
+            e.printStackTrace();
+        }
+
 
         List<Class<? extends Rush>> dbClasses = new ArrayList<Class<? extends Rush>>() ;
 
@@ -90,7 +95,7 @@ public class CreekApplication extends Application {
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);
-        //setupExceptionHandler();
+        setupExceptionHandler();
     }
 
     private void setupExceptionHandler() {
