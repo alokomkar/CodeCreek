@@ -65,6 +65,18 @@ public class PermissionUtils {
 
     }
 
+    public static boolean checkSelfPermission(final AppCompatActivity activity, final String[] permissions, int requestCode ) {
+        String[] deniedPermissions = checkDeniedPermissions( activity, permissions );
+        if( deniedPermissions.length == 0 ) {
+            return true;
+        }
+        else {
+            ActivityCompat.requestPermissions( activity, deniedPermissions, requestCode);
+            return false;
+        }
+
+    }
+
     public static String[] checkDeniedPermissions(AppCompatActivity activity, String[] permissions) {
         ArrayList<String> deniedPermissions = new ArrayList<>();
         for( String permission : permissions ) {
