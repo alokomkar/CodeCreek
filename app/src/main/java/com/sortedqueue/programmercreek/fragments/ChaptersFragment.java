@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ChapterRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
-import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -664,7 +663,7 @@ public class ChaptersFragment extends Fragment {
             firebaseDatabaseHandler.writeChapter(chapter1);
         }*/
         CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
-        new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
+        CreekApplication.getFirebaseDatabaseHandler().getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
                 setupRecyclerView(chaptersList);

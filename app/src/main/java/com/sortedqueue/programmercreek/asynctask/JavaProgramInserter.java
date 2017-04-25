@@ -39,7 +39,7 @@ public class JavaProgramInserter {
 
     public void insertCodeLabPrograms() {
 
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.getAllProgramTables();
 
         Code code = new Code();
@@ -169,7 +169,7 @@ public class JavaProgramInserter {
 
     public void insertAlgorithmIndex() {
         int index = 1;
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         Algorithm algorithm;
         ArrayList<AlgorithmContent> algorithmContentArrayList;
         firebaseDatabaseHandler.writeAlgorithmIndex(
@@ -2398,7 +2398,7 @@ public class JavaProgramInserter {
         CommonUtils.displayProgressDialog(context, "Inserting programs");
         int index = 1;
 
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "Largest of three numbers", "http://codescracker.com/cpp/program/cpp-program-find-greatest-of-three-numbers.htm", "c++"));
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "To find the discount ", "https://programercreek.blogspot.in/", "c++"));
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "To find the case of a character", "https://programercreek.blogspot.in/", "c++"));
@@ -2435,7 +2435,7 @@ public class JavaProgramInserter {
         CommonUtils.displayProgressDialog((Activity) context, "Inserting program tables");
         int programIndex = 24;
         int lineNo = 1;
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++, "#include<iostream.h>", "Header include - iostream.h", "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++, "#include<conio.h>", "Header include - conio.h", "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++,"inline int cube(int a)",  "cube function definition - inline",  "c++"));
@@ -2594,7 +2594,7 @@ public class JavaProgramInserter {
 
         int moduleIndex = 1;
         String programLanguage = "sql";
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.writeLanguageModule(
                 new LanguageModule(
                         "sql_" + moduleIndex++,
@@ -2648,7 +2648,7 @@ public class JavaProgramInserter {
     }
 
     public void insertSyntaxModules( ) {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         int moduleId;
         /*String programLanguage = new CreekPreferences(context).getProgramLanguage();
         if( programLanguage.equals("c++") ) {
@@ -3236,7 +3236,7 @@ public class JavaProgramInserter {
     }
 
     public void insertProgramWiki() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         ArrayList<ProgramWiki> programWikis = new ArrayList<>();
         ProgramWiki programWiki = new ProgramWiki();
         programWiki.setContentType(ProgramWiki.CONTENT_HEADER);
@@ -3639,7 +3639,7 @@ public class JavaProgramInserter {
 
         int index = 1;
         String programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Swap by reference - inline",
                 programLanguage, ""));
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Display Array",
@@ -3695,7 +3695,7 @@ public class JavaProgramInserter {
 
     public void insertADAProgramTables() {
         String programLanguage = "ada";
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         //http://man7.org/linux/man-pages/man3/mkfifo.3.html
         //Getting database connection : JDBC MySQL
         String programCode =
@@ -4383,7 +4383,7 @@ public class JavaProgramInserter {
     }
 
     public void insertSQLProgramTables() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         //http://man7.org/linux/man-pages/man3/mkfifo.3.html
         //Getting database connection : JDBC MySQL
         String programCode =

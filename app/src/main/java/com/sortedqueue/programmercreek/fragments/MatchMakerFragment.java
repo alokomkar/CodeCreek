@@ -120,7 +120,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
         if(  mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+            CreekApplication.getFirebaseDatabaseHandler().getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
                         @Override
                         public void onSuccess(ProgramIndex programIndex) {
@@ -145,7 +145,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void getProgramTables() {
-        new FirebaseDatabaseHandler(getContext()).getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+        CreekApplication.getFirebaseDatabaseHandler().getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
             @Override
             public void onSuccess(ArrayList<ProgramTable> programTables) {
                 program_TableList = programTables;
@@ -618,7 +618,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
     @Override
     public void updateUI() {
-        ArrayList<ProgramTable> program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
+        ArrayList<ProgramTable> program_TableList = CreekApplication.getFirebaseDatabaseHandler().getProgramTables(mProgramIndex.getProgram_index());
         int prevProgramSize = 0;
         prevProgramSize = program_TableList.size();
         do {
@@ -627,7 +627,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
+            program_TableList = CreekApplication.getFirebaseDatabaseHandler().getProgramTables(mProgramIndex.getProgram_index());
             if (prevProgramSize == program_TableList.size()) {
                 break;
             }

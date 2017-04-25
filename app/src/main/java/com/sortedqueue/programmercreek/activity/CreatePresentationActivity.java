@@ -157,7 +157,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void fetchAllTags() {
-        new FirebaseDatabaseHandler(CreatePresentationActivity.this).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
+        CreekApplication.getFirebaseDatabaseHandler().getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
             @Override
             public void onError(DatabaseError databaseError) {
 
@@ -372,7 +372,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onPresentationComplete() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(CreatePresentationActivity.this);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.setPresentationPushId(null);
         firebaseDatabaseHandler.writeNewPresentation(presentationModel);
     }

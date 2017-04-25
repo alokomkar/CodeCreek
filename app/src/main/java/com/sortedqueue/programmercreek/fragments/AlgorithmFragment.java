@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.AlgorithmPagerAdapter;
 import com.sortedqueue.programmercreek.database.Algorithm;
@@ -63,7 +64,7 @@ public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandl
     }
 
     private void fetchAlgorithmsIndex() {
-        new FirebaseDatabaseHandler(getContext()).getAlgorithmForIndex(mAlgorithmsIndex.getProgramIndex(), this);
+        CreekApplication.getFirebaseDatabaseHandler().getAlgorithmForIndex(mAlgorithmsIndex.getProgramIndex(), this);
     }
 
     public static AlgorithmFragment newInstance(AlgorithmsIndex algorithm) {

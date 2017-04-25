@@ -107,7 +107,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	private void getProgramTableFromDB(final int program_Index) {
 
-		new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+		CreekApplication.getFirebaseDatabaseHandler()
 				.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
 					@Override
 					public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -394,7 +394,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 			mIndex = 0;
-			new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+			CreekApplication.getFirebaseDatabaseHandler()
 					.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
 						@Override
 						public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -549,7 +549,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 
 	@Override
 	public void updateUI() {
-		new FirebaseDatabaseHandler(MemorizeProgramActivity.this)
+		CreekApplication.getFirebaseDatabaseHandler()
                 .getProgramTablesInBackground(programIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {

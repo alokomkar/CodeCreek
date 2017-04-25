@@ -1425,7 +1425,7 @@ public class FirebaseDatabaseHandler {
 
                 @Override
                 protected ArrayList<ProgramIndex> doInBackground(Void... params) {
-                    return new FirebaseDatabaseHandler(mContext).getProgramIndexes();
+                    return CreekApplication.getFirebaseDatabaseHandler().getProgramIndexes();
 
                 }
 

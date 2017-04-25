@@ -228,7 +228,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             if( email == null ) {
                 email = user.getUid();
             }
-            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUser(email, new FirebaseDatabaseHandler.GetCreekUserListner() {
+            CreekApplication.getFirebaseDatabaseHandler().getCreekUser(email, new FirebaseDatabaseHandler.GetCreekUserListner() {
                 @Override
                 public void onSuccess(CreekUser creekUser) {
                     CommonUtils.dismissProgressDialog();
@@ -243,7 +243,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                     startApp();
                 }
             });
-            new FirebaseDatabaseHandler(SplashActivity.this).getCreekUserStatsInBackground(new FirebaseDatabaseHandler.CreekUserStatsListener() {
+            CreekApplication.getFirebaseDatabaseHandler().getCreekUserStatsInBackground(new FirebaseDatabaseHandler.CreekUserStatsListener() {
                 @Override
                 public void onSuccess(CreekUserStats creekUserStats) {
 

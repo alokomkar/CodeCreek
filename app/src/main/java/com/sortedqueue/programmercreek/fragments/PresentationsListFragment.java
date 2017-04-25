@@ -48,7 +48,7 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_presentations, container, false);
         ButterKnife.bind(this, view);
-        new FirebaseDatabaseHandler(getContext()).getAllPresentations(this);
+        CreekApplication.getFirebaseDatabaseHandler().getAllPresentations(this);
         return view;
     }
 

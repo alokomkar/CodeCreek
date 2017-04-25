@@ -149,7 +149,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
             dashboardScrollView.setVisibility(View.GONE);
             adaScrollView.setVisibility(View.VISIBLE);
-            new FirebaseDatabaseHandler(getContext()).getAllAlgorithmIndex( this );
+            CreekApplication.getFirebaseDatabaseHandler().getAllAlgorithmIndex( this );
         } else {
             dashboardScrollView.setVisibility(View.VISIBLE);
             adaScrollView.setVisibility(View.GONE);
@@ -310,7 +310,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private void LaunchProgramListActivity(final int invokeMode) {
         if (creekPreferences.getProgramTables() == -1) {
             CommonUtils.displayProgressDialog(getActivity(), "Initializing data for the first time : " + creekPreferences.getProgramLanguage().toUpperCase());
-            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getActivity());
+            firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
                 public void getProgramTables(ArrayList<ProgramTable> program_tables) {

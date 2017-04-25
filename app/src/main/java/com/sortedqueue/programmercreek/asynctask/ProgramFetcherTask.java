@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
@@ -33,7 +34,7 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, ArrayList<ProgramT
 
 	@Override
 	protected ArrayList<ProgramTable> doInBackground(Void... params) {
-		mProgram_TableList = new FirebaseDatabaseHandler(mContext).getProgramTables(mProgramIndex);
+		mProgram_TableList = CreekApplication.getFirebaseDatabaseHandler().getProgramTables(mProgramIndex);
 		return mProgram_TableList;
 	}
 

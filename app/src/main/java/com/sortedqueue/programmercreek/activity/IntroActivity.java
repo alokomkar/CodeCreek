@@ -307,7 +307,7 @@ public class IntroActivity extends AppCompatActivity
         initChapter( introChapters.get(0) );*/
 
 
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(IntroActivity.this);
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.getIntroChapters(new FirebaseDatabaseHandler.GetIntroChaptersListener() {
             @Override
             public void onSuccess(ArrayList<IntroChapter> introChapters) {

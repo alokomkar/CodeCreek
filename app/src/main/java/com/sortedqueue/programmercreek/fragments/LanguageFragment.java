@@ -103,7 +103,7 @@ public class LanguageFragment extends Fragment {
             return;
         }
         CommonUtils.displayProgressDialog(getContext(), "Fetching all languages...");
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
             @Override
             public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
@@ -185,7 +185,7 @@ public class LanguageFragment extends Fragment {
             return;
         }
         CommonUtils.displayProgressDialog(getContext(), "Fetching database...");
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
@@ -215,7 +215,7 @@ public class LanguageFragment extends Fragment {
     private void initDB() {
         logDebugMessage("Inserting all Programs Titles..");
         if (!creekPreferences.checkProgramIndexUpdate()) {
-            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+            firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
                 @Override
                 public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {

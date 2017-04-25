@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.WikiModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class CreekApplication extends Application {
     private CreekUserStats creekUserStats;
 
     private static CreekPreferences creekPreferences;
+    private static FirebaseDatabaseHandler firebaseDatabaseHandler;
 
     public static CreekApplication getInstance() {
         return creekApplication;
@@ -93,6 +95,13 @@ public class CreekApplication extends Application {
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);
         //setupExceptionHandler();
+    }
+
+    public static FirebaseDatabaseHandler getFirebaseDatabaseHandler() {
+        if( firebaseDatabaseHandler == null ) {
+            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getInstance());
+        }
+        return firebaseDatabaseHandler;
     }
 
     public static CreekPreferences getCreekPreferences() {

@@ -19,7 +19,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ProgramInserterWikiAdapter;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -282,6 +281,6 @@ public class ProgramInserterFragment extends Fragment implements View.OnClickLis
         wikiModel.setWikiHeader(wikiHeaderEditText.getText().toString());
         wikiModel.setWikiId(wikiIdEditText.getText().toString());
         wikiModel.setProgramWikis(programWikis);
-        new FirebaseDatabaseHandler(getContext()).writeProgramWiki(wikiModel);
+        CreekApplication.getFirebaseDatabaseHandler().writeProgramWiki(wikiModel);
     }
 }

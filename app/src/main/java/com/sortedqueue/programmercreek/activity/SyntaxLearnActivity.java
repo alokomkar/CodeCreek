@@ -159,7 +159,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     public void onModuleLoad(final LanguageModule module, final LanguageModule nextModule ) {
 
         CommonUtils.displayProgressDialog(SyntaxLearnActivity.this, "Loading material");
-        new FirebaseDatabaseHandler(SyntaxLearnActivity.this).initializeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
+        CreekApplication.getFirebaseDatabaseHandler().initializeSyntax(module, new FirebaseDatabaseHandler.SyntaxInterface() {
             @Override
             public void getSyntaxModules(ArrayList<SyntaxModule> syntaxModules) {
                 loadModuleDetailsFragment(module, nextModule, syntaxModules);

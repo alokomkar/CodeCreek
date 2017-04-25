@@ -165,7 +165,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             answerLayout4.setAlpha(0.0f);
         }
 
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+        firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
         firebaseDatabaseHandler.getProgramIndexInBackGround(mProgram_Index, new FirebaseDatabaseHandler.GetProgramIndexListener() {
             @Override
             public void onSuccess(ProgramIndex programIndex) {
@@ -824,7 +824,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                 creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
         }
-        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
+        CreekApplication.getFirebaseDatabaseHandler().writeCreekUserStats(creekUserStats);
     }
 
     @Override

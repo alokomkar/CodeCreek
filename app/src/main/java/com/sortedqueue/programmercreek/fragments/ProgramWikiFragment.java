@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ProgramWikiRecyclerAdapter;
-import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
@@ -57,7 +57,7 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
             progressBar.setVisibility(View.VISIBLE);
             if( wikiNavigationListener != null )
                 wikiNavigationListener.disableViewPager();
-            new FirebaseDatabaseHandler(getContext()).getWikiModel(wizardUrl, new FirebaseDatabaseHandler.GetWikiModelListener() {
+            CreekApplication.getFirebaseDatabaseHandler().getWikiModel(wizardUrl, new FirebaseDatabaseHandler.GetWikiModelListener() {
                 @Override
                 public void onSuccess(WikiModel wikiModel) {
                     ProgramWikiFragment.this.programWiki = wikiModel;
