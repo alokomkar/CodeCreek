@@ -50,6 +50,8 @@ public class CreekApplication extends Application {
     private HashMap<Integer, ProgramIndex> program_indexHashMap;
     private CreekUserStats creekUserStats;
 
+    private static CreekPreferences creekPreferences;
+
     public static CreekApplication getInstance() {
         return creekApplication;
     }
@@ -93,6 +95,13 @@ public class CreekApplication extends Application {
         //setupExceptionHandler();
     }
 
+    public static CreekPreferences getCreekPreferences() {
+        if( creekPreferences == null ) {
+            creekPreferences = new CreekPreferences(getInstance());
+        }
+        return creekPreferences;
+    }
+
     private void setupExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
@@ -131,7 +140,7 @@ public class CreekApplication extends Application {
 
     public CreekUserStats getCreekUserStats( ) {
         if( creekUserStats == null ) {
-            creekUserStats = new CreekPreferences(getApplicationContext()).getCreekUserStats();
+            creekUserStats = getCreekPreferences().getCreekUserStats();
         }
         return creekUserStats;
     }

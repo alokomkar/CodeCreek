@@ -14,7 +14,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         this.languageModules = languageModules;
         this.adapterClickListner = adapterClickListner;
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.programLanguage = new CreekPreferences(context).getProgramLanguage();
+        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
     }
 
     @Override

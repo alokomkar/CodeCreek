@@ -2,7 +2,6 @@ package com.sortedqueue.programmercreek.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
@@ -58,9 +56,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;
         this.mUnlockByInviteInterface = (UnlockByInviteInterface) context;
-        this.programLanguage =new CreekPreferences(mContext).getProgramLanguage();
+        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.creekPreferences = new CreekPreferences(context);
+        this.creekPreferences = CreekApplication.getCreekPreferences();
         this.unlockByInviteDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_media_ff);
         this.lockedDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_lock_lock);
         mProgramType = programLanguage.substring(0, 1).toUpperCase();

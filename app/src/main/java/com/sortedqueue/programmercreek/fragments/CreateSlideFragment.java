@@ -71,7 +71,7 @@ import static com.facebook.GraphRequest.TAG;
  * Created by Alok on 06/04/17.
  */
 
-public class SlideFragment extends Fragment implements View.OnClickListener, AuxilaryUtils.PhotoOptionListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
+public class CreateSlideFragment extends Fragment implements View.OnClickListener, AuxilaryUtils.PhotoOptionListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     @Bind(R.id.titleEditText)
     EditText titleEditText;
@@ -447,7 +447,7 @@ public class SlideFragment extends Fragment implements View.OnClickListener, Aux
                     uploadProgressBar.setVisibility(View.GONE);
                     CommonUtils.displayToast(getContext(), "Success");
                     Log.d(TAG, "Upload Success : " + downloadUri.toString());
-                    SlideFragment.this.selectedImageUri = downloadUri;
+                    CreateSlideFragment.this.selectedImageUri = downloadUri;
                     slideModel.setSlideImageUrl(downloadUri.toString());
                     Glide.with(getContext()).load(downloadUri).asBitmap().into(slideImageView);
                 }

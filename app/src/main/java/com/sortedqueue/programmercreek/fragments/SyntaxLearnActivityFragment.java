@@ -45,7 +45,6 @@ import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListene
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +121,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
-        programLanguage = new CreekPreferences(getContext()).getProgramLanguage();
+        programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         //initializeRewardedVideoAd();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";

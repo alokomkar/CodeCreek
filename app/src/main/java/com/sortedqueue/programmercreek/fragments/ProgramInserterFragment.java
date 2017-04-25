@@ -14,13 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ProgramInserterWikiAdapter;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class ProgramInserterFragment extends Fragment implements View.OnClickLis
     }
 
     private void setupViews() {
-        language = new CreekPreferences(getContext()).getProgramLanguage();
+        language = CreekApplication.getCreekPreferences().getProgramLanguage();
         if (language.equals("c++")) {
             language = "cpp";
         }

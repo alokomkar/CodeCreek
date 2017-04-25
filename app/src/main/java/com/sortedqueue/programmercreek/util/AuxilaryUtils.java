@@ -174,7 +174,7 @@ public class AuxilaryUtils {
                                            int description,
                                            final UnlockByInviteInterface unlockByInviteInterface ) {
         final String preferenceString = context.getString(title).replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = new CreekPreferences(context);
+        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -209,7 +209,7 @@ public class AuxilaryUtils {
                                           DialogInterface.OnDismissListener onCancelListner) {
 
         final String preferenceString = context.getString(title).replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = new CreekPreferences(context);
+        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -258,7 +258,7 @@ public class AuxilaryUtils {
         long delay = 1000 * 15;
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        CreekPreferences creekPreferences = new CreekPreferences(context);
+        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         if( !creekPreferences.isNotificationScheduled() ) {
             creekPreferences.setNotificationScheduled(true);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
@@ -275,7 +275,7 @@ public class AuxilaryUtils {
         long delay = 1000 * 60 * 60 * 8;
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        CreekPreferences creekPreferences = new CreekPreferences(context);
+        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         if( !creekPreferences.isNotificationScheduled() ) {
             creekPreferences.setNotificationScheduled(true);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
@@ -293,7 +293,7 @@ public class AuxilaryUtils {
         javaNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.java_notifications_array)));
         ArrayList<String> uspNotifications = new ArrayList<>();
         uspNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.usp_notifications_array)));
-        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        String programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         String notification = "";
         Random random = new Random();
         switch ( programLanguage ) {
@@ -415,7 +415,7 @@ public class AuxilaryUtils {
                     }
                 })
                 .create();
-        new CreekPreferences(context).setShowInviteDialog(true);
+        CreekApplication.getCreekPreferences().setShowInviteDialog(true);
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
         alertDialog.show();
     }

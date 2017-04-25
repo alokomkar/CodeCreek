@@ -75,7 +75,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_wiki);
         ButterKnife.bind(this);
-        creekPreferences = new CreekPreferences(ProgramWikiActivity.this);
+        creekPreferences = CreekApplication.getCreekPreferences();
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient(new MyWebViewClient());

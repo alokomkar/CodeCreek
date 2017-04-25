@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.sortedqueue.programmercreek.fragments.SlideFragment;
+import com.sortedqueue.programmercreek.fragments.CreateSlideFragment;
 
 import java.util.ArrayList;
 
@@ -29,8 +29,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         return fragmentArrayList.size();
     }
 
-    public void addNewSlideFragment(SlideFragment slideFragment) {
-        fragmentArrayList.add(slideFragment);
+    public void addNewSlideFragment(CreateSlideFragment createSlideFragment) {
+        fragmentArrayList.add(createSlideFragment);
     }
 
     public void removeCurrentFragment(int currentPosition) {

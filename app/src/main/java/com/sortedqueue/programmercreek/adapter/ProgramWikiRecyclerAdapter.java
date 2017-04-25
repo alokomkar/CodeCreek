@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CodeLabActivity;
 import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.firebase.Code;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public ProgramWikiRecyclerAdapter(Context context, List<ProgramWiki> programWikis) {
         this.context = context;
         this.programWikis = programWikis;
-        this.programLanguage = new CreekPreferences(context).getProgramLanguage();
+        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }

@@ -13,6 +13,7 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
@@ -508,7 +509,7 @@ public class FirebaseDatabaseHandler {
 
     public FirebaseDatabaseHandler(Context context) {
         this.mContext = context;
-        creekPreferences = new CreekPreferences(mContext);
+        creekPreferences = CreekApplication.getCreekPreferences();
         programLanguage = creekPreferences.getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";

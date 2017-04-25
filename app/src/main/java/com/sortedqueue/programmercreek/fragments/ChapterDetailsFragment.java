@@ -24,7 +24,6 @@ import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListene
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
 
@@ -199,7 +198,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private void updateCreekStats() {
         ChapterDetails chapterDetails = chapterDetailsPagerAdapter.getChapterDetailsForPosition(syntaxLearnViewPager.getCurrentItem());
         creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        switch (new CreekPreferences(getContext()).getProgramLanguage()) {
+        switch (CreekApplication.getCreekPreferences().getProgramLanguage()) {
             case "c":
                 if (creekUserStats.getcProgressIndex() < chapterDetails.getProgressIndex()) {
                     creekUserStats.setcProgressIndex(chapterDetails.getProgressIndex());

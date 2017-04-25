@@ -93,7 +93,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         configureFirebaseAuth();
         ButterKnife.bind(this);
 
-        creekPreferences = new CreekPreferences(SplashActivity.this);
+        creekPreferences = CreekApplication.getCreekPreferences();
         googleSignInButton.setVisibility(View.GONE);
         fbLoginButton.setVisibility(View.GONE);
         signEmailButton.setVisibility(View.GONE);

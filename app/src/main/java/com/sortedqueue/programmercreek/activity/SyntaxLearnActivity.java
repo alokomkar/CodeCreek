@@ -24,16 +24,16 @@ import com.sortedqueue.programmercreek.fragments.ModuleFragment;
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
-/*import com.tappx.sdk.android.TappxAdError;
-import com.tappx.sdk.android.TappxInterstitial;
-import com.tappx.sdk.android.TappxInterstitialListener;*/
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+/*import com.tappx.sdk.android.TappxAdError;
+import com.tappx.sdk.android.TappxInterstitial;
+import com.tappx.sdk.android.TappxInterstitialListener;*/
 
 public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavigationListener, View.OnClickListener {
 
@@ -179,7 +179,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     }
 
     private void loadModuleDetailsFragment(LanguageModule module, LanguageModule nextModule, ArrayList<SyntaxModule> syntaxModules) {
-        getSupportActionBar().setTitle( new CreekPreferences(SyntaxLearnActivity.this).getProgramLanguage().toUpperCase() + " Syntax Learner");
+        getSupportActionBar().setTitle( CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase() + " Syntax Learner");
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         moduleDetailsFragment = (ModuleDetailsFragment) getSupportFragmentManager().findFragmentByTag(ModuleDetailsFragment.class.getSimpleName());

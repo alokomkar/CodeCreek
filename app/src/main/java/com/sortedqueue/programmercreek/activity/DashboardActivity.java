@@ -98,7 +98,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
         setupToolbar();
-        creekPreferences = new CreekPreferences(DashboardActivity.this);
+        creekPreferences = CreekApplication.getCreekPreferences();
         configureGoogleSignup();
         if (!creekPreferences.getProgramLanguage().equals("")) {
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
@@ -185,26 +185,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private void initJavaIndex() {
         new JavaProgramInserter(DashboardActivity.this).insertCodeLabPrograms();
     }
-
-    /*private void initAds() {
-        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
-        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
-        //For creating test ads
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
-                .build();
-        adView.loadAd(adRequest);
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adView.setVisibility(View.VISIBLE);
-                //AuxilaryUtils.displayResultAlert("Result", "Message", DashboardActivity.this);
-            }
-        });
-
-    }*/
-
 
     @Override
     protected void onResume() {
@@ -487,7 +467,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void calculateReputation() {
         if (creekPreferences == null) {
-            creekPreferences = new CreekPreferences(DashboardActivity.this);
+            creekPreferences = CreekApplication.getCreekPreferences();
         }
         if (creekPreferences != null && !creekPreferences.getProgramLanguage().equals("")) {
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();

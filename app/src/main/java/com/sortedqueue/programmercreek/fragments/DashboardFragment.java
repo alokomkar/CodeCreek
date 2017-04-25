@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
@@ -134,7 +135,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
         ButterKnife.bind(this, view);
-        creekPreferences = new CreekPreferences(getContext());
+        creekPreferences = CreekApplication.getCreekPreferences();
         //creekPreferences.setProgramLanguage("sql");
         initUI();
         animateViews();
@@ -143,7 +144,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     public void animateViews() {
         if (creekPreferences == null) {
-            creekPreferences = new CreekPreferences(getContext());
+            creekPreferences = CreekApplication.getCreekPreferences();
         }
         if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
             dashboardScrollView.setVisibility(View.GONE);

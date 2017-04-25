@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.asynctask;
 import android.app.Activity;
 import android.content.Context;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
 import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.Algorithm;
@@ -19,7 +20,6 @@ import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -2655,7 +2655,7 @@ public class JavaProgramInserter {
             programLanguage = "cpp";
         }*/
         String programLanguage = "sql";
-        new CreekPreferences(context).setProgramLanguage("sql");
+        CreekApplication.getCreekPreferences().setProgramLanguage("sql");
         moduleId = 7;
         String generatedId = programLanguage + "_" + moduleId++;
         int syntaxIndex = 1;
@@ -3638,7 +3638,7 @@ public class JavaProgramInserter {
     public void insertProgramIndex() {
 
         int index = 1;
-        String programLanguage = new CreekPreferences(context).getProgramLanguage();
+        String programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Swap by reference - inline",
                 programLanguage, ""));

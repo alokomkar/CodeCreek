@@ -488,7 +488,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 	@Override
 	public void onUnlockClick(int programIndex) {
 		mToBeUnlockedIndex = programIndex;
-		creekPreferences = new CreekPreferences(ProgramListActivity.this);
+		creekPreferences = CreekApplication.getCreekPreferences();
 		Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
 				.setMessage(getString(R.string.invitation_message))
 				.setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))

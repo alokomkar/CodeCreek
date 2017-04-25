@@ -132,7 +132,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     private boolean isFirstTime = true;
 
     private void loadChapterFragment() {
-        getSupportActionBar().setTitle("Chapters : " + new CreekPreferences(ChaptersActivity.this).getProgramLanguage().toUpperCase());
+        getSupportActionBar().setTitle("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         chaptersFragment = (ChaptersFragment) getSupportFragmentManager().findFragmentByTag(ChaptersFragment.class.getSimpleName());
         if (chaptersFragment == null) {
@@ -168,7 +168,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     @Override
     public void onBackPressed() {
         String title = getSupportActionBar().getTitle().toString();
-        if (!title.equals("Chapters : " + new CreekPreferences(ChaptersActivity.this).getProgramLanguage().toUpperCase())) {
+        if (!title.equals("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
             /*if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
@@ -240,7 +240,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                     handler = new Handler();
                 }
                 if (creekPreferences == null) {
-                    creekPreferences = new CreekPreferences(ChaptersActivity.this);
+                    creekPreferences = CreekApplication.getCreekPreferences();
                 }
                 creekUserStats = creekPreferences.getCreekUserStats();
                 if (creekUserStats == null) {

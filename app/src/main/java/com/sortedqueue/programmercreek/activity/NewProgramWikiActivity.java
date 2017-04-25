@@ -31,7 +31,6 @@ import com.sortedqueue.programmercreek.adapter.ProgramWikiPagerAdapter;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
@@ -96,7 +95,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         ButterKnife.bind(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Program Wiki : " + new CreekPreferences(NewProgramWikiActivity.this).getProgramLanguage().toUpperCase());
+        toolbar.setTitle("Program Wiki : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);

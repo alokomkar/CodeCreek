@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ScreenSlidePagerAdapter;
 import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
@@ -28,7 +29,7 @@ import com.sortedqueue.programmercreek.database.PresentationModel;
 import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.fragments.SlideFragment;
+import com.sortedqueue.programmercreek.fragments.CreateSlideFragment;
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -114,7 +115,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         presentationModel = new PresentationModel();
-        CreekPreferences creekPreferences = new CreekPreferences(CreatePresentationActivity.this);
+        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         presentationModel.setPresenterEmail(creekPreferences.getSignInAccount());
         presentationModel.setPresenterName(creekPreferences.getAccountName());
 
@@ -176,7 +177,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void initPagerAdapter() {
-        fragmentArrayList.add(new SlideFragment());
+        fragmentArrayList.add(new CreateSlideFragment());
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(mPagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
@@ -192,9 +193,9 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.addSlideFAB:
             case R.id.addSlideTextView:
-                SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-                if (slideFragment.validateContent()) {
-                    mPagerAdapter.addNewSlideFragment(new SlideFragment());
+                CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+                if (createSlideFragment.validateContent()) {
+                    mPagerAdapter.addNewSlideFragment(new CreateSlideFragment());
                     mPagerAdapter.notifyDataSetChanged();
                     pager.setCurrentItem(mPagerAdapter.getCount() - 1);
                     pager.setOffscreenPageLimit(mPagerAdapter.getCount());
@@ -238,7 +239,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void addToSlide(int option_code) {
-        SlideFragment currentFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+        CreateSlideFragment currentFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
         if (currentFragment != null) {
             if (option_code == OPTION_CODE) {
                 currentFragment.insertCode();
@@ -269,8 +270,8 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void saveAndExit() {
-        SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-        if (slideFragment.validateContent()) {
+        CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+        if (createSlideFragment.validateContent()) {
             onPresentationComplete();
             finish();
         }
@@ -316,10 +317,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
         } else {
 
-            SlideFragment slideFragment = (SlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-            if( slideFragment != null ) {
-                addPhotoTextView.setText(slideFragment.isPhotoVisible() ? R.string.remove_photo : R.string.add_photo );
-                addCodeTextView.setText(slideFragment.isCodeVisible() ? R.string.remove_code : R.string.add_code );
+            CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
+            if( createSlideFragment != null ) {
+                addPhotoTextView.setText(createSlideFragment.isPhotoVisible() ? R.string.remove_photo : R.string.add_photo );
+                addCodeTextView.setText(createSlideFragment.isCodeVisible() ? R.string.remove_code : R.string.add_code );
             }
 
             optionsFAB.startAnimation(rotate_forward);

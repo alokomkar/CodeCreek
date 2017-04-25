@@ -11,6 +11,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 /**
@@ -24,7 +25,7 @@ public class FirebaseStorageHandler {
 
     public FirebaseStorageHandler(Context context) {
         defaultInstance = FirebaseStorage.getInstance();
-        creekPreferences = new CreekPreferences(context);
+        creekPreferences = CreekApplication.getCreekPreferences();
     }
 
     public interface FileUploadListener {

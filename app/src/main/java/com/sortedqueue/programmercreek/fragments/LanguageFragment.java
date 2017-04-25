@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.ProgramLanguageAdapter;
@@ -76,7 +77,7 @@ public class LanguageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_language, container, false);
         ButterKnife.bind(this, view);
-        creekPreferences = new CreekPreferences(getContext());
+        creekPreferences = CreekApplication.getCreekPreferences();
         getProgramLanguages();
         handler = new Handler();
         animateProgress();
@@ -159,7 +160,7 @@ public class LanguageFragment extends Fragment {
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
         if (creekPreferences == null) {
-            creekPreferences = new CreekPreferences(getContext());
+            creekPreferences = CreekApplication.getCreekPreferences();
         }
         if (creekPreferences.getCreekUserStats() != null) {
             int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
@@ -278,7 +279,7 @@ public class LanguageFragment extends Fragment {
                 handler = new Handler();
             }
             if (creekPreferences == null) {
-                creekPreferences = new CreekPreferences(getContext());
+                creekPreferences = CreekApplication.getCreekPreferences();
             }
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
             if (creekUserStats == null) {

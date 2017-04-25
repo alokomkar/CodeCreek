@@ -110,7 +110,7 @@ public class IntroActivity extends AppCompatActivity
     }
 
     private void initAndSetUserValues(View view) {
-        CreekPreferences creekPreferences = new CreekPreferences(IntroActivity.this);
+        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
         drawerEmailTextView = (TextView) view.findViewById(R.id.drawerEmailTextView);
         drawerNameTextView = (TextView) view.findViewById(R.id.drawerNameTextView);
         drawerImageView = (ImageView) view.findViewById(R.id.drawerImageView);
@@ -120,7 +120,7 @@ public class IntroActivity extends AppCompatActivity
 
     private void loadChapters() {
         introChapters = new ArrayList<>();
-        programLanguage = new CreekPreferences(IntroActivity.this).getProgramLanguage();
+        programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         /*programLanguage = "sql";
         new CreekPreferences(IntroActivity.this).setProgramLanguage(programLanguage);
         IntroChapter introChapter = new IntroChapter();

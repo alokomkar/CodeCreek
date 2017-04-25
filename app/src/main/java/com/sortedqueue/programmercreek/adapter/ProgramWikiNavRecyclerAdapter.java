@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,21 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
-import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.WikiModel;
-import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.github.kbiakov.codeview.CodeView;
-import io.github.kbiakov.codeview.adapters.Options;
-import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 /**
  * Created by Alok Omkar on 2017-01-19.
@@ -38,7 +30,7 @@ public class ProgramWikiNavRecyclerAdapter extends RecyclerView.Adapter<ProgramW
     public ProgramWikiNavRecyclerAdapter(Context context, ArrayList<WikiModel> programWikis) {
         this.context = context;
         this.programWikis = programWikis;
-        this.programLanguage = new CreekPreferences(context).getProgramLanguage();
+        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         this.mAdapterClickListner = (CustomProgramRecyclerViewAdapter.AdapterClickListner) context;
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
