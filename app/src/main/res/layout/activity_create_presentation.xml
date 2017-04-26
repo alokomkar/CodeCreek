@@ -195,6 +195,7 @@
                 android:padding="@dimen/margin_16"
                 android:layout_below="@+id/presentationDetailsLayout"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:id="@+id/presentationInputLayout"
                 android:layout_width="match_parent"
                 android:background="@color/white"

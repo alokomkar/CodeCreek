@@ -233,4 +233,6 @@
     <string name="remove_code">Remove Code</string>
     <string name="continue_exec">Resume</string>
     <string name="your_input_here">Your input here...</string>
+    <string name="hint_presentation_title">Presentation Title</string>
+    <string name="hint_presentation_description">Presentation Description</string>
 </resources>
