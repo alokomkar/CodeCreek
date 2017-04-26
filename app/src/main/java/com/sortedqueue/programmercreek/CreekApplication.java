@@ -50,6 +50,7 @@ public class CreekApplication extends Application {
     private HashMap<Integer, ProgramIndex> program_indexHashMap;
     private CreekUserStats creekUserStats;
 
+
     private static CreekPreferences creekPreferences;
 
     public static CreekApplication getInstance() {
