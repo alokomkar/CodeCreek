@@ -27,6 +27,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -128,15 +129,12 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             case R.id.addSlideTextView:
                 CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
                 if (createSlideFragment.validateContent()) {
-                    mPagerAdapter.addNewSlideFragment(new CreateSlideFragment());
-                    mPagerAdapter.notifyDataSetChanged();
-                    pager.setCurrentItem(mPagerAdapter.getCount() - 1);
-                    pager.setOffscreenPageLimit(mPagerAdapter.getCount());
+                    addNewSlide();
                 }
                 break;
             case R.id.deleteSlideFAB:
             case R.id.deleteSlideTextView:
-                if (mPagerAdapter.getCount() > 1) {
+                if (mPagerAdapter.getCount() > 2) {
                     mPagerAdapter.removeCurrentFragment(pager.getCurrentItem());
                     mPagerAdapter.notifyDataSetChanged();
                     pager.setOffscreenPageLimit(mPagerAdapter.getCount());
@@ -153,6 +151,13 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                 addToSlide(OPTION_PHOTO);
                 break;
         }
+    }
+
+    private void addNewSlide() {
+        mPagerAdapter.addNewSlideFragment(new CreateSlideFragment());
+        mPagerAdapter.notifyDataSetChanged();
+        pager.setCurrentItem(mPagerAdapter.getCount() - 1);
+        pager.setOffscreenPageLimit(mPagerAdapter.getCount());
     }
 
     private void addToSlide(int option_code) {
@@ -274,6 +279,18 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         super.finish();
         this.overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
+    }
+
+    @Override
+    public void onPresentationTitle(String presentationTitle, String presentationDescription, ArrayList<String> tagsList) {
+        presentationModel.setPresentationName(presentationTitle);
+        presentationModel.setPresentationDescription(presentationDescription);
+        HashMap<String, Integer> tagsMap = new HashMap<>();
+        for( String tag : tagsList ) {
+            tagsMap.put(tag, 1);
+        }
+        presentationModel.setTagList(tagsMap);
+        addNewSlide();
     }
 
     @Override

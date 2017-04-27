@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -15,13 +16,11 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.adapter.LanguageRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,9 +55,9 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
     Button doneButton;
     @Bind(R.id.cancelButton)
     Button cancelButton;
-    private ArrayList<String> languages;
-    private LanguageRecyclerAdapter languageRecyclerAdapter;
     private TagsRecyclerAdapter tagsRecyclerAdapter;
+
+    private PresentationCommunicationsListener presentationCommunicationsListener;
 
     private static PresentationTitleFragment presentationTitleFragment;
 
@@ -83,6 +82,19 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
     private void setupListeners() {
         doneButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof PresentationCommunicationsListener )
+        presentationCommunicationsListener = (PresentationCommunicationsListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        presentationCommunicationsListener = null;
     }
 
     private void fetchAllTags() {
@@ -137,6 +149,8 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
             presentationDescriptionLayout.setError(getString(R.string.required_field));
             return;
         }
-        tagsRecyclerAdapter.getSelectedTags();
+        if( presentationCommunicationsListener != null ) {
+            presentationCommunicationsListener.onPresentationTitle(presentationTitle, presentationDescription, tagsRecyclerAdapter.getSelectedTags());
+        }
     }
 }

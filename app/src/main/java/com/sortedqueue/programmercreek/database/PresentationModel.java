@@ -18,6 +18,7 @@ public class PresentationModel extends RushObject implements Parcelable {
     private String presenterName;
     private String presentationImage;
     private String presentationName;
+    private String presentationDescription;
     private String presenterEmail;
     private HashMap<String, Integer> tagList;
     private ArrayList<SlideModel> slideModelArrayList;
@@ -97,6 +98,14 @@ public class PresentationModel extends RushObject implements Parcelable {
         this.presentationName = presentationName;
     }
 
+    public String getPresentationDescription() {
+        return presentationDescription;
+    }
+
+    public void setPresentationDescription(String presentationDescription) {
+        this.presentationDescription = presentationDescription;
+    }
+
     @Override
     public String toString() {
         return "PresentationModel{" +
@@ -145,6 +154,7 @@ public class PresentationModel extends RushObject implements Parcelable {
         dest.writeString(this.presenterName);
         dest.writeString(this.presentationImage);
         dest.writeString(this.presentationName);
+        dest.writeString(this.presentationDescription);
         dest.writeString(this.presenterEmail);
         dest.writeSerializable(this.tagList);
         dest.writeTypedList(this.slideModelArrayList);
@@ -155,6 +165,7 @@ public class PresentationModel extends RushObject implements Parcelable {
         this.presenterName = in.readString();
         this.presentationImage = in.readString();
         this.presentationName = in.readString();
+        this.presentationDescription = in.readString();
         this.presenterEmail = in.readString();
         this.tagList = (HashMap<String, Integer>) in.readSerializable();
         this.slideModelArrayList = in.createTypedArrayList(SlideModel.CREATOR);

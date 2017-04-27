@@ -361,11 +361,13 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     }
 
     private void startCropPhotoActivity(Uri selectedImageUri) {
-        CropImage.activity(selectedImageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
+        if( selectedImageUri != null ) {
+            CropImage.activity(selectedImageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
                 /*.setFixAspectRatio(true)
                 .setAspectRatio(16, 9)*/
-                .start(getContext(), this);
+                    .start(getContext(), this);
+        }
     }
 
 
