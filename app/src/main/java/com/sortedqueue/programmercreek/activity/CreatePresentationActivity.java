@@ -104,7 +104,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         addPhotoFAB.setOnClickListener(this);
         addPhotoTextView.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
-
+        optionsFAB.setVisibility(View.GONE);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -116,6 +116,30 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         pager.setAdapter(mPagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
         pager.setOffscreenPageLimit(mPagerAdapter.getCount());
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if( position == 0 ) {
+                    if( isFabOpen ) {
+                        optionsFAB.callOnClick();
+                    }
+                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(optionsFAB);
+                }
+                else {
+                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(optionsFAB);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
