@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -110,7 +111,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 
 	private void getProgramTableFromDB(int program_Index) {
 
-		CreekApplication.getFirebaseDatabaseHandler()
+		new FirebaseDatabaseHandler(ProgramActivity.this)
 				.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
 					@Override
 					public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -311,7 +312,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		 * */
 		if( program_Index > 0 && program_Index <= mTotalPrograms ) {
 
-			CreekApplication.getFirebaseDatabaseHandler()
+			new FirebaseDatabaseHandler(ProgramActivity.this)
 					.getProgramTablesInBackground(program_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
 						@Override
 						public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -461,7 +462,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	@Override
 	public void updateUI() {
 
-		CreekApplication.getFirebaseDatabaseHandler()
+		new FirebaseDatabaseHandler(ProgramActivity.this)
 				.getProgramTablesInBackground(mProgramIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
 					@Override
 					public void onSuccess(ArrayList<ProgramTable> programTables) {

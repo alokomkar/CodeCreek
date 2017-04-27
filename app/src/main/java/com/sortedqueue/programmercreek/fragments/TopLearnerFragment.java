@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ModulesRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.TopLearnersRecyclerAdapter;
@@ -113,7 +112,7 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
 
     private void calculateTopLearners() {
         swipeRefreshLayout.setRefreshing(true);
-        CreekApplication.getFirebaseDatabaseHandler()
+        new FirebaseDatabaseHandler(getContext())
                 .getTopLearners(
                         new FirebaseDatabaseHandler.GetTopLearnersInterface() {
                             @Override

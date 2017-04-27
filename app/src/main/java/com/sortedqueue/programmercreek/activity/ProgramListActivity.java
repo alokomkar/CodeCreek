@@ -135,7 +135,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 		// Reading all contacts
 		logDebugMessage("Reading All Programs...");
 
-		CreekApplication.getFirebaseDatabaseHandler().initializeProgramIndexes(
+		new FirebaseDatabaseHandler(ProgramListActivity.this).initializeProgramIndexes(
 				new FirebaseDatabaseHandler.ProgramIndexInterface() {
 			@Override
 			public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
@@ -515,7 +515,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 				for (String id : ids) {
 					Log.d(TAG, "onActivityResult: sent invitation " + id);
 				}
-				CreekApplication.getFirebaseDatabaseHandler().updateInviteCount(ids.length);
+				new FirebaseDatabaseHandler(ProgramListActivity.this).updateInviteCount(ids.length);
 				creekPreferences.setShowInviteDialog(false);
 				if( ids.length > 0 ) {
 					creekPreferences.setUnlockedByInviteIndex(mToBeUnlockedIndex);

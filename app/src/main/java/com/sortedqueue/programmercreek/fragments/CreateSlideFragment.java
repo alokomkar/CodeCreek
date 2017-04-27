@@ -32,7 +32,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
@@ -125,7 +124,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_slide, container, false);
         ButterKnife.bind(this, view);
         slideModel = new SlideModel();
-        firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
+        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
         slideImageLayout.setVisibility(View.GONE);

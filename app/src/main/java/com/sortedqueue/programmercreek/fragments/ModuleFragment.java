@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseError;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.ModulesRecyclerViewAdapter;
@@ -66,7 +65,7 @@ public class  ModuleFragment extends Fragment {
 
     private void getModules() {
         CommonUtils.displayProgressDialog(getContext(), "Loading modules");
-        CreekApplication.getFirebaseDatabaseHandler().initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
+        new FirebaseDatabaseHandler(getContext()).initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
             @Override
             public void getModules(ArrayList<LanguageModule> languageModules) {
                 setupRecyclerView( languageModules );

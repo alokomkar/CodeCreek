@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseError;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
 import com.sortedqueue.programmercreek.activity.ViewPresentationActivity;
@@ -49,7 +48,7 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_presentations, container, false);
         ButterKnife.bind(this, view);
-        CreekApplication.getFirebaseDatabaseHandler().getAllPresentations(this);
+        new FirebaseDatabaseHandler(getContext()).getAllPresentations(this);
         return view;
     }
 

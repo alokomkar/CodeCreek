@@ -160,12 +160,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
 
     private void calculateUserRankings() {
-        CreekApplication.getFirebaseDatabaseHandler().getAllCreekUserStatsInBackground();
+        new FirebaseDatabaseHandler(DashboardActivity.this).getAllCreekUserStatsInBackground();
     }
 
 
     private void initProgramLanguages() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
         ProgramLanguage programLanguage = new ProgramLanguage();
         programLanguage.setDescription("Analysis and design of algorithms - An alogorithm is a self contained " +
                 "sequence of actions to be performed. Algorithms can perform calculations, data processing and automated" +
@@ -392,7 +392,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 for (String id : ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id);
                 }
-                CreekApplication.getFirebaseDatabaseHandler().updateInviteCount(ids.length);
+                new FirebaseDatabaseHandler(DashboardActivity.this).updateInviteCount(ids.length);
                 creekPreferences.setShowInviteDialog(false);
             } else {
                 // Sending failed or it was canceled, show failure message to the user
@@ -474,7 +474,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             if (creekUserStats != null && creekUserStats.getCreekUserReputation() == 0) {
                 creekUserStats.calculateReputation();
                 LanguageFragment.getInstance().animateProgress();
-                CreekApplication.getFirebaseDatabaseHandler().writeCreekUserStats(creekUserStats);
+                new FirebaseDatabaseHandler(DashboardActivity.this).writeCreekUserStats(creekUserStats);
             }
         }
     }

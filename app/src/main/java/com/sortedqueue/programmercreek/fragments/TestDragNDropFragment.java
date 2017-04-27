@@ -130,7 +130,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
         if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
             mWizard = false;
-            CreekApplication.getFirebaseDatabaseHandler().getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
                         @Override
                         public void onSuccess(ProgramIndex programIndex) {
@@ -153,7 +153,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void getProgramTablesInBackground() {
-        CreekApplication.getFirebaseDatabaseHandler()
+        new FirebaseDatabaseHandler(getContext())
                 .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -169,7 +169,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void getProgramTables() {
-        CreekApplication.getFirebaseDatabaseHandler()
+        new FirebaseDatabaseHandler(getContext())
                 .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -442,7 +442,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;
         }
-        CreekApplication.getFirebaseDatabaseHandler().writeCreekUserStats(creekUserStats);
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }
 
 
@@ -560,7 +560,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     @Override
     public void updateUI() {
 
-        CreekApplication.getFirebaseDatabaseHandler()
+        new FirebaseDatabaseHandler(getContext())
                 .getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {
@@ -573,7 +573,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            program_TableList = CreekApplication.getFirebaseDatabaseHandler().getProgramTables(mProgramIndex.getProgram_index());
+                            program_TableList = new FirebaseDatabaseHandler(getContext()).getProgramTables(mProgramIndex.getProgram_index());
                             if (prevProgramSize == program_TableList.size()) {
                                 break;
                             }

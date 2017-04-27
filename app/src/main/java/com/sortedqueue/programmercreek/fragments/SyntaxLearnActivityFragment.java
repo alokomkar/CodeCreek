@@ -131,7 +131,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         }
         else {
             progressBar.setVisibility(View.VISIBLE);
-            CreekApplication.getFirebaseDatabaseHandler().getSyntaxModule(syntaxId, wizardUrl,
+            new FirebaseDatabaseHandler(getContext()).getSyntaxModule(syntaxId, wizardUrl,
                     new FirebaseDatabaseHandler.SyntaxModuleInterface() {
                 @Override
                 public void onSuccess(SyntaxModule syntaxModule) {
@@ -410,7 +410,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 }
                 break;
         }
-        CreekApplication.getFirebaseDatabaseHandler().writeCreekUserStats(creekUserStats);
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
 
     }
 

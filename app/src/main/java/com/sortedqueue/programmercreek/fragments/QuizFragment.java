@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
-import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
@@ -118,7 +117,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         progressLayout.setVisibility(View.GONE);
         if( mInvokeMode  == ProgrammingBuddyConstants.KEY_LESSON ) {
             mWizard = false;
-            CreekApplication.getFirebaseDatabaseHandler().getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                     new FirebaseDatabaseHandler.GetProgramIndexListener() {
                         @Override
                         public void onSuccess(ProgramIndex programIndex) {
@@ -140,7 +139,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     private void getProgramTables() {
-        CreekApplication.getFirebaseDatabaseHandler()
+        new FirebaseDatabaseHandler(getContext())
                 .getProgramTablesInBackground(mProgramIndex, new FirebaseDatabaseHandler.GetProgramTablesListener() {
                     @Override
                     public void onSuccess(ArrayList<ProgramTable> programTables) {

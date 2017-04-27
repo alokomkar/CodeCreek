@@ -2,34 +2,25 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.ScreenSlidePagerAdapter;
-import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.PresentationModel;
 import com.sortedqueue.programmercreek.database.SlideModel;
-import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.CreateSlideFragment;
+import com.sortedqueue.programmercreek.fragments.PresentationTitleFragment;
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -46,20 +37,9 @@ import butterknife.ButterKnife;
 
 public class CreatePresentationActivity extends AppCompatActivity implements View.OnClickListener, PresentationCommunicationsListener {
 
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.deleteSlideFAB)
-    FloatingActionButton deleteSlideFAB;
-    @Bind(R.id.addSlideFAB)
-    FloatingActionButton addSlideFAB;
-    @Bind(R.id.optionsFAB)
-    FloatingActionButton optionsFAB;
-    @Bind(R.id.pager)
-    ViewPager pager;
-    @Bind(R.id.deleteSlideTextView)
-    TextView deleteSlideTextView;
-    @Bind(R.id.addSlideTextView)
-    TextView addSlideTextView;
     @Bind(R.id.addCodeTextView)
     TextView addCodeTextView;
     @Bind(R.id.addCodeFAB)
@@ -68,27 +48,18 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     TextView addPhotoTextView;
     @Bind(R.id.addPhotoFAB)
     FloatingActionButton addPhotoFAB;
-    @Bind(R.id.presentationTitleEditText)
-    EditText presentationTitleEditText;
-    @Bind(R.id.tagsRecyclerView)
-    RecyclerView tagsRecyclerView;
-    @Bind(R.id.headerTextView)
-    TextView headerTextView;
-    @Bind(R.id.tagsTextView)
-    TextView tagsTextView;
-    @Bind(R.id.presentationDetailsLayout)
-    LinearLayout presentationDetailsLayout;
-    @Bind(R.id.presentationInputLayout)
-    TextInputLayout presentationInputLayout;
-    @Bind(R.id.tagsHeaderTextView)
-    TextView tagsHeaderTextView;
-    @Bind(R.id.addTagEditText)
-    EditText addTagEditText;
-    @Bind(R.id.addTagTextView)
-    TextView addTagTextView;
-    @Bind(R.id.tagsLayout)
-    LinearLayout tagsLayout;
-
+    @Bind(R.id.deleteSlideTextView)
+    TextView deleteSlideTextView;
+    @Bind(R.id.deleteSlideFAB)
+    FloatingActionButton deleteSlideFAB;
+    @Bind(R.id.addSlideTextView)
+    TextView addSlideTextView;
+    @Bind(R.id.addSlideFAB)
+    FloatingActionButton addSlideFAB;
+    @Bind(R.id.optionsFAB)
+    FloatingActionButton optionsFAB;
+    @Bind(R.id.pager)
+    ViewPager pager;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -110,7 +81,6 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         fragmentArrayList = new ArrayList<>();
         slideModelArrayList = new ArrayList<>();
         initPagerAdapter();
-        fetchAllTags();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -133,51 +103,14 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         addPhotoFAB.setOnClickListener(this);
         addPhotoTextView.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
-        headerTextView.setOnClickListener(this);
-        tagsTextView.setOnClickListener(this);
-        presentationTitleEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                presentationModel.setPresentationName(s.toString().trim());
-            }
-        });
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
 
-    private void fetchAllTags() {
-        CreekApplication.getFirebaseDatabaseHandler().getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
-            @Override
-            public void onError(DatabaseError databaseError) {
-
-            }
-
-            @Override
-            public void onSuccess(TagModel tagModel) {
-                setupRecyclerView(tagModel);
-            }
-        });
-    }
-
-    private void setupRecyclerView(TagModel tagModel) {
-        tagsRecyclerView.setLayoutManager(new LinearLayoutManager(CreatePresentationActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        TagsRecyclerAdapter tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList());
-        tagsRecyclerView.setAdapter(tagsRecyclerAdapter);
-    }
 
     private void initPagerAdapter() {
-        fragmentArrayList.add(new CreateSlideFragment());
+        fragmentArrayList.add(PresentationTitleFragment.getInstance());
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(mPagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
@@ -218,22 +151,6 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
             case R.id.addPhotoTextView:
             case R.id.addPhotoFAB:
                 addToSlide(OPTION_PHOTO);
-                break;
-            case R.id.headerTextView :
-                if( presentationInputLayout.getVisibility() == View.VISIBLE ) {
-                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(presentationInputLayout);
-                }
-                else {
-                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(presentationInputLayout);
-                }
-                break;
-            case R.id.tagsTextView :
-                if( tagsLayout.getVisibility() == View.VISIBLE ) {
-                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(tagsLayout);
-                }
-                else {
-                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(tagsLayout);
-                }
                 break;
         }
     }
@@ -317,12 +234,14 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
         } else {
 
-            CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-            if( createSlideFragment != null ) {
-                addPhotoTextView.setText(createSlideFragment.isPhotoVisible() ? R.string.remove_photo : R.string.add_photo );
-                addCodeTextView.setText(createSlideFragment.isCodeVisible() ? R.string.remove_code : R.string.add_code );
+            Fragment fragment = mPagerAdapter.getItem(pager.getCurrentItem());
+            if( fragment instanceof  CreateSlideFragment ) {
+                CreateSlideFragment createSlideFragment = (CreateSlideFragment) fragment;
+                if (createSlideFragment != null) {
+                    addPhotoTextView.setText(createSlideFragment.isPhotoVisible() ? R.string.remove_photo : R.string.add_photo);
+                    addCodeTextView.setText(createSlideFragment.isCodeVisible() ? R.string.remove_code : R.string.add_code);
+                }
             }
-
             optionsFAB.startAnimation(rotate_forward);
             addSlideFAB.startAnimation(fab_open);
             deleteSlideFAB.startAnimation(fab_open);
@@ -372,7 +291,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onPresentationComplete() {
-        FirebaseDatabaseHandler firebaseDatabaseHandler = CreekApplication.getFirebaseDatabaseHandler();
+        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(CreatePresentationActivity.this);
         firebaseDatabaseHandler.setPresentationPushId(null);
         firebaseDatabaseHandler.writeNewPresentation(presentationModel);
     }

@@ -18,6 +18,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
@@ -276,7 +277,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 }
                 break;
         }
-        CreekApplication.getFirebaseDatabaseHandler().writeCreekUserStats(creekUserStats);
+        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
     }
 
     @Override

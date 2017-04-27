@@ -12,6 +12,7 @@ import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
 import java.util.HashSet;
 import java.util.List;
@@ -250,7 +251,7 @@ public class CreekPreferences {
         creekUser.setProgramLanguage(getProgramLanguage());
         creekUser.setUserPhotoUrl(getAccountPhoto());
         creekUser.setEmailId(getSignInAccount());
-        CreekApplication.getFirebaseDatabaseHandler().writeCreekUser(creekUser);
+        new FirebaseDatabaseHandler(context).writeCreekUser(creekUser);
     }
 
     public String getProgramWiki() {
@@ -858,7 +859,7 @@ public class CreekPreferences {
 
     public void clearCacheDetails() {
         sharedPreferences.edit().clear().apply();
-        CreekApplication.getFirebaseDatabaseHandler().clearAllTables();
+        new FirebaseDatabaseHandler(context).clearAllTables();
     }
 
     public boolean isNotificationScheduled() {

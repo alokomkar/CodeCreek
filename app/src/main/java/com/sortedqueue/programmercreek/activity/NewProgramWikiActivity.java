@@ -102,7 +102,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         toggle.syncState();
 
         CommonUtils.displayProgressDialog(NewProgramWikiActivity.this, "Loading");
-        CreekApplication.getFirebaseDatabaseHandler().initializeProgramWiki(
+        new FirebaseDatabaseHandler(NewProgramWikiActivity.this).initializeProgramWiki(
                 new FirebaseDatabaseHandler.ProgramWikiInterface() {
                     @Override
                     public void getProgramWiki(ArrayList<WikiModel> programWikis) {
