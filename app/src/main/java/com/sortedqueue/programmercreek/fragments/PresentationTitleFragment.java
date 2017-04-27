@@ -82,6 +82,7 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
     private void setupListeners() {
         doneButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        addTagTextView.setOnClickListener(this);
     }
 
     @Override
@@ -135,20 +136,36 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
             case R.id.cancelButton :
                 getActivity().finish();
                 break;
+            case R.id.addTagTextView :
+                String newTag = addTagEditText.getText().toString();
+                if( newTag != null && newTag.trim().length() > 0 ) {
+                    addTagEditText.clearComposingText();
+                    tagsRecyclerAdapter.addTag(newTag);
+                }
+                break;
         }
     }
 
     private void validateAndSavePresentation() {
         String presentationTitle = presentationTitleEditText.getText().toString();
         if( presentationTitle == null || presentationTitle.trim().length() == 0 ) {
+            presentationTitleLayout.setErrorEnabled(true);
             presentationTitleLayout.setError(getString(R.string.required_field));
             return;
         }
+
+        presentationTitleLayout.setError(null);
+        presentationTitleLayout.setErrorEnabled(false);
+
         String presentationDescription = presentationDescriptionEditText.getText().toString();
         if( presentationDescription == null || presentationDescription.trim().length() == 0 ) {
+            presentationDescriptionLayout.setErrorEnabled(false);
             presentationDescriptionLayout.setError(getString(R.string.required_field));
             return;
         }
+        presentationDescriptionLayout.setError(null);
+        presentationDescriptionLayout.setErrorEnabled(false);
+
         if( presentationCommunicationsListener != null ) {
             presentationCommunicationsListener.onPresentationTitle(presentationTitle, presentationDescription, tagsRecyclerAdapter.getSelectedTags());
         }

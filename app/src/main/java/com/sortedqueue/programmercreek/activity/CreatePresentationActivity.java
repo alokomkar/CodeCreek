@@ -192,11 +192,15 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
     }
 
     private void saveAndExit() {
-        CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-        if (createSlideFragment.validateContent()) {
-            onPresentationComplete();
-            finish();
+        Fragment fragment = mPagerAdapter.getItem(pager.getCurrentItem());
+        if( fragment instanceof  CreateSlideFragment ) {
+            CreateSlideFragment createSlideFragment = (CreateSlideFragment) fragment;
+            if (createSlideFragment.validateContent()) {
+                onPresentationComplete();
+                finish();
+            }
         }
+
     }
 
     @Override
