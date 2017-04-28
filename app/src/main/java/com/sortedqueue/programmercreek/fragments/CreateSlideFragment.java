@@ -132,6 +132,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         changeImageView.setOnClickListener(this);
         rotateImageView.setOnClickListener(this);
         saveImageView.setOnClickListener(this);
+        slideImageLayout.setOnClickListener(this);
         doneButton.setOnClickListener(this);
         languageTextView.setOnClickListener(this);
         importFromFileTextView.setOnClickListener(this);
@@ -204,6 +205,9 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.importFromFileTextView:
                 importFromFile();
+                break;
+            case R.id.slideImageLayout :
+                checkPhotoPermissions();
                 break;
         }
 
@@ -500,6 +504,10 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
             return;
         }
         slideImageLayout.setVisibility(View.VISIBLE);
+        checkPhotoPermissions();
+    }
+
+    private void checkPhotoPermissions() {
         if (PermissionUtils.checkSelfPermission(this,
                 new String[]{Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,

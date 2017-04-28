@@ -151,8 +151,14 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.addSlideFAB:
             case R.id.addSlideTextView:
-                CreateSlideFragment createSlideFragment = (CreateSlideFragment) mPagerAdapter.getItem(pager.getCurrentItem());
-                if (createSlideFragment.validateContent()) {
+                Fragment fragment = mPagerAdapter.getItem(pager.getCurrentItem());
+                if( fragment instanceof CreateSlideFragment ) {
+                    CreateSlideFragment createSlideFragment = (CreateSlideFragment) fragment;
+                    if (createSlideFragment.validateContent()) {
+                        addNewSlide();
+                    }
+                }
+                else {
                     addNewSlide();
                 }
                 break;
