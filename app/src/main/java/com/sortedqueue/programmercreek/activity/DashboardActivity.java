@@ -130,7 +130,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 startActivity(intent);
             }
         });
-        createPresentationFAB.setVisibility(View.GONE);
+        fabLayout.setVisibility(View.GONE);
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
