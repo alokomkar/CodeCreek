@@ -236,4 +236,5 @@
     <string name="hint_presentation_title">Presentation Title</string>
     <string name="hint_presentation_description">Presentation Description</string>
     <string name="required_field">Required Field</string>
+    <string name="add_ppt">Add Presentation</string>
 </resources>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/main_content"
@@ -73,18 +72,83 @@
                     app:adUnitId="@string/banner_ad_wiki_unit_id">
                 </com.google.android.gms.ads.AdView>-->
             </RelativeLayout>
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/createPresentationFAB"
-                android:layout_gravity="bottom|end"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_64"
-                app:elevation="6dp"
-                app:fabSize="normal"
-                app:backgroundTint="@color/md_green_400"
-                app:pressedTranslationZ="12dp"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_add" />
+                android:id="@+id/fabLayout"
+                android:layout_gravity="bottom|end"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="6dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:id="@+id/addCodeLayout"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addCodeTextView"
+                        android:elevation="6dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/margin_8"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:background="@drawable/button_grey"
+                        android:padding="@dimen/margin_4"
+                        android:textColor="@color/white"
+                        android:text="@string/add_code"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/addCodeFAB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_8"
+                        android:visibility="invisible"
+                        android:layout_gravity="right"
+                        tools:visibility="visible"
+                        app:fabSize="mini"
+                        app:backgroundTint="@color/md_green_400"
+                        app:elevation="6dp"
+                        app:pressedTranslationZ="12dp"
+                        android:src="@drawable/ic_code" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addPptLayout"
+                    android:elevation="@dimen/margin_6"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addPptTextView"
+                        android:elevation="6dp"
+                        android:layout_marginRight="@dimen/margin_8"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:background="@drawable/button_grey"
+                        android:padding="@dimen/margin_4"
+                        android:textColor="@color/white"
+                        android:text="@string/add_ppt"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/createPresentationFAB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:elevation="6dp"
+                        app:fabSize="normal"
+                        app:backgroundTint="@color/md_green_400"
+                        app:pressedTranslationZ="12dp"
+                        android:src="@drawable/ic_add" />
+                </LinearLayout>
+
+            </LinearLayout>
+
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 

@@ -99,6 +99,8 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     TextView languageTextView;
     @Bind(R.id.importFromFileTextView)
     TextView importFromFileTextView;
+    @Bind(R.id.hintPhotoTextView)
+    TextView hintPhotoTextView;
     @Bind(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
     @Bind(R.id.importLayout)
@@ -127,7 +129,6 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         titleEditText.clearFocus();
         subTitleEditText.clearFocus();
-        slideImageLayout.setVisibility(View.GONE);
         deleteImageView.setOnClickListener(this);
         changeImageView.setOnClickListener(this);
         rotateImageView.setOnClickListener(this);
@@ -182,6 +183,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 startCropPhotoActivity(selectedImageUri);
                 break;
             case R.id.deleteImageView:
+                hintPhotoTextView.setVisibility(View.VISIBLE);
                 slideModel.setSlideImageUrl(null);
                 slideImageView.setImageBitmap(null);
                 slideImageLayout.setVisibility(View.GONE);
@@ -394,6 +396,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 if (resultCode == AppCompatActivity.RESULT_OK) {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     if (result != null) {
+                        hintPhotoTextView.setVisibility(View.GONE);
                         selectedImageUri = result.getUri();
                         Glide.with(getContext()).load(result.getUri()).asBitmap().listener(new RequestListener<Uri, Bitmap>() {
                             @Override

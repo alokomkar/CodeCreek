@@ -18,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -75,6 +78,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     FloatingActionButton createPresentationFAB;
     @Bind(R.id.webView)
     WebView webView;
+    @Bind(R.id.addCodeTextView)
+    TextView addCodeTextView;
+    @Bind(R.id.addCodeFAB)
+    FloatingActionButton addCodeFAB;
+    @Bind(R.id.addCodeLayout)
+    LinearLayout addCodeLayout;
+    @Bind(R.id.addPptTextView)
+    TextView addPptTextView;
+    @Bind(R.id.addPptLayout)
+    LinearLayout addPptLayout;
+    @Bind(R.id.fabLayout)
+    LinearLayout fabLayout;
+    @Bind(R.id.main_content)
+    RelativeLayout mainContent;
 
 
     private String TAG = getClass().getSimpleName();
@@ -136,9 +153,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             @Override
             public void onPageSelected(int position) {
                 if (position == 3)
-                    AnimationUtils.enterReveal(createPresentationFAB);
+                    AnimationUtils.enterReveal(fabLayout);
                 else
-                    AnimationUtils.exitReveal(createPresentationFAB);
+                    AnimationUtils.exitRevealGone(fabLayout);
             }
 
             @Override
@@ -322,8 +339,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                             super.onPostExecute(aVoid);
                         }
                     }.execute();
-                }
-                else {
+                } else {
                     Log.d(TAG, "server contact failed");
                 }
             }
