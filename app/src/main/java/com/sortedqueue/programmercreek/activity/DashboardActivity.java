@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -125,6 +126,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         //initAds();
         createPresentationFAB.setOnClickListener(this);
+        addPptTextView.setVisibility(View.GONE);
+        addCodeFAB.setVisibility(View.GONE);
+        addCodeTextView.setVisibility(View.GONE);
         addCodeFAB.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
         addPptTextView.setOnClickListener(this);
@@ -532,6 +536,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     public void onClick(View view) {
         switch ( view.getId() ) {
             case R.id.createPresentationFAB :
+                animateFab();
+                break;
             case R.id.addPptTextView :
                 Intent intent = new Intent(DashboardActivity.this, CreatePresentationActivity.class);
                 startActivity(intent);
@@ -547,5 +553,51 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 break;
         }
 
+    }
+
+    private Animation fab_open, fab_close, rotate_forward, rotate_backward;
+    private boolean isFABOpen;
+    private void animateFab() {
+        if( fab_open == null ) {
+            fab_open = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+            fab_close = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+            rotate_forward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+            rotate_backward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+        }
+        if( isFABOpen ) {
+            isFABOpen = false;
+            createPresentationFAB.startAnimation(rotate_backward);
+            fab_close.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    addCodeTextView.setVisibility(View.GONE);
+                    addPptTextView.setVisibility(View.GONE);
+                    addCodeFAB.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            addCodeTextView.startAnimation(fab_close);
+            addPptTextView.startAnimation(fab_close);
+            addCodeFAB.startAnimation(fab_close);
+        }
+        else {
+           isFABOpen = true;
+            createPresentationFAB.startAnimation(rotate_forward);
+            addCodeTextView.setVisibility(View.INVISIBLE);
+            addCodeFAB.setVisibility(View.INVISIBLE);
+            addPptTextView.setVisibility(View.INVISIBLE);
+            addCodeTextView.startAnimation(fab_open);
+            addPptTextView.startAnimation(fab_open);
+            addCodeFAB.startAnimation(fab_open);
+        }
     }
 }
