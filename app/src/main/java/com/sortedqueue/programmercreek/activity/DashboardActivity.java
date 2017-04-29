@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -64,7 +65,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener, DownloadFileListner {
+public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener, DownloadFileListner, View.OnClickListener {
 
     //@Bind(R.id.adView)
     //AdView adView;
@@ -123,13 +124,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //adView.setVisibility(View.GONE);
 
         //initAds();
-        createPresentationFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, CreatePresentationActivity.class);
-                startActivity(intent);
-            }
-        });
+        createPresentationFAB.setOnClickListener(this);
+        addCodeFAB.setOnClickListener(this);
+        addCodeTextView.setOnClickListener(this);
+        addPptTextView.setOnClickListener(this);
+        addCodeLayout.setOnClickListener(this);
+        addPptLayout.setOnClickListener(this);
+
         fabLayout.setVisibility(View.GONE);
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
@@ -524,6 +525,27 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 webView.getSettings().setJavaScriptEnabled(true);
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch ( view.getId() ) {
+            case R.id.createPresentationFAB :
+            case R.id.addPptTextView :
+                Intent intent = new Intent(DashboardActivity.this, CreatePresentationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.addCodeFAB :
+            case R.id.addCodeTextView :
+                AuxilaryUtils.displayInformation(DashboardActivity.this, R.string.add_code, R.string.add_code_description, new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
+                    }
+                });
+                break;
+        }
 
     }
 }

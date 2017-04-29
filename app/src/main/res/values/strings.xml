@@ -237,4 +237,5 @@
     <string name="hint_presentation_description">Presentation Description</string>
     <string name="required_field">Required Field</string>
     <string name="add_ppt">Add Presentation</string>
+    <string name="add_code_description">Now you can add your own program to the app.\\n\\nYou\'ll be downloading a file, which you can use to add code to the app. It\'ll be available for your with all the tests, quiz modes. Go through the template file dowloaded to understand how to add code.</string>
 </resources>
