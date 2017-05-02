@@ -37,7 +37,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("c++", program_Line);
+        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight(program_Language, program_Line);
     }
 
     public String getProgram_Line_Html() {

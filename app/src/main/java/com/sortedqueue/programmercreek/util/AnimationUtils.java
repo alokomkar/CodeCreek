@@ -2,7 +2,7 @@ package com.sortedqueue.programmercreek.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
@@ -16,33 +16,43 @@ import com.sortedqueue.programmercreek.R;
 public class AnimationUtils {
 
     public static void enterReveal( View myView ) {
-        try {
-            if( myView != null ) {
-                // previously invisible view
 
-                // get the center for the clipping circle
-                int cx = myView.getMeasuredWidth() / 2;
-                int cy = myView.getMeasuredHeight() / 2;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+            try {
+                if( myView != null ) {
+                    // previously invisible view
 
-                // get the final radius for the clipping circle
-                int finalRadius = Math.max(myView.getWidth(), myView.getHeight()) / 2;
+                    // get the center for the clipping circle
+                    int cx = myView.getMeasuredWidth() / 2;
+                    int cy = myView.getMeasuredHeight() / 2;
 
-                // create the animator for this view (the start radius is zero)
-                Animator anim =
-                        ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+                    // get the final radius for the clipping circle
+                    int finalRadius = Math.max(myView.getWidth(), myView.getHeight()) / 2;
 
-                // make the view visible and start the animation
+                    // create the animator for this view (the start radius is zero)
+                    Animator anim =
+                            ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+
+                    // make the view visible and start the animation
+                    myView.setVisibility(View.VISIBLE);
+                    anim.start();
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
                 myView.setVisibility(View.VISIBLE);
-                anim.start();
             }
-        } catch ( Exception e ) {
-            e.printStackTrace();
+        }
+        else {
             myView.setVisibility(View.VISIBLE);
         }
 
     }
 
     public static void exitReveal(final View myView) {
+        if( Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ) {
+            myView.setVisibility(View.INVISIBLE);
+            return;
+        }
         try {
             if( myView != null ) {
                 // previously visible view
@@ -79,6 +89,10 @@ public class AnimationUtils {
     }
 
     public static void exitRevealGone(final View myView) {
+        if( Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ) {
+            myView.setVisibility(View.GONE);
+            return;
+        }
         try {
             if( myView != null ) {
                 // previously visible view
