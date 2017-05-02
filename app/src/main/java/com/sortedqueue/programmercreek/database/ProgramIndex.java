@@ -16,6 +16,7 @@ public class ProgramIndex extends RushObject implements Parcelable {
     private String program_Description;
     private String program_Language;
     private String wiki;
+    private String userProgramId;
 
     public ProgramIndex() {
     }
@@ -25,6 +26,14 @@ public class ProgramIndex extends RushObject implements Parcelable {
         this.program_Description = program_Description;
         this.program_Language = program_Language;
         this.wiki = wiki;
+    }
+
+    public String getUserProgramId() {
+        return userProgramId;
+    }
+
+    public void setUserProgramId(String userProgramId) {
+        this.userProgramId = userProgramId;
     }
 
     public int getProgram_index() {
@@ -71,7 +80,8 @@ public class ProgramIndex extends RushObject implements Parcelable {
             return false;
         if (program_Language != null ? !program_Language.equals(that.program_Language) : that.program_Language != null)
             return false;
-        return wiki != null ? wiki.equals(that.wiki) : that.wiki == null;
+        if (wiki != null ? !wiki.equals(that.wiki) : that.wiki != null) return false;
+        return userProgramId != null ? userProgramId.equals(that.userProgramId) : that.userProgramId == null;
 
     }
 
@@ -81,6 +91,7 @@ public class ProgramIndex extends RushObject implements Parcelable {
         result = 31 * result + (program_Description != null ? program_Description.hashCode() : 0);
         result = 31 * result + (program_Language != null ? program_Language.hashCode() : 0);
         result = 31 * result + (wiki != null ? wiki.hashCode() : 0);
+        result = 31 * result + (userProgramId != null ? userProgramId.hashCode() : 0);
         return result;
     }
 
@@ -94,6 +105,7 @@ public class ProgramIndex extends RushObject implements Parcelable {
                 '}';
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -105,6 +117,7 @@ public class ProgramIndex extends RushObject implements Parcelable {
         dest.writeString(this.program_Description);
         dest.writeString(this.program_Language);
         dest.writeString(this.wiki);
+        dest.writeString(this.userProgramId);
     }
 
     protected ProgramIndex(Parcel in) {
@@ -112,9 +125,10 @@ public class ProgramIndex extends RushObject implements Parcelable {
         this.program_Description = in.readString();
         this.program_Language = in.readString();
         this.wiki = in.readString();
+        this.userProgramId = in.readString();
     }
 
-    public static final Parcelable.Creator<ProgramIndex> CREATOR = new Parcelable.Creator<ProgramIndex>() {
+    public static final Creator<ProgramIndex> CREATOR = new Creator<ProgramIndex>() {
         @Override
         public ProgramIndex createFromParcel(Parcel source) {
             return new ProgramIndex(source);

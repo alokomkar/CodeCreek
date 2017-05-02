@@ -38,6 +38,12 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -205,6 +211,33 @@ public class FirebaseDatabaseHandler {
     }
 
     public void writeCode(Code code) {
+
+    }
+
+    private static final String START_PROGRAM_TITLE = "<program_title>";
+    private static final String END_PROGRAM_TITLE = "</program_title>";
+    private static final String START_PROGRAM_LANGUAGE = "<program_language>";
+    private static final String END_PROGRAM_LANGUAGE = "</program_language>";
+    private static final String START_PROGRAM_EXPLANATION = "<program_explanation>";
+    private static final String END_PROGRAM_EXPLANATION = "</program_explanation>";
+    private static final String START_PROGRAM = "<program>";
+    private static final String END_PROGRAM = "</program>";
+
+
+    public void writeUserProgram(String filepath) {
+        InputStream fis = null;
+        try {
+            fis = new FileInputStream(filepath);
+            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            String completeLine = "";
+            while ((line = br.readLine()) != null) {
+                completeLine += line.trim() + " ";
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -154,7 +154,7 @@
         <!-- Updating this will cause a database upgrade -->
         <meta-data
             android:name="Rush_db_version"
-            android:value="8" />
+            android:value="10" />
 
         <!-- Database name -->
         <meta-data

@@ -27,6 +27,7 @@ public class ProgramTable extends RushObject implements Parcelable {
     private String program_Line;
     private String program_Line_Description;
     private String program_Line_Html;
+    private String userProgramId;
 
     public ProgramTable() {
     }
@@ -38,6 +39,14 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
         this.program_Line_Html = PrettifyHighlighter.getInstance().highlight(program_Language, program_Line);
+    }
+
+    public String getUserProgramId() {
+        return userProgramId;
+    }
+
+    public void setUserProgramId(String userProgramId) {
+        this.userProgramId = userProgramId;
     }
 
     public String getProgram_Line_Html() {
@@ -112,20 +121,10 @@ public class ProgramTable extends RushObject implements Parcelable {
         result = 31 * result + (program_Language != null ? program_Language.hashCode() : 0);
         result = 31 * result + (program_Line != null ? program_Line.hashCode() : 0);
         result = 31 * result + (program_Line_Description != null ? program_Line_Description.hashCode() : 0);
+        result = 31 * result + (program_Line_Html != null ? program_Line_Html.hashCode() : 0);
+        result = 31 * result + (userProgramId != null ? userProgramId.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "ProgramTable{" +
-                "program_index=" + program_index +
-                ", line_No=" + line_No +
-                ", program_Language='" + program_Language + '\'' +
-                ", program_Line='" + program_Line + '\'' +
-                ", program_Line_Description='" + program_Line_Description + '\'' +
-                '}';
-    }
-
 
     @Override
     public int describeContents() {
@@ -139,6 +138,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         dest.writeString(this.program_Language);
         dest.writeString(this.program_Line);
         dest.writeString(this.program_Line_Description);
+        dest.writeString(this.userProgramId);
     }
 
     protected ProgramTable(Parcel in) {
@@ -147,6 +147,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = in.readString();
         this.program_Line = in.readString();
         this.program_Line_Description = in.readString();
+        this.userProgramId = in.readString();
     }
 
     public static final Parcelable.Creator<ProgramTable> CREATOR = new Parcelable.Creator<ProgramTable>() {

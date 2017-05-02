@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,8 +56,15 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner;
+import com.sortedqueue.programmercreek.util.PermissionUtils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -100,6 +108,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private CreekPreferences creekPreferences;
     private GoogleApiClient mGoogleApiClient;
     private int REQUEST_INVITE = 9999;
+    private int REQUEST_CODE_SEARCH = 1000;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -420,6 +429,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 // ...
             }
         }
+        if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
+            Uri uri = data.getData();
+            if (uri != null) {
+
+                Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
+                String filepath = FileUtils.getPath(DashboardActivity.this, uri);
+                Log.d(TAG, "File path : " + filepath);
+                new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath);
+
+            } else {
+            }
+            // Rest of code that converts txt file's content into arraylist
+        } else
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -547,7 +570,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 AuxilaryUtils.displayInformation(DashboardActivity.this, R.string.add_code, R.string.add_code_description, new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
+                        if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+                                new String[]{
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE})) {
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            intent.setType("text/plain");
+                            startActivityForResult(Intent.createChooser(intent,
+                                    "Load file from directory"), REQUEST_CODE_SEARCH);
+                        }
                     }
                 });
                 break;
@@ -590,7 +622,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             addCodeFAB.startAnimation(fab_close);
         }
         else {
-           isFABOpen = true;
+            isFABOpen = true;
             createPresentationFAB.startAnimation(rotate_forward);
             addCodeTextView.setVisibility(View.INVISIBLE);
             addCodeFAB.setVisibility(View.INVISIBLE);
