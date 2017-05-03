@@ -40,7 +40,6 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -231,10 +230,33 @@ public class FirebaseDatabaseHandler {
             InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             String line;
-            String completeLine = "";
+            String programTitle = "";
+            String programLanguage = "";
+            String programExplanation = "";
+            String program = "";
             while ((line = br.readLine()) != null) {
-                completeLine += line.trim() + " ";
+                if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
+                    line = br.readLine();
+                    if( !line.startsWith(END_PROGRAM_TITLE) )
+                        programTitle  += line;
+                }
+                if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
+                    line = br.readLine();
+                    if( !line.startsWith(END_PROGRAM_LANGUAGE) )
+                        programLanguage  += line;
+                }
+                if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
+                    line = br.readLine();
+                    if( !line.startsWith(END_PROGRAM_EXPLANATION) )
+                        programExplanation  += line;
+                }
+                if( line.startsWith(START_PROGRAM) && program.equals("") ) {
+                    line = br.readLine();
+                    if( !line.startsWith(END_PROGRAM) )
+                        program  += line;
+                }
             }
+
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

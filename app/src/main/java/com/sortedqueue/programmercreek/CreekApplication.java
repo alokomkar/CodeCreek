@@ -27,9 +27,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
-import com.sortedqueue.programmercreek.database.UserProgramTable;
 import com.sortedqueue.programmercreek.database.WikiModel;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
