@@ -24,6 +24,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -58,13 +59,7 @@ import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -436,8 +431,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
                 String filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
-                new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath);
-
+                if( filepath != null )
+                    new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath);
+                else
+                    CommonUtils.displayToast(DashboardActivity.this, "Unable to open file");
             } else {
             }
             // Rest of code that converts txt file's content into arraylist
@@ -567,24 +564,44 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 break;
             case R.id.addCodeFAB :
             case R.id.addCodeTextView :
-                AuxilaryUtils.displayInformation(DashboardActivity.this, R.string.add_code, R.string.add_code_description, new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
-                                new String[]{
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                        Manifest.permission.READ_EXTERNAL_STORAGE})) {
-                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.addCategory(Intent.CATEGORY_OPENABLE);
-                            intent.setType("text/plain");
-                            startActivityForResult(Intent.createChooser(intent,
-                                    "Load file from directory"), REQUEST_CODE_SEARCH);
-                        }
-                    }
-                });
+                importFromFile();
                 break;
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
+            if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
+                importFromFile();
+            } else {
+                if ( permissions.length == 3 ) {
+                    Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void importFromFile() {
+        AuxilaryUtils.displayInformation(DashboardActivity.this, R.string.add_code, R.string.add_code_description, new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+                        new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("text/plain");
+                    startActivityForResult(Intent.createChooser(intent,
+                            "Load file from directory"), REQUEST_CODE_SEARCH);
+                }
+            }
+        });
     }
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
