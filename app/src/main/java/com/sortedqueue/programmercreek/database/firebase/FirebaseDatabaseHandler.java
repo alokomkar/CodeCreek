@@ -57,6 +57,7 @@ import co.uk.rushorm.core.RushSearch;
 public class FirebaseDatabaseHandler {
 
     private DatabaseReference mProgramDatabase;
+    private DatabaseReference mUserProgramDatabase;
     private DatabaseReference mLanguageModuleDatabase;
     private DatabaseReference mSyntaxModuleDatabase;
     private DatabaseReference mProgramWikiDatabase;
@@ -117,6 +118,12 @@ public class FirebaseDatabaseHandler {
         mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
         mProgramDatabase.keepSynced(true);
         return mProgramDatabase;
+    }
+
+    public DatabaseReference getUserProgramDatabase() {
+        mUserProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_programs/" + programLanguage );
+        mUserProgramDatabase.keepSynced(true);
+        return mUserProgramDatabase;
     }
 
     public DatabaseReference getmTagDatabase() {
@@ -224,6 +231,7 @@ public class FirebaseDatabaseHandler {
 
 
     public void writeUserProgram(String filepath) {
+        getUserProgramDatabase();
         InputStream fis = null;
         try {
             fis = new FileInputStream(filepath);
@@ -237,25 +245,65 @@ public class FirebaseDatabaseHandler {
             while ((line = br.readLine()) != null) {
                 if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
                     line = br.readLine();
-                    if( !line.startsWith(END_PROGRAM_TITLE) )
-                        programTitle  += line;
+                    while( true ) {
+                        if( !line.startsWith(END_PROGRAM_TITLE) )
+                            programTitle  += line;
+                        else break;
+                        line = br.readLine();
+                    }
+
                 }
                 if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
                     line = br.readLine();
-                    if( !line.startsWith(END_PROGRAM_LANGUAGE) )
-                        programLanguage  += line;
+                    while ( true ) {
+                        if( !line.startsWith(END_PROGRAM_LANGUAGE) )
+                            programLanguage  += line;
+                        else break;
+                        line = br.readLine();
+                    }
                 }
                 if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
                     line = br.readLine();
-                    if( !line.startsWith(END_PROGRAM_EXPLANATION) )
-                        programExplanation  += line;
+                    while ( true ) {
+                        if( !line.startsWith(END_PROGRAM_EXPLANATION) )
+                            programExplanation  += line;
+                        else break;
+                        line = br.readLine();
+                    }
+
                 }
                 if( line.startsWith(START_PROGRAM) && program.equals("") ) {
                     line = br.readLine();
-                    if( !line.startsWith(END_PROGRAM) )
-                        program  += line;
+                    while ( true ) {
+                        if( !line.startsWith(END_PROGRAM) )
+                            program  += line;
+                        else break;
+                        line = br.readLine();
+                    }
+
                 }
             }
+
+            ProgramIndex programIndex = new ProgramIndex();
+            programIndex.setProgram_Description(programTitle);
+            programIndex.setProgram_index(programTitle.hashCode());
+            programIndex.setProgram_Language(programLanguage);
+
+            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
+            ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+
+            int intProgramIndex = programIndex.getProgram_index();
+            ArrayList<ProgramTable> programTables = new ArrayList<>();
+            for (int i = 0; i < programLines.size(); i++) {
+                programTables.add(
+                        new ProgramTable(
+                                intProgramIndex,
+                                i + 1,
+                                programLanguage,
+                                programLines.get(i),
+                                programExplanations.get(i)));
+            }
+
 
         } catch (java.io.IOException e) {
             e.printStackTrace();
