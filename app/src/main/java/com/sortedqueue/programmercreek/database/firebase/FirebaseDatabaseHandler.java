@@ -180,6 +180,26 @@ public class FirebaseDatabaseHandler {
         mProgramLanguageDatabase.push().setValue(programLanguage);
     }
 
+    public void searchPrograms( String queryText ) {
+        getProgramDatabase();
+        mProgramDatabase.child(PROGRAM_INDEX_CHILD).orderByChild("program_Description")
+                .startAt(queryText)
+                .endAt(queryText+"\uf8ff")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d(TAG, "search Programs : " + dataSnapshot.toString());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+    }
+
     public void writeTags(final String newTag ) {
         getmTagDatabase().runTransaction(new Transaction.Handler() {
             @Override

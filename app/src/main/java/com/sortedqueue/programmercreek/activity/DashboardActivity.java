@@ -175,7 +175,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             }
         });
-
+        new FirebaseDatabaseHandler(DashboardActivity.this).searchPrograms("Swap");
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
         //calculateTopLearners();
