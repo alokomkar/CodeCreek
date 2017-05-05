@@ -44,7 +44,9 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
@@ -60,6 +62,7 @@ import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +72,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener, DownloadFileListner, View.OnClickListener {
+public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener, DownloadFileListner, View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
 
     //@Bind(R.id.adView)
     //AdView adView;
@@ -432,7 +435,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 String filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
                 if( filepath != null )
-                    new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath);
+                    new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath, this);
                 else
                     CommonUtils.displayToast(DashboardActivity.this, "Unable to open file");
             } else {
@@ -648,5 +651,24 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             addPptTextView.startAnimation(fab_open);
             addCodeFAB.startAnimation(fab_open);
         }
+    }
+
+    @Override
+    public void onSuccess(ProgramIndex programIndex, ArrayList<ProgramTable> programTables) {
+
+        if( programIndex != null && programTables.size() > 0 ) {
+
+            String content = "";
+            content += "Program Language : "+ programIndex.getProgram_Language() + "\n";
+            content += "Program Code / Explanation : \n\n";
+            int lineNo = 1;
+            for( ProgramTable programTable : programTables ) {
+                content += lineNo + " : " + programTable.getProgram_Line();
+                content += lineNo + " : " + programTable.getProgram_Line_Description();
+                lineNo++;
+            }
+            AuxilaryUtils.displayAlert( programIndex.getProgram_Description(), content, DashboardActivity.this );
+        }
+
     }
 }

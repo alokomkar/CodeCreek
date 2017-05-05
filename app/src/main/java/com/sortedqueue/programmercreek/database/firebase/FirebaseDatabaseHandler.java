@@ -229,8 +229,11 @@ public class FirebaseDatabaseHandler {
     private static final String START_PROGRAM = "<program>";
     private static final String END_PROGRAM = "</program>";
 
+    public interface ConfirmUserProgram {
+        void onSuccess( ProgramIndex programIndex, ArrayList<ProgramTable> programTables );
+    }
 
-    public void writeUserProgram(String filepath) {
+    public void writeUserProgram(String filepath, ConfirmUserProgram confirmUserProgram ) {
         getUserProgramDatabase();
         InputStream fis = null;
         try {
@@ -303,7 +306,7 @@ public class FirebaseDatabaseHandler {
                                 programLines.get(i),
                                 programExplanations.get(i)));
             }
-
+            confirmUserProgram.onSuccess(programIndex, programTables);
 
         } catch (java.io.IOException e) {
             e.printStackTrace();
