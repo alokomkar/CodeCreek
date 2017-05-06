@@ -663,8 +663,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             content += "Program Code / Explanation : \n\n";
             int lineNo = 1;
             for( ProgramTable programTable : programTables ) {
-                content += lineNo + " : " + programTable.getProgram_Line();
-                content += lineNo + " : " + programTable.getProgram_Line_Description();
+                content += lineNo + " : " + programTable.getProgram_Line() + "\n";
+                content += lineNo + " : " + programTable.getProgram_Line_Description()+ "\n";
                 lineNo++;
             }
             AuxilaryUtils.displayAlert( programIndex.getProgram_Description(), content, DashboardActivity.this );

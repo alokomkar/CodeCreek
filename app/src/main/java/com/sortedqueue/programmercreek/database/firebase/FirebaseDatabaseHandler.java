@@ -266,42 +266,51 @@ public class FirebaseDatabaseHandler {
             String programExplanation = "";
             String program = "";
             while ((line = br.readLine()) != null) {
+                Log.d(TAG, "File Content : " + line);
                 if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
                     line = br.readLine();
+                    Log.d(TAG, "File Content : " + line);
                     while( true ) {
                         if( !line.startsWith(END_PROGRAM_TITLE) )
                             programTitle  += line;
                         else break;
                         line = br.readLine();
+                        Log.d(TAG, "File Content : " + line);
                     }
 
                 }
                 if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
                     line = br.readLine();
+                    Log.d(TAG, "File Content : " + line);
                     while ( true ) {
                         if( !line.startsWith(END_PROGRAM_LANGUAGE) )
                             programLanguage  += line;
                         else break;
                         line = br.readLine();
+                        Log.d(TAG, "File Content : " + line);
                     }
                 }
                 if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
                     line = br.readLine();
+                    Log.d(TAG, "File Content : " + line);
                     while ( true ) {
                         if( !line.startsWith(END_PROGRAM_EXPLANATION) )
-                            programExplanation  += line;
+                            programExplanation  += line + "\n";
                         else break;
                         line = br.readLine();
+                        Log.d(TAG, "File Content : " + line);
                     }
 
                 }
                 if( line.startsWith(START_PROGRAM) && program.equals("") ) {
                     line = br.readLine();
+                    Log.d(TAG, "File Content : " + line);
                     while ( true ) {
                         if( !line.startsWith(END_PROGRAM) )
-                            program  += line;
+                            program  += line + "\n";
                         else break;
                         line = br.readLine();
+                        Log.d(TAG, "File Content : " + line);
                     }
 
                 }
