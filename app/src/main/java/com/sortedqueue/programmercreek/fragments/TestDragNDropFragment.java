@@ -127,27 +127,36 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void handleBundle() {
+        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
 
-        if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
-            mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
-                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                        @Override
-                        public void onSuccess(ProgramIndex programIndex) {
-                            mProgramIndex = programIndex;
-                            getProgramTablesInBackground();
-                        }
-
-                        @Override
-                        public void onError(DatabaseError databaseError) {
-                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
-                        }
-                    });
-        } else {
+        if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
             mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-            mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
-            getProgramTables();
+            mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+            initUI(mProgramTableList);
         }
+        else {
+            if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
+                mWizard = false;
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                        new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                            @Override
+                            public void onSuccess(ProgramIndex programIndex) {
+                                mProgramIndex = programIndex;
+                                getProgramTablesInBackground();
+                            }
+
+                            @Override
+                            public void onError(DatabaseError databaseError) {
+                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                            }
+                        });
+            } else {
+                mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+                getProgramTables();
+            }
+        }
+
 
 
     }

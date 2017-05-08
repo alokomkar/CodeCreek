@@ -118,28 +118,38 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private void initUI() {
         progressLayout.setVisibility(View.GONE);
         mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
-        if(  mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON ) {
-            mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
-                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                        @Override
-                        public void onSuccess(ProgramIndex programIndex) {
-                            mProgramIndex = programIndex;
-                            getProgramTables();
-                        }
+        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
 
-                        @Override
-                        public void onError(DatabaseError databaseError) {
-                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
-                        }
-                    });
-        }
-        else {
+        if( program_TableList != null && program_TableList.size() > 0 ) {
             mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
-
-            getProgramTables();
+            initUI(program_TableList);
         }
+        else {
+            if(  mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON ) {
+                mWizard = false;
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                        new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                            @Override
+                            public void onSuccess(ProgramIndex programIndex) {
+                                mProgramIndex = programIndex;
+                                getProgramTables();
+                            }
+
+                            @Override
+                            public void onError(DatabaseError databaseError) {
+                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                            }
+                        });
+            }
+            else {
+                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+
+                getProgramTables();
+            }
+        }
+
 
 
     }
@@ -204,7 +214,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
             setProgramLineTextViewParms(mProgramLineTextViewList[i]);
             mMatchMakerLeftLinearLayout.addView(mProgramLineTextViewList[i]);
             programLine = mShuffleProgramList.get(i);
-            if (programLine.contains("font") == false) {
+            if (!programLine.contains("font")) {
                 mProgramLineTextViewList[i].setText(programLine);
                 mProgramLineTextViewList[i].setTextColor(Color.parseColor("#006699"));
             } else {
@@ -465,6 +475,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
         Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage() );
         if( program_TableList.size() <= 15 ) {
             wizardNavigationListener.loadTestFragment(newIntentBundle);

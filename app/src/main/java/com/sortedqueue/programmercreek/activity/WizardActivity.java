@@ -169,6 +169,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         if( fillBlankFragment == null ) {
             fillBlankFragment = new FillBlankFragment();
         }
+        fillBlankFragment.setBundle(bundle);
         fillBlankFragment.setmProgram_Index(((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_index());
         fillBlankFragment.setWizardMode( true );
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);

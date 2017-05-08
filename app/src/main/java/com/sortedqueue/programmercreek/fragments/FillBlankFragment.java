@@ -128,6 +128,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     private ProgramIndex mProgramIndex;
 
     private String programLanguage;
+    private Bundle bundle;
 
     public FillBlankFragment() {
         // Required empty public constructor
@@ -165,30 +166,38 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             answerLayout4.setAlpha(0.0f);
         }
 
-        firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
-        firebaseDatabaseHandler.getProgramIndexInBackGround(mProgram_Index, new FirebaseDatabaseHandler.GetProgramIndexListener() {
-            @Override
-            public void onSuccess(ProgramIndex programIndex) {
-                headerTextView.setText(programIndex.getProgram_Description());
-                mProgramIndex = programIndex;
-                firebaseDatabaseHandler.getProgramTablesInBackground(mProgram_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
-                    @Override
-                    public void onSuccess(ArrayList<ProgramTable> programTables) {
-                        updateUI(programTables);
-                    }
+        mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
+        ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        if( programTables != null && programTables.size() > 0 ) {
+            updateUI(programTables);
+        }
+        else {
+            firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+            firebaseDatabaseHandler.getProgramIndexInBackGround(mProgram_Index, new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                @Override
+                public void onSuccess(ProgramIndex programIndex) {
+                    headerTextView.setText(programIndex.getProgram_Description());
+                    mProgramIndex = programIndex;
+                    firebaseDatabaseHandler.getProgramTablesInBackground(mProgram_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                        @Override
+                        public void onSuccess(ArrayList<ProgramTable> programTables) {
+                            updateUI(programTables);
+                        }
 
-                    @Override
-                    public void onError(DatabaseError databaseError) {
-                        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
-                    }
-                });
-            }
+                        @Override
+                        public void onError(DatabaseError databaseError) {
+                            CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                        }
+                    });
+                }
 
-            @Override
-            public void onError(DatabaseError databaseError) {
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
-            }
-        });
+                @Override
+                public void onError(DatabaseError databaseError) {
+                    CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                }
+            });
+        }
+
 
 
     }
@@ -834,5 +843,9 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
     public void setWizardMode(boolean wizardMode) {
         this.wizardMode = wizardMode;
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
     }
 }

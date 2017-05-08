@@ -253,93 +253,116 @@ public class FirebaseDatabaseHandler {
         void onSuccess( ProgramIndex programIndex, ArrayList<ProgramTable> programTables );
     }
 
-    public void writeUserProgram(String filepath, ConfirmUserProgram confirmUserProgram ) {
+    public void writeUserProgram(final String filepath, final ConfirmUserProgram confirmUserProgram ) {
         getUserProgramDatabase();
-        InputStream fis = null;
-        try {
-            fis = new FileInputStream(filepath);
-            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-            String programTitle = "";
-            String programLanguage = "";
-            String programExplanation = "";
-            String program = "";
-            while ((line = br.readLine()) != null) {
-                Log.d(TAG, "File Content : " + line);
-                if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
-                    line = br.readLine();
-                    Log.d(TAG, "File Content : " + line);
-                    while( true ) {
-                        if( !line.startsWith(END_PROGRAM_TITLE) )
-                            programTitle  += line;
-                        else break;
-                        line = br.readLine();
+        new AsyncTask<Void, Void, Void>() {
+
+            private ProgramIndex programIndex;
+            private ArrayList<ProgramTable> programTables;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                InputStream fis = null;
+                try {
+                    fis = new FileInputStream(filepath);
+                    InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
+                    BufferedReader br = new BufferedReader(isr);
+                    String line;
+                    String programTitle = "";
+                    String programLanguage = "";
+                    String programExplanation = "";
+                    String program = "";
+                    while ((line = br.readLine()) != null) {
                         Log.d(TAG, "File Content : " + line);
+                        if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
+                            line = br.readLine();
+                            Log.d(TAG, "File Content : " + line);
+                            while( true ) {
+                                if( !line.startsWith(END_PROGRAM_TITLE) )
+                                    programTitle  += line;
+                                else break;
+                                line = br.readLine();
+                                Log.d(TAG, "File Content : " + line);
+                            }
+
+                        }
+                        if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
+                            line = br.readLine();
+                            Log.d(TAG, "File Content : " + line);
+                            while ( true ) {
+                                if( !line.startsWith(END_PROGRAM_LANGUAGE) )
+                                    programLanguage  += line;
+                                else break;
+                                line = br.readLine();
+                                Log.d(TAG, "File Content : " + line);
+                            }
+                        }
+                        if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
+                            line = br.readLine();
+                            Log.d(TAG, "File Content : " + line);
+                            while ( true ) {
+                                if( !line.startsWith(END_PROGRAM_EXPLANATION) )
+                                    programExplanation  += line + "\n";
+                                else break;
+                                line = br.readLine();
+                                Log.d(TAG, "File Content : " + line);
+                            }
+
+                        }
+                        if( line.startsWith(START_PROGRAM) && program.equals("") ) {
+                            line = br.readLine();
+                            Log.d(TAG, "File Content : " + line);
+                            while ( true ) {
+                                if( !line.startsWith(END_PROGRAM) )
+                                    program  += line + "\n";
+                                else break;
+                                line = br.readLine();
+                                Log.d(TAG, "File Content : " + line);
+                            }
+
+                        }
                     }
 
-                }
-                if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
-                    line = br.readLine();
-                    Log.d(TAG, "File Content : " + line);
-                    while ( true ) {
-                        if( !line.startsWith(END_PROGRAM_LANGUAGE) )
-                            programLanguage  += line;
-                        else break;
-                        line = br.readLine();
-                        Log.d(TAG, "File Content : " + line);
-                    }
-                }
-                if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
-                    line = br.readLine();
-                    Log.d(TAG, "File Content : " + line);
-                    while ( true ) {
-                        if( !line.startsWith(END_PROGRAM_EXPLANATION) )
-                            programExplanation  += line + "\n";
-                        else break;
-                        line = br.readLine();
-                        Log.d(TAG, "File Content : " + line);
-                    }
+                    programIndex = new ProgramIndex();
+                    programIndex.setProgram_Description(programTitle);
+                    programIndex.setProgram_index(programTitle.hashCode());
+                    programIndex.setProgram_Language(programLanguage);
 
-                }
-                if( line.startsWith(START_PROGRAM) && program.equals("") ) {
-                    line = br.readLine();
-                    Log.d(TAG, "File Content : " + line);
-                    while ( true ) {
-                        if( !line.startsWith(END_PROGRAM) )
-                            program  += line + "\n";
-                        else break;
-                        line = br.readLine();
-                        Log.d(TAG, "File Content : " + line);
-                    }
+                    ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
+                    ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
 
+                    int intProgramIndex = programIndex.getProgram_index();
+                    programTables = new ArrayList<>();
+                    for (int i = 0; i < programLines.size(); i++) {
+                        programTables.add(
+                                new ProgramTable(
+                                        intProgramIndex,
+                                        i + 1,
+                                        programLanguage,
+                                        programLines.get(i),
+                                        programExplanations.get(i)));
+                    }
+                } catch (java.io.IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
+                return null;
             }
 
-            ProgramIndex programIndex = new ProgramIndex();
-            programIndex.setProgram_Description(programTitle);
-            programIndex.setProgram_index(programTitle.hashCode());
-            programIndex.setProgram_Language(programLanguage);
-
-            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
-            ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
-
-            int intProgramIndex = programIndex.getProgram_index();
-            ArrayList<ProgramTable> programTables = new ArrayList<>();
-            for (int i = 0; i < programLines.size(); i++) {
-                programTables.add(
-                        new ProgramTable(
-                                intProgramIndex,
-                                i + 1,
-                                programLanguage,
-                                programLines.get(i),
-                                programExplanations.get(i)));
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
             }
-            confirmUserProgram.onSuccess(programIndex, programTables);
 
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                CommonUtils.dismissProgressDialog();
+                confirmUserProgram.onSuccess(programIndex, programTables);
+            }
+        }.execute();
+
 
     }
 

@@ -115,27 +115,36 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private void initQuiz(int quizMode) {
         mInvokeMode = bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
         progressLayout.setVisibility(View.GONE);
-        if( mInvokeMode  == ProgrammingBuddyConstants.KEY_LESSON ) {
-            mWizard = false;
-            new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
-                    new FirebaseDatabaseHandler.GetProgramIndexListener() {
-                        @Override
-                        public void onSuccess(ProgramIndex programIndex) {
-                            program_index = programIndex;
-                            mProgramIndex = programIndex.getProgram_index();
-                            getProgramTables();
-                        }
-                        @Override
-                        public void onError(DatabaseError databaseError) {
-                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
-                        }
-                    });
-        }
-        else {
+        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
             program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mProgramIndex = program_index.getProgram_index();
-            getProgramTables();
+            initUI(mProgramTableList);
         }
+        else {
+            if( mInvokeMode  == ProgrammingBuddyConstants.KEY_LESSON ) {
+                mWizard = false;
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                        new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                            @Override
+                            public void onSuccess(ProgramIndex programIndex) {
+                                program_index = programIndex;
+                                mProgramIndex = programIndex.getProgram_index();
+                                getProgramTables();
+                            }
+                            @Override
+                            public void onError(DatabaseError databaseError) {
+                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                            }
+                        });
+            }
+            else {
+                program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mProgramIndex = program_index.getProgram_index();
+                getProgramTables();
+            }
+        }
+
     }
 
     private void getProgramTables() {
@@ -330,6 +339,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        newIntentBundle.putParcelableArrayList( ProgrammingBuddyConstants.KEY_USER_PROGRAM, bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM) );
         wizardNavigationListener.loadMatchMakerFragment(bundle);
     }
 

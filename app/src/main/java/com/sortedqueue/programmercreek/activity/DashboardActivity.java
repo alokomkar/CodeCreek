@@ -43,6 +43,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
@@ -658,7 +659,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         if( programIndex != null && programTables.size() > 0 ) {
 
-            String content = "";
+            /*String content = "";
             content += "Program Language : "+ programIndex.getProgram_Language() + "\n";
             content += "Program Code / Explanation : \n\n";
             int lineNo = 1;
@@ -667,7 +668,18 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 content += lineNo + " : " + programTable.getProgram_Line_Description()+ "\n";
                 lineNo++;
             }
-            AuxilaryUtils.displayAlert( programIndex.getProgram_Description(), content, DashboardActivity.this );
+            AuxilaryUtils.displayAlert( programIndex.getProgram_Description(), content, DashboardActivity.this );*/
+
+            Bundle newIntentBundle = new Bundle();
+            Intent newIntent = null;
+            newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex);
+            newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
+            newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, programIndex.getProgram_Description());
+            newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables);
+            newIntent = new Intent(DashboardActivity.this, ProgramActivity.class);
+            newIntent.putExtras(newIntentBundle);
+            startActivity(newIntent);
         }
 
     }

@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +39,8 @@ import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.KEY_USER_PROGRAM;
+
 public class ProgramActivity extends AppCompatActivity implements UIUpdateListener {
 
 	ArrayList<String> mProgramList = new ArrayList<String>();
@@ -64,6 +65,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	boolean mWizard = false;
 	String mProgram_Title = null;
 	private int mTotalPrograms;
+	private Bundle newProgramActivityBundle;
 	//gesture detector
 	/**
 	 * http://code.tutsplus.com/tutorials/android-sdk-detecting-gestures--mobile-21161
@@ -89,11 +91,12 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Bundle newProgramActivityBundle = getIntent().getExtras();
+		newProgramActivityBundle = getIntent().getExtras();
 		program_index = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
 		mProgramIndex = program_index.getProgram_index();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 0);
 		this.mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+		mProgramTableList = newProgramActivityBundle.getParcelableArrayList(KEY_USER_PROGRAM);
 		//boolean modules = newProgramActivityBundle.getBoolean(DashboardActivity.KEY_MODULE_LIST);
 
 		mProgram_Title = program_index.getProgram_Description();
@@ -103,7 +106,13 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 		else {
 			setTitle("Revise : "+ mProgram_Title);
 			Log.d("ProgramActivity", " :: ProgramIndex : " + mProgramIndex +"");
-			getProgramTableFromDB(mProgramIndex);
+			if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
+				initUI(mProgramTableList);
+			}
+			else {
+				getProgramTableFromDB(mProgramIndex);
+			}
+
 		}
 		this.overridePendingTransition(R.anim.anim_slide_in_left,
 				R.anim.anim_slide_out_left);
@@ -450,7 +459,7 @@ public class ProgramActivity extends AppCompatActivity implements UIUpdateListen
 							break;
 
 					}
-
+					newIntentBundle.putParcelableArrayList(KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(KEY_USER_PROGRAM));
 					newIntent.putExtras(newIntentBundle);
 					startActivity(newIntent);
 					ProgramActivity.this.finish();
