@@ -38,7 +38,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight(program_Language, program_Line);
+        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("cpp", program_Line);
         this.userProgramId = userProgramId;
     }
 
@@ -48,7 +48,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight(program_Language, program_Line);
+        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("cpp", program_Line);
     }
 
     public String getUserProgramId() {
@@ -136,41 +136,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         return result;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.program_index);
-        dest.writeInt(this.line_No);
-        dest.writeString(this.program_Language);
-        dest.writeString(this.program_Line);
-        dest.writeString(this.program_Line_Description);
-        dest.writeString(this.userProgramId);
-    }
-
-    protected ProgramTable(Parcel in) {
-        this.program_index = in.readInt();
-        this.line_No = in.readInt();
-        this.program_Language = in.readString();
-        this.program_Line = in.readString();
-        this.program_Line_Description = in.readString();
-        this.userProgramId = in.readString();
-    }
-
-    public static final Parcelable.Creator<ProgramTable> CREATOR = new Parcelable.Creator<ProgramTable>() {
-        @Override
-        public ProgramTable createFromParcel(Parcel source) {
-            return new ProgramTable(source);
-        }
-
-        @Override
-        public ProgramTable[] newArray(int size) {
-            return new ProgramTable[size];
-        }
-    };
 
     public static ArrayList<ProgramTable>[] splitIntoModules(ArrayList<ProgramTable> program_tableList) {
         if( program_tableList.size() <= 15 ) {
@@ -255,4 +221,42 @@ public class ProgramTable extends RushObject implements Parcelable {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.program_index);
+        dest.writeInt(this.line_No);
+        dest.writeString(this.program_Language);
+        dest.writeString(this.program_Line);
+        dest.writeString(this.program_Line_Description);
+        dest.writeString(this.program_Line_Html);
+        dest.writeString(this.userProgramId);
+    }
+
+    protected ProgramTable(Parcel in) {
+        this.program_index = in.readInt();
+        this.line_No = in.readInt();
+        this.program_Language = in.readString();
+        this.program_Line = in.readString();
+        this.program_Line_Description = in.readString();
+        this.program_Line_Html = in.readString();
+        this.userProgramId = in.readString();
+    }
+
+    public static final Creator<ProgramTable> CREATOR = new Creator<ProgramTable>() {
+        @Override
+        public ProgramTable createFromParcel(Parcel source) {
+            return new ProgramTable(source);
+        }
+
+        @Override
+        public ProgramTable[] newArray(int size) {
+            return new ProgramTable[size];
+        }
+    };
 }
