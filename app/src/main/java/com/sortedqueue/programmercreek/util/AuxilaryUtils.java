@@ -44,6 +44,7 @@ import com.sortedqueue.programmercreek.activity.DashboardActivity;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface;
 import com.sortedqueue.programmercreek.receiver.NotificationPublisher;
+import com.sortedqueue.programmercreek.view.UserProgramDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -319,6 +320,44 @@ public class AuxilaryUtils {
     }
 
 
+    public static AlertDialog displayUserProgramDialog(Context context,
+                                                String title,
+                                                String message,
+                                                final UserProgramDialog.UserProgramDialogListener userProgramDialogListener ) {
+
+        Builder alertDialogBuilder = new Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        userProgramDialogListener.onSave();
+                    }
+                })
+                .setNegativeButton("Preview", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userProgramDialogListener.onPreview();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        return alertDialog;
+    }
+
     public static void displayAlert(String title, String message, Context context) {
 
         Builder alertDialogBuilder = new Builder(
@@ -346,6 +385,8 @@ public class AuxilaryUtils {
 
         // show it
         alertDialog.show();
+
+
     }
 
     public static ArrayList<String> splitProgramIntolines(String programCode) {

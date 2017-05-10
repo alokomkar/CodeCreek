@@ -61,6 +61,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
+import com.sortedqueue.programmercreek.view.UserProgramDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,6 +109,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private GoogleApiClient mGoogleApiClient;
     private int REQUEST_INVITE = 9999;
     private int REQUEST_CODE_SEARCH = 1000;
+    private android.app.AlertDialog alertDialog;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -655,31 +657,31 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     @Override
-    public void onSuccess(ProgramIndex programIndex, ArrayList<ProgramTable> programTables) {
+    public void onSuccess(final ProgramIndex programIndex, final ArrayList<ProgramTable> programTables) {
 
         if( programIndex != null && programTables.size() > 0 ) {
 
-            /*String content = "";
-            content += "Program Language : "+ programIndex.getProgram_Language() + "\n";
-            content += "Program Code / Explanation : \n\n";
-            int lineNo = 1;
-            for( ProgramTable programTable : programTables ) {
-                content += lineNo + " : " + programTable.getProgram_Line() + "\n";
-                content += lineNo + " : " + programTable.getProgram_Line_Description()+ "\n";
-                lineNo++;
-            }
-            AuxilaryUtils.displayAlert( programIndex.getProgram_Description(), content, DashboardActivity.this );*/
+            new UserProgramDialog(DashboardActivity.this, programIndex, programTables, new UserProgramDialog.UserProgramDialogListener() {
+                @Override
+                public void onSave() {
+                    CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
+                }
 
-            Bundle newIntentBundle = new Bundle();
-            Intent newIntent = null;
-            newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex);
-            newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
-            newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, programIndex.getProgram_Description());
-            newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables);
-            newIntent = new Intent(DashboardActivity.this, ProgramActivity.class);
-            newIntent.putExtras(newIntentBundle);
-            startActivity(newIntent);
+                @Override
+                public void onPreview() {
+                    Bundle newIntentBundle = new Bundle();
+                    Intent newIntent = null;
+                    newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+                    newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex);
+                    newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
+                    newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, programIndex.getProgram_Description());
+                    newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables);
+                    newIntent = new Intent(DashboardActivity.this, ProgramActivity.class);
+                    newIntent.putExtras(newIntentBundle);
+                    startActivity(newIntent);
+                }
+            }).showDialog();
+
         }
 
     }

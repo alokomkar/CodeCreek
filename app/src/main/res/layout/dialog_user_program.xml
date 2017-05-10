@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_16">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:id="@+id/codeRadioButton"
+            android:text="@string/code"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:id="@+id/explanationRadioButton"
+            android:text="@string/explanation"/>
+    </RadioGroup>
+
+    <io.github.kbiakov.codeview.CodeView
+        android:layout_below="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLayout"
+        android:id="@+id/codeView">
+
+    </io.github.kbiakov.codeview.CodeView>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:id="@+id/buttonLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:layout_margin="@dimen/margin_8"
+            android:id="@+id/doneButton"
+            android:text="@string/preview"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:id="@+id/saveButton"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/save_button"/>
+    </LinearLayout>
+</RelativeLayout>
