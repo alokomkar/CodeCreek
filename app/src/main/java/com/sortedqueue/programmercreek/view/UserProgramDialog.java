@@ -71,8 +71,6 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
                 }
                 break;
         }
-        code += code + code;
-
         codeView
                 .setOptions(Options.Default.get(context)
                         .withLanguage(programIndex.getProgram_Language())
