@@ -438,7 +438,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 String filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
                 if( filepath != null )
-                    new FirebaseDatabaseHandler(DashboardActivity.this).writeUserProgram(filepath, this);
+                    new FirebaseDatabaseHandler(DashboardActivity.this).readProgramFromFile(filepath, this);
                 else
                     CommonUtils.displayToast(DashboardActivity.this, "Unable to open file");
             } else {
@@ -684,5 +684,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         }
 
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        CommonUtils.displayToast(DashboardActivity.this, errorMessage);
     }
 }

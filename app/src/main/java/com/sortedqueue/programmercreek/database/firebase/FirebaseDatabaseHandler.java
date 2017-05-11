@@ -251,17 +251,18 @@ public class FirebaseDatabaseHandler {
 
     public interface ConfirmUserProgram {
         void onSuccess( ProgramIndex programIndex, ArrayList<ProgramTable> programTables );
+        void onError( String errorMessage );
     }
 
-    public void writeUserProgram(final String filepath, final ConfirmUserProgram confirmUserProgram ) {
+    public void readProgramFromFile(final String filepath, final ConfirmUserProgram confirmUserProgram ) {
         getUserProgramDatabase();
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, String>() {
 
             private ProgramIndex programIndex;
             private ArrayList<ProgramTable> programTables;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected String doInBackground(Void... params) {
                 InputStream fis = null;
                 try {
                     fis = new FileInputStream(filepath);
@@ -273,56 +274,67 @@ public class FirebaseDatabaseHandler {
                     String programExplanation = "";
                     String program = "";
                     while ((line = br.readLine()) != null) {
-                        Log.d(TAG, "File Content : " + line);
+                        
                         if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
                             line = br.readLine();
-                            Log.d(TAG, "File Content : " + line);
+                            
                             while( true ) {
                                 if( !line.startsWith(END_PROGRAM_TITLE) )
                                     programTitle  += line;
                                 else break;
                                 line = br.readLine();
-                                Log.d(TAG, "File Content : " + line);
+                                
                             }
 
                         }
                         if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
                             line = br.readLine();
-                            Log.d(TAG, "File Content : " + line);
+                            
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM_LANGUAGE) )
                                     programLanguage  += line;
                                 else break;
                                 line = br.readLine();
-                                Log.d(TAG, "File Content : " + line);
+                                
                             }
                         }
                         if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
                             line = br.readLine();
-                            Log.d(TAG, "File Content : " + line);
+                            
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM_EXPLANATION) )
                                     programExplanation  += line + "\n";
                                 else break;
                                 line = br.readLine();
-                                Log.d(TAG, "File Content : " + line);
+                                
                             }
 
                         }
                         if( line.startsWith(START_PROGRAM) && program.equals("") ) {
                             line = br.readLine();
-                            Log.d(TAG, "File Content : " + line);
+                            
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM) )
                                     program  += line + "\n";
                                 else break;
                                 line = br.readLine();
-                                Log.d(TAG, "File Content : " + line);
+                                
                             }
 
                         }
                     }
-
+                    if( programTitle.trim().length() == 0 ) {
+                        return "Missing program title"; 
+                    }
+                    if( programLanguage.trim().length() == 0 ) {
+                        return "Missing program language";
+                    }
+                    if( program.trim().length() == 0 ) {
+                        return "Missing program code";
+                    }
+                    if( programExplanation.trim().length() == 0 ) {
+                        return "Missing program explanation";
+                    }
                     programIndex = new ProgramIndex();
                     programIndex.setProgram_Description(programTitle);
                     programIndex.setProgram_index(programTitle.hashCode());
@@ -330,6 +342,15 @@ public class FirebaseDatabaseHandler {
 
                     ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
                     ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+                    
+                    if( programLines != null && programExplanations != null ) {
+                        if( programLines.size() > programExplanations.size() ) {
+                            return "Explanation needed for each line of code";
+                        }
+                        if( programLines.size() < programExplanations.size() ) {
+                            return "Code needed for each line of explanation";
+                        }
+                    }
 
                     int intProgramIndex = programIndex.getProgram_index();
                     programTables = new ArrayList<>();
@@ -344,7 +365,7 @@ public class FirebaseDatabaseHandler {
                     }
                 } catch (java.io.IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return e.getMessage();
                 }
                 return null;
             }
@@ -356,10 +377,16 @@ public class FirebaseDatabaseHandler {
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(String aVoid) {
                 super.onPostExecute(aVoid);
                 CommonUtils.dismissProgressDialog();
-                confirmUserProgram.onSuccess(programIndex, programTables);
+                if( aVoid == null ) {
+                    confirmUserProgram.onSuccess(programIndex, programTables);    
+                }
+                else {
+                    confirmUserProgram.onError(aVoid);
+                }
+                
             }
         }.execute();
 
