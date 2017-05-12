@@ -49,6 +49,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -593,21 +594,39 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     private void importFromFile() {
-        AuxilaryUtils.displayInformation(DashboardActivity.this, R.string.add_code, R.string.add_code_description, new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
-                        new String[]{
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("text/plain");
-                    startActivityForResult(Intent.createChooser(intent,
-                            "Load file from directory"), REQUEST_CODE_SEARCH);
+        if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+                new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE})) {
+            CommonUtils.displayProgressDialog(DashboardActivity.this, getString(R.string.downloading_file));
+            FirebaseStorageHandler.downloadTemplateFile(DashboardActivity.this, new FirebaseStorageHandler.TemplateDownloadListener() {
+                @Override
+                public void onSuccess(String filePath) {
+                    CommonUtils.dismissProgressDialog();
+                    AuxilaryUtils.displayInformation(DashboardActivity.this,
+                            getString(R.string.add_code),
+                            getString(R.string.add_code_description) + "\n\nFile is saved to : " + filePath,
+                            new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            intent.setType("text/plain");
+                            startActivityForResult(Intent.createChooser(intent,
+                                    "Load file from directory"), REQUEST_CODE_SEARCH);
+                        }
+                    });
                 }
-            }
-        });
+
+                @Override
+                public void onError(String error) {
+                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.displayToast(DashboardActivity.this, error);
+                }
+            });
+
+        }
+
     }
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
