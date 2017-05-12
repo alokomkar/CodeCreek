@@ -37,6 +37,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_width="match_parent"
         android:id="@+id/buttonLayout"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -60,5 +61,15 @@
             android:id="@+id/saveButton"
             android:layout_margin="@dimen/margin_8"
             android:text="@string/save_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:id="@+id/discardButton"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/cancel"/>
     </LinearLayout>
 </RelativeLayout>

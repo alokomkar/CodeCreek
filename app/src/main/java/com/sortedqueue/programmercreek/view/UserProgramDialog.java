@@ -36,6 +36,8 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     Button doneButton;
     @Bind(R.id.saveButton)
     Button saveButton;
+    @Bind(R.id.discardButton)
+    Button discardButton;
     private UserProgramDialogListener userProgramDialogListener;
     private Context context;
     private AlertDialog.Builder builder;
@@ -88,6 +90,10 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
             case R.id.doneButton :
                 userProgramDialogListener.onPreview();
                 break;
+            case R.id.discardButton :
+                userProgramDialogListener.onCancel();
+                alertDialog.dismiss();
+                break;
         }
     }
 
@@ -98,6 +104,7 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
 
     public interface UserProgramDialogListener {
         void onSave();
+        void onCancel();
         void onPreview();
     }
 
@@ -125,6 +132,6 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         explanationRadioButton.setOnCheckedChangeListener(this);
         doneButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
-
+        discardButton.setOnClickListener(this);
     }
 }

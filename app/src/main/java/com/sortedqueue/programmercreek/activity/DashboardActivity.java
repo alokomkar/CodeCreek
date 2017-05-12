@@ -1,10 +1,8 @@
 package com.sortedqueue.programmercreek.activity;
 
 
-import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,7 +47,6 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -572,6 +569,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             case R.id.addCodeFAB :
             case R.id.addCodeTextView :
                 importFromFile();
+                animateFab();
                 break;
         }
 
@@ -594,7 +592,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     private void importFromFile() {
-        if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+
+        Intent intent = new Intent( DashboardActivity.this, TutorialCarousalActivity.class );
+        startActivity(intent);
+
+        /*if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -625,7 +627,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 }
             });
 
-        }
+        }*/
 
     }
 
@@ -684,6 +686,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 @Override
                 public void onSave() {
                     CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
+                }
+
+                @Override
+                public void onCancel() {
+
                 }
 
                 @Override

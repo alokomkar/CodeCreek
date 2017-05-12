@@ -55,6 +55,11 @@
             android:label="@string/title_notes"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.TutorialCarousalActivity"
+            android:label="@string/tutorial"
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.ProgramListActivity"
             android:label="@string/title_activity_dummy"
             android:screenOrientation="portrait" />
