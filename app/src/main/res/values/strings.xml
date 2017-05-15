@@ -243,4 +243,5 @@
     <string name="preview">Preview</string>
     <string name="downloading_file">Downloading File</string>
     <string name="tutorial">Tutorial</string>
+    <string name="next">Next</string>
 </resources>

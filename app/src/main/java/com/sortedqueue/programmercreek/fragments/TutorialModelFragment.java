@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,10 @@ public class TutorialModelFragment extends Fragment {
     TextView subTitleTextView;
     @Bind(R.id.slideImageView)
     ImageView slideImageView;
+    @Bind(R.id.cancelButton)
+    Button cancelButton;
+    @Bind(R.id.nextButton)
+    Button nextButton;
     private TutorialModel tutorialModel;
     private int index = 0;
 
