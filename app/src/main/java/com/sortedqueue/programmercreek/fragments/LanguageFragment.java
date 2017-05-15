@@ -107,11 +107,11 @@ public class LanguageFragment extends Fragment {
         firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
             @Override
             public void onSuccess(ArrayList<ProgramLanguage> programLanguages) {
-                ProgramLanguage programLanguage = new ProgramLanguage();
+                /*ProgramLanguage programLanguage = new ProgramLanguage();
                 programLanguage.setLanguageId("Java2");
                 programLanguage.setProgramLanguage("Java Programming - II");
                 programLanguage.setDescription("Explore more concepts of Java");
-                programLanguages.add(programLanguage);
+                programLanguages.add(programLanguage);*/
                 setupRecyclerview(programLanguages);
             }
 
