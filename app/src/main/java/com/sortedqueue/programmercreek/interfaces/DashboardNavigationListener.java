@@ -9,4 +9,5 @@ public interface DashboardNavigationListener {
     void navigateToLanguage();
     void calculateReputation();
     void showInviteDialog();
+    void importFromFile();
 }

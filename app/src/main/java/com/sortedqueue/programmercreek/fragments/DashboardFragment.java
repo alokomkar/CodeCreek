@@ -92,8 +92,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     FrameLayout introLayout;
     @Bind(R.id.codeLabLayout)
     FrameLayout codeLabLayout;
-    @Bind(R.id.searchCardView)
-    CardView searchCardView;
+    @Bind(R.id.addCodeCardView)
+    CardView addCodeCardView;
     @Bind(R.id.dashboardScrollView)
     NestedScrollView dashboardScrollView;
     @Bind(R.id.adaScrollView)
@@ -218,7 +218,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         codeLabLayout.setOnClickListener(this);
-        searchCardView.setOnClickListener(this);
+        addCodeCardView.setOnClickListener(this);
     }
 
     @Override
@@ -298,10 +298,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
                 break;
 
-            /*case R.id.searchCardView :
-                Intent searchIntent = new Intent(getContext(), ProgramWikiActivity.class);
-                startActivity(searchIntent);
-                break;*/
+            case R.id.addCodeCardView :
+                dashboardNavigationListener.importFromFile();
+                /*Intent searchIntent =
+                new Intent(getContext(), ProgramWikiActivity.class);
+                startActivity(searchIntent);*/
+                break;
         }
 
     }

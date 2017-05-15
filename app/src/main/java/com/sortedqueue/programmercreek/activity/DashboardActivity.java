@@ -654,13 +654,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         }
     }
 
-    private void importFromFile() {
-
+    @Override
+    public void importFromFile() {
         Intent intent = new Intent( DashboardActivity.this, TutorialCarousalActivity.class );
         startActivityForResult(intent, REQUEST_DOWNLOAD_FILE);
-
-
-
     }
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
