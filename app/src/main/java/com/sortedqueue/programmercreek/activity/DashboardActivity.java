@@ -1,8 +1,10 @@
 package com.sortedqueue.programmercreek.activity;
 
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -47,6 +49,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -108,6 +111,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private int REQUEST_INVITE = 9999;
     private int REQUEST_CODE_SEARCH = 1000;
     private android.app.AlertDialog alertDialog;
+    private int REQUEST_DOWNLOAD_FILE = 101;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -413,8 +417,59 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+        if( requestCode == REQUEST_DOWNLOAD_FILE ) {
+            if( resultCode == RESULT_OK ) {
+                if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+                        new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
+                    CommonUtils.displayProgressDialog(DashboardActivity.this, getString(R.string.downloading_file));
+                    FirebaseStorageHandler.downloadTemplateFile(DashboardActivity.this, new FirebaseStorageHandler.TemplateDownloadListener() {
+                        @Override
+                        public void onSuccess(String filePath) {
+                            CommonUtils.dismissProgressDialog();
+                            AuxilaryUtils.displayInformation(DashboardActivity.this,
+                                    getString(R.string.add_code),
+                                    getString(R.string.add_code_description) +
+                                            "\n\n<program_title>\n" +
+                                            "Hello World\n" +
+                                            "</program_title>\n" +
+                                            "<program_language>\n" +
+                                            "C\n" +
+                                            "</program_language>\n" +
+                                            "<program_explanation>\n" +
+                                            "Include header stdio\n" +
+                                            "Main declaration\n" +
+                                            "Print Hello\n" +
+                                            "Wait for user input\n" +
+                                            "End of program\n" +
+                                            "</program_explanation>\n" +
+                                            "<program>\n" +
+                                            "#include<stdio.h>\n" +
+                                            "void main() {\n" +
+                                            "printf(“Hello”);\n" +
+                                            "getch();\n" +
+                                            "}\n" +
+                                            "</program>" + "\n\nFile is saved to : " + filePath,
+                                    new DialogInterface.OnDismissListener() {
+                                        @Override
+                                        public void onDismiss(DialogInterface dialogInterface) {
+                                            readCodeFile();
+                                        }
+                                    });
+                        }
 
-        if (requestCode == REQUEST_INVITE) {
+                        @Override
+                        public void onError(String error) {
+                            CommonUtils.dismissProgressDialog();
+                            CommonUtils.displayToast(DashboardActivity.this, error);
+                        }
+                    });
+
+                }
+            }
+        }
+        else if (requestCode == REQUEST_INVITE) {
             if (resultCode == RESULT_OK) {
                 // Get the invitation IDs of all sent messages
                 String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
@@ -428,7 +483,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 // ...
             }
         }
-        if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
+        else if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
             Uri uri = data.getData();
             if (uri != null) {
 
@@ -444,6 +499,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             // Rest of code that converts txt file's content into arraylist
         } else
             super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void readCodeFile() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/plain");
+        startActivityForResult(Intent.createChooser(intent,
+                "Load file from directory"), REQUEST_CODE_SEARCH);
     }
 
     @Override
@@ -594,40 +657,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private void importFromFile() {
 
         Intent intent = new Intent( DashboardActivity.this, TutorialCarousalActivity.class );
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_DOWNLOAD_FILE);
 
-        /*if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
-                new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE})) {
-            CommonUtils.displayProgressDialog(DashboardActivity.this, getString(R.string.downloading_file));
-            FirebaseStorageHandler.downloadTemplateFile(DashboardActivity.this, new FirebaseStorageHandler.TemplateDownloadListener() {
-                @Override
-                public void onSuccess(String filePath) {
-                    CommonUtils.dismissProgressDialog();
-                    AuxilaryUtils.displayInformation(DashboardActivity.this,
-                            getString(R.string.add_code),
-                            getString(R.string.add_code_description) + "\n\nFile is saved to : " + filePath,
-                            new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.addCategory(Intent.CATEGORY_OPENABLE);
-                            intent.setType("text/plain");
-                            startActivityForResult(Intent.createChooser(intent,
-                                    "Load file from directory"), REQUEST_CODE_SEARCH);
-                        }
-                    });
-                }
 
-                @Override
-                public void onError(String error) {
-                    CommonUtils.dismissProgressDialog();
-                    CommonUtils.displayToast(DashboardActivity.this, error);
-                }
-            });
-
-        }*/
 
     }
 

@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,8 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -72,6 +75,8 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
         tutorialViewPager.setCurrentItem(tutorialViewPager.getCurrentItem() + 1);
     }
 
+
+
     @Override
     public void onPreviousClick() {
         tutorialViewPager.setCurrentItem(tutorialViewPager.getCurrentItem() - 1);
@@ -79,6 +84,7 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
 
     @Override
     public void onCancelClick() {
+
         onBackPressed();
     }
 }
