@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.TutorialSlidesPagerAdapter;
 import com.sortedqueue.programmercreek.database.TutorialModel;
+import com.sortedqueue.programmercreek.fragments.TutorialModelFragment;
+import com.sortedqueue.programmercreek.interfaces.TutorialNavigationListener;
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 12/05/17.
  */
 
-public class TutorialCarousalActivity extends AppCompatActivity {
+public class TutorialCarousalActivity extends AppCompatActivity implements TutorialNavigationListener {
 
 
     @Bind(R.id.tutorialViewPager)
@@ -45,7 +47,15 @@ public class TutorialCarousalActivity extends AppCompatActivity {
         tutorialModel = new TutorialModel("Preview and save your program for your use later", "");
         tutorialModels.add(tutorialModel);
 
-        tutorialViewPager.setAdapter(new TutorialSlidesPagerAdapter(getSupportFragmentManager(), tutorialModels));
+        int index = 1;
+        ArrayList<TutorialModelFragment> fragmentArrayList = new ArrayList<>();
+        for( TutorialModel model : tutorialModels ) {
+            TutorialModelFragment tutorialModelFragment = new TutorialModelFragment();
+            tutorialModelFragment.setParameter( model, index++, tutorialModels.size() );
+            fragmentArrayList.add(tutorialModelFragment);
+        }
+
+        tutorialViewPager.setAdapter(new TutorialSlidesPagerAdapter(getSupportFragmentManager(), fragmentArrayList));
         tutorialViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         tutorialViewPager.setOffscreenPageLimit(tutorialModels.size());
 
@@ -57,4 +67,18 @@ public class TutorialCarousalActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onNextClick() {
+        tutorialViewPager.setCurrentItem(tutorialViewPager.getCurrentItem() + 1);
+    }
+
+    @Override
+    public void onPreviousClick() {
+        tutorialViewPager.setCurrentItem(tutorialViewPager.getCurrentItem() - 1);
+    }
+
+    @Override
+    public void onCancelClick() {
+        onBackPressed();
+    }
 }

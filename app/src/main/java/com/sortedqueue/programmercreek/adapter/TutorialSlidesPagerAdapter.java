@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.sortedqueue.programmercreek.database.TutorialModel;
 import com.sortedqueue.programmercreek.fragments.TutorialModelFragment;
 
 import java.util.ArrayList;
@@ -15,20 +14,12 @@ import java.util.ArrayList;
 
 public class TutorialSlidesPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<TutorialModel> tutorialModels;
-    private ArrayList<Fragment> fragmentArrayList;
+    private ArrayList<TutorialModelFragment> fragmentArrayList;
 
 
-    public TutorialSlidesPagerAdapter(FragmentManager fm, ArrayList<TutorialModel> tutorialModels) {
+    public TutorialSlidesPagerAdapter(FragmentManager fm, ArrayList<TutorialModelFragment> fragmentArrayList) {
         super(fm);
-        this.fragmentArrayList = new ArrayList<>();
-        this.tutorialModels = tutorialModels;
-        int index = 1;
-        for( TutorialModel tutorialModel : tutorialModels ) {
-            TutorialModelFragment tutorialModelFragment = new TutorialModelFragment();
-            tutorialModelFragment.setParameter( tutorialModel, index++ );
-            fragmentArrayList.add(tutorialModelFragment);
-        }
+        this.fragmentArrayList = fragmentArrayList;
     }
 
     @Override
@@ -38,6 +29,6 @@ public class TutorialSlidesPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return tutorialModels.size();
+        return fragmentArrayList.size();
     }
 }
