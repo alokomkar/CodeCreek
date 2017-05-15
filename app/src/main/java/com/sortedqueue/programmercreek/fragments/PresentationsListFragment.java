@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
-import com.sortedqueue.programmercreek.activity.TutorialCarousalActivity;
+import com.sortedqueue.programmercreek.activity.ViewPresentationActivity;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.PresentationsListRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -83,7 +83,7 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
     @Override
     public void onItemClick(int position) {
         PresentationModel presentationModel = adapter.getItemAtPosition(position);
-        Intent intent = new Intent(getContext(), TutorialCarousalActivity.class);
+        Intent intent = new Intent(getContext(), ViewPresentationActivity.class);
         intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, presentationModel);
         startActivity(intent);
     }
