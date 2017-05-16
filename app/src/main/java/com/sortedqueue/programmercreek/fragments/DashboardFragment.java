@@ -102,6 +102,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     TextView interviewTextView;
     @Bind(R.id.adaRecyclerView)
     RecyclerView adaRecyclerView;
+    @Bind(R.id.addCodeTextView)
+    TextView addCodeTextView;
+    @Bind(R.id.downloadFileTextView)
+    TextView downloadFileTextView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
     private AlgorithmsRecyclerAdapter algorithmsRecyclerAdapter;
@@ -149,7 +153,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
             dashboardScrollView.setVisibility(View.GONE);
             adaScrollView.setVisibility(View.VISIBLE);
-            new FirebaseDatabaseHandler(getContext()).getAllAlgorithmIndex( this );
+            new FirebaseDatabaseHandler(getContext()).getAllAlgorithmIndex(this);
         } else {
             dashboardScrollView.setVisibility(View.VISIBLE);
             adaScrollView.setVisibility(View.GONE);
@@ -218,7 +222,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         codeLabLayout.setOnClickListener(this);
-        addCodeCardView.setOnClickListener(this);
+        downloadFileTextView.setOnClickListener(this);
+        addCodeTextView.setOnClickListener(this);
+
     }
 
     @Override
@@ -294,15 +300,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
 
-            case R.id.codeLabLayout :
+            case R.id.codeLabLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
                 break;
 
-            case R.id.addCodeCardView :
+            case R.id.downloadFileTextView:
                 dashboardNavigationListener.importFromFile();
                 /*Intent searchIntent =
                 new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);*/
+                break;
+            case R.id.addCodeTextView :
+                dashboardNavigationListener.readCodeFile();
                 break;
         }
 
@@ -326,7 +335,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 }
             });
         } else {
-            if( invokeMode == ProgrammingBuddyConstants.KEY_CODE_LAB ) {
+            if (invokeMode == ProgrammingBuddyConstants.KEY_CODE_LAB) {
                 Intent intent = new Intent(getContext(), CodeLabActivity.class);
                 startActivity(intent);
                 return;
@@ -355,9 +364,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onSuccess(ArrayList<AlgorithmsIndex> algorithmsIndexArrayList) {
-        adaRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
-        algorithmsRecyclerAdapter = new AlgorithmsRecyclerAdapter( getContext(), this, algorithmsIndexArrayList );
-        adaRecyclerView.setAdapter( algorithmsRecyclerAdapter );
+        adaRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        algorithmsRecyclerAdapter = new AlgorithmsRecyclerAdapter(getContext(), this, algorithmsIndexArrayList);
+        adaRecyclerView.setAdapter(algorithmsRecyclerAdapter);
         CommonUtils.dismissProgressDialog();
     }
 

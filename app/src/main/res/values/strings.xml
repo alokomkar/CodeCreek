@@ -245,4 +245,5 @@
     <string name="tutorial">Tutorial</string>
     <string name="next">Next</string>
     <string name="download_file">Download File</string>
+    <string name="import_code">Import Code</string>
 </resources>

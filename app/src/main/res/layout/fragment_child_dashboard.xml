@@ -24,26 +24,25 @@
             android:padding="@dimen/margin_4"
             android:weightSum="2"
             >
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="0.2"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_8"
-                android:layout_marginRight="@dimen/margin_8"
-                android:src="@drawable/ic_code"/>
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:drawableLeft="@drawable/ic_code"
                 android:id="@+id/addCodeTextView"
                 android:padding="@dimen/margin_4"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_dashboard_small"
                 android:textColor="@color/white"
-                android:text="@string/add_code"/>
+                android:text="@string/import_code"/>
+            <View
+                android:layout_width="@dimen/margin_1"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/stat_sys_download"
                 android:gravity="center"
                 android:id="@+id/downloadFileTextView"
                 android:padding="@dimen/margin_4"
