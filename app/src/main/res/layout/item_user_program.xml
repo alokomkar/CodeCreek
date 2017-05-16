@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/margin_4">
             <TextView
                 android:layout_width="wrap_content"
@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/margin_8"
                 android:drawablePadding="@dimen/margin_4"
                 android:textColor="@color/md_blue_900"
                 android:id="@+id/likesTextView"

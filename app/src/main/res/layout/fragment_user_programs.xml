@@ -30,7 +30,7 @@
                 android:background="@color/bg"
                 android:paddingTop="@dimen/margin_8"
                 android:paddingBottom="@dimen/margin_16"
-                android:id="@+id/presentationsRecyclerView"
+                android:id="@+id/userProgramsRecyclerView"
                 >
             </android.support.v7.widget.RecyclerView>
 

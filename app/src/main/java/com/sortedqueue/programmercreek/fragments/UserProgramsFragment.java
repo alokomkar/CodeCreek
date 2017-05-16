@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,10 +32,10 @@ import butterknife.ButterKnife;
 public class UserProgramsFragment extends Fragment implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner, FirebaseDatabaseHandler.GetAllUserProgramsListener {
 
     private static UserProgramsFragment instance;
-    @Bind(R.id.presentationsRecyclerView)
-    RecyclerView presentationsRecyclerView;
-    @Bind(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.userProgramsRecyclerView)
+    RecyclerView userProgramsRecyclerView;
+    /*@Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;*/
     private UserProgramRecyclerAdapter adapter;
 
 
@@ -51,9 +50,9 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_presentations, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_programs, container, false);
         ButterKnife.bind(this, view);
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -66,22 +65,22 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 // once the network request has completed successfully.
                 fetchUserPrograms();
             }
-        });
+        });*/
         fetchUserPrograms();
         return view;
     }
 
     private void fetchUserPrograms() {
-        swipeRefreshLayout.setRefreshing(true);
+        //swipeRefreshLayout.setRefreshing(true);
         new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(this);
     }
 
     private void setupRecyclerView(ArrayList<UserProgramDetails> presentationModelArrayList) {
-        //presentationsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        presentationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //userProgramsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        userProgramsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserProgramRecyclerAdapter(getContext(), presentationModelArrayList, this);
-        presentationsRecyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setRefreshing(false);
+        userProgramsRecyclerView.setAdapter(adapter);
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -103,7 +102,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onError(DatabaseError databaseError) {
-        swipeRefreshLayout.setRefreshing(false);
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
