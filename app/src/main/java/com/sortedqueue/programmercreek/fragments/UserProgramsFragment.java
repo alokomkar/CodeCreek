@@ -67,7 +67,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 fetchUserPrograms();
             }
         });
-
+        fetchUserPrograms();
         return view;
     }
 
