@@ -40,10 +40,10 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        UserProgramDetails presentationModel = userProgramDetailsArrayList.get(position);
-        ProgramIndex programIndex = presentationModel.getProgramIndex();
+        UserProgramDetails userProgramDetails = userProgramDetailsArrayList.get(position);
+        ProgramIndex programIndex = userProgramDetails.getProgramIndex();
         holder.titleTextView.setText( programIndex.getProgram_Language().toUpperCase() + " : " + programIndex.getProgram_Description());
-        holder.subTitleTextView.setText(presentationModel.getPreview());
+        holder.subTitleTextView.setText(userProgramDetails.getPreview());
     }
 
     @Override
