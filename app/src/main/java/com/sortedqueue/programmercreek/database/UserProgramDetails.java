@@ -20,6 +20,7 @@ public class UserProgramDetails {
     private ArrayList<String> likesList;
     private int likes;
     private int views;
+    private String preview;
 
     public UserProgramDetails() {
     }
@@ -125,5 +126,18 @@ public class UserProgramDetails {
                 "programLanguage='" + programLanguage + '\'' +
                 ", programId='" + programId + '\'' +
                 '}';
+    }
+
+    public String getPreview() {
+        if( preview == null ) {
+            preview = "Preview : \n";
+            for( int i = 0; i < 3; i++ ) {
+                ProgramTable programTable = programTables.get(i);
+                if( i != 2 )
+                preview += programTable.getProgram_Line() + "\n";
+                else preview += programTable.getProgram_Line();
+            }
+        }
+        return preview;
     }
 }

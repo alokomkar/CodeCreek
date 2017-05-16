@@ -249,6 +249,40 @@ public class FirebaseDatabaseHandler {
     private static final String START_PROGRAM = "<program>";
     private static final String END_PROGRAM = "</program>";
 
+    public interface GetAllUserProgramsListener {
+        void onSuccess( ArrayList<UserProgramDetails> userProgramDetailsArrayList );
+        void onError( DatabaseError databaseError );
+    }
+
+    public void getAllUserPrograms(final GetAllUserProgramsListener getAllUserProgramsListener) {
+        getUserProgramDatabase();
+        mUserProgramDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<UserProgramDetails> userProgramDetailsArrayList = new ArrayList<UserProgramDetails>();
+
+                for( DataSnapshot userProgramSnap : dataSnapshot.getChildren() ) {
+                    UserProgramDetails userProgramDetails = userProgramSnap.getValue(UserProgramDetails.class);
+                    if( userProgramDetails != null ) {
+                        userProgramDetailsArrayList.add(userProgramDetails);
+                    }
+                }
+                if( userProgramDetailsArrayList.size() > 0 ) {
+                    getAllUserProgramsListener.onSuccess(userProgramDetailsArrayList);
+                }
+                else {
+                    getAllUserProgramsListener.onError(null);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getAllUserProgramsListener.onError(databaseError);
+            }
+        });
+    }
+
     public interface ConfirmUserProgram {
         void onSuccess( ProgramIndex programIndex, ArrayList<ProgramTable> programTables );
         void onError( String errorMessage );

@@ -156,6 +156,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
         dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
         dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
+        dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_add_to_queue_white_24dp);
         //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
         if (creekPreferences.getProgramLanguage().equals("")) {
             dashboardViewPager.setCurrentItem(0);
@@ -451,8 +452,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
                 filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
-                if( filepath != null )
-                    new FirebaseDatabaseHandler(DashboardActivity.this).readProgramFromFile(filepath, this);
+
+                if( filepath != null ) {
+                    String fileMd5 = FileUtils.calculateMD5(new File(filepath));
+                    if( creekPreferences.getCreekUserStats().getUserAddedPrograms().contains(fileMd5) ) {
+                        CommonUtils.displayToast(DashboardActivity.this, "File already uploaded");
+                    }
+                    else
+                        new FirebaseDatabaseHandler(DashboardActivity.this).readProgramFromFile(filepath, this);
+                }
+
                 else
                     CommonUtils.displayToast(DashboardActivity.this, "Unable to open file");
             } else {

@@ -247,4 +247,6 @@
     <string name="download_file">1. Download File</string>
     <string name="import_code">2. Import Code</string>
     <string name="public_string">Public</string>
+    <string name="likes">34 Likes</string>
+    <string name="views">45 Views</string>
 </resources>
