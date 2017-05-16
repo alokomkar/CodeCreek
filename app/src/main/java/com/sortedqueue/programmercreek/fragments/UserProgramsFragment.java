@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     private static UserProgramsFragment instance;
     @Bind(R.id.presentationsRecyclerView)
     RecyclerView presentationsRecyclerView;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private UserProgramRecyclerAdapter adapter;
 
 
@@ -50,8 +53,27 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_presentations, container, false);
         ButterKnife.bind(this, view);
-        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(this);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        // Setup refresh listener which triggers new data loading
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchUserPrograms();
+            }
+        });
+
         return view;
+    }
+
+    private void fetchUserPrograms() {
+        swipeRefreshLayout.setRefreshing(true);
+        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(this);
     }
 
     private void setupRecyclerView(ArrayList<UserProgramDetails> presentationModelArrayList) {
@@ -59,6 +81,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         presentationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserProgramRecyclerAdapter(getContext(), presentationModelArrayList, this);
         presentationsRecyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -80,7 +103,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onError(DatabaseError databaseError) {
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
