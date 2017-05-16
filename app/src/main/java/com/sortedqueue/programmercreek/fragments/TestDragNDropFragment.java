@@ -436,22 +436,30 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void updateCreekStats() {
         creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        switch (mProgramIndex.getProgram_Language().toLowerCase()) {
-            case "c":
-                creekUserStats.addToUnlockedCProgramIndexList(mProgramIndex.getProgram_index() + 1);
-                break;
-            case "cpp":
-            case "c++":
-                creekUserStats.addToUnlockedCppProgramIndexList(mProgramIndex.getProgram_index() + 1);
-                break;
-            case "java":
-                creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index() + 1);
-                break;
-            case "usp":
-                creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
-                break;
+        if( mProgramIndex.getUserProgramId() == null || mProgramIndex.getUserProgramId().trim().length() == 0 ) {
+            switch (mProgramIndex.getProgram_Language().toLowerCase()) {
+                case "c":
+                    creekUserStats.addToUnlockedCProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                    break;
+                case "cpp":
+                case "c++":
+                    creekUserStats.addToUnlockedCppProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                    break;
+                case "java":
+                    creekUserStats.addToUnlockedJavaProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                    break;
+                case "usp":
+                    creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
+                    break;
+            }
+            new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
         }
-        new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
+        else {
+            if( !mProgramIndex.getUserProgramId().equals("trial") ) {
+                creekUserStats.addToUnlockedUserAddedPrograms(mProgramIndex.getUserProgramId());
+                new FirebaseDatabaseHandler(getContext()).writeCreekUserStats(creekUserStats);
+            }
+        }
     }
 
 

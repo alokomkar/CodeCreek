@@ -121,7 +121,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public DatabaseReference getUserProgramDatabase() {
-        mUserProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_programs/" + programLanguage );
+        mUserProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_programs" );
         mUserProgramDatabase.keepSynced(true);
         return mUserProgramDatabase;
     }
@@ -1337,7 +1337,9 @@ public class FirebaseDatabaseHandler {
 
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
         getUserProgramDatabase();
-        mUserProgramDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
+        String programId = mUserProgramDatabase.push().getKey();
+        userProgramDetails.getProgramIndex().setUserProgramId(programId);
+        mUserProgramDatabase.child( programId ).setValue(userProgramDetails);
     }
 
     public interface ProgramWikiInterface {

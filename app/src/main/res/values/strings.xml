@@ -244,7 +244,7 @@
     <string name="downloading_file">Downloading File</string>
     <string name="tutorial">Tutorial</string>
     <string name="next">Next</string>
-    <string name="download_file">Download File</string>
-    <string name="import_code">Import Code</string>
+    <string name="download_file">1. Download File</string>
+    <string name="import_code">2. Import Code</string>
     <string name="public_string">Public</string>
 </resources>

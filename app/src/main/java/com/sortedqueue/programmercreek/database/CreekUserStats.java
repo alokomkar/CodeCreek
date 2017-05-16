@@ -44,6 +44,9 @@ public class CreekUserStats implements Parcelable {
     private ArrayList<String> unlockedJavaWikiIdList = new ArrayList<>();
     private ArrayList<String> unlockedSqlWikiIdList = new ArrayList<>();
 
+    private ArrayList<String> userAddedPrograms = new ArrayList<>();
+    private ArrayList<String> unlockedUserAddedPrograms = new ArrayList<>();
+
     public CreekUserStats(int javaProgressIndex, int cProgressIndex, int cppProgressIndex, int uspProgramIndex) {
         this.javaProgressIndex = javaProgressIndex;
         this.cProgressIndex = cProgressIndex;
@@ -596,6 +599,37 @@ public class CreekUserStats implements Parcelable {
         return false;
     }
 
+    public ArrayList<String> getUserAddedPrograms() {
+        return userAddedPrograms;
+    }
+
+    public void setUserAddedPrograms(ArrayList<String> userAddedPrograms) {
+        this.userAddedPrograms = userAddedPrograms;
+    }
+
+    public boolean addToUserAddedPrograms(String programId) {
+        if( !userAddedPrograms.contains(programId) ) {
+            userAddedPrograms.add(programId);
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<String> getUnlockedUserAddedPrograms() {
+        return unlockedUserAddedPrograms;
+    }
+
+    public void setUnlockedUserAddedPrograms(ArrayList<String> unlockedUserAddedPrograms) {
+        this.unlockedUserAddedPrograms = unlockedUserAddedPrograms;
+    }
+
+    public boolean addToUnlockedUserAddedPrograms(String programId) {
+        if( !unlockedUserAddedPrograms.contains(programId) ) {
+            unlockedUserAddedPrograms.add(programId);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public int describeContents() {
@@ -628,6 +662,8 @@ public class CreekUserStats implements Parcelable {
         dest.writeStringList(this.unlockedUspWikiIdList);
         dest.writeStringList(this.unlockedCppWikiIdList);
         dest.writeStringList(this.unlockedJavaWikiIdList);
+        dest.writeStringList(this.userAddedPrograms);
+        dest.writeStringList(this.unlockedUserAddedPrograms);
     }
 
     protected CreekUserStats(Parcel in) {
@@ -659,6 +695,8 @@ public class CreekUserStats implements Parcelable {
         this.unlockedUspWikiIdList = in.createStringArrayList();
         this.unlockedCppWikiIdList = in.createStringArrayList();
         this.unlockedJavaWikiIdList = in.createStringArrayList();
+        this.userAddedPrograms = in.createStringArrayList();
+        this.unlockedUserAddedPrograms = in.createStringArrayList();
     }
 
     public static final Creator<CreekUserStats> CREATOR = new Creator<CreekUserStats>() {
@@ -728,6 +766,12 @@ public class CreekUserStats implements Parcelable {
             userStats += getUnlockedSqlSyntaxModuleIdList().size() * MODULE_SCORE;
         }
 
+        if( getUserAddedPrograms().size() > 1 ) {
+            userStats += getUserAddedPrograms().size() * MODULE_SCORE;
+        }
+        if( getUnlockedUserAddedPrograms().size() > 1 ) {
+            userStats += getUnlockedUserAddedPrograms().size() * PROGRAM_SCORE;
+        }
         creekUserReputation += userStats;
 
     }

@@ -114,6 +114,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private int REQUEST_DOWNLOAD_FILE = 101;
     private int REQUEST_DOWNLOAD_FILE_PERMISSION = 1234;
     private int REQUEST_IMPORT_FILE_PERMISSION = 1334;
+    private String filepath;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -448,7 +449,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             if (uri != null) {
 
                 Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
-                String filepath = FileUtils.getPath(DashboardActivity.this, uri);
+                filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
                 if( filepath != null )
                     new FirebaseDatabaseHandler(DashboardActivity.this).readProgramFromFile(filepath, this);
@@ -743,7 +744,26 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                     CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
                     FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
                     firebaseDatabaseHandler.updateCodeCount();
-                    firebaseDatabaseHandler.writeUserProgramDetails(new UserProgramDetails());
+
+                    UserProgramDetails userProgramDetails = new UserProgramDetails();
+                    userProgramDetails.setAccessSpecifier(accessSpecifier);
+                    if( filepath != null )
+                        userProgramDetails.setMd5(FileUtils.calculateMD5(new File(filepath)));
+                    userProgramDetails.setEmailId(creekPreferences.getSignInAccount());
+                    userProgramDetails.setLikes(0);
+                    userProgramDetails.setLikesList(new ArrayList<String>());
+                    userProgramDetails.setProgramIndex(programIndex);
+                    userProgramDetails.setProgramTables(programTables);
+                    userProgramDetails.setViews(0);
+                    userProgramDetails.setProgramLanguage(programIndex.getProgram_Language());
+                    userProgramDetails.setProgramTitle(programIndex.getProgram_Description().toLowerCase());
+
+                    if( creekPreferences.addUserFile(userProgramDetails.getMd5()) ) {
+                        firebaseDatabaseHandler.writeUserProgramDetails(userProgramDetails);
+                    }
+                    else {
+                        CommonUtils.displayToast(DashboardActivity.this, "File already added");
+                    }
 
                 }
 
@@ -756,6 +776,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 public void onPreview() {
                     Bundle newIntentBundle = new Bundle();
                     Intent newIntent = null;
+                    programIndex.setUserProgramId("trial");
                     newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
                     newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex);
                     newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);

@@ -928,4 +928,21 @@ public class CreekPreferences {
         Log.d(TAG, "UnlockByInvite : " + getProgramLanguage() + " : Tag Present ? " + isPresent + "");
         return isPresent;
     }
+
+    public boolean addUserFile(String md5) {
+        CreekUserStats creekUserStats = getCreekUserStats();
+        if( creekUserStats != null ) {
+            if( creekUserStats.addToUserAddedPrograms(md5) ) {
+                saveCreekUserStats(creekUserStats);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+
+    }
 }

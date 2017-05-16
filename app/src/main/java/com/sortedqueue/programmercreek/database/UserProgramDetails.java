@@ -12,6 +12,7 @@ public class UserProgramDetails {
     private String programLanguage;
     private String programId;
     private String accessSpecifier;
+    private String md5;
 
     private String programTitle; //All lower case
     private ProgramIndex programIndex;
@@ -108,6 +109,14 @@ public class UserProgramDetails {
 
     public void setProgramId(String programId) {
         this.programId = programId;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
     }
 
     @Override
