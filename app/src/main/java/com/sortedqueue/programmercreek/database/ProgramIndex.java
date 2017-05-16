@@ -16,7 +16,7 @@ public class ProgramIndex extends RushObject implements Parcelable {
     private String program_Description;
     private String program_Language;
     private String wiki;
-    private String userProgramId;
+    private String userProgramId; //Push Id
 
     public ProgramIndex() {
     }

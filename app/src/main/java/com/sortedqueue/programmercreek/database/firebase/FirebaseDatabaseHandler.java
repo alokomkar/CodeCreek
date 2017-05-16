@@ -255,7 +255,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void readProgramFromFile(final String filepath, final ConfirmUserProgram confirmUserProgram ) {
-        getUserProgramDatabase();
+
         new AsyncTask<Void, Void, String>() {
 
             private ProgramIndex programIndex;
@@ -421,6 +421,27 @@ public class FirebaseDatabaseHandler {
                 getAllTagsListener.onError(databaseError);
             }
         });
+    }
+
+    public void updateCodeCount() {
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/program_count")
+                .runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData currentData) {
+                        if (currentData.getValue() == null) {
+                            currentData.setValue(1);
+                        } else {
+                            currentData.setValue((Long) currentData.getValue() + 1);
+                        }
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    }
+                });
+
     }
 
     public void updateInviteCount(final int inviteCount) {
@@ -1315,8 +1336,8 @@ public class FirebaseDatabaseHandler {
 
 
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
-        getUserDatabase();
-        mUserDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
+        getUserProgramDatabase();
+        mUserProgramDatabase.child( userProgramDetails.getEmailId().replaceAll("[-+.^:,]","")).setValue(userProgramDetails);
     }
 
     public interface ProgramWikiInterface {

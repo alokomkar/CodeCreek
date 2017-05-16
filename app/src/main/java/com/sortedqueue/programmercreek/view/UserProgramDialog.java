@@ -2,11 +2,13 @@ package com.sortedqueue.programmercreek.view;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
@@ -38,6 +40,10 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     Button saveButton;
     @Bind(R.id.discardButton)
     Button discardButton;
+    @Bind(R.id.accessSwitchCompat)
+    SwitchCompat accessSwitchCompat;
+    @Bind(R.id.accessTextView)
+    TextView accessTextView;
     private UserProgramDialogListener userProgramDialogListener;
     private Context context;
     private AlertDialog.Builder builder;
@@ -47,28 +53,36 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch ( buttonView.getId() ) {
-            case R.id.codeRadioButton :
-                if( codeRadioButton.isChecked() )
+        switch (buttonView.getId()) {
+            case R.id.codeRadioButton:
+                if (codeRadioButton.isChecked())
                     showCode(R.id.codeRadioButton);
                 break;
-            case R.id.explanationRadioButton :
-                if( explanationRadioButton.isChecked())
+            case R.id.explanationRadioButton:
+                if (explanationRadioButton.isChecked())
                     showCode(R.id.explanationRadioButton);
+                break;
+            case R.id.accessSwitchCompat :
+                if( accessSwitchCompat.isChecked() ) {
+                    accessTextView.setText("Public");
+                }
+                else {
+                    accessTextView.setText("Private");
+                }
                 break;
         }
     }
 
     private void showCode(int codeRadioButton) {
         String code = "";
-        switch ( codeRadioButton ) {
-            case R.id.codeRadioButton :
-                for( ProgramTable programTable : programTables ) {
+        switch (codeRadioButton) {
+            case R.id.codeRadioButton:
+                for (ProgramTable programTable : programTables) {
                     code += programTable.getProgram_Line() + "\n";
                 }
                 break;
-            case R.id.explanationRadioButton :
-                for( ProgramTable programTable : programTables ) {
+            case R.id.explanationRadioButton:
+                for (ProgramTable programTable : programTables) {
                     code += programTable.getProgram_Line_Description() + "\n";
                 }
                 break;
@@ -82,15 +96,15 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
 
     @Override
     public void onClick(View v) {
-        switch ( v.getId() ) {
-            case R.id.saveButton :
-                userProgramDialogListener.onSave();
+        switch (v.getId()) {
+            case R.id.saveButton:
+                userProgramDialogListener.onSave( accessTextView.getText().toString() );
                 alertDialog.dismiss();
                 break;
-            case R.id.doneButton :
+            case R.id.doneButton:
                 userProgramDialogListener.onPreview();
                 break;
-            case R.id.discardButton :
+            case R.id.discardButton:
                 userProgramDialogListener.onCancel();
                 alertDialog.dismiss();
                 break;
@@ -99,12 +113,15 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
 
     public void showDialog() {
         alertDialog.show();
+        accessSwitchCompat.setChecked(true);
         codeRadioButton.setChecked(true);
     }
 
     public interface UserProgramDialogListener {
-        void onSave();
+        void onSave(String accessSpecifier);
+
         void onCancel();
+
         void onPreview();
     }
 
@@ -123,13 +140,14 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         builder = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(R.string.sign_in);
+        builder.setTitle(programIndex.getProgram_Description());
         final View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_user_program, null);
         ButterKnife.bind(this, dialogView);
         builder.setView(dialogView);
         alertDialog = builder.create();
         codeRadioButton.setOnCheckedChangeListener(this);
         explanationRadioButton.setOnCheckedChangeListener(this);
+        accessSwitchCompat.setOnCheckedChangeListener(this);
         doneButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         discardButton.setOnClickListener(this);

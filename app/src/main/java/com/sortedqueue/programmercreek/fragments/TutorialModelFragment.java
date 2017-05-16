@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -34,6 +36,10 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
     Button cancelButton;
     @Bind(R.id.nextButton)
     Button nextButton;
+    @Bind(R.id.slideImageLayout)
+    FrameLayout slideImageLayout;
+    @Bind(R.id.buttonLayout)
+    LinearLayout buttonLayout;
     private TutorialModel tutorialModel;
     private int index = 0;
     private int size;
@@ -49,7 +55,7 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof TutorialNavigationListener ) {
+        if (context instanceof TutorialNavigationListener) {
             tutorialNavigationListener = (TutorialNavigationListener) context;
         }
     }
@@ -69,19 +75,17 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
         titleTextView.setText("Step : " + index);
         subTitleTextView.setText(tutorialModel.getStepDescription());
         slideImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.splash_logo));
-        if( index == 1 ) {
+        if (index == 1) {
             cancelButton.setVisibility(View.GONE);
             nextButton.setVisibility(View.VISIBLE);
             nextButton.setText("Next");
             cancelButton.setText("Cancel");
-        }
-        else if( index > 1 && index < size ) {
+        } else if (index > 1 && index < size) {
             cancelButton.setVisibility(View.VISIBLE);
             nextButton.setVisibility(View.VISIBLE);
             nextButton.setText("Next");
             cancelButton.setText("Prev");
-        }
-        else if( index == size ) {
+        } else if (index == size) {
             cancelButton.setVisibility(View.VISIBLE);
             nextButton.setVisibility(View.VISIBLE);
             nextButton.setText("Done");
@@ -89,6 +93,12 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
         }
         nextButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        if (tutorialModel.getStepImageUrl().trim().length() == 0) {
+            slideImageLayout.setVisibility(View.GONE);
+        }
+        else {
+            slideImageLayout.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -102,14 +112,14 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         Button button = (Button) v;
         String buttonText = button.getText().toString();
-        switch ( buttonText ) {
-            case "Done" :
+        switch (buttonText) {
+            case "Done":
                 tutorialNavigationListener.onCancelClick();
                 break;
-            case "Prev" :
+            case "Prev":
                 tutorialNavigationListener.onPreviousClick();
                 break;
-            case "Next" :
+            case "Next":
                 tutorialNavigationListener.onNextClick();
                 break;
         }

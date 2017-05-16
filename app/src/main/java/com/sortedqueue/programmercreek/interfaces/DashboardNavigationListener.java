@@ -10,5 +10,5 @@ public interface DashboardNavigationListener {
     void calculateReputation();
     void showInviteDialog();
     void importFromFile();
-    void readCodeFile();
+    void importCodeFile();
 }

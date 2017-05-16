@@ -311,7 +311,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 startActivity(searchIntent);*/
                 break;
             case R.id.addCodeTextView :
-                dashboardNavigationListener.readCodeFile();
+                dashboardNavigationListener.importCodeFile();
                 break;
         }
 

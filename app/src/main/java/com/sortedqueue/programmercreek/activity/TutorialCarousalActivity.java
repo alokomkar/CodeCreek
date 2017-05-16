@@ -37,13 +37,15 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
         ButterKnife.bind(this);
 
         tutorialModels = new ArrayList<>();
-        TutorialModel tutorialModel = new TutorialModel("Download the file on your mobile.", "");
+        TutorialModel tutorialModel = new TutorialModel("Add code and gain reputation 15xp for every code added\n\n 5xp for every like you get", "");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Copy the file on your system.", "");
+        tutorialModel = new TutorialModel("Download the file on your mobile.", "");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Modify file template by replacing it with your content", "");
+        tutorialModel = new TutorialModel("Copy the file on your system via USB cable\n\nEnsure your mobile is in storage mode to access the file", "");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Copy file back to your mobile", "");
+        tutorialModel = new TutorialModel("Modify file template by replacing it with your content\n\nYou can do this on your system, replace the relevant sections with your code, explanation", "");
+        tutorialModels.add(tutorialModel);
+        tutorialModel = new TutorialModel("Copy file back to your mobile\n\nOnce again ensure your mobile is in storage mode to access the file", "");
         tutorialModels.add(tutorialModel);
         tutorialModel = new TutorialModel("Preview and save your program for your use later", "");
         tutorialModels.add(tutorialModel);

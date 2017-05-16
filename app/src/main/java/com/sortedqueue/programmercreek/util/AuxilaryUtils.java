@@ -384,7 +384,7 @@ public class AuxilaryUtils {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
-                        userProgramDialogListener.onSave();
+                        userProgramDialogListener.onSave("");
                     }
                 })
                 .setNegativeButton("Preview", new DialogInterface.OnClickListener() {

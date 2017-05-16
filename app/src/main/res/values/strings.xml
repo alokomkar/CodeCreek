@@ -237,7 +237,7 @@
     <string name="hint_presentation_description">Presentation Description</string>
     <string name="required_field">Required Field</string>
     <string name="add_ppt">Add Presentation</string>
-    <string name="add_code_description">Now you can add your own program to the app.\n\nYou\'ll be downloading a file, which you can use to add code to the app. It\'ll be available for your with all the tests, quiz modes. Replace the sample code in downloaded file with your code and upload it.</string>
+    <string name="add_code_description">Replace the sample code in downloaded file with your code and upload it, the easiest way is to copy the file to your system and edit it.</string>
     <string name="loading_program">Loading Program...</string>
     <string name="code">Code</string>
     <string name="preview">Preview</string>
@@ -246,4 +246,5 @@
     <string name="next">Next</string>
     <string name="download_file">Download File</string>
     <string name="import_code">Import Code</string>
+    <string name="public_string">Public</string>
 </resources>

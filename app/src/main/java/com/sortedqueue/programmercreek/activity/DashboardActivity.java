@@ -48,6 +48,7 @@ import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
 import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
@@ -111,6 +112,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private int REQUEST_CODE_SEARCH = 1000;
     private android.app.AlertDialog alertDialog;
     private int REQUEST_DOWNLOAD_FILE = 101;
+    private int REQUEST_DOWNLOAD_FILE_PERMISSION = 1234;
+    private int REQUEST_IMPORT_FILE_PERMISSION = 1334;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -421,50 +424,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
                         new String[]{
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE})) {
-                    CommonUtils.displayProgressDialog(DashboardActivity.this, getString(R.string.downloading_file));
-                    FirebaseStorageHandler.downloadTemplateFile(DashboardActivity.this, new FirebaseStorageHandler.TemplateDownloadListener() {
-                        @Override
-                        public void onSuccess(String filePath) {
-                            CommonUtils.dismissProgressDialog();
-                            AuxilaryUtils.displayInformation(DashboardActivity.this,
-                                    getString(R.string.add_code),
-                                    getString(R.string.add_code_description) +
-                                            "\n\n<program_title>\n" +
-                                            "Hello World\n" +
-                                            "</program_title>\n" +
-                                            "<program_language>\n" +
-                                            "C\n" +
-                                            "</program_language>\n" +
-                                            "<program_explanation>\n" +
-                                            "Include header stdio\n" +
-                                            "Main declaration\n" +
-                                            "Print Hello\n" +
-                                            "Wait for user input\n" +
-                                            "End of program\n" +
-                                            "</program_explanation>\n" +
-                                            "<program>\n" +
-                                            "#include<stdio.h>\n" +
-                                            "void main() {\n" +
-                                            "printf(“Hello”);\n" +
-                                            "getch();\n" +
-                                            "}\n" +
-                                            "</program>" + "\n\nFile is saved to : " + filePath,
-                                    new DialogInterface.OnDismissListener() {
-                                        @Override
-                                        public void onDismiss(DialogInterface dialogInterface) {
-
-                                        }
-                                    });
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            CommonUtils.dismissProgressDialog();
-                            CommonUtils.displayToast(DashboardActivity.this, error);
-                        }
-                    });
-
+                                Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_DOWNLOAD_FILE_PERMISSION)) {
+                    downloadTemplateFile();
                 }
             }
         }
@@ -500,13 +461,66 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void downloadTemplateFile() {
+        CommonUtils.displayProgressDialog(DashboardActivity.this, getString(R.string.downloading_file));
+        FirebaseStorageHandler.downloadTemplateFile(DashboardActivity.this, new FirebaseStorageHandler.TemplateDownloadListener() {
+            @Override
+            public void onSuccess(String filePath) {
+                CommonUtils.dismissProgressDialog();
+                AuxilaryUtils.displayInformation(DashboardActivity.this,
+                        getString(R.string.add_code),
+                        getString(R.string.add_code_description) +
+                                "\n\nTemplate file :\n\n<program_title>\n" +
+                                "Hello World\n" +
+                                "</program_title>\n" +
+                                "<program_language>\n" +
+                                "C\n" +
+                                "</program_language>\n" +
+                                "<program_explanation>\n" +
+                                "Include header stdio\n" +
+                                "Main declaration\n" +
+                                "Print Hello\n" +
+                                "Wait for user input\n" +
+                                "End of program\n" +
+                                "</program_explanation>\n" +
+                                "<program>\n" +
+                                "#include<stdio.h>\n" +
+                                "void main() {\n" +
+                                "printf(“Hello”);\n" +
+                                "getch();\n" +
+                                "}\n" +
+                                "</program>" + "\n\nFile is saved to : " + filePath,
+                        new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.dismissProgressDialog();
+                CommonUtils.displayToast(DashboardActivity.this, error);
+            }
+        });
+    }
+
     @Override
-    public void readCodeFile() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("text/plain");
-        startActivityForResult(Intent.createChooser(intent,
-                "Load file from directory"), REQUEST_CODE_SEARCH);
+    public void importCodeFile() {
+        if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
+                new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMPORT_FILE_PERMISSION)) {
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("text/plain");
+            startActivityForResult(Intent.createChooser(intent,
+                    "Load file from directory"), REQUEST_CODE_SEARCH);
+
+        }
+
     }
 
     @Override
@@ -641,7 +655,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
+        if ( requestCode == REQUEST_DOWNLOAD_FILE_PERMISSION ) {
             if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
                 importFromFile();
             } else {
@@ -649,7 +663,18 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                     Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();
                 }
             }
-        } else {
+        }
+        else if( requestCode == REQUEST_IMPORT_FILE_PERMISSION ) {
+            if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
+                importCodeFile();
+            } else {
+                if ( permissions.length == 3 ) {
+                    Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+        else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
@@ -713,8 +738,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             new UserProgramDialog(DashboardActivity.this, programIndex, programTables, new UserProgramDialog.UserProgramDialogListener() {
                 @Override
-                public void onSave() {
+                public void onSave(String accessSpecifier) {
+
                     CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
+                    FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
+                    firebaseDatabaseHandler.updateCodeCount();
+                    firebaseDatabaseHandler.writeUserProgramDetails(new UserProgramDetails());
+
                 }
 
                 @Override
