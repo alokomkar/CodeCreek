@@ -18,8 +18,8 @@ public class UserProgramDetails {
     private ProgramIndex programIndex;
     private ArrayList<ProgramTable> programTables;
     private ArrayList<String> likesList;
-    private int likes;
-    private int views;
+    private int likes = 0;
+    private int views = 0;
     private String preview;
 
     public UserProgramDetails() {
@@ -65,6 +65,9 @@ public class UserProgramDetails {
     }
 
     public ArrayList<String> getLikesList() {
+        if( likesList == null ) {
+            likesList = new ArrayList<>();
+        }
         return likesList;
     }
 
@@ -73,6 +76,10 @@ public class UserProgramDetails {
     }
 
     public int getLikes() {
+        if( likesList == null ) {
+            likesList = getLikesList();
+        }
+        likes = likesList.size();
         return likes;
     }
 
@@ -140,4 +147,28 @@ public class UserProgramDetails {
         }
         return preview;
     }
+
+    private boolean isLiked;
+    public boolean isLiked(String userEmail) {
+        if( likesList == null ) {
+            likesList = getLikesList();
+        }
+        isLiked = likesList.contains(userEmail);
+        return isLiked;
+    }
+
+    public void setLiked( boolean isLiked, String userEmail ) {
+        this.isLiked = isLiked;
+        if( likesList == null ) {
+            likesList = getLikesList();
+        }
+        if( !isLiked ) {
+            likesList.remove( userEmail );
+        }
+        else {
+            if( !likesList.contains(userEmail) )
+            likesList.add(userEmail);
+        }
+    }
+
 }

@@ -14,7 +14,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
 import com.sortedqueue.programmercreek.activity.ProgramActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
-import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.UserProgramRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
@@ -29,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 16/05/17.
  */
 
-public class UserProgramsFragment extends Fragment implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner, FirebaseDatabaseHandler.GetAllUserProgramsListener {
+public class UserProgramsFragment extends Fragment implements View.OnClickListener, UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener {
 
     private static UserProgramsFragment instance;
     @Bind(R.id.userProgramsRecyclerView)
@@ -107,16 +106,29 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onItemClick(int position) {
-        UserProgramDetails presentationModel = adapter.getItemAtPosition(position);
+
+        UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
+        userProgramDetails.setViews(userProgramDetails.getViews() + 1);
+        adapter.notifyDataSetChanged();
+
+        new FirebaseDatabaseHandler(getContext()).updateViewCount(userProgramDetails);
         Bundle newIntentBundle = new Bundle();
         Intent newIntent = null;
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, presentationModel.getProgramIndex());
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, userProgramDetails.getProgramIndex());
         newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
-        newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, presentationModel.getProgramIndex().getProgram_Description());
-        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, presentationModel.getProgramTables());
+        newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, userProgramDetails.getProgramIndex().getProgram_Description());
+        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, userProgramDetails.getProgramTables());
         newIntent = new Intent(getContext(), ProgramActivity.class);
         newIntent.putExtras(newIntentBundle);
         startActivity(newIntent);
+
+    }
+
+    @Override
+    public void onLikeClicked(boolean isLiked, int position) {
+        UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
+        new FirebaseDatabaseHandler(getContext()).updateLikes(isLiked, userProgramDetails);
+        adapter.notifyDataSetChanged();
     }
 }

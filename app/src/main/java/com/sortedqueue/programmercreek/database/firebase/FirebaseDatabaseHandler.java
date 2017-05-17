@@ -1372,8 +1372,65 @@ public class FirebaseDatabaseHandler {
     public void writeUserProgramDetails(UserProgramDetails userProgramDetails) {
         getUserProgramDatabase();
         String programId = mUserProgramDatabase.push().getKey();
+        userProgramDetails.setProgramId(programId);
         userProgramDetails.getProgramIndex().setUserProgramId(programId);
         mUserProgramDatabase.child( programId ).setValue(userProgramDetails);
+    }
+
+    public void updateViewCount(UserProgramDetails userProgramDetails) {
+        getUserProgramDatabase();
+        mUserProgramDatabase.child( userProgramDetails.getProgramId() )
+                .runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData currentData) {
+
+                        UserProgramDetails programDetails = currentData.getValue(UserProgramDetails.class);
+                        if( programDetails != null ) {
+                            programDetails.setViews(programDetails.getViews() + 1);
+                            currentData.setValue(programDetails);
+                        }
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    }
+                });
+
+    }
+
+    public void updateLikes(final boolean isLiked, final UserProgramDetails userProgramDetails) {
+        getUserProgramDatabase();
+        mUserProgramDatabase.child( userProgramDetails.getProgramId() )
+                .runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData currentData) {
+
+                        UserProgramDetails programDetails = currentData.getValue(UserProgramDetails.class);
+                        if( programDetails != null ) {
+                            if( isLiked ) {
+                                String userAccount = creekPreferences.getSignInAccount();
+                                if( !programDetails.getLikesList().contains(userAccount) ) {
+                                    programDetails.getLikesList().add(creekPreferences.getSignInAccount());
+                                    programDetails.setLikes( programDetails.getLikes() + 1 );
+                                }
+                            }
+                            else {
+                                programDetails.getLikesList().remove(creekPreferences.getSignInAccount());
+                                programDetails.setLikes( programDetails.getLikes() - 1 );
+                            }
+                            currentData.setValue(programDetails);
+                        }
+                        return Transaction.success(currentData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    }
+                });
+
     }
 
     public interface ProgramWikiInterface {
