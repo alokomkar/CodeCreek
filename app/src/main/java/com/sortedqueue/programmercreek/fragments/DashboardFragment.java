@@ -306,6 +306,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
             case R.id.downloadFileTextView:
                 dashboardNavigationListener.importFromFile();
+                //dashboardNavigationListener.onProgressStatsUpdate(50);
                 /*Intent searchIntent =
                 new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);*/

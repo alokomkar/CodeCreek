@@ -11,4 +11,5 @@ public interface DashboardNavigationListener {
     void showInviteDialog();
     void importFromFile();
     void importCodeFile();
+    void onProgressStatsUpdate(int points);
 }

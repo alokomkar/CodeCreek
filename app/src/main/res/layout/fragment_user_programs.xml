@@ -9,8 +9,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:orientation="horizontal"
+        android:id="@+id/programsRadioGroup"
+        android:weightSum="2">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textAlignment="center"
+            android:layout_marginRight="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:text="All Programs"
+            android:id="@+id/allProgramsRadioButton"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="My Programs"
+            android:button="@null"
+            android:checked="true"
+            android:layout_marginRight="8dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:id="@+id/myProgramsRadioButton"/>
 
+    </RadioGroup>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/programsRadioGroup"
+        android:id="@+id/swipeRefreshLayout">
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,20 +62,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg">
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:background="@color/bg"
+                    android:paddingTop="@dimen/margin_8"
+                    android:paddingBottom="@dimen/margin_16"
+                    android:id="@+id/userProgramsRecyclerView"
+                    >
+                </android.support.v7.widget.RecyclerView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    tools:visibility="gone"
+                    android:id="@+id/noProgramsLayout"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_16"
+                    android:background="@drawable/button_grey"
+                    android:layout_margin="@dimen/margin_32">
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:nestedScrollingEnabled="false"
-                android:background="@color/bg"
-                android:paddingTop="@dimen/margin_8"
-                android:paddingBottom="@dimen/margin_16"
-                android:id="@+id/userProgramsRecyclerView"
-                >
-            </android.support.v7.widget.RecyclerView>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_code"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/no_programs_yet"/>
 
+                </LinearLayout>
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

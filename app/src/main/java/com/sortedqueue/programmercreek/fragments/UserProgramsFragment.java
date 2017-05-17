@@ -3,11 +3,15 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
@@ -33,9 +37,16 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     private static UserProgramsFragment instance;
     @Bind(R.id.userProgramsRecyclerView)
     RecyclerView userProgramsRecyclerView;
-    /*@Bind(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;*/
+    @Bind(R.id.allProgramsRadioButton)
+    RadioButton allProgramsRadioButton;
+    @Bind(R.id.myProgramsRadioButton)
+    RadioButton myProgramsRadioButton;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.noProgramsLayout)
+    LinearLayout noProgramsLayout;
     private UserProgramRecyclerAdapter adapter;
+    private String accessSpecifier;
 
 
     public static UserProgramsFragment getInstance() {
@@ -51,7 +62,10 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_programs, container, false);
         ButterKnife.bind(this, view);
-        /*swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+        allProgramsRadioButton.setChecked(true);
+        allProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
+        myProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -62,24 +76,45 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                fetchUserPrograms();
+                fetchUserPrograms(accessSpecifier);
             }
-        });*/
-        fetchUserPrograms();
+        });
+        fetchUserPrograms("All programs");
         return view;
     }
 
-    private void fetchUserPrograms() {
-        //swipeRefreshLayout.setRefreshing(true);
-        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(this);
+
+    private CompoundButton.OnCheckedChangeListener checkChangedListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            switch (buttonView.getId()) {
+                case R.id.allProgramsRadioButton:
+                    if (allProgramsRadioButton.isChecked()) {
+                        fetchUserPrograms("All Programs");
+                    }
+                    break;
+                case R.id.myProgramsRadioButton:
+                    if (myProgramsRadioButton.isChecked()) {
+                        fetchUserPrograms("My Programs");
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void fetchUserPrograms(String accessSpecifier) {
+        this.accessSpecifier = accessSpecifier;
+        swipeRefreshLayout.setRefreshing(true);
+        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(accessSpecifier, this);
     }
 
     private void setupRecyclerView(ArrayList<UserProgramDetails> presentationModelArrayList) {
-        //userProgramsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         userProgramsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserProgramRecyclerAdapter(getContext(), presentationModelArrayList, this);
         userProgramsRecyclerView.setAdapter(adapter);
-        //swipeRefreshLayout.setRefreshing(false);
+        noProgramsLayout.setVisibility(View.GONE);
+        userProgramsRecyclerView.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -101,7 +136,9 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onError(DatabaseError databaseError) {
-        //swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
+        noProgramsLayout.setVisibility(View.VISIBLE);
+        userProgramsRecyclerView.setVisibility(View.GONE);
     }
 
     @Override

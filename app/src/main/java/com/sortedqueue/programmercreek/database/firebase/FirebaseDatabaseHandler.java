@@ -254,9 +254,17 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
 
-    public void getAllUserPrograms(final GetAllUserProgramsListener getAllUserProgramsListener) {
+    public void getAllUserPrograms(String accessSpecifier, final GetAllUserProgramsListener getAllUserProgramsListener) {
         getUserProgramDatabase();
-        mUserProgramDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query;
+        if( accessSpecifier.equals("My Programs") ) {
+            query = mUserProgramDatabase.getRef().orderByChild("emailId").equalTo(creekPreferences.getSignInAccount());
+        }
+        else {
+            query = mUserProgramDatabase;
+        }
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<UserProgramDetails> userProgramDetailsArrayList = new ArrayList<UserProgramDetails>();

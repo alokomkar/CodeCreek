@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -20,8 +22,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,6 +107,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     LinearLayout fabLayout;
     @Bind(R.id.main_content)
     RelativeLayout mainContent;
+    @Bind(R.id.reputationProgressBar)
+    ProgressBar reputationProgressBar;
+    @Bind(R.id.reputationTextView)
+    TextView reputationTextView;
+    @Bind(R.id.progressLayout)
+    LinearLayout progressLayout;
 
 
     private String TAG = getClass().getSimpleName();
@@ -110,11 +120,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private GoogleApiClient mGoogleApiClient;
     private int REQUEST_INVITE = 9999;
     private int REQUEST_CODE_SEARCH = 1000;
-    private android.app.AlertDialog alertDialog;
+    private AlertDialog alertDialog;
     private int REQUEST_DOWNLOAD_FILE = 101;
     private int REQUEST_DOWNLOAD_FILE_PERMISSION = 1234;
     private int REQUEST_IMPORT_FILE_PERMISSION = 1334;
     private String filepath;
+    private Handler handler;
+    private CreekUserStats creekUserStats;
+    private Runnable runnable;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -196,6 +209,76 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     }
 
+    @Override
+    public void onProgressStatsUpdate(int points) {
+        progressLayout.setVisibility(View.VISIBLE);
+        animateProgress(points);
+    }
+
+    private int progressBarStatus;
+
+    public void animateProgress(final int points) {
+        try {
+            if (reputationProgressBar != null) {
+
+                if (handler == null) {
+                    handler = new Handler();
+                }
+                if (creekPreferences == null) {
+                    creekPreferences = CreekApplication.getCreekPreferences();
+                }
+                creekUserStats = creekPreferences.getCreekUserStats();
+                if (creekUserStats == null) {
+                    reputationProgressBar.setVisibility(View.GONE);
+                    reputationTextView.setVisibility(View.GONE);
+                    progressLayout.setVisibility(View.GONE);
+                    return;
+                }
+                final int progress = creekUserStats.getCreekUserReputation() % 100;
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
+
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if( reputationProgressBar != null ) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete");
+                                        int level = creekUserStats.getCreekUserReputation() / 100;
+                                        if (level > 0) {
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete : Level : " + level);
+                                        }
+                                    }
+                                }
+                            });
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
+                            }
+                        }
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressLayout.setVisibility(View.GONE);
+                            }
+                        }, 1500);
+
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            if( progressLayout != null ) {
+                progressLayout.setVisibility(View.GONE);
+            }
+        }
+
+    }
 
     private void calculateUserRankings() {
         new FirebaseDatabaseHandler(DashboardActivity.this).getAllCreekUserStatsInBackground();
@@ -421,8 +504,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
-        if( requestCode == REQUEST_DOWNLOAD_FILE ) {
-            if( resultCode == RESULT_OK ) {
+        if (requestCode == REQUEST_DOWNLOAD_FILE) {
+            if (resultCode == RESULT_OK) {
                 if (PermissionUtils.checkSelfPermission(DashboardActivity.this,
                         new String[]{
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -430,8 +513,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                     downloadTemplateFile();
                 }
             }
-        }
-        else if (requestCode == REQUEST_INVITE) {
+        } else if (requestCode == REQUEST_INVITE) {
             if (resultCode == RESULT_OK) {
                 // Get the invitation IDs of all sent messages
                 String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
@@ -444,8 +526,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
             }
-        }
-        else if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
             Uri uri = data.getData();
             if (uri != null) {
 
@@ -453,16 +534,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 filepath = FileUtils.getPath(DashboardActivity.this, uri);
                 Log.d(TAG, "File path : " + filepath);
 
-                if( filepath != null ) {
+                if (filepath != null) {
                     String fileMd5 = FileUtils.calculateMD5(new File(filepath));
-                    if( creekPreferences.getCreekUserStats().getUserAddedPrograms().contains(fileMd5) ) {
+                    if (creekPreferences.getCreekUserStats().getUserAddedPrograms().contains(fileMd5)) {
                         CommonUtils.displayToast(DashboardActivity.this, "File already uploaded");
-                    }
-                    else
+                    } else
                         new FirebaseDatabaseHandler(DashboardActivity.this).readProgramFromFile(filepath, this);
-                }
-
-                else
+                } else
                     CommonUtils.displayToast(DashboardActivity.this, "Unable to open file");
             } else {
             }
@@ -645,16 +723,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ) {
-            case R.id.createPresentationFAB :
+        switch (view.getId()) {
+            case R.id.createPresentationFAB:
                 animateFab();
                 break;
-            case R.id.addPptTextView :
+            case R.id.addPptTextView:
                 Intent intent = new Intent(DashboardActivity.this, CreatePresentationActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.addCodeFAB :
-            case R.id.addCodeTextView :
+            case R.id.addCodeFAB:
+            case R.id.addCodeTextView:
                 importFromFile();
                 animateFab();
                 break;
@@ -665,46 +743,45 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if ( requestCode == REQUEST_DOWNLOAD_FILE_PERMISSION ) {
+        if (requestCode == REQUEST_DOWNLOAD_FILE_PERMISSION) {
             if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
                 importFromFile();
             } else {
-                if ( permissions.length == 3 ) {
+                if (permissions.length == 3) {
                     Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-        else if( requestCode == REQUEST_IMPORT_FILE_PERMISSION ) {
+        } else if (requestCode == REQUEST_IMPORT_FILE_PERMISSION) {
             if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
                 importCodeFile();
             } else {
-                if ( permissions.length == 3 ) {
+                if (permissions.length == 3) {
                     Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();
                 }
             }
 
-        }
-        else {
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
     @Override
     public void importFromFile() {
-        Intent intent = new Intent( DashboardActivity.this, TutorialCarousalActivity.class );
+        Intent intent = new Intent(DashboardActivity.this, TutorialCarousalActivity.class);
         startActivityForResult(intent, REQUEST_DOWNLOAD_FILE);
     }
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private boolean isFABOpen;
+
     private void animateFab() {
-        if( fab_open == null ) {
-            fab_open = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-            fab_close = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-            rotate_forward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
-            rotate_backward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+        if (fab_open == null) {
+            fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+            fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+            rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+            rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
         }
-        if( isFABOpen ) {
+        if (isFABOpen) {
             isFABOpen = false;
             createPresentationFAB.startAnimation(rotate_backward);
             fab_close.setAnimationListener(new Animation.AnimationListener() {
@@ -728,8 +805,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             addCodeTextView.startAnimation(fab_close);
             addPptTextView.startAnimation(fab_close);
             addCodeFAB.startAnimation(fab_close);
-        }
-        else {
+        } else {
             isFABOpen = true;
             createPresentationFAB.startAnimation(rotate_forward);
             addCodeTextView.setVisibility(View.INVISIBLE);
@@ -744,7 +820,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void onSuccess(final ProgramIndex programIndex, final ArrayList<ProgramTable> programTables) {
 
-        if( programIndex != null && programTables.size() > 0 ) {
+        if (programIndex != null && programTables.size() > 0) {
 
             new UserProgramDialog(DashboardActivity.this, programIndex, programTables, new UserProgramDialog.UserProgramDialogListener() {
                 @Override
@@ -756,7 +832,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
                     UserProgramDetails userProgramDetails = new UserProgramDetails();
                     userProgramDetails.setAccessSpecifier(accessSpecifier);
-                    if( filepath != null )
+                    if (filepath != null)
                         userProgramDetails.setMd5(FileUtils.calculateMD5(new File(filepath)));
                     userProgramDetails.setEmailId(creekPreferences.getSignInAccount());
                     userProgramDetails.setLikes(0);
@@ -767,12 +843,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                     userProgramDetails.setProgramLanguage(programIndex.getProgram_Language());
                     userProgramDetails.setProgramTitle(programIndex.getProgram_Description().toLowerCase());
 
-                    if( creekPreferences.addUserFile(userProgramDetails.getMd5()) ) {
+                    if (creekPreferences.addUserFile(userProgramDetails.getMd5())) {
                         firebaseDatabaseHandler.writeUserProgramDetails(userProgramDetails);
-                    }
-                    else {
+                    } else {
                         CommonUtils.displayToast(DashboardActivity.this, "File already added");
                     }
+                    onProgressStatsUpdate(CreekUserStats.CHAPTER_SCORE);
 
                 }
 

@@ -249,4 +249,5 @@
     <string name="public_string">Public</string>
     <string name="likes">34 Likes</string>
     <string name="views">45 Views</string>
+    <string name="no_programs_yet">No programs added yet</string>
 </resources>

@@ -933,7 +933,7 @@ public class CreekPreferences {
         CreekUserStats creekUserStats = getCreekUserStats();
         if( creekUserStats != null ) {
             if( creekUserStats.addToUserAddedPrograms(md5) ) {
-                saveCreekUserStats(creekUserStats);
+                new FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats);
                 return true;
             }
             else {
