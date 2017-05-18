@@ -1,7 +1,9 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +17,13 @@ import android.widget.RadioButton;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.CreatePresentationActivity;
 import com.sortedqueue.programmercreek.activity.ProgramActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.UserProgramRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 
 import java.util.ArrayList;
 
@@ -45,8 +47,11 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.noProgramsLayout)
     LinearLayout noProgramsLayout;
+    @Bind(R.id.addCodeFAB)
+    FloatingActionButton addCodeFAB;
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
+    private DashboardNavigationListener dashboardNavigationListener;
 
 
     public static UserProgramsFragment getInstance() {
@@ -80,6 +85,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             }
         });
         fetchUserPrograms("All programs");
+        addCodeFAB.setOnClickListener(this);
         return view;
     }
 
@@ -125,8 +131,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getContext(), CreatePresentationActivity.class);
-        startActivity(intent);
+        dashboardNavigationListener.importCodeFile();
     }
 
     @Override
@@ -167,5 +172,19 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
         new FirebaseDatabaseHandler(getContext()).updateLikes(isLiked, userProgramDetails);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof DashboardNavigationListener ) {
+            dashboardNavigationListener = (DashboardNavigationListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        dashboardNavigationListener = null;
     }
 }

@@ -46,6 +46,19 @@
 
     </RadioGroup>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addCodeFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:backgroundTint="@color/md_green_400"
+        app:pressedTranslationZ="12dp"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

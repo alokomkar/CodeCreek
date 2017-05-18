@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.TutorialModel;
 import com.sortedqueue.programmercreek.interfaces.TutorialNavigationListener;
@@ -98,6 +99,13 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
         }
         else {
             slideImageLayout.setVisibility(View.VISIBLE);
+            Glide.with(getContext())
+                    .load(tutorialModel.getStepImageUrl())
+                    .asBitmap()
+                    .fitCenter()
+                    .error(R.color.md_blue_600)
+                    .placeholder(R.color.md_blue_600)
+                    .into(slideImageView);
         }
         return view;
     }

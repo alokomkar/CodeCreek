@@ -188,7 +188,7 @@
             android:background="@color/transparent_black"
             android:id="@+id/reputationTextView"
             android:gravity="left"
-            tools:text="You've gained 30xp\n45% Complete : Level 10"/>
+            tools:text="You've gained 15xp\n45% Complete : Level 10"/>
     </LinearLayout>
 
 
