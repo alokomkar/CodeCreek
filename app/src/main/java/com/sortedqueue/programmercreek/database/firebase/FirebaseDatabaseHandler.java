@@ -311,22 +311,56 @@ public class FirebaseDatabaseHandler {
         if( accessSpecifier.equals("My Programs") ) {
             query = mUserProgramDatabase.getRef().orderByChild("emailId").equalTo(creekPreferences.getSignInAccount());
         }
+        else if( accessSpecifier.equals("Favorites")) {
+            getAllFavoritePrograms( getAllUserProgramsListener );
+            query = null;
+        }
         else {
             query = mUserProgramDatabase;
         }
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<UserProgramDetails> userProgramDetailsArrayList = new ArrayList<UserProgramDetails>();
+        if( query != null ) {
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<UserProgramDetails> userProgramDetailsArrayList = new ArrayList<UserProgramDetails>();
 
-                for( DataSnapshot userProgramSnap : dataSnapshot.getChildren() ) {
-                    UserProgramDetails userProgramDetails = userProgramSnap.getValue(UserProgramDetails.class);
-                    if( userProgramDetails != null ) {
-                        userProgramDetailsArrayList.add(userProgramDetails);
+                    for( DataSnapshot userProgramSnap : dataSnapshot.getChildren() ) {
+                        UserProgramDetails userProgramDetails = userProgramSnap.getValue(UserProgramDetails.class);
+                        if( userProgramDetails != null ) {
+                            userProgramDetailsArrayList.add(userProgramDetails);
+                        }
                     }
+                    if( userProgramDetailsArrayList.size() > 0 ) {
+                        getAllUserProgramsListener.onSuccess(userProgramDetailsArrayList);
+                    }
+                    else {
+                        getAllUserProgramsListener.onError(null);
+                    }
+
                 }
-                if( userProgramDetailsArrayList.size() > 0 ) {
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getAllUserProgramsListener.onError(databaseError);
+                }
+            });
+        }
+
+    }
+
+    private void getAllFavoritePrograms(final GetAllUserProgramsListener getAllUserProgramsListener) {
+        new AsyncTask<Void, Void, ArrayList<UserProgramDetails>>() {
+
+            @Override
+            protected ArrayList<UserProgramDetails> doInBackground(Void... voids) {
+                return new ArrayList<>(new RushSearch().find(UserProgramDetails.class));
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<UserProgramDetails> userProgramDetailsArrayList) {
+                super.onPostExecute(userProgramDetailsArrayList);
+                if( userProgramDetailsArrayList != null && userProgramDetailsArrayList.size() > 0 ) {
                     getAllUserProgramsListener.onSuccess(userProgramDetailsArrayList);
                 }
                 else {
@@ -334,12 +368,7 @@ public class FirebaseDatabaseHandler {
                 }
 
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getAllUserProgramsListener.onError(databaseError);
-            }
-        });
+        }.execute();
     }
 
     public interface ConfirmUserProgram {

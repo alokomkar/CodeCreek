@@ -1,12 +1,18 @@
 package com.sortedqueue.programmercreek.database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
+
+import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
  * Created by binay on 05/12/16.
  */
-
-public class UserProgramDetails {
+@RushTableAnnotation
+public class UserProgramDetails extends RushObject implements Parcelable {
 
     private String emailId;
     private String programLanguage;
@@ -183,4 +189,55 @@ public class UserProgramDetails {
         return shareString + "\nExplanation : \n" + explanationString;
 
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.emailId);
+        dest.writeString(this.programLanguage);
+        dest.writeString(this.programId);
+        dest.writeString(this.accessSpecifier);
+        dest.writeString(this.md5);
+        dest.writeString(this.programTitle);
+        dest.writeParcelable(this.programIndex, flags);
+        dest.writeTypedList(this.programTables);
+        dest.writeStringList(this.likesList);
+        dest.writeInt(this.likes);
+        dest.writeInt(this.views);
+        dest.writeString(this.preview);
+        dest.writeByte(this.isLiked ? (byte) 1 : (byte) 0);
+    }
+
+    protected UserProgramDetails(Parcel in) {
+        this.emailId = in.readString();
+        this.programLanguage = in.readString();
+        this.programId = in.readString();
+        this.accessSpecifier = in.readString();
+        this.md5 = in.readString();
+        this.programTitle = in.readString();
+        this.programIndex = in.readParcelable(ProgramIndex.class.getClassLoader());
+        this.programTables = in.createTypedArrayList(ProgramTable.CREATOR);
+        this.likesList = in.createStringArrayList();
+        this.likes = in.readInt();
+        this.views = in.readInt();
+        this.preview = in.readString();
+        this.isLiked = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<UserProgramDetails> CREATOR = new Parcelable.Creator<UserProgramDetails>() {
+        @Override
+        public UserProgramDetails createFromParcel(Parcel source) {
+            return new UserProgramDetails(source);
+        }
+
+        @Override
+        public UserProgramDetails[] newArray(int size) {
+            return new UserProgramDetails[size];
+        }
+    };
 }

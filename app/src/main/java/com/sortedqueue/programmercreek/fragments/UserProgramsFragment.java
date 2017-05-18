@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,13 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import co.uk.rushorm.core.RushCallback;
+import co.uk.rushorm.core.RushSearch;
+import co.uk.rushorm.core.RushSearchCallback;
 
 /**
  * Created by Alok on 16/05/17.
@@ -42,6 +47,8 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     RadioButton allProgramsRadioButton;
     @Bind(R.id.myProgramsRadioButton)
     RadioButton myProgramsRadioButton;
+    @Bind(R.id.myFavoritesRadioButton)
+    RadioButton myFavoritesRadioButton;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.noProgramsLayout)
@@ -49,6 +56,8 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
     private DashboardNavigationListener dashboardNavigationListener;
+
+    private String TAG = UserProgramsFragment.class.getSimpleName();
 
 
     public static UserProgramsFragment getInstance() {
@@ -67,6 +76,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         allProgramsRadioButton.setChecked(true);
         allProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
         myProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
+        myFavoritesRadioButton.setOnCheckedChangeListener(checkChangedListener);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -98,6 +108,11 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 case R.id.myProgramsRadioButton:
                     if (myProgramsRadioButton.isChecked()) {
                         fetchUserPrograms("My Programs");
+                    }
+                    break;
+                case R.id.myFavoritesRadioButton :
+                    if( myFavoritesRadioButton.isChecked() ) {
+                        fetchUserPrograms("Favorites");
                     }
                     break;
             }
@@ -165,7 +180,30 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onLikeClicked(boolean isLiked, int position) {
-        UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
+        final UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
+        if( isLiked ) {
+            userProgramDetails.save(new RushCallback() {
+                @Override
+                public void complete() {
+                    Log.d(TAG, "UserProgramDetails : liked : " + userProgramDetails.getProgramId());
+                }
+            });
+        }
+        else {
+            new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(UserProgramDetails.class, new RushSearchCallback<UserProgramDetails>() {
+                @Override
+                public void complete(List<UserProgramDetails> list) {
+                    for ( UserProgramDetails programDetails : list ) {
+                        programDetails.delete(new RushCallback() {
+                            @Override
+                            public void complete() {
+                                Log.d(TAG, "UserProgramDetails : unliked : " + userProgramDetails.getProgramId());
+                            }
+                        });
+                    }
+                }
+            });
+        }
         new FirebaseDatabaseHandler(getContext()).updateLikes(isLiked, userProgramDetails);
         adapter.notifyDataSetChanged();
     }

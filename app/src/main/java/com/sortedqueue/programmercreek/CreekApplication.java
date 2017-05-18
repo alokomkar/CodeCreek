@@ -27,6 +27,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.ProgramWiki;
 import com.sortedqueue.programmercreek.database.SlideModel;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
+import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
@@ -89,6 +90,7 @@ public class CreekApplication extends Application {
         dbClasses.add(Algorithm.class);
         dbClasses.add(SlideModel.class);
         dbClasses.add(PresentationModel.class);
+        dbClasses.add(UserProgramDetails.class);
 
         AndroidInitializeConfig config = new AndroidInitializeConfig(getApplicationContext());
         config.setClasses(dbClasses) ;

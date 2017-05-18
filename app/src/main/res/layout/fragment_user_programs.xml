@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/margin_8"
         android:orientation="horizontal"
         android:id="@+id/programsRadioGroup"
-        android:weightSum="2">
+        android:weightSum="3">
         <RadioButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,6 +43,21 @@
             android:textColor="@drawable/text_selector"
             android:background="@drawable/offer_radio_button"
             android:id="@+id/myProgramsRadioButton"/>
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Favorites"
+            android:button="@null"
+            android:checked="true"
+            android:layout_marginRight="8dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:id="@+id/myFavoritesRadioButton"/>
 
     </RadioGroup>
 
