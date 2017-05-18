@@ -150,6 +150,18 @@
 
             </LinearLayout>
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addUserCodeFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                android:paddingBottom="@dimen/fab_margin"
+                android:layout_gravity="bottom|right"
+                app:fabSize="normal"
+                app:backgroundTint="@color/md_green_400"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp"
+                android:src="@drawable/ic_add" />
 
 
         </android.support.design.widget.CoordinatorLayout>

@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -60,6 +59,7 @@ import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.retrofit.DownloadHTMLService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
@@ -97,6 +97,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     TextView addCodeTextView;
     @Bind(R.id.addCodeFAB)
     FloatingActionButton addCodeFAB;
+    @Bind(R.id.addUserCodeFAB)
+    FloatingActionButton addUserCodeFAB;
     @Bind(R.id.addCodeLayout)
     LinearLayout addCodeLayout;
     @Bind(R.id.addPptTextView)
@@ -157,11 +159,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         addPptTextView.setVisibility(View.GONE);
         addCodeFAB.setVisibility(View.GONE);
         addCodeTextView.setVisibility(View.GONE);
+        addUserCodeFAB.setVisibility(View.GONE);
         addCodeFAB.setOnClickListener(this);
         addCodeTextView.setOnClickListener(this);
         addPptTextView.setOnClickListener(this);
         addCodeLayout.setOnClickListener(this);
         addPptLayout.setOnClickListener(this);
+        addUserCodeFAB.setOnClickListener(this);
 
         fabLayout.setVisibility(View.GONE);
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
@@ -186,10 +190,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             @Override
             public void onPageSelected(int position) {
-                /*if (position == 3)
-                    AnimationUtils.enterReveal(fabLayout);
+                if (position == 3)
+                    AnimationUtils.enterReveal(addUserCodeFAB);
                 else
-                    AnimationUtils.exitRevealGone(fabLayout);*/
+                    AnimationUtils.exitRevealGone(addUserCodeFAB);
             }
 
             @Override
@@ -736,6 +740,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 importFromFile();
                 animateFab();
                 break;
+            case R.id.addUserCodeFAB :
+                importCodeFile();
+                break;
         }
 
     }
@@ -776,10 +783,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     private void animateFab() {
         if (fab_open == null) {
-            fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-            fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-            rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
-            rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+            fab_open = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+            fab_close = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+            rotate_forward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+            rotate_backward = android.view.animation.AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
         }
         if (isFABOpen) {
             isFABOpen = false;

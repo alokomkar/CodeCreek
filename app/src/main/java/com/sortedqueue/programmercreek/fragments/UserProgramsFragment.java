@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static com.sortedqueue.programmercreek.R.id.addCodeFAB;
+
 /**
  * Created by Alok on 16/05/17.
  */
@@ -47,8 +49,6 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.noProgramsLayout)
     LinearLayout noProgramsLayout;
-    @Bind(R.id.addCodeFAB)
-    FloatingActionButton addCodeFAB;
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
     private DashboardNavigationListener dashboardNavigationListener;
@@ -85,7 +85,6 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             }
         });
         fetchUserPrograms("All programs");
-        addCodeFAB.setOnClickListener(this);
         return view;
     }
 

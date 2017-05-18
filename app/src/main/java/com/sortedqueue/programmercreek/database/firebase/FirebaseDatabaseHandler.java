@@ -69,6 +69,7 @@ public class FirebaseDatabaseHandler {
     private DatabaseReference mProgramLanguageDatabase;
     private DatabaseReference mPresentationDatabase;
     private DatabaseReference mTagDatabase;
+    private DatabaseReference mUserMessageTokenDatabase;
 
     private String PROGRAM_INDEX_CHILD = "program_indexes";
     private String PROGRAM_TABLE_CHILD = "program_tables";
@@ -118,6 +119,12 @@ public class FirebaseDatabaseHandler {
         mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage );
         mProgramDatabase.keepSynced(true);
         return mProgramDatabase;
+    }
+
+    public DatabaseReference getmUserMessageTokenDatabase() {
+        mUserMessageTokenDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_tokens" );
+        mUserMessageTokenDatabase.keepSynced(true);
+        return mUserMessageTokenDatabase;
     }
 
     public DatabaseReference getUserProgramDatabase() {
@@ -248,6 +255,50 @@ public class FirebaseDatabaseHandler {
     private static final String END_PROGRAM_EXPLANATION = "</program_explanation>";
     private static final String START_PROGRAM = "<program>";
     private static final String END_PROGRAM = "</program>";
+
+    private class UserToken {
+        private String token;
+        private String userEmail;
+        private String pushKey;
+
+        public UserToken(String token, String userEmail) {
+            this.token = token;
+            this.userEmail = userEmail;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public String getUserEmail() {
+            return userEmail;
+        }
+
+        public void setUserEmail(String userEmail) {
+            this.userEmail = userEmail;
+        }
+
+        public String getPushKey() {
+            return pushKey;
+        }
+
+        public void setPushKey(String pushKey) {
+            this.pushKey = pushKey;
+        }
+    }
+
+    public void updateMessageToken(String refreshedToken) {
+        getmUserMessageTokenDatabase();
+        UserToken userToken = new UserToken( creekPreferences.getSignInAccount(), refreshedToken );
+        String pushKey = mUserMessageTokenDatabase.push().getKey();
+        userToken.setPushKey(pushKey);
+        mUserProgramDatabase.child(pushKey).setValue(userToken);
+
+    }
 
     public interface GetAllUserProgramsListener {
         void onSuccess( ArrayList<UserProgramDetails> userProgramDetailsArrayList );
