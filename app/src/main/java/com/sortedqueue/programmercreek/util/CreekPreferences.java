@@ -933,6 +933,7 @@ public class CreekPreferences {
         CreekUserStats creekUserStats = getCreekUserStats();
         if( creekUserStats != null ) {
             if( creekUserStats.addToUserAddedPrograms(md5) ) {
+                creekUserStats.calculateReputation();
                 new FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats);
                 return true;
             }

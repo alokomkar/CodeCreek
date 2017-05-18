@@ -37,7 +37,7 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
         ButterKnife.bind(this);
 
         tutorialModels = new ArrayList<>();
-        TutorialModel tutorialModel = new TutorialModel("Add code and gain reputation 15xp for every code added\n\n 5xp for every like you get",
+        TutorialModel tutorialModel = new TutorialModel("Add code and gain reputation 15xp for every code added\n\nPractice other users programs and gain 30xp",
                 "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2Freputation_15.png?alt=media&token=9b3e0d32-5a0c-4788-83cb-28f4b02ca48d");
         tutorialModels.add(tutorialModel);
         tutorialModel = new TutorialModel("Download the file on your mobile.",

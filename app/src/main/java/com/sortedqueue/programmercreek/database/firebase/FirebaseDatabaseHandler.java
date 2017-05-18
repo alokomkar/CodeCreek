@@ -316,6 +316,10 @@ public class FirebaseDatabaseHandler {
                     String programExplanation = "";
                     String program = "";
                     while ((line = br.readLine()) != null) {
+                        if( line.trim().length() == 0 ) {
+                            //blank line
+                            continue;
+                        }
                         
                         if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
                             line = br.readLine();

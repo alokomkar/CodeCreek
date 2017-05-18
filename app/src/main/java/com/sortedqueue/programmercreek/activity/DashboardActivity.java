@@ -826,7 +826,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 @Override
                 public void onSave(String accessSpecifier) {
 
-                    CommonUtils.displaySnackBar(DashboardActivity.this, "TODO");
                     FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(DashboardActivity.this);
                     firebaseDatabaseHandler.updateCodeCount();
 

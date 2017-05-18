@@ -772,7 +772,9 @@ public class CreekUserStats implements Parcelable {
         if( getUnlockedUserAddedPrograms().size() > 1 ) {
             userStats += getUnlockedUserAddedPrograms().size() * PROGRAM_SCORE;
         }
+
         creekUserReputation += userStats;
+        Log.d("UserStats", "Creek User Reputation : " + creekUserReputation );
 
     }
 }
