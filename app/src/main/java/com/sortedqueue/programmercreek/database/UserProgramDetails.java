@@ -171,4 +171,16 @@ public class UserProgramDetails {
         }
     }
 
+    public String getShareString() {
+
+        String shareString = "";
+        String explanationString = "";
+        for( ProgramTable programTable : getProgramTables() ) {
+            shareString += programTable.getProgram_Line() + "\n";
+            explanationString += programTable.getProgram_Line_Description() + "\n";
+        }
+
+        return shareString + "\nExplanation : \n" + explanationString;
+
+    }
 }

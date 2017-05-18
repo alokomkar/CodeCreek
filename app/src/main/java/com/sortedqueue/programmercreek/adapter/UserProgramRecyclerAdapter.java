@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -37,6 +38,7 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
 
     public interface UserProgramClickListener extends CustomProgramRecyclerViewAdapter.AdapterClickListner {
         void onLikeClicked( boolean isLiked, int position );
+        void onShareClicked( int position );
     }
 
     public UserProgramRecyclerAdapter(Context context, ArrayList<UserProgramDetails> modelArrayList, UserProgramClickListener adapterClickListner) {
@@ -88,6 +90,8 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
         TextView viewsTextView;
         @Bind(R.id.likesTextView)
         TextView likesTextView;
+        @Bind(R.id.shareImageView)
+        ImageView shareImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -96,6 +100,7 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
             subTitleTextView.setOnClickListener(this);
             viewsTextView.setOnClickListener(this);
             likesTextView.setOnClickListener(this);
+            shareImageView.setOnClickListener(this);
         }
 
         @Override
@@ -113,6 +118,9 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
                         adapterClickListner.onLikeClicked(true, position);
                     }
 
+                }
+                else if( v.getId() == R.id.shareImageView ) {
+                    adapterClickListner.onShareClicked(position);
                 }
                 else {
                     adapterClickListner.onItemClick(position);

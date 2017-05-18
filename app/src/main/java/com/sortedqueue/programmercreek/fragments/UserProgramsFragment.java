@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,8 +28,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static com.sortedqueue.programmercreek.R.id.addCodeFAB;
 
 /**
  * Created by Alok on 16/05/17.
@@ -171,6 +168,17 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
         new FirebaseDatabaseHandler(getContext()).updateLikes(isLiked, userProgramDetails);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onShareClicked(int position) {
+        UserProgramDetails userProgramDetails = adapter.getItemAtPosition(position);
+        String shareString = userProgramDetails.getShareString();
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareString + "\nCheck out this app : \n" + getString(R.string.app_url));
+        startActivity(Intent.createChooser(shareIntent, "Share Program : " + userProgramDetails.getProgramIndex().getProgram_Description()));
     }
 
     @Override
