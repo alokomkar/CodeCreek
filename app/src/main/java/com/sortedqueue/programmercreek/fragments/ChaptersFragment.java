@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
@@ -32,6 +33,8 @@ public class ChaptersFragment extends Fragment {
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @Bind(R.id.modulesRecyclerView)
     RecyclerView chaptersRecyclerView;
+    @Bind(R.id.exploreProgramsTextView)
+    TextView exploreProgramsTextView;
 
     private ChapterNavigationListener chapterNavigationListener;
     private ArrayList<Chapter> chapters;
@@ -41,8 +44,9 @@ public class ChaptersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_module, container, false);
+        View view = inflater.inflate(R.layout.fragment_chapters, container, false);
         ButterKnife.bind(this, view);
+        exploreProgramsTextView.setVisibility(View.GONE);
         getModules();
         return view;
     }
@@ -50,7 +54,7 @@ public class ChaptersFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof ChapterNavigationListener ) {
+        if (context instanceof ChapterNavigationListener) {
             chapterNavigationListener = (ChapterNavigationListener) context;
         }
     }
@@ -679,18 +683,38 @@ public class ChaptersFragment extends Fragment {
 
     private void setupRecyclerView(ArrayList<Chapter> chapters) {
         this.chapters = chapters;
-        chaptersRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        chaptersRecyclerView.setAdapter( new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        chaptersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        chaptersRecyclerView.setAdapter(new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 Chapter nextChapter = null;
-                if( position + 1 < ChaptersFragment.this.chapters.size() ) {
-                    nextChapter = ChaptersFragment.this.chapters.get( position + 1 );
+                if (position + 1 < ChaptersFragment.this.chapters.size()) {
+                    nextChapter = ChaptersFragment.this.chapters.get(position + 1);
                 }
                 chapterNavigationListener.onChapterSelected(ChaptersFragment.this.chapters.get(position), nextChapter);
             }
         }));
+        chaptersRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if( isLastItemDisplaying( chaptersRecyclerView) ) {
+                    exploreProgramsTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    exploreProgramsTextView.setVisibility(View.GONE);
+                }
+            }
+        });
         CommonUtils.dismissProgressDialog();
+    }
+
+    private boolean isLastItemDisplaying(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() != 0) {
+            int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1)
+                return true;
+        }
+        return false;
     }
 
     @Override
