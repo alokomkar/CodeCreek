@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -46,45 +47,61 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
     @Override
     public void onBindViewHolder(ChapterRecyclerAdapter.ViewHolder holder, int position) {
-        Chapter chapter = chapters.get(position);
-        holder.moduleNameTextView.setText(chapter.getChapterName());
-        holder.moduleDescriptionTextView.setText(chapter.getChapteBrief());
-        boolean isChapterEnabled;
-        int chapterProgress = 0;
+        if( position + 1 > chapters.size() ) {
+            holder.moduleLayout.setVisibility(View.GONE);
+            holder.moduleNameTextView.setVisibility(View.GONE);
+            holder.moduleDescriptionTextView.setText(R.string.navigate_to_program_index);
+            holder.appCompatSeekBar.setVisibility(View.GONE);
+            holder.lockedImageView.setVisibility(View.INVISIBLE);
 
-        switch ( chapter.getProgram_Language() ) {
-            case "c":
-                isChapterEnabled = creekUserStats.getcProgressIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getcProgressIndex();
-                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
-                break;
-            case "cpp":
-            case "c++":
-                isChapterEnabled = creekUserStats.getCppProgressIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getCppProgressIndex();
-                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
-                break;
-            case "java":
-                isChapterEnabled = creekUserStats.getJavaProgressIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getJavaProgressIndex();
-                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
-                break;
-            case "sql":
-                isChapterEnabled = creekUserStats.getSqlProgressIndex() >= chapter.getMinStats();
-                chapterProgress = creekUserStats.getSqlProgressIndex();
-                holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
-                break;
         }
-        holder.lockedImageView.setVisibility(View.INVISIBLE);
-        int maxProgress = chapter.getChapterDetailsArrayList().size();
-        holder.appCompatSeekBar.setMax( maxProgress);
-        chapterProgress = chapterProgress - chapter.getMinStats();
-        if( chapterProgress < 0 ) {
-            chapterProgress = 0;
+        else {
+
+            holder.moduleLayout.setVisibility(View.VISIBLE);
+            holder.moduleNameTextView.setVisibility(View.VISIBLE);
+            holder.appCompatSeekBar.setVisibility(View.VISIBLE);
+
+            Chapter chapter = chapters.get(position);
+            holder.moduleNameTextView.setText(chapter.getChapterName());
+            holder.moduleDescriptionTextView.setText(chapter.getChapteBrief());
+            boolean isChapterEnabled;
+            int chapterProgress = 0;
+
+            switch ( chapter.getProgram_Language() ) {
+                case "c":
+                    isChapterEnabled = creekUserStats.getcProgressIndex() >= chapter.getMinStats();
+                    chapterProgress = creekUserStats.getcProgressIndex();
+                    holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                    break;
+                case "cpp":
+                case "c++":
+                    isChapterEnabled = creekUserStats.getCppProgressIndex() >= chapter.getMinStats();
+                    chapterProgress = creekUserStats.getCppProgressIndex();
+                    holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                    break;
+                case "java":
+                    isChapterEnabled = creekUserStats.getJavaProgressIndex() >= chapter.getMinStats();
+                    chapterProgress = creekUserStats.getJavaProgressIndex();
+                    holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                    break;
+                case "sql":
+                    isChapterEnabled = creekUserStats.getSqlProgressIndex() >= chapter.getMinStats();
+                    chapterProgress = creekUserStats.getSqlProgressIndex();
+                    holder.lockedImageView.setVisibility( isChapterEnabled ? View.INVISIBLE : View.VISIBLE);
+                    break;
+            }
+            holder.lockedImageView.setVisibility(View.INVISIBLE);
+            int maxProgress = chapter.getChapterDetailsArrayList().size();
+            holder.appCompatSeekBar.setMax( maxProgress);
+            chapterProgress = chapterProgress - chapter.getMinStats();
+            if( chapterProgress < 0 ) {
+                chapterProgress = 0;
+            }
+            chapterProgress = chapterProgress <= maxProgress ? chapterProgress : maxProgress;
+            holder.appCompatSeekBar.setProgress( chapterProgress );
+            holder.appCompatSeekBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
+
         }
-        chapterProgress = chapterProgress <= maxProgress ? chapterProgress : maxProgress;
-        holder.appCompatSeekBar.setProgress( chapterProgress );
-        holder.appCompatSeekBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
         startAnimation(holder.itemView, position * 250 );
 
     }
@@ -96,7 +113,7 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
     @Override
     public int getItemCount() {
-        return chapters.size();
+        return chapters.size() + 1;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -110,6 +127,8 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
         ImageView lockedImageView;
         @Bind(R.id.appCompatSeekBar)
         SeekBar appCompatSeekBar;
+        @Bind(R.id.moduleLayout)
+        RelativeLayout moduleLayout;
 
         public ViewHolder(View view) {
             super(view);

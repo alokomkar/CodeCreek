@@ -19,6 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/moduleLayout"
             android:orientation="horizontal">
 
             <ImageView

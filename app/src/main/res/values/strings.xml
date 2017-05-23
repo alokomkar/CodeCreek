@@ -251,4 +251,5 @@
     <string name="views">45 Views</string>
     <string name="no_programs_yet">No programs added yet</string>
     <string name="explore_programs">Explore programs index</string>
+    <string name="navigate_to_program_index">Navigate to Program Index</string>
 </resources>

@@ -15,17 +15,5 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/exploreProgramsTextView"
-        android:layout_alignParentBottom="true"
-        android:background="@color/transparent_black"
-        android:textColor="@color/white"
-        android:padding="@dimen/margin_16"
-        android:textSize="@dimen/text_dashboard_small"
-        android:gravity="center"
-        android:text="@string/explore_programs"/>
-
 
 </RelativeLayout>
