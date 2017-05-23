@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.uk.rushorm.core.RushCallback;
+import co.uk.rushorm.core.RushCore;
 import co.uk.rushorm.core.RushSearch;
 import co.uk.rushorm.core.RushSearchCallback;
 
@@ -127,7 +128,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
 
     private void setupRecyclerView(ArrayList<UserProgramDetails> presentationModelArrayList) {
         userProgramsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new UserProgramRecyclerAdapter(getContext(), presentationModelArrayList, this);
+        adapter = new UserProgramRecyclerAdapter(getContext(), accessSpecifier, presentationModelArrayList, this);
         userProgramsRecyclerView.setAdapter(adapter);
         noProgramsLayout.setVisibility(View.GONE);
         userProgramsRecyclerView.setVisibility(View.VISIBLE);
@@ -186,6 +187,18 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 @Override
                 public void complete() {
                     Log.d(TAG, "UserProgramDetails : liked : " + userProgramDetails.getProgramId());
+                }
+            });
+            userProgramDetails.getProgramIndex().save(new RushCallback() {
+                @Override
+                public void complete() {
+                    Log.d(TAG, "UserProgramDetails : liked : Program Index saved : " + userProgramDetails.getProgramId());
+                }
+            });
+            RushCore.getInstance().save(userProgramDetails.getProgramTables(), new RushCallback() {
+                @Override
+                public void complete() {
+                    Log.d(TAG, "UserProgramDetails : liked : Program Tables saved : " + userProgramDetails.getProgramId());
                 }
             });
         }

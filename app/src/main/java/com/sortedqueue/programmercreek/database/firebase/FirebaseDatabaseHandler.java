@@ -306,6 +306,7 @@ public class FirebaseDatabaseHandler {
     }
 
     public void getAllUserPrograms(String accessSpecifier, final GetAllUserProgramsListener getAllUserProgramsListener) {
+
         getUserProgramDatabase();
         Query query;
         if( accessSpecifier.equals("My Programs") ) {
@@ -328,6 +329,13 @@ public class FirebaseDatabaseHandler {
                     for( DataSnapshot userProgramSnap : dataSnapshot.getChildren() ) {
                         UserProgramDetails userProgramDetails = userProgramSnap.getValue(UserProgramDetails.class);
                         if( userProgramDetails != null ) {
+                            if( userProgramDetails.getProgramTables() != null
+                                    && userProgramDetails.getProgramTables().size() > 0
+                                    && userProgramDetails.getProgramTables().get(0).getUserProgramId() == null ) {
+                                for( ProgramTable programTable : userProgramDetails.getProgramTables() ) {
+                                    programTable.setUserProgramId(userProgramDetails.getProgramId());
+                                }
+                            }
                             userProgramDetailsArrayList.add(userProgramDetails);
                         }
                     }
@@ -354,7 +362,14 @@ public class FirebaseDatabaseHandler {
 
             @Override
             protected ArrayList<UserProgramDetails> doInBackground(Void... voids) {
-                return new ArrayList<>(new RushSearch().find(UserProgramDetails.class));
+
+                ArrayList<UserProgramDetails> userProgramDetailsArrayList = new ArrayList<>(new RushSearch().find(UserProgramDetails.class));
+                for( UserProgramDetails userProgramDetails : userProgramDetailsArrayList ) {
+                    userProgramDetails.setProgramIndex(new RushSearch().whereEqual("userProgramId", userProgramDetails.getProgramId()).findSingle(ProgramIndex.class));
+                    userProgramDetails.setProgramTables(new ArrayList<ProgramTable>(new RushSearch().orderAsc("line_No").whereEqual("userProgramId", userProgramDetails.getProgramId()).find(ProgramTable.class)));
+                }
+
+                return userProgramDetailsArrayList;
             }
 
             @Override
@@ -1465,6 +1480,9 @@ public class FirebaseDatabaseHandler {
         getUserProgramDatabase();
         String programId = mUserProgramDatabase.push().getKey();
         userProgramDetails.setProgramId(programId);
+        for( ProgramTable programTable : userProgramDetails.getProgramTables() ) {
+            programTable.setUserProgramId(programId);
+        }
         userProgramDetails.getProgramIndex().setUserProgramId(programId);
         mUserProgramDatabase.child( programId ).setValue(userProgramDetails);
     }

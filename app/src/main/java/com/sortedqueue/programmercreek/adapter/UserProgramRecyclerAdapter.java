@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgramRecyclerAdapter.ViewHolder> {
 
 
+    private String accessSpecifier;
     private UserProgramClickListener adapterClickListner;
     private ArrayList<UserProgramDetails> userProgramDetailsArrayList;
     private Context context;
@@ -41,8 +43,9 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
         void onShareClicked( int position );
     }
 
-    public UserProgramRecyclerAdapter(Context context, ArrayList<UserProgramDetails> modelArrayList, UserProgramClickListener adapterClickListner) {
+    public UserProgramRecyclerAdapter(Context context, String accessSpecifier, ArrayList<UserProgramDetails> modelArrayList, UserProgramClickListener adapterClickListner) {
         this.userProgramDetailsArrayList = modelArrayList;
+        this.accessSpecifier = accessSpecifier;
         this.context = context;
         this.adapterClickListner = adapterClickListner;
         this.userEmail = CreekApplication.getCreekPreferences().getSignInAccount();
@@ -68,6 +71,7 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
 
         //holder.likesTextView.setCompoundDrawables( userProgramDetails.isLiked( userEmail ) ? likeDrawable : unlikeDrawable, null, null, null);
         holder.likesTextView.setCompoundDrawablesWithIntrinsicBounds( userProgramDetails.isLiked( userEmail ) ? likeDrawable : unlikeDrawable, null, null, null);
+        holder.extrasLayout.setVisibility( accessSpecifier.equals("Favorites") ? View.GONE : View.VISIBLE );
 
     }
 
@@ -92,6 +96,9 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
         TextView likesTextView;
         @Bind(R.id.shareImageView)
         ImageView shareImageView;
+        @Bind(R.id.extrasLayout)
+        LinearLayout extrasLayout;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
