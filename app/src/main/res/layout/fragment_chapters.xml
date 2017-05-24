@@ -9,8 +9,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/margin_16"
-        android:layout_above="@+id/exploreProgramsTextView"
+        tools:listItem="@layout/item_module"
         android:id="@+id/modulesRecyclerView">
 
     </android.support.v7.widget.RecyclerView>
