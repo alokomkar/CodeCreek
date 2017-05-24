@@ -51,7 +51,6 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
         this.userEmail = CreekApplication.getCreekPreferences().getSignInAccount();
         this.likeDrawable = ContextCompat.getDrawable(context, android.R.drawable.btn_star_big_on);
         this.unlikeDrawable = ContextCompat.getDrawable(context, android.R.drawable.btn_star_big_off);
-
     }
 
     @Override

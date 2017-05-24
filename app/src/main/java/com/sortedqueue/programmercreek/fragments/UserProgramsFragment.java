@@ -21,6 +21,8 @@ import com.sortedqueue.programmercreek.activity.ProgramActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.UserProgramRecyclerAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
+import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
@@ -203,11 +205,38 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             });
         }
         else {
+
             new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(UserProgramDetails.class, new RushSearchCallback<UserProgramDetails>() {
                 @Override
                 public void complete(List<UserProgramDetails> list) {
                     for ( UserProgramDetails programDetails : list ) {
                         programDetails.delete(new RushCallback() {
+                            @Override
+                            public void complete() {
+                                Log.d(TAG, "UserProgramDetails : unliked : " + userProgramDetails.getProgramId());
+                            }
+                        });
+                    }
+                }
+            });
+            new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(ProgramIndex.class, new RushSearchCallback<ProgramIndex>() {
+                @Override
+                public void complete(List<ProgramIndex> list) {
+                    for ( ProgramIndex programIndex : list ) {
+                        programIndex.delete(new RushCallback() {
+                            @Override
+                            public void complete() {
+                                Log.d(TAG, "UserProgramDetails : unliked : " + userProgramDetails.getProgramId());
+                            }
+                        });
+                    }
+                }
+            });
+            new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(ProgramTable.class, new RushSearchCallback<ProgramTable>() {
+                @Override
+                public void complete(List<ProgramTable> list) {
+                    for ( ProgramTable programTable : list ) {
+                        programTable.delete(new RushCallback() {
                             @Override
                             public void complete() {
                                 Log.d(TAG, "UserProgramDetails : unliked : " + userProgramDetails.getProgramId());
