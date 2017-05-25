@@ -946,4 +946,12 @@ public class CreekPreferences {
         }
 
     }
+
+    public boolean isFavoritesStored() {
+        return sharedPreferences.getBoolean("isFavoritesStored", false);
+    }
+
+    public void setFavoritesStored( boolean isFavoritesStored ) {
+        sharedPreferences.edit().putBoolean("isFavoritesStored", true);
+    }
 }

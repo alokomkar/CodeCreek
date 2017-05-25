@@ -128,9 +128,9 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(accessSpecifier, this);
     }
 
-    private void setupRecyclerView(ArrayList<UserProgramDetails> presentationModelArrayList) {
+    private void setupRecyclerView(ArrayList<UserProgramDetails> userProgramDetailsArrayList) {
         userProgramsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new UserProgramRecyclerAdapter(getContext(), accessSpecifier, presentationModelArrayList, this);
+        adapter = new UserProgramRecyclerAdapter(getContext(), accessSpecifier, userProgramDetailsArrayList, this);
         userProgramsRecyclerView.setAdapter(adapter);
         noProgramsLayout.setVisibility(View.GONE);
         userProgramsRecyclerView.setVisibility(View.VISIBLE);
@@ -219,7 +219,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                     }
                 }
             });
-            new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(ProgramIndex.class, new RushSearchCallback<ProgramIndex>() {
+            new RushSearch().whereEqual("userProgramId", userProgramDetails.getProgramId()).find(ProgramIndex.class, new RushSearchCallback<ProgramIndex>() {
                 @Override
                 public void complete(List<ProgramIndex> list) {
                     for ( ProgramIndex programIndex : list ) {
@@ -232,7 +232,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                     }
                 }
             });
-            new RushSearch().whereEqual("programId", userProgramDetails.getProgramId()).find(ProgramTable.class, new RushSearchCallback<ProgramTable>() {
+            new RushSearch().whereEqual("userProgramId", userProgramDetails.getProgramId()).find(ProgramTable.class, new RushSearchCallback<ProgramTable>() {
                 @Override
                 public void complete(List<ProgramTable> list) {
                     for ( ProgramTable programTable : list ) {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -32,6 +33,7 @@ import butterknife.ButterKnife;
  */
 public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<CustomProgramRecyclerViewAdapter.ViewHolder> {
 
+
     private String mProgramType;
     private String programLanguage;
     private Context mContext;
@@ -48,7 +50,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     private Drawable lockedDrawable;
 
     public interface AdapterClickListner {
-        void onItemClick( int position );
+        void onItemClick(int position);
     }
 
     public CustomProgramRecyclerViewAdapter(Context context, ArrayList<ProgramIndex> mProgram_indexs) {
@@ -86,23 +88,24 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         boolean isAvailable = true;
 
         switch (programLanguage) {
-            case "c" :
+            case "c":
                 isAvailable = (creekUserStats.getUnlockedCProgramIndexList().contains(program_Index));
                 break;
-            case "c++" :
-            case "cpp" :
+            case "c++":
+            case "cpp":
                 isAvailable = (creekUserStats.getUnlockedCppProgramIndexList().contains(program_Index));
                 break;
-            case "java" :
+            case "java":
                 isAvailable = (creekUserStats.getUnlockedJavaProgramIndexList().contains(program_Index));
                 break;
-            case "usp" :
+            case "usp":
                 isAvailable = creekUserStats.getUnlockedUspProgramIndexList().contains(program_Index);
                 break;
-            case "sql" :
+            case "sql":
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
+        holder.quizTextView.setSelected(true);
         /*holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
 
         if( !isAvailable ) {
@@ -150,6 +153,14 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         ImageView lockedImageView;
         @Bind(R.id.unlockedByInviteImageView)
         ImageView unlockedByInviteImageView;
+        @Bind(R.id.quizTextView)
+        TextView quizTextView;
+        @Bind(R.id.matchTextView)
+        TextView matchTextView;
+        @Bind(R.id.testTextView)
+        TextView testTextView;
+        @Bind(R.id.completionLayout)
+        LinearLayout completionLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -162,17 +173,17 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         public void onClick(View view) {
             final int position = getAdapterPosition();
 
-            if( position != RecyclerView.NO_POSITION ) {
+            if (position != RecyclerView.NO_POSITION) {
                 final ProgramIndex programIndex = mProgram_Indexs.get(position);
-                if( lockedImageView.getVisibility() == View.VISIBLE ) {
-                    if( unlockedByInviteImageView.getVisibility() == View.VISIBLE ) {
+                if (lockedImageView.getVisibility() == View.VISIBLE) {
+                    if (unlockedByInviteImageView.getVisibility() == View.VISIBLE) {
                         mAdapterClickListner.onItemClick(position);
                         return;
                     }
                     AuxilaryUtils.displayInviteDialog(mContext, R.string.unlock_by_invite, R.string.unlock_by_invite_description, new UnlockByInviteInterface() {
                         @Override
                         public void onUnlockClick(int index) {
-                            if( mUnlockByInviteInterface != null ) {
+                            if (mUnlockByInviteInterface != null) {
                                 mUnlockByInviteInterface.onUnlockClick(programIndex.getProgram_index());
                             }
                         }
@@ -185,7 +196,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                     CommonUtils.displaySnackBar((Activity) mContext, R.string.program_locked);
                     return;
                 }
-                if( unlockedByInviteImageView.getVisibility() == View.VISIBLE ) {
+                if (unlockedByInviteImageView.getVisibility() == View.VISIBLE) {
                     mAdapterClickListner.onItemClick(position);
                     return;
                 }
@@ -198,8 +209,8 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         @Override
         public boolean onLongClick(View view) {
             final int position = getAdapterPosition();
-            if( position != RecyclerView.NO_POSITION ) {
-                if( mUnlockByInviteInterface != null ) {
+            if (position != RecyclerView.NO_POSITION) {
+                if (mUnlockByInviteInterface != null) {
                     final ProgramIndex programIndex = mProgram_Indexs.get(position);
                     mUnlockByInviteInterface.onUnlockClick(programIndex.getProgram_index());
                 }

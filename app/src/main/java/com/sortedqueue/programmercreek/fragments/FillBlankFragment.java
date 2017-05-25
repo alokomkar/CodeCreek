@@ -165,11 +165,12 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             answerLayout3.setAlpha(0.0f);
             answerLayout4.setAlpha(0.0f);
         }
-
-        mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
-        ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
-        if( programTables != null && programTables.size() > 0 ) {
-            updateUI(programTables);
+        if( bundle != null ) {
+            mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
+            ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+            if( programTables != null && programTables.size() > 0 ) {
+                updateUI(programTables);
+            }
         }
         else {
             firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());

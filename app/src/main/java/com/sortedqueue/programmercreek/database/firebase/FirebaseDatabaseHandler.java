@@ -296,7 +296,7 @@ public class FirebaseDatabaseHandler {
         UserToken userToken = new UserToken( creekPreferences.getSignInAccount(), refreshedToken );
         String pushKey = mUserMessageTokenDatabase.push().getKey();
         userToken.setPushKey(pushKey);
-        mUserProgramDatabase.child(pushKey).setValue(userToken);
+        mUserMessageTokenDatabase.child(pushKey).setValue(userToken);
 
     }
 
@@ -340,6 +340,17 @@ public class FirebaseDatabaseHandler {
                         }
                     }
                     if( userProgramDetailsArrayList.size() > 0 ) {
+                        if( !creekPreferences.isFavoritesStored() ) {
+                            String userEmail = creekPreferences.getSignInAccount();
+                            for( UserProgramDetails userProgramDetails : userProgramDetailsArrayList ) {
+                                if( userProgramDetails.isLiked(userEmail) ) {
+                                    userProgramDetails.save();
+                                    userProgramDetails.getProgramIndex().save();
+                                    RushCore.getInstance().save(userProgramDetails.getProgramTables());
+                                }
+                            }
+                            creekPreferences.setFavoritesStored(true);
+                        }
                         getAllUserProgramsListener.onSuccess(userProgramDetailsArrayList);
                     }
                     else {

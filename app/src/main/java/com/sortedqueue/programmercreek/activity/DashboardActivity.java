@@ -31,9 +31,6 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.facebook.share.model.ShareHashtag;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -642,21 +639,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
 
-    private void tellYourFriends() {
-        //https://developers.facebook.com/docs/sharing/android/
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentTitle("Infinite Programmer")
-                .setContentDescription("Check this out : ")
-                .setShareHashtag(new ShareHashtag.Builder()
-                        .setHashtag("#InfiniteProgrammer")
-                        .build())
-
-                .setContentUrl(Uri.parse(getString(R.string.app_url)))
-                .build();
-        ShareDialog shareDialog = new ShareDialog(DashboardActivity.this);
-        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
-    }
-
     private void shareInfo() {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -752,7 +734,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_DOWNLOAD_FILE_PERMISSION) {
             if (PermissionUtils.checkDeniedPermissions(DashboardActivity.this, permissions).length == 0) {
-                importFromFile();
+                downloadTemplateFile();
             } else {
                 if (permissions.length == 3) {
                     Toast.makeText(DashboardActivity.this, "Some permissions were denied", Toast.LENGTH_SHORT).show();

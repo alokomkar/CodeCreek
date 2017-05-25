@@ -17,22 +17,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/programIndexLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_8"
+                android:id="@+id/completionLayout"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_4"
+                    android:id="@+id/quizTextView"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:background="@drawable/tag_selector"
+                    android:textColor="@color/tag_text_selector"
+                    android:text="@string/quiz"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:padding="@dimen/margin_4"
+                    android:id="@+id/matchTextView"
+                    android:background="@drawable/tag_selector"
+                    android:textColor="@color/tag_text_selector"
+                    android:text="@string/match"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_8"
+                    android:padding="@dimen/margin_4"
+                    android:id="@+id/testTextView"
+                    android:background="@drawable/tag_selector"
+                    android:textColor="@color/tag_text_selector"
+                    android:text="@string/test"/>
+            </LinearLayout>
+
             <TextView
                 android:layout_height="@dimen/margin_32"
                 android:layout_width="@dimen/margin_32"
+                android:layout_below="@+id/completionLayout"
                 android:text="C"
+                android:layout_marginTop="@dimen/margin_8"
                 android:elevation="@dimen/margin_2"
                 android:id="@+id/programTypeTextView"
                 android:textStyle="bold"
                 android:textColor="@color/md_black_1000"
                 android:background="@drawable/language_view"
                 android:textSize="18sp"
-                android:layout_marginLeft="@dimen/margin_16"
-                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_8"
                 android:gravity="center"/>
 
             <TextView
                 android:id="@+id/txtViewProgDescription"
+                android:layout_below="@+id/completionLayout"
                 android:layout_toRightOf="@+id/programTypeTextView"
                 android:layout_toLeftOf="@+id/lockedImageView"
                 android:layout_width="match_parent"
@@ -41,7 +79,6 @@
                 android:paddingRight="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_16"
                 android:paddingBottom="@dimen/margin_16"
-                android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
                 android:textColor="@color/md_black_1000"
                 android:text="Sample"
@@ -65,6 +102,9 @@
                 android:layout_marginRight="@dimen/margin_8"
                 android:alpha="0.2"
                 android:src="@android:drawable/ic_lock_lock"/>
+
+
+
         </RelativeLayout>
 
 

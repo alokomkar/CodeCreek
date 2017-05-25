@@ -253,4 +253,6 @@
     <string name="explore_programs">Explore programs index</string>
     <string name="navigate_to_program_index">Navigate to Program Index</string>
     <string name="practice_programs_gain_reputation">Practice all programs and gain 15xp on completion of each program</string>
+    <string name="quiz">Quiz</string>
+    <string name="test">Test</string>
 </resources>
