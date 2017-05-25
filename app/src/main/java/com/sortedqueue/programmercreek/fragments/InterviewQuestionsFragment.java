@@ -90,14 +90,14 @@ public class InterviewQuestionsFragment extends Fragment {
 
             @Override
             public void onTick(long millisUntilFinished) {
-
-                progressTextView.setText( "Remaining : " + (int) (millisUntilFinished / 1000) );
+                if( progressTextView != null )
+                    progressTextView.setText( "Remaining : " + (int) (millisUntilFinished / 1000) );
             }
 
             @Override
             public void onFinish() {
-
-                progressTextView.setText("Time up");
+                if( progressTextView != null )
+                    progressTextView.setText("Time up");
             }
         };
         mCountDownTimer.start();
