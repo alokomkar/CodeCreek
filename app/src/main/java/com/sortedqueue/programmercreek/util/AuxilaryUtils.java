@@ -27,6 +27,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -52,6 +53,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 import butterknife.ButterKnife;
+
+import static com.facebook.login.widget.ProfilePictureView.TAG;
 
 
 public class AuxilaryUtils {
@@ -670,32 +673,28 @@ public class AuxilaryUtils {
         return outputArrayMap;
     }
 
-    public static ArrayList<String> mapCodeToComments(Context context, String programCode, String language) {
+    public static ArrayList<String> mapCodeToComments(Context context, String programCode ) {
         ArrayList<String> programComments = new ArrayList<>();
         ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
 
         HashMap<String, String> commandExplanationMap = parseStringArray(context, R.array.c_command_map_array);
+        Log.d(TAG, "programLines : " + programLines );
+        Log.d(TAG, "mapCodeToComments : " + commandExplanationMap );
         for( String programLine : programLines ) {
-            String explanation = "";
-            switch ( language ) {
-
-                case "c" :
-
-
-                    break;
-                case "cpp" :
-                case "usp" :
-                    break;
-                case "c++" :
-                    break;
-                case "java" :
-                case "jdbc" :
-                    break;
-
+            String explanation = programLine;
+            for( String key : commandExplanationMap.keySet() ) {
+                if( explanation.contains(key) ) {
+                    explanation = explanation.replaceAll(key, commandExplanationMap.get(key));
+                }
+                if( explanation.contains("{") ) {
+                    explanation = explanation.replaceAll("\\{", "begin");
+                }
+                if( explanation.contains("}") ) {
+                    explanation = explanation.replaceAll("\\}", "end");
+                }
             }
+           programComments.add(explanation);
         }
-
-
         return programComments;
 
     }

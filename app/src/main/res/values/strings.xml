@@ -255,4 +255,5 @@
     <string name="practice_programs_gain_reputation">Practice all programs and gain 15xp on completion of each program</string>
     <string name="quiz">Quiz</string>
     <string name="test">Test</string>
+    <string name="code_share">Code Share</string>
 </resources>

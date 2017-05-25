@@ -60,7 +60,7 @@ James Gosling, at Sun Labs, around 1992; the group was building a set-top box an
         <item>#define|define constant</item>
         <item>return;|return from here</item>
         <item>return|return value</item>
-        <item>int|Declare integer</item>
+        <item>int |Declare integer</item>
         <item>if|if condition</item>
         <item>else|else block</item>
         <item>malloc|Allocate memory</item>
@@ -91,7 +91,10 @@ James Gosling, at Sun Labs, around 1992; the group was building a set-top box an
         <item>unsigned|delcare unsigned</item>
         <item>void|void</item>
         <item>volatile|delcare volative</item>
-
+        <!--<item>{|begin</item>
+        <item>}|end</item>-->
+        <!--<item>(| </item>
+        <item>)| </item>-->
     </string-array>
 
 </resources>
