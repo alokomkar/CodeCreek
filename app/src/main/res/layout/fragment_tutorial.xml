@@ -15,7 +15,7 @@
         app:cardCornerRadius="@dimen/cardview_app_radius"
         app:cardElevation="4dp">
         <RelativeLayout
-            android:background="@drawable/tutorial_background"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -31,7 +31,7 @@
                     android:id="@+id/titleTextView"
                     android:gravity="center"
                     tools:text="@string/slide_title"
-                    android:background="@drawable/button_blue"
+                    android:background="@drawable/button_navy_blue"
                     android:textColor="@color/white"
                     android:layout_margin="@dimen/margin_8"
                     android:textSize="@dimen/text_dashboard_small"
@@ -45,7 +45,7 @@
                     android:id="@+id/subTitleTextView"
                     tools:text="@string/slide_title"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/white"
+                    android:textColor="@color/md_black_1000"
                     android:textSize="@dimen/text_dashboard_small"
                     android:paddingLeft="@dimen/margin_16"
                     android:paddingRight="@dimen/margin_16"

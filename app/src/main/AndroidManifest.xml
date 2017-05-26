@@ -62,6 +62,7 @@
         <activity
             android:name=".activity.CodeShareHandlerActivity"
             android:label="@string/code_share"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -86,7 +87,9 @@
             android:name=".activity.DashboardActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".activity.MemorizeProgramActivity"
             android:label="@string/title_activity_revise_program"

@@ -156,13 +156,13 @@ public class AuxilaryUtils {
                         dialog.dismiss();
                     }
                 })
-        .setNegativeButton(R.string.may_be_later, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                inviteDialogListener.onLaterClick();
-                dialogInterface.dismiss();
-            }
-        });
+                .setNegativeButton(R.string.may_be_later, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        inviteDialogListener.onLaterClick();
+                        dialogInterface.dismiss();
+                    }
+                });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -369,9 +369,9 @@ public class AuxilaryUtils {
 
 
     public static AlertDialog displayUserProgramDialog(Context context,
-                                                String title,
-                                                String message,
-                                                final UserProgramDialog.UserProgramDialogListener userProgramDialogListener ) {
+                                                       String title,
+                                                       String message,
+                                                       final UserProgramDialog.UserProgramDialogListener userProgramDialogListener ) {
 
         Builder alertDialogBuilder = new Builder(
                 context);
@@ -686,14 +686,21 @@ public class AuxilaryUtils {
                 if( explanation.contains(key) ) {
                     explanation = explanation.replaceAll(key, commandExplanationMap.get(key));
                 }
-                if( explanation.contains("{") ) {
-                    explanation = explanation.replaceAll("\\{", "begin");
-                }
-                if( explanation.contains("}") ) {
-                    explanation = explanation.replaceAll("\\}", "end");
-                }
+
             }
-           programComments.add(explanation);
+            if( explanation.contains("{") ) {
+                explanation = explanation.replaceAll("\\{", "begin");
+            }
+            if( explanation.contains("}") ) {
+                explanation = explanation.replaceAll("\\}", "end");
+            }
+            if( explanation.contains(";")) {
+                explanation = explanation.replaceAll(";", "");
+            }
+            if( !explanation.contains("==") && !explanation.contains("!=") && explanation.contains("=")) {
+                explanation = "assign " + explanation;
+            }
+            programComments.add(explanation);
         }
         return programComments;
 

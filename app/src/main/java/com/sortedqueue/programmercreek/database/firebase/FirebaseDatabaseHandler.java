@@ -402,6 +402,77 @@ public class FirebaseDatabaseHandler {
         void onError( String errorMessage );
     }
 
+    public void compileSharedProgram( final String programText, final ConfirmUserProgram confirmUserProgram ) {
+        new AsyncTask<Void, Void, String>() {
+
+            private ProgramIndex programIndex;
+            private ArrayList<ProgramTable> programTables;
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                programIndex = new ProgramIndex();
+                programIndex.setProgram_Description("");
+                programIndex.setProgram_Language("");
+
+                ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programText);
+                ArrayList<String> programExplanations = AuxilaryUtils.mapCodeToComments(mContext, programText);
+
+                int intProgramIndex = programIndex.getProgram_index();
+                programTables = new ArrayList<>();
+                for (int i = 0; i < programLines.size(); i++) {
+
+                    String programLine = programLines.get(i);
+                    String programExplanation = programExplanations.get(i);
+                    if( programLine.trim().startsWith("/*") && programLine.trim().endsWith("*/") ) {
+                        //Do nothing
+                    }
+                    else if( programLine.trim().startsWith("/*") ) {
+
+                        do {
+                            i++;
+                            programLine = programLines.get(i);
+                        } while ( programLine.endsWith("*/") || programLine.contains("*/") );
+
+                    }
+                    else {
+                        if( programLine.trim().length() > 0 ) {
+                            programTables.add(
+                                    new ProgramTable(
+                                            intProgramIndex,
+                                            i + 1,
+                                            programLanguage,
+                                            programLine,
+                                            programExplanation));
+                        }
+                    }
+
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
+            }
+
+            @Override
+            protected void onPostExecute(String aVoid) {
+                super.onPostExecute(aVoid);
+                CommonUtils.dismissProgressDialog();
+                if( aVoid == null ) {
+                    confirmUserProgram.onSuccess(programIndex, programTables);
+                }
+                else {
+                    confirmUserProgram.onError(aVoid);
+                }
+
+            }
+        }.execute();
+    }
+
     public void readProgramFromFile(final String filepath, final ConfirmUserProgram confirmUserProgram ) {
 
         new AsyncTask<Void, Void, String>() {
@@ -426,57 +497,57 @@ public class FirebaseDatabaseHandler {
                             //blank line
                             continue;
                         }
-                        
+
                         if( line.startsWith(START_PROGRAM_TITLE) && programTitle.equals("") ) {
                             line = br.readLine();
-                            
+
                             while( true ) {
                                 if( !line.startsWith(END_PROGRAM_TITLE) )
                                     programTitle  += line;
                                 else break;
                                 line = br.readLine();
-                                
+
                             }
 
                         }
                         if( line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage.equals("") ) {
                             line = br.readLine();
-                            
+
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM_LANGUAGE) )
                                     programLanguage  += line;
                                 else break;
                                 line = br.readLine();
-                                
+
                             }
                         }
                         if( line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation.equals("") ) {
                             line = br.readLine();
-                            
+
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM_EXPLANATION) )
                                     programExplanation  += line + "\n";
                                 else break;
                                 line = br.readLine();
-                                
+
                             }
 
                         }
                         if( line.startsWith(START_PROGRAM) && program.equals("") ) {
                             line = br.readLine();
-                            
+
                             while ( true ) {
                                 if( !line.startsWith(END_PROGRAM) )
                                     program  += line + "\n";
                                 else break;
                                 line = br.readLine();
-                                
+
                             }
 
                         }
                     }
                     if( programTitle.trim().length() == 0 ) {
-                        return "Missing program title"; 
+                        return "Missing program title";
                     }
                     if( programLanguage.trim().length() == 0 ) {
                         return "Missing program language";
@@ -494,7 +565,7 @@ public class FirebaseDatabaseHandler {
 
                     ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
                     ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
-                    
+
                     if( programLines != null && programExplanations != null ) {
                         if( programLines.size() > programExplanations.size() ) {
                             return "Explanation needed for each line of code";
@@ -533,12 +604,12 @@ public class FirebaseDatabaseHandler {
                 super.onPostExecute(aVoid);
                 CommonUtils.dismissProgressDialog();
                 if( aVoid == null ) {
-                    confirmUserProgram.onSuccess(programIndex, programTables);    
+                    confirmUserProgram.onSuccess(programIndex, programTables);
                 }
                 else {
                     confirmUserProgram.onError(aVoid);
                 }
-                
+
             }
         }.execute();
 
@@ -599,21 +670,21 @@ public class FirebaseDatabaseHandler {
     public void updateInviteCount(final int inviteCount) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/invite_count")
                 .runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData currentData) {
-                if (currentData.getValue() == null) {
-                    currentData.setValue(1);
-                } else {
-                    currentData.setValue((Long) currentData.getValue() + 1);
-                }
-                return Transaction.success(currentData);
-            }
+                    @Override
+                    public Transaction.Result doTransaction(MutableData currentData) {
+                        if (currentData.getValue() == null) {
+                            currentData.setValue(1);
+                        } else {
+                            currentData.setValue((Long) currentData.getValue() + 1);
+                        }
+                        return Transaction.success(currentData);
+                    }
 
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
-            }
-        });
+                    }
+                });
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/total_invites")
                 .runTransaction(new Transaction.Handler() {
                     @Override
@@ -1133,9 +1204,9 @@ public class FirebaseDatabaseHandler {
     private ArrayList<Chapter> getOfflineChapters() {
         return new ArrayList<>(
                 new RushSearch()
-                .whereEqual("program_Language", programLanguage)
-                .orderAsc("chapterId")
-                .find(Chapter.class));
+                        .whereEqual("program_Language", programLanguage)
+                        .orderAsc("chapterId")
+                        .find(Chapter.class));
     }
 
     private void updateChaptersList(final ArrayList<Chapter> chapterArrayList) {
@@ -1174,30 +1245,30 @@ public class FirebaseDatabaseHandler {
                 }
             }.execute();
         }
-       else {
+        else {
             getProgramDatabase();
             mProgramDatabase.child( "program_tables/" + String.valueOf(mProgramIndex))
                     .addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<ProgramTable> programTables = new ArrayList<ProgramTable>();
-                    for( DataSnapshot indexSnapShot : dataSnapshot.getChildren() ) {
-                        ProgramTable programTable = indexSnapShot.getValue(ProgramTable.class);
-                        if( programTable != null ) {
-                            programTables.add(programTable);
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<ProgramTable> programTables = new ArrayList<ProgramTable>();
+                            for( DataSnapshot indexSnapShot : dataSnapshot.getChildren() ) {
+                                ProgramTable programTable = indexSnapShot.getValue(ProgramTable.class);
+                                if( programTable != null ) {
+                                    programTables.add(programTable);
+                                }
+                            }
+                            if( programTables.size() > 0 )
+                                getProgramTablesListener.onSuccess(programTables);
+                            else
+                                getProgramTablesListener.onError(null);
                         }
-                    }
-                    if( programTables.size() > 0 )
-                        getProgramTablesListener.onSuccess(programTables);
-                    else
-                        getProgramTablesListener.onError(null);
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    getProgramTablesListener.onError(databaseError);
-                }
-            });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            getProgramTablesListener.onError(databaseError);
+                        }
+                    });
         }
 
 
@@ -1236,26 +1307,26 @@ public class FirebaseDatabaseHandler {
     }
 
     public ArrayList<ProgramTable> getProgramTables(int mProgramIndex) {
-            if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
-                return new ArrayList<>(new RushSearch()
-                        .whereEqual("program_index", mProgramIndex)
-                        .and()
-                        .startGroup()
-                        .whereEqual("program_Language", "c++")
-                        .or()
-                        .whereEqual("program_Language", "cpp")
-                        .endGroup()
-                        .orderAsc("line_No")
-                        .find(ProgramTable.class));
-            }
-            else {
-                return new ArrayList<>(new RushSearch()
-                        .whereEqual("program_Language", programLanguage)
-                        .and()
-                        .whereEqual("program_index", mProgramIndex)
-                        .orderAsc("line_No")
-                        .find(ProgramTable.class));
-            }
+        if( programLanguage.equals("c++") || programLanguage.equals("cpp")) {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_index", mProgramIndex)
+                    .and()
+                    .startGroup()
+                    .whereEqual("program_Language", "c++")
+                    .or()
+                    .whereEqual("program_Language", "cpp")
+                    .endGroup()
+                    .orderAsc("line_No")
+                    .find(ProgramTable.class));
+        }
+        else {
+            return new ArrayList<>(new RushSearch()
+                    .whereEqual("program_Language", programLanguage)
+                    .and()
+                    .whereEqual("program_index", mProgramIndex)
+                    .orderAsc("line_No")
+                    .find(ProgramTable.class));
+        }
 
     }
 
@@ -1895,36 +1966,36 @@ public class FirebaseDatabaseHandler {
                     .orderByKey()
                     .limitToLast(creekPreferences.getProgramTableDifference())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildrenCount() );
-                    for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
-                        Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildrenCount() );
-                        for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
-                            ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
-                            program_table.save(new RushCallback() {
-                                @Override
-                                public void complete() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + dataSnapshot.getChildrenCount() );
+                            for( DataSnapshot indexSnapshot : dataSnapshot.getChildren() ) {
+                                Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.getChildrenCount() );
+                                for( DataSnapshot lineSnapShot : indexSnapshot.getChildren() ) {
+                                    ProgramTable program_table = lineSnapShot.getValue(ProgramTable.class);
+                                    program_table.save(new RushCallback() {
+                                        @Override
+                                        public void complete() {
 
+                                        }
+                                    });
+                                    program_tables.add(program_table);
+                                    Log.d(TAG, "Inserted program tables : " + program_tables.size());
                                 }
-                            });
-                            program_tables.add(program_table);
-                            Log.d(TAG, "Inserted program tables : " + program_tables.size());
+                            }
+                            Log.d(TAG, "Set Program Tables : " + programLanguage + " : " + program_tables.get(program_tables.size() - 1).getProgram_index());
+                            creekPreferences.setProgramTables(program_tables.get(program_tables.size() - 1).getProgram_index());
+                            programTableInterface.getProgramTables(program_tables);
+
                         }
-                    }
-                    Log.d(TAG, "Set Program Tables : " + programLanguage + " : " + program_tables.get(program_tables.size() - 1).getProgram_index());
-                    creekPreferences.setProgramTables(program_tables.get(program_tables.size() - 1).getProgram_index());
-                    programTableInterface.getProgramTables(program_tables);
 
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d(TAG, "initializeProgramTables : " + databaseError.toException().getMessage());
-                    databaseError.toException().printStackTrace();
-                    programTableInterface.onError(databaseError);
-                }
-            });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d(TAG, "initializeProgramTables : " + databaseError.toException().getMessage());
+                            databaseError.toException().printStackTrace();
+                            programTableInterface.onError(databaseError);
+                        }
+                    });
         }
         else {
             Log.d(TAG, "Inserted program tables found : " + creekPreferences.getProgramTables());
@@ -2056,21 +2127,21 @@ public class FirebaseDatabaseHandler {
         query.orderByChild("reputation")
                 .limitToLast(20)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "UserRanking : " + dataSnapshot.toString());
-                ArrayList<UserRanking> userRankings = new ArrayList<UserRanking>();
-                for( DataSnapshot child : dataSnapshot.getChildren() ) {
-                    userRankings.add(child.getValue(UserRanking.class));
-                }
-                getTopLearnersInterface.onSuccess(userRankings);
-            }
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d(TAG, "UserRanking : " + dataSnapshot.toString());
+                        ArrayList<UserRanking> userRankings = new ArrayList<UserRanking>();
+                        for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                            userRankings.add(child.getValue(UserRanking.class));
+                        }
+                        getTopLearnersInterface.onSuccess(userRankings);
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getTopLearnersInterface.onFailure(databaseError);
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        getTopLearnersInterface.onFailure(databaseError);
+                    }
+                });
     }
 
 
