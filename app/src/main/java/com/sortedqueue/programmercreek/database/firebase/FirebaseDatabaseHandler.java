@@ -429,10 +429,12 @@ public class FirebaseDatabaseHandler {
                     }
                     else if( programLine.trim().startsWith("/*") ) {
 
-                        do {
+                        while ( i < programLines.size() &&
+                                (!programLine.trim().endsWith("*/") ||
+                                        !programLine.trim().contains("*/")) ) {
                             i++;
                             programLine = programLines.get(i);
-                        } while ( programLine.endsWith("*/") || programLine.contains("*/") );
+                        }
 
                     }
                     else {

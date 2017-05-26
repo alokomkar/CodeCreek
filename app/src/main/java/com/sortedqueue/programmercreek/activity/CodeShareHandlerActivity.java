@@ -98,7 +98,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
 
                 @Override
                 public void onCancel() {
-
+                    finish();
                 }
 
                 @Override
