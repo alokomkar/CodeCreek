@@ -148,18 +148,19 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         if( title.trim().length() == 0 ) {
             CommonUtils.displayToast(context, "Enter program name");
             presentationTitleEditText.requestFocus();
-            programIndex.setProgram_Description(title);
+
             return false;
         }
         if( tagsRecyclerAdapter.getSelectedTag().equals("") ) {
             CommonUtils.displayToast(context, "Select language");
-            programIndex.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
-            for( ProgramTable programTable : programTables ) {
-                programTable.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
-            }
+
             return false;
         }
-
+        programIndex.setProgram_Description(title);
+        programIndex.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
+        for( ProgramTable programTable : programTables ) {
+            programTable.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
+        }
         return true;
 
     }
