@@ -60,6 +60,7 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     @Bind(R.id.programTitleLayout)
     LinearLayout programTitleLayout;
     private UserProgramDialogListener userProgramDialogListener;
+    private WebUserProgramDialogListener webUserProgramDialogListener;
     private Context context;
     private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
@@ -117,17 +118,23 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         switch (v.getId()) {
             case R.id.saveButton:
                 if (validateFields()) {
-                    userProgramDialogListener.onSave(accessTextView.getText().toString());
+                    if( mode == -1 )
+                        userProgramDialogListener.onSave(accessTextView.getText().toString());
+                    else webUserProgramDialogListener.onSave(accessTextView.getText().toString(), programIndex, programTables);
                     alertDialog.dismiss();
                 }
                 break;
             case R.id.doneButton:
                 if (validateFields()) {
-                    userProgramDialogListener.onPreview();
+                    if( mode == -1 )
+                        userProgramDialogListener.onPreview();
+                    else webUserProgramDialogListener.onPreview(programIndex, programTables);
                 }
                 break;
             case R.id.discardButton:
-                userProgramDialogListener.onCancel();
+                if( mode == -1 )
+                    userProgramDialogListener.onCancel();
+                else webUserProgramDialogListener.onCancel();
                 alertDialog.dismiss();
                 break;
         }
@@ -147,6 +154,9 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         if( tagsRecyclerAdapter.getSelectedTag().equals("") ) {
             CommonUtils.displayToast(context, "Select language");
             programIndex.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
+            for( ProgramTable programTable : programTables ) {
+                programTable.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
+            }
             return false;
         }
 
@@ -173,6 +183,14 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         void onPreview();
     }
 
+    public interface WebUserProgramDialogListener {
+        void onSave(String accessSpecifier, ProgramIndex programIndex, ArrayList<ProgramTable> programTables);
+
+        void onCancel();
+
+        void onPreview(ProgramIndex programIndex, ArrayList<ProgramTable> programTables);
+    }
+
     public UserProgramDialog(Context context,
                              ProgramIndex programIndex,
                              ArrayList<ProgramTable> programTables,
@@ -187,11 +205,11 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     public UserProgramDialog(Context context,
                              ProgramIndex programIndex,
                              ArrayList<ProgramTable> programTables,
-                             UserProgramDialogListener userProgramDialogListener,
+                             WebUserProgramDialogListener userProgramDialogListener,
                              int mode) {
         this.context = context;
         this.mode = mode;
-        this.userProgramDialogListener = userProgramDialogListener;
+        this.webUserProgramDialogListener = userProgramDialogListener;
         this.programTables = programTables;
         this.programIndex = programIndex;
         initViews();

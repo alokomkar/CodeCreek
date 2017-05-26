@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -17,7 +16,6 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.view.UserProgramDialog;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -31,6 +29,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
 
     private CreekPreferences creekPreferences;
     private String filepath;
+    private String sharedText;
 
 
     @Override
@@ -63,7 +62,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
     }
 
     void handleSendText(Intent intent) {
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
             new FirebaseDatabaseHandler(CodeShareHandlerActivity.this).compileSharedProgram( sharedText, this );
         }
@@ -78,17 +77,16 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
             new UserProgramDialog(
                     CodeShareHandlerActivity.this,
                     programIndex, programTables,
-                    new UserProgramDialog.UserProgramDialogListener() {
+                    new UserProgramDialog.WebUserProgramDialogListener() {
                 @Override
-                public void onSave(String accessSpecifier) {
+                public void onSave(String accessSpecifier, ProgramIndex programIndex, ArrayList<ProgramTable> programTables) {
 
                     FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(CodeShareHandlerActivity.this);
                     firebaseDatabaseHandler.updateCodeCount();
 
                     UserProgramDetails userProgramDetails = new UserProgramDetails();
                     userProgramDetails.setAccessSpecifier(accessSpecifier);
-                    if (filepath != null)
-                        userProgramDetails.setMd5(FileUtils.calculateMD5(new File(filepath)));
+                    userProgramDetails.setMd5(FileUtils.md5(sharedText));
                     userProgramDetails.setEmailId(creekPreferences.getSignInAccount());
                     userProgramDetails.setLikes(0);
                     userProgramDetails.setLikesList(new ArrayList<String>());
@@ -100,10 +98,11 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
 
                     if (creekPreferences.addUserFile(userProgramDetails.getMd5())) {
                         firebaseDatabaseHandler.writeUserProgramDetails(userProgramDetails);
+                        onProgressStatsUpdate(CreekUserStats.CHAPTER_SCORE);
                     } else {
                         CommonUtils.displayToast(CodeShareHandlerActivity.this, "File already added");
                     }
-                    onProgressStatsUpdate(CreekUserStats.CHAPTER_SCORE);
+
 
                 }
 
@@ -113,7 +112,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
                 }
 
                 @Override
-                public void onPreview() {
+                public void onPreview(ProgramIndex programIndex, ArrayList<ProgramTable> programTables) {
                     Bundle newIntentBundle = new Bundle();
                     Intent newIntent = null;
                     programIndex.setUserProgramId("trial");
