@@ -50,8 +50,16 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
                 handleSendText(intent); // Handle text being sent
             }
         }
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
 
+    }
 
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.anim_slide_in_right,
+                R.anim.anim_slide_out_right);
     }
 
     void handleSendText(Intent intent) {
@@ -67,7 +75,10 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
 
         if (programIndex != null && programTables.size() > 0) {
 
-            new UserProgramDialog(CodeShareHandlerActivity.this, programIndex, programTables, new UserProgramDialog.UserProgramDialogListener() {
+            new UserProgramDialog(
+                    CodeShareHandlerActivity.this,
+                    programIndex, programTables,
+                    new UserProgramDialog.UserProgramDialogListener() {
                 @Override
                 public void onSave(String accessSpecifier) {
 
@@ -115,14 +126,15 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
                     newIntent.putExtras(newIntentBundle);
                     startActivity(newIntent);
                 }
-            }).showDialog();
+            }, 1).showDialog();
 
         }
 
     }
 
     private void onProgressStatsUpdate(int chapterScore) {
-        CommonUtils.displaySnackBar(CodeShareHandlerActivity.this, "You have gained " + chapterScore + "xp");
+        CommonUtils.displayToast(CodeShareHandlerActivity.this, "You have gained " + chapterScore + "xp");
+        finish();
     }
 
     @Override

@@ -5,8 +5,40 @@
     android:padding="@dimen/margin_16">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:id="@+id/programTitleLayout">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/presentationTitleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/presentationTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="@dimen/text_dashboard_small"
+                android:inputType="textCapWords"
+                android:hint="@string/program_title" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/languageRecyclerView"
+            >
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/programTitleLayout"
         android:id="@+id/accessLayout"
         android:orientation="horizontal">
         <android.support.v7.widget.SwitchCompat
@@ -68,7 +100,7 @@
             android:textSize="@dimen/text_dashboard_small"
             android:textColor="@color/white"
             android:background="@drawable/button_check"
-            android:layout_margin="@dimen/margin_8"
+            android:layout_margin="@dimen/margin_4"
             android:id="@+id/doneButton"
             android:text="@string/preview"/>
         <Button
@@ -79,7 +111,7 @@
             android:textColor="@color/white"
             android:background="@drawable/button_check"
             android:id="@+id/saveButton"
-            android:layout_margin="@dimen/margin_8"
+            android:layout_margin="@dimen/margin_4"
             android:text="@string/save_button"/>
         <Button
             android:layout_width="wrap_content"
@@ -89,7 +121,7 @@
             android:textColor="@color/white"
             android:background="@drawable/button_check"
             android:id="@+id/discardButton"
-            android:layout_margin="@dimen/margin_8"
+            android:layout_margin="@dimen/margin_4"
             android:text="@string/cancel"/>
     </LinearLayout>
 </RelativeLayout>

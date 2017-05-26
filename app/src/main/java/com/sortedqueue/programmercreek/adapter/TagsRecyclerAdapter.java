@@ -23,10 +23,21 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
     private ArrayList<String> tagArrayList;
     private ArrayList<String> selectedTags;
 
+    private String selectedTag = "";
+
+    private int mode = -1;
+
     public TagsRecyclerAdapter(ArrayList<String> tagArrayList) {
         this.tagArrayList = tagArrayList;
         this.selectedTags = new ArrayList<>();
     }
+
+    public TagsRecyclerAdapter(ArrayList<String> tagArrayList, int mode) {
+        this.tagArrayList = tagArrayList;
+        this.selectedTags = new ArrayList<>();
+        this.mode = mode;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,8 +51,15 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
         String tag = tagArrayList.get(position);
         holder.tagTextView.setText(tag);
 
-        boolean isSelected = selectedTags.contains(tag);
-        holder.tagLayout.setSelected(isSelected);
+        if( mode == -1 ) {
+            boolean isSelected = selectedTags.contains(tag);
+            holder.tagLayout.setSelected(isSelected);
+        }
+        else {
+            boolean isSelected = tag.equals(selectedTag);
+            holder.tagLayout.setSelected(isSelected);
+        }
+
     }
 
     public ArrayList<String> getSelectedTags() {
@@ -58,6 +76,10 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
             selectedTags.add(tag);
             notifyDataSetChanged();
         }
+    }
+
+    public String getSelectedTag() {
+        return selectedTag;
     }
 
     @Override
@@ -83,11 +105,16 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
             int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
                 String tag = tagArrayList.get(position);
-                if( selectedTags.contains(tag) ) {
-                    selectedTags.remove(tag);
+                if( mode == -1 ) {
+                    if( selectedTags.contains(tag) ) {
+                        selectedTags.remove(tag);
+                    }
+                    else {
+                        selectedTags.add(tag);
+                    }
                 }
                 else {
-                    selectedTags.add(tag);
+                    selectedTag = tag;
                 }
                 notifyDataSetChanged();
             }

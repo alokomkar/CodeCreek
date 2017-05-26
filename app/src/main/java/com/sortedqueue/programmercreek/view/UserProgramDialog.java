@@ -2,17 +2,26 @@ package com.sortedqueue.programmercreek.view;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.TagModel;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -44,12 +53,22 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     SwitchCompat accessSwitchCompat;
     @Bind(R.id.accessTextView)
     TextView accessTextView;
+    @Bind(R.id.presentationTitleEditText)
+    EditText presentationTitleEditText;
+    @Bind(R.id.languageRecyclerView)
+    RecyclerView languageRecyclerView;
+    @Bind(R.id.programTitleLayout)
+    LinearLayout programTitleLayout;
     private UserProgramDialogListener userProgramDialogListener;
     private Context context;
     private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
     private ArrayList<ProgramTable> programTables;
     private ProgramIndex programIndex;
+
+    private int mode = -1;
+    private View dialogView;
+    private TagsRecyclerAdapter tagsRecyclerAdapter;
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -62,11 +81,10 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
                 if (explanationRadioButton.isChecked())
                     showCode(R.id.explanationRadioButton);
                 break;
-            case R.id.accessSwitchCompat :
-                if( accessSwitchCompat.isChecked() ) {
+            case R.id.accessSwitchCompat:
+                if (accessSwitchCompat.isChecked()) {
                     accessTextView.setText("Public");
-                }
-                else {
+                } else {
                     accessTextView.setText("Private");
                 }
                 break;
@@ -98,11 +116,15 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveButton:
-                userProgramDialogListener.onSave( accessTextView.getText().toString() );
-                alertDialog.dismiss();
+                if (validateFields()) {
+                    userProgramDialogListener.onSave(accessTextView.getText().toString());
+                    alertDialog.dismiss();
+                }
                 break;
             case R.id.doneButton:
-                userProgramDialogListener.onPreview();
+                if (validateFields()) {
+                    userProgramDialogListener.onPreview();
+                }
                 break;
             case R.id.discardButton:
                 userProgramDialogListener.onCancel();
@@ -111,10 +133,36 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         }
     }
 
+    private boolean validateFields() {
+
+        if (mode == -1) return true;
+
+        String title = presentationTitleEditText.getText().toString();
+        if( title.trim().length() == 0 ) {
+            CommonUtils.displayToast(context, "Enter program name");
+            presentationTitleEditText.requestFocus();
+            programIndex.setProgram_Description(title);
+            return false;
+        }
+        if( tagsRecyclerAdapter.getSelectedTag().equals("") ) {
+            CommonUtils.displayToast(context, "Select language");
+            programIndex.setProgram_Language(tagsRecyclerAdapter.getSelectedTag());
+            return false;
+        }
+
+        return true;
+
+    }
+
     public void showDialog() {
         alertDialog.show();
         accessSwitchCompat.setChecked(true);
         codeRadioButton.setChecked(true);
+
+        programTitleLayout.setVisibility( mode == -1 ? View.GONE : View.VISIBLE );
+        if( mode != -1 ) {
+            fetchAllTags();
+        }
     }
 
     public interface UserProgramDialogListener {
@@ -136,13 +184,29 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         initViews();
     }
 
+    public UserProgramDialog(Context context,
+                             ProgramIndex programIndex,
+                             ArrayList<ProgramTable> programTables,
+                             UserProgramDialogListener userProgramDialogListener,
+                             int mode) {
+        this.context = context;
+        this.mode = mode;
+        this.userProgramDialogListener = userProgramDialogListener;
+        this.programTables = programTables;
+        this.programIndex = programIndex;
+        initViews();
+    }
+
     private void initViews() {
+
         builder = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setIcon(R.mipmap.ic_launcher);
         builder.setTitle(programIndex.getProgram_Description());
-        final View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_user_program, null);
+
+        dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_user_program, null);
         ButterKnife.bind(this, dialogView);
+
         builder.setView(dialogView);
         alertDialog = builder.create();
         codeRadioButton.setOnCheckedChangeListener(this);
@@ -151,5 +215,30 @@ public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener
         doneButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         discardButton.setOnClickListener(this);
+
+
+    }
+
+    private void fetchAllTags() {
+
+        CommonUtils.displayProgressDialog(context, context.getString(R.string.loading));
+        new FirebaseDatabaseHandler(context).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
+            @Override
+            public void onError(DatabaseError databaseError) {
+                CommonUtils.dismissProgressDialog();
+            }
+
+            @Override
+            public void onSuccess(TagModel tagModel) {
+                setupRecyclerView(tagModel);
+            }
+        });
+    }
+
+    private void setupRecyclerView(TagModel tagModel) {
+        languageRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList(), 1);
+        languageRecyclerView.setAdapter(tagsRecyclerAdapter);
+        CommonUtils.dismissProgressDialog();
     }
 }

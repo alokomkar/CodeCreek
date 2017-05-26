@@ -420,11 +420,30 @@ public class FirebaseDatabaseHandler {
 
                 int intProgramIndex = programIndex.getProgram_index();
                 programTables = new ArrayList<>();
+                int index = 1;
                 for (int i = 0; i < programLines.size(); i++) {
 
                     String programLine = programLines.get(i);
                     String programExplanation = programExplanations.get(i);
-                    if( programLine.trim().startsWith("/*") && programLine.trim().endsWith("*/") ) {
+                    if( programLine.contains("//") ) {
+                        if( programLine.trim().startsWith("//") ) {
+                            //Do nothing
+                        }
+                        else {
+                            programLine = programLine.trim().split("//")[0];
+                            programExplanation = programExplanation.trim().split("//")[0];
+                            if( programLine.trim().length() > 0 ) {
+                                programTables.add(
+                                        new ProgramTable(
+                                                intProgramIndex,
+                                                index++,
+                                                programLanguage,
+                                                programLine,
+                                                programExplanation));
+                            }
+                        }
+                    }
+                    else if( programLine.trim().startsWith("/*") && programLine.trim().endsWith("*/") ) {
                         //Do nothing
                     }
                     else if( programLine.trim().startsWith("/*") ) {
@@ -442,7 +461,7 @@ public class FirebaseDatabaseHandler {
                             programTables.add(
                                     new ProgramTable(
                                             intProgramIndex,
-                                            i + 1,
+                                            index++,
                                             programLanguage,
                                             programLine,
                                             programExplanation));
