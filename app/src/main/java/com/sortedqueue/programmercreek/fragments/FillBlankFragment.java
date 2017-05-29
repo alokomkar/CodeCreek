@@ -146,13 +146,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_fill_blank, container, false);
+        ButterKnife.bind(this, view);
         programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }
         getProgram();
-        View view = inflater.inflate(R.layout.fragment_fill_blank, container, false);
-        ButterKnife.bind(this, view);
+
 
         return view;
     }
