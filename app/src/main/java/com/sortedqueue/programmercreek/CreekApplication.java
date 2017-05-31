@@ -66,7 +66,7 @@ public class CreekApplication extends Application {
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(ProgrammingBuddyConstants.FONT_ROBOTO)
+                .setDefaultFontPath(ProgrammingBuddyConstants.FONT_VARELA)
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
