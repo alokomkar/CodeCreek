@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -40,20 +39,20 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
         TutorialModel tutorialModel = new TutorialModel("Add code and gain reputation 15xp for every code added\n\nPractice other users programs and gain 30xp",
                 "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2Freputation_15.png?alt=media&token=9b3e0d32-5a0c-4788-83cb-28f4b02ca48d");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Download the file on your mobile.",
-                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2FScreenshot_20170518-110150.png?alt=media&token=9985119a-a8b3-49a5-8f3c-6f14435fa2d7");
+        tutorialModel = new TutorialModel("Simply copy code from your browser, click SHARE",
+                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/share_code%2Fshare1.png?alt=media&token=de08f979-5df0-4c50-bdf9-c5cf987da4b6");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Copy the file on your system via USB cable\n\nEnsure your mobile is in storage mode to access the file",
-                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2FScreenshot_20170518-110231.png?alt=media&token=7d1ea09f-56c1-4492-bfa9-401aeb400d6a");
+        tutorialModel = new TutorialModel("Choose Code share option",
+                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/share_code%2Fshare2.png?alt=media&token=c6f1375d-c76f-4cf0-8630-c93815280190");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Modify file template by replacing it with your content\n\nYou can do this on your system, replace the relevant sections with your code, explanation",
-                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2FScreenshot_20170518-110423.png?alt=media&token=3d516f92-c9b9-4e65-af64-b0b76774d16e");
+        tutorialModel = new TutorialModel("Enter program name and set language",
+                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/share_code%2Fshare3.png?alt=media&token=71d178ae-3157-4900-a74c-beae3eb13318");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Copy file back to your mobile\n\nOnce again ensure your mobile is in storage mode to access the file",
-                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2FScreenshot_20170518-110231.png?alt=media&token=7d1ea09f-56c1-4492-bfa9-401aeb400d6a");
+        tutorialModel = new TutorialModel("Preview your code",
+                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/share_code%2Fshare4.png?alt=media&token=ad6e84fd-b9b7-43a5-bc2a-d1acf5cab1de");
         tutorialModels.add(tutorialModel);
-        tutorialModel = new TutorialModel("Preview and save your program for your use later",
-                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/code_import%2FScreenshot_20170518-110507.png?alt=media&token=ebd9fabd-3106-489f-ac86-b521b9c8e941");
+        tutorialModel = new TutorialModel("Click save to use program later, Gain reputaion : 25xp",
+                "https://firebasestorage.googleapis.com/v0/b/creek-55ef6.appspot.com/o/share_code%2Fshare5.png?alt=media&token=9a673c21-9c33-4384-b5c5-e61cea305527");
         tutorialModels.add(tutorialModel);
 
         int index = 1;
@@ -72,8 +71,8 @@ public class TutorialCarousalActivity extends AppCompatActivity implements Tutor
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+        /*Intent intent = new Intent();
+        setResult(RESULT_OK, intent);*/
         finish();
     }
 

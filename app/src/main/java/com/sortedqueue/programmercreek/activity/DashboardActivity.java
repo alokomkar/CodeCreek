@@ -725,7 +725,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 animateFab();
                 break;
             case R.id.addUserCodeFAB :
-                importCodeFile();
+                importFromFile();
                 break;
         }
 
