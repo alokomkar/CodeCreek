@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/margin_8"
         android:orientation="horizontal"
         android:id="@+id/programsRadioGroup"
-        android:weightSum="3">
+        android:weightSum="2">
         <RadioButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,6 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="gone"
             android:text="Favorites"
             android:button="@null"
             android:checked="true"

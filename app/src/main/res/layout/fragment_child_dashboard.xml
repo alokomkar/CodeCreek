@@ -14,7 +14,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/md_indigo_A100"
         android:id="@+id/addCodeCardView"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/margin_4"
         android:layout_marginRight="@dimen/margin_4"
         android:layout_marginTop="@dimen/margin_4"
@@ -664,6 +664,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/testLayout"
+                android:layout_marginBottom="@dimen/margin_16"
                 >
 
                 <android.support.v7.widget.CardView
@@ -791,7 +792,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/interviewLayout"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/margin_16"
                 >
 
