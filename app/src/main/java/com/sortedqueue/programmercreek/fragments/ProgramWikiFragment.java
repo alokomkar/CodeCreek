@@ -22,7 +22,7 @@ import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,13 +31,13 @@ import butterknife.ButterKnife;
 
 public class ProgramWikiFragment extends Fragment implements TestCompletionListener {
 
-    @Bind(R.id.headerTextView)
+    @BindView(R.id.headerTextView)
     TextView headerTextView;
-    @Bind(R.id.programWikiRecyclerView)
+    @BindView(R.id.programWikiRecyclerView)
     RecyclerView programWikiRecyclerView;
-    @Bind(R.id.backImageView)
+    @BindView(R.id.backImageView)
     ImageView backImageView;
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ContentLoadingProgressBar progressBar;
     private WikiNavigationListner wikiNavigationListener;
 
@@ -103,7 +103,7 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     private WikiModel programWiki;

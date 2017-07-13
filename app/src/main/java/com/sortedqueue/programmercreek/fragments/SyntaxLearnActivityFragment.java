@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -61,45 +61,45 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
  */
 public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener, RewardedVideoAdListener {
 
-    @Bind(R.id.syntaxExplanationCardView)
+    @BindView(R.id.syntaxExplanationCardView)
     CardView syntaxExplanationCardView;
-    @Bind(R.id.syntaxQuestionCardView)
+    @BindView(R.id.syntaxQuestionCardView)
     CardView syntaxQuestionCardView;
-    @Bind(R.id.optionsCardView)
+    @BindView(R.id.optionsCardView)
     CardView optionsCardView;
-    @Bind(R.id.checkSyntaxImageView)
+    @BindView(R.id.checkSyntaxImageView)
     ImageView checkSyntaxImageView;
-    @Bind(R.id.clearSyntaxImageView)
+    @BindView(R.id.clearSyntaxImageView)
     ImageView clearSyntaxImageView;
-    @Bind(R.id.hintSyntaxImageView)
+    @BindView(R.id.hintSyntaxImageView)
     ImageView hintSyntaxImageView;
-    @Bind(R.id.voiceTypeImageView)
+    @BindView(R.id.voiceTypeImageView)
     ImageView voiceTypeImageView;
-    @Bind(R.id.content_syntax_learn)
+    @BindView(R.id.content_syntax_learn)
     RelativeLayout contentSyntaxLearn;
-    @Bind(R.id.syntaxNameTextView)
+    @BindView(R.id.syntaxNameTextView)
     TextView syntaxNameTextView;
-    @Bind(R.id.syntaxDescriptionTextView)
+    @BindView(R.id.syntaxDescriptionTextView)
     TextView syntaxDescriptionTextView;
-    @Bind(R.id.syntaxCommandTextView)
+    @BindView(R.id.syntaxCommandTextView)
     TextView syntaxCommandTextView;
-    @Bind(R.id.syntaxCommandOutputTextView)
+    @BindView(R.id.syntaxCommandOutputTextView)
     TextView syntaxCommandOutputTextView;
-    @Bind(R.id.syntaxQuestionTextView)
+    @BindView(R.id.syntaxQuestionTextView)
     TextView syntaxQuestionTextView;
-    @Bind(R.id.syntaxSolutionTextView)
+    @BindView(R.id.syntaxSolutionTextView)
     TextView syntaxSolutionTextView;
-    @Bind(R.id.syntaxQuestionOutputTextView)
+    @BindView(R.id.syntaxQuestionOutputTextView)
     TextView syntaxQuestionOutputTextView;
-    @Bind(R.id.optionsRecyclerView)
+    @BindView(R.id.optionsRecyclerView)
     RecyclerView optionsRecyclerView;
-    @Bind(R.id.checkButtonLayout)
+    @BindView(R.id.checkButtonLayout)
     LinearLayout checkButtonLayout;
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ScrollView scrollView;
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ContentLoadingProgressBar progressBar;
-    @Bind(R.id.programCodeView)
+    @BindView(R.id.programCodeView)
     CodeView programCodeView;
     private SyntaxModule syntaxModule;
     private List<ModuleOption> moduleOptions;
@@ -253,7 +253,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

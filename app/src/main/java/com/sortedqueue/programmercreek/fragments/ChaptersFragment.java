@@ -23,7 +23,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 public class ChaptersFragment extends Fragment {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @Bind(R.id.modulesRecyclerView)
+    @BindView(R.id.modulesRecyclerView)
     RecyclerView chaptersRecyclerView;
 
     private ChapterNavigationListener chapterNavigationListener;
@@ -704,9 +704,4 @@ public class ChaptersFragment extends Fragment {
         CommonUtils.dismissProgressDialog();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }

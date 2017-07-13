@@ -15,7 +15,7 @@ import android.widget.RadioButton;
 
 import com.sortedqueue.programmercreek.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,30 +26,30 @@ public class LoginSignupDialog {
 
     public static final int MODE_SIGNUP = 1;
     public static final int MODE_LOGIN = 2;
-    @Bind(R.id.doneButton)
+    @BindView(R.id.doneButton)
     Button doneButton;
-    @Bind(R.id.cancelButton)
+    @BindView(R.id.cancelButton)
     Button cancelButton;
     private LoginSignupListener loginSignupListener;
-    @Bind(R.id.signupRadioButton)
+    @BindView(R.id.signupRadioButton)
     RadioButton signupRadioButton;
-    @Bind(R.id.loginRadioButton)
+    @BindView(R.id.loginRadioButton)
     RadioButton loginRadioButton;
-    @Bind(R.id.input_name)
+    @BindView(R.id.input_name)
     EditText inputName;
-    @Bind(R.id.input_layout_name)
+    @BindView(R.id.input_layout_name)
     TextInputLayout inputLayoutName;
-    @Bind(R.id.input_email)
+    @BindView(R.id.input_email)
     EditText inputEmail;
-    @Bind(R.id.input_layout_email)
+    @BindView(R.id.input_layout_email)
     TextInputLayout inputLayoutEmail;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     EditText inputPassword;
-    @Bind(R.id.input_layout_password)
+    @BindView(R.id.input_layout_password)
     TextInputLayout inputLayoutPassword;
-    @Bind(R.id.reinput_password)
+    @BindView(R.id.reinput_password)
     EditText reinputPassword;
-    @Bind(R.id.reinput_layout_password)
+    @BindView(R.id.reinput_layout_password)
     TextInputLayout reinputLayoutPassword;
 
     private int mode;

@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -24,7 +24,7 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 public class CodeViewFragment extends Fragment {
 
-    @Bind(R.id.programCodeView)
+    @BindView(R.id.programCodeView)
     CodeView programCodeView;
     private View view;
     private ArrayList<String> programCode;
@@ -55,7 +55,7 @@ public class CodeViewFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     public void submitSubTest(int index, ArrayList<String> content) {

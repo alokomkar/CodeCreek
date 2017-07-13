@@ -19,7 +19,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -117,17 +117,17 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.moduleNameTextView)
+        @BindView(R.id.moduleNameTextView)
         TextView moduleNameTextView;
-        @Bind(R.id.moduleDescriptionTextView)
+        @BindView(R.id.moduleDescriptionTextView)
         TextView moduleDescriptionTextView;
-        @Bind(R.id.headerTextView)
+        @BindView(R.id.headerTextView)
         TextView headerTextView;
-        @Bind(R.id.lockedImageView)
+        @BindView(R.id.lockedImageView)
         ImageView lockedImageView;
-        @Bind(R.id.appCompatSeekBar)
+        @BindView(R.id.appCompatSeekBar)
         SeekBar appCompatSeekBar;
-        @Bind(R.id.moduleLayout)
+        @BindView(R.id.moduleLayout)
         RelativeLayout moduleLayout;
 
         public ViewHolder(View view) {

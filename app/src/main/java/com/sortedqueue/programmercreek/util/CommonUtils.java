@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.util;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -18,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.sortedqueue.programmercreek.R;
 
 /**
@@ -31,27 +28,32 @@ public class CommonUtils {
     private static ProgressDialog mProgressDialog;
 
     public static void displayProgressDialog(Context context, String message ) {
-        if( context != null ) {
-            mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.show();
-            mProgressDialog.setContentView(R.layout.progress_content_view);
+        try {
+            if( context != null ) {
+                mProgressDialog = new ProgressDialog(context);
+                mProgressDialog.show();
+                mProgressDialog.setContentView(R.layout.progress_content_view);
 
-            TextView progressTextView = (TextView) mProgressDialog.findViewById(R.id.progressTextView);
-            progressTextView.setText(message);
-            Animation animation = new AlphaAnimation(1, 0);
-            animation.setDuration(800);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setRepeatMode(Animation.REVERSE);
-            ((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
+                TextView progressTextView = (TextView) mProgressDialog.findViewById(R.id.progressTextView);
+                progressTextView.setText(message);
+                Animation animation = new AlphaAnimation(1, 0);
+                animation.setDuration(800);
+                animation.setInterpolator(new LinearInterpolator());
+                animation.setRepeatCount(Animation.INFINITE);
+                animation.setRepeatMode(Animation.REVERSE);
+                ((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
             /*Glide.with(context)
                     .load(R.drawable.ip)
                     .asGif()
                     .placeholder(R.mipmap.ic_launcher)
                     .into((ImageView) mProgressDialog.findViewById(R.id.progressImageView));*/
-            mProgressDialog.setCancelable(false);
+                mProgressDialog.setCancelable(false);
 
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -69,9 +71,14 @@ public class CommonUtils {
     }
 
     public static void dismissProgressDialog( ) {
-        if( mProgressDialog != null ) {
-            mProgressDialog.dismiss();
+        try {
+            if( mProgressDialog != null ) {
+                mProgressDialog.dismiss();
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
         }
+
     }
 
     public static void displayToast(Context context, String message) {

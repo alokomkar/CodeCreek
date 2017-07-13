@@ -39,7 +39,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -52,12 +52,12 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     ArrayList<ProgramIndex> mProgram_Indexs;
 
     public int PROGRAM_LIST_SIZE = 0;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     LinearLayout progressLayout;
 
     private String TAG = getClass().getSimpleName();
     private ProgramIndex program_Index;
-    @Bind(R.id.adView)
+    @BindView(R.id.adView)
     AdView adView;
     private CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter;
     private Animation fadeOutAnimation;

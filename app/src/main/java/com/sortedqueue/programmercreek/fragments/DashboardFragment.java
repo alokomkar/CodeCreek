@@ -39,7 +39,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -50,61 +50,61 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     private static DashboardFragment instance;
 
-    @Bind(R.id.syntaxTextView)
+    @BindView(R.id.syntaxTextView)
     TextView syntaxTextView;
-    @Bind(R.id.syntaxLayout)
+    @BindView(R.id.syntaxLayout)
     FrameLayout syntaxLayout;
-    @Bind(R.id.indexTextView)
+    @BindView(R.id.indexTextView)
     TextView indexTextView;
-    @Bind(R.id.indexLayout)
+    @BindView(R.id.indexLayout)
     FrameLayout indexLayout;
-    @Bind(R.id.wikiTextView)
+    @BindView(R.id.wikiTextView)
     TextView wikiTextView;
-    @Bind(R.id.wikiLayout)
+    @BindView(R.id.wikiLayout)
     FrameLayout wikiLayout;
-    @Bind(R.id.reviseTextView)
+    @BindView(R.id.reviseTextView)
     TextView reviseTextView;
-    @Bind(R.id.reviseLayout)
+    @BindView(R.id.reviseLayout)
     FrameLayout reviseLayout;
-    @Bind(R.id.quizTextView)
+    @BindView(R.id.quizTextView)
     TextView quizTextView;
-    @Bind(R.id.quizLayout)
+    @BindView(R.id.quizLayout)
     FrameLayout quizLayout;
-    @Bind(R.id.matchTextView)
+    @BindView(R.id.matchTextView)
     TextView matchTextView;
-    @Bind(R.id.matchLayout)
+    @BindView(R.id.matchLayout)
     FrameLayout matchLayout;
-    @Bind(R.id.fillBlanksTextView)
+    @BindView(R.id.fillBlanksTextView)
     TextView fillBlanksTextView;
-    @Bind(R.id.fillLayout)
+    @BindView(R.id.fillLayout)
     FrameLayout fillLayout;
-    @Bind(R.id.testTextView)
+    @BindView(R.id.testTextView)
     TextView testTextView;
-    @Bind(R.id.testLayout)
+    @BindView(R.id.testLayout)
     FrameLayout testLayout;
-    @Bind(R.id.interviewLayout)
+    @BindView(R.id.interviewLayout)
     FrameLayout interviewLayout;
-    @Bind(R.id.wizardTextView)
+    @BindView(R.id.wizardTextView)
     TextView wizardTextView;
-    @Bind(R.id.wizardLayout)
+    @BindView(R.id.wizardLayout)
     FrameLayout wizardLayout;
-    @Bind(R.id.introLayout)
+    @BindView(R.id.introLayout)
     FrameLayout introLayout;
-    @Bind(R.id.codeLabLayout)
+    @BindView(R.id.codeLabLayout)
     FrameLayout codeLabLayout;
-    @Bind(R.id.addCodeCardView)
+    @BindView(R.id.addCodeCardView)
     CardView addCodeCardView;
-    @Bind(R.id.dashboardScrollView)
+    @BindView(R.id.dashboardScrollView)
     NestedScrollView dashboardScrollView;
-    @Bind(R.id.adaScrollView)
+    @BindView(R.id.adaScrollView)
     NestedScrollView adaScrollView;
-    @Bind(R.id.interviewTextView)
+    @BindView(R.id.interviewTextView)
     TextView interviewTextView;
-    @Bind(R.id.adaRecyclerView)
+    @BindView(R.id.adaRecyclerView)
     RecyclerView adaRecyclerView;
-    @Bind(R.id.addCodeTextView)
+    @BindView(R.id.addCodeTextView)
     TextView addCodeTextView;
-    @Bind(R.id.downloadFileTextView)
+    @BindView(R.id.downloadFileTextView)
     TextView downloadFileTextView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
@@ -230,7 +230,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

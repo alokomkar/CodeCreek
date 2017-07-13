@@ -29,7 +29,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -39,29 +39,29 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ContentLoadingProgressBar progressBar;
-    @Bind(R.id.chapterHeaderTextView)
+    @BindView(R.id.chapterHeaderTextView)
     TextView chapterHeaderTextView;
-    @Bind(R.id.chapterIntroTextView)
+    @BindView(R.id.chapterIntroTextView)
     TextView chapterIntroTextView;
-    @Bind(R.id.chapterNoteTextView)
+    @BindView(R.id.chapterNoteTextView)
     TextView chapterNoteTextView;
-    @Bind(R.id.chapterProgramCodeView)
+    @BindView(R.id.chapterProgramCodeView)
     CodeView chapterProgramCodeView;
-    @Bind(R.id.chapterProgramOutputTextView)
+    @BindView(R.id.chapterProgramOutputTextView)
     TextView chapterProgramOutputTextView;
-    @Bind(R.id.chapterProgramDescriptionTextView)
+    @BindView(R.id.chapterProgramDescriptionTextView)
     TextView chapterProgramDescriptionTextView;
-    @Bind(R.id.syntaxExplanationCardView)
+    @BindView(R.id.syntaxExplanationCardView)
     CardView syntaxExplanationCardView;
-    @Bind(R.id.content_syntax_learn)
+    @BindView(R.id.content_syntax_learn)
     RelativeLayout contentSyntaxLearn;
-    @Bind(R.id.content_intro)
+    @BindView(R.id.content_intro)
     RelativeLayout contentIntro;
     private Toolbar toolbar;
     private ImageView drawerImageView;
-    @Bind(R.id.doneFAB)
+    @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
 
     private TextView drawerNameTextView;

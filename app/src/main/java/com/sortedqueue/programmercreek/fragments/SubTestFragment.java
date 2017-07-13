@@ -22,7 +22,7 @@ import com.sortedqueue.programmercreek.view.DragNDropListView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class SubTestFragment extends Fragment {
 
-    @Bind(R.id.dragNDropListView)
+    @BindView(R.id.dragNDropListView)
     DragNDropListView dragNDropListView;
     private View view;
     private ArrayList<ProgramTable> programTables;
@@ -104,7 +104,7 @@ public class SubTestFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     public void setProgramTables(ArrayList<ProgramTable> programTables) {

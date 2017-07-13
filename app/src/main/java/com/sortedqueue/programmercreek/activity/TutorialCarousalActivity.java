@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 public class TutorialCarousalActivity extends AppCompatActivity implements TutorialNavigationListener {
 
 
-    @Bind(R.id.tutorialViewPager)
+    @BindView(R.id.tutorialViewPager)
     ViewPager tutorialViewPager;
 
     private ArrayList<TutorialModel> tutorialModels;

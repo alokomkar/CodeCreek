@@ -18,7 +18,7 @@ import com.sortedqueue.programmercreek.database.firebase.Code;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -116,7 +116,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.syntaxNameTextView)
+        @BindView(R.id.syntaxNameTextView)
         TextView syntaxNameTextView;
 
         public HeaderViewHolder(View view) {
@@ -126,16 +126,16 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.syntaxDescriptionTextView)
+        @BindView(R.id.syntaxDescriptionTextView)
         TextView syntaxDescriptionTextView;
 
-        @Bind(R.id.syntaxSolutionTextView)
+        @BindView(R.id.syntaxSolutionTextView)
         TextView syntaxSolutionTextView;
 
-        @Bind(R.id.programCodeView)
+        @BindView(R.id.programCodeView)
         CodeView programCodeView;
 
-        @Bind(R.id.codeLabTextView)
+        @BindView(R.id.codeLabTextView)
         TextView codeLabTextView;
 
         public ProgramViewHolder(View view) {
@@ -170,7 +170,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ProgramExplanationViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.syntaxDescriptionTextView)
+        @BindView(R.id.syntaxDescriptionTextView)
         TextView syntaxDescriptionTextView;
 
         public ProgramExplanationViewHolder(View view) {

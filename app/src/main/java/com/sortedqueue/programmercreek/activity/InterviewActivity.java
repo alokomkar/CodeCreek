@@ -20,7 +20,7 @@ import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -30,11 +30,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class InterviewActivity extends AppCompatActivity implements InterviewNavigationListener {
 
-    @Bind(R.id.container)
+    @BindView(R.id.container)
     FrameLayout container;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.checkFAB)
+    @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
     private InterviewQuestionsFragment interviewQuestionsFragment;

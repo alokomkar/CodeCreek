@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -51,9 +51,9 @@ public class AlgorithmsRecyclerAdapter extends RecyclerView.Adapter<AlgorithmsRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.titleTextView)
+        @BindView(R.id.titleTextView)
         TextView titleTextView;
-        @Bind(R.id.descriptionTextView)
+        @BindView(R.id.descriptionTextView)
         TextView descriptionTextView;
         public ViewHolder(View itemView) {
             super(itemView);

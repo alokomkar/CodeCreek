@@ -25,7 +25,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -145,21 +145,21 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @Bind(R.id.programTypeTextView)
+        @BindView(R.id.programTypeTextView)
         TextView programTypeTextView;
-        @Bind(R.id.txtViewProgDescription)
+        @BindView(R.id.txtViewProgDescription)
         TextView txtViewProgDescription;
-        @Bind(R.id.lockedImageView)
+        @BindView(R.id.lockedImageView)
         ImageView lockedImageView;
-        @Bind(R.id.unlockedByInviteImageView)
+        @BindView(R.id.unlockedByInviteImageView)
         ImageView unlockedByInviteImageView;
-        @Bind(R.id.quizTextView)
+        @BindView(R.id.quizTextView)
         TextView quizTextView;
-        @Bind(R.id.matchTextView)
+        @BindView(R.id.matchTextView)
         TextView matchTextView;
-        @Bind(R.id.testTextView)
+        @BindView(R.id.testTextView)
         TextView testTextView;
-        @Bind(R.id.completionLayout)
+        @BindView(R.id.completionLayout)
         LinearLayout completionLayout;
 
         public ViewHolder(View itemView) {

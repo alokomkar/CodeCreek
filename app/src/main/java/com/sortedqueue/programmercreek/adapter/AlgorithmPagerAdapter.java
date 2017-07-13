@@ -24,7 +24,6 @@ public class AlgorithmPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.algorithm = algorithm;
         fragments = new ArrayList<>();
-        ArrayList<AlgorithmContent> algorithmContentArrayList = algorithm.getAlgorithmContentArrayList();
         for(AlgorithmContent algorithmContent : algorithm.getAlgorithmContentArrayList()) {
             AllAlgorithmContentFragment allAlgorithmContentFragment = new AllAlgorithmContentFragment();
             allAlgorithmContentFragment.setParameter(algorithmContent, algorithm.getAlgorithmsIndex().getProgramLanguage());

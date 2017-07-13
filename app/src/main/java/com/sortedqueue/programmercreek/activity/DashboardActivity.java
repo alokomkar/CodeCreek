@@ -68,7 +68,7 @@ import com.sortedqueue.programmercreek.view.UserProgramDialog;
 import java.io.File;
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -78,39 +78,39 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardNavigationListener, DownloadFileListner, View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
 
-    //@Bind(R.id.adView)
+    //@BindView(R.id.adView)
     //AdView adView;
-    @Bind(R.id.dashboardViewPager)
+    @BindView(R.id.dashboardViewPager)
     ViewPager dashboardViewPager;
-    @Bind(R.id.dashboardTabLayout)
+    @BindView(R.id.dashboardTabLayout)
     TabLayout dashboardTabLayout;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.createPresentationFAB)
+    @BindView(R.id.createPresentationFAB)
     FloatingActionButton createPresentationFAB;
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     WebView webView;
-    @Bind(R.id.addCodeTextView)
+    @BindView(R.id.addCodeTextView)
     TextView addCodeTextView;
-    @Bind(R.id.addCodeFAB)
+    @BindView(R.id.addCodeFAB)
     FloatingActionButton addCodeFAB;
-    @Bind(R.id.addUserCodeFAB)
+    @BindView(R.id.addUserCodeFAB)
     FloatingActionButton addUserCodeFAB;
-    @Bind(R.id.addCodeLayout)
+    @BindView(R.id.addCodeLayout)
     LinearLayout addCodeLayout;
-    @Bind(R.id.addPptTextView)
+    @BindView(R.id.addPptTextView)
     TextView addPptTextView;
-    @Bind(R.id.addPptLayout)
+    @BindView(R.id.addPptLayout)
     LinearLayout addPptLayout;
-    @Bind(R.id.fabLayout)
+    @BindView(R.id.fabLayout)
     LinearLayout fabLayout;
-    @Bind(R.id.main_content)
+    @BindView(R.id.main_content)
     RelativeLayout mainContent;
-    @Bind(R.id.reputationProgressBar)
+    @BindView(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
-    @Bind(R.id.reputationTextView)
+    @BindView(R.id.reputationTextView)
     TextView reputationTextView;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     LinearLayout progressLayout;
 
 

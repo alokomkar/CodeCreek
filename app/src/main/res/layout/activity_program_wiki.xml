@@ -25,11 +25,10 @@
         <WebView
             android:id="@+id/webView"
             android:background="@color/bg"
-            android:layout_below="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/adView"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/progressBar" />
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"

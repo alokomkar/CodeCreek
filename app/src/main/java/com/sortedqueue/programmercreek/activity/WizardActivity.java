@@ -23,13 +23,13 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WizardActivity extends AppCompatActivity implements WizardNavigationListener {
 
-    @Bind(R.id.container)
+    @BindView(R.id.container)
     FrameLayout container;
     private FragmentTransaction mFragmentTransaction;
     private MatchMakerFragment matchMakerFragment;

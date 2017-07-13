@@ -27,7 +27,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -38,11 +38,11 @@ import com.tappx.sdk.android.TappxInterstitialListener;*/
 public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavigationListener, View.OnClickListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.container)
+    @BindView(R.id.container)
     FrameLayout container;
-    @Bind(R.id.checkFAB)
+    @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
     private ModuleFragment moduleFragment;

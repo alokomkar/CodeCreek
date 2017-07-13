@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -21,13 +21,13 @@ import butterknife.ButterKnife;
 
 public class InterviewChoiceFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.cQuestionsTextView)
+    @BindView(R.id.cQuestionsTextView)
     TextView cQuestionsTextView;
-    @Bind(R.id.cppQuestionsTextView)
+    @BindView(R.id.cppQuestionsTextView)
     TextView cppQuestionsTextView;
-    @Bind(R.id.javaQuestionsTextView)
+    @BindView(R.id.javaQuestionsTextView)
     TextView javaQuestionsTextView;
-    @Bind(R.id.sqlQuestionsTextView)
+    @BindView(R.id.sqlQuestionsTextView)
     TextView sqlQuestionsTextView;
     private InterviewNavigationListener interviewNavigationListener;
     private static InterviewChoiceFragment instance;
@@ -73,7 +73,7 @@ public class InterviewChoiceFragment extends Fragment implements View.OnClickLis
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

@@ -19,7 +19,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -29,9 +29,9 @@ import butterknife.ButterKnife;
 
 public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandler.GetAlgorithmListener {
 
-    @Bind(R.id.algorithmTabLayout)
+    @BindView(R.id.algorithmTabLayout)
     TabLayout algorithmTabLayout;
-    @Bind(R.id.algorithmViewPager)
+    @BindView(R.id.algorithmViewPager)
     ViewPager algorithmViewPager;
     private AlgorithmNavigationListener algorithmNavigationListener;
     private static AlgorithmsIndex mAlgorithmsIndex;
@@ -86,12 +86,6 @@ public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandl
                 fetchAlgorithmsIndex();
             }
         });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     public void shareAlgorithm() {

@@ -20,7 +20,7 @@ import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -29,9 +29,9 @@ import butterknife.ButterKnife;
 
 public class ViewPresentationActivity extends AppCompatActivity implements FirebaseDatabaseHandler.GetAllSlidesListener {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.pager)
+    @BindView(R.id.pager)
     ViewPager pager;
     private String TAG = ViewPresentationActivity.class.getSimpleName();
 

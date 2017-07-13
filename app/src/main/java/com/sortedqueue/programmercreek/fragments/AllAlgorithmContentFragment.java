@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
 import com.sortedqueue.programmercreek.database.AlgorithmContent;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -24,17 +24,17 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 public class AllAlgorithmContentFragment extends Fragment {
 
-    @Bind(R.id.titleTextView)
+    @BindView(R.id.titleTextView)
     TextView titleTextView;
-    @Bind(R.id.contentTextView)
+    @BindView(R.id.contentTextView)
     TextView contentTextView;
-    @Bind(R.id.algorithmsTextView)
+    @BindView(R.id.algorithmsTextView)
     TextView algorithmsTextView;
-    @Bind(R.id.algorithmCodeView)
+    @BindView(R.id.algorithmCodeView)
     CodeView algorithmCodeView;
-    @Bind(R.id.outputTextView)
+    @BindView(R.id.outputTextView)
     TextView outputTextView;
-    @Bind(R.id.algorithmNestedScrollview)
+    @BindView(R.id.algorithmNestedScrollview)
     NestedScrollView algorithmNestedScrollview;
     private AlgorithmContent algorithmContent;
     private String programLanguage;
@@ -93,6 +93,6 @@ public class AllAlgorithmContentFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 }

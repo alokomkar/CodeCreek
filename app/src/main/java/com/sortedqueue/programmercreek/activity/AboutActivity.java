@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class AboutActivity extends AppCompatActivity {
 
-    @Bind(R.id.descriptionTextView)
+    @BindView(R.id.descriptionTextView)
     TextView descriptionTextView;
 
     @Override

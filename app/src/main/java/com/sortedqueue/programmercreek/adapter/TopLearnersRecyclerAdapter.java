@@ -15,7 +15,7 @@ import com.sortedqueue.programmercreek.database.UserRanking;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -56,13 +56,13 @@ public class TopLearnersRecyclerAdapter extends RecyclerView.Adapter<TopLearners
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        @Bind(R.id.movieGridItemImageView)
+        @BindView(R.id.movieGridItemImageView)
         ImageView movieGridItemImageView;
-        @Bind(R.id.userNameTextView)
+        @BindView(R.id.userNameTextView)
         TextView userNameTextView;
-        @Bind(R.id.levelTextView)
+        @BindView(R.id.levelTextView)
         TextView levelTextView;
-        @Bind(R.id.movieGridCardView)
+        @BindView(R.id.movieGridCardView)
         CardView movieGridCardView;
 
         public ViewHolder(View view) {

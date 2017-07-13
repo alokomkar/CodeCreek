@@ -11,7 +11,7 @@ import com.sortedqueue.programmercreek.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -59,9 +59,9 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.tagTextView)
+        @BindView(R.id.tagTextView)
         TextView tagTextView;
-        @Bind(R.id.tagLayout)
+        @BindView(R.id.tagLayout)
         LinearLayout tagLayout;
 
         public ViewHolder(View itemView) {

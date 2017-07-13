@@ -51,7 +51,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,29 +63,29 @@ import retrofit2.Response;
 
 public class CompileCodeFragment extends Fragment implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @Bind(R.id.inputEditText)
+    @BindView(R.id.inputEditText)
     EditText inputEditText;
-    @Bind(R.id.progressImageView)
+    @BindView(R.id.progressImageView)
     ImageView progressImageView;
-    @Bind(R.id.progressTextView)
+    @BindView(R.id.progressTextView)
     TextView progressTextView;
-    @Bind(R.id.compilerProgressLayout)
+    @BindView(R.id.compilerProgressLayout)
     RelativeLayout compilerProgressLayout;
-    @Bind(R.id.codeEditRecyclerView)
+    @BindView(R.id.codeEditRecyclerView)
     RecyclerView codeEditRecyclerView;
-    @Bind(R.id.languageTextView)
+    @BindView(R.id.languageTextView)
     TextView languageTextView;
-    @Bind(R.id.importFromFileTextView)
+    @BindView(R.id.importFromFileTextView)
     TextView importFromFileTextView;
-    @Bind(R.id.languageRecyclerView)
+    @BindView(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
-    @Bind(R.id.importLayout)
+    @BindView(R.id.importLayout)
     LinearLayout importLayout;
-    @Bind(R.id.outputLayout)
+    @BindView(R.id.outputLayout)
     FrameLayout outputLayout;
-    @Bind(R.id.outputTextView)
+    @BindView(R.id.outputTextView)
     TextView outputTextView;
-    @Bind(R.id.dividerView)
+    @BindView(R.id.dividerView)
     View dividerView;
 
     private SubmitCodeService submitCodeService;
@@ -242,12 +242,6 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     private void stopAnimation() {
         progressImageView.clearAnimation();
         compilerProgressLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     private boolean fromWiki = false;

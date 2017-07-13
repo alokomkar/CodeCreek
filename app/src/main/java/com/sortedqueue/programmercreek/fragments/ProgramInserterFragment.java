@@ -25,7 +25,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -34,31 +34,31 @@ import butterknife.ButterKnife;
 
 public class ProgramInserterFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.wikiHeaderEditText)
+    @BindView(R.id.wikiHeaderEditText)
     AppCompatEditText wikiHeaderEditText;
-    @Bind(R.id.wikiIdEditText)
+    @BindView(R.id.wikiIdEditText)
     AppCompatEditText wikiIdEditText;
-    @Bind(R.id.syntaxLanguageTextView)
+    @BindView(R.id.syntaxLanguageTextView)
     TextView syntaxLanguageTextView;
-    @Bind(R.id.insertButton)
+    @BindView(R.id.insertButton)
     Button insertButton;
-    @Bind(R.id.deleteButton)
+    @BindView(R.id.deleteButton)
     Button deleteButton;
-    @Bind(R.id.programWikiRecyclerView)
+    @BindView(R.id.programWikiRecyclerView)
     RecyclerView programWikiRecyclerView;
-    @Bind(R.id.saveButton)
+    @BindView(R.id.saveButton)
     Button saveButton;
-    @Bind(R.id.clearButton)
+    @BindView(R.id.clearButton)
     Button clearButton;
-    @Bind(R.id.formatCodeButton)
+    @BindView(R.id.formatCodeButton)
     Button formatCodeButton;
-    @Bind(R.id.headerEditText)
+    @BindView(R.id.headerEditText)
     EditText headerEditText;
-    @Bind(R.id.explanationEditText)
+    @BindView(R.id.explanationEditText)
     EditText explanationEditText;
-    @Bind(R.id.exampleEditText)
+    @BindView(R.id.exampleEditText)
     EditText exampleEditText;
-    @Bind(R.id.ouptputEditText)
+    @BindView(R.id.ouptputEditText)
     EditText ouptputEditText;
 
     private WikiModel wikiModel = new WikiModel();
@@ -106,7 +106,7 @@ public class ProgramInserterFragment extends Fragment implements View.OnClickLis
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

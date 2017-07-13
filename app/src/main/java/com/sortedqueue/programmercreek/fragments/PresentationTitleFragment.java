@@ -22,7 +22,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,29 +31,29 @@ import butterknife.ButterKnife;
 
 public class PresentationTitleFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.presentationTitleEditText)
+    @BindView(R.id.presentationTitleEditText)
     EditText presentationTitleEditText;
-    @Bind(R.id.presentationTitleLayout)
+    @BindView(R.id.presentationTitleLayout)
     TextInputLayout presentationTitleLayout;
-    @Bind(R.id.presentationDescriptionEditText)
+    @BindView(R.id.presentationDescriptionEditText)
     EditText presentationDescriptionEditText;
-    @Bind(R.id.presentationDescriptionLayout)
+    @BindView(R.id.presentationDescriptionLayout)
     TextInputLayout presentationDescriptionLayout;
-    @Bind(R.id.tagsHeaderTextView)
+    @BindView(R.id.tagsHeaderTextView)
     TextView tagsHeaderTextView;
-    @Bind(R.id.tagsRecyclerView)
+    @BindView(R.id.tagsRecyclerView)
     RecyclerView tagsRecyclerView;
-    @Bind(R.id.addTagEditText)
+    @BindView(R.id.addTagEditText)
     EditText addTagEditText;
-    @Bind(R.id.addTagTextView)
+    @BindView(R.id.addTagTextView)
     TextView addTagTextView;
-    @Bind(R.id.tagsLayout)
+    @BindView(R.id.tagsLayout)
     LinearLayout tagsLayout;
-    @Bind(R.id.titleLayout)
+    @BindView(R.id.titleLayout)
     LinearLayout titleLayout;
-    @Bind(R.id.doneButton)
+    @BindView(R.id.doneButton)
     Button doneButton;
-    @Bind(R.id.cancelButton)
+    @BindView(R.id.cancelButton)
     Button cancelButton;
     private TagsRecyclerAdapter tagsRecyclerAdapter;
 
@@ -124,7 +124,7 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

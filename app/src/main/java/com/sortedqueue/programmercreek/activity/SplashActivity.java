@@ -54,20 +54,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
 
     private static int SPLASH_TIMEOUT = 1000;
-    @Bind(R.id.googleSignInButton)
+    @BindView(R.id.googleSignInButton)
     SignInButton googleSignInButton;
-    @Bind(R.id.fbLoginButton)
+    @BindView(R.id.fbLoginButton)
     LoginButton fbLoginButton;
-    @Bind(R.id.signEmailButton)
+    @BindView(R.id.signEmailButton)
     Button signEmailButton;
-    @Bind(R.id.signAnonButton)
+    @BindView(R.id.signAnonButton)
     Button signAnonButton;
 
     private int RC_SIGN_IN = 1000;

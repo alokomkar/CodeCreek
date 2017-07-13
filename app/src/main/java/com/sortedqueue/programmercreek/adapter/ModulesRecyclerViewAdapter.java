@@ -17,7 +17,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -90,11 +90,11 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.moduleNameTextView)
+        @BindView(R.id.moduleNameTextView)
         TextView moduleNameTextView;
-        @Bind(R.id.moduleDescriptionTextView)
+        @BindView(R.id.moduleDescriptionTextView)
         TextView moduleDescriptionTextView;
-        @Bind(R.id.lockedImageView)
+        @BindView(R.id.lockedImageView)
         ImageView lockedImageView;
 
 

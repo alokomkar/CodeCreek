@@ -16,7 +16,7 @@ import com.sortedqueue.programmercreek.database.QuizModel;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -112,31 +112,31 @@ public class QuizRecyclerAdapter extends RecyclerView.Adapter<QuizRecyclerAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.questionTextView)
+        @BindView(R.id.questionTextView)
         TextView questionTextView;
-        @Bind(R.id.option1TextView)
+        @BindView(R.id.option1TextView)
         TextView option1TextView;
-        @Bind(R.id.option1Layout)
+        @BindView(R.id.option1Layout)
         LinearLayout option1Layout;
-        @Bind(R.id.option2TextView)
+        @BindView(R.id.option2TextView)
         TextView option2TextView;
-        @Bind(R.id.option2Layout)
+        @BindView(R.id.option2Layout)
         LinearLayout option2Layout;
-        @Bind(R.id.option3TextView)
+        @BindView(R.id.option3TextView)
         TextView option3TextView;
-        @Bind(R.id.option3Layout)
+        @BindView(R.id.option3Layout)
         LinearLayout option3Layout;
-        @Bind(R.id.option4TextView)
+        @BindView(R.id.option4TextView)
         TextView option4TextView;
-        @Bind(R.id.option4Layout)
+        @BindView(R.id.option4Layout)
         LinearLayout option4Layout;
-        @Bind(R.id.option1ImageView)
+        @BindView(R.id.option1ImageView)
         ImageView option1ImageView;
-        @Bind(R.id.option2ImageView)
+        @BindView(R.id.option2ImageView)
         ImageView option2ImageView;
-        @Bind(R.id.option3ImageView)
+        @BindView(R.id.option3ImageView)
         ImageView option3ImageView;
-        @Bind(R.id.option4ImageView)
+        @BindView(R.id.option4ImageView)
         ImageView option4ImageView;
 
 

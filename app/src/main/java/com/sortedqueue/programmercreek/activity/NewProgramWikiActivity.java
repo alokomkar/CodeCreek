@@ -35,7 +35,7 @@ import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -45,27 +45,27 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewProgramWikiActivity extends AppCompatActivity implements View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @Bind(R.id.programWikiViewPager)
+    @BindView(R.id.programWikiViewPager)
     ScrollableViewPager programWikiViewPager;
-    @Bind(R.id.ProgressBar)
+    @BindView(R.id.ProgressBar)
     ProgressBar progressBar;
-    @Bind(R.id.firstQuestionImageView)
+    @BindView(R.id.firstQuestionImageView)
     ImageView firstQuestionImageView;
-    @Bind(R.id.prevQuestionImageView)
+    @BindView(R.id.prevQuestionImageView)
     ImageView prevQuestionImageView;
-    @Bind(R.id.indexTextView)
+    @BindView(R.id.indexTextView)
     TextView indexTextView;
-    @Bind(R.id.nextQuestionImageView)
+    @BindView(R.id.nextQuestionImageView)
     ImageView nextQuestionImageView;
-    @Bind(R.id.lastQuestionImageView)
+    @BindView(R.id.lastQuestionImageView)
     ImageView lastQuestionImageView;
-    @Bind(R.id.navigationLayout)
+    @BindView(R.id.navigationLayout)
     RelativeLayout navigationLayout;
-    @Bind(R.id.programRecyclerView)
+    @BindView(R.id.programRecyclerView)
     RecyclerView programRecyclerView;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navView;
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     private ProgramWikiPagerAdapter programWikiPagerAdapter;
     private InterstitialAd interstitialAd;

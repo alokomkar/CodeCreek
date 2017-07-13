@@ -21,7 +21,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 public class PresentationsListFragment extends Fragment implements View.OnClickListener, FirebaseDatabaseHandler.GetAllPresentationsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     private static PresentationsListFragment instance;
-    @Bind(R.id.presentationsRecyclerView)
+    @BindView(R.id.presentationsRecyclerView)
     RecyclerView presentationsRecyclerView;
     private PresentationsListRecyclerAdapter adapter;
 
@@ -61,7 +61,7 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

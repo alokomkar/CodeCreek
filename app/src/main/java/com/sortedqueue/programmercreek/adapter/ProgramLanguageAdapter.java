@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.database.ProgramLanguage;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -62,13 +62,13 @@ public class ProgramLanguageAdapter extends RecyclerView.Adapter<ProgramLanguage
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.programmingTextView)
+        @BindView(R.id.programmingTextView)
         TextView programmingTextView;
-        @Bind(R.id.progressBar)
+        @BindView(R.id.progressBar)
         ProgressBar progressBar;
-        @Bind(R.id.programLanguageDescriptionTextView)
+        @BindView(R.id.programLanguageDescriptionTextView)
         TextView programLanguageDescriptionTextView;
-        @Bind(R.id.languageIdTextView)
+        @BindView(R.id.languageIdTextView)
         TextView languageIdTextView;
 
 

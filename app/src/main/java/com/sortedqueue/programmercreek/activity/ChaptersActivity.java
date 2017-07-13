@@ -27,7 +27,7 @@ import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -42,18 +42,18 @@ import com.tappx.sdk.android.TappxInterstitialListener;*/
 public class ChaptersActivity extends AppCompatActivity implements ChapterNavigationListener, View.OnClickListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.container)
-    FrameLayout container;
-    @Bind(R.id.checkFAB)
-    FloatingActionButton checkFAB;
-    @Bind(R.id.reputationProgressBar)
+    @BindView(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
-    @Bind(R.id.reputationTextView)
+    @BindView(R.id.reputationTextView)
     TextView reputationTextView;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     LinearLayout progressLayout;
+    @BindView(R.id.container)
+    FrameLayout container;
+    @BindView(R.id.checkFAB)
+    FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
     private ChapterDetailsFragment chapterDetailsFragment;
     private ChaptersFragment chaptersFragment;
@@ -259,13 +259,13 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
 
                             handler.post(new Runnable() {
                                 public void run() {
-                                    if( reputationProgressBar != null ) {
+                                    if (reputationProgressBar != null) {
                                         reputationProgressBar.setProgress(progressBarStatus);
 
-                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete");
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete");
                                         int level = creekUserStats.getCreekUserReputation() / 100;
                                         if (level > 0) {
-                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete : Level : " + level);
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete : Level : " + level);
                                         }
                                     }
                                 }
@@ -286,9 +286,9 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                 };
                 new Thread(runnable).start();
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
-            if( progressLayout != null ) {
+            if (progressLayout != null) {
                 progressLayout.setVisibility(View.GONE);
             }
         }

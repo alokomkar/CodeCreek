@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -68,19 +68,19 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     CountDownTimer mCountDownTimer;
     boolean mWizard = false;
 
-    @Bind(R.id.checkQuizButton)
+    @BindView(R.id.checkQuizButton)
     Button checkQuizButton;
-    @Bind(R.id.circular_progress_bar)
+    @BindView(R.id.circular_progress_bar)
     ProgressBar circularProgressBar;
-    @Bind(R.id.progressTextView)
+    @BindView(R.id.progressTextView)
     TextView progressTextView;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     FrameLayout progressLayout;
-    @Bind(R.id.containerPager)
+    @BindView(R.id.containerPager)
     ScrollableViewPager containerPager;
-    @Bind(R.id.timerButton)
+    @BindView(R.id.timerButton)
     Button timerButton;
-    @Bind(R.id.testTabLayout)
+    @BindView(R.id.testTabLayout)
     TabLayout testTabLayout;
     private InterstitialAd interstitialAd;
     private DragNDropListView dragNDropListView;
@@ -635,6 +635,6 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 }

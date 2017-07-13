@@ -30,7 +30,7 @@ import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.uk.rushorm.core.RushCallback;
 import co.uk.rushorm.core.RushCore;
@@ -44,17 +44,17 @@ import co.uk.rushorm.core.RushSearchCallback;
 public class UserProgramsFragment extends Fragment implements View.OnClickListener, UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener {
 
     private static UserProgramsFragment instance;
-    @Bind(R.id.userProgramsRecyclerView)
+    @BindView(R.id.userProgramsRecyclerView)
     RecyclerView userProgramsRecyclerView;
-    @Bind(R.id.allProgramsRadioButton)
+    @BindView(R.id.allProgramsRadioButton)
     RadioButton allProgramsRadioButton;
-    @Bind(R.id.myProgramsRadioButton)
+    @BindView(R.id.myProgramsRadioButton)
     RadioButton myProgramsRadioButton;
-    @Bind(R.id.myFavoritesRadioButton)
+    @BindView(R.id.myFavoritesRadioButton)
     RadioButton myFavoritesRadioButton;
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.noProgramsLayout)
+    @BindView(R.id.noProgramsLayout)
     LinearLayout noProgramsLayout;
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
@@ -140,7 +140,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

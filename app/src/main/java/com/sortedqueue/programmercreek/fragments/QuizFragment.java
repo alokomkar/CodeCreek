@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -60,13 +60,13 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     CountDownTimer mCountDownTimer;
     boolean mWizard = false;
     int mQuizMode = -1;
-    @Bind(R.id.circular_progress_bar)
+    @BindView(R.id.circular_progress_bar)
     ProgressBar circularProgressBar;
-    @Bind(R.id.progressTextView)
+    @BindView(R.id.progressTextView)
     TextView progressTextView;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     FrameLayout progressLayout;
-    @Bind(R.id.quizRecyclerView)
+    @BindView(R.id.quizRecyclerView)
     RecyclerView quizRecyclerView;
     private ArrayList<QuizModel> quizModels;
     private QuizRecyclerAdapter quizRecyclerAdapter;

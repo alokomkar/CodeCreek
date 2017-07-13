@@ -25,7 +25,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
@@ -37,27 +37,27 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 public class UserProgramDialog implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    @Bind(R.id.codeRadioButton)
+    @BindView(R.id.codeRadioButton)
     RadioButton codeRadioButton;
-    @Bind(R.id.explanationRadioButton)
+    @BindView(R.id.explanationRadioButton)
     RadioButton explanationRadioButton;
-    @Bind(R.id.codeView)
+    @BindView(R.id.codeView)
     CodeView codeView;
-    @Bind(R.id.doneButton)
+    @BindView(R.id.doneButton)
     Button doneButton;
-    @Bind(R.id.saveButton)
+    @BindView(R.id.saveButton)
     Button saveButton;
-    @Bind(R.id.discardButton)
+    @BindView(R.id.discardButton)
     Button discardButton;
-    @Bind(R.id.accessSwitchCompat)
+    @BindView(R.id.accessSwitchCompat)
     SwitchCompat accessSwitchCompat;
-    @Bind(R.id.accessTextView)
+    @BindView(R.id.accessTextView)
     TextView accessTextView;
-    @Bind(R.id.presentationTitleEditText)
+    @BindView(R.id.presentationTitleEditText)
     EditText presentationTitleEditText;
-    @Bind(R.id.languageRecyclerView)
+    @BindView(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
-    @Bind(R.id.programTitleLayout)
+    @BindView(R.id.programTitleLayout)
     LinearLayout programTitleLayout;
     private UserProgramDialogListener userProgramDialogListener;
     private WebUserProgramDialogListener webUserProgramDialogListener;

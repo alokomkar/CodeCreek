@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.SlideModel;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 
@@ -23,15 +23,15 @@ import io.github.kbiakov.codeview.CodeView;
 
 public class ViewSlideFragment extends Fragment {
 
-    @Bind(R.id.titleTextView)
+    @BindView(R.id.titleTextView)
     TextView titleTextView;
-    @Bind(R.id.subTitleTextView)
+    @BindView(R.id.subTitleTextView)
     TextView subTitleTextView;
-    @Bind(R.id.slideImageView)
+    @BindView(R.id.slideImageView)
     ImageView slideImageView;
-    @Bind(R.id.slideImageLayout)
+    @BindView(R.id.slideImageLayout)
     FrameLayout slideImageLayout;
-    @Bind(R.id.codeView)
+    @BindView(R.id.codeView)
     CodeView codeView;
     private SlideModel slideModel;
 
@@ -72,6 +72,6 @@ public class ViewSlideFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 }

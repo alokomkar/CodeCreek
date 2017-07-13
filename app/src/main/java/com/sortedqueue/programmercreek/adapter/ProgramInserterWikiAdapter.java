@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -88,13 +88,13 @@ public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        @Bind(R.id.wikiHeaderTextView)
+        @BindView(R.id.wikiHeaderTextView)
         TextView wikiHeaderTextView;
-        @Bind(R.id.wikiExplanationTextView)
+        @BindView(R.id.wikiExplanationTextView)
         TextView wikiExplanationTextView;
-        @Bind(R.id.wikiExampleTextView)
+        @BindView(R.id.wikiExampleTextView)
         TextView wikiExampleTextView;
-        @Bind(R.id.wikiOuptputTextView)
+        @BindView(R.id.wikiOuptputTextView)
         TextView wikiOuptputTextView;
         public HeaderViewHolder(View itemView) {
             super(itemView);
@@ -127,13 +127,13 @@ public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ExplanationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.wikiHeaderTextView)
+        @BindView(R.id.wikiHeaderTextView)
         TextView wikiHeaderTextView;
-        @Bind(R.id.wikiExplanationTextView)
+        @BindView(R.id.wikiExplanationTextView)
         TextView wikiExplanationTextView;
-        @Bind(R.id.wikiExampleTextView)
+        @BindView(R.id.wikiExampleTextView)
         TextView wikiExampleTextView;
-        @Bind(R.id.wikiOuptputTextView)
+        @BindView(R.id.wikiOuptputTextView)
         TextView wikiOuptputTextView;
         public ExplanationViewHolder(View itemView) {
             super(itemView);
@@ -167,13 +167,13 @@ public class ProgramInserterWikiAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        @Bind(R.id.wikiHeaderTextView)
+        @BindView(R.id.wikiHeaderTextView)
         TextView wikiHeaderTextView;
-        @Bind(R.id.wikiExplanationTextView)
+        @BindView(R.id.wikiExplanationTextView)
         TextView wikiExplanationTextView;
-        @Bind(R.id.wikiExampleTextView)
+        @BindView(R.id.wikiExampleTextView)
         TextView wikiExampleTextView;
-        @Bind(R.id.wikiOuptputTextView)
+        @BindView(R.id.wikiOuptputTextView)
         TextView wikiOuptputTextView;
         public ExampleViewHolder(View itemView) {
             super(itemView);

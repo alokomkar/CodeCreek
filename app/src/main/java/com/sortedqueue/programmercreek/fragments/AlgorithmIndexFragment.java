@@ -19,7 +19,7 @@ import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class AlgorithmIndexFragment extends Fragment implements FirebaseDatabaseHandler.GetAllAlgorithmsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @Bind(R.id.modulesRecyclerView)
+    @BindView(R.id.modulesRecyclerView)
     RecyclerView programListRecyclerView;
     private AlgorithmsRecyclerAdapter algorithmsRecyclerAdapter;
 
@@ -73,7 +73,7 @@ public class AlgorithmIndexFragment extends Fragment implements FirebaseDatabase
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

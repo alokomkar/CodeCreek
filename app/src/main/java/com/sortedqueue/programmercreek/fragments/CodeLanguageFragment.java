@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.constants.LanguageConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,13 +23,13 @@ import butterknife.ButterKnife;
 
 public class CodeLanguageFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.cProgramsTextView)
+    @BindView(R.id.cProgramsTextView)
     TextView cProgramsTextView;
-    @Bind(R.id.cppProgramsTextView)
+    @BindView(R.id.cppProgramsTextView)
     TextView cppProgramsTextView;
-    @Bind(R.id.javaProgramsTextView)
+    @BindView(R.id.javaProgramsTextView)
     TextView javaProgramsTextView;
-    @Bind(R.id.adaProgramsTextView)
+    @BindView(R.id.adaProgramsTextView)
     TextView adaProgramsTextView;
 
     private CodeLabNavigationListener codeLabNavigationListener;
@@ -88,12 +88,6 @@ public class CodeLanguageFragment extends Fragment implements View.OnClickListen
         cppProgramsTextView.setOnClickListener(this);
         javaProgramsTextView.setOnClickListener(this);
         adaProgramsTextView.setOnClickListener(this);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

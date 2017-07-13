@@ -47,7 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -56,15 +56,15 @@ import butterknife.ButterKnife;
 
 public class MatchMakerFragment extends Fragment implements UIUpdateListener, TestCompletionListener {
 
-    @Bind(R.id.checkQuizButton)
+    @BindView(R.id.checkQuizButton)
     Button checkQuizButton;
-    @Bind(R.id.circular_progress_bar)
+    @BindView(R.id.circular_progress_bar)
     ProgressBar circularProgressBar;
-    @Bind(R.id.progressTextView)
+    @BindView(R.id.progressTextView)
     TextView progressTextView;
-    @Bind(R.id.progressLayout)
+    @BindView(R.id.progressLayout)
     FrameLayout progressLayout;
-    @Bind(R.id.timerButton)
+    @BindView(R.id.timerButton)
     Button timerButton;
     private LinearLayout mMatchMakerLeftLinearLayout = null;
     private LinearLayout mMatchMakerRightLinearLayout = null;

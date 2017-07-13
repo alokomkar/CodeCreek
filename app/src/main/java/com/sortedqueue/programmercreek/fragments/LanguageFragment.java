@@ -33,7 +33,7 @@ import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -42,19 +42,19 @@ import butterknife.ButterKnife;
 
 public class LanguageFragment extends Fragment {
     private static LanguageFragment instance;
-    @Bind(R.id.languageSelectionTextView)
+    @BindView(R.id.languageSelectionTextView)
     TextView languageSelectionTextView;
-    @Bind(R.id.profileImageView)
+    @BindView(R.id.profileImageView)
     ImageView profileImageView;
-    @Bind(R.id.nameTextView)
+    @BindView(R.id.nameTextView)
     TextView nameTextView;
-    @Bind(R.id.selectedLanguageCardView)
+    @BindView(R.id.selectedLanguageCardView)
     CardView selectedLanguageCardView;
-    @Bind(R.id.programLanguageRecyclerView)
+    @BindView(R.id.programLanguageRecyclerView)
     RecyclerView programLanguageRecyclerView;
-    @Bind(R.id.reputationProgressBar)
+    @BindView(R.id.reputationProgressBar)
     ProgressBar reputationProgressBar;
-    @Bind(R.id.reputationTextView)
+    @BindView(R.id.reputationTextView)
     TextView reputationTextView;
 
     private Handler handler;
@@ -209,7 +209,7 @@ public class LanguageFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     private void initDB() {

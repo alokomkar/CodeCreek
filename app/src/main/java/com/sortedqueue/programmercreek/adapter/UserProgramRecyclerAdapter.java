@@ -18,7 +18,7 @@ import com.sortedqueue.programmercreek.database.UserProgramDetails;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -85,17 +85,17 @@ public class UserProgramRecyclerAdapter extends RecyclerView.Adapter<UserProgram
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.titleTextView)
+        @BindView(R.id.titleTextView)
         TextView titleTextView;
-        @Bind(R.id.subTitleTextView)
+        @BindView(R.id.subTitleTextView)
         TextView subTitleTextView;
-        @Bind(R.id.viewsTextView)
+        @BindView(R.id.viewsTextView)
         TextView viewsTextView;
-        @Bind(R.id.likesTextView)
+        @BindView(R.id.likesTextView)
         TextView likesTextView;
-        @Bind(R.id.shareImageView)
+        @BindView(R.id.shareImageView)
         ImageView shareImageView;
-        @Bind(R.id.extrasLayout)
+        @BindView(R.id.extrasLayout)
         LinearLayout extrasLayout;
 
 

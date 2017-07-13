@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.database.PresentationModel;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -63,11 +63,11 @@ public class PresentationsListRecyclerAdapter extends RecyclerView.Adapter<Prese
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.titleTextView)
+        @BindView(R.id.titleTextView)
         TextView titleTextView;
-        @Bind(R.id.subTitleTextView)
+        @BindView(R.id.subTitleTextView)
         TextView subTitleTextView;
-        @Bind(R.id.slideImageView)
+        @BindView(R.id.slideImageView)
         ImageView slideImageView;
 
         public ViewHolder(View itemView) {

@@ -28,95 +28,95 @@ import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.kbiakov.codeview.CodeView;
 
 public class FillBlankFragment extends Fragment implements UIProgramFetcherListener, CompoundButton.OnCheckedChangeListener, TestCompletionListener {
 
 
-    @Bind(R.id.headerTextView)
+    @BindView(R.id.headerTextView)
     TextView headerTextView;
-    @Bind(R.id.programBlankLineTextView)
+    @BindView(R.id.programBlankLineTextView)
     TextView programBlankLineTextView;
-    @Bind(R.id.programCodeView)
+    @BindView(R.id.programCodeView)
     CodeView programCodeView;
 
-    @Bind(R.id.programLayout)
+    @BindView(R.id.programLayout)
     CardView programLayout;
-    @Bind(R.id.answer1RadioButton1)
+    @BindView(R.id.answer1RadioButton1)
     RadioButton answer1RadioButton1;
-    @Bind(R.id.answer1RadioButton2)
+    @BindView(R.id.answer1RadioButton2)
     RadioButton answer1RadioButton2;
-    @Bind(R.id.answer1RadioButton3)
+    @BindView(R.id.answer1RadioButton3)
     RadioButton answer1RadioButton3;
-    @Bind(R.id.answer2RadioButton1)
+    @BindView(R.id.answer2RadioButton1)
     RadioButton answer2RadioButton1;
-    @Bind(R.id.answer2RadioButton2)
+    @BindView(R.id.answer2RadioButton2)
     RadioButton answer2RadioButton2;
-    @Bind(R.id.answer2RadioButton3)
+    @BindView(R.id.answer2RadioButton3)
     RadioButton answer2RadioButton3;
-    @Bind(R.id.answer3RadioButton1)
+    @BindView(R.id.answer3RadioButton1)
     RadioButton answer3RadioButton1;
-    @Bind(R.id.answer3RadioButton2)
+    @BindView(R.id.answer3RadioButton2)
     RadioButton answer3RadioButton2;
-    @Bind(R.id.answer3RadioButton3)
+    @BindView(R.id.answer3RadioButton3)
     RadioButton answer3RadioButton3;
-    @Bind(R.id.answer4RadioButton1)
+    @BindView(R.id.answer4RadioButton1)
     RadioButton answer4RadioButton1;
-    @Bind(R.id.answer4RadioButton2)
+    @BindView(R.id.answer4RadioButton2)
     RadioButton answer4RadioButton2;
-    @Bind(R.id.answer4RadioButton3)
+    @BindView(R.id.answer4RadioButton3)
     RadioButton answer4RadioButton3;
-    @Bind(R.id.checkButton)
+    @BindView(R.id.checkButton)
     Button checkButton;
-    @Bind(R.id.option1TextView)
+    @BindView(R.id.option1TextView)
     TextView option1TextView;
-    @Bind(R.id.option2TextView)
+    @BindView(R.id.option2TextView)
     TextView option2TextView;
-    @Bind(R.id.answerLayout1)
+    @BindView(R.id.answerLayout1)
     LinearLayout answerLayout1;
-    @Bind(R.id.option3TextView)
+    @BindView(R.id.option3TextView)
     TextView option3TextView;
-    @Bind(R.id.option4TextView)
+    @BindView(R.id.option4TextView)
     TextView option4TextView;
-    @Bind(R.id.answerLayout2)
+    @BindView(R.id.answerLayout2)
     LinearLayout answerLayout2;
-    @Bind(R.id.option5TextView)
+    @BindView(R.id.option5TextView)
     TextView option5TextView;
-    @Bind(R.id.answer5RadioButton1)
+    @BindView(R.id.answer5RadioButton1)
     RadioButton answer5RadioButton1;
-    @Bind(R.id.answer5RadioButton2)
+    @BindView(R.id.answer5RadioButton2)
     RadioButton answer5RadioButton2;
-    @Bind(R.id.answer5RadioButton3)
+    @BindView(R.id.answer5RadioButton3)
     RadioButton answer5RadioButton3;
-    @Bind(R.id.option6TextView)
+    @BindView(R.id.option6TextView)
     TextView option6TextView;
-    @Bind(R.id.answer6RadioButton1)
+    @BindView(R.id.answer6RadioButton1)
     RadioButton answer6RadioButton1;
-    @Bind(R.id.answer6RadioButton2)
+    @BindView(R.id.answer6RadioButton2)
     RadioButton answer6RadioButton2;
-    @Bind(R.id.answer6RadioButton3)
+    @BindView(R.id.answer6RadioButton3)
     RadioButton answer6RadioButton3;
-    @Bind(R.id.answerLayout3)
+    @BindView(R.id.answerLayout3)
     LinearLayout answerLayout3;
-    @Bind(R.id.option7TextView)
+    @BindView(R.id.option7TextView)
     TextView option7TextView;
-    @Bind(R.id.answer7RadioButton1)
+    @BindView(R.id.answer7RadioButton1)
     RadioButton answer7RadioButton1;
-    @Bind(R.id.answer7RadioButton2)
+    @BindView(R.id.answer7RadioButton2)
     RadioButton answer7RadioButton2;
-    @Bind(R.id.answer7RadioButton3)
+    @BindView(R.id.answer7RadioButton3)
     RadioButton answer7RadioButton3;
-    @Bind(R.id.option8TextView)
+    @BindView(R.id.option8TextView)
     TextView option8TextView;
-    @Bind(R.id.answer8RadioButton1)
+    @BindView(R.id.answer8RadioButton1)
     RadioButton answer8RadioButton1;
-    @Bind(R.id.answer8RadioButton2)
+    @BindView(R.id.answer8RadioButton2)
     RadioButton answer8RadioButton2;
-    @Bind(R.id.answer8RadioButton3)
+    @BindView(R.id.answer8RadioButton3)
     RadioButton answer8RadioButton3;
-    @Bind(R.id.answerLayout4)
+    @BindView(R.id.answerLayout4)
     LinearLayout answerLayout4;
     private int mProgram_Index = 1;
     private ArrayList<String> shuffleList;
@@ -430,7 +430,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     private ArrayList<String> solutionsList;

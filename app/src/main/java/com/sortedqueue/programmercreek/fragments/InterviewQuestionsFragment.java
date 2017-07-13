@@ -25,7 +25,7 @@ import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_MULTIPLE_RIGHT;
@@ -39,23 +39,23 @@ import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstan
 
 public class InterviewQuestionsFragment extends Fragment {
 
-    @Bind(R.id.questionTextView)
+    @BindView(R.id.questionTextView)
     TextView questionTextView;
-    @Bind(R.id.questionCardView)
+    @BindView(R.id.questionCardView)
     CardView questionCardView;
-    @Bind(R.id.optionsRecyclerView)
+    @BindView(R.id.optionsRecyclerView)
     RecyclerView optionsRecyclerView;
-    @Bind(R.id.questionLayout)
+    @BindView(R.id.questionLayout)
     LinearLayout questionLayout;
-    @Bind(R.id.lifeLine1ImageView)
+    @BindView(R.id.lifeLine1ImageView)
     ImageView lifeLine1ImageView;
-    @Bind(R.id.lifeLine2ImageView)
+    @BindView(R.id.lifeLine2ImageView)
     ImageView lifeLine2ImageView;
-    @Bind(R.id.lifeLine3ImageView)
+    @BindView(R.id.lifeLine3ImageView)
     ImageView lifeLine3ImageView;
-    @Bind(R.id.lifeLineLayout)
+    @BindView(R.id.lifeLineLayout)
     RelativeLayout lifeLineLayout;
-    @Bind(R.id.progressTextView)
+    @BindView(R.id.progressTextView)
     TextView progressTextView;
 
     private ArrayList<InterviewQuestionModel> interviewQuestionModels;
@@ -208,7 +208,7 @@ public class InterviewQuestionsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     public void checkAnswer() {

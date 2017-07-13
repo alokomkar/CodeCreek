@@ -32,7 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -42,11 +42,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ProgramWikiActivity extends AppCompatActivity {
 
-    @Bind(R.id.firstQuestionImageView)
+    @BindView(R.id.firstQuestionImageView)
     ImageView firstQuestionImageView;
-    @Bind(R.id.indexTextView)
+    @BindView(R.id.indexTextView)
     TextView indexTextView;
-    @Bind(R.id.lastQuestionImageView)
+    @BindView(R.id.lastQuestionImageView)
     ImageView lastQuestionImageView;
     private WebView webView;
     private String programWiki;

@@ -17,7 +17,7 @@ import com.sortedqueue.programmercreek.util.ItemTouchHelperAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_MULTIPLE_RIGHT;
@@ -137,9 +137,9 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.progamLineTxtView)
+        @BindView(R.id.progamLineTxtView)
         TextView progamLineTxtView;
-        @Bind(R.id.optionCardView)
+        @BindView(R.id.optionCardView)
         CardView optionCardView;
 
         public ViewHolder(View itemView) {

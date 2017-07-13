@@ -19,7 +19,7 @@ import com.sortedqueue.programmercreek.fragments.AlgorithmFragment;
 import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -29,11 +29,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlgorithmListActivity extends AppCompatActivity implements AlgorithmNavigationListener {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.container)
+    @BindView(R.id.container)
     FrameLayout container;
-    @Bind(R.id.checkFAB)
+    @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
     private FragmentTransaction mFragmentTransaction;
 

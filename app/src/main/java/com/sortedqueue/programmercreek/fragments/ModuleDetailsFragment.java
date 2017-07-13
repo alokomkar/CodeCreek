@@ -22,7 +22,7 @@ import com.sortedqueue.programmercreek.view.ScrollableViewPager;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,13 +31,13 @@ import butterknife.ButterKnife;
 
 public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScrollPageListener {
 
-    @Bind(R.id.ProgressBar)
+    @BindView(R.id.ProgressBar)
     ProgressBar progressBar;
-    @Bind(R.id.syntaxLearnViewPager)
+    @BindView(R.id.syntaxLearnViewPager)
     ScrollableViewPager syntaxLearnViewPager;
-    @Bind(R.id.viewPagerLayout)
+    @BindView(R.id.viewPagerLayout)
     LinearLayout viewPagerLayout;
-    @Bind(R.id.doneFAB)
+    @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
     private LanguageModule module;
     private LanguageModule nextModule;
@@ -104,7 +104,7 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

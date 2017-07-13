@@ -21,7 +21,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 
 public class  ModuleFragment extends Fragment {
 
-    @Bind(R.id.modulesRecyclerView)
+    @BindView(R.id.modulesRecyclerView)
     RecyclerView modulesRecyclerView;
 
     private SyntaxNavigationListener syntaxNavigationListener;
@@ -101,7 +101,7 @@ public class  ModuleFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

@@ -29,7 +29,7 @@ import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -39,27 +39,27 @@ import butterknife.ButterKnife;
 public class CreatePresentationActivity extends AppCompatActivity implements View.OnClickListener, PresentationCommunicationsListener {
 
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.addCodeTextView)
+    @BindView(R.id.addCodeTextView)
     TextView addCodeTextView;
-    @Bind(R.id.addCodeFAB)
+    @BindView(R.id.addCodeFAB)
     FloatingActionButton addCodeFAB;
-    @Bind(R.id.addPhotoTextView)
+    @BindView(R.id.addPhotoTextView)
     TextView addPhotoTextView;
-    @Bind(R.id.addPhotoFAB)
+    @BindView(R.id.addPhotoFAB)
     FloatingActionButton addPhotoFAB;
-    @Bind(R.id.deleteSlideTextView)
+    @BindView(R.id.deleteSlideTextView)
     TextView deleteSlideTextView;
-    @Bind(R.id.deleteSlideFAB)
+    @BindView(R.id.deleteSlideFAB)
     FloatingActionButton deleteSlideFAB;
-    @Bind(R.id.addSlideTextView)
+    @BindView(R.id.addSlideTextView)
     TextView addSlideTextView;
-    @Bind(R.id.addSlideFAB)
+    @BindView(R.id.addSlideFAB)
     FloatingActionButton addSlideFAB;
-    @Bind(R.id.optionsFAB)
+    @BindView(R.id.optionsFAB)
     FloatingActionButton optionsFAB;
-    @Bind(R.id.pager)
+    @BindView(R.id.pager)
     ViewPager pager;
     /**
      * The pager adapter, which provides the pages to the view pager widget.

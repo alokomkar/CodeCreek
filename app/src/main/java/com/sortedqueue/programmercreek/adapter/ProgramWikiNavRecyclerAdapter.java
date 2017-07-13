@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.database.WikiModel;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -54,11 +54,11 @@ public class ProgramWikiNavRecyclerAdapter extends RecyclerView.Adapter<ProgramW
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        @Bind(R.id.programTypeTextView)
+        @BindView(R.id.programTypeTextView)
         TextView programTypeTextView;
-        @Bind(R.id.txtViewProgDescription)
+        @BindView(R.id.txtViewProgDescription)
         TextView txtViewProgDescription;
-        @Bind(R.id.lockedImageView)
+        @BindView(R.id.lockedImageView)
         ImageView lockedImageView;
 
         public ViewHolder(View itemView) {

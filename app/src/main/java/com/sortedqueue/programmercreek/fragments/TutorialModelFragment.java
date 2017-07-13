@@ -18,7 +18,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.TutorialModel;
 import com.sortedqueue.programmercreek.interfaces.TutorialNavigationListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,19 +27,19 @@ import butterknife.ButterKnife;
 
 public class TutorialModelFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.titleTextView)
+    @BindView(R.id.titleTextView)
     TextView titleTextView;
-    @Bind(R.id.subTitleTextView)
+    @BindView(R.id.subTitleTextView)
     TextView subTitleTextView;
-    @Bind(R.id.slideImageView)
+    @BindView(R.id.slideImageView)
     ImageView slideImageView;
-    @Bind(R.id.cancelButton)
+    @BindView(R.id.cancelButton)
     Button cancelButton;
-    @Bind(R.id.nextButton)
+    @BindView(R.id.nextButton)
     Button nextButton;
-    @Bind(R.id.slideImageLayout)
+    @BindView(R.id.slideImageLayout)
     FrameLayout slideImageLayout;
-    @Bind(R.id.buttonLayout)
+    @BindView(R.id.buttonLayout)
     LinearLayout buttonLayout;
     private TutorialModel tutorialModel;
     private int index = 0;
@@ -113,7 +113,7 @@ public class TutorialModelFragment extends Fragment implements View.OnClickListe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     @Override

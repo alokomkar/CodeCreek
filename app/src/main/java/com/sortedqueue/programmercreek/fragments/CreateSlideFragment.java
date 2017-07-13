@@ -61,7 +61,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.zelory.compressor.Compressor;
 
@@ -73,39 +73,39 @@ import static com.facebook.GraphRequest.TAG;
 
 public class CreateSlideFragment extends Fragment implements View.OnClickListener, AuxilaryUtils.PhotoOptionListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @Bind(R.id.titleEditText)
+    @BindView(R.id.titleEditText)
     EditText titleEditText;
-    @Bind(R.id.subTitleEditText)
+    @BindView(R.id.subTitleEditText)
     EditText subTitleEditText;
-    @Bind(R.id.slideImageView)
+    @BindView(R.id.slideImageView)
     ImageView slideImageView;
-    @Bind(R.id.slideImageLayout)
+    @BindView(R.id.slideImageLayout)
     FrameLayout slideImageLayout;
     private final int ACTION_CAMERA = 1;
     private final int ACTION_GALLERY = 2;
-    @Bind(R.id.deleteImageView)
+    @BindView(R.id.deleteImageView)
     ImageView deleteImageView;
-    @Bind(R.id.changeImageView)
+    @BindView(R.id.changeImageView)
     ImageView changeImageView;
-    @Bind(R.id.rotateImageView)
+    @BindView(R.id.rotateImageView)
     ImageView rotateImageView;
-    @Bind(R.id.saveImageView)
+    @BindView(R.id.saveImageView)
     ImageView saveImageView;
-    @Bind(R.id.doneButton)
+    @BindView(R.id.doneButton)
     Button doneButton;
-    @Bind(R.id.uploadProgressBar)
+    @BindView(R.id.uploadProgressBar)
     ProgressBar uploadProgressBar;
-    @Bind(R.id.languageTextView)
+    @BindView(R.id.languageTextView)
     TextView languageTextView;
-    @Bind(R.id.importFromFileTextView)
+    @BindView(R.id.importFromFileTextView)
     TextView importFromFileTextView;
-    @Bind(R.id.hintPhotoTextView)
+    @BindView(R.id.hintPhotoTextView)
     TextView hintPhotoTextView;
-    @Bind(R.id.languageRecyclerView)
+    @BindView(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
-    @Bind(R.id.importLayout)
+    @BindView(R.id.importLayout)
     LinearLayout importLayout;
-    @Bind(R.id.codeEditRecyclerView)
+    @BindView(R.id.codeEditRecyclerView)
     RecyclerView codeEditRecyclerView;
 
     private Uri selectedImageUri;
@@ -154,12 +154,6 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         languageRecyclerView.setAdapter(languageRecyclerAdapter);
         languageRecyclerAdapter.setSelectedLanguage(languageTextView.getText().toString().trim());
         setSelectedLanguage(languageRecyclerAdapter.getSelectedLanguage());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

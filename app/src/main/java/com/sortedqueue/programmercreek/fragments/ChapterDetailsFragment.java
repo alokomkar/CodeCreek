@@ -27,7 +27,7 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -36,13 +36,13 @@ import butterknife.ButterKnife;
 
 public class ChapterDetailsFragment extends Fragment implements WikiNavigationListner, ModuleDetailsScrollPageListener {
 
-    @Bind(R.id.ProgressBar)
+    @BindView(R.id.ProgressBar)
     ProgressBar progressBar;
-    @Bind(R.id.syntaxLearnViewPager)
+    @BindView(R.id.syntaxLearnViewPager)
     OneDirectionalScrollableViewPager syntaxLearnViewPager;
-    @Bind(R.id.viewPagerLayout)
+    @BindView(R.id.viewPagerLayout)
     LinearLayout viewPagerLayout;
-    @Bind(R.id.doneFAB)
+    @BindView(R.id.doneFAB)
     FloatingActionButton doneFAB;
 
     private Chapter chapter;
@@ -59,12 +59,6 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         CommonUtils.displayProgressDialog(getContext(), "Loading modules");
         setupViews();
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     public void setChapter(Chapter chapter) {

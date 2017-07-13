@@ -12,7 +12,7 @@ import com.sortedqueue.programmercreek.database.ModuleOption;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -47,7 +47,7 @@ public class OptionsRecyclerViewAdapter extends RecyclerView.Adapter<OptionsRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.optionTextView)
+        @BindView(R.id.optionTextView)
         TextView optionTextView;
 
         public ViewHolder(View itemView) {

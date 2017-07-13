@@ -18,7 +18,7 @@ import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -79,7 +79,7 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, TextWatcher {
 
-        @Bind(R.id.codeEditText)
+        @BindView(R.id.codeEditText)
         EditText codeEditText;
 
         public ViewHolder(View itemView) {

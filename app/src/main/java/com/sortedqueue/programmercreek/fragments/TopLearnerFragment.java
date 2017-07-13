@@ -26,7 +26,7 @@ import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -35,21 +35,21 @@ import butterknife.ButterKnife;
 
 public class TopLearnerFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.topLearnersRecyclerView)
+    @BindView(R.id.topLearnersRecyclerView)
     RecyclerView topLearnersRecyclerView;
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.facebookCardView)
+    @BindView(R.id.facebookCardView)
     CardView facebookCardView;
-    @Bind(R.id.googleCardView)
+    @BindView(R.id.googleCardView)
     CardView googleCardView;
-    @Bind(R.id.twitterCardView)
+    @BindView(R.id.twitterCardView)
     CardView twitterCardView;
 
     private final String TWITTER_LINK = "https://twitter.com/Programmercreek";
     private final String FACEBOOK_LINK = "https://www.facebook.com/Infinite-Programmer-1819430981602209/?fref=ts";
     private final String GOOGLE_PLUS_LINK = "https://plus.google.com/u/1/communities/117275222080442676688";
-    @Bind(R.id.emptyTextView)
+    @BindView(R.id.emptyTextView)
     TextView emptyTextView;
 
     private SyntaxNavigationListener syntaxNavigationListener;
@@ -151,7 +151,7 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+
     }
 
     private static TopLearnerFragment instance;
