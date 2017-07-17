@@ -87,8 +87,6 @@
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false"
                     android:background="@color/bg"
-                    android:paddingTop="@dimen/margin_8"
-                    android:paddingBottom="@dimen/margin_16"
                     android:id="@+id/userProgramsRecyclerView"
                     >
                 </android.support.v7.widget.RecyclerView>
