@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,8 +61,6 @@ public class TopLearnersRecyclerAdapter extends RecyclerView.Adapter<TopLearners
         TextView userNameTextView;
         @BindView(R.id.levelTextView)
         TextView levelTextView;
-        @BindView(R.id.movieGridCardView)
-        CardView movieGridCardView;
 
         public ViewHolder(View view) {
             super(view);

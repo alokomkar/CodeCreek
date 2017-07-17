@@ -14,6 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramActivity;
@@ -48,6 +52,8 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.noProgramsLayout)
     LinearLayout noProgramsLayout;
+    @BindView(R.id.adView)
+    AdView adView;
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
     private DashboardNavigationListener dashboardNavigationListener;
@@ -87,7 +93,26 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             }
         });
         fetchUserPrograms("All programs");
+        initAds();
         return view;
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
+        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+        //For creating test ads
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        adView.loadAd(adRequest);
+        adView.setVisibility(View.GONE);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 

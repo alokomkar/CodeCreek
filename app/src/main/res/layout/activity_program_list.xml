@@ -40,8 +40,6 @@
         android:fastScrollEnabled="false"
         android:headerDividersEnabled="true"
         android:footerDividersEnabled="true"
-        android:dividerHeight="@dimen/margin_8"
-        android:layout_margin="@dimen/margin_8"
         android:background="@color/md_grey_300" >
     </android.support.v7.widget.RecyclerView>
     <com.google.android.gms.ads.AdView

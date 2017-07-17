@@ -1,17 +1,10 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_8"
-    android:layout_marginRight="@dimen/margin_8"
-    android:layout_marginTop="@dimen/margin_4"
-    android:layout_marginBottom="@dimen/margin_4"
-    card_view:cardBackgroundColor="@color/md_white_1000"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="@dimen/cardview_app_radius"
-    card_view:cardElevation="4dp">
+    >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,6 +99,10 @@
 
 
         </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@+id/programIndexLayout"
+        android:background="@color/md_grey_300"/>
 
-
-</android.support.v7.widget.CardView>
+</RelativeLayout>
