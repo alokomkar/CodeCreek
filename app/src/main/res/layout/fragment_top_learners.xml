@@ -128,6 +128,10 @@
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/md_grey_300"/>
 
 
         </LinearLayout>

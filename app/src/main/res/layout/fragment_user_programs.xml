@@ -63,12 +63,18 @@
 
     </RadioGroup>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@+id/programsRadioGroup"
+        android:id="@+id/dividerView"
+        android:background="@color/md_grey_300"/>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/programsRadioGroup"
+        android:layout_below="@+id/dividerView"
         android:layout_above="@+id/adView"
         android:id="@+id/swipeRefreshLayout">
     <android.support.v4.widget.NestedScrollView
