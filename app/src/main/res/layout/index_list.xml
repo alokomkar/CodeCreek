@@ -15,6 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_8"
+                android:visibility="gone"
                 android:id="@+id/completionLayout"
                 android:orientation="horizontal">
                 <TextView
