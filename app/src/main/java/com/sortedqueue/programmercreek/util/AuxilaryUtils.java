@@ -362,6 +362,9 @@ public class AuxilaryUtils {
             case "sql" :
                 notification = javaNotifications.get(random.nextInt(javaNotifications.size()));
                 break;
+            default:
+                notification = javaNotifications.get(random.nextInt(javaNotifications.size()));
+                break;
         }
 
         return notification;
