@@ -54,7 +54,7 @@ public class IntroActivity extends AppCompatActivity
     @BindView(R.id.chapterProgramDescriptionTextView)
     TextView chapterProgramDescriptionTextView;
     @BindView(R.id.syntaxExplanationCardView)
-    CardView syntaxExplanationCardView;
+    RelativeLayout syntaxExplanationCardView;
     @BindView(R.id.content_syntax_learn)
     RelativeLayout contentSyntaxLearn;
     @BindView(R.id.content_intro)

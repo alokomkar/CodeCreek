@@ -5,10 +5,6 @@
     android:id="@+id/content_intro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.sortedqueue.programmercreek.activity.NewProgramWikiActivity"
@@ -17,10 +13,11 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="14dp">
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -49,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chapterFrameLayout"
+                    android:visibility="gone"
                     android:layout_marginLeft="@dimen/margin_8"
                     android:elevation="@dimen/margin_8"
                     >
@@ -66,27 +64,24 @@
                         android:id="@+id/chapterHeaderTextView" />
                 </FrameLayout>
 
-                <android.support.v7.widget.CardView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/syntaxExplanationCardView"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:layout_marginBottom="@dimen/margin_8"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/md_white_1000"
-                    app:cardCornerRadius="@dimen/cardview_app_radius"
-                    app:cardElevation="4dp">
+                    android:background="@color/white"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_8"
+                            android:padding="@dimen/margin_16"
                             android:textSize="@dimen/text_dashboard_small"
                             android:id="@+id/chapterIntroTextView"
                             tools:text="The C programming language is a computer programming language that was developed to do system programming for the operating system UNIX and is an imperative programming language. C was developed in the early 1970 by Ken Thompson and Dennis Ritchie. It is a procedural language, which means that people can write their programs as a series of step-by-step instructions. C is a compiled language."/>
@@ -94,7 +89,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_8"
+                            android:padding="@dimen/margin_16"
                             android:background="@color/white"
                             android:textColor="@color/md_blue_800"
                             android:textSize="@dimen/text_dashboard_small"
@@ -111,7 +106,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_8"
+                            android:padding="@dimen/margin_16"
                             android:background="@color/md_black_1000"
                             android:textSize="@dimen/text_dashboard_small"
                             android:textColor="@color/md_grey_500"
@@ -121,7 +116,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/margin_8"
+                            android:padding="@dimen/margin_16"
                             android:background="@color/white"
                             android:textSize="@dimen/text_dashboard_small"
                             android:textStyle="bold"
@@ -131,7 +126,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </RelativeLayout>
             </FrameLayout>
 
 
