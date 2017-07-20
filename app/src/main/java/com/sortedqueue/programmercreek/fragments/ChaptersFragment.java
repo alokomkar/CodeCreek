@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -35,6 +39,8 @@ public class ChaptersFragment extends Fragment {
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @BindView(R.id.modulesRecyclerView)
     RecyclerView chaptersRecyclerView;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private ChapterNavigationListener chapterNavigationListener;
     private ArrayList<Chapter> chapters;
@@ -47,7 +53,26 @@ public class ChaptersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chapters, container, false);
         ButterKnife.bind(this, view);
         getModules();
+        initAds();
         return view;
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
+        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+        //For creating test ads
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        adView.loadAd(adRequest);
+        adView.setVisibility(View.GONE);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -686,7 +711,7 @@ public class ChaptersFragment extends Fragment {
         chaptersRecyclerView.setAdapter(new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
-                if( position + 1 >  ChaptersFragment.this.chapters.size() ) {
+                if (position + 1 > ChaptersFragment.this.chapters.size()) {
                     Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
                     programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_WIZARD);
                     programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
@@ -704,4 +729,9 @@ public class ChaptersFragment extends Fragment {
         CommonUtils.dismissProgressDialog();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        null.unbind();
+    }
 }
