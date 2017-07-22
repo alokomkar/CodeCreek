@@ -65,7 +65,8 @@
 
         >
         <android.support.v7.widget.RecyclerView
-            android:padding="@dimen/margin_8"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
