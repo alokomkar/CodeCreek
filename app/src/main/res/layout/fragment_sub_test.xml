@@ -10,9 +10,9 @@
         android:layout_above="@+id/buttonLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/margin_4"
-        android:layout_margin="@dimen/margin_8" >
+        android:divider="@color/md_grey_400"
+        android:dividerHeight="@dimen/divider_height"
+        >
     </com.sortedqueue.programmercreek.view.DragNDropListView>
 
 </LinearLayout>

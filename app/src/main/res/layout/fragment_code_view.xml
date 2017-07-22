@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
 
     <io.github.kbiakov.codeview.CodeView
-        android:layout_margin="@dimen/margin_8"
         android:id="@+id/programCodeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
