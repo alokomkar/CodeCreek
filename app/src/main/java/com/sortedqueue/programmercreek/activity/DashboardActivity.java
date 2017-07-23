@@ -198,7 +198,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3)
+                if (position == 2)
                     AnimationUtils.enterReveal(addUserCodeFAB);
                 else
                     AnimationUtils.exitRevealGone(addUserCodeFAB);
