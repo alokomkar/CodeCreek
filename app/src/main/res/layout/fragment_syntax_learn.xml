@@ -9,11 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:id="@+id/scrollView">
         <RelativeLayout
-            android:padding="@dimen/margin_16"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/content_syntax_learn"
             tools:context="com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment"
             tools:showIn="@layout/activity_syntax_learn">
@@ -33,11 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/progressBar"
                 android:id="@+id/syntaxExplanationCardView"
-                android:layout_marginBottom="@dimen/margin_8"
+                android:layout_margin="@dimen/margin_8"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
                 app:cardCornerRadius="@dimen/cardview_app_radius"
-                app:cardElevation="4dp">
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                         android:id="@+id/syntaxNameTextView"
                         tools:text="The printf function"/>
 
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_8"
@@ -61,7 +61,7 @@
                         android:id="@+id/syntaxDescriptionTextView"
                         tools:text="The printf function is used to print to standard output in a formatted manner"/>
 
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_8"
@@ -72,7 +72,7 @@
                         android:id="@+id/syntaxCommandTextView"
                         tools:text="@string/printf_statement"/>
 
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_8"
@@ -91,17 +91,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/syntaxExplanationCardView"
                 android:id="@+id/syntaxQuestionCardView"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_8"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
                 app:cardCornerRadius="@dimen/cardview_app_radius"
-                app:cardElevation="4dp">
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_8"
@@ -109,7 +111,7 @@
                         android:id="@+id/syntaxQuestionTextView"
                         tools:text="Write command to print : Infinite Programmer"/>
 
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_8"
@@ -125,7 +127,7 @@
                         android:layout_height="wrap_content">
 
                     </io.github.kbiakov.codeview.CodeView>
-                    <TextView 
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_8"
@@ -144,14 +146,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/checkButtonLayout"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:layout_below="@+id/syntaxQuestionCardView"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentEnd="true">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/voiceTypeImageView"
                     android:elevation="@dimen/margin_4"
-                    android:layout_marginRight="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
                     android:visibility="gone"
                     android:background="@drawable/button_blue"
                     android:padding="@dimen/margin_8"
@@ -162,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/hintSyntaxImageView"
                     android:elevation="@dimen/margin_4"
-                    android:layout_marginRight="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
                     android:background="@drawable/button_sky"
                     android:padding="@dimen/margin_8"
                     android:src="@drawable/ic_help_outline_white_24dp"
@@ -173,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/clearSyntaxImageView"
                     android:elevation="@dimen/margin_4"
-                    android:layout_marginRight="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
                     android:background="@drawable/button_clear"
                     android:padding="@dimen/margin_8"
                     android:src="@drawable/ic_backspace_white_24dp"
@@ -201,9 +205,11 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/md_white_1000"
                 app:cardCornerRadius="@dimen/cardview_app_radius"
-                app:cardElevation="4dp"
+                app:cardElevation="8dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_8"
                 android:layout_below="@+id/checkButtonLayout"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
 
                 <LinearLayout
@@ -211,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
-                    <TextView 
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_8"
