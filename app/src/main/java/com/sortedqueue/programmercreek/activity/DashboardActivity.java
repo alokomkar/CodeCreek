@@ -14,8 +14,10 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -112,6 +115,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     TextView reputationTextView;
     @BindView(R.id.progressLayout)
     LinearLayout progressLayout;
+    @BindView(R.id.languageSelectionTextView)
+    TextView languageSelectionTextView;
+    @BindView(R.id.selectedLanguageCardView)
+    CardView selectedLanguageCardView;
+    @BindView(R.id.container)
+    FrameLayout container;
 
 
     private String TAG = getClass().getSimpleName();
@@ -163,19 +172,21 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         addCodeLayout.setOnClickListener(this);
         addPptLayout.setOnClickListener(this);
         addUserCodeFAB.setOnClickListener(this);
-
+        selectedLanguageCardView.setOnClickListener(this);
         fabLayout.setVisibility(View.GONE);
         dashboardViewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager(), DashboardActivity.this));
         dashboardTabLayout.setupWithViewPager(dashboardViewPager);
-        dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
-        dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_dns_white_24dp);
-        dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_top_learners);
-        dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_add_to_queue_white_24dp);
+        //dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_account_box_white_24dp);
+        dashboardTabLayout.getTabAt(0).setIcon(R.drawable.ic_dns_white_24dp);
+        dashboardTabLayout.getTabAt(1).setIcon(R.drawable.ic_top_learners);
+        dashboardTabLayout.getTabAt(2).setIcon(R.drawable.ic_add_to_queue_white_24dp);
         //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
         if (creekPreferences.getProgramLanguage().equals("")) {
-            dashboardViewPager.setCurrentItem(0);
+            showLanguageFragment();
+            languageSelectionTextView.setText("Select Language");
         } else {
-            dashboardViewPager.setCurrentItem(1);
+            languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
+            dashboardViewPager.setCurrentItem(0);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
         dashboardViewPager.setOffscreenPageLimit(dashboardTabLayout.getTabCount());
@@ -218,6 +229,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         animateProgress(points);
     }
 
+    @Override
+    public void hideLanguageFragment() {
+        languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
+        DashboardFragment.getInstance().animateViews();
+        getSupportFragmentManager().popBackStack();
+    }
+
     private int progressBarStatus;
 
     public void animateProgress(final int points) {
@@ -247,13 +265,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
                             handler.post(new Runnable() {
                                 public void run() {
-                                    if( reputationProgressBar != null ) {
+                                    if (reputationProgressBar != null) {
                                         reputationProgressBar.setProgress(progressBarStatus);
 
-                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete");
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete");
                                         int level = creekUserStats.getCreekUserReputation() / 100;
                                         if (level > 0) {
-                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus +"% Complete : Level : " + level);
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete : Level : " + level);
                                         }
                                     }
                                 }
@@ -274,9 +292,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 };
                 new Thread(runnable).start();
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
-            if( progressLayout != null ) {
+            if (progressLayout != null) {
                 progressLayout.setVisibility(View.GONE);
             }
         }
@@ -635,6 +653,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+            hideLanguageFragment();
+            return;
+        }
         this.overridePendingTransition(R.anim.anim_slide_in_right,
                 R.anim.anim_slide_out_right);
         finish();
@@ -659,7 +681,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void navigateToLanguage() {
         //LanguageFragment.getInstance().animateViews();
-        dashboardViewPager.setCurrentItem(0);
+        showLanguageFragment();
     }
 
     @Override
@@ -724,12 +746,26 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 importFromFile();
                 animateFab();
                 break;
-            case R.id.addUserCodeFAB :
+            case R.id.addUserCodeFAB:
                 importFromFile();
+                break;
+            case R.id.selectedLanguageCardView :
+                showLanguageFragment();
                 break;
         }
 
     }
+
+    private void showLanguageFragment() {
+        container.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, new LanguageFragment()).commit();
+
+    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

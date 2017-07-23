@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +57,8 @@ public class LanguageFragment extends Fragment {
     ProgressBar reputationProgressBar;
     @BindView(R.id.reputationTextView)
     TextView reputationTextView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private Handler handler;
 
@@ -77,6 +80,20 @@ public class LanguageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_language, container, false);
         ButterKnife.bind(this, view);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        // Setup refresh listener which triggers new data loading
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                getProgramLanguages();
+            }
+        });
         creekPreferences = CreekApplication.getCreekPreferences();
         getProgramLanguages();
         handler = new Handler();
@@ -102,7 +119,7 @@ public class LanguageFragment extends Fragment {
             });
             return;
         }
-        CommonUtils.displayProgressDialog(getContext(), "Fetching all languages...");
+        swipeRefreshLayout.setRefreshing(true);
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         firebaseDatabaseHandler.getAllProgramLanguages(new FirebaseDatabaseHandler.GetProgramLanguageListener() {
             @Override
@@ -117,7 +134,7 @@ public class LanguageFragment extends Fragment {
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
+                swipeRefreshLayout.setRefreshing(false);
                 CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
             }
         });
@@ -135,7 +152,7 @@ public class LanguageFragment extends Fragment {
                 selectAndInitDb(position);
             }
         }));
-        CommonUtils.dismissProgressDialog();
+        swipeRefreshLayout.setRefreshing(false);
         int selectedPosition = -1;
         String selectedLanguage = creekPreferences.getProgramLanguage();
 
@@ -169,6 +186,12 @@ public class LanguageFragment extends Fragment {
                 nameTextView.append("\nLevel " + level);
             }
         }
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dashboardNavigationListener.hideLanguageFragment();
+            }
+        });
         getFirebaseDBVerion();
     }
 
@@ -184,12 +207,12 @@ public class LanguageFragment extends Fragment {
             });
             return;
         }
-        CommonUtils.displayProgressDialog(getContext(), "Fetching database...");
+        swipeRefreshLayout.setRefreshing(true);
         firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
         firebaseDatabaseHandler.readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
-                CommonUtils.dismissProgressDialog();
+                swipeRefreshLayout.setRefreshing(false);
                 selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
                 dashboardNavigationListener.showInviteDialog();
                 //selectAndInitDb(0);
@@ -197,7 +220,7 @@ public class LanguageFragment extends Fragment {
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
+                swipeRefreshLayout.setRefreshing(false);
                 Log.d("LanguageFragment", databaseError.getMessage());
                 databaseError.toException().printStackTrace();
             }
@@ -219,7 +242,7 @@ public class LanguageFragment extends Fragment {
             firebaseDatabaseHandler.initializeProgramIndexes(new FirebaseDatabaseHandler.ProgramIndexInterface() {
                 @Override
                 public void getProgramIndexes(ArrayList<ProgramIndex> program_indices) {
-                    dashboardNavigationListener.navigateToDashboard();
+                    dashboardNavigationListener.hideLanguageFragment();
                 }
 
                 @Override
@@ -228,7 +251,7 @@ public class LanguageFragment extends Fragment {
                 }
             });
         } else {
-            dashboardNavigationListener.navigateToDashboard();
+            dashboardNavigationListener.hideLanguageFragment();
         }
     }
 
@@ -291,7 +314,17 @@ public class LanguageFragment extends Fragment {
             if (progress > 0) {
                 reputationProgressBar.setVisibility(View.VISIBLE);
                 reputationTextView.setVisibility(View.VISIBLE);
-                new Thread(new Runnable() {
+                progressBarStatus = progress;
+                if( reputationProgressBar != null ) {
+                    reputationProgressBar.setProgress(progressBarStatus);
+                    reputationTextView.setText(progressBarStatus +"% Complete");
+                    int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
+                    if (level > 0) {
+                        nameTextView.setText(creekPreferences.getAccountName());
+                        nameTextView.append("\nLevel " + level);
+                    }
+                }
+                /*new Thread(new Runnable() {
                     @Override
                     public void run() {
                         for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
@@ -318,7 +351,7 @@ public class LanguageFragment extends Fragment {
                             }
                         }
                     }
-                }).start();
+                }).start();*/
             } else {
                 reputationProgressBar.setVisibility(View.GONE);
                 reputationTextView.setVisibility(View.GONE);

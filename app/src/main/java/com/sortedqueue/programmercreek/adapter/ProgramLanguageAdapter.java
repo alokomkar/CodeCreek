@@ -46,12 +46,12 @@ public class ProgramLanguageAdapter extends RecyclerView.Adapter<ProgramLanguage
         holder.programmingTextView.setText(programLanguage.getProgramLanguage());
         holder.programLanguageDescriptionTextView.setText(programLanguage.getDescription());
         holder.languageIdTextView.setText(programLanguage.getLanguageId());
-        startAnimation(holder.itemView, position * 250 );
+        //startAnimation(holder.itemView, position * 250 );
     }
 
     private void startAnimation(View itemView, int delay) {
         itemView.setAlpha(0.0f);
-        itemView.animate().setStartDelay(delay).setDuration(300).alpha(1.0f);
+        itemView.animate().setStartDelay(delay).setDuration(250).alpha(1.0f);
     }
 
 

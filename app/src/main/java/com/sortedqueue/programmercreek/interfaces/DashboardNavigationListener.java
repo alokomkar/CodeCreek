@@ -12,4 +12,5 @@ public interface DashboardNavigationListener {
     void importFromFile();
     void importCodeFile();
     void onProgressStatsUpdate(int points);
+    void hideLanguageFragment();
 }

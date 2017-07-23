@@ -10,7 +10,6 @@
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:paddingBottom="@dimen/margin_16"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:background="@color/bg"
@@ -118,16 +117,21 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.RecyclerView
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:nestedScrollingEnabled="false"
+                android:fitsSystemWindows="true"
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_below="@+id/selectedLanguageCardView"
-                android:id="@+id/programLanguageRecyclerView"
                 >
-
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/programLanguageRecyclerView"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    >
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </RelativeLayout>
 

@@ -17,10 +17,10 @@ import com.sortedqueue.programmercreek.fragments.UserProgramsFragment;
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
-    public static final int INDEX_LANGUAGE = 0;
-    public static final int INDEX_DASHBOARD = 1;
-    public static final int INDEX_LEADER_BOARD = 2;
-    public static final int INDEX_USER_PROGRAMS = 3;
+    /*public static final int INDEX_LANGUAGE = 0;*/
+    public static final int INDEX_DASHBOARD = 0;
+    public static final int INDEX_LEADER_BOARD = 1;
+    public static final int INDEX_USER_PROGRAMS = 2;
 
     private Context context;
     private String tabTitles[] = new String[] { "Language", "Dashboard", "Top Learners" };
@@ -39,8 +39,8 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch ( position ) {
-            case INDEX_LANGUAGE :
-                return LanguageFragment.getInstance();
+            /*case INDEX_LANGUAGE :
+                return LanguageFragment.getInstance();*/
             case INDEX_DASHBOARD :
                 return DashboardFragment.getInstance();
             case INDEX_LEADER_BOARD :
@@ -53,7 +53,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Override
