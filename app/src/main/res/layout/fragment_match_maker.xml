@@ -19,9 +19,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="@dimen/margin_8"
             card_view:cardBackgroundColor="@color/md_white_1000"
-            card_view:cardCornerRadius="@dimen/cardview_app_radius"
             card_view:cardElevation="4dp">
         <ScrollView
             android:id="@+id/leftScrollView"
@@ -41,10 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="@dimen/margin_8"
             android:foreground="?android:attr/selectableItemBackground"
             card_view:cardBackgroundColor="@color/md_white_1000"
-            card_view:cardCornerRadius="@dimen/cardview_app_radius"
             card_view:cardElevation="4dp">
 
             <ScrollView
