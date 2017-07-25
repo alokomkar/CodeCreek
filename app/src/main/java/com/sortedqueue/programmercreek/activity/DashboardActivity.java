@@ -390,10 +390,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 //onInviteClicked();
                 return true;
 
-            case R.id.action_sync:
+            /*case R.id.action_sync:
                 //downloadFile();
                 LanguageFragment.getInstance().getFirebaseDBVerion();
-                return true;
+                return true;*/
 
             case R.id.action_log_out:
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

@@ -214,7 +214,9 @@ public class LanguageFragment extends Fragment {
             public void onSuccess(CreekUserDB creekUserDB) {
                 swipeRefreshLayout.setRefreshing(false);
                 selectedLanguageCardView.setVisibility(creekPreferences.getProgramLanguage().equals("") ? View.GONE : View.VISIBLE);
-                dashboardNavigationListener.showInviteDialog();
+                if( dashboardNavigationListener != null ) {
+                    dashboardNavigationListener.showInviteDialog();
+                }
                 //selectAndInitDb(0);
             }
 
