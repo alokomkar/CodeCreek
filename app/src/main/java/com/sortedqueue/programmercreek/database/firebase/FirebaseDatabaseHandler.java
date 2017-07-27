@@ -1884,7 +1884,7 @@ public class FirebaseDatabaseHandler {
         if( !creekPreferences.checkProgramIndexUpdate() ) {
             CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
-                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Infinite Programmer, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
+                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Practice Code, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
                 getCreekUserStatsInBackground(new CreekUserStatsListener() {
                     @Override

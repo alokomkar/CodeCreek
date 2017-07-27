@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +15,14 @@ import android.widget.FrameLayout;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
+import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.fragments.InterviewChoiceFragment;
 import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment;
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +32,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by Alok Omkar on 2017-03-08.
  */
 
-public class InterviewActivity extends AppCompatActivity implements InterviewNavigationListener {
+public class InterviewActivity extends AppCompatActivity implements InterviewNavigationListener, SlideContentReaderTask.OnDataReadListener {
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -76,6 +80,9 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onNavigateToChoice();
+        String fileId = "c_questions";
+        Log.d("ReadFile", "File Id : " + fileId);
+        new SlideContentReaderTask(InterviewActivity.this, fileId, this).execute();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -141,5 +148,10 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         } else {
             finish();
         }
+    }
+
+    @Override
+    public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
+
     }
 }
