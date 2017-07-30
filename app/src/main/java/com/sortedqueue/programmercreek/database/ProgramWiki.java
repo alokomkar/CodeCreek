@@ -16,6 +16,7 @@ public class ProgramWiki extends RushObject implements Parcelable {
     public final static int CONTENT_HEADER = 1;
     public final static int CONTENT_PROGRAM = 2;
     public final static int CONTENT_PROGRAM_EXPLANATION = 3;
+    public final static int CONTENT_OUTPUT = 4;
 
     private String header;
     private int contentType;

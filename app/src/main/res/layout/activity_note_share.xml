@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/languageRecyclerView"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/languageRecyclerView"
+        android:layout_above="@+id/buttonLayout"
+        android:id="@+id/notesRecyclerView">
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:padding="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:id="@+id/buttonLayout"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:layout_margin="@dimen/margin_4"
+            android:id="@+id/previewButton"
+            android:text="@string/preview"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:id="@+id/saveButton"
+            android:layout_margin="@dimen/margin_4"
+            android:text="@string/save_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_dashboard_small"
+            android:textColor="@color/white"
+            android:background="@drawable/button_check"
+            android:id="@+id/discardButton"
+            android:layout_margin="@dimen/margin_4"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone"
+        android:layout_above="@+id/buttonLayout"
+        android:id="@+id/container"/>
+
+</RelativeLayout>

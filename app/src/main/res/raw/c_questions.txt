@@ -1,4 +1,4 @@
-﻿C Programming Questions & Answers:
+﻿Topic : Random
 1. Comment on the output of following code:
 1.    #include <stdio.h>
 2.    main()
@@ -38,13 +38,13 @@ False
 1.    #include <stdio.h>
 2.    main()
 3.    {
-4.        char *p = "Sanfoundry C-Test";
+4.        char *p = "IP C-Test";
 5.        p[0] = 'a';
 6.        p[1] = 'b';
 7.        printf("%s", p);
 8.    }
 a) abnfoundry C-Test
-b) Sanfoundry C-Test
+b) IP C-Test
 c) Compile time error
 d) Run time error
 View Answer
@@ -92,7 +92,7 @@ Output:
 $ cc pgm.c
 $ a.out
 $
-C Programming Questions and Answers – Variable Names 
+Topic – Variable Names 
 1. C99 standard guarantees uniqueness of ____ characters for internal names.
 a) 31
 b) 63
@@ -170,7 +170,7 @@ Explanation:According to the syntax for C variable name, it cannot start with a 
 
 
 
-C Programming Questions and Answers – Variable Names – 2
+Topic – Variable Names – 2
 1. Which is valid C expression?
 a) int my_num = 100,000;
 b) int my_num = 100000;
@@ -192,13 +192,13 @@ c) Compile time error
 d) Hello World!
 View Answer
 Answer:c
-Explanation:It results in an error since x is used without declaring the variable x.
 Output:
 $ cc pgm1.c
 pgm1.c: In function ‘main’:
 pgm1.c:4: error: ‘x’ undeclared (first use in this function)
 pgm1.c:4: error: (Each undeclared identifier is reported only once
 pgm1.c:4: error: for each function it appears in.)
+Explanation:It results in an error since x is used without declaring the variable x.
 3. What is the output of this C code?
 1.    #include <stdio.h>
 2.    int main()
@@ -214,12 +214,12 @@ c) Hello World! 1000
 d) Hello World! followed by a junk value
 View Answer
 Answer:a
-Explanation:Since y is already defined, redefining it results in an error.
 Output:
 $ cc pgm2.c
 pgm2.c: In function ‘main’:
 pgm2.c:5: error: redefinition of ‘y’
 pgm2.c:4: note: previous definition of ‘y’ was here
+Explanation:Since y is already defined, redefining it results in an error.
 4. Which of the following is not a valid variable name declaration?
 a) float PI = 3.14;
 b) double PI = 3.14;
@@ -243,6 +243,7 @@ d) It will experience infinite looping
 View Answer
 Answer:c
 Explanation:A C program can have same function name and same variable name.
+Output:
 $ cc pgm3.c
 $ a.out
 3
@@ -284,9 +285,7 @@ d) export
 View Answer
 Answer: a
 Explanation:volatile is C keyword.
-
-
-C Programming Questions and Answers – Data Types and Sizes – 1
+Topic – Data Types and Sizes – 1
 1. Comment on the output of this C code?
 1.    #include <stdio.h>
 2.    int main()
@@ -402,13 +401,7 @@ d) All of the mentioned
 View Answer
 Answer:c
 Explanation:None.
-
-
-
-
-C Programming Questions and Answers – Data Types and Sizes – 2
-Sanfoundry’s 1000+ MCQs on C helps anyone preparing for placement in Wipro and other companies. Anyone looking for Wipro placement papers should practice these 1000+ questions continuously for 2-3 months, thereby ensuring a top position in placements.
-Here is a listing of C language programming interview questions on “Data Types and Sizes” along with answers, explanations and/or solutions:
+Topic – Data Types and Sizes – 2
 1. Comment on the output of this C code?
 1.    #include <stdio.h>
 2.    int main()

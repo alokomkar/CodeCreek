@@ -32,7 +32,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by Alok Omkar on 2017-03-08.
  */
 
-public class InterviewActivity extends AppCompatActivity implements InterviewNavigationListener, SlideContentReaderTask.OnDataReadListener {
+public class InterviewActivity extends AppCompatActivity implements InterviewNavigationListener {
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -80,9 +80,7 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onNavigateToChoice();
-        String fileId = "c_questions";
-        Log.d("ReadFile", "File Id : " + fileId);
-        new SlideContentReaderTask(InterviewActivity.this, fileId, this).execute();
+
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -150,8 +148,5 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         }
     }
 
-    @Override
-    public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
 
-    }
 }

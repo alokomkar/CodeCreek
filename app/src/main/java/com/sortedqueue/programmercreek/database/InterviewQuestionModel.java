@@ -23,6 +23,24 @@ public class InterviewQuestionModel implements Parcelable {
     private ArrayList<OptionModel> optionModels;
     private String modelId;
 
+    private String output;
+    private String explanation;
+    private String code;
+
+
+    public InterviewQuestionModel(int typeOfQuestion, String programLanguage, String question, int correctOption, ArrayList<Integer> correctOptions, ArrayList<Integer> correctSequence, ArrayList<OptionModel> optionModels, String modelId, String output, String explanation) {
+        this.typeOfQuestion = typeOfQuestion;
+        this.programLanguage = programLanguage;
+        this.question = question;
+        this.correctOption = correctOption;
+        this.correctOptions = correctOptions;
+        this.correctSequence = correctSequence;
+        this.optionModels = optionModels;
+        this.modelId = modelId;
+        this.output = output;
+        this.explanation = explanation;
+    }
+
     public InterviewQuestionModel(int typeOfQuestion,
                                   String programLanguage,
                                   String question,
@@ -48,6 +66,22 @@ public class InterviewQuestionModel implements Parcelable {
     }
 
     public InterviewQuestionModel() {
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public int getTypeOfQuestion() {
@@ -106,6 +140,14 @@ public class InterviewQuestionModel implements Parcelable {
         this.optionModels = optionModels;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 
     @Override
     public int describeContents() {
@@ -122,6 +164,9 @@ public class InterviewQuestionModel implements Parcelable {
         dest.writeList(this.correctSequence);
         dest.writeTypedList(this.optionModels);
         dest.writeString(this.modelId);
+        dest.writeString(this.output);
+        dest.writeString(this.explanation);
+        dest.writeString(this.code);
     }
 
     protected InterviewQuestionModel(Parcel in) {
@@ -135,6 +180,9 @@ public class InterviewQuestionModel implements Parcelable {
         in.readList(this.correctSequence, Integer.class.getClassLoader());
         this.optionModels = in.createTypedArrayList(OptionModel.CREATOR);
         this.modelId = in.readString();
+        this.output = in.readString();
+        this.explanation = in.readString();
+        this.code = in.readString();
     }
 
     public static final Creator<InterviewQuestionModel> CREATOR = new Creator<InterviewQuestionModel>() {

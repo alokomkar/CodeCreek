@@ -258,4 +258,5 @@
     <string name="code_share">Code Share</string>
     <string name="program_language">Program Language</string>
     <string name="program_title">Program Title</string>
+    <string name="header">Header</string>
 </resources>

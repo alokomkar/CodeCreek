@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_8"
+        android:id="@+id/notesTextView"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notesTextView"
+        android:layout_margin="@dimen/margin_8"
+        android:orientation="horizontal"
+        android:id="@+id/programsRadioGroup"
+        android:weightSum="3">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textAlignment="center"
+            android:layout_marginRight="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:text="@string/code"
+            android:id="@+id/codeRadioButton"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/title_notes"
+            android:button="@null"
+            android:checked="true"
+            android:layout_marginRight="8dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:id="@+id/notesRadioButton"/>
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/header"
+            android:button="@null"
+            android:checked="true"
+            android:layout_marginRight="8dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/offer_radio_button"
+            android:id="@+id/headerRadioButton"/>
+
+    </RadioGroup>
+
+</RelativeLayout>

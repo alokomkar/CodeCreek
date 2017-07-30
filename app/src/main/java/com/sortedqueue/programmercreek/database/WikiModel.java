@@ -16,7 +16,7 @@ import co.uk.rushorm.core.annotations.RushTableAnnotation;
 @RushTableAnnotation
 public class WikiModel extends RushObject implements Parcelable {
 
-    private String wikiHeader;
+    private String wikiHeader = "";
     private String wikiId;
 
     @RushList(classType = ProgramWiki.class)

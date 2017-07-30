@@ -18,7 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.adapter.InterviewQuestionsAdapter;
+import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.database.OptionModel;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
@@ -37,7 +39,7 @@ import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstan
  * Created by Alok Omkar on 2017-03-08.
  */
 
-public class InterviewQuestionsFragment extends Fragment {
+public class InterviewQuestionsFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener {
 
     @BindView(R.id.questionTextView)
     TextView questionTextView;
@@ -68,20 +70,27 @@ public class InterviewQuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interview_questions, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         interviewQuestionModels = new ArrayList<>();
         getAllInterviewModels( programLanguage );
 
-        return view;
     }
 
     private int index = 0;
     private void getAllInterviewModels(String programLanguage) {
-        setupMultiRightModel();
+        /*setupMultiRightModel();
         setupRearrangeModel();
         setupSingleRightModel();
-        setupTrueFalseModel();
-        navigateToNext();
+        setupTrueFalseModel();*/
+        String fileId = "c_questions";
+        new SlideContentReaderTask(getActivity(), fileId, this).execute();
+
 
     }
 
@@ -241,5 +250,10 @@ public class InterviewQuestionsFragment extends Fragment {
     private String programLanguage;
     public void setProgramLanguage(String programLanguage) {
         this.programLanguage = programLanguage;
+    }
+
+    @Override
+    public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
+        navigateToNext();
     }
 }
