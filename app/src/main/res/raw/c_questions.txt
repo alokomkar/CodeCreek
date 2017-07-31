@@ -1,23 +1,32 @@
 ﻿Topic : Random
+<question>
 1. Comment on the output of following code:
-1.    #include <stdio.h>
+</>
+<code>  #include <stdio.h>
 2.    main()
 3.    {
 4.        char *p = 0;
 5.        *p = 'a';
 6.        printf("value in pointer p is %c\n", *p);
 7.    }
+</>
+<option>
 a) It will print a
 b) It will print 0
 c) Compile time error
 d) Run time error
+</>
 View Answer
 Answer:d
-Output:
+<Output>
 $ cc pgm.c
 $ a.out
 Segmentation fault (core dumped)
+</>
+<question>
 2. What is the output of this C code?
+</>
+<code>
 1.   #include <stdio.h>
 2.   main()
 3.   {
@@ -26,15 +35,22 @@ Segmentation fault (core dumped)
 6.       else
 7.           printf("False");
 8.   }
+</>
+<option>
 a) True
 b) False
+</>
 View Answer
 Answer:b
-Output:
+<Output>
 $ cc pgm.c
 $ a.out
 False
+</>
+<question>
 3. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    main()
 3.    {
@@ -43,17 +59,24 @@ False
 6.        p[1] = 'b';
 7.        printf("%s", p);
 8.    }
+</>
+<option>
 a) abnfoundry C-Test
 b) IP C-Test
 c) Compile time error
 d) Run time error
+</>
 View Answer
 Answer:d
-Output:
+<Output>
 $ cc pgm.c
 $ a.out
 Segmentation fault (core dumped)
+</>
+<question>
 4. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -63,15 +86,22 @@ Segmentation fault (core dumped)
 7.        else
 8.            printf("False");
 9.    }
+</>
+<option>
 a) True
 b) False
+</>
 View Answer
 Answer:a
-Output:
+<Output>
 $ cc pgm.c
 $ a.out
 False
+</>
+<question>
 5. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    main()
 3.    {
@@ -82,124 +112,184 @@ False
 8.        else
 9.            printf("False");
 10.    }
+</>
+<option>
 a) True
 b) False
 c) No Output will be printed
 d) Run Time Error
+</>
 View Answer
 Answer:c
-Output:
+<Output>
 $ cc pgm.c
 $ a.out
 $
-Topic – Variable Names 
+Topic – Variable Names
+</>
+<question>
 1. C99 standard guarantees uniqueness of ____ characters for internal names.
+</>
+<option>
 a) 31
 b) 63
 c) 12
 d) 14
+</>
 View Answer
 Answer:b
 Explanation:ISO C99 compiler may consider only first 63 characters for internal.
+</>
+<question>
 2. C99 standard guarantess uniqueness of _____ characters for external names.
+</>
+<option>
 a) 31
 b) 6
 c) 12
 d) 14
+</>
 View Answer
 Answer:a
 Explanation:ISO C99 compiler may consider only first 31 characters for external
 variables having 31 characters due to which it may not be unique.
+</>
+<question>
 3. Which of the following is not a valid variable name declaration?
+</>
+<option>
 a) int __a3;
 b) int __3a;
 c) int __A3;
 d) None of the mentioned
+</>
 View Answer
 Answer:d
 Explanation:None.
+</>
+<question>
 4. Which of the following is not a valid variable name declaration?
+</>
+<option>
 a) int _a3;
 b) int a_3;
 c) int 3_a;
 d) int _3a
+</>
 View Answer
 Answer:c
 Explanation:Variable name cannot start with a digit.
+</>
+<question>
 5. Variable names beginning with underscore is not encouraged. Why?
+</>
+<option>
 a) It is not standardized
 b) To avoid conflicts since assemblers and loaders use such names
 c) To avoid conflicts since library routines use such names
 d) To avoid conflicts with environment variables of an operating system
+</>
 View Answer
 Answer:c
 Explanation:None.
+</>
+<question>
 6. All keywords in C are in
+</>
+<option>
 a) LowerCase letters
 b) UpperCase letters
 c) CamelCase letters
 d) None
+</>
 View Answer
 Answer:a
 Explanation:None.
+</>
+<question>
 7. Variable name resolving (number of significant characters for uniqueness of variable) depends on
+</>
+<option>
 a) Compiler and linker implementations
 b) Assemblers and loaders implementations
 c) C language
 d) None
+</>
 View Answer
 Answer:a
 Explanation:It depends on the standard to which compiler and linkers are adhering to.
+</>
+<question>
 8. Which of the following is not a valid C variable name?
+</>
+<option>
 a) int number;
 b) float rate;
 c) int variable_count;
 d) int $main;
+</>
 View Answer
 Answer:d
 Explanation:Since only underscore and no other special character is allowed in a variable name, it results in an error.
+</>
+<question>
 9. Which of the following is true for variable names in C?
+</>
+<option>
 a) They can contain alphanumeric characters as well as special characters
 b) It is not an error to declare a variable to be one of the keywords(like goto, static)
 c) Variable names cannot start with a digit
 d) Variable can be of any length
+</>
 View Answer
 Answer:c
 Explanation:According to the syntax for C variable name, it cannot start with a digit.
-
-
-
-
 Topic – Variable Names – 2
+</>
+<question>
 1. Which is valid C expression?
+</>
+<option>
 a) int my_num = 100,000;
 b) int my_num = 100000;
 c) int my num = 1000;
 d) int $my_num = 10000;
+</>
 View Answer
 Answer:b
 Explanation:space, comma and $ cannot be used in a variable name.
+</>
+<question>
 2. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
 4.        printf("Hello World! %d \n", x);
 5.        return 0;
 6.    }
+</>
+<option>
 a) Hello World! x;
 b) Hello World! followed by a junk value
 c) Compile time error
 d) Hello World!
+</>
 View Answer
 Answer:c
-Output:
+<Output>
 $ cc pgm1.c
 pgm1.c: In function ‘main’:
 pgm1.c:4: error: ‘x’ undeclared (first use in this function)
 pgm1.c:4: error: (Each undeclared identifier is reported only once
 pgm1.c:4: error: for each function it appears in.)
 Explanation:It results in an error since x is used without declaring the variable x.
+</>
+<question>
 3. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -208,27 +298,39 @@ Explanation:It results in an error since x is used without declaring the variabl
 6.        printf("Hello World! %d\n", y);
 7.        return 0;
 8.    }
+</>
+<option>
 a) Compile time error
 b) Hello World! 34
 c) Hello World! 1000
 d) Hello World! followed by a junk value
+</>
 View Answer
 Answer:a
-Output:
+<Output>
 $ cc pgm2.c
 pgm2.c: In function ‘main’:
 pgm2.c:5: error: redefinition of ‘y’
 pgm2.c:4: note: previous definition of ‘y’ was here
 Explanation:Since y is already defined, redefining it results in an error.
+</>
+<question>
 4. Which of the following is not a valid variable name declaration?
+</>
+<option>
 a) float PI = 3.14;
 b) double PI = 3.14;
 c) int PI = 3.14;
 d) #define PI 3.14
+</>
 View Answer
 Answer:d
 Explanation:#define PI 3.14 is a macro preprocessor, it is a textual substitution.
+</>
+<question>
 5. What will happen if the below program is executed?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -236,28 +338,40 @@ Explanation:#define PI 3.14 is a macro preprocessor, it is a textual substitutio
 5.        printf("%d", main);
 6.        return 0;
 7.    }
+</>
+<option>
 a) It will cause a compile-time error
 b) It will cause a run-time error
 c) It will run without any error and prints 3
 d) It will experience infinite looping
+</>
 View Answer
 Answer:c
 Explanation:A C program can have same function name and same variable name.
-Output:
+<Output>
 $ cc pgm3.c
 $ a.out
 3
+</>
+<question>
 6. What is the problem in following variable declaration?
 float 3Bedroom-Hall-Kitchen?;
+</>
+<option>
 a) The variable name begins with an integer
 b) The special character ‘-‘
 c) The special character ‘?’
 d) All of the mentioned
+</>
 View Answer
 Answer:d
 Explanation:A variable name cannot start with an integer, along with that the C compiler
 interprets the ‘-‘ and ‘?’ as a minus operator and a question mark operator respectively.
+</>
+<question>
 7. Comment on the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -266,27 +380,37 @@ interprets the ‘-‘ and ‘?’ as a minus operator and a question mark opera
 6.        printf("%d", ThisIsVariablename);
 7.        return 0;
 8.    }
+</>
+<option>
 a) The program will print 12
 b) The program will print 14
 c) The program will have a runtime error
 d) The program will cause a compile-time error due to redeclaration
+</>
 View Answer
 Answer:b
 Explanation:Variable names ThisIsVariablename and ThisIsVariableName are both distinct as C is case sensitive.
-Output:
+<Output>
 $ cc pgm4.c
 $ a.out
 14
+</>
+<question>
 8. Which of the following cannot be a variable name in C?
+</>
+<option>
 a) volatile
 b) true
 c) friend
 d) export
+</>
 View Answer
 Answer: a
 Explanation:volatile is C keyword.
 Topic – Data Types and Sizes – 1
 1. Comment on the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -298,14 +422,17 @@ Topic – Data Types and Sizes – 1
 9.            else
 10.                printf("FAIL\n");
 11.    }
+</>
+<option>
 a) The compiler will flag an error
 b) Program will compile and print the output 5
 c) Program will compile and print the ASCII value of 5
 d) Program will compile and print FAIL for 5 times
+</>
 View Answer
 Answer:d
 Explanation:The ASCII value of 5 is 53, the char type-casted integral value 5 is 5 only.
-Output:
+<Output>
 $ cc pgm1.c
 $ a.out
 FAILED
@@ -313,39 +440,63 @@ FAILED
 FAILED
 FAILED
 FAILED
+</>
+<question>
 2. The format identifier ‘%i’ is also used for _____ data type?
+</>
+<option>
 a) char
 b) int
 c) float
 d) double
+</>
 View Answer
 Answer:b
 Explanation:Both %d and %i can be used as a format identifier for int data type.
+</>
+<question>
 3. Which data type is most suitable for storing a number 65000 in a 32-bit system?
+</>
+<option>
 a) signed short
 b) unsigned short
 c) long
 d) int
+</>
 View Answer
 Answer:b
 Explanation:65000 comes in the range of short (16-bit) which occupies the least memory. Signed short ranges from -32768 to 32767 and hence we should use unsigned short.
+</>
+<question>
 4. Which of the following is a User-defined data type?
+</>
+<option>
 a) typedef int Boolean;
 b) typedef enum {Mon, Tue, Wed, Thu, Fri} Workdays;
 c) struct {char name[10], int age};
 d) all of the mentioned
+</>
 View Answer
 Answer:d
 Explanation:typedef and struct are used to define user-defined data types.
+</>
+<question>
 5. What is the size of an int data type?
+</>
+<option>
 a) 4 Bytes
 b) 8 Bytes
 c) Depends on the system/compiler
 d) Cannot be determined
+</>
 View Answer
 Answer:c
 Explanation:The size of the data types depend on the system.
+</>
+<question>
 6. What is the output of this C code?
+</>
+<code>
 1.    #include  <stdio.h>
 2.    int main()
 3.    {
@@ -354,18 +505,25 @@ Explanation:The size of the data types depend on the system.
 6.       printf("%d\n", chr);
 7.       return 0;
 8.    }
+</>
+<option>
 a) 128
 b) -128
 c) Depends on the compiler
 d) None of the mentioned
+</>
 View Answer
 Answer:b
 Explanation:signed char will be a negative number.
-Output:
+<Output>
 $ cc pgm2.c
 $ a.out
 -128
+</>
+<question>
 7. Comment on the output of this C code?
+</>
+<code>
 1.    #include  <stdio.h>
 2.    int main()
 3.    {
@@ -382,27 +540,39 @@ $ a.out
 14.            printf("%c", c);
 15.        return 0;
 16.    }
+</>
+<option>
 a) a
 b) Infinite loop
 c) Depends on what fgetc returns
 d) Depends on the compiler
+</>
 View Answer
 Answer:a
 Explanation:None.
-Output:
+<Output>
 $ cc pgm3.c
 $ a.out
 a
+</>
+<question>
 8. What is short int in C programming?
+</>
+<option>
 a) Basic datatype of C
 b) Qualifier
 c) short is the qualifier and int is the basic datatype
 d) All of the mentioned
+</>
 View Answer
 Answer:c
 Explanation:None.
 Topic – Data Types and Sizes – 2
+</>
+<question>
 1. Comment on the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -412,18 +582,25 @@ Topic – Data Types and Sizes – 2
 7.        else
 8.            printf("not equal\n");
 9.    }
+</>
+<option>
 a) equal
 b) not equal
 c) Output depends on compiler
 d) None of the mentioned
+</>
 View Answer
 Answer:b
 Explanation:0.1 by default is of type double which has different representation than float resulting in inequality even after conversion.
-Output:
+<Output>
 $ cc pgm4.c
 $ a.out
 not equal
+</>
+<question>
 2. Comment on the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -433,18 +610,25 @@ not equal
 7.        else
 8.            printf("not equal\n");
 9.    }
+</>
+<option>
 a) equal
 b) not equal
 c) Output depends on compiler
 d) None of the mentioned
+</>
 View Answer
 Answer:a
 Explanation:0.1f results in 0.1 to be stored in floating point representations.
-Output:
+<Output>
 $ cc pgm5.c
 $ a.out
 equal
+</>
+<question>
 3. What is the output of this C code (on a 32-bit machine)?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -455,26 +639,38 @@ equal
 8.        printf("p and q are %d and %d", sizeof(p), sizeof(q));
 9.        return 0;
 10.    }
+</>
+<option>
 a) p and q are 4 and 4
 b) p and q are 4 and 8
 c) Compiler error
 d) p and q are 2 and 8
+</>
 View Answer
 Answer:a
 Explanation:Size of any type of pointer is 4 on a 32-bit machine.
-Output:
+<Output>
 $ cc pgm6.c
 $ a.out
 p and q are 4 and 4
+</>
+<question>
 4. Which is correct with respect to size of the datatypes?
+</>
+<option>
 a) char > int > float
 b) int > char > float
 c) char < int < double
 d) double > char > int
+</>
 View Answer
 Answer:c
 Explanation:char has lesser bytes than int and int has lesser bytes than double in any system
+</>
+<question>
 5. What is the output of the following C code(on a 64 bit machine)?
+</>
+<code>
 1.    #include <stdio.h>
 2.    union Sti
 3.    {
@@ -487,18 +683,25 @@ Explanation:char has lesser bytes than int and int has lesser bytes than double 
 10.        printf("%d", sizeof(s));
 11.        return 0;
 12.    }
+</>
+<option>
 a) 8
 b) 5
 c) 9
 d) 4
+</>
 View Answer
 Answer:d
 Explanation:Since the size of a union is the size of its maximum datatype, here int is the largest hence 4.
-Output:
+<Output>
 $ cc pgm7.c
 $ a.out
 4
+</>
+<question>
 6. What is the output of this C code?
+</>
+<code>
 1.    #include <stdio.h>
 2.    int main()
 3.    {
@@ -506,22 +709,30 @@ $ a.out
 5.        printf("%f", x);
 6.        return 0;
 7.    }
+</>
+<option>
 a) a
 b) run time error
 c) a.0000000
 d) 97.000000
+</>
 View Answer
 Answer:d
 Explanation:Since the ASCII value of a is 97, the same is assigned to the float variable and printed.
-Output:
+<Output>
 $ cc pgm8.c
 $ a.out
 97.000000
+</>
+<question>
 7. Which of the datatypes have size that is variable?
+</>
+<option>
 a) int
 b) struct
 c) float
 d) double
+</>
 View Answer
 Answer:b
 Explanation:Since the size of the structure depends on its fields, it has a variable size.
