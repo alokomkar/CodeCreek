@@ -42,11 +42,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramLanguage;
@@ -155,6 +157,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         setupToolbar();
         creekPreferences = CreekApplication.getCreekPreferences();
         configureGoogleSignup();
+        checkForDBUpdates();
         if (!creekPreferences.getProgramLanguage().equals("")) {
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
         }
@@ -220,6 +223,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //executeProgram();
         //getOutputResponse(58011332);
 
+    }
+
+    private void checkForDBUpdates() {
+        new FirebaseDatabaseHandler(DashboardActivity.this).readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
+            @Override
+            public void onSuccess(CreekUserDB creekUserDB) {
+
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                Log.d(TAG, databaseError.getMessage());
+            }
+        });
     }
 
 
