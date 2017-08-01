@@ -7,4 +7,5 @@ package com.sortedqueue.programmercreek.interfaces;
 public interface InterviewNavigationListener {
     void onNavigateToQuestions( String programLanguage );
     void onNavigateToChoice();
+    void showExplanation(String explanation);
 }

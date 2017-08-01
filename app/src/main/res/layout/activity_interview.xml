@@ -29,6 +29,42 @@
         android:id="@+id/container">
     </FrameLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/white"
+        android:id="@+id/hintLayout"
+        android:animateLayoutChanges="true"
+        android:paddingStart="@dimen/margin_16"
+        android:paddingEnd="@dimen/margin_16"
+        android:paddingBottom="@dimen/margin_16"
+        android:paddingTop="@dimen/margin_4"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:background="@color/bg"
+            android:id="@+id/explanationTextView"
+            android:padding="@dimen/margin_8"
+            android:layout_below="@+id/nextTextView"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/ada_description"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextTextView"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:textAllCaps="true"
+            android:textColor="@color/md_green_600"
+            android:padding="@dimen/margin_4"
+            android:text="@string/next"/>
+
+    </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/checkFAB"
         android:layout_width="wrap_content"

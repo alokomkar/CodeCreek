@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.sortedqueue.programmercreek.adapter.InterviewQuestionsAdapter;
 import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.database.OptionModel;
+import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
@@ -63,6 +65,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     private InterviewQuestionModel interviewQuestionModel;
     private InterviewQuestionsAdapter interviewQuestionsAdapter;
     private CountDownTimer mCountDownTimer;
+    private InterviewNavigationListener mInterviewNavigationListener;
 
     @Nullable
     @Override
@@ -231,7 +234,11 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     public void checkAnswer() {
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
-        navigateToNext();
+        if(null != interviewQuestionModel.getExplanation()) {
+            mInterviewNavigationListener.showExplanation( interviewQuestionModel.getExplanation());
+        }
+        else
+            navigateToNext();
         /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -240,7 +247,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         }, 2500);*/
     }
 
-    private void navigateToNext() {
+    public void navigateToNext() {
         if (index < interviewQuestionModels.size()) {
             interviewQuestionModel = interviewQuestionModels.get(index++);
             setupViews();
@@ -269,5 +276,19 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
         interviewQuestionModels = contentArrayList;
         navigateToNext();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof InterviewNavigationListener ) {
+            mInterviewNavigationListener = (InterviewNavigationListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mInterviewNavigationListener = null;
     }
 }

@@ -7,22 +7,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
-import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.fragments.InterviewChoiceFragment;
 import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment;
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +37,12 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
     Toolbar toolbar;
     @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
+    @BindView(R.id.explanationTextView)
+    TextView explanationTextView;
+    @BindView(R.id.nextTextView)
+    TextView nextTextView;
+    @BindView(R.id.hintLayout)
+    RelativeLayout hintLayout;
     private FragmentTransaction mFragmentTransaction;
     private InterviewQuestionsFragment interviewQuestionsFragment;
     private InterviewChoiceFragment interviewChoiceFragment;
@@ -71,6 +74,7 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,14 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onNavigateToChoice();
-
+        nextTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hintLayout.setVisibility(View.GONE);
+                if( interviewQuestionsFragment != null )
+                interviewQuestionsFragment.navigateToNext();
+            }
+        });
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -98,15 +109,15 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    public void fabClick( View view ) {
-        if( interviewQuestionsFragment != null ) {
+    public void fabClick(View view) {
+        if (interviewQuestionsFragment != null) {
             interviewQuestionsFragment.checkAnswer();
         }
     }
 
     @Override
     public void onNavigateToQuestions(String programLanguage) {
-        getSupportActionBar().setTitle( programLanguage + " Questions" );
+        getSupportActionBar().setTitle(programLanguage + " Questions");
         this.programLanguage = programLanguage;
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         interviewQuestionsFragment = (InterviewQuestionsFragment) getSupportFragmentManager().findFragmentByTag(InterviewQuestionsFragment.class.getSimpleName());
@@ -114,23 +125,24 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
             interviewQuestionsFragment = new InterviewQuestionsFragment();
         }
         AnimationUtils.enterReveal(checkFAB);
-        interviewQuestionsFragment.setProgramLanguage( programLanguage );
+        interviewQuestionsFragment.setProgramLanguage(programLanguage);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, interviewQuestionsFragment, InterviewQuestionsFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 
     private boolean isFirstTime = true;
+
     @Override
     public void onNavigateToChoice() {
-        if( isFirstTime ) {
+        if (isFirstTime) {
             checkFAB.setVisibility(View.GONE);
             isFirstTime = false;
-        }
-        else {
+        } else {
             AnimationUtils.exitReveal(checkFAB);
         }
-        getSupportActionBar().setTitle( "Interview Questions" );
+        hintLayout.setVisibility(View.GONE);
+        getSupportActionBar().setTitle("Interview Questions");
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         interviewChoiceFragment = InterviewChoiceFragment.getInstance();
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
@@ -139,9 +151,15 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
     }
 
     @Override
+    public void showExplanation(String explanation) {
+        hintLayout.setVisibility(View.VISIBLE);
+        explanationTextView.setText(explanation);
+    }
+
+    @Override
     public void onBackPressed() {
         String title = getSupportActionBar().getTitle().toString();
-        if (title.equals(  programLanguage + " Questions")) {
+        if (title.equals(programLanguage + " Questions")) {
             onNavigateToChoice();
         } else {
             finish();
