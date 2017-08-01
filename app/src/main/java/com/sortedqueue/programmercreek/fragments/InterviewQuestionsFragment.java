@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.adapter.InterviewQuestionsAdapter;
 import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
@@ -254,6 +253,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @Override
     public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
+        interviewQuestionModels = contentArrayList;
         navigateToNext();
     }
 }

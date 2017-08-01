@@ -125,8 +125,8 @@ Answer:c
 $ cc pgm.c
 $ a.out
 $
-Topic – Variable Names
 </>
+Topic – Variable Names
 <question>
 1. C99 standard guarantees uniqueness of ____ characters for internal names.
 </>
@@ -138,7 +138,8 @@ d) 14
 </>
 View Answer
 Answer:b
-Explanation:ISO C99 compiler may consider only first 63 characters for internal.
+<Explanation>
+ISO C99 compiler may consider only first 63 characters for internal.
 </>
 <question>
 2. C99 standard guarantess uniqueness of _____ characters for external names.
@@ -151,7 +152,8 @@ d) 14
 </>
 View Answer
 Answer:a
-Explanation:ISO C99 compiler may consider only first 31 characters for external
+<Explanation>
+ISO C99 compiler may consider only first 31 characters for external
 variables having 31 characters due to which it may not be unique.
 </>
 <question>
@@ -165,7 +167,8 @@ d) None of the mentioned
 </>
 View Answer
 Answer:d
-Explanation:None.
+<Explanation>
+None.
 </>
 <question>
 4. Which of the following is not a valid variable name declaration?
@@ -178,7 +181,8 @@ d) int _3a
 </>
 View Answer
 Answer:c
-Explanation:Variable name cannot start with a digit.
+<Explanation>
+Variable name cannot start with a digit.
 </>
 <question>
 5. Variable names beginning with underscore is not encouraged. Why?
@@ -191,7 +195,8 @@ d) To avoid conflicts with environment variables of an operating system
 </>
 View Answer
 Answer:c
-Explanation:None.
+<Explanation>
+None.
 </>
 <question>
 6. All keywords in C are in
@@ -204,7 +209,8 @@ d) None
 </>
 View Answer
 Answer:a
-Explanation:None.
+<Explanation>
+None.
 </>
 <question>
 7. Variable name resolving (number of significant characters for uniqueness of variable) depends on
@@ -217,7 +223,8 @@ d) None
 </>
 View Answer
 Answer:a
-Explanation:It depends on the standard to which compiler and linkers are adhering to.
+<Explanation>
+It depends on the standard to which compiler and linkers are adhering to.
 </>
 <question>
 8. Which of the following is not a valid C variable name?
@@ -230,7 +237,8 @@ d) int $main;
 </>
 View Answer
 Answer:d
-Explanation:Since only underscore and no other special character is allowed in a variable name, it results in an error.
+<Explanation>
+Since only underscore and no other special character is allowed in a variable name, it results in an error.
 </>
 <question>
 9. Which of the following is true for variable names in C?
@@ -243,9 +251,10 @@ d) Variable can be of any length
 </>
 View Answer
 Answer:c
-Explanation:According to the syntax for C variable name, it cannot start with a digit.
-Topic – Variable Names – 2
+<Explanation>
+According to the syntax for C variable name, it cannot start with a digit.
 </>
+Topic – Variable Names – 2
 <question>
 1. Which is valid C expression?
 </>
@@ -257,7 +266,8 @@ d) int $my_num = 10000;
 </>
 View Answer
 Answer:b
-Explanation:space, comma and $ cannot be used in a variable name.
+<Explanation>
+space, comma and $ cannot be used in a variable name.
 </>
 <question>
 2. What is the output of this C code?
@@ -284,7 +294,8 @@ pgm1.c: In function ‘main’:
 pgm1.c:4: error: ‘x’ undeclared (first use in this function)
 pgm1.c:4: error: (Each undeclared identifier is reported only once
 pgm1.c:4: error: for each function it appears in.)
-Explanation:It results in an error since x is used without declaring the variable x.
+<Explanation>
+It results in an error since x is used without declaring the variable x.
 </>
 <question>
 3. What is the output of this C code?
@@ -312,7 +323,8 @@ $ cc pgm2.c
 pgm2.c: In function ‘main’:
 pgm2.c:5: error: redefinition of ‘y’
 pgm2.c:4: note: previous definition of ‘y’ was here
-Explanation:Since y is already defined, redefining it results in an error.
+<Explanation>
+Since y is already defined, redefining it results in an error.
 </>
 <question>
 4. Which of the following is not a valid variable name declaration?
@@ -325,7 +337,8 @@ d) #define PI 3.14
 </>
 View Answer
 Answer:d
-Explanation:#define PI 3.14 is a macro preprocessor, it is a textual substitution.
+<Explanation>
+#define PI 3.14 is a macro preprocessor, it is a textual substitution.
 </>
 <question>
 5. What will happen if the below program is executed?
@@ -347,7 +360,8 @@ d) It will experience infinite looping
 </>
 View Answer
 Answer:c
-Explanation:A C program can have same function name and same variable name.
+<Explanation>
+A C program can have same function name and same variable name.
 <Output>
 $ cc pgm3.c
 $ a.out
@@ -365,7 +379,8 @@ d) All of the mentioned
 </>
 View Answer
 Answer:d
-Explanation:A variable name cannot start with an integer, along with that the C compiler
+<Explanation>
+A variable name cannot start with an integer, along with that the C compiler
 interprets the ‘-‘ and ‘?’ as a minus operator and a question mark operator respectively.
 </>
 <question>
@@ -389,7 +404,8 @@ d) The program will cause a compile-time error due to redeclaration
 </>
 View Answer
 Answer:b
-Explanation:Variable names ThisIsVariablename and ThisIsVariableName are both distinct as C is case sensitive.
+<Explanation>
+Variable names ThisIsVariablename and ThisIsVariableName are both distinct as C is case sensitive.
 <Output>
 $ cc pgm4.c
 $ a.out
@@ -406,8 +422,11 @@ d) export
 </>
 View Answer
 Answer: a
-Explanation:volatile is C keyword.
+<Explanation>
+volatile is C keyword.
+</>
 Topic – Data Types and Sizes – 1
+<question>
 1. Comment on the output of this C code?
 </>
 <code>
@@ -431,7 +450,8 @@ d) Program will compile and print FAIL for 5 times
 </>
 View Answer
 Answer:d
-Explanation:The ASCII value of 5 is 53, the char type-casted integral value 5 is 5 only.
+<Explanation>
+The ASCII value of 5 is 53, the char type-casted integral value 5 is 5 only.
 <Output>
 $ cc pgm1.c
 $ a.out
@@ -452,7 +472,8 @@ d) double
 </>
 View Answer
 Answer:b
-Explanation:Both %d and %i can be used as a format identifier for int data type.
+<Explanation>
+Both %d and %i can be used as a format identifier for int data type.
 </>
 <question>
 3. Which data type is most suitable for storing a number 65000 in a 32-bit system?
@@ -465,7 +486,8 @@ d) int
 </>
 View Answer
 Answer:b
-Explanation:65000 comes in the range of short (16-bit) which occupies the least memory. Signed short ranges from -32768 to 32767 and hence we should use unsigned short.
+<Explanation>
+65000 comes in the range of short (16-bit) which occupies the least memory. Signed short ranges from -32768 to 32767 and hence we should use unsigned short.
 </>
 <question>
 4. Which of the following is a User-defined data type?
@@ -478,7 +500,8 @@ d) all of the mentioned
 </>
 View Answer
 Answer:d
-Explanation:typedef and struct are used to define user-defined data types.
+<Explanation>
+typedef and struct are used to define user-defined data types.
 </>
 <question>
 5. What is the size of an int data type?
@@ -491,7 +514,8 @@ d) Cannot be determined
 </>
 View Answer
 Answer:c
-Explanation:The size of the data types depend on the system.
+<Explanation>
+The size of the data types depend on the system.
 </>
 <question>
 6. What is the output of this C code?
@@ -514,7 +538,8 @@ d) None of the mentioned
 </>
 View Answer
 Answer:b
-Explanation:signed char will be a negative number.
+<Explanation>
+signed char will be a negative number.
 <Output>
 $ cc pgm2.c
 $ a.out
@@ -549,7 +574,8 @@ d) Depends on the compiler
 </>
 View Answer
 Answer:a
-Explanation:None.
+<Explanation>
+None.
 <Output>
 $ cc pgm3.c
 $ a.out
@@ -566,9 +592,10 @@ d) All of the mentioned
 </>
 View Answer
 Answer:c
-Explanation:None.
-Topic – Data Types and Sizes – 2
+<Explanation>
+None.
 </>
+Topic – Data Types and Sizes – 2
 <question>
 1. Comment on the output of this C code?
 </>
@@ -591,7 +618,8 @@ d) None of the mentioned
 </>
 View Answer
 Answer:b
-Explanation:0.1 by default is of type double which has different representation than float resulting in inequality even after conversion.
+<Explanation>
+0.1 by default is of type double which has different representation than float resulting in inequality even after conversion.
 <Output>
 $ cc pgm4.c
 $ a.out
@@ -619,7 +647,8 @@ d) None of the mentioned
 </>
 View Answer
 Answer:a
-Explanation:0.1f results in 0.1 to be stored in floating point representations.
+<Explanation>
+0.1f results in 0.1 to be stored in floating point representations.
 <Output>
 $ cc pgm5.c
 $ a.out
@@ -648,7 +677,8 @@ d) p and q are 2 and 8
 </>
 View Answer
 Answer:a
-Explanation:Size of any type of pointer is 4 on a 32-bit machine.
+<Explanation>
+Size of any type of pointer is 4 on a 32-bit machine.
 <Output>
 $ cc pgm6.c
 $ a.out
@@ -665,7 +695,8 @@ d) double > char > int
 </>
 View Answer
 Answer:c
-Explanation:char has lesser bytes than int and int has lesser bytes than double in any system
+<Explanation>
+char has lesser bytes than int and int has lesser bytes than double in any system
 </>
 <question>
 5. What is the output of the following C code(on a 64 bit machine)?
@@ -692,7 +723,8 @@ d) 4
 </>
 View Answer
 Answer:d
-Explanation:Since the size of a union is the size of its maximum datatype, here int is the largest hence 4.
+<Explanation>
+Since the size of a union is the size of its maximum datatype, here int is the largest hence 4.
 <Output>
 $ cc pgm7.c
 $ a.out
@@ -718,7 +750,8 @@ d) 97.000000
 </>
 View Answer
 Answer:d
-Explanation:Since the ASCII value of a is 97, the same is assigned to the float variable and printed.
+<Explanation>
+Since the ASCII value of a is 97, the same is assigned to the float variable and printed.
 <Output>
 $ cc pgm8.c
 $ a.out
@@ -735,4 +768,6 @@ d) double
 </>
 View Answer
 Answer:b
-Explanation:Since the size of the structure depends on its fields, it has a variable size.
+<Explanation>
+Since the size of the structure depends on its fields, it has a variable size.
+</>
