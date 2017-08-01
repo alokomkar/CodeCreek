@@ -2,10 +2,8 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -18,10 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.InterviewQuestionsAdapter;
 import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.database.OptionModel;
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
@@ -42,8 +42,6 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @BindView(R.id.questionTextView)
     TextView questionTextView;
-    @BindView(R.id.questionCardView)
-    CardView questionCardView;
     @BindView(R.id.optionsRecyclerView)
     RecyclerView optionsRecyclerView;
     @BindView(R.id.questionLayout)
@@ -58,6 +56,8 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     RelativeLayout lifeLineLayout;
     @BindView(R.id.progressTextView)
     TextView progressTextView;
+    @BindView(R.id.codeRecyclerView)
+    RecyclerView codeRecyclerView;
 
     private ArrayList<InterviewQuestionModel> interviewQuestionModels;
     private InterviewQuestionModel interviewQuestionModel;
@@ -77,11 +77,12 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         super.onViewCreated(view, savedInstanceState);
 
         interviewQuestionModels = new ArrayList<>();
-        getAllInterviewModels( programLanguage );
+        getAllInterviewModels(programLanguage);
 
     }
 
     private int index = 0;
+
     private void getAllInterviewModels(String programLanguage) {
         /*setupMultiRightModel();
         setupRearrangeModel();
@@ -98,13 +99,13 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
             @Override
             public void onTick(long millisUntilFinished) {
-                if( progressTextView != null )
-                    progressTextView.setText( "Remaining : " + (int) (millisUntilFinished / 1000) );
+                if (progressTextView != null)
+                    progressTextView.setText("Remaining : " + (int) (millisUntilFinished / 1000));
             }
 
             @Override
             public void onFinish() {
-                if( progressTextView != null )
+                if (progressTextView != null)
                     progressTextView.setText("Time up");
             }
         };
@@ -191,14 +192,23 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     }
 
     private void hideShowLifeLine() {
-        int visibility = interviewQuestionModel.getOptionModels().size() == 2
+        lifeLineLayout.setVisibility(View.GONE);
+        /*int visibility = interviewQuestionModel.getOptionModels().size() == 2
                 ? View.GONE
                 : View.VISIBLE;
-        lifeLineLayout.setVisibility(visibility);
+        lifeLineLayout.setVisibility(visibility);*/
     }
 
     private void setupViews() {
         questionTextView.setText(interviewQuestionModel.getQuestion());
+        if( interviewQuestionModel.getCode() != null ) {
+            codeRecyclerView.setVisibility(View.VISIBLE);
+            codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(interviewQuestionModel.getCode()), programLanguage));
+        }
+        else {
+            codeRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     private void setupRecyclerView() {
@@ -216,37 +226,41 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     public void checkAnswer() {
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
-        new Handler().postDelayed(new Runnable() {
+        navigateToNext();
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 navigateToNext();
             }
-        }, 2500);
+        }, 2500);*/
     }
 
     private void navigateToNext() {
-        if( index < interviewQuestionModels.size() ) {
+        if (index < interviewQuestionModels.size()) {
             interviewQuestionModel = interviewQuestionModels.get(index++);
             setupViews();
             setupRecyclerView();
             hideShowLifeLine();
+            startTimer();
+        } else {
+            getActivity().finish();
         }
-        startTimer();
+
     }
 
     private void cancelTimer() {
-        if( mCountDownTimer != null ) {
+        if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
     }
 
     private String programLanguage;
+
     public void setProgramLanguage(String programLanguage) {
         this.programLanguage = programLanguage;
     }

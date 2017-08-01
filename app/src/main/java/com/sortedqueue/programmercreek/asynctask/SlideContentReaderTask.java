@@ -10,12 +10,12 @@ import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
 import com.sortedqueue.programmercreek.database.OptionModel;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
@@ -70,117 +70,152 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
 
     private void readFileAsList(Context context) {
         String line;
-        try {
+        readFileFromRawDirectory(context.getResources().getIdentifier(fileId,
+                "raw", context.getPackageName()));
+        InputStream inputStream = context.getResources().openRawResource(
+                context.getResources().getIdentifier(fileId,
+                        "raw", context.getPackageName()));
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+        contentText = "";
+        InterviewQuestionModel interviewQuestionModel = null;
+        Scanner sc = new Scanner(inputStream, "UTF-8");
+        while( sc.hasNext() ) {
+            line = sc.nextLine();
+            Log.d(TAG, "Read Line : " + line);
+            if( line.contains("<question>") ) {
 
-            InputStream inputStream = context.getResources().openRawResource(
-                    context.getResources().getIdentifier(fileId,
-                            "raw", context.getPackageName()));
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            contentText = "";
-            String mainTitle = "C Programming Questions and Answers";
-            InterviewQuestionModel interviewQuestionModel = null;
-            while( (line = bufferedReader.readLine()) != null ) {
-                if( line.contains("<question>") ) {
-
-                    if( interviewQuestionModel != null )
-                        contentArrayList.add(interviewQuestionModel);
-
-                    interviewQuestionModel = new InterviewQuestionModel();
-                    String question = "";
-                    while ( !(line = bufferedReader.readLine()).equals("</>") ) {
-                        question += line + "\n";
-                    }
-                    line = bufferedReader.readLine();
-                    interviewQuestionModel.setQuestion(question);
+                if( interviewQuestionModel != null ) {
+                    contentArrayList.add(interviewQuestionModel);
+                    Log.d(TAG, "Question : " + interviewQuestionModel.getQuestion());
+                }
 
 
+                Log.d(TAG, "Forming question");
+                interviewQuestionModel = new InterviewQuestionModel();
+                String question = "";
+                while ( !(line = sc.nextLine()).equals("</>") ) {
+                    question += line + "\n";
                 }
-                if( line.contains("<code>") ) {
-                    String code = "";
-                    while ( !(line = bufferedReader.readLine()).equals("</>") ) {
-                        code += line + "\n";
-                    }
-                    line = bufferedReader.readLine();
-                    if( interviewQuestionModel != null )
-                        interviewQuestionModel.setCode(code);
-                }
-                if( line.contains("<option>") ) {
-                    while ( !(line = bufferedReader.readLine()).equals("</>") ) {
-                        if (line.startsWith("a)")) {
-                            String optionA = line.split(Pattern.quote("a)"))[1];
-                            interviewQuestionModel.setOptionModels(new ArrayList<OptionModel>());
-                            interviewQuestionModel.getOptionModels().add(new OptionModel(1, optionA));
-                            interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_TRUE_FALSE);
-                            Log.d(TAG, "Options : " + optionA);
-                            line = bufferedReader.readLine();
-                        }
-                        if (line.startsWith("b)")) {
-                            String optionB = line.split(Pattern.quote("b)"))[1];
-                            line = bufferedReader.readLine();
-                            interviewQuestionModel.getOptionModels().add(new OptionModel(2, optionB));
-                            interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_TRUE_FALSE);
-                            Log.d(TAG, "Options : " + optionB);
-                        }
-                        if (line.startsWith("c)")) {
-                            String optionC = line.split(Pattern.quote("c)"))[1];
-                            line = bufferedReader.readLine();
-                            interviewQuestionModel.getOptionModels().add(new OptionModel(3, optionC));
-                            interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_SINGLE_RIGHT);
-                            Log.d(TAG, "Options : " + optionC);
-                        }
-                        if (line.startsWith("d)")) {
-                            String optionD = line.split(Pattern.quote("d)"))[1];
-                            interviewQuestionModel.getOptionModels().add(new OptionModel(4, optionD));
-                            interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_SINGLE_RIGHT);
-                            Log.d(TAG, "Options : " + optionD);
-                        }
-                    }
-                    line = bufferedReader.readLine();
-                }
-                if( line.startsWith("Answer:") ) {
-                    String answer = line.split(":")[1].trim();
-                    switch (answer) {
-                        case "a" :
-                            interviewQuestionModel.setCorrectOption(1);
-                            break;
-                        case "b" :
-                            interviewQuestionModel.setCorrectOption(2);
-                            break;
-                        case "c" :
-                            interviewQuestionModel.setCorrectOption(3);
-                            break;
-                        case "d" :
-                            interviewQuestionModel.setCorrectOption(4);
-                            break;
-                    }
-                }
-                if( line.contains("<output>") ) {
-                    String output = "";
-                    while ( !(line = bufferedReader.readLine()).equals("</>") ) {
-                        output += line + "\n";
-                    }
-                    line = bufferedReader.readLine();
-                    if( interviewQuestionModel != null )
-                        interviewQuestionModel.setOutput(output);
-                }
-                if( line.contains("<Explanation>") ) {
-                    String explanation = "";
-                    while ( !(line = bufferedReader.readLine()).equals("</>") ) {
-                        explanation += line + "\n";
-                    }
-                    line = bufferedReader.readLine();
-                    if( interviewQuestionModel != null )
-                        interviewQuestionModel.setOutput(explanation);
-                }
+                if( sc.hasNext() )
+                line = sc.nextLine();
+                interviewQuestionModel.setQuestion(question);
+
 
             }
-            if( interviewQuestionModel != null )
-                contentArrayList.add(interviewQuestionModel);
+            if( line.contains("<code>") ) {
+                String code = "";
+                while ( !(line = sc.nextLine()).equals("</>") ) {
+                    code += line + "\n";
+                }
+                if( sc.hasNext() )
+                line = sc.nextLine();
+                if( interviewQuestionModel != null )
+                    interviewQuestionModel.setCode(code);
+            }
+            if( line.contains("<option>") ) {
+                while ( sc.hasNext() && !(line = sc.nextLine()).equals("</>") ) {
+                    if (line.startsWith("a)")) {
+                        String optionA = line.split(Pattern.quote("a)"))[1];
+                        interviewQuestionModel.setOptionModels(new ArrayList<OptionModel>());
+                        interviewQuestionModel.getOptionModels().add(new OptionModel(1, optionA));
+                        interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_TRUE_FALSE);
+                        Log.d(TAG, "Options : " + optionA);
+                        if( sc.hasNext() )
+                        line = sc.nextLine();
+                    }
+                    if (line.startsWith("b)")) {
+                        String optionB = line.split(Pattern.quote("b)"))[1];
+                        if( sc.hasNext() )
+                        line = sc.nextLine();
+                        interviewQuestionModel.getOptionModels().add(new OptionModel(2, optionB));
+                        interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_TRUE_FALSE);
+                        Log.d(TAG, "Options : " + optionB);
+                    }
+                    if (line.startsWith("c)")) {
+                        String optionC = line.split(Pattern.quote("c)"))[1];
+                        if( sc.hasNext() )
+                        line = sc.nextLine();
+                        interviewQuestionModel.getOptionModels().add(new OptionModel(3, optionC));
+                        interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_SINGLE_RIGHT);
+                        Log.d(TAG, "Options : " + optionC);
+                    }
+                    if (line.startsWith("d)")) {
+                        String optionD = line.split(Pattern.quote("d)"))[1];
+                        interviewQuestionModel.getOptionModels().add(new OptionModel(4, optionD));
+                        interviewQuestionModel.setTypeOfQuestion(InterviewQuestionConstants.TYPE_SINGLE_RIGHT);
+                        Log.d(TAG, "Options : " + optionD);
+                    }
+                }
+                if( sc.hasNext() )
+                line = sc.nextLine();
+            }
+            if( line.startsWith("Answer:") ) {
+                String answer = line.split(":")[1].trim();
+                switch (answer) {
+                    case "a" :
+                        interviewQuestionModel.setCorrectOption(1);
+                        break;
+                    case "b" :
+                        interviewQuestionModel.setCorrectOption(2);
+                        break;
+                    case "c" :
+                        interviewQuestionModel.setCorrectOption(3);
+                        break;
+                    case "d" :
+                        interviewQuestionModel.setCorrectOption(4);
+                        break;
+                }
+            }
+            if( line.contains("<output>") ) {
+                String output = "";
+                while ( sc.hasNext() && !(line = sc.nextLine()).equals("</>") ) {
+                    output += line + "\n";
+                }
+                if( sc.hasNext() )
+                line = sc.nextLine();
+                if( interviewQuestionModel != null )
+                    interviewQuestionModel.setOutput(output);
+            }
+            if( line.contains("<Explanation>") ) {
+                String explanation = "";
+                while ( sc.hasNext() && !(line = sc.nextLine()).equals("</>") ) {
+                    explanation += line + "\n";
+                }
+                if( sc.hasNext() )
+                line = sc.nextLine();
+                if( interviewQuestionModel != null )
+                    interviewQuestionModel.setOutput(explanation);
+            }
+
+        }
+        if( interviewQuestionModel != null ) {
+            contentArrayList.add(interviewQuestionModel);
+            Log.d(TAG, "Question : " + interviewQuestionModel.getQuestion());
+        }
 
 
+    }
+
+    private String readFileFromRawDirectory(int resourceId){
+        InputStream iStream = context.getResources().openRawResource(resourceId);
+        System.out.println(iStream);
+        try {
+
+            int count = 0;
+            byte[] bytes = new byte[iStream.available()];
+            StringBuilder builder = new StringBuilder();
+            while ( (count = iStream.read(bytes, 0, iStream.available())) > 0) {
+                builder.append(new String(bytes, 0, count));
+            }
+            iStream.close();
+
+            return builder.toString();
         } catch (IOException e) {
             e.printStackTrace();
+            return "";
         }
+
     }
+
+
 }

@@ -85,6 +85,7 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            codeEditText.setEnabled(false);
             codeEditText.setOnClickListener(this);
             codeEditText.addTextChangedListener(this);
         }

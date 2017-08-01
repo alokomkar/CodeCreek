@@ -196,4 +196,21 @@ public class InterviewQuestionModel implements Parcelable {
             return new InterviewQuestionModel[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "InterviewQuestionModel{" +
+                "typeOfQuestion=" + typeOfQuestion +
+                ", programLanguage='" + programLanguage + '\'' +
+                ", question='" + question + '\'' +
+                ", correctOption=" + correctOption +
+                ", correctOptions=" + correctOptions +
+                ", correctSequence=" + correctSequence +
+                ", optionModels=" + optionModels +
+                ", modelId='" + modelId + '\'' +
+                ", output='" + output + '\'' +
+                ", explanation='" + explanation + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }
