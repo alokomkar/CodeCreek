@@ -212,7 +212,8 @@
 
         <activity
             android:name=".activity.ProgramInserterActivity"
-            android:label="@string/program_inserter" />
+            android:label="@string/program_inserter"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.IntroActivity"
             android:label="@string/title_activity_intro"
