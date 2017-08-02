@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
     tools:context="com.sortedqueue.programmercreek.activity.ChaptersActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@color/white"
+        android:background="@color/transparent_black"
         android:id="@+id/hintLayout"
         android:animateLayoutChanges="true"
         android:paddingStart="@dimen/margin_16"

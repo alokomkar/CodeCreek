@@ -234,6 +234,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     public void checkAnswer() {
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
+        //mInterviewNavigationListener.showExplanation("Some explanation");
         if(null != interviewQuestionModel.getExplanation()) {
             mInterviewNavigationListener.showExplanation( interviewQuestionModel.getExplanation());
         }

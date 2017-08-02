@@ -184,7 +184,7 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
                 if( sc.hasNext() )
                 line = sc.nextLine();
                 if( interviewQuestionModel != null )
-                    interviewQuestionModel.setOutput(explanation);
+                    interviewQuestionModel.setExplanation(explanation);
             }
 
         }
