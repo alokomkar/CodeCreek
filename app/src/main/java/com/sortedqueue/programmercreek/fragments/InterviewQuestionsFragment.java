@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,6 +62,8 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     TextView progressTextView;
     @BindView(R.id.codeRecyclerView)
     RecyclerView codeRecyclerView;
+    @BindView(R.id.timerProgressBar)
+    ProgressBar timerProgressBar;
 
     private ArrayList<InterviewQuestionModel> interviewQuestionModels;
     private InterviewQuestionModel interviewQuestionModel;
@@ -99,18 +102,24 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     }
 
     private void startTimer() {
+        timerProgressBar.setVisibility(View.VISIBLE);
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 if (progressTextView != null)
-                    progressTextView.setText("Remaining : " + (int) (millisUntilFinished / 1000));
+                    progressTextView.setText("" + (int) (millisUntilFinished / 1000));
             }
 
             @Override
             public void onFinish() {
-                if (progressTextView != null)
-                    progressTextView.setText("Time up");
+                if (progressTextView != null) {
+                    progressTextView.setText("--");
+                    timerProgressBar.setVisibility(View.INVISIBLE);
+                }
+
+
+
             }
         };
         mCountDownTimer.start();
@@ -205,12 +214,11 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupViews() {
         questionTextView.setText(interviewQuestionModel.getQuestion());
-        if( interviewQuestionModel.getCode() != null ) {
+        if (interviewQuestionModel.getCode() != null) {
             codeRecyclerView.setVisibility(View.VISIBLE);
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(interviewQuestionModel.getCode()), programLanguage));
-        }
-        else {
+        } else {
             codeRecyclerView.setVisibility(View.GONE);
         }
     }
@@ -236,10 +244,9 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
         //mInterviewNavigationListener.showExplanation("Some explanation");
-        if(null != interviewQuestionModel.getExplanation()) {
-            mInterviewNavigationListener.showExplanation( interviewQuestionModel.getExplanation());
-        }
-        else
+        if (null != interviewQuestionModel.getExplanation()) {
+            mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
+        } else
             navigateToNext();
         /*new Handler().postDelayed(new Runnable() {
             @Override
@@ -265,6 +272,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     private void cancelTimer() {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
+            timerProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -283,7 +291,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof InterviewNavigationListener ) {
+        if (context instanceof InterviewNavigationListener) {
             mInterviewNavigationListener = (InterviewNavigationListener) context;
         }
     }
@@ -297,8 +305,8 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @Override
     public void onItemClick(int position) {
         cancelTimer();
-        if(null != interviewQuestionModel.getExplanation()) {
-            mInterviewNavigationListener.showExplanation( interviewQuestionModel.getExplanation());
+        if (null != interviewQuestionModel.getExplanation()) {
+            mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
         }
     }
 }

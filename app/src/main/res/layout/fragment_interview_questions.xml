@@ -25,17 +25,30 @@
             android:background="@color/white"
             android:layout_above="@+id/lifeLineLayout"
             android:orientation="vertical">
-            <TextView
-                android:text="Countdown : 60"
-                android:minWidth="@dimen/margin_48"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_8"
-                android:textStyle="bold"
-                android:background="@color/md_blue_900"
-                android:textColor="@color/md_white_1000"
-                android:gravity="center"
-                android:id="@+id/progressTextView" />
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_16">
+                <TextView
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_dashboard"
+                    android:textColor="@color/md_blue_800"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/progressTextView" />
+                <ProgressBar
+                    android:layout_width="@dimen/margin_72"
+                    android:layout_height="@dimen/margin_72"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    android:id="@+id/timerProgressBar"/>
+            </RelativeLayout>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
