@@ -36,11 +36,13 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
     private boolean isAnswerChecked = false;
     private Context context;
     private ArrayList<OptionModel> optionModels;
+    private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
 
-    public InterviewQuestionsAdapter(InterviewQuestionModel interviewQuestionModel) {
+    public InterviewQuestionsAdapter(InterviewQuestionModel interviewQuestionModel, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.interviewQuestionModel = interviewQuestionModel;
         this.optionModels = new ArrayList<>();
         optionModels.addAll(interviewQuestionModel.getOptionModels());
+        this.adapterClickListner = adapterClickListner;
     }
 
     @Override
@@ -169,6 +171,7 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
                 case TYPE_REARRANGE :
                     break;
             }
+            adapterClickListner.onItemClick(position);
         }
     }
 

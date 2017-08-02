@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.InterviewQuestionsAdapter;
 import com.sortedqueue.programmercreek.asynctask.SlideContentReaderTask;
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel;
@@ -40,7 +41,7 @@ import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstan
  * Created by Alok Omkar on 2017-03-08.
  */
 
-public class InterviewQuestionsFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener {
+public class InterviewQuestionsFragment extends Fragment implements SlideContentReaderTask.OnDataReadListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
     @BindView(R.id.questionTextView)
     TextView questionTextView;
@@ -216,7 +217,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupRecyclerView() {
         optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel);
+        interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel, this);
         optionsRecyclerView.setAdapter(interviewQuestionsAdapter);
         if (interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE) {
             ItemTouchHelper.Callback callback =
@@ -291,5 +292,10 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     public void onDetach() {
         super.onDetach();
         mInterviewNavigationListener = null;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        checkAnswer();
     }
 }
