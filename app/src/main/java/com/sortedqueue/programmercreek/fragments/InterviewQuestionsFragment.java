@@ -296,6 +296,9 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @Override
     public void onItemClick(int position) {
-        checkAnswer();
+        cancelTimer();
+        if(null != interviewQuestionModel.getExplanation()) {
+            mInterviewNavigationListener.showExplanation( interviewQuestionModel.getExplanation());
+        }
     }
 }
