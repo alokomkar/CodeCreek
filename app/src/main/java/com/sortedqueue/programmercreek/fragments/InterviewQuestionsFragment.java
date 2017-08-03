@@ -285,6 +285,10 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @Override
     public void onDataReadComplete(ArrayList<InterviewQuestionModel> contentArrayList) {
         interviewQuestionModels = contentArrayList;
+        setupMultiRightModel();
+        setupRearrangeModel();
+        setupSingleRightModel();
+        setupTrueFalseModel();
         navigateToNext();
     }
 

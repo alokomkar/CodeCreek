@@ -2,11 +2,12 @@ package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
@@ -29,7 +30,8 @@ import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstan
  * Created by Alok on 09/03/17.
  */
 public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQuestionsAdapter.ViewHolder>
- implements ItemTouchHelperAdapter {
+        implements ItemTouchHelperAdapter {
+
 
 
     private InterviewQuestionModel interviewQuestionModel;
@@ -54,23 +56,14 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        OptionModel optionModel = getItemAtPosition( position );
+        OptionModel optionModel = getItemAtPosition(position);
         holder.progamLineTxtView.setText(optionModel.getOption());
 
-        if( interviewQuestionModel.getTypeOfQuestion() == TYPE_MULTIPLE_RIGHT ) {
-            holder.optionCardView.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                            context,
-                            optionModel.isSelected() ?
-                                    R.color.md_blue_600 :
-                                    R.color.md_blue_800));
-        }
-
-        if( isAnswerChecked ) {
+        if (isAnswerChecked) {
             switch (interviewQuestionModel.getTypeOfQuestion()) {
-                case TYPE_TRUE_FALSE :
-                case TYPE_SINGLE_RIGHT :
-                    holder.optionCardView.setCardBackgroundColor(
+                case TYPE_TRUE_FALSE:
+                case TYPE_SINGLE_RIGHT:
+                    holder.optionCardView.setBackgroundColor(
                             ContextCompat.getColor(
                                     context,
                                     optionModel.getOptionId() == interviewQuestionModel.getCorrectOption() ?
@@ -78,9 +71,9 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
                                             R.color.md_red_500));
                     holder.progamLineTxtView.setTextColor(ContextCompat.getColor(context, R.color.white));
                     break;
-                case TYPE_MULTIPLE_RIGHT :
-                    if( optionModel.isSelected() ) {
-                        holder.optionCardView.setCardBackgroundColor(
+                case TYPE_MULTIPLE_RIGHT:
+                    if (optionModel.isSelected()) {
+                        holder.optionCardView.setBackgroundColor(
                                 ContextCompat.getColor(
                                         context,
                                         interviewQuestionModel.getCorrectOptions().contains(optionModel.getOptionId()) ?
@@ -89,8 +82,8 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
                         holder.progamLineTxtView.setTextColor(ContextCompat.getColor(context, R.color.white));
                     }
                     break;
-                case TYPE_REARRANGE :
-                    holder.optionCardView.setCardBackgroundColor(
+                case TYPE_REARRANGE:
+                    holder.optionCardView.setBackgroundColor(
                             ContextCompat.getColor(
                                     context,
                                     optionModel.getOptionId() == interviewQuestionModel.getCorrectSequence().get(position) ?
@@ -101,10 +94,12 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
             }
         }
 
+        holder.reorderImageView.setVisibility( interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE ? View.VISIBLE : View.GONE);
+
 
     }
 
-    public void isAnswerChecked( boolean isAnswerChecked ) {
+    public void isAnswerChecked(boolean isAnswerChecked) {
         this.isAnswerChecked = isAnswerChecked;
         notifyDataSetChanged();
     }
@@ -141,8 +136,10 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.progamLineTxtView)
         TextView progamLineTxtView;
+        @BindView(R.id.reorderImageView)
+        ImageView reorderImageView;
         @BindView(R.id.optionCardView)
-        CardView optionCardView;
+        LinearLayout optionCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -153,22 +150,22 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            if( position == RecyclerView.NO_POSITION ) {
+            if (position == RecyclerView.NO_POSITION) {
                 return;
             }
-            switch ( interviewQuestionModel.getTypeOfQuestion() ) {
-                case TYPE_TRUE_FALSE :
-                case TYPE_SINGLE_RIGHT :
+            switch (interviewQuestionModel.getTypeOfQuestion()) {
+                case TYPE_TRUE_FALSE:
+                case TYPE_SINGLE_RIGHT:
                     isAnswerChecked(true);
                     break;
-                case TYPE_MULTIPLE_RIGHT :
+                case TYPE_MULTIPLE_RIGHT:
                     OptionModel optionModel = getItemAtPosition(position);
-                    if( optionModel != null ) {
+                    if (optionModel != null) {
                         optionModel.setSelected(!optionModel.isSelected());
                         notifyItemChanged(position);
                     }
                     break;
-                case TYPE_REARRANGE :
+                case TYPE_REARRANGE:
                     break;
             }
             adapterClickListner.onItemClick(position);

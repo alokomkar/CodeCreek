@@ -65,6 +65,11 @@
                 android:id="@+id/codeRecyclerView">
             </android.support.v7.widget.RecyclerView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/md_grey_200" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -72,7 +77,6 @@
                 android:id="@+id/optionsRecyclerView"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_interview_option"
-                android:paddingBottom="@dimen/margin_4"
                 >
 
             </android.support.v7.widget.RecyclerView>
