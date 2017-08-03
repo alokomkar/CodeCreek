@@ -29,6 +29,8 @@ import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -66,7 +68,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @BindView(R.id.timerProgressBar)
     ProgressBar timerProgressBar;
     @BindView(R.id.checkAnswerImageView)
-    ImageView checkAnswerImageView;
+    TextView checkAnswerImageView;
 
     private ArrayList<InterviewQuestionModel> interviewQuestionModels;
     private InterviewQuestionModel interviewQuestionModel;
