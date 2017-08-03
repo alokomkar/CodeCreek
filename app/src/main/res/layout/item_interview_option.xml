@@ -37,7 +37,7 @@
         <View
             android:layout_below="@+id/progamLineTxtView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
+            android:layout_height="@dimen/divider_height"
             android:background="@color/md_grey_400"/>
     </RelativeLayout>
 
