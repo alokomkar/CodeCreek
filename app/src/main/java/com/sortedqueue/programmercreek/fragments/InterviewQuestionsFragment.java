@@ -102,20 +102,22 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     }
 
     private void startTimer() {
-        timerProgressBar.setVisibility(View.VISIBLE);
+        timerProgressBar.setIndeterminate(false);
+        timerProgressBar.setMax(60);
+        timerProgressBar.setProgress(0);
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 if (progressTextView != null)
                     progressTextView.setText("" + (int) (millisUntilFinished / 1000));
+                timerProgressBar.setProgress((int) (millisUntilFinished / 1000));
             }
 
             @Override
             public void onFinish() {
                 if (progressTextView != null) {
                     progressTextView.setText("--");
-                    timerProgressBar.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -272,7 +274,6 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     private void cancelTimer() {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
-            timerProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 

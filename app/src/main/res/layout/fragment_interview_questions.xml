@@ -30,9 +30,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="@dimen/margin_16">
+                android:padding="@dimen/margin_4">
                 <TextView
                     android:text="60"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_dashboard_small"
@@ -42,10 +43,13 @@
                 <ProgressBar
                     android:layout_width="@dimen/margin_52"
                     android:layout_height="@dimen/margin_52"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_centerInParent="true"
-                    android:indeterminate="true"
-                    android:visibility="invisible"
-                    tools:visibility="visible"
+                    android:indeterminate="false"
+                    android:max="48"
+                    android:progress="10"
+                    android:background="@drawable/circle_shape"
+                    android:progressDrawable="@drawable/circular_progressbar"
                     android:id="@+id/timerProgressBar"/>
             </RelativeLayout>
 
