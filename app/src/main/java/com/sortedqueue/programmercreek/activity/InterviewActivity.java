@@ -19,7 +19,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.fragments.InterviewChoiceFragment;
 import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment;
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
-import com.sortedqueue.programmercreek.util.AnimationUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,7 +123,7 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         if (interviewQuestionsFragment == null) {
             interviewQuestionsFragment = new InterviewQuestionsFragment();
         }
-        AnimationUtils.enterReveal(checkFAB);
+        //AnimationUtils.enterReveal(checkFAB);
         interviewQuestionsFragment.setProgramLanguage(programLanguage);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, interviewQuestionsFragment, InterviewQuestionsFragment.class.getSimpleName());
