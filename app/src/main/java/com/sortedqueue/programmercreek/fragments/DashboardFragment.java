@@ -20,12 +20,12 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.CodeLabActivity;
-import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
+import com.sortedqueue.programmercreek.activity.WebViewActivity;
 import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -259,7 +259,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 startActivity(intent);
                 break;
             case R.id.interviewLayout:
-                intent = new Intent(getContext(), InterviewActivity.class);
+                intent = new Intent(getContext(), WebViewActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:
