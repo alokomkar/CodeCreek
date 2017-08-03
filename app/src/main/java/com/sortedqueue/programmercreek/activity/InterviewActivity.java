@@ -135,12 +135,12 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
 
     @Override
     public void onNavigateToChoice() {
-        if (isFirstTime) {
+        /*if (isFirstTime) {
             checkFAB.setVisibility(View.GONE);
             isFirstTime = false;
         } else {
             AnimationUtils.exitReveal(checkFAB);
-        }
+        }*/
         hintLayout.setVisibility(View.GONE);
         getSupportActionBar().setTitle("Interview Questions");
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();

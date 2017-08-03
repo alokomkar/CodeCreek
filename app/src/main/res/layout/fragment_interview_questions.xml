@@ -148,11 +148,16 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             >
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="@dimen/margin_88"
-                android:src="@drawable/ic_done_all"
+                android:minWidth="@dimen/margin_100"
+                android:drawableRight="@drawable/ic_done_all"
+                android:textAllCaps="true"
+                android:drawablePadding="@dimen/margin_8"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="@string/check"
                 android:id="@+id/checkAnswerImageView"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/progressLayout"
