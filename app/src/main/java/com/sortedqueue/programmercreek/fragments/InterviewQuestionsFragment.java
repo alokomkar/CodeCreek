@@ -65,6 +65,8 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     RecyclerView codeRecyclerView;
     @BindView(R.id.timerProgressBar)
     ProgressBar timerProgressBar;
+    @BindView(R.id.checkAnswerImageView)
+    ImageView checkAnswerImageView;
 
     private ArrayList<InterviewQuestionModel> interviewQuestionModels;
     private InterviewQuestionModel interviewQuestionModel;
@@ -83,7 +85,12 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        checkAnswerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAnswer();
+            }
+        });
         interviewQuestionModels = new ArrayList<>();
         getAllInterviewModels(programLanguage);
 
@@ -120,7 +127,6 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
                 if (progressTextView != null) {
                     progressTextView.setText("--");
                 }
-
 
 
             }
@@ -251,10 +257,9 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         if (null != interviewQuestionModel.getExplanation()) {
             mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
         } else {
-            if( interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE ) {
+            if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
                 navigateToNext();
-            }
-            else {
+            } else {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -324,7 +329,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @Override
     public void onItemClick(int position) {
-        if( interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE ) {
+        if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
             cancelTimer();
             if (null != interviewQuestionModel.getExplanation()) {
                 mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
