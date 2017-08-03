@@ -29,8 +29,6 @@ import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -113,7 +111,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void startTimer() {
         timerProgressBar.setIndeterminate(false);
-        timerProgressBar.setMax(60);
+        timerProgressBar.setMax(59);
         timerProgressBar.setProgress(0);
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
 
@@ -122,6 +120,9 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
                 if (progressTextView != null)
                     progressTextView.setText("" + (int) (millisUntilFinished / 1000));
                 timerProgressBar.setProgress((int) (millisUntilFinished / 1000));
+                if( timerProgressBar.getProgress() == 1 ) {
+                    timerProgressBar.setProgress(0);
+                }
             }
 
             @Override

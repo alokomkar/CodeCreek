@@ -2146,14 +2146,16 @@ public class FirebaseDatabaseHandler {
         getUserDatabase();
         Query query = mUserDatabase.child("ranking");
         query.orderByChild("reputation")
-                .limitToLast(20)
+                .limitToLast(21)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d(TAG, "UserRanking : " + dataSnapshot.toString());
                         ArrayList<UserRanking> userRankings = new ArrayList<UserRanking>();
                         for( DataSnapshot child : dataSnapshot.getChildren() ) {
-                            userRankings.add(child.getValue(UserRanking.class));
+                            UserRanking userRanking = child.getValue(UserRanking.class);
+                            if( !userRanking.getEmailId().equals("programmer.creek@gmail.com") )
+                                userRankings.add(child.getValue(UserRanking.class));
                         }
                         getTopLearnersInterface.onSuccess(userRankings);
                     }
