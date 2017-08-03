@@ -79,6 +79,7 @@ public class InterviewActivity extends AppCompatActivity implements InterviewNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interview);
         ButterKnife.bind(this);
+        checkFAB.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
