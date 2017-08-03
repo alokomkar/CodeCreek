@@ -59,7 +59,16 @@ public class InterviewQuestionsAdapter extends RecyclerView.Adapter<InterviewQue
         OptionModel optionModel = getItemAtPosition(position);
         holder.progamLineTxtView.setText(optionModel.getOption());
 
-        if (isAnswerChecked) {
+        if( interviewQuestionModel.getTypeOfQuestion() == TYPE_MULTIPLE_RIGHT ) {
+            holder.optionCardView.setBackgroundColor(
+                    ContextCompat.getColor(
+                            context,
+                            optionModel.isSelected() ?
+                                    R.color.md_blue_grey_100 :
+                                    R.color.white));
+        }
+
+        if( isAnswerChecked ) {
             switch (interviewQuestionModel.getTypeOfQuestion()) {
                 case TYPE_TRUE_FALSE:
                 case TYPE_SINGLE_RIGHT:

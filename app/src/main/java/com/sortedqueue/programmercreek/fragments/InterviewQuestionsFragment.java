@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -243,13 +244,27 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     }
 
     public void checkAnswer() {
+
         interviewQuestionsAdapter.isAnswerChecked(true);
         cancelTimer();
         //mInterviewNavigationListener.showExplanation("Some explanation");
         if (null != interviewQuestionModel.getExplanation()) {
             mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
-        } else
-            navigateToNext();
+        } else {
+            if( interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE ) {
+                navigateToNext();
+            }
+            else {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        navigateToNext();
+                    }
+                }, 2500);
+            }
+
+        }
+
         /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -309,9 +324,11 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @Override
     public void onItemClick(int position) {
-        cancelTimer();
-        if (null != interviewQuestionModel.getExplanation()) {
-            mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
+        if( interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE ) {
+            cancelTimer();
+            if (null != interviewQuestionModel.getExplanation()) {
+                mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
+            }
         }
     }
 }
