@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/md_grey_100"
     android:layout_height="wrap_content">
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/headerView"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/md_blue_grey_200"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/headerView"
         android:id="@+id/headerTextView"
         android:layout_toStartOf="@+id/indicatorImageview"
         android:text="@string/check"
         android:padding="@dimen/margin_8"
-        android:background="@color/white"
+        android:background="@color/md_grey_100"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/text_dashboard_small"/>
+        android:textSize="@dimen/text_fill_blanks"/>
 
     <View
         android:layout_width="match_parent"
@@ -28,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_12"
-        android:background="@color/white"
+        android:background="@color/md_grey_100"
         android:paddingStart="@dimen/margin_8"
         android:id="@+id/indicatorImageview"
         android:src="@android:drawable/arrow_down_float"

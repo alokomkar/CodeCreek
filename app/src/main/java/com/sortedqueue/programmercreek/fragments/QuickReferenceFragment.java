@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.QuickRefernceRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.QuickReference;
+import com.sortedqueue.programmercreek.util.CommonUtils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,10 +43,33 @@ public class QuickReferenceFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        quickReferenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        QuickRefernceRecyclerAdapter quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(QuickReference.getCQuickReference());
-        quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
-        //quickRefernceRecyclerAdapter.expandItem(0);
+        getAllReference();
+    }
+
+    private void getAllReference() {
+        new AsyncTask<Void, Void, ArrayList<QuickReference>>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                CommonUtils.displayProgressDialog(getContext(), "Loading");
+
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<QuickReference> quickReferences) {
+                super.onPostExecute(quickReferences);
+                CommonUtils.dismissProgressDialog();
+                quickReferenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                QuickRefernceRecyclerAdapter quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(quickReferences);
+                quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
+            }
+
+            @Override
+            protected ArrayList<QuickReference> doInBackground(Void... voids) {
+                return QuickReference.getCQuickReference();
+            }
+        }.execute();
     }
 
     @Override
