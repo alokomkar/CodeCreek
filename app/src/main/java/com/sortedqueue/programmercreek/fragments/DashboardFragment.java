@@ -25,7 +25,6 @@ import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
-import com.sortedqueue.programmercreek.activity.WebViewActivity;
 import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -259,8 +258,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 startActivity(intent);
                 break;
             case R.id.interviewLayout:
-                intent = new Intent(getContext(), WebViewActivity.class);
-                startActivity(intent);
+                /*intent = new Intent(getContext(), WebViewActivity.class);
+                startActivity(intent);*/
+                dashboardNavigationListener.showQuickReferenceFragment();
                 break;
             case R.id.syntaxLayout:
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);

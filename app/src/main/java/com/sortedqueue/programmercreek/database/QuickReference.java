@@ -3,6 +3,8 @@ package com.sortedqueue.programmercreek.database;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,8 @@ public class QuickReference implements Parcelable {
 
     private String header;
     private String content;
+
+    public boolean isExpanded;
 
     public QuickReference(String header, String content) {
         this.header = header;
@@ -35,6 +39,9 @@ public class QuickReference implements Parcelable {
         this.content = content;
     }
 
+    public ArrayList<String> getContentArray() {
+        return AuxilaryUtils.splitProgramIntolines(content);
+    }
 
     @Override
     public int describeContents() {

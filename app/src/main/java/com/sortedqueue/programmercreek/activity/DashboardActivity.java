@@ -58,6 +58,7 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler;
 import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
+import com.sortedqueue.programmercreek.fragments.QuickReferenceFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.retrofit.DownloadHTMLService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
@@ -782,6 +783,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     }
 
+    @Override
+    public void showQuickReferenceFragment() {
+        container.setVisibility(View.VISIBLE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, new QuickReferenceFragment()).commit();
+    }
 
 
     @Override

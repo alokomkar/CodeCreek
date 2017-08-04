@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/headerTextView"
+        android:layout_toStartOf="@+id/indicatorImageview"
+        android:text="@string/check"
+        android:padding="@dimen/margin_8"
+        android:background="@color/white"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_dashboard_small"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/dividerView"
+        android:layout_below="@+id/headerTextView"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/md_blue_grey_200"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_12"
+        android:background="@color/white"
+        android:paddingStart="@dimen/margin_8"
+        android:id="@+id/indicatorImageview"
+        android:src="@android:drawable/arrow_down_float"
+        android:paddingEnd="@dimen/margin_8"/>
+
+    <LinearLayout
+        android:layout_below="@+id/dividerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/explanationLayout"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</RelativeLayout>
