@@ -261,4 +261,6 @@
     <string name="header">Header</string>
     <string name="quick_reference">Quick Reference</string>
     <string name="quick_reference_description">Quick reference of language basics, syntax</string>
+    <string name="type_name_of_program">Type name of the program</string>
+    <string name="no_results">No Results</string>
 </resources>

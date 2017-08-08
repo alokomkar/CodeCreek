@@ -187,7 +187,7 @@ public class FirebaseDatabaseHandler {
         mProgramLanguageDatabase.push().setValue(programLanguage);
     }
 
-    public void searchPrograms( String queryText ) {
+    public void searchPrograms(String queryText, final ProgramIndexInterface programIndexInterface ) {
         getProgramDatabase();
         mProgramDatabase.child(PROGRAM_INDEX_CHILD).orderByChild("program_Description")
                 .startAt(queryText)
@@ -195,12 +195,19 @@ public class FirebaseDatabaseHandler {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.d(TAG, "search Programs : " + dataSnapshot.toString());
+                        ArrayList<ProgramIndex> programIndices = new ArrayList<>();
+                        for( DataSnapshot child : dataSnapshot.getChildren() ) {
+                            ProgramIndex programIndex = child.getValue(ProgramIndex.class);
+                            if( programIndex != null ) programIndices.add(programIndex);
+
+                        }
+                        programIndexInterface.getProgramIndexes(programIndices);
+
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        programIndexInterface.onError(databaseError);
                     }
                 });
 

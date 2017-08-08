@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,6 +50,17 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
     private Drawable unlockByInviteDrawable;
     private Drawable lockedDrawable;
 
+    public void clearAll() {
+        if( mProgram_Indexs != null ) {
+            mProgram_Indexs.clear();
+        }
+        notifyDataSetChanged();
+    }
+
+    public ProgramIndex getItemAtPosition(int position) {
+        return mProgram_Indexs.get(position);
+    }
+
     public interface AdapterClickListner {
         void onItemClick(int position);
     }
@@ -58,6 +70,20 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;
         this.mUnlockByInviteInterface = (UnlockByInviteInterface) context;
+        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
+        this.creekPreferences = CreekApplication.getCreekPreferences();
+        this.unlockByInviteDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_media_ff);
+        this.lockedDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_lock_lock);
+        mProgramType = programLanguage.substring(0, 1).toUpperCase();
+        bottomUpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
+        topDownAnimation = AnimationUtils.loadAnimation(mContext, R.anim.item_up_from_bottom);
+    }
+
+    public CustomProgramRecyclerViewAdapter(Context context, ArrayList<ProgramIndex> mProgram_indexs, AdapterClickListner adapterClickListner) {
+        this.mContext = context;
+        this.mProgram_Indexs = mProgram_indexs;
+        this.mAdapterClickListner = adapterClickListner;
         this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
         this.creekPreferences = CreekApplication.getCreekPreferences();
