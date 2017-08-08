@@ -259,4 +259,6 @@
     <string name="program_language">Program Language</string>
     <string name="program_title">Program Title</string>
     <string name="header">Header</string>
+    <string name="quick_reference">Quick Reference</string>
+    <string name="quick_reference_description">Quick reference of language basics, syntax</string>
 </resources>

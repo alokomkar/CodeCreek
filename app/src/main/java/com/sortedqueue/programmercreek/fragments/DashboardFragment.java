@@ -20,11 +20,13 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
 import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.CodeLabActivity;
+import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
+import com.sortedqueue.programmercreek.activity.WebViewActivity;
 import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -83,6 +85,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     FrameLayout testLayout;
     @BindView(R.id.interviewLayout)
     FrameLayout interviewLayout;
+    @BindView(R.id.quickReferenceLayout)
+    FrameLayout quickReferenceLayout;
+
     @BindView(R.id.wizardTextView)
     TextView wizardTextView;
     @BindView(R.id.wizardLayout)
@@ -196,6 +201,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             delay = delay + standardDelay;
             initAnimations(testLayout, delay);
             delay = delay + standardDelay;
+            initAnimations(quickReferenceLayout, delay);
+            delay = delay + standardDelay;
             initAnimations(interviewLayout, delay);
             delay = delay + standardDelay;
             //initAnimations(codeLabLayout, delay);
@@ -214,6 +221,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         indexLayout.setOnClickListener(this);
         matchLayout.setOnClickListener(this);
         testLayout.setOnClickListener(this);
+        quickReferenceLayout.setOnClickListener(this);
         interviewLayout.setOnClickListener(this);
         reviseLayout.setOnClickListener(this);
         quizLayout.setOnClickListener(this);
@@ -257,10 +265,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.interviewLayout:
+            case R.id.quickReferenceLayout:
                 /*intent = new Intent(getContext(), WebViewActivity.class);
                 startActivity(intent);*/
                 dashboardNavigationListener.showQuickReferenceFragment();
+                break;
+            case R.id.interviewLayout:
+                intent = new Intent(getContext(), InterviewActivity.class);
+                startActivity(intent);
                 break;
             case R.id.syntaxLayout:
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);

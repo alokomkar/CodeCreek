@@ -70,9 +70,9 @@ public class QuickRefernceRecyclerAdapter extends RecyclerView.Adapter<QuickRefe
             holder.explanationLayout.addView(contentView);
         }
 
-        holder.explanationLayout.setVisibility( quickReference.isExpanded ? View.GONE : View.VISIBLE );
+        //holder.explanationLayout.setVisibility( quickReference.isExpanded ? View.GONE : View.VISIBLE );
 
-        holder.indicatorImageview.setImageDrawable(ContextCompat.getDrawable(context, quickReference.isExpanded ? android.R.drawable.arrow_down_float : android.R.drawable.arrow_up_float ));
+        //holder.indicatorImageview.setImageDrawable(ContextCompat.getDrawable(context, quickReference.isExpanded ? android.R.drawable.arrow_down_float : android.R.drawable.arrow_up_float ));
 
     }
 
@@ -105,7 +105,7 @@ public class QuickRefernceRecyclerAdapter extends RecyclerView.Adapter<QuickRefe
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            /*int position = getAdapterPosition();
             if( position != RecyclerView.NO_POSITION ) {
                 QuickReference quickReference = quickReferences.get(position);
                 quickReference.isExpanded = !quickReference.isExpanded;
@@ -114,7 +114,7 @@ public class QuickRefernceRecyclerAdapter extends RecyclerView.Adapter<QuickRefe
                     explanationLayout.removeAllViews();
                 }
                 notifyItemChanged(position);
-            }
+            }*/
         }
     }
 
