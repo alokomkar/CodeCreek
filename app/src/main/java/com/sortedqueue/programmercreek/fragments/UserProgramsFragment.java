@@ -140,11 +140,13 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             switch (buttonView.getId()) {
                 case R.id.allProgramsRadioButton:
                     if (allProgramsRadioButton.isChecked()) {
+                        languageSpinner.setVisibility(View.VISIBLE);
                         fetchUserPrograms("All Programs");
                     }
                     break;
                 case R.id.myProgramsRadioButton:
                     if (myProgramsRadioButton.isChecked()) {
+                        languageSpinner.setVisibility(View.GONE);
                         fetchUserPrograms("My Programs");
                     }
                     break;
