@@ -305,7 +305,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
 
-    public void getAllUserPrograms(String accessSpecifier, final GetAllUserProgramsListener getAllUserProgramsListener) {
+    public void getAllUserPrograms(String accessSpecifier, String language, final GetAllUserProgramsListener getAllUserProgramsListener) {
 
         getUserProgramDatabase();
         Query query;
@@ -317,7 +317,12 @@ public class FirebaseDatabaseHandler {
             query = null;
         }
         else {
-            query = mUserProgramDatabase;
+            if( language.equalsIgnoreCase("All") ) {
+                query = mUserProgramDatabase;
+            }
+            else {
+                query = mUserProgramDatabase.getRef().orderByChild("programLanguage").equalTo(language);
+            }
         }
 
         if( query != null ) {

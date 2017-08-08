@@ -2,17 +2,23 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.SpinnerAdapter;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -37,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 16/05/17.
  */
 
-public class UserProgramsFragment extends Fragment implements View.OnClickListener, UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener {
+public class UserProgramsFragment extends Fragment implements View.OnClickListener, UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener, AdapterView.OnItemSelectedListener {
 
     private static UserProgramsFragment instance;
     @BindView(R.id.userProgramsRecyclerView)
@@ -54,12 +60,16 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     LinearLayout noProgramsLayout;
     @BindView(R.id.adView)
     AdView adView;
+    @BindView(R.id.languageSpinner)
+    AppCompatSpinner languageSpinner;
+    @BindView(R.id.communityScrollView)
+    NestedScrollView communityScrollView;
     private UserProgramRecyclerAdapter adapter;
     private String accessSpecifier;
     private DashboardNavigationListener dashboardNavigationListener;
 
     private String TAG = UserProgramsFragment.class.getSimpleName();
-
+    private String language = "All";
 
     public static UserProgramsFragment getInstance() {
         if (instance == null) {
@@ -68,15 +78,23 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         return instance;
     }
 
+    private String businessType[] = { "All", "C", "C++", "Java"};
+    ArrayAdapter<String> adapterBusinessType;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_programs, container, false);
         ButterKnife.bind(this, view);
+        //language = getArguments().getString("Language");
         allProgramsRadioButton.setChecked(true);
         allProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
         myProgramsRadioButton.setOnCheckedChangeListener(checkChangedListener);
+        adapterBusinessType = new ArrayAdapter<String>(getContext(),
+                R.layout.item_language_select, businessType);
+        languageSpinner.setAdapter(adapterBusinessType);
+        languageSpinner.setOnItemSelectedListener(this);
         //myFavoritesRadioButton.setOnCheckedChangeListener(checkChangedListener);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -142,7 +160,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     private void fetchUserPrograms(String accessSpecifier) {
         this.accessSpecifier = accessSpecifier;
         swipeRefreshLayout.setRefreshing(true);
-        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(accessSpecifier, this);
+        new FirebaseDatabaseHandler(getContext()).getAllUserPrograms(accessSpecifier, language, this);
     }
 
     private void setupRecyclerView(ArrayList<UserProgramDetails> userProgramDetailsArrayList) {
@@ -157,7 +175,6 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @Override
@@ -281,7 +298,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof DashboardNavigationListener ) {
+        if (context instanceof DashboardNavigationListener) {
             dashboardNavigationListener = (DashboardNavigationListener) context;
         }
     }
@@ -290,5 +307,24 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     public void onDetach() {
         super.onDetach();
         dashboardNavigationListener = null;
+    }
+
+    public static UserProgramsFragment newInstance(String c) {
+        UserProgramsFragment userProgramsFragment = new UserProgramsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("Language", c);
+        userProgramsFragment.setArguments(bundle);
+        return userProgramsFragment;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        language = parent.getSelectedItem().toString();
+        fetchUserPrograms(accessSpecifier);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

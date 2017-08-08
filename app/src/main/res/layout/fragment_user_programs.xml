@@ -13,8 +13,9 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8"
+        android:padding="@dimen/margin_8"
         android:orientation="horizontal"
+        android:layout_toStartOf="@+id/languageSpinner"
         android:id="@+id/programsRadioGroup"
         android:weightSum="2">
         <RadioButton
@@ -62,6 +63,16 @@
             android:id="@+id/myFavoritesRadioButton"/>
 
     </RadioGroup>
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_8"
+        android:id="@+id/languageSpinner"
+        android:minWidth="@dimen/margin_48">
+
+    </android.support.v7.widget.AppCompatSpinner>
 
     <View
         android:layout_width="match_parent"
