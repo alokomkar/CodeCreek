@@ -87,6 +87,11 @@ public class QuickRefernceRecyclerAdapter extends RecyclerView.Adapter<QuickRefe
         return quickReferences.size();
     }
 
+    public void setItems(ArrayList<QuickReference> quickReferences) {
+        this.quickReferences = quickReferences;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.headerTextView)

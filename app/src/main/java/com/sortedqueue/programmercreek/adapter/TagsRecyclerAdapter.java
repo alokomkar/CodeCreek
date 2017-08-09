@@ -26,6 +26,7 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
     private String selectedTag = "";
 
     private int mode = -1;
+    private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
 
     public TagsRecyclerAdapter(ArrayList<String> tagArrayList) {
         this.tagArrayList = tagArrayList;
@@ -38,6 +39,12 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
         this.mode = mode;
     }
 
+    public TagsRecyclerAdapter(ArrayList<String> tagArrayList, int mode, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
+        this.tagArrayList = tagArrayList;
+        this.selectedTags = new ArrayList<>();
+        this.adapterClickListner = adapterClickListner;
+        this.mode = mode;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -87,6 +94,11 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
         return tagArrayList.size();
     }
 
+    public void setSelectedTag(String selectedTag) {
+        this.selectedTag = selectedTag;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tagTextView)
@@ -116,6 +128,7 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<TagsRecyclerAdapte
                 else {
                     selectedTag = tag;
                 }
+                if( null != adapterClickListner ) adapterClickListner.onItemClick(position);
                 notifyDataSetChanged();
             }
         }
