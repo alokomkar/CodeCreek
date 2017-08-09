@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <TextView
@@ -13,18 +14,38 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/margin_12"
         android:textColor="@color/white"/>
-    <android.support.v7.widget.RecyclerView
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_4"
+        android:layout_alignParentEnd="true"
+        android:text="C"
+        android:id="@+id/selectedTextView"
+        android:textColor="@color/white"
+        android:drawablePadding="@dimen/margin_8"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:padding="@dimen/margin_12"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/languageCardView"
+        android:layout_marginTop="@dimen/margin_1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/margin_4"
         android:layout_below="@+id/headingTextView"
-        android:id="@+id/languageRecyclerView"
-        >
-    </android.support.v7.widget.RecyclerView>
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/cardview_default_elevation">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/languageRecyclerView"
+            >
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.CardView>
+
     <View
         android:layout_width="match_parent"
-        android:layout_below="@+id/languageRecyclerView"
+        android:layout_below="@+id/headingTextView"
         android:id="@+id/dividerView"
         android:layout_height="@dimen/divider_height"
         android:background="@color/md_grey_100"/>

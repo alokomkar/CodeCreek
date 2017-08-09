@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
@@ -32,7 +34,7 @@ import butterknife.Unbinder;
  * Created by Alok on 04/08/17.
  */
 
-public class QuickReferenceFragment extends Fragment implements CustomProgramRecyclerViewAdapter.AdapterClickListner {
+public class QuickReferenceFragment extends Fragment implements CustomProgramRecyclerViewAdapter.AdapterClickListner, View.OnClickListener {
 
     @BindView(R.id.quickReferenceRecyclerView)
     RecyclerView quickReferenceRecyclerView;
@@ -41,6 +43,14 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     RelativeLayout progressLayout;
     @BindView(R.id.languageRecyclerView)
     RecyclerView languageRecyclerView;
+    @BindView(R.id.headingTextView)
+    TextView headingTextView;
+    @BindView(R.id.selectedTextView)
+    TextView selectedTextView;
+    @BindView(R.id.languageCardView)
+    CardView languageCardView;
+    @BindView(R.id.dividerView)
+    View dividerView;
     private TagsRecyclerAdapter tagsRecyclerAdapter;
     private String selectedTag;
     private QuickRefernceRecyclerAdapter quickRefernceRecyclerAdapter;
@@ -50,6 +60,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_quick_reference, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
+        languageRecyclerView.setVisibility(View.GONE);
         return fragmentView;
     }
 
@@ -78,16 +89,18 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     }
 
     private void setupRecyclerView(TagModel tagModel) {
-        languageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        languageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList(), 1, this);
         languageRecyclerView.setAdapter(tagsRecyclerAdapter);
         tagsRecyclerAdapter.setSelectedTag("C");
+        selectedTextView.setText("C");
+        selectedTextView.setOnClickListener(this);
         onItemClick(0);
         CommonUtils.dismissProgressDialog();
     }
 
     private void getAllReference() {
-
+        languageRecyclerView.setVisibility(View.GONE);
         new AsyncTask<Void, Void, ArrayList<QuickReference>>() {
 
             @Override
@@ -107,13 +120,13 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
             @Override
             protected ArrayList<QuickReference> doInBackground(Void... voids) {
                 switch (selectedTag) {
-                    case "C" :
+                    case "C":
                         return QuickReference.getCQuickReference();
-                    case "C++" :
+                    case "C++":
                         return QuickReference.getCPPQuickReference();
-                    case "Java" :
+                    case "Java":
                         return QuickReference.getJavaQuickReference();
-                    case "SQL" :
+                    case "SQL":
                         return QuickReference.getSQLQuickReference();
                     default:
                         return QuickReference.getCQuickReference();
@@ -131,6 +144,12 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     @Override
     public void onItemClick(int position) {
         selectedTag = tagsRecyclerAdapter.getSelectedTag();
+        selectedTextView.setText(selectedTag);
         getAllReference();
+    }
+
+    @Override
+    public void onClick(View v) {
+        languageRecyclerView.setVisibility(View.VISIBLE);
     }
 }
