@@ -263,4 +263,5 @@
     <string name="quick_reference_description">Quick reference of language basics, syntax</string>
     <string name="type_name_of_program">Type name of the program</string>
     <string name="no_results">No Results</string>
+    <string name="loading_reference">Loading Reference...</string>
 </resources>

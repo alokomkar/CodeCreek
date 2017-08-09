@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
-    <RelativeLayout
+    android:background="@color/white">
+    <TextView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quick_reference"
+        android:textSize="@dimen/text_tool_bar"
+        android:id="@+id/headingTextView"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/margin_12"
+        android:textColor="@color/white"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_4"
+        android:layout_below="@+id/headingTextView"
+        android:id="@+id/languageRecyclerView"
+        >
+    </android.support.v7.widget.RecyclerView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@+id/languageRecyclerView"
+        android:id="@+id/dividerView"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/md_grey_100"/>
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_below="@+id/dividerView"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_4"
-            android:id="@+id/languageRecyclerView"
-            >
-        </android.support.v7.widget.RecyclerView>
+        android:background="@color/white"
+        >
         <RelativeLayout
-            android:layout_below="@+id/languageRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressLayout"
-            android:padding="@dimen/margin_8"
-            android:background="@color/md_blue_grey_50"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <ProgressBar
-                android:layout_width="@dimen/margin_16"
-                android:layout_height="@dimen/margin_16"
-                android:layout_centerVertical="true"
-                android:id="@+id/progressBar"
-                android:indeterminate="true"/>
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/progressBar"
-                android:layout_marginLeft="@dimen/margin_16"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_dashboard_small"
-                android:text="@string/loading"/>
+                android:id="@+id/progressLayout"
+                android:padding="@dimen/margin_8"
+                android:background="@color/md_blue_grey_50"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/progressBar"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_dashboard_small"
+                    android:text="@string/loading_reference"/>
+            </RelativeLayout>
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/progressLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/quickReferenceRecyclerView">
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
 
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_below="@+id/progressLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:id="@+id/quickReferenceRecyclerView">
-        </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
 
-
-
-</android.support.v4.widget.NestedScrollView>
