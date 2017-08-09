@@ -82,6 +82,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
         tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList(), 1, this);
         languageRecyclerView.setAdapter(tagsRecyclerAdapter);
         tagsRecyclerAdapter.setSelectedTag("C");
+        onItemClick(0);
         CommonUtils.dismissProgressDialog();
     }
 

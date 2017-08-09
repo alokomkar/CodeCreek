@@ -8,10 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_4"
+            android:id="@+id/languageRecyclerView"
+            >
+        </android.support.v7.widget.RecyclerView>
         <RelativeLayout
+            android:layout_below="@+id/languageRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressLayout"
+            android:padding="@dimen/margin_8"
             android:background="@color/md_blue_grey_50"
             android:gravity="center"
             android:orientation="horizontal">
@@ -31,16 +41,10 @@
                 android:text="@string/loading"/>
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/progressLayout"
-            android:id="@+id/languageRecyclerView"
-            >
-        </android.support.v7.widget.RecyclerView>
+
 
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@+id/languageRecyclerView"
+            android:layout_below="@+id/progressLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
