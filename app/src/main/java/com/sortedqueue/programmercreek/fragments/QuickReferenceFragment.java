@@ -107,6 +107,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressLayout.setVisibility(View.VISIBLE);
+                quickReferenceRecyclerView.setVisibility(View.GONE);
 
             }
 
@@ -115,6 +116,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
                 super.onPostExecute(quickReferences);
                 quickRefernceRecyclerAdapter.setItems(quickReferences);
                 progressLayout.setVisibility(View.GONE);
+                quickReferenceRecyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
