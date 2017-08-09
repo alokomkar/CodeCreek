@@ -69,6 +69,7 @@ public class FirebaseStorageHandler {
         void onProgressUpdate( double currentProgress );
         void onError(Exception e);
     }
+
     public void uploadSlideImage(Uri fileUri, final FileUploadListener fileUploadListener) {
 
         StorageReference slideStorageReference = defaultInstance.getReference().child("slides/" + creekPreferences.getSignInAccount().replaceAll("[-+.^:,]","") + "/" + fileUri.getLastPathSegment());

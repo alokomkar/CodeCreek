@@ -190,7 +190,7 @@ public class FirebaseDatabaseHandler {
     public void searchPrograms(String queryText, final ProgramIndexInterface programIndexInterface ) {
         getProgramDatabase();
         mProgramDatabase.child(PROGRAM_INDEX_CHILD).orderByChild("program_Description")
-                .startAt(queryText)
+                .startAt("*" + queryText)
                 .endAt(queryText+"\uf8ff")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

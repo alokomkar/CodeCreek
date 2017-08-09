@@ -208,9 +208,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 else
                     AnimationUtils.exitRevealGone(addUserCodeFAB);
 
-                if( searchItem != null ) {
+                /*if( searchItem != null ) {
                     searchItem.setVisible( position == 2 );
-                }
+                }*/
             }
 
             @Override
@@ -439,9 +439,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 sendEmail(DashboardActivity.this);
                 return true;
 
-            case R.id.action_search:
+            /*case R.id.action_search:
                 showSearchFragment();
-                return true;
+                return true;*/
 
             case R.id.action_rate:
                 try {
