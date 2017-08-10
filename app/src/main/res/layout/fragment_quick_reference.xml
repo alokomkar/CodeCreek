@@ -92,5 +92,15 @@
 
 
     </android.support.v4.widget.NestedScrollView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin_16"
+        android:id="@+id/scrollHintTextView"
+        android:textColor="@color/white"
+        android:padding="@dimen/margin_16"
+        android:background="@color/transparent_black_60"
+        android:gravity="center"/>
 </RelativeLayout>
 

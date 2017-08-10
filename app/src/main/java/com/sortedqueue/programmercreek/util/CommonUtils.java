@@ -93,6 +93,10 @@ public class CommonUtils {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
+    public static void displayToastLong(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
     public static void displaySnackBar(Activity activity, int messageInternetUnavailable) {
         try {
             if (activity != null) {

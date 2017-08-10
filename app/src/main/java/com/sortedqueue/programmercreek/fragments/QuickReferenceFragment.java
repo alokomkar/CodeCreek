@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.sortedqueue.programmercreek.database.QuickReference;
 import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.GravitySnapHelper;
 
 import java.util.ArrayList;
 
@@ -51,6 +53,8 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     CardView languageCardView;
     @BindView(R.id.dividerView)
     View dividerView;
+    @BindView(R.id.scrollHintTextView)
+    TextView scrollHintTextView;
     private TagsRecyclerAdapter tagsRecyclerAdapter;
     private String selectedTag;
     private QuickRefernceRecyclerAdapter quickRefernceRecyclerAdapter;
@@ -61,6 +65,9 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
         View fragmentView = inflater.inflate(R.layout.fragment_quick_reference, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
         languageRecyclerView.setVisibility(View.GONE);
+        scrollHintTextView.setText("<- This content is scrollable ->");
+        scrollHintTextView.setVisibility(View.VISIBLE);
+        CommonUtils.displayToastLong(getContext(), "<- This content is scrollable ->");
         return fragmentView;
     }
 
@@ -71,7 +78,9 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     }
 
     private void fetchAllTags() {
-        quickReferenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        GravitySnapHelper gravitySnapHelper = new GravitySnapHelper(Gravity.START);
+        gravitySnapHelper.attachToRecyclerView(quickReferenceRecyclerView);
+        quickReferenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(new ArrayList<QuickReference>());
         quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
         CommonUtils.displayProgressDialog(getContext(), getContext().getString(R.string.loading));
@@ -117,6 +126,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
                 quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(quickReferences);
                 quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
                 progressLayout.setVisibility(View.GONE);
+                scrollHintTextView.setVisibility(View.GONE);
                 quickReferenceRecyclerView.setVisibility(View.VISIBLE);
             }
 

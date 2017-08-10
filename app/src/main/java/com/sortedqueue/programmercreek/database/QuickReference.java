@@ -73,193 +73,98 @@ public class QuickReference implements Parcelable {
 
     public static ArrayList<QuickReference> getSQLQuickReference() {
         ArrayList<QuickReference> quickReferences = new ArrayList<>();
-        quickReferences.add( new QuickReference("Structure of a C Program", "#include(stdio.h) /* include IO library */\n" +
-                "#include... /* include other files */\n" +
-                "#define.. /* define constants */\n" +
-                "/* Declare global variables*/)\n" +
-                "(variable type)(variable list);\n" +
-                "/* Define program functions */\n" +
-                "(type returned)(function name)(parameter list)\n" +
-                "(declaration of parameter types)\n" +
-                " {\n" +
-                "(declaration of local variables);\n" +
-                "(body of function code);\n" +
-                " }\n" +
-                "/* Define main function*/\n" +
-                "main ((optional argc and argv arguments))\n" +
-                "(optional declaration parameters)\n" +
-                "{\n" +
-                "(declaration of local variables);\n" +
-                "(body of main function code);\n" +
-                "}"));
-        quickReferences.add( new QuickReference("Comments", "Format: /*(body of comment) */\n" +
-                "Example: /*This is a comment in C*/"));
-        quickReferences.add( new QuickReference("Constant Declarations", "Format: #define(constant name)(constant value)\n" +
-                "Example: #define MAXIMUM 1000"));
-        quickReferences.add( new QuickReference("Type Definitions", "Format: typedef(datatype)(symbolic name);\n" +
-                "Example: typedef int KILOGRAMS;"));
-        quickReferences.add( new QuickReference("Variables", "Declarations:\n" +
-                "Format: (variable type)(name 1)(name 2),...;\n" +
-                "Example: int firstnum, secondnum;\n" +
-                "char alpha;\n" +
-                "int firstarray[10];\n" +
-                "int doublearray[2][5];\n" +
-                "char firststring[1O];\n" +
-                "Initializing:\n" +
-                "Format: (variable type)(name)=(value);\n" +
-                "Example: int firstnum=5;\n" +
-                "Assignments:\n" +
-                "Format: (name)=(value);\n" +
-                "Example: firstnum=5;\n" +
-                "Alpha='a';"));
-        quickReferences.add( new QuickReference("Unions", "Declarations:\n" +
-                "Format: union(tag)\n" +
-                "{(type)(member name);\n" +
-                " (type)(member name);\n" +
+        quickReferences.add(new QuickReference("AND / OR", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE condition\n" +
+                "AND|OR condition"));
+        quickReferences.add(new QuickReference("ALTER TABLE", "ALTER TABLE table_name\n" +
+                "ADD|DROP COLUMN column_name datatype"));
+        quickReferences.add(new QuickReference("AS (alias) ", "SELECT column_name AS column_alias\n" +
+                "FROM table_name\n" +
+                "or\n" +
+                "SELECT column_name\n" +
+                "FROM table_name AS table_alias"));
+        quickReferences.add(new QuickReference("BETWEEN ", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name\n" +
+                "BETWEEN value1 AND value2"));
+        quickReferences.add(new QuickReference("CREATE TABLE ", "CREATE TABLE table_name\n" +
+                "(\n" +
+                "column_name1 data_type,\n" +
                 "...\n" +
-                "}(variable name);\n" +
-                "Example: union demotagname\n" +
-                "{int a;\n" +
-                "float b;\n" +
-                "}demovarname;\n" +
-                "Assignment:\n" +
-                "Format: (tag).(member name)=(value);\n" +
-                "demovarname.a=1;\n" +
-                "demovarname.b=4.6;"));
-        quickReferences.add( new QuickReference("Structures", "Declarations:\n" +
-                "Format: struct(tag)\n" +
-                "{(type)(variable);\n" +
-                " (type)(variable);\n" +
-                "...\n" +
-                "}(variable list);\n" +
-                "Example: struct student\n" +
-                "{int idnum;\n" +
-                "int finalgrade;\n" +
-                "char lettergrade;\n" +
-                "} first,second,third;\n" +
-                "Assignment:\n" +
-                "Format: (variable name).(member)=(value);\n" +
-                "Example: first.idnum=333;\n" +
-                "second.finalgrade=92;"));
-        quickReferences.add( new QuickReference("Operators", "Symbol Operation Example\n" +
-                "+,-,*,/ arithmetic 1 = b + c;\n" +
-                "% mod a = b % c;\n" +
-                "> greater than if (a > b)\n" +
-                ">= greater than or equal if (a >= b)\n" +
-                "< less than if (a <b)\n" +
-                "<= less than or equal if (a <= b)\n" +
-                "== equality if ( == b)\n" +
-                "= assignment a=25;\n" +
-                "!= not equal if (a != b)\n" +
-                "! not if (!a)\n" +
-                "&& logical and if (a) && (b)\n" +
-                "logical or if (a) (b)\n" +
-                "++ increment ++ a;\n" +
-                "-- decrement -- a;\n" +
-                "& bitwise and a = b & c;\n" +
-                "bitwise or a = b - c;\n" +
-                "bitwise xor\n" +
-                ">> shift-right a = b >> 2;\n" +
-                "<< shift-left a = b << 2;\n" +
-                "~ one's complement a = ~b"));
-        quickReferences.add( new QuickReference("Input and Output", "Output\n" +
-                "Print Formats:\n" +
-                "String: print(\"(literal string)\");\n" +
-                "String+newline: print (\"(string)\\n\");\n" +
-                "Variables: printf(\"(conversion specs)\",(variables));\n" +
-                "Print Examples:\n" +
-                "print(\"firstvar+secondvar=%d\\n\",thirdvar);\n" +
-                "Print Conversion Specifications:\n" +
-                "%d decimal\n" +
-                "%u unsigned decimal\n" +
-                "%o octal\n" +
-                "Ÿ\n" +
-                "a = b Ÿ c\n" +
-                "%h hex\n" +
-                "%e exponential\n" +
-                "%f float\n" +
-                "%g shorter of %e or %f\n" +
-                "%c char\n" +
-                "%s string\n" +
-                "Print Escape Sequences:\n" +
-                "\\n newline\n" +
-                "\\t tab\n" +
-                "\\r carriage return\n" +
-                "\\f form feed\n" +
-                "\\b backspace\n" +
-                "\\' output\n" +
-                "\\\\ output \\\n" +
-                "Input:\n" +
-                "Scanf Format:\n" +
-                "scanf(\"(conversion specs)\",&(varl),&(var2),...);\n" +
-                "Scanf Example:\n" +
-                "scanf(\"%d %d %d\",&first,&second,&third);\n" +
-                "Scanf Conversion Specifications:\n" +
-                "%d decimal integer expected\n" +
-                "%o octalinteger expected\n" +
-                "%x hex integer expected\n" +
-                "%h short integer expected\n" +
-                "%c character expected\n" +
-                "%s string expected\n" +
-                "%r real value expected\n" +
-                "%e exponential notation expected\n" +
-                "Primitive Input and Output Examples:\n" +
-                "Get a character from standard input: c = getchar();\n" +
-                "Put a character on standard output: putcher(c);"));
-
-        quickReferences.add( new QuickReference("FOR LOOP Format:", "for ((first expr);(second expr);(third expr))\n" +
-                "(simple statement);\n" +
-                "for ((first expr);(second expr);(third expr))\n" +
-                "{\n" +
-                "(compound statement);") );
-        quickReferences.add( new QuickReference("WHILE LOOP Format:", "while ((condition))\n" +
-                " (simple statement);\n" +
-                "while ((condition))\n" +
-                "{\n" +
-                "(compound statement);") );
-        quickReferences.add( new QuickReference("DO WHILE LOOP Format:", "do\n" +
-                "(simple statement)'\n" +
-                "while ((condition))\n" +
-                "do {\n" +
-                " (compound statement);\n" +
-                "}\n" +
-                "while ((condition));") );
-        quickReferences.add( new QuickReference("IF CONDITIONAL Format:", "if ((condition))\n" +
-                "(simple statement);\n" +
-                "if ((condition))\n" +
-                "{\n" +
-                " (compound statement);\n" +
-                "}") );
-        quickReferences.add( new QuickReference("IF... ELSE CONDITIONAL Format:", "if ((condition))\n" +
-                "(statement 1);\n" +
-                "else\n" +
-                "(statement 2);") );
-        quickReferences.add( new QuickReference("SWITCH Format:", "switch ((expression))\n" +
-                "{case (value 1):(statement 1);\n" +
-                "case (value 2):(statement 2);\n" +
-                "...\n" +
-                "default:(default statement);\n" +
-                "}") );
-
-        quickReferences.add( new QuickReference("Function Definitions", "Format:\n" +
-                "(type returned)(function name)((parameter list))\n" +
-                "(declaration of parameter list variables)\n" +
-                "{\n" +
-                " (declaration of local variables);\n" +
-                " (body of function code);\n" +
-                "}\n" +
-                "Example:\n" +
-                "Int. adder(a,b)\n" +
-                "int a,b;\n" +
-                " {int c;\n" +
-                " c = a + b;\n" +
-                " return (c);\n" +
-                " }\n" +
-                "Pointers\n" +
-                "Declaration of pointer variable:\n" +
-                "Format: (type)*(variable name);\n" +
-                "Examples: int *p;\n" +
-                "struct student *classmember;"));
+                ")"));
+        quickReferences.add(new QuickReference("CREATE INDEX ", "CREATE INDEX index_name\n" +
+                "ON table_name (column_name)"));
+        quickReferences.add(new QuickReference("CREATE VIEW ", "CREATE VIEW view_name AS\n" +
+                "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE condition"));
+        quickReferences.add(new QuickReference("DELETE", "DELETE FROM table_name\n" +
+                "WHERE some_column=some_value"));
+        quickReferences.add(new QuickReference("DROP INDEX ", "DROP INDEX index_name (MySQL)"));
+        quickReferences.add(new QuickReference("DROP TABLE ", "DROP TABLE table_name"));
+        quickReferences.add(new QuickReference("GROUP BY ", "SELECT column_name, aggregate_function(column_name)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name operator value\n" +
+                "GROUP BY column_name"));
+        quickReferences.add(new QuickReference("HAVING", "SELECT column_name, aggregate_function(column_name)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name operator value\n" +
+                "GROUP BY column_name\n" +
+                "HAVING aggregate_function(column_name) operator value"));
+        quickReferences.add(new QuickReference("IN ", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name\n" +
+                "IN (value1,value2,..)"));
+        quickReferences.add(new QuickReference("INSERT INTO ", "INSERT INTO table_name\n" +
+                "VALUES (value1, value2, value3,....)\n" +
+                "or\n" +
+                "INSERT INTO table_name\n" +
+                "(column1, column2, column3,...)\n" +
+                "VALUES (value1, value2, value3,....)"));
+        quickReferences.add(new QuickReference("INNER JOIN", "SELECT column_name(s)\n" +
+                "FROM table_name1\n" +
+                "INNER JOIN table_name2\n" +
+                "ON table_name1.column_name=table_name2.column_name"));
+        quickReferences.add(new QuickReference("LEFT JOIN", "SELECT column_name(s)\n" +
+                "FROM table_name1\n" +
+                "LEFT JOIN table_name2\n" +
+                "ON table_name1.column_name=table_name2.column_name"));
+        quickReferences.add(new QuickReference("RIGHT JOIN ", "SELECT column_name(s)\n" +
+                "FROM table_name1\n" +
+                "RIGHT JOIN table_name2\n" +
+                "ON table_name1.column_name=table_name2.column_name"));
+        quickReferences.add(new QuickReference("FULL JOIN", "SELECT column_name(s)\n" +
+                "FROM table_name1\n" +
+                "FULL JOIN table_name2\n" +
+                "ON table_name1.column_name=table_name2.column_name"));
+        quickReferences.add(new QuickReference("LIKE ", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name LIKE pattern"));
+        quickReferences.add(new QuickReference("ORDER BY ", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "ORDER BY column_name [ASC|DESC]"));
+        quickReferences.add(new QuickReference("SELECT", "SELECT column_name(s)\n" +
+                "FROM table_name"));
+        quickReferences.add(new QuickReference("SELECT *", "SELECT *\n" +
+                "FROM table_name"));
+        quickReferences.add(new QuickReference("SELECT DISTINCT", "SELECT DISTINCT column_name(s)\n" +
+                "FROM table_name"));
+        quickReferences.add(new QuickReference("SELECT TOP ", "SELECT TOP number|percent column_name(s)\n" +
+                "FROM table_name"));
+        quickReferences.add(new QuickReference("TRUNCATE TABLE", "TRUNCATE TABLE table_name"));
+        quickReferences.add(new QuickReference("UNION ", "SELECT column_name(s) FROM table_name1\n" +
+                "UNION\n" +
+                "SELECT column_name(s) FROM table_name2"));
+        quickReferences.add(new QuickReference("UNION ALL ", "SELECT column_name(s) FROM table_name1\n" +
+                "UNION ALL\n" +
+                "SELECT column_name(s) FROM table_name2"));
+        quickReferences.add(new QuickReference("UPDATE ", "UPDATE table_name\n" +
+                "SET column1=value, column2=value,...\n" +
+                "WHERE some_column=some_value"));
+        quickReferences.add(new QuickReference("WHERE", "SELECT column_name(s)\n" +
+                "FROM table_name\n" +
+                "WHERE column_name operator value"));
         return quickReferences;
     }
 
