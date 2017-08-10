@@ -67,6 +67,13 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
         languageRecyclerView.setVisibility(View.GONE);
         scrollHintTextView.setText("<- This content is scrollable ->");
         scrollHintTextView.setVisibility(View.VISIBLE);
+        headingTextView.setText("< Quick Reference");
+        headingTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         CommonUtils.displayToastLong(getContext(), "<- This content is scrollable ->");
         return fragmentView;
     }
