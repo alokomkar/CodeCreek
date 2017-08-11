@@ -181,6 +181,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             matchLayout.setAlpha(0.0f);
             testLayout.setAlpha(0.0f);
             interviewLayout.setAlpha(0.0f);
+            quickReferenceLayout.setAlpha(0.0f);
             //codeLabLayout.setAlpha(0.0f);
 
             int delay = 0;
