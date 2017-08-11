@@ -48,8 +48,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     RecyclerView languageRecyclerView;
     @BindView(R.id.languageCardView)
     CardView languageCardView;
-    @BindView(R.id.dividerView)
-    View dividerView;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.referenceViewPager)
