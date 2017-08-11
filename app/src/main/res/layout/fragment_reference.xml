@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardBackgroundColor="@color/white"
+    android:layout_margin="@dimen/margin_8"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/headerView"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/md_blue_grey_200"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerView"
+            android:id="@+id/headerTextView"
+            android:layout_toStartOf="@+id/indicatorImageview"
+            android:text="@string/check"
+            android:padding="@dimen/margin_8"
+            android:background="@color/md_grey_100"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_fill_blanks"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/dividerView"
+            android:layout_below="@+id/headerTextView"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/md_blue_grey_200"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_12"
+            android:background="@color/md_grey_100"
+            android:paddingStart="@dimen/margin_8"
+            android:id="@+id/indicatorImageview"
+            android:src="@android:drawable/arrow_down_float"
+            android:paddingEnd="@dimen/margin_8"/>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_below="@+id/dividerView"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/contentRecyclerView">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

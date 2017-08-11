@@ -5,26 +5,27 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
+import com.sortedqueue.programmercreek.adapter.QuickReferencePagerAdapter;
 import com.sortedqueue.programmercreek.adapter.QuickRefernceRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.TagsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.QuickReference;
 import com.sortedqueue.programmercreek.database.TagModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.GravitySnapHelper;
 
 import java.util.ArrayList;
 
@@ -36,28 +37,28 @@ import butterknife.Unbinder;
  * Created by Alok on 04/08/17.
  */
 
-public class QuickReferenceFragment extends Fragment implements CustomProgramRecyclerViewAdapter.AdapterClickListner, View.OnClickListener {
+public class QuickReferenceFragment extends Fragment implements CustomProgramRecyclerViewAdapter.AdapterClickListner, View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    @BindView(R.id.quickReferenceRecyclerView)
-    RecyclerView quickReferenceRecyclerView;
-    Unbinder unbinder;
-    @BindView(R.id.progressLayout)
-    RelativeLayout progressLayout;
-    @BindView(R.id.languageRecyclerView)
-    RecyclerView languageRecyclerView;
+
     @BindView(R.id.headingTextView)
     TextView headingTextView;
     @BindView(R.id.selectedTextView)
     TextView selectedTextView;
+    @BindView(R.id.languageRecyclerView)
+    RecyclerView languageRecyclerView;
     @BindView(R.id.languageCardView)
     CardView languageCardView;
     @BindView(R.id.dividerView)
     View dividerView;
-    @BindView(R.id.scrollHintTextView)
-    TextView scrollHintTextView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.referenceViewPager)
+    ViewPager referenceViewPager;
+    @BindView(R.id.progressLayout)
+    RelativeLayout progressLayout;
     private TagsRecyclerAdapter tagsRecyclerAdapter;
     private String selectedTag;
-    private QuickRefernceRecyclerAdapter quickRefernceRecyclerAdapter;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
@@ -65,8 +66,6 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
         View fragmentView = inflater.inflate(R.layout.fragment_quick_reference, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
         languageRecyclerView.setVisibility(View.GONE);
-        scrollHintTextView.setText("<- This content is scrollable ->");
-        scrollHintTextView.setVisibility(View.VISIBLE);
         headingTextView.setText("< Quick Reference");
         headingTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +73,6 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
                 getActivity().onBackPressed();
             }
         });
-        CommonUtils.displayToastLong(getContext(), "<- This content is scrollable ->");
         return fragmentView;
     }
 
@@ -85,11 +83,6 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     }
 
     private void fetchAllTags() {
-        GravitySnapHelper gravitySnapHelper = new GravitySnapHelper(Gravity.START);
-        gravitySnapHelper.attachToRecyclerView(quickReferenceRecyclerView);
-        quickReferenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(new ArrayList<QuickReference>());
-        quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
         CommonUtils.displayProgressDialog(getContext(), getContext().getString(R.string.loading));
         new FirebaseDatabaseHandler(getContext()).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
             @Override
@@ -105,6 +98,8 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     }
 
     private void setupRecyclerView(TagModel tagModel) {
+
+
         languageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList(), 1, this);
         languageRecyclerView.setAdapter(tagsRecyclerAdapter);
@@ -123,18 +118,19 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressLayout.setVisibility(View.VISIBLE);
-                quickReferenceRecyclerView.setVisibility(View.GONE);
+                referenceViewPager.setVisibility(View.GONE);
 
             }
 
             @Override
             protected void onPostExecute(ArrayList<QuickReference> quickReferences) {
                 super.onPostExecute(quickReferences);
-                quickRefernceRecyclerAdapter = new QuickRefernceRecyclerAdapter(quickReferences);
-                quickReferenceRecyclerView.setAdapter(quickRefernceRecyclerAdapter);
+                referenceViewPager.setAdapter(new QuickReferencePagerAdapter(getChildFragmentManager(), quickReferences, selectedTag.toLowerCase()));
                 progressLayout.setVisibility(View.GONE);
-                scrollHintTextView.setVisibility(View.GONE);
-                quickReferenceRecyclerView.setVisibility(View.VISIBLE);
+                referenceViewPager.setVisibility(View.VISIBLE);
+                progressBar.setMax(quickReferences.size());
+                progressBar.setProgress(1);
+                referenceViewPager.addOnPageChangeListener(QuickReferenceFragment.this);
             }
 
             @Override
@@ -171,5 +167,21 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     @Override
     public void onClick(View v) {
         languageRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        progressBar.setProgress(position + 1);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

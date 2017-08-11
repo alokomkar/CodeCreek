@@ -191,6 +191,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             delay = delay + standardDelay;
             initAnimations(syntaxLayout, delay);
             delay = delay + standardDelay;
+            initAnimations(quickReferenceLayout, delay);
+            delay = delay + standardDelay;
             initAnimations(indexLayout, delay);
             delay = delay + standardDelay;
             initAnimations(wikiLayout, delay);
@@ -200,11 +202,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             initAnimations(matchLayout, delay);
             delay = delay + standardDelay;
             initAnimations(testLayout, delay);
-            delay = delay + standardDelay;
-            initAnimations(quickReferenceLayout, delay);
-            delay = delay + standardDelay;
-            initAnimations(interviewLayout, delay);
-            delay = delay + standardDelay;
+
+            //delay = delay + standardDelay;
+            /*initAnimations(interviewLayout, delay);
+            delay = delay + standardDelay;*/
             //initAnimations(codeLabLayout, delay);
         }
 
