@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/progressBar"
         android:text="C"
         android:id="@+id/selectedTextView"
         android:textColor="@color/white"
@@ -75,7 +76,7 @@
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_below="@+id/progressBar"
+        android:layout_below="@+id/headingTextView"
         android:id="@+id/referenceViewPager"
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
