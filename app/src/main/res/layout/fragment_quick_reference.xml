@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/quick_reference"
+        android:layout_below="@id/progressBar"
         android:textSize="@dimen/text_tool_bar"
         android:id="@+id/headingTextView"
         android:background="@color/colorPrimary"
