@@ -15,6 +15,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
+import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
@@ -104,7 +105,8 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         Bundle bundle = getIntent().getExtras();
         switch (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST)) {
             case ProgrammingBuddyConstants.KEY_MATCH :
-                loadMatchMakerFragment( bundle );
+                //loadMatchMakerFragment( bundle );
+                loadNewMatchFragment( bundle );
                 break;
             case ProgrammingBuddyConstants.KEY_TEST:
                 loadTestFragment( bundle );
@@ -117,6 +119,16 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
 
+    }
+
+    private void loadNewMatchFragment(Bundle bundle) {
+        setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        NewMatchFragment newMatchFragment = new NewMatchFragment();
+        newMatchFragment.setArguments(bundle);
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, newMatchFragment, MatchMakerFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
     }
 
     @Override

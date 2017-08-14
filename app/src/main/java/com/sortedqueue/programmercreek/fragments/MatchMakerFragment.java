@@ -339,7 +339,17 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setOnClickListener(mSummaryTextViewOnClickListener);
         textView.setOnLongClickListener(mSummaryTextViewLongClickListener);
+    }
 
+    private void setProgramLineTextViewParms(TextView textView) {
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(8, 4, 8, 4);
+        textView.setLayoutParams(layoutParams);
+        textView.setBackgroundResource(R.drawable.option);
+        textView.setGravity(Gravity.CENTER);
+        textView.setOnLongClickListener(mProgramLineLongClickListener);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     protected void checkScore(int programSize) {
@@ -616,16 +626,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         }
     }
 
-    private void setProgramLineTextViewParms(TextView textView) {
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(8, 4, 8, 4);
-        textView.setLayoutParams(layoutParams);
-        textView.setBackgroundResource(R.drawable.option);
-        textView.setGravity(Gravity.CENTER);
-        textView.setOnLongClickListener(mProgramLineLongClickListener);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
-    }
+
 
     @Override
     public void updateUI() {

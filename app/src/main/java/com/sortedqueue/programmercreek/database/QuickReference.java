@@ -221,8 +221,8 @@ public class QuickReference implements Parcelable {
         quickReferences.add( new QuickReference("Java formatted output", "Java formatted output [ printf( ) and String.format( ) methods ]\n" +
                 "3 components: format string and optionally: format-specifiers ( fs )\n" +
                 "and an argument list ( al )\n" +
-                "\uF0B7 fs: \" ... % [flags] [width] [precision] format-specifier ... \"\n" +
-                "\uF0B7 al: comma separated list of expressions\n" +
+                "\n** fs: \" ... % [flags] [width] [precision] format-specifier ... \"\n" +
+                "\n** al: comma separated list of expressions\n" +
                 "Format-specifiers: s (string), d (integer), f (floating-point)\n" +
                 "Example: System.out.printf(\"Total is %,10.2f\\n\", total);") );
 
@@ -242,12 +242,12 @@ public class QuickReference implements Parcelable {
                 "\\\\ backslash '\\\\'") );
         quickReferences.add( new QuickReference("Operator Precedence",
                 " ( )\n" +
-                "----------\n" +
-                " *, /, % [ mathematical ]\n" +
-                "----------\n" +
-                " +, -\n" +
-                "Logical operators: !, &&, ||\n" +
-                "(1) mathematical (2) relational (3) logical") );
+                        "----------\n" +
+                        " *, /, % [ mathematical ]\n" +
+                        "----------\n" +
+                        " +, -\n" +
+                        "Logical operators: !, &&, ||\n" +
+                        "(1) mathematical (2) relational (3) logical") );
 
         quickReferences.add( new QuickReference("Loops in Java",
                 "The while Loop ( pre-test loop )\n" +
@@ -408,37 +408,37 @@ public class QuickReference implements Parcelable {
                         "case expressions match (similar to trailing “else” in an if-else-if\n" +
                         "statement).") );
         quickReferences.add( new QuickReference("Selection and Loop Structures", "Selection:\n" +
-                "\uF0B7 Unary or single selection\n" +
-                "\uF0B7 Binary or dual selection\n" +
-                "\uF0B7 Case structure possible when\n" +
+                "\n** Unary or single selection\n" +
+                "\n** Binary or dual selection\n" +
+                "\n** Case structure possible when\n" +
                 "branching on a variable\n" +
-                "\uF0B7 Simple selection\n" +
-                "\uF0B7 One condition\n" +
-                "\uF0B7 Compound selection\n" +
-                "\uF0B7 Multiple conditions joined\n" +
+                "\n** Simple selection\n" +
+                "\n** One condition\n" +
+                "\n** Compound selection\n" +
+                "\n** Multiple conditions joined\n" +
                 "with AND / OR operators\n" +
                 "Looping:\n" +
-                "\uF0B7 Java Pre-test loops\n" +
-                "\uF0B7 Test precedes loop body\n" +
-                "\uF0B7 while\n" +
-                "\uF0B7 for\n" +
-                "\uF0B7 Java Post-test loop\n" +
-                "\uF0B7 Test follows loop body\n" +
-                "\uF0B7 do-while\n" +
+                "\n** Java Pre-test loops\n" +
+                "\n** Test precedes loop body\n" +
+                "\n** while\n" +
+                "\n** for\n" +
+                "\n** Java Post-test loop\n" +
+                "\n** Test follows loop body\n" +
+                "\n** do-while\n" +
                 "Loop Control:\n" +
-                "\uF0B7 3 types of expressions that\n" +
+                "\n** 3 types of expressions that\n" +
                 "are used to control loops:\n" +
-                "\uF0B7 initialization ( init )\n" +
-                "\uF0B7 test\n" +
-                "\uF0B7 update\n" +
-                "\uF0B7 Counter-controlled loops,\n" +
+                "\n** initialization ( init )\n" +
+                "\n** test\n" +
+                "\n** update\n" +
+                "\n** Counter-controlled loops,\n" +
                 "aka definite loops, work with\n" +
                 "a loop control variable (lcv)\n" +
-                "\uF0B7 Sentinel-controlled loops,\n" +
+                "\n** Sentinel-controlled loops,\n" +
                 "aka indefinite loops, work\n" +
                 "with a sentinel value\n" +
-                "\uF0B7 Java Loop Early Exit:\n" +
-                "\uF0B7 break statement\n" +
+                "\n** Java Loop Early Exit:\n" +
+                "\n** break statement\n" +
                 "Note: The break statement can\n" +
                 "be used with a switch\n" +
                 "statement or a loop in\n" +
@@ -494,14 +494,15 @@ public class QuickReference implements Parcelable {
 
     public static ArrayList<QuickReference> getCPPQuickReference() {
         ArrayList<QuickReference> quickReferences = new ArrayList<>();
-        quickReferences.add( new QuickReference("C++ Fundamental Data Types", "bool Boolean type (values are true or false)\n" +
-                "char Character\n" +
-                "short Usually a 2-byte integer\n" +
-                "int Usually a 4-byte integer\n" +
-                "long Same as long int (long size >= int size)\n" +
-                "float Single precision floating point usually 4 bytes\n" +
-                "double double precision floating point usually 8 bytes"));
-        quickReferences.add( new QuickReference("Type Modifiers", "C++ has type modifiers unsigned and long. unsigned may be\n" +
+        quickReferences.add( new QuickReference("C++ Fundamental Data Types", "bool : Boolean type (values are true or false)\n" +
+                "char : Character\n" +
+                "short : Usually a 2-byte integer\n" +
+                "int : Usually a 4-byte integer\n" +
+                "long : Same as long int (long size >= int size)\n" +
+                "float : Single precision floating point usually 4 bytes\n" +
+                "double : Double precision floating point usually 8 bytes"));
+        quickReferences.add( new QuickReference("Type Modifiers", 
+                "C++ has type modifiers unsigned and long. unsigned may be\n" +
                 "applied to integral types (including char). long may be\n" +
                 "applied to int or double. An unsigned data type only allows\n" +
                 "non-negative integers to be stored (integers >= 0).\n" +
@@ -558,19 +559,19 @@ public class QuickReference implements Parcelable {
                 "Increment/Decrement (used in prefix and postfix mode)\n" +
                 "prefix: inc(dec) variable, then use in larger expression\n" +
                 "postfix: use in larger expression, then inc(dec) variable"));
-        quickReferences.add( new QuickReference("Selection Structures", "\uF0B7 Unary or Binary selection\n" +
-                "\uF0B7 if unary\n" +
-                "\uF0B7 if-else binary\n" +
-                "\uF0B7 Case structure\n" +
-                "\uF0B7 Switch\n" +
-                "\uF0B7 Simple selection\n" +
-                "\uF0B7 One condition\n" +
-                "\uF0B7 score > 90\n" +
-                "\uF0B7 Compound selection\n" +
-                "\uF0B7 Multiple conditions\n" +
+        quickReferences.add( new QuickReference("Selection Structures", "\n** Unary or Binary selection\n" +
+                "\n** if unary\n" +
+                "\n** if-else binary\n" +
+                "\n** Case structure\n" +
+                "\n** Switch\n" +
+                "\n** Simple selection\n" +
+                "\n** One condition\n" +
+                "\n** score > 90\n" +
+                "\n** Compound selection\n" +
+                "\n** Multiple conditions\n" +
                 "joined with AND / OR\n" +
                 "operators\n" +
-                "\uF0B7 score < 0 || score > 100"));
+                "\n** score < 0 || score > 100"));
         quickReferences.add( new QuickReference("Random Number Generation", "#include<cstdlib>\n" +
                 "#include<ctime>\n" +
                 "//seed srand function\n" +
@@ -640,34 +641,46 @@ public class QuickReference implements Parcelable {
                 "expression:\n" +
                 "(1) arithmetic (2) relational\n" +
                 "(3) logical (4) assignment") );
-        quickReferences.add( new QuickReference("Loop Structure Information", "\uF0B7 C++ Pre-test loops\n" +
-                "\uF0B7 while, for\n" +
-                "\uF0B7 C++ Post-test loop\n" +
-                "\uF0B7 do…while\n" +
+        quickReferences.add( new QuickReference("Loop Structure Information", "\n** C++ Pre-test loops\n" +
+                "\n** while, for\n" +
+                "\n** C++ Post-test loop\n" +
+                "\n** do…while\n" +
                 "Loop Control:\n" +
-                "\uF0B7 Counter-controlled\n" +
+                "\n** Counter-controlled\n" +
                 "aka definite loops have\n" +
                 "3 expressions:\n" +
-                "\uF0B7 Initialization, Test, Update\n" +
-                "\uF0B7 Sentinel-controlled\n" +
+                "\n** Initialization, Test, Update\n" +
+                "\n** Sentinel-controlled\n" +
                 "aka indefinite loops have 2 expressions:\n" +
-                "\uF0B7 Test ,Update (Alter)\n" +
-                "\uF0B7 C++ Loop Early Exit:\n" +
-                "\uF0B7 break statement\n" +
-                "\uF0B7 C++ also has a continue statement to skip\n" +
+                "\n** Test ,Update (Alter)\n" +
+                "\n** C++ Loop Early Exit:\n" +
+                "\n** break statement\n" +
+                "\n** C++ also has a continue statement to skip\n" +
                 "statements and proceed to the testexpression.") );
         quickReferences.add( new QuickReference("The switch/case Construct ( break and default are optional )", "Form: Example:\n" +
-                "switch (expression) switch (choice)\n" +
-                "{ {\n" +
-                " case int-constant : case 0 :\n" +
-                " statement(s); cout << “You selected 0.” << endl;\n" +
-                " [ break; ] break;\n" +
-                " case int-constant : case 1:\n" +
-                " statement(s); cout << “You selected 1.” << endl;\n" +
-                " [ break; ] break;\n" +
-                " [ default : default :\n" +
-                " statement; ] cout << “Select 0 or 1.” << endl;\n" +
-                "} }\n" +
+                "switch (expression) \n" +
+                "{ \n" +
+                " case int-constant : \n" +
+                " statement(s); \n" +
+                " [ break; ] \n" +
+                " case int-constant : \n" +
+                " statement(s); \n" +
+                " [ break; ] \n" +
+                " [ default : \n" +
+                " statement; ] \n" +
+                "} \n\n" +
+                "switch (choice)\n" +
+                "{\n" +
+                "case 0 :\n" +
+                "cout << “You selected 0.” << endl;\n" +
+                "break;\n" +
+                "case 1:\n" +
+                "cout << “You selected 1.” << endl;\n" +
+                "break;\n" +
+                "default :\n" +
+                "cout << “Select 0 or 1.” << endl;\n" +
+                "}\n" +
+                "\n" +
                 "The type of the \"expression\" is integral - usually an expression of type int but it could also be\n" +
                 "an expression of type char.\n" +
                 "Use the break keyword to exit the structure (avoid “falling through” other cases).\n" +
@@ -696,22 +709,37 @@ public class QuickReference implements Parcelable {
                 "cout << count << endl;\n" +
                 "}"));
         quickReferences.add( new QuickReference("The while Loop", "Form:    Example:\n" +
-                "init;          int x=0;\n" +
-                "while (test)   while (x < 100)\n" +
-                "{              {\n" +
-                " statement(s);     cout << x << endl;\n" +
-                " update;           x++;\n" +
-                "}               }"));
+                "init;          \n" +
+                "while (test)   \n" +
+                "{              \n" +
+                " statement(s);  \n" +
+                " update;        \n" +
+                "}               \n\n" +
+
+                "int x=0;\n" +
+                "while (x < 100)\n" +
+                "{\n" +
+                "    cout << x << endl;\n" +
+                "    x++;\n" +
+                "}"));
         quickReferences.add( new QuickReference("The do-while Loop", "Form: Example:\n" +
-                "do                     do\n" +
-                " statement;             cout << x++ <<\n" +
+                "do                     \n" +
+                " statement;            \n" +
                 "endl;\n" +
-                "while (expression);    while (x < 100);\n" +
-                "do                     do\n" +
-                "{                      {\n" +
-                " statement;                cout << x << endl;\n" +
-                " statement;                x++;\n" +
-                "} while (expression);  } while (x < 100);"));
+                "while (expression);    \n" +
+                "do                     \n" +
+                "{                      \n" +
+                " statement;            \n" +
+                " statement;            \n" +
+                "} while (expression);  \n\n" +
+                "do\n" +
+                " cout << x++ <<\n" +
+                "while (x < 100);\n" +
+                "do\n" +
+                "{\n" +
+                "    cout << x << endl;\n" +
+                "    x++;\n" +
+                "} while (x < 100);"));
         quickReferences.add( new QuickReference("Using cin and cout", "Using cin / cout Requires iostream header file: #include<iostream>\n" +
                 "Stream Manipulators: Parameterized stream manipulators require: #include<iomanip>\n" +
                 "Name :Description\n" +
@@ -741,19 +769,19 @@ public class QuickReference implements Parcelable {
                 ".read(address, size) read from a binary file binFile.read(data, sizeof(data));\n" +
                 ".write(address,size) write to a binary file binFile.write(data, sizeof(data));"));
         quickReferences.add( new QuickReference("Member functions for input formatting using a stream object\n" +
-                "( such as cin )", 
+                "( such as cin )",
                 ".getline(array, size) Reads at most size-1 characters.\n" +
-                "Appends '\\0'. Stops at '\\n' by default.\n" +
-                "Consumes the newline character\n" +
-                ".get(array, size) Reads at most size-1 characters.\n" +
-                "Appends '\\0'. Stops at '\\n' by default.\n" +
-                "Does not consume the newline\n" +
-                "character\n" +
-                ".get(ch) reads a character ( including whitespace )\n" +
-                ".get( ) reads a character: char = cin.get( );\n" +
-                ".ignore( ) removes last character entered from buffer\n" +
-                ".ignore(50,'\\n') removes last 50 characters from input\n" +
-                " buffer or until it sees a newline character"));
+                        "Appends '\\0'. Stops at '\\n' by default.\n" +
+                        "Consumes the newline character\n" +
+                        ".get(array, size) Reads at most size-1 characters.\n" +
+                        "Appends '\\0'. Stops at '\\n' by default.\n" +
+                        "Does not consume the newline\n" +
+                        "character\n" +
+                        ".get(ch) reads a character ( including whitespace )\n" +
+                        ".get( ) reads a character: char = cin.get( );\n" +
+                        ".ignore( ) removes last character entered from buffer\n" +
+                        ".ignore(50,'\\n') removes last 50 characters from input\n" +
+                        " buffer or until it sees a newline character"));
         quickReferences.add( new QuickReference("String - getline()", "The string class provides a getline( ) function to input a\n" +
                 "string. This is not the same as cin.getline( )!\n" +
                 " getline(<stream_object>, <string>);\n" +
@@ -783,54 +811,61 @@ public class QuickReference implements Parcelable {
                 "(declaration of local variables);\n" +
                 "(body of main function code);\n" +
                 "}"));
-        quickReferences.add( new QuickReference("Comments", "Format: /*(body of comment) */\n" +
-                "Example: /*This is a comment in C*/"));
-        quickReferences.add( new QuickReference("Constant Declarations", "Format: #define(constant name)(constant value)\n" +
-                "Example: #define MAXIMUM 1000"));
-        quickReferences.add( new QuickReference("Type Definitions", "Format: typedef(datatype)(symbolic name);\n" +
-                "Example: typedef int KILOGRAMS;"));
+        quickReferences.add( new QuickReference("Comments", "Format: \n/*(body of comment) */\n" +
+                "Example: \n/*This is a comment in C*/"));
+        quickReferences.add( new QuickReference("Constant Declarations", "Format: \n#define(constant name)(constant value)\n" +
+                "Example: \n#define MAXIMUM 1000"));
+        quickReferences.add( new QuickReference("Type Definitions", "Format: \ntypedef(datatype)(symbolic name);\n" +
+                "Example: \ntypedef int KILOGRAMS;"));
         quickReferences.add( new QuickReference("Variables", "Declarations:\n" +
-                "Format: (variable type)(name 1)(name 2),...;\n" +
-                "Example: int firstnum, secondnum;\n" +
+                "Format: \n(variable type)(name 1)(name 2),...;\n" +
+                "Example: \nint firstnum, secondnum;\n" +
                 "char alpha;\n" +
                 "int firstarray[10];\n" +
                 "int doublearray[2][5];\n" +
                 "char firststring[1O];\n" +
                 "Initializing:\n" +
-                "Format: (variable type)(name)=(value);\n" +
-                "Example: int firstnum=5;\n" +
+                "Format: \n(variable type)(name)=(value);\n" +
+                "Example: \nint firstnum=5;\n" +
                 "Assignments:\n" +
-                "Format: (name)=(value);\n" +
-                "Example: firstnum=5;\n" +
+                "Format: \n(name)=(value);\n" +
+                "Example: \nfirstnum=5;\n" +
                 "Alpha='a';"));
         quickReferences.add( new QuickReference("Unions", "Declarations:\n" +
-                "Format: union(tag)\n" +
+                "Format: \n" +
+                "union(tag)\n" +
                 "{(type)(member name);\n" +
                 " (type)(member name);\n" +
                 "...\n" +
                 "}(variable name);\n" +
-                "Example: union demotagname\n" +
+                "Example: \n" +
+                "union demotagname\n" +
                 "{int a;\n" +
                 "float b;\n" +
                 "}demovarname;\n" +
+                "\n" +
                 "Assignment:\n" +
-                "Format: (tag).(member name)=(value);\n" +
+                "Format: \n(tag).(member name)=(value);\n" +
                 "demovarname.a=1;\n" +
                 "demovarname.b=4.6;"));
         quickReferences.add( new QuickReference("Structures", "Declarations:\n" +
                 "Format: struct(tag)\n" +
-                "{(type)(variable);\n" +
+                "{\n" +
+                " (type)(variable);\n" +
                 " (type)(variable);\n" +
                 "...\n" +
                 "}(variable list);\n" +
-                "Example: struct student\n" +
-                "{int idnum;\n" +
+                "Example: \n" +
+                "struct student\n" +
+                "{\n" +
+                "int idnum;\n" +
                 "int finalgrade;\n" +
                 "char lettergrade;\n" +
                 "} first,second,third;\n" +
+                "\n\n" +
                 "Assignment:\n" +
-                "Format: (variable name).(member)=(value);\n" +
-                "Example: first.idnum=333;\n" +
+                "\nFormat: \n(variable name).(member)=(value);\n" +
+                "\nExample: \nfirst.idnum=333;\n" +
                 "second.finalgrade=92;"));
         quickReferences.add( new QuickReference("Operators", "Symbol Operation Example\n" +
                 "+,-,*,/ arithmetic 1 = b + c;\n" +
@@ -902,12 +937,14 @@ public class QuickReference implements Parcelable {
                 "(simple statement);\n" +
                 "for ((first expr);(second expr);(third expr))\n" +
                 "{\n" +
-                "(compound statement);") );
+                "(compound statement);\n" +
+                "}") );
         quickReferences.add( new QuickReference("WHILE LOOP Format:", "while ((condition))\n" +
                 " (simple statement);\n" +
                 "while ((condition))\n" +
                 "{\n" +
-                "(compound statement);") );
+                "(compound statement);\n" +
+                "}") );
         quickReferences.add( new QuickReference("DO WHILE LOOP Format:", "do\n" +
                 "(simple statement)'\n" +
                 "while ((condition))\n" +
@@ -926,7 +963,8 @@ public class QuickReference implements Parcelable {
                 "else\n" +
                 "(statement 2);") );
         quickReferences.add( new QuickReference("SWITCH Format:", "switch ((expression))\n" +
-                "{case (value 1):(statement 1);\n" +
+                "{\n" +
+                "case (value 1):(statement 1);\n" +
                 "case (value 2):(statement 2);\n" +
                 "...\n" +
                 "default:(default statement);\n" +
