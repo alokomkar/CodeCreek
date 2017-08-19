@@ -1,8 +1,11 @@
 package com.sortedqueue.programmercreek.adapter;
 
 import android.content.ClipData;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,6 +42,18 @@ public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDr
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        String programLine = mProgramList.get(position);
+        if (!programLine.contains("font")) {
+            holder.questionTextView.setText(programLine);
+            holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+        } else {
+            if( Build.VERSION.SDK_INT >= 24 ) {
+                holder.questionTextView.setText(Html.fromHtml(programLine, Html.FROM_HTML_MODE_LEGACY));
+            }
+            else {
+                holder.questionTextView.setText(Html.fromHtml(programLine));
+            }
+        }
     }
 
     @Override

@@ -1,7 +1,12 @@
 package com.sortedqueue.programmercreek.adapter;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
 
@@ -21,27 +28,55 @@ import butterknife.ButterKnife;
  */
 public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestionsDropAdapter.ViewHolder> {
 
-    private ArrayList<String> mProgramList;
+    private ArrayList<ProgramTable> mProgramList;
     private View mSelectedProgramLineView;
+    private PrettifyHighlighter prettifyHighlighter;
+    private Drawable choiceDrawable;
 
-    public MatchQuestionsDropAdapter(ArrayList<String> mProgramList) {
+    public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramList) {
         this.mProgramList = mProgramList;
+        prettifyHighlighter = PrettifyHighlighter.getInstance();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        choiceDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.choice);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match_question, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-       // holder.questionTextView.setText(mProgramList.get(position));
+        ProgramTable programTable = getItemAtPosition(position);
+        if( programTable.getProgram_Line().equals("") ) {
+            holder.questionTextView.setText(programTable.getProgram_Line_Description());
+            holder.itemView.setBackground(choiceDrawable);
+        }
+        else {
+            String programLine = programTable.getProgram_Line();
+            if (!programLine.contains("font")) {
+                holder.questionTextView.setText(programTable.getProgram_Line());
+                holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+            } else {
+                if( Build.VERSION.SDK_INT >= 24 ) {
+                    holder.questionTextView.setText(Html.fromHtml(programLine, Html.FROM_HTML_MODE_LEGACY));
+                }
+                else {
+                    holder.questionTextView.setText(Html.fromHtml(programLine));
+                }
+            }
+            holder.itemView.setOnDragListener(null);
+            holder.itemView.setOnClickListener(null);
+        }
+    }
+
+    public ProgramTable getItemAtPosition(int position) {
+        return mProgramList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mProgramList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnDragListener, View.OnClickListener {

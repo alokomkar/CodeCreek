@@ -9,12 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.MatchOptionsDragAdapter;
 import com.sortedqueue.programmercreek.adapter.MatchQuestionsDropAdapter;
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
+import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,9 +38,13 @@ public class NewMatchFragment extends Fragment {
     @BindView(R.id.optionRecyclerView)
     RecyclerView optionRecyclerView;
     List<ProgramTable> mProgramTableList;
-    private ArrayList<String> mProgramList;
-    private ArrayList<String> mProgramExplanationList;
-    private ArrayList<String> mProgramCheckList;
+    private Bundle newProgramActivityBundle;
+    private int mInvokeMode;
+    private ArrayList<ProgramTable> program_TableList;
+    private ProgramIndex mProgramIndex;
+    private boolean mWizard;
+    private ArrayList<ProgramTable> mProgramQuestionList;
+    private ArrayList<String> mOptionsList;
 
     @Nullable
     @Override
@@ -43,18 +54,89 @@ public class NewMatchFragment extends Fragment {
         return fragmentView;
     }
 
+    public void setBundle( Bundle bundle ) {
+        this.newProgramActivityBundle = bundle;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
+        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+
+        if( program_TableList != null && program_TableList.size() > 0 ) {
+            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+            initUI(program_TableList);
+        }
+        else {
+            if(  mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON ) {
+                mWizard = false;
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                        new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                            @Override
+                            public void onSuccess(ProgramIndex programIndex) {
+                                mProgramIndex = programIndex;
+                                getProgramTables();
+                            }
+
+                            @Override
+                            public void onError(DatabaseError databaseError) {
+                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                            }
+                        });
+            }
+            else {
+                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+
+                getProgramTables();
+            }
+        }
+
+
+
+
+    }
+
+    private void getProgramTables() {
+        new FirebaseDatabaseHandler(getContext()).getProgramTablesInBackground(mProgramIndex.getProgram_index(), new FirebaseDatabaseHandler.GetProgramTablesListener() {
+            @Override
+            public void onSuccess(ArrayList<ProgramTable> programTables) {
+                program_TableList = programTables;
+                initUI(program_TableList);
+            }
+
+            @Override
+            public void onError(DatabaseError databaseError) {
+                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+
+            }
+        });
+    }
+
+    private void initUI(ArrayList<ProgramTable> program_TableList) {
+
+        mProgramTableList = program_TableList;
+
+        if (program_TableList != null && program_TableList.size() > 0) {
+            //TODO
+            getActivity().setTitle("Match : " + mProgramIndex.getProgram_Description());
+            mProgramQuestionList = ProgramTable.getMatchList(program_TableList, new ProgramTable.MatchOptionsListener() {
+                @Override
+                public void getOptionsList(ArrayList<String> optionsList) {
+                    mOptionsList = optionsList;
+                }
+            });
+
+        }
+
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mProgramList = new ArrayList<String>();
-        mProgramExplanationList = new ArrayList<String>();
-        mProgramCheckList = new ArrayList<String>();
-
-        questionRecyclerView.setAdapter(new MatchQuestionsDropAdapter(mProgramList));
-        optionRecyclerView.setAdapter(new MatchOptionsDragAdapter(mProgramList));
+        questionRecyclerView.setAdapter(new MatchQuestionsDropAdapter(mProgramQuestionList));
+        optionRecyclerView.setAdapter(new MatchOptionsDragAdapter(mOptionsList));
     }
 
 

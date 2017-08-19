@@ -39,7 +39,6 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 import com.sortedqueue.programmercreek.util.ShuffleList;
 
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     ArrayList<String> mProgramExplanationList;
     ProgramIndex mProgramIndex;
     View mSelectedProgramLineView = null;
-    PrettifyHighlighter mHighlighter = PrettifyHighlighter.getInstance();
+
     long remainingTime = 0;
     long time = 0;
     long interval = 0;

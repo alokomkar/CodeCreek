@@ -125,7 +125,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         NewMatchFragment newMatchFragment = new NewMatchFragment();
-        newMatchFragment.setArguments(bundle);
+        newMatchFragment.setBundle(bundle);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, newMatchFragment, MatchMakerFragment.class.getSimpleName());
         mFragmentTransaction.commit();
