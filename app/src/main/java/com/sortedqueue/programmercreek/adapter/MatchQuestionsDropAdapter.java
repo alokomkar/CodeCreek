@@ -32,6 +32,9 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     private View mSelectedProgramLineView;
     private PrettifyHighlighter prettifyHighlighter;
     private Drawable choiceDrawable;
+    private Drawable correctDrawable;
+    private Drawable wrongDrawable;
+    private boolean isChecked;
 
     public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramList) {
         this.mProgramList = mProgramList;
@@ -41,6 +44,8 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         choiceDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.choice);
+        correctDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.answer);
+        wrongDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.option);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match_question, parent, false);
         return new ViewHolder(itemView);
     }
@@ -48,26 +53,56 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProgramTable programTable = getItemAtPosition(position);
-        if( programTable.getProgram_Line().equals("") ) {
-            holder.questionTextView.setText(programTable.getProgram_Line_Description());
+        if( programTable.isChoice ) {
+            if( programTable.getProgram_Line().equals("") ) {
+                holder.questionTextView.setText(programTable.getProgram_Line_Description());
+            }
+            else {
+                String programLine = programTable.getProgram_Line();
+                if (programLine.contains("<") || programLine.contains(">")) {
+                    holder.questionTextView.setText(programTable.getProgram_Line());
+                    holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+                } else {
+                    String programLineHtml = prettifyHighlighter.highlight("c", programLine);
+                    if( Build.VERSION.SDK_INT >= 24 ) {
+                        holder.questionTextView.setText(Html.fromHtml(programLineHtml, Html.FROM_HTML_MODE_LEGACY));
+                    }
+                    else {
+                        holder.questionTextView.setText(Html.fromHtml(programLineHtml));
+                    }
+                }
+            }
             holder.itemView.setBackground(choiceDrawable);
+            if( isChecked ) {
+                holder.itemView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
+            }
         }
         else {
             String programLine = programTable.getProgram_Line();
-            if (!programLine.contains("font")) {
+            if (programLine.contains("<") || programLine.contains(">")) {
                 holder.questionTextView.setText(programTable.getProgram_Line());
                 holder.questionTextView.setTextColor(Color.parseColor("#006699"));
             } else {
+                String programLineHtml = prettifyHighlighter.highlight("c", programLine);
                 if( Build.VERSION.SDK_INT >= 24 ) {
-                    holder.questionTextView.setText(Html.fromHtml(programLine, Html.FROM_HTML_MODE_LEGACY));
+                    holder.questionTextView.setText(Html.fromHtml(programLineHtml, Html.FROM_HTML_MODE_LEGACY));
                 }
                 else {
-                    holder.questionTextView.setText(Html.fromHtml(programLine));
+                    holder.questionTextView.setText(Html.fromHtml(programLineHtml));
                 }
             }
             holder.itemView.setOnDragListener(null);
             holder.itemView.setOnClickListener(null);
         }
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<ProgramTable> getProgramList() {
+        return mProgramList;
     }
 
     public ProgramTable getItemAtPosition(int position) {
@@ -116,6 +151,12 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     mSelectedProgramLineView = null;
                     //update the text in the target view to reflect the data being dropped
                     dropTarget.setText(dropped.getText());
+                    int position = getAdapterPosition();
+                    if( position != -1 ) {
+                        ProgramTable programTable = getItemAtPosition(position);
+                        programTable.setProgram_Line(dropped.getText().toString());
+                        notifyItemChanged(position);
+                    }
                     //make it bold to highlight the fact that an item has been dropped
                     dropTarget.setTypeface(Typeface.DEFAULT_BOLD);
                     //if an item has already been dropped here, there will be a tag

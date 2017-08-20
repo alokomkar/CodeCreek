@@ -33,7 +33,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     @BindView(R.id.container)
     FrameLayout container;
     private FragmentTransaction mFragmentTransaction;
-    private MatchMakerFragment matchMakerFragment;
+    private NewMatchFragment matchMakerFragment;
     private TestDragNDropFragment testDragNDropFragment;
     private QuizFragment quizFragment;
     private FillBlankFragment fillBlankFragment;
@@ -124,10 +124,10 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private void loadNewMatchFragment(Bundle bundle) {
         setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        NewMatchFragment newMatchFragment = new NewMatchFragment();
-        newMatchFragment.setBundle(bundle);
+        matchMakerFragment = new NewMatchFragment();
+        matchMakerFragment.setBundle(bundle);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        mFragmentTransaction.replace(R.id.container, newMatchFragment, MatchMakerFragment.class.getSimpleName());
+        mFragmentTransaction.replace(R.id.container, matchMakerFragment, NewMatchFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 
@@ -135,9 +135,9 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     public void loadMatchMakerFragment(Bundle bundle) {
         setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        matchMakerFragment = (MatchMakerFragment) getSupportFragmentManager().findFragmentByTag(MatchMakerFragment.class.getSimpleName());
+        matchMakerFragment = (NewMatchFragment) getSupportFragmentManager().findFragmentByTag(MatchMakerFragment.class.getSimpleName());
         if( matchMakerFragment == null ) {
-            matchMakerFragment = new MatchMakerFragment();
+            matchMakerFragment = new NewMatchFragment();
         }
         matchMakerFragment.setBundle(bundle);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);

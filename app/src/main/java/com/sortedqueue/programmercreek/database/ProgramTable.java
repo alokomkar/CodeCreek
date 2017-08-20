@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushIgnore;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 /**
@@ -28,6 +29,10 @@ public class ProgramTable extends RushObject implements Parcelable {
     private String program_Line_Description;
     private String program_Line_Html;
     private String userProgramId;
+    @RushIgnore
+    public boolean isChoice;
+    @RushIgnore
+    public boolean isCorrect;
 
     public ProgramTable() {
     }
@@ -189,6 +194,7 @@ public class ProgramTable extends RushObject implements Parcelable {
                     !programTable.getProgram_Line().trim().equals("}")
                     && !programTable.getProgram_Line().trim().equals("")) {
                 optionsList.add(programTable.getProgram_Line());
+                programTable.isChoice = true;
                 programTable.setProgram_Line("");
             }
             else i--;

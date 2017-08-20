@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
+import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
 
@@ -28,9 +29,11 @@ import butterknife.ButterKnife;
 public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDragAdapter.ViewHolder> {
     private final ArrayList<String> mProgramList;
     private View mSelectedProgramLineView;
+    private PrettifyHighlighter mPrettifyHighlighter;
 
     public MatchOptionsDragAdapter(ArrayList<String> mProgramList) {
         this.mProgramList = mProgramList;
+        mPrettifyHighlighter = PrettifyHighlighter.getInstance();
     }
 
     @Override
@@ -43,10 +46,11 @@ public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDr
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         String programLine = mProgramList.get(position);
-        if (!programLine.contains("font")) {
+        if (programLine.contains("<") || programLine.contains(">")) {
             holder.questionTextView.setText(programLine);
             holder.questionTextView.setTextColor(Color.parseColor("#006699"));
         } else {
+            programLine = mPrettifyHighlighter.highlight("c", programLine);
             if( Build.VERSION.SDK_INT >= 24 ) {
                 holder.questionTextView.setText(Html.fromHtml(programLine, Html.FROM_HTML_MODE_LEGACY));
             }
@@ -69,13 +73,13 @@ public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDr
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnLongClickListener(this);
+            questionTextView.setOnLongClickListener(this);
         }
 
         @Override
         public boolean onLongClick(View view) {
             view.setOnTouchListener(this);
-            view.setBackgroundResource(R.drawable.selected);
+            view.findViewById(R.id.questionTextView).setBackgroundResource(R.drawable.selected);
             mSelectedProgramLineView = view;
             //Toast.makeText(getContext(), "Selected", Toast.LENGTH_SHORT).show();
 
