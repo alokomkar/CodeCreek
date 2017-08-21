@@ -41,7 +41,9 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     private Drawable wrongDrawable;
     private boolean isChecked;
     private int white;
-
+    private int option;
+    private int answer;
+    private int wrong;
     public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramList) {
         this.mProgramList = mProgramList;
         prettifyHighlighter = PrettifyHighlighter.getInstance();
@@ -49,9 +51,12 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        choiceDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.choice);
+        choiceDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.option);
         correctDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.answer);
         wrongDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.error);
+        answer = ContextCompat.getColor(parent.getContext(), R.color.md_green_200);
+        option = ContextCompat.getColor(parent.getContext(), R.color.md_blue_grey_100);
+        wrong = ContextCompat.getColor(parent.getContext(), R.color.md_red_200);
         white = ContextCompat.getColor(parent.getContext(), R.color.white);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match_question, parent, false);
         return new ViewHolder(itemView);
@@ -81,10 +86,10 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             }
 
             if( isChecked ) {
-                holder.questionTextView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
+                holder.itemView.setBackgroundColor(programTable.isCorrect ? answer : wrong);
             }
             else {
-                holder.questionTextView.setBackground(choiceDrawable);
+                holder.itemView.setBackgroundColor(option);
             }
 
         }
@@ -102,8 +107,8 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     holder.questionTextView.setText(Html.fromHtml(programLineHtml));
                 }
             }
-            holder.questionTextView.setBackgroundColor(white);
             holder.itemView.setBackgroundColor(white);
+            holder.itemView.setBackground(null);
             //holder.itemView.setOnDragListener(null);
             //holder.itemView.setOnClickListener(null);
 
@@ -225,9 +230,10 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             int postion = getAdapterPosition();
             if( postion != RecyclerView.NO_POSITION ) {
                 ProgramTable programTable = getItemAtPosition(postion);
+                programTable.setProgram_Line("");
                 questionTextView.setText(programTable.getProgram_Line_Description());
                 questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
-                questionTextView.setBackground(choiceDrawable);
+                questionTextView.setBackgroundColor(option);
             }
             return false;
         }
