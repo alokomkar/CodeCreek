@@ -56,6 +56,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     private MatchQuestionsDropAdapter matchQuestionsAdapter;
     private MatchOptionsDragAdapter matchOptionsAdapter;
     private boolean quizComplete;
+    private ArrayList<String> solutionList;
 
     @Nullable
     @Override
@@ -112,6 +113,11 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<ProgramTable> programTables) {
                 program_TableList = programTables;
+                solutionList = new ArrayList<>();
+                for( ProgramTable programTable : program_TableList ) {
+                    solutionList.add(programTable.getProgram_Line());
+                }
+
                 initUI(program_TableList);
             }
 
@@ -163,11 +169,11 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if( checkButton.getText().toString().equalsIgnoreCase("Check") ) {
             ArrayList<ProgramTable> programTables = matchQuestionsAdapter.getProgramList();
-            for( int i = 0; i < mProgramTableList.size(); i++ ) {
-                programTables.get(i).isCorrect = mProgramTableList.get(i).getProgram_Line() == programTables.get(i).getProgram_Line();
+            for( int i = 0; i < solutionList.size(); i++ ) {
+                programTables.get(i).isCorrect = solutionList.get(i).equals( programTables.get(i).getProgram_Line());
             }
             quizComplete = true;
-            matchQuestionsAdapter.setChecked(true);
+            matchQuestionsAdapter.setChecked(true, programTables);
             checkButton.setText("Next");
         }
         else {

@@ -96,8 +96,9 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
         }
     }
 
-    public void setChecked(boolean checked) {
+    public void setChecked(boolean checked, ArrayList<ProgramTable> programTables) {
         isChecked = checked;
+        this.mProgramList = programTables;
         notifyDataSetChanged();
     }
 
