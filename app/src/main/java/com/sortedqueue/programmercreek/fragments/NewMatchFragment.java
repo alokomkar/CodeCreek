@@ -115,11 +115,6 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<ProgramTable> programTables) {
                 program_TableList = programTables;
-                solutionList = new ArrayList<>();
-                for( ProgramTable programTable : program_TableList ) {
-                    solutionList.add(programTable.getProgram_Line());
-                }
-
                 initUI(program_TableList);
             }
 
@@ -132,6 +127,11 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
+
+        solutionList = new ArrayList<>();
+        for( ProgramTable programTable : program_TableList ) {
+            solutionList.add(programTable.getProgram_Line());
+        }
 
         mProgramTableList = program_TableList;
 
