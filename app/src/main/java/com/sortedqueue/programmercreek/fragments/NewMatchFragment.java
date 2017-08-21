@@ -170,34 +170,40 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         if( checkButton.getText().toString().equalsIgnoreCase("Check") ) {
             ArrayList<ProgramTable> programTables = matchQuestionsAdapter.getProgramList();
             for( int i = 0; i < solutionList.size(); i++ ) {
-                programTables.get(i).isCorrect = solutionList.get(i).equals( programTables.get(i).getProgram_Line());
+                programTables.get(i).isCorrect = solutionList.get(i).trim().equals( programTables.get(i).getProgram_Line().trim() );
             }
             quizComplete = true;
             matchQuestionsAdapter.setChecked(true, programTables);
-            checkButton.setText("Next");
+            if( mWizard ) {
+                checkButton.setText("Next");
+            }
+            else
+                checkButton.setText("Finish");
         }
         else {
-            Bundle newIntentBundle = new Bundle();
-            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
-            newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
-            newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
-            Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage() );
-            if( program_TableList.size() <= 15 ) {
-                wizardNavigationListener.loadTestFragment(newIntentBundle);
+            if( !mWizard ) {
+                getActivity().finish();
             }
             else {
-                wizardNavigationListener.loadFillBlanksFragment(newIntentBundle);
+                Bundle newIntentBundle = new Bundle();
+                newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
+                newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+                newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
+                Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage() );
+                if( program_TableList.size() <= 15 ) {
+                    wizardNavigationListener.loadTestFragment(newIntentBundle);
+                }
+                else {
+                    wizardNavigationListener.loadFillBlanksFragment(newIntentBundle);
+                }
             }
+
         }
 
     }
 
     public ArrayList<String> getmProgramList() {
-        ArrayList<String> programList = new ArrayList<>();
-        for( ProgramTable programTable : mProgramTableList ) {
-            programList.add(programTable.getProgram_Line());
-        }
-        return programList;
+        return solutionList;
     }
 
     public void onBackPressed() {

@@ -72,9 +72,12 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     }
                 }
             }
-            holder.itemView.setBackground(choiceDrawable);
+
             if( isChecked ) {
                 holder.itemView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
+            }
+            else {
+                holder.itemView.setBackground(choiceDrawable);
             }
         }
         else {
@@ -91,6 +94,7 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     holder.questionTextView.setText(Html.fromHtml(programLineHtml));
                 }
             }
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
             holder.itemView.setOnDragListener(null);
             holder.itemView.setOnClickListener(null);
         }

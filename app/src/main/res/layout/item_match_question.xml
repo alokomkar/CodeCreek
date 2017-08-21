@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/matchQuestionLayout"
+    android:background="@color/white"
     android:paddingStart="@dimen/margin_4"
     android:paddingEnd="@dimen/margin_4"
     android:layout_height="wrap_content">
