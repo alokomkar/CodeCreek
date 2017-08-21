@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/questionTextView"
         android:text="@string/accept"
+        android:textColor="@color/md_blue_grey_600"
         android:textSize="@dimen/text_dashboard_small"/>
 
 </LinearLayout>

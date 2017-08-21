@@ -304,4 +304,18 @@ public class ProgramTable extends RushObject implements Parcelable {
             return new ProgramTable[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ProgramTable{" +
+                "program_index=" + program_index +
+                ", line_No=" + line_No +
+                ", program_Language='" + program_Language + '\'' +
+                ", program_Line='" + program_Line + '\'' +
+                ", program_Line_Description='" + program_Line_Description + '\'' +
+                ", program_Line_Html='" + program_Line_Html + '\'' +
+                ", userProgramId='" + userProgramId + '\'' +
+                ", isChoice=" + isChoice +
+                '}';
+    }
 }

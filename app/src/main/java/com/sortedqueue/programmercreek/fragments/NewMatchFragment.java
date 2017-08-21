@@ -143,6 +143,12 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
                     mOptionsList = optionsList;
                 }
             });
+            for( ProgramTable programTable : mProgramQuestionList ) {
+                Log.d("Match", "programTable : " + programTable  );
+            }
+            for( String solution : mOptionsList ) {
+                Log.d("Match", "solution : " + solution  );
+            }
 
         }
 
