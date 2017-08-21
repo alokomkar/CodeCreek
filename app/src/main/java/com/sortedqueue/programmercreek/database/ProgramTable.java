@@ -188,9 +188,8 @@ public class ProgramTable extends RushObject implements Parcelable {
         ArrayList<ProgramTable> questionsList = new ArrayList<>(originalList);
         ArrayList<String> optionsList = new ArrayList<>();
         ArrayList<Integer> indexArray = new ArrayList<>();
-
-        int maxBlanks = originalList.size() / 2 < 4 ? 4 : originalList.size() / 2;
-
+        int maxBlanks = originalList.size() / 2;
+        maxBlanks = maxBlanks < 4 ? 4 : maxBlanks;
         if( maxBlanks > 8 ){
             maxBlanks = 8;
         }

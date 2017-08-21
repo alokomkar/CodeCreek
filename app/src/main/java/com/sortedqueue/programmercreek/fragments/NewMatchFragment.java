@@ -149,7 +149,13 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         Collections.shuffle(mOptionsList);
 
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        optionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
+        if( mOptionsList.size() > 4 ) {
+            optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        }
+        else {
+            optionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
+        }
+
         matchQuestionsAdapter = new MatchQuestionsDropAdapter(mProgramQuestionList);
         questionRecyclerView.setAdapter(matchQuestionsAdapter);
         matchOptionsAdapter = new MatchOptionsDragAdapter(mOptionsList);
