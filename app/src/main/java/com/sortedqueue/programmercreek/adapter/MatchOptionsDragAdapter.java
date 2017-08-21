@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;

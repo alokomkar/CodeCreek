@@ -14,7 +14,6 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
-import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
 import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
@@ -105,8 +104,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         Bundle bundle = getIntent().getExtras();
         switch (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST)) {
             case ProgrammingBuddyConstants.KEY_MATCH :
-                //loadMatchMakerFragment( bundle );
-                loadNewMatchFragment( bundle );
+                loadMatchMakerFragment( bundle );
                 break;
             case ProgrammingBuddyConstants.KEY_TEST:
                 loadTestFragment( bundle );
@@ -121,27 +119,14 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     }
 
-    private void loadNewMatchFragment(Bundle bundle) {
+    @Override
+    public void loadMatchMakerFragment(Bundle bundle) {
         setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         matchMakerFragment = new NewMatchFragment();
         matchMakerFragment.setBundle(bundle);
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         mFragmentTransaction.replace(R.id.container, matchMakerFragment, NewMatchFragment.class.getSimpleName());
-        mFragmentTransaction.commit();
-    }
-
-    @Override
-    public void loadMatchMakerFragment(Bundle bundle) {
-        setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        matchMakerFragment = (NewMatchFragment) getSupportFragmentManager().findFragmentByTag(MatchMakerFragment.class.getSimpleName());
-        if( matchMakerFragment == null ) {
-            matchMakerFragment = new NewMatchFragment();
-        }
-        matchMakerFragment.setBundle(bundle);
-        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        mFragmentTransaction.replace(R.id.container, matchMakerFragment, MatchMakerFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 

@@ -10,7 +10,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
-import com.sortedqueue.programmercreek.fragments.MatchMakerFragment;
+import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.SyntaxLearnActivityFragment;
@@ -50,7 +50,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                     bundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_LESSON);
                     switch ( chapterDetails.getChapterTestType() ) {
                         case ProgrammingBuddyConstants.KEY_MATCH :
-                            MatchMakerFragment matchMakerFragment = new MatchMakerFragment();
+                            NewMatchFragment matchMakerFragment = new NewMatchFragment();
                             matchMakerFragment.setBundle(bundle);
                             chapterFragments.add(matchMakerFragment);
                             break;
