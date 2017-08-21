@@ -149,7 +149,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         Collections.shuffle(mOptionsList);
 
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if( mOptionsList.size() > 4 ) {
+        if( mOptionsList.size() <= 4 ) {
             optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         }
         else {
