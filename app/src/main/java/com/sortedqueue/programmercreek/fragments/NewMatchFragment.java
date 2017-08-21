@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -148,7 +149,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         Collections.shuffle(mOptionsList);
 
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        optionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
         matchQuestionsAdapter = new MatchQuestionsDropAdapter(mProgramQuestionList);
         questionRecyclerView.setAdapter(matchQuestionsAdapter);
         matchOptionsAdapter = new MatchOptionsDragAdapter(mOptionsList);

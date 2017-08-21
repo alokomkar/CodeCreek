@@ -187,8 +187,21 @@ public class ProgramTable extends RushObject implements Parcelable {
     public static ArrayList<ProgramTable> getMatchList( ArrayList<ProgramTable> originalList, MatchOptionsListener matchOptionsListener) {
         ArrayList<ProgramTable> questionsList = new ArrayList<>(originalList);
         ArrayList<String> optionsList = new ArrayList<>();
-        for( int i = 0; i < 4; i++ ) {
+        ArrayList<Integer> indexArray = new ArrayList<>();
+
+        int maxBlanks = originalList.size() / 2 < 4 ? 4 : originalList.size() / 2;
+
+        if( maxBlanks > 8 ){
+            maxBlanks = 8;
+        }
+
+        for( int i = 0; i < maxBlanks; i++ ) {
+
             int randomIndex = getRandomNumberInRange(0, questionsList.size() - 1);
+            if( !indexArray.contains(randomIndex) ) {
+                indexArray.add(randomIndex);
+            }
+
             ProgramTable programTable = questionsList.get(randomIndex);
             if( !programTable.getProgram_Line().trim().equals("{") &&
                     !programTable.getProgram_Line().trim().equals("}")
@@ -198,6 +211,11 @@ public class ProgramTable extends RushObject implements Parcelable {
                 programTable.setProgram_Line("");
             }
             else i--;
+
+            if( indexArray.size() == questionsList.size() ) {
+                break;
+            }
+
         }
         matchOptionsListener.getOptionsList(optionsList);
         return questionsList;

@@ -61,7 +61,7 @@ public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDr
 
     @Override
     public int getItemCount() {
-        return 4;
+        return mProgramList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnTouchListener {
