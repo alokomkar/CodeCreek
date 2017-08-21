@@ -35,6 +35,7 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     private Drawable correctDrawable;
     private Drawable wrongDrawable;
     private boolean isChecked;
+    private int white;
 
     public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramList) {
         this.mProgramList = mProgramList;
@@ -45,7 +46,8 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         choiceDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.choice);
         correctDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.answer);
-        wrongDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.option);
+        wrongDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.error);
+        white = ContextCompat.getColor(parent.getContext(), R.color.white);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match_question, parent, false);
         return new ViewHolder(itemView);
     }
@@ -74,10 +76,10 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             }
 
             if( isChecked ) {
-                holder.itemView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
+                holder.questionTextView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
             }
             else {
-                holder.itemView.setBackground(choiceDrawable);
+                holder.questionTextView.setBackground(choiceDrawable);
             }
         }
         else {
@@ -94,7 +96,8 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     holder.questionTextView.setText(Html.fromHtml(programLineHtml));
                 }
             }
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+            holder.questionTextView.setBackgroundColor(white);
+            holder.itemView.setBackgroundColor(white);
             holder.itemView.setOnDragListener(null);
             holder.itemView.setOnClickListener(null);
         }
