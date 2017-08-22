@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -78,7 +79,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         checkButton.setOnClickListener(this);
         mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
         program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
-
+        showHelperDialog();
         if (program_TableList != null && program_TableList.size() > 0) {
             mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
             mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
@@ -108,6 +109,16 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         }
 
 
+    }
+
+    private void showHelperDialog() {
+        AuxilaryUtils.displayInformation(getContext(), R.string.match_maker, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+
+            }
+
+        });
     }
 
     private void getProgramTables() {

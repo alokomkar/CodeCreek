@@ -168,9 +168,36 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         }
         if( bundle != null ) {
             mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgram_Index = mProgramIndex.getProgram_index();
             ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
             if( programTables != null && programTables.size() > 0 ) {
                 updateUI(programTables);
+            }
+            else {
+                firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
+                firebaseDatabaseHandler.getProgramIndexInBackGround(mProgram_Index, new FirebaseDatabaseHandler.GetProgramIndexListener() {
+                    @Override
+                    public void onSuccess(ProgramIndex programIndex) {
+                        headerTextView.setText(programIndex.getProgram_Description());
+                        mProgramIndex = programIndex;
+                        firebaseDatabaseHandler.getProgramTablesInBackground(mProgram_Index, new FirebaseDatabaseHandler.GetProgramTablesListener() {
+                            @Override
+                            public void onSuccess(ArrayList<ProgramTable> programTables) {
+                                updateUI(programTables);
+                            }
+
+                            @Override
+                            public void onError(DatabaseError databaseError) {
+                                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(DatabaseError databaseError) {
+                        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                    }
+                });
             }
         }
         else {

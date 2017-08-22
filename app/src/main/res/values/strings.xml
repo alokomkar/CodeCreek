@@ -264,4 +264,6 @@
     <string name="type_name_of_program">Type name of the program</string>
     <string name="no_results">No Results</string>
     <string name="loading_reference">Loading Reference...</string>
+    <string name="match_maker">Match Maker</string>
+    <string name="match_maker_new_description">Drag and drop options to their correct positions, long click questions to clear choice.</string>
 </resources>
