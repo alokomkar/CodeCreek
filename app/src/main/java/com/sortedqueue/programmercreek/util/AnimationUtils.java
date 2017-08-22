@@ -154,6 +154,84 @@ public class AnimationUtils {
 
     }
 
+    public static void slideInToRight(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.anim_slide_in_right);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
+    public static void slideInToLeft(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.anim_slide_in_left);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
+    public static void slideOut(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.anim_slide_out_left);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
     public static void slideUp( final View view )
     {
         if( view != null ) {

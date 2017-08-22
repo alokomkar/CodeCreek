@@ -3,9 +3,9 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -26,6 +27,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -49,6 +51,8 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     List<ProgramTable> mProgramTableList;
     @BindView(R.id.checkButton)
     Button checkButton;
+    @BindView(R.id.optionsTextView)
+    TextView optionsTextView;
     private Bundle newProgramActivityBundle;
     private int mInvokeMode;
     private ArrayList<ProgramTable> program_TableList;
@@ -138,9 +142,11 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
-
+        questionRecyclerView.setVisibility(View.INVISIBLE);
+        optionRecyclerView.setVisibility(View.INVISIBLE);
+        optionsTextView.setVisibility(View.INVISIBLE);
         solutionList = new ArrayList<>();
-        for( ProgramTable programTable : program_TableList ) {
+        for (ProgramTable programTable : program_TableList) {
             solutionList.add(programTable.getProgram_Line());
         }
 
@@ -155,11 +161,11 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
                     mOptionsList = optionsList;
                 }
             });
-            for( ProgramTable programTable : mProgramQuestionList ) {
-                Log.d("Match", "programTable : " + programTable  );
+            for (ProgramTable programTable : mProgramQuestionList) {
+                Log.d("Match", "programTable : " + programTable);
             }
-            for( String solution : mOptionsList ) {
-                Log.d("Match", "solution : " + solution  );
+            for (String solution : mOptionsList) {
+                Log.d("Match", "solution : " + solution);
             }
 
         }
@@ -167,10 +173,9 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         Collections.shuffle(mOptionsList);
 
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if( mOptionsList.size() <= 4 ) {
+        if (mOptionsList.size() <= 4) {
             optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        }
-        else {
+        } else {
             //optionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
             optionRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
         }
@@ -179,6 +184,16 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
         questionRecyclerView.setAdapter(matchQuestionsAdapter);
         matchOptionsAdapter = new MatchOptionsDragAdapter(mOptionsList);
         optionRecyclerView.setAdapter(matchOptionsAdapter);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AnimationUtils.slideInToRight(questionRecyclerView);
+                AnimationUtils.slideInToLeft(optionRecyclerView);
+                AnimationUtils.slideInToLeft(optionsTextView);
+            }
+        }, 700);
+
     }
 
     private WizardNavigationListener wizardNavigationListener;
@@ -186,41 +201,37 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof WizardNavigationListener ) {
+        if (context instanceof WizardNavigationListener) {
             wizardNavigationListener = (WizardNavigationListener) context;
         }
     }
 
     @Override
     public void onClick(View view) {
-        if( checkButton.getText().toString().equalsIgnoreCase("Check") ) {
+        if (checkButton.getText().toString().equalsIgnoreCase("Check")) {
             ArrayList<ProgramTable> programTables = matchQuestionsAdapter.getProgramList();
-            for( int i = 0; i < solutionList.size(); i++ ) {
-                programTables.get(i).isCorrect = solutionList.get(i).trim().equals( programTables.get(i).getProgram_Line().trim() );
+            for (int i = 0; i < solutionList.size(); i++) {
+                programTables.get(i).isCorrect = solutionList.get(i).trim().equals(programTables.get(i).getProgram_Line().trim());
                 program_TableList.get(i).setProgram_Line(solutionList.get(i));
             }
             quizComplete = true;
             matchQuestionsAdapter.setChecked(true, programTables);
-            if( mWizard ) {
+            if (mWizard) {
                 checkButton.setText("Next");
-            }
-            else
+            } else
                 checkButton.setText("Finish");
-        }
-        else {
-            if( !mWizard ) {
+        } else {
+            if (!mWizard) {
                 getActivity().finish();
-            }
-            else {
+            } else {
                 Bundle newIntentBundle = new Bundle();
                 newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
                 newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
                 newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
-                Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage() );
-                if( program_TableList.size() <= 15 ) {
+                Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage());
+                if (program_TableList.size() <= 15) {
                     wizardNavigationListener.loadTestFragment(newIntentBundle);
-                }
-                else {
+                } else {
                     wizardNavigationListener.loadFillBlanksFragment(newIntentBundle);
                 }
             }
@@ -240,5 +251,10 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
             getActivity().finish();
         }
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

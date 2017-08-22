@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -32,8 +34,11 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
     private ArrayList<Chapter> chapters;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner;
     private CreekUserStats creekUserStats;
+    private int lastPosition = -1;
+    private ArrayList<Integer> indexList;
     public ChapterRecyclerAdapter(Context context, ArrayList<Chapter> chapters, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.context = context;
+        this.indexList = new ArrayList<>();
         this.chapters = chapters;
         this.adapterClickListner = adapterClickListner;
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
@@ -47,6 +52,9 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
     @Override
     public void onBindViewHolder(ChapterRecyclerAdapter.ViewHolder holder, int position) {
+
+        holder.itemView.setVisibility( indexList.contains(position) ? View.VISIBLE : View.INVISIBLE);
+
         if( position + 1 > chapters.size() ) {
             holder.moduleLayout.setVisibility(View.GONE);
             holder.moduleNameTextView.setVisibility(View.GONE);
@@ -102,8 +110,24 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
             holder.appCompatSeekBar.setVisibility( chapterProgress == 0 ? View.GONE : View.VISIBLE );
 
         }
-        startAnimation(holder.itemView, position * 250 );
+        //startAnimation(holder.itemView, position * 150 );
+        setAnimation(holder.itemView, position);
 
+    }
+
+    /**
+     * Here is the key method to apply the animation
+     */
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+            indexList.add(position);
+        }
     }
 
     private void startAnimation(View itemView, int delay) {
