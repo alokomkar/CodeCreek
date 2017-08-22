@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.sortedqueue.programmercreek.adapter.ModulesRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -89,6 +91,7 @@ public class ModuleFragment extends Fragment {
     }
 
     private void getModules() {
+        modulesRecyclerView.setVisibility(View.INVISIBLE);
         CommonUtils.displayProgressDialog(getContext(), "Loading modules");
         new FirebaseDatabaseHandler(getContext()).initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
             @Override
@@ -120,6 +123,12 @@ public class ModuleFragment extends Fragment {
         });
         modulesRecyclerView.setAdapter(moduleRecyclerAdapter);
         CommonUtils.dismissProgressDialog();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AnimationUtils.slideInToLeft(modulesRecyclerView);
+            }
+        }, 450);
     }
 
     @Override
