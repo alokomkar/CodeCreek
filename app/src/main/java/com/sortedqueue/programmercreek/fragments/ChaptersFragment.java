@@ -47,6 +47,7 @@ public class ChaptersFragment extends Fragment {
     private ChapterNavigationListener chapterNavigationListener;
     private ArrayList<Chapter> chapters;
     private String TAG = ChaptersFragment.class.getSimpleName();
+    private ChapterRecyclerAdapter chapterRecyclerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -710,7 +711,7 @@ public class ChaptersFragment extends Fragment {
     private void setupRecyclerView(final ArrayList<Chapter> chapters) {
         this.chapters = chapters;
         chaptersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        chaptersRecyclerView.setAdapter(new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        chapterRecyclerAdapter = new ChapterRecyclerAdapter(getContext(), this.chapters, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {
                 if (position + 1 > ChaptersFragment.this.chapters.size()) {
@@ -727,7 +728,8 @@ public class ChaptersFragment extends Fragment {
                 }
                 chapterNavigationListener.onChapterSelected(ChaptersFragment.this.chapters.get(position), nextChapter);
             }
-        }));
+        });
+        chaptersRecyclerView.setAdapter(chapterRecyclerAdapter);
         CommonUtils.dismissProgressDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -735,6 +737,14 @@ public class ChaptersFragment extends Fragment {
                 AnimationUtils.slideInToLeft(chaptersRecyclerView);
             }
         }, 450);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if( chapterRecyclerAdapter != null ) {
+            chapterRecyclerAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
