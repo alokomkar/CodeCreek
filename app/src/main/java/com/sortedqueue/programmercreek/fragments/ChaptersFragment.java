@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class ChaptersFragment extends Fragment {
     }
 
     private void getModules() {
-
+        chaptersRecyclerView.setVisibility(View.INVISIBLE);
         chapters = new ArrayList<>();
         /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
@@ -727,6 +729,12 @@ public class ChaptersFragment extends Fragment {
             }
         }));
         CommonUtils.dismissProgressDialog();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AnimationUtils.slideInToLeft(chaptersRecyclerView);
+            }
+        }, 450);
     }
 
     @Override

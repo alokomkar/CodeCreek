@@ -192,7 +192,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
                 AnimationUtils.slideInToLeft(optionRecyclerView);
                 AnimationUtils.slideInToLeft(optionsTextView);
             }
-        }, 700);
+        }, 400);
 
     }
 

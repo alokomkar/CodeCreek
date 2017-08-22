@@ -53,8 +53,6 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
     @Override
     public void onBindViewHolder(ChapterRecyclerAdapter.ViewHolder holder, int position) {
 
-        holder.itemView.setVisibility( indexList.contains(position) ? View.VISIBLE : View.INVISIBLE);
-
         if( position + 1 > chapters.size() ) {
             holder.moduleLayout.setVisibility(View.GONE);
             holder.moduleNameTextView.setVisibility(View.GONE);
@@ -111,7 +109,6 @@ public class ChapterRecyclerAdapter extends RecyclerView.Adapter<ChapterRecycler
 
         }
         //startAnimation(holder.itemView, position * 150 );
-        setAnimation(holder.itemView, position);
 
     }
 
