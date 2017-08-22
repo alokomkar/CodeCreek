@@ -186,6 +186,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
             ArrayList<ProgramTable> programTables = matchQuestionsAdapter.getProgramList();
             for( int i = 0; i < solutionList.size(); i++ ) {
                 programTables.get(i).isCorrect = solutionList.get(i).trim().equals( programTables.get(i).getProgram_Line().trim() );
+                program_TableList.get(i).setProgram_Line(solutionList.get(i));
             }
             quizComplete = true;
             matchQuestionsAdapter.setChecked(true, programTables);

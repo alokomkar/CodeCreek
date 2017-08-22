@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/questionTextView"
-        android:background="@drawable/option"
+        android:background="@drawable/option_drawable"
         android:text="@string/option_infinite_programmer"
         android:textSize="@dimen/text_dashboard_small"/>
 

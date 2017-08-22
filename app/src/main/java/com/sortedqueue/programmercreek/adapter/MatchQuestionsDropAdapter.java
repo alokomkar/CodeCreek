@@ -86,10 +86,29 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             }
 
             if( isChecked ) {
-                holder.itemView.setBackgroundColor(programTable.isCorrect ? answer : wrong);
+                holder.itemView.setBackground(programTable.isCorrect ? correctDrawable : wrongDrawable);
+                if( programTable.isCorrect ) {
+                    String programLine = programTable.getProgram_Line();
+                    if (programLine.contains("<") || programLine.contains(">")) {
+                        holder.questionTextView.setText(programTable.getProgram_Line());
+                        holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+                    } else {
+                        String programLineHtml = prettifyHighlighter.highlight("c", programLine);
+                        if( Build.VERSION.SDK_INT >= 24 ) {
+                            holder.questionTextView.setText(Html.fromHtml(programLineHtml, Html.FROM_HTML_MODE_LEGACY));
+                        }
+                        else {
+                            holder.questionTextView.setText(Html.fromHtml(programLineHtml));
+                        }
+                    }
+                }
+                else {
+                    holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                }
+                holder.questionTextView.setTextColor(Color.parseColor("#FFFFFF"));
             }
             else {
-                holder.itemView.setBackgroundColor(option);
+                holder.itemView.setBackground(choiceDrawable);
             }
 
         }
@@ -233,7 +252,7 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                 programTable.setProgram_Line("");
                 questionTextView.setText(programTable.getProgram_Line_Description());
                 questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
-                questionTextView.setBackgroundColor(option);
+                questionTextView.setBackground(choiceDrawable);
             }
             return false;
         }

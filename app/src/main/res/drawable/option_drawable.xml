@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:dither="true" >
+    android:dither="true"
+    >
 
-    <solid android:color="@color/md_green_50" />
+    <solid android:color="@color/md_grey_300" />
 
-    <corners android:radius="4dp" />
+    <corners android:radius="@dimen/margin_4" />
 
     <stroke
         android:width="2dp"
-        android:color="@color/md_green_100" />
+        android:color="@color/md_grey_300" />
 
     <padding
         android:bottom="8dp"
         android:left="8dp"
         android:right="8dp"
         android:top="8dp" />
+
 
 </shape>

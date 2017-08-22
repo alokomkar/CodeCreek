@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/margin_8"
     android:paddingTop="@dimen/margin_4"
     android:paddingBottom="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/divider_height"
     android:layout_height="wrap_content">
 
     <TextView

@@ -2,13 +2,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:dither="true" >
 
-    <solid android:color="@color/md_green_A400" />
-
-    <corners android:radius="4dp" />
+    <solid android:color="@color/md_green_200" />
 
     <stroke
         android:width="2dp"
-        android:color="@color/md_green_600" />
+        android:color="@color/md_green_200" />
 
     <padding
         android:bottom="8dp"
