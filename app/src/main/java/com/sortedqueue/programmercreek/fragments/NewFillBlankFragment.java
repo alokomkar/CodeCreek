@@ -227,9 +227,10 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
             isAnswered = true;
             String message = "Congratulations, you scored : " + rightAnswers + "/8";
             switch (rightAnswers) {
+                case 0:
                 case 1:
                 case 2:
-                    message = "You need improvement, retry again";
+                    message = "You need improvement, try again";
                     break;
                 case 3:
                 case 4:
