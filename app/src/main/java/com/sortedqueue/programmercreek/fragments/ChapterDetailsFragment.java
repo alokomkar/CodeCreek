@@ -99,6 +99,16 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
             }
         });
+        int chapterProgress = getChapterProgress();
+        int currentIndex = 0;
+        if( chapterProgress != 0 ) {
+            for( ChapterDetails chapterDetails : chapter.getChapterDetailsArrayList() ) {
+                if( chapterProgress > chapterDetails.getProgressIndex() ) {
+                    currentIndex++;
+                }
+            }
+        }
+        syntaxLearnViewPager.setCurrentItem(currentIndex);
         CommonUtils.dismissProgressDialog();
 
     }
