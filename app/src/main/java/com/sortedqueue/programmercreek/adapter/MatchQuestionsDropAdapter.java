@@ -273,9 +273,10 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                 }
                 else {
                     questionTextView.setText(programTable.getProgram_Line_Description());
+                    questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
+                    questionTextView.setBackground(choiceDrawable);
                 }
-                questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
-                questionTextView.setBackground(choiceDrawable);
+
             }
             return false;
         }

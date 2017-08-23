@@ -118,7 +118,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     }
 
     private void showHelperDialog() {
-        AuxilaryUtils.displayInformation(getContext(), R.string.match_maker, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
+        AuxilaryUtils.displayInformation(getContext(), R.string.fill_blanks, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
 

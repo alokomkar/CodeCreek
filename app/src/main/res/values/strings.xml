@@ -266,4 +266,5 @@
     <string name="loading_reference">Loading Reference...</string>
     <string name="match_maker">Match Maker</string>
     <string name="match_maker_new_description">Drag and drop options to their correct positions, long click questions to clear choice.</string>
+    <string name="fill_blanks">Fill Blanks</string>
 </resources>
