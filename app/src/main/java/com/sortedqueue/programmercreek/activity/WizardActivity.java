@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
+import com.sortedqueue.programmercreek.fragments.NewFillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
@@ -35,7 +36,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private NewMatchFragment matchMakerFragment;
     private TestDragNDropFragment testDragNDropFragment;
     private QuizFragment quizFragment;
-    private FillBlankFragment fillBlankFragment;
+    private NewFillBlankFragment fillBlankFragment;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -68,7 +69,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
             showSolutionDialog( testDragNDropFragment.getmProgramList() );
         }
         else if( fillBlankFragment != null ) {
-            CommonUtils.displaySnackBar(WizardActivity.this, "No hints available");
+            showSolutionDialog( fillBlankFragment.getmProgramList() );
         }
         else if( quizFragment != null ) {
             showSolutionDialog( quizFragment.getmProgramList() );
@@ -162,15 +163,15 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     public void loadFillBlanksFragment(Bundle bundle) {
         setTitle("Fill blanks : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fillBlankFragment = (FillBlankFragment) getSupportFragmentManager().findFragmentByTag(FillBlankFragment.class.getSimpleName());
+        fillBlankFragment = (NewFillBlankFragment) getSupportFragmentManager().findFragmentByTag(NewFillBlankFragment.class.getSimpleName());
         if( fillBlankFragment == null ) {
-            fillBlankFragment = new FillBlankFragment();
+            fillBlankFragment = new NewFillBlankFragment();
         }
         fillBlankFragment.setBundle(bundle);
         fillBlankFragment.setmProgram_Index(((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_index());
         fillBlankFragment.setWizardMode( true );
         mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        mFragmentTransaction.replace(R.id.container, fillBlankFragment, FillBlankFragment.class.getSimpleName());
+        mFragmentTransaction.replace(R.id.container, fillBlankFragment, NewFillBlankFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 

@@ -10,6 +10,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.Chapter;
 import com.sortedqueue.programmercreek.database.ChapterDetails;
 import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
+import com.sortedqueue.programmercreek.fragments.NewFillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.ProgramWikiFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
@@ -65,7 +66,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                             chapterFragments.add(quizFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
-                            FillBlankFragment fillBlankFragment = new FillBlankFragment();
+                            NewFillBlankFragment fillBlankFragment = new NewFillBlankFragment();
                             fillBlankFragment.setmProgram_Index(Integer.parseInt(chapterDetails.getChapterReferenceId()));
                             chapterFragments.add(fillBlankFragment);
                     }

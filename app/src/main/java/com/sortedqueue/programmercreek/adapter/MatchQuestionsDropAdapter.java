@@ -44,8 +44,16 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     private int option;
     private int answer;
     private int wrong;
+    private boolean isFillBlanks = false;
+
     public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramList) {
         this.mProgramList = mProgramList;
+        prettifyHighlighter = PrettifyHighlighter.getInstance();
+    }
+
+    public MatchQuestionsDropAdapter(ArrayList<ProgramTable> mProgramQuestionList, boolean isFillBlanks) {
+        this.isFillBlanks = true;
+        this.mProgramList = mProgramQuestionList;
         prettifyHighlighter = PrettifyHighlighter.getInstance();
     }
 
@@ -67,7 +75,13 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
         ProgramTable programTable = getItemAtPosition(position);
         if( programTable.isChoice ) {
             if( programTable.getProgram_Line().equals("") ) {
-                holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                if( isFillBlanks ) {
+                    holder.questionTextView.setText("");
+                }
+                else {
+                    holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                }
+
             }
             else {
                 String programLine = programTable.getProgram_Line();
@@ -103,7 +117,11 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     }
                 }
                 else {
-                    holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                    if( isFillBlanks ) {
+                        holder.questionTextView.setText("");
+                    }
+                    else
+                        holder.questionTextView.setText(programTable.getProgram_Line_Description());
                 }
                 holder.questionTextView.setTextColor(Color.parseColor("#FFFFFF"));
             }
@@ -250,7 +268,12 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             if( postion != RecyclerView.NO_POSITION ) {
                 ProgramTable programTable = getItemAtPosition(postion);
                 programTable.setProgram_Line("");
-                questionTextView.setText(programTable.getProgram_Line_Description());
+                if( isFillBlanks ) {
+                    questionTextView.setText("");
+                }
+                else {
+                    questionTextView.setText(programTable.getProgram_Line_Description());
+                }
                 questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
                 questionTextView.setBackground(choiceDrawable);
             }
