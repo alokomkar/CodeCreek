@@ -193,7 +193,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 });
     }
 
-    private void initUI(final ArrayList<ProgramTable> program_TableList) {
+    private void initUI( ArrayList<ProgramTable> program_TableList) {
+
+        program_TableList = ProgramTable.getMinimalisticCode(program_TableList);
 
         getActivity().setTitle("Test : " + mProgramIndex.getProgram_Description());
         mProgramTableList = program_TableList;
@@ -215,7 +217,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 AuxilaryUtils.displayInformation(getContext(), R.string.divide_and_conquer, R.string.divide_and_conquer_description, new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                    setupSubTests(program_TableList);
+                    setupSubTests(mProgramTableList);
                     }
 
                 });
@@ -336,9 +338,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void showAd() {
 
-        /*if (interstitialAd != null) {
+        if (interstitialAd != null) {
             interstitialAd.show();
-        } else*/
+        } else
             getActivity().finish();
     }
 

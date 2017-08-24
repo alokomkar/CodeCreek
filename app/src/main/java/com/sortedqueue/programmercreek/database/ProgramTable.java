@@ -180,6 +180,16 @@ public class ProgramTable extends RushObject implements Parcelable {
 
     }
 
+    public static ArrayList<ProgramTable> getMinimalisticCode(ArrayList<ProgramTable> program_tableList) {
+        ArrayList<ProgramTable> programTables = new ArrayList<>();
+        for( ProgramTable programTable : program_tableList ) {
+            if( !programTable.getProgram_Line().startsWith("#include") && !programTable.getProgram_Line().contains("clrscr();") && !programTable.getProgram_Line().startsWith("import") ) {
+                programTables.add(programTable);
+            }
+        }
+        return programTables;
+    }
+
     public interface MatchOptionsListener {
         void getOptionsList( ArrayList<String> optionsList );
     }
