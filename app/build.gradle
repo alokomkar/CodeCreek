@@ -8,9 +8,9 @@ android {
         minSdkVersion 21
         targetSdkVersion 23
         def versionMajor = 1
-        def versionMinor = 3
-        def versionPatch = 3
-        def versionBuild = 6
+        def versionMinor = 4
+        def versionPatch = 0
+        def versionBuild = 0
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +37,7 @@ android {
             }
         }
     }
+    lintOptions { checkReleaseBuilds false }
 }
 
 dependencies {
@@ -92,6 +93,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     compile 'id.zelory:compressor:1.0.4'
+
+    compile 'com.startapp:inapp-sdk:3.6.5'
 
 }
 
