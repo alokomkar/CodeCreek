@@ -388,8 +388,13 @@ public class IntroActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            StartAppAd.onBackPressed(this);
-            super.onBackPressed();
+            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+                StartAppAd.onBackPressed(this);
+                super.onBackPressed();
+            }
+            else {
+                finish();
+            }
         }
     }
 

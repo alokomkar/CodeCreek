@@ -952,7 +952,7 @@ public class CreekPreferences {
     }
 
     public void setFavoritesStored( boolean isFavoritesStored ) {
-        sharedPreferences.edit().putBoolean("isFavoritesStored", true);
+        sharedPreferences.edit().putBoolean("isFavoritesStored", true).apply();
     }
 
     public int getLevel() {
@@ -960,6 +960,14 @@ public class CreekPreferences {
     }
 
     public void setLevel(int currentLevel) {
-        sharedPreferences.edit().putInt("previousLevel", currentLevel);
+        sharedPreferences.edit().putInt("previousLevel", currentLevel).apply();
+    }
+
+    public void setAdsEnabled( boolean adsEnabled ) {
+        sharedPreferences.edit().putBoolean("adsEnabled", true).apply();
+    }
+
+    public boolean getAdsEnabled() {
+        return sharedPreferences.getBoolean("adsEnabled", true);
     }
 }

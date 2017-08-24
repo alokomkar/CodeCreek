@@ -204,8 +204,13 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 return;
             }
         }
-        StartAppAd.onBackPressed(this);
-        super.onBackPressed();
+        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            StartAppAd.onBackPressed(this);
+            super.onBackPressed();
+        }
+        else {
+            finish();
+        }
     }
 
 }

@@ -206,8 +206,13 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             loadModulesFragment();
         }
         else {
-            StartAppAd.onBackPressed(this);
-            super.onBackPressed();
+            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+                StartAppAd.onBackPressed(this);
+                super.onBackPressed();
+            }
+            else {
+                finish();
+            }
         }
     }
 

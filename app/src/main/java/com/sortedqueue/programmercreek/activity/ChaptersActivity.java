@@ -152,8 +152,13 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         if (!title.equals("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
-            StartAppAd.onBackPressed(this);
-            super.onBackPressed();
+            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+                StartAppAd.onBackPressed(this);
+                super.onBackPressed();
+            }
+            else {
+                finish();
+            }
         }
     }
 

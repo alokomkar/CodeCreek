@@ -64,8 +64,9 @@ public class CreekApplication extends Application {
     public void onCreate() {
         super.onCreate();
         creekApplication = this;
+        creekPreferences = getCreekPreferences();
         program_indexHashMap = new HashMap<>();
-        StartAppSDK.init(this, "207164192", true);
+        StartAppSDK.init(this, "207164192", creekPreferences.getAdsEnabled());
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

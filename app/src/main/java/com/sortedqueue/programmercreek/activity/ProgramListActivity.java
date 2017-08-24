@@ -499,8 +499,13 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        StartAppAd.onBackPressed(this);
-        super.onBackPressed();
+        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            StartAppAd.onBackPressed(this);
+            super.onBackPressed();
+        }
+        else {
+            finish();
+        }
     }
 
     private CreekPreferences creekPreferences;
