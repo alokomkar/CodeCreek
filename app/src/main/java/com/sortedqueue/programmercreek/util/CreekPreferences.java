@@ -954,4 +954,12 @@ public class CreekPreferences {
     public void setFavoritesStored( boolean isFavoritesStored ) {
         sharedPreferences.edit().putBoolean("isFavoritesStored", true);
     }
+
+    public int getLevel() {
+        return sharedPreferences.getInt("previousLevel", 0);
+    }
+
+    public void setLevel(int currentLevel) {
+        sharedPreferences.edit().putInt("previousLevel", currentLevel);
+    }
 }

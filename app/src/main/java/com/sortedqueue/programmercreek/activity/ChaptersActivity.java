@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -54,6 +56,14 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     FrameLayout container;
     @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
+    @BindView(R.id.shareTextView)
+    TextView shareTextView;
+    @BindView(R.id.shareNowTextView)
+    TextView shareNowTextView;
+    @BindView(R.id.laterTextView)
+    TextView laterTextView;
+    @BindView(R.id.shareLayout)
+    RelativeLayout shareLayout;
     private FragmentTransaction mFragmentTransaction;
     private ChapterDetailsFragment chapterDetailsFragment;
     private ChaptersFragment chaptersFragment;
@@ -61,6 +71,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     private CreekPreferences creekPreferences;
     private CreekUserStats creekUserStats;
     private Runnable runnable;
+    private int previousLevel;
 
     @Override
     protected void onResume() {
@@ -86,6 +97,8 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         loadChapterFragment();
         //loadTappxFullScreenAd();
         checkFAB.setOnClickListener(this);
+        shareNowTextView.setOnClickListener(this);
+        laterTextView.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
     }
@@ -225,10 +238,24 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
 
     @Override
     public void onClick(View view) {
-        if (chapterDetailsFragment != null) {
-            chapterDetailsFragment.onScrollForward();
+        switch (view.getId()) {
+            case R.id.checkFAB :
+                if (chapterDetailsFragment != null) {
+                    chapterDetailsFragment.onScrollForward();
+                }
+                break;
+            case R.id.shareNowTextView :
+                shareNow();
+                AnimationUtils.slideOutToLeft(shareLayout);
+                break;
+            case R.id.laterTextView :
+                AnimationUtils.slideOutToLeft(shareLayout);
+                break;
         }
+
     }
+
+
 
     private int progressBarStatus;
 
@@ -279,6 +306,11 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                             @Override
                             public void run() {
                                 progressLayout.setVisibility(View.GONE);
+                                int level = creekUserStats.getCreekUserReputation() / 100;
+                                if (level > 0) {
+                                    showShareLayout(level);
+                                }
+
                             }
                         }, 1500);
 
@@ -293,6 +325,22 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
             }
         }
 
+    }
+
+    private void showShareLayout(int level) {
+        previousLevel = creekPreferences.getLevel();
+        if (previousLevel < level) {
+            shareTextView.setText("Congratulations on cracking the level "+ previousLevel +". You are moving on to next level. Let's share your progress...");
+            AnimationUtils.slideInToLeft(shareLayout);
+        }
+    }
+
+    private void shareNow() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey Friends, I've just completed level "+previousLevel+" on "+getString(R.string.app_name)+"\n\nCheck out this app : \n" + getString(R.string.app_url));
+        startActivity(Intent.createChooser(shareIntent, "Level up on : " + getString(R.string.app_name) + " App"));
     }
 
 

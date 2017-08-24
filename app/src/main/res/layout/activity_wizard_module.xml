@@ -23,12 +23,62 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:id="@+id/shareLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/shareTextView"
+            android:gravity="left"
+            tools:text="Congratulations on cracking the level 1. You are moving on to next level. Would you like so share your progress?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:text="@string/share_now"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/shareNowTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:layout_toRightOf="@+id/shareNowTextView"
+            android:text="@string/may_be_later"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/laterTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="gone"
         android:elevation="@dimen/margin_24"
         android:animateLayoutChanges="true"
         android:id="@+id/progressLayout">
@@ -61,9 +111,10 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="507dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/container">
+        android:id="@+id/container"
+        tools:layout_editor_absoluteY="58dp">
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton

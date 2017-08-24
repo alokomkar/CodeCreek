@@ -206,6 +206,58 @@ public class AnimationUtils {
 
     }
 
+    public static void slideOutToRight(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.anim_slide_out_right);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
+    public static void slideOutToLeft(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.anim_slide_out_left);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
     public static void slideOut(final View view )
     {
         if( view != null ) {
