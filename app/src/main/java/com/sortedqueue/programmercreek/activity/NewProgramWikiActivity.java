@@ -241,11 +241,11 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        /*if (!isAdShown) {
+        if (!isAdShown && interstitialAd.isLoaded() ) {
             interstitialAd.show();
             isAdShown = true;
             return;
-        }*/
+        }
         finish();
     }
 
