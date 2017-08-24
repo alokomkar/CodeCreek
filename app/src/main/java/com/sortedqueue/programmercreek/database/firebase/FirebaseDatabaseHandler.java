@@ -700,6 +700,30 @@ public class FirebaseDatabaseHandler {
 
     }
 
+    public void updateAdSettings( int isAdEnabled ) {
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/ad_settings").setValue(isAdEnabled);
+    }
+
+    public void getAdSettings(  ) {
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/ad_settings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot != null ) {
+                    int isAdEnabled = dataSnapshot.getValue(Integer.class);
+                    Log.d(TAG, "isAdEnabled : " + isAdEnabled);
+                    CreekApplication.getCreekPreferences().setAdsEnabled(isAdEnabled == 1);
+                    CreekApplication.getInstance().initAdsSdk();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
     public void updateInviteCount(final int inviteCount) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/invite_count")
                 .runTransaction(new Transaction.Handler() {

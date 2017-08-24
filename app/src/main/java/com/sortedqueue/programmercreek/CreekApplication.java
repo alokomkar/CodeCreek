@@ -66,7 +66,7 @@ public class CreekApplication extends Application {
         creekApplication = this;
         creekPreferences = getCreekPreferences();
         program_indexHashMap = new HashMap<>();
-        StartAppSDK.init(this, "207164192", creekPreferences.getAdsEnabled());
+        //initAdsSdk();
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -100,6 +100,10 @@ public class CreekApplication extends Application {
         config.setClasses(dbClasses) ;
         RushCore.initialize(config);
         //setupExceptionHandler();
+    }
+
+    public void initAdsSdk() {
+        StartAppSDK.init(this, "207164192", creekPreferences.getAdsEnabled());
     }
 
     public static CreekPreferences getCreekPreferences() {
