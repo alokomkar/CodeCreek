@@ -104,39 +104,6 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                 R.anim.anim_slide_out_left);
     }
 
-   /* private TappxInterstitial tappxInterstitial;
-    private void loadTappxFullScreenAd() {
-        tappxInterstitial = new TappxInterstitial(ChaptersActivity.this, getString(R.string.id_ad_tappx));
-        tappxInterstitial.setAutoShowWhenReady(false);
-        tappxInterstitial.loadAd();
-        tappxInterstitial.setListener(new TappxInterstitialListener() {
-            @Override
-            public void onInterstitialLoaded(TappxInterstitial tappxInterstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialLoadFailed(TappxInterstitial tappxInterstitial, TappxAdError tappxAdError) {
-
-            }
-
-            @Override
-            public void onInterstitialShown(TappxInterstitial tappxInterstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialClicked(TappxInterstitial tappxInterstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialDismissed(TappxInterstitial tappxInterstitial) {
-                finish();
-            }
-        });
-    }*/
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

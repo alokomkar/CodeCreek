@@ -101,7 +101,7 @@ public class IntroActivity extends AppCompatActivity
                     initChapter(introChapters.get(currentIndex));
                 }
                 else {
-                    finish();
+                    onBackPressed();
                     //navigateToChapters();
                 }
             }
