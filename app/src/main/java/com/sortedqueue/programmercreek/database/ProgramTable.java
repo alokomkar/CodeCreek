@@ -214,7 +214,10 @@ public class ProgramTable extends RushObject implements Parcelable {
             ProgramTable programTable = questionsList.get(randomIndex);
             if( !programTable.getProgram_Line().trim().equals("{") &&
                     !programTable.getProgram_Line().trim().equals("}")
-                    && !programTable.getProgram_Line().trim().equals("")) {
+                    && !programTable.getProgram_Line().trim().equals("")
+                    && !programTable.getProgram_Line().trim().startsWith("import")
+                    && !programTable.getProgram_Line().trim().startsWith("#include")
+                    && !programTable.getProgram_Line().trim().startsWith("clrscr()")) {
                 optionsList.add(programTable.getProgram_Line());
                 programTable.isChoice = true;
                 programTable.setProgram_Line("");
