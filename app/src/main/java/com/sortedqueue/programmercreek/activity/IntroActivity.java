@@ -26,6 +26,7 @@ import com.sortedqueue.programmercreek.database.IntroChapter;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -387,7 +388,8 @@ public class IntroActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finish();
+            StartAppAd.onBackPressed(this);
+            super.onBackPressed();
         }
     }
 

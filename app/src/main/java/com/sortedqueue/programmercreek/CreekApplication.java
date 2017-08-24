@@ -30,6 +30,7 @@ import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by Alok Omkar on 2016-12-22.
  */
 
+//https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation
 public class CreekApplication extends Application {
 
     static CreekApplication creekApplication;
@@ -63,6 +65,7 @@ public class CreekApplication extends Application {
         super.onCreate();
         creekApplication = this;
         program_indexHashMap = new HashMap<>();
+        StartAppSDK.init(this, "207164192", true);
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

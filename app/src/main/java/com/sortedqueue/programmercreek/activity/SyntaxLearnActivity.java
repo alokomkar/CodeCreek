@@ -24,6 +24,7 @@ import com.sortedqueue.programmercreek.fragments.ModuleFragment;
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -205,12 +206,8 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             loadModulesFragment();
         }
         else {
-            /*if( tappxInterstitial != null && tappxInterstitial.isReady() ) {
-                tappxInterstitial.show();
-            }
-            else */{
-                finish();
-            }
+            StartAppAd.onBackPressed(this);
+            super.onBackPressed();
         }
     }
 

@@ -21,6 +21,7 @@ import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -203,7 +204,8 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 return;
             }
         }
-        finish();
+        StartAppAd.onBackPressed(this);
+        super.onBackPressed();
     }
 
 }

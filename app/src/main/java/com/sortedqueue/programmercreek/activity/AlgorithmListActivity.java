@@ -18,6 +18,7 @@ import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment;
 import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,17 +81,6 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
                 R.anim.anim_slide_out_right);
     }
 
-    @Override
-    public void onBackPressed() {
-        /*String title = getSupportActionBar().getTitle().toString();
-        if( title.equals("Algorithms") ) {
-            finish();
-        }
-        else {
-            loadAlgoritmsListFragment();
-        }*/
-        finish();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,5 +123,11 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
         algorithmFragment = AlgorithmFragment.newInstance(algorithm);
         mFragmentTransaction.replace(R.id.container, algorithmFragment, AlgorithmFragment.class.getSimpleName());
         mFragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        StartAppAd.onBackPressed(this);
+        super.onBackPressed();
     }
 }

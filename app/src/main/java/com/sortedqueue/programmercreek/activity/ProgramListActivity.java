@@ -36,6 +36,7 @@ import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -498,7 +499,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        finish();
+        StartAppAd.onBackPressed(this);
+        super.onBackPressed();
     }
 
     private CreekPreferences creekPreferences;
