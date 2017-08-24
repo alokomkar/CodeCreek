@@ -964,7 +964,7 @@ public class CreekPreferences {
     }
 
     public void setAdsEnabled( boolean adsEnabled ) {
-        sharedPreferences.edit().putBoolean("adsEnabled", true).apply();
+        sharedPreferences.edit().putBoolean("adsEnabled", adsEnabled).apply();
     }
 
     public boolean getAdsEnabled() {
