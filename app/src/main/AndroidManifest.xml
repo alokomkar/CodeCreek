@@ -70,6 +70,16 @@
             </intent-filter>-->
         </activity>
         <activity
+            android:name=".activity.ArticleShareActivity"
+            android:label="@string/share_article"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.CodeShareHandlerActivity"
             android:label="@string/code_share"
             android:theme="@style/AppTheme.NoActionBar"

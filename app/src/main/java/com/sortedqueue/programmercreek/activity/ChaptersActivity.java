@@ -330,8 +330,10 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     private void showShareLayout(int level) {
         previousLevel = creekPreferences.getLevel();
         if (previousLevel < level) {
-            shareTextView.setText("Congratulations on cracking the level "+ previousLevel +". You are moving on to next level. Let's share your progress...");
+            previousLevel = level - 1;
+            shareTextView.setText("Congratulations on cracking the level "+ (level - 1) +". You are moving on to next level. Let's share your progress...");
             AnimationUtils.slideInToLeft(shareLayout);
+            creekPreferences.setLevel(level);
         }
     }
 
@@ -341,6 +343,8 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey Friends, I've just completed level "+previousLevel+" on "+getString(R.string.app_name)+"\n\nCheck out this app : \n" + getString(R.string.app_url));
         startActivity(Intent.createChooser(shareIntent, "Level up on : " + getString(R.string.app_name) + " App"));
+        if( shareLayout.getVisibility() != View.GONE )
+            shareLayout.setVisibility(View.GONE);
     }
 
 
