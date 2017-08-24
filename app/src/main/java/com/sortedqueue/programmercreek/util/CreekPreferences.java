@@ -968,6 +968,7 @@ public class CreekPreferences {
     }
 
     public boolean getAdsEnabled() {
+        Log.d(TAG, "getAdsEnabled : " + sharedPreferences.getBoolean("adsEnabled", false));
         return sharedPreferences.getBoolean("adsEnabled", false);
     }
 }
