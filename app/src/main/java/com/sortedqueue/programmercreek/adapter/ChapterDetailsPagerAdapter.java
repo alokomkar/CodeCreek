@@ -67,6 +67,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                             break;
                         case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
                             NewFillBlankFragment fillBlankFragment = new NewFillBlankFragment();
+                            fillBlankFragment.setBundle(bundle);
                             fillBlankFragment.setmProgram_Index(Integer.parseInt(chapterDetails.getChapterReferenceId()));
                             chapterFragments.add(fillBlankFragment);
                     }
