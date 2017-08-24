@@ -241,7 +241,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        if (!isAdShown && interstitialAd.isLoaded() ) {
+        if (!isAdShown && interstitialAd.isLoaded() && CreekApplication.getCreekPreferences().getAdsEnabled()) {
             interstitialAd.show();
             isAdShown = true;
             return;

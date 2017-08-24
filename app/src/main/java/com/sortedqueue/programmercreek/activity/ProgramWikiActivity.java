@@ -150,23 +150,25 @@ public class ProgramWikiActivity extends AppCompatActivity {
     }
 
     private void initAds() {
-        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
-        mAdView = (AdView) findViewById(R.id.adView);
-        mAdView.setVisibility(View.GONE);
-        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+            mAdView = (AdView) findViewById(R.id.adView);
+            mAdView.setVisibility(View.GONE);
+            //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
 
-        //For creating test ads
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
-                .build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                mAdView.setVisibility(View.GONE);
-            }
-        });
+            //For creating test ads
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                    .build();
+            mAdView.loadAd(adRequest);
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    mAdView.setVisibility(View.GONE);
+                }
+            });
+        }
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
         interstitialAd.setAdListener(new AdListener() {
@@ -239,7 +241,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded()  ) {
+        if (!isAdShown && interstitialAd.isLoaded() && CreekApplication.getCreekPreferences().getAdsEnabled() ) {
             interstitialAd.show();
             isAdShown = true;
             return;

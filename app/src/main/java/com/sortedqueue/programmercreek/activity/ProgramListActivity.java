@@ -129,21 +129,23 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     }
 
     private void initAds() {
-        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
-        //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
-        //For creating test ads
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
-                .build();
-        adView.loadAd(adRequest);
-        adView.setVisibility(View.GONE);
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adView.setVisibility(View.VISIBLE);
-            }
-        });
+        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+            //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
+            //For creating test ads
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                    .build();
+            adView.loadAd(adRequest);
+            adView.setVisibility(View.GONE);
+            adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    adView.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     @Override

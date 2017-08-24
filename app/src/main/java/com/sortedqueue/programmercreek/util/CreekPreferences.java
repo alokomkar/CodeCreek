@@ -968,6 +968,6 @@ public class CreekPreferences {
     }
 
     public boolean getAdsEnabled() {
-        return sharedPreferences.getBoolean("adsEnabled", true);
+        return sharedPreferences.getBoolean("adsEnabled", false);
     }
 }
