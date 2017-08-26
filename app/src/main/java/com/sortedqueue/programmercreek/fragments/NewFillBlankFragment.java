@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
@@ -250,10 +251,21 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
             if (mWizard) {
                 updateCreekStats();
             }
-            if( isAnswered )
-                checkButton.setText("Finish");
+            if( isAnswered ) {
+
+                if( mWizard ) {
+                    checkButton.setText("Finish");
+                }
+                else {
+                    checkButton.setText("Proceed");
+                }
+            }
+
         } else {
-            getActivity().finish();
+            if( mWizard )
+                getActivity().finish();
+            else
+                moduleDetailsScrollPageListener.onScrollForward();
         }
 
     }
@@ -307,5 +319,10 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
     public void setmProgram_Index(int program_index) {
         this.program_index = program_index;
+    }
+
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
+    public void setModulteDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
     }
 }

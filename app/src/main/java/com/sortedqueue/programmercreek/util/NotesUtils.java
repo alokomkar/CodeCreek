@@ -19,7 +19,7 @@ public class NotesUtils {
 
     public static boolean isCode( String noteLine ) {
 
-        if( noteLine.startsWith("#") || noteLine.endsWith(";") || noteLine.startsWith("{") || noteLine.endsWith("}")) {
+        if( noteLine.startsWith("#") || noteLine.endsWith(";") || noteLine.contains("{") || noteLine.contains("}")) {
             return true;
         }
         String[] words = noteLine.replaceAll(";", "").split(" ");

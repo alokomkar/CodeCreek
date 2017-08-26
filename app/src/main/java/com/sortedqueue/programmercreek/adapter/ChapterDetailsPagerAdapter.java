@@ -69,6 +69,7 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                             NewFillBlankFragment fillBlankFragment = new NewFillBlankFragment();
                             fillBlankFragment.setBundle(bundle);
                             fillBlankFragment.setmProgram_Index(Integer.parseInt(chapterDetails.getChapterReferenceId()));
+                            fillBlankFragment.setModulteDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
                             chapterFragments.add(fillBlankFragment);
                     }
                     break;

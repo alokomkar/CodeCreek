@@ -267,16 +267,17 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
             int postion = getAdapterPosition();
             if( postion != RecyclerView.NO_POSITION ) {
                 ProgramTable programTable = getItemAtPosition(postion);
-                programTable.setProgram_Line("");
-                if( isFillBlanks ) {
-                    questionTextView.setText("");
+                if( programTable.isChoice ) {
+                    programTable.setProgram_Line("");
+                    if( isFillBlanks ) {
+                        questionTextView.setText("");
+                    }
+                    else {
+                        questionTextView.setText(programTable.getProgram_Line_Description());
+                        questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
+                        questionTextView.setBackground(choiceDrawable);
+                    }
                 }
-                else {
-                    questionTextView.setText(programTable.getProgram_Line_Description());
-                    questionTextView.setTextColor(ContextCompat.getColor(view.getContext(), R.color.md_blue_grey_600));
-                    questionTextView.setBackground(choiceDrawable);
-                }
-
             }
             return false;
         }
