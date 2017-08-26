@@ -254,8 +254,17 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
         } else {
             if( mWizard )
                 getActivity().finish();
-            else
-                moduleDetailsScrollPageListener.onScrollForward();
+            else {
+                if( moduleDetailsScrollPageListener != null ) {
+                    moduleDetailsScrollPageListener.onScrollForward();
+                }
+                else {
+                    getActivity().finish();
+                }
+
+
+            }
+
         }
 
     }
