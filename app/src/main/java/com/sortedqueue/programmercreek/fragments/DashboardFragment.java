@@ -182,6 +182,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             testLayout.setAlpha(0.0f);
             interviewLayout.setAlpha(0.0f);
             quickReferenceLayout.setAlpha(0.0f);
+            fillLayout.setAlpha(0.0f);
             //codeLabLayout.setAlpha(0.0f);
 
             int delay = 0;
@@ -201,6 +202,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             initAnimations(quizLayout, delay);
             delay = delay + standardDelay;
             initAnimations(matchLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(fillLayout, delay);
             delay = delay + standardDelay;
             initAnimations(testLayout, delay);
 
@@ -308,6 +311,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
             case R.id.matchLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
+                break;
+
+            case R.id.fillLayout:
+                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
                 break;
 
             case R.id.quizLayout:

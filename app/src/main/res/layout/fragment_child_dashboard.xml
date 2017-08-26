@@ -616,7 +616,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/margin_16">
 
-                        <TextView 
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/match"
@@ -627,7 +627,7 @@
                             android:textSize="@dimen/text_dashboard"
                             android:gravity="center"/>
 
-                        <TextView 
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/matchTextView"
@@ -649,7 +649,7 @@
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
                     >
-                    <TextView 
+                    <TextView
                         android:layout_width="@dimen/margin_64"
                         android:layout_height="@dimen/margin_64"
                         android:text="M"
@@ -663,8 +663,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fillLayout"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/margin_16">
+                android:visibility="visible"
+                >
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"

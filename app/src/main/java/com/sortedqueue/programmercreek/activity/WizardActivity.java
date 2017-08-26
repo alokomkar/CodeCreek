@@ -114,6 +114,9 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
             case ProgrammingBuddyConstants.KEY_QUIZ:
                 loadQuizFragment( bundle );
                 break;
+            case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
+                loadFillBlanksFragment(bundle);
+                break;
         }
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,

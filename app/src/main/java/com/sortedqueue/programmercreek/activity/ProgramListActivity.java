@@ -114,6 +114,9 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
                 case ProgrammingBuddyConstants.KEY_QUIZ:
                     setTitle("Program List : Quiz");
                     break;
+                case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
+                    setTitle("Program List : Fill");
+                    break;
             }
         }
 
@@ -213,6 +216,14 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
                 mInvokeIntent.putExtras(mBundle);
                 startActivity(mInvokeIntent);
                 break;
+            case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
+                setTitle("Program List : Match");
+                //mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+                mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+                mInvokeIntent.putExtras(mBundle);
+                startActivity(mInvokeIntent);
+                break;
             case ProgrammingBuddyConstants.KEY_QUIZ:
                 setTitle("Program List : Quiz");
                 showSelectBox();
@@ -293,6 +304,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     public static final int INDEX_KEY_TEST = 2;
     public static final int INDEX_KEY_QUIZ = 3;
     public static final int INDEX_KEY_MATCH = 4;
+    public static final int INDEX_KEY_FILL = 5;
 
 
     /**
@@ -341,6 +353,15 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
                             newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
                             newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
                             newIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_MATCH);
+                            newIntent.putExtras(newIntentBundle);
+                            startActivity(newIntent);
+                            break;
+                        case INDEX_KEY_FILL:
+
+                            //newIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
+                            newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_Index);
+                            newIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                            newIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_FILL_BLANKS);
                             newIntent.putExtras(newIntentBundle);
                             startActivity(newIntent);
                             break;
@@ -485,6 +506,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
             case ProgrammingBuddyConstants.KEY_TEST:
             case ProgrammingBuddyConstants.KEY_LIST:
             case ProgrammingBuddyConstants.KEY_MATCH:
+            case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
             case ProgrammingBuddyConstants.KEY_QUIZ:
                 invokeTestIntents();
                 break;
