@@ -196,7 +196,9 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                     break;
                 }
                 ProgramTable programTable = mProgramList.get(randomIndex);
-                if( programTable.isChoice && programTable.getProgram_Line().trim().length() == 0 ) {
+                if( !programTable.isHintEnabled
+                        && programTable.isChoice 
+                        && programTable.getProgram_Line().trim().length() == 0 ) {
                     programTable.isHintEnabled = true;
                     maxHint++;
                 }
