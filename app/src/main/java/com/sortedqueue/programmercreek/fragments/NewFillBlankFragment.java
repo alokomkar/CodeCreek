@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -34,6 +35,10 @@ import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.startapp.android.publish.adsCommon.Ad;
+import com.startapp.android.publish.adsCommon.StartAppAd;
+import com.startapp.android.publish.adsCommon.VideoListener;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -323,5 +328,69 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
     public void setModulteDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
         this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
+    }
+
+    public void showRewardedVideoDialog() {
+       AuxilaryUtils.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
+               new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       showRewardedClick();
+                   }
+               },
+
+        new DialogInterface.OnDismissListener() {
+                   @Override
+                   public void onDismiss(DialogInterface dialogInterface) {
+
+                   }
+               });
+    }
+
+
+    public void showRewardedClick() {
+        final StartAppAd rewardedVideo = new StartAppAd(getContext());
+
+        /**
+         * This is very important: set the video listener to be triggered after video
+         * has finished playing completely
+         */
+        rewardedVideo.setVideoListener(new VideoListener() {
+
+            @Override
+            public void onVideoCompleted() {
+                int maxHints = (mOptionsList.size() / 2);
+                if( maxHints > 3 ) {
+                    maxHints = 3;
+                }
+                CommonUtils.displaySnackBar(getActivity(), maxHints + " new hints have been added");
+
+                matchQuestionsAdapter.addHints(maxHints);
+
+            }
+        });
+
+        /**
+         * Load rewarded by specifying AdMode.REWARDED
+         * We are using AdEventListener to trigger ad show
+         */
+        rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+
+            @Override
+            public void onReceiveAd(Ad arg0) {
+                rewardedVideo.showAd();
+            }
+
+            @Override
+            public void onFailedToReceiveAd(Ad arg0) {
+                /**
+                 * Failed to load rewarded video:
+                 * 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
+                 * See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
+                 * 2. Is android API level above 16?
+                 */
+                Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
+            }
+        });
     }
 }

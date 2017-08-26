@@ -25,6 +25,7 @@ import com.sortedqueue.programmercreek.util.DoubleClickListener;
 import com.sortedqueue.programmercreek.util.PrettifyHighlighter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +77,13 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
         if( programTable.isChoice ) {
             if( programTable.getProgram_Line().equals("") ) {
                 if( isFillBlanks ) {
-                    holder.questionTextView.setText("");
+                    if( programTable.isHintEnabled ) {
+                        holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                    }
+                    else {
+                        holder.questionTextView.setText("");
+                    }
+
                 }
                 else {
                     holder.questionTextView.setText(programTable.getProgram_Line_Description());
@@ -118,7 +125,13 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                 }
                 else {
                     if( isFillBlanks ) {
-                        holder.questionTextView.setText("");
+                        if( programTable.isHintEnabled ) {
+                            holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                        }
+                        else {
+                            holder.questionTextView.setText("");
+                        }
+
                     }
                     else
                         holder.questionTextView.setText(programTable.getProgram_Line_Description());
@@ -170,6 +183,36 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
     @Override
     public int getItemCount() {
         return mProgramList.size();
+    }
+
+    public void addHints( int maxHints ) {
+        int maxHint = 0;
+        ArrayList<Integer> indexList = new ArrayList<>();
+        for( int index = 0; index < mProgramList.size(); index++ ) {
+            int randomIndex = getRandomNumberInRange(0, mProgramList.size() - 1);
+            if( !indexList.contains(randomIndex) ) {
+                indexList.add(randomIndex);
+                if( maxHint == maxHints ) {
+                    break;
+                }
+                ProgramTable programTable = mProgramList.get(randomIndex);
+                if( programTable.isChoice && programTable.getProgram_Line().trim().length() == 0 ) {
+                    programTable.isHintEnabled = true;
+                    maxHint++;
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnDragListener, View.OnLongClickListener {

@@ -33,6 +33,8 @@ public class ProgramTable extends RushObject implements Parcelable {
     public boolean isChoice;
     @RushIgnore
     public boolean isCorrect;
+    @RushIgnore
+    public boolean isHintEnabled;
 
     public ProgramTable() {
     }

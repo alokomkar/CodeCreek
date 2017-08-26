@@ -271,4 +271,6 @@
     <string name="share_article">Share Article</string>
     <string name="content">Content</string>
     <string name="legend">Legend :</string>
+    <string name="hint_video">Reward Video</string>
+    <string name="reward_video_description">Watch a reward video to get hints</string>
 </resources>

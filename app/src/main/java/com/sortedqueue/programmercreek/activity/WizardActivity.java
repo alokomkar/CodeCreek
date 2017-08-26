@@ -70,7 +70,8 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
             showSolutionDialog( testDragNDropFragment.getmProgramList() );
         }
         else if( fillBlankFragment != null ) {
-            showSolutionDialog( fillBlankFragment.getmProgramList() );
+            //showSolutionDialog( fillBlankFragment.getmProgramList() );
+            fillBlankFragment.showRewardedVideoDialog();
         }
         else if( quizFragment != null ) {
             showSolutionDialog( quizFragment.getmProgramList() );
