@@ -226,28 +226,18 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
             quizComplete = true;
             matchQuestionsAdapter.setChecked(true, programTables);
             isAnswered = true;
-            String message = "Congratulations, you scored : " + rightAnswers + "/8";
-            switch (rightAnswers) {
-                case 0:
-                case 1:
-                case 2:
-                    message = "You need improvement, try again";
-                    break;
-                case 3:
-                case 4:
-                    message = "You are half way there, Keep coming back";
-                    break;
-                case 5:
-                case 6:
-                    message = "Almost perfect, you are one step away, retry";
-                    break;
-                case 7:
-                case 8:
-                    message = "Congratulations, you've got it";
-                    break;
+            String message = "";
+            if( rightAnswers == mOptionsList.size() ) {
+                message = "Congratulations, you've got it";
             }
-            isAnswered = rightAnswers == 8;
-            CommonUtils.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/8");
+            else if( rightAnswers < (mOptionsList.size() / 2) ) {
+                message = "You need improvement, try again";
+            }
+            else {
+                message = "Almost perfect, you are few steps away, retry";
+            }
+            isAnswered = rightAnswers == mOptionsList.size();
+            CommonUtils.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/" + mOptionsList.size());
             if (mWizard) {
                 updateCreekStats();
             }

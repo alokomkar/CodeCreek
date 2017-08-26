@@ -217,9 +217,10 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
                 startActivity(mInvokeIntent);
                 break;
             case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
-                setTitle("Program List : Match");
+                setTitle("Program List : Fill");
                 //mInvokeIntent = new Intent(ProgramListActivity.this, MatchMakerActivity.class);
                 mInvokeIntent = new Intent(ProgramListActivity.this, WizardActivity.class);
+                mInvokeIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
                 mInvokeIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_FILL_BLANKS);
                 mInvokeIntent.putExtras(mBundle);
                 startActivity(mInvokeIntent);
