@@ -34,6 +34,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.DragListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.DropListenerInterface;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface;
 import com.sortedqueue.programmercreek.interfaces.SubTestCommunicationListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
@@ -92,6 +93,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private ArrayList<ProgramTable>[] programTableArray;
     private SubTestPagerAdapter subTestPagerAdapter;
     private ArrayList<ProgramTable> mProgramTableList;
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -424,6 +426,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             checkQuizButton.setEnabled(false);
 
             mQuizComplete = true;
+            if( moduleDetailsScrollPageListener != null ) {
+                moduleDetailsScrollPageListener.toggleFABDrawable();
+            }
             updateCreekStats();
             if (mWizard == true) {
                 timerButton.setText("Finish");
@@ -638,5 +643,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     public void onDestroyView() {
         super.onDestroyView();
 
+    }
+
+    public void setModuleDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
     }
 }

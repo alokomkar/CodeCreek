@@ -117,6 +117,11 @@ public class ModuleDetailsFragment extends Fragment implements ModuleDetailsScro
 
     }
 
+    @Override
+    public void toggleFABDrawable() {
+        toggleFabDrawable(progressBar.getProgress() - 1);
+    }
+
     public void setSyntaxNavigationListener(SyntaxNavigationListener syntaxNavigationListener) {
         this.syntaxNavigationListener = syntaxNavigationListener;
     }

@@ -6,4 +6,5 @@ package com.sortedqueue.programmercreek.interfaces;
 
 public interface ModuleDetailsScrollPageListener {
     void onScrollForward();
+    void toggleFABDrawable();
 }

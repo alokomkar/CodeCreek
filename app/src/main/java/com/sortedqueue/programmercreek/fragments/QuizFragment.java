@@ -28,6 +28,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.QuizModel;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
@@ -73,6 +74,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private Bundle bundle;
     private int mInvokeMode;
     private ArrayList<ProgramTable> mProgramTableList;
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
     @Nullable
     @Override
@@ -325,6 +327,9 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
         AuxilaryUtils.displayResultAlert(getActivity(), "Quiz Complete", message, score, programSize);
         quizComplete = true;
+
+        if( moduleDetailsScrollPageListener != null ) moduleDetailsScrollPageListener.toggleFABDrawable();
+
         if (mWizard == true) {
             mTimerBtn.setText("Next");
             mTimerBtn.setEnabled(true);
@@ -429,5 +434,9 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     @Override
     public int isTestComplete() {
         return quizComplete ? ProgrammingBuddyConstants.KEY_QUIZ : -1;
+    }
+
+    public void setModuleDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
     }
 }

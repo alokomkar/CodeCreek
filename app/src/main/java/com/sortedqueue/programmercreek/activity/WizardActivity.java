@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,15 +14,16 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
-import com.sortedqueue.programmercreek.fragments.FillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.NewFillBlankFragment;
 import com.sortedqueue.programmercreek.fragments.NewMatchFragment;
 import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
-import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
+import com.startapp.android.publish.adsCommon.VideoListener;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 
 import java.util.ArrayList;
 
@@ -55,11 +57,67 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         if( item.getItemId() == R.id.action_hint ) {
-            showSolutionFromFragment();
+            showRewardedVideoDialog();
         }
         return true;
 
 
+    }
+
+    public void showRewardedVideoDialog() {
+        AuxilaryUtils.displayInformation(WizardActivity.this, R.string.hint_video, R.string.reward_video_description,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        showRewardedClick();
+                    }
+                },
+
+                new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+
+                    }
+                });
+    }
+
+    private void showRewardedClick() {
+        final StartAppAd rewardedVideo = new StartAppAd(WizardActivity.this);
+
+        /**
+         * This is very important: set the video listener to be triggered after video
+         * has finished playing completely
+         */
+        rewardedVideo.setVideoListener(new VideoListener() {
+
+            @Override
+            public void onVideoCompleted() {
+                showSolutionFromFragment();
+            }
+        });
+
+        /**
+         * Load rewarded by specifying AdMode.REWARDED
+         * We are using AdEventListener to trigger ad show
+         */
+        rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+
+            @Override
+            public void onReceiveAd(Ad arg0) {
+                rewardedVideo.showAd();
+            }
+
+            @Override
+            public void onFailedToReceiveAd(Ad arg0) {
+                /**
+                 * Failed to load rewarded video:
+                 * 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
+                 * See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
+                 * 2. Is android API level above 16?
+                 */
+                Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
+            }
+        });
     }
 
     private void showSolutionFromFragment() {
@@ -71,7 +129,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         }
         else if( fillBlankFragment != null ) {
             //showSolutionDialog( fillBlankFragment.getmProgramList() );
-            fillBlankFragment.showRewardedVideoDialog();
+            fillBlankFragment.addHintsToBlanks();
         }
         else if( quizFragment != null ) {
             showSolutionDialog( quizFragment.getmProgramList() );

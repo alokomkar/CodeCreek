@@ -53,16 +53,19 @@ public class ChapterDetailsPagerAdapter extends FragmentPagerAdapter {
                         case ProgrammingBuddyConstants.KEY_MATCH :
                             NewMatchFragment matchMakerFragment = new NewMatchFragment();
                             matchMakerFragment.setBundle(bundle);
+                            matchMakerFragment.setModuleDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
                             chapterFragments.add(matchMakerFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_TEST :
                             TestDragNDropFragment testDragNDropFragment = new TestDragNDropFragment();
                             testDragNDropFragment.setBundle(bundle);
+                            testDragNDropFragment.setModuleDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
                             chapterFragments.add(testDragNDropFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_QUIZ :
                             QuizFragment quizFragment = new QuizFragment();
                             quizFragment.setBundle(bundle);
+                            quizFragment.setModuleDetailsScrollPageListener(this.moduleDetailsScrollPageListener);
                             chapterFragments.add(quizFragment);
                             break;
                         case ProgrammingBuddyConstants.KEY_FILL_BLANKS:

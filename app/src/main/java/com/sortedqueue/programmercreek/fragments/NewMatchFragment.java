@@ -26,6 +26,8 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.ProgramIndex;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
+import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
@@ -42,7 +44,7 @@ import butterknife.ButterKnife;
  * Created by Alok Omkar on 2017-08-14.
  */
 
-public class NewMatchFragment extends Fragment implements View.OnClickListener {
+public class NewMatchFragment extends Fragment implements View.OnClickListener, TestCompletionListener {
 
     @BindView(R.id.questionRecyclerView)
     RecyclerView questionRecyclerView;
@@ -64,6 +66,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     private MatchOptionsDragAdapter matchOptionsAdapter;
     private boolean quizComplete;
     private ArrayList<String> solutionList;
+    private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
 
     @Nullable
     @Override
@@ -216,6 +219,9 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
             }
             quizComplete = true;
             matchQuestionsAdapter.setChecked(true, programTables);
+            if( moduleDetailsScrollPageListener != null ) {
+                moduleDetailsScrollPageListener.toggleFABDrawable();
+            }
             if (mWizard) {
                 checkButton.setText("Next");
             } else
@@ -256,5 +262,14 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public int isTestComplete() {
+        return quizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
+    }
+
+    public void setModuleDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {
+        this.moduleDetailsScrollPageListener = moduleDetailsScrollPageListener;
     }
 }
