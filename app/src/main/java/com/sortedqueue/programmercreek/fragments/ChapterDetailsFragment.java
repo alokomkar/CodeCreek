@@ -194,7 +194,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     @Override
     public void onScrollForward() {
         if( fabDrawable == R.drawable.ic_help_outline_white_24dp ) {
-            
+            showRewardedVideoDialog();
         }
         else {
             //Add validations here : if answer is complete - track and allow scrolling
