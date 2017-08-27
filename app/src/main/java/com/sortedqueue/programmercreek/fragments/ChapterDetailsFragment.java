@@ -143,11 +143,10 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
             } else {
                 TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
-                if (testCompletionListener.isTestComplete() != -1) {
-                    syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
-                } else {
-                    syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.left);
-                }
+                syntaxLearnViewPager.setAllowedSwipeDirection(
+                        testCompletionListener.isTestComplete() != -1 ?
+                                SwipeDirection.all :
+                                SwipeDirection.none);
             }
 
         }
