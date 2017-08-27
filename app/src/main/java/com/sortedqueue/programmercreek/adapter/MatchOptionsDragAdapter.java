@@ -64,6 +64,7 @@ public class MatchOptionsDragAdapter extends RecyclerView.Adapter<MatchOptionsDr
         return mProgramList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnTouchListener {
         @BindView(R.id.questionTextView)
         TextView questionTextView;

@@ -191,6 +191,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         if( fragment instanceof TestCompletionListener ) {
             TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
             if( testCompletionListener.isTestComplete() != -1 ) {
+                isRewardVideoShown = false;
                 fabDrawable = progress == progressBar.getMax() ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
             }
         }
@@ -198,10 +199,16 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         onChapterNavigationListener.toggleFabDrawable(fabDrawable);
     }
 
+    private boolean isRewardVideoShown = false;
     @Override
     public void onScrollForward() {
         if( fabDrawable == R.drawable.ic_help_outline_white_24dp ) {
-            showRewardedVideoDialog();
+            if( !isRewardVideoShown ) {
+                showRewardedVideoDialog();
+            }
+            else {
+                showSolutionFromFragment();
+            }
         }
         else {
             //Add validations here : if answer is complete - track and allow scrolling

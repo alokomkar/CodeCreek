@@ -217,6 +217,11 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
         return r.nextInt((max - min) + 1) + min;
     }
 
+    public void enableHints() {
+        isFillBlanks = false;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnDragListener, View.OnLongClickListener {
         @BindView(R.id.questionTextView)
         TextView questionTextView;

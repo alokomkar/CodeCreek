@@ -53,11 +53,15 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         return true;
     }
 
+    private boolean isRewardVideoShown = false;
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         if( item.getItemId() == R.id.action_hint ) {
-            showRewardedVideoDialog();
+            if( !isRewardVideoShown )
+                showRewardedVideoDialog();
+            else
+                showSolutionFromFragment();
         }
         return true;
 
@@ -76,7 +80,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-
+                        showRewardedClick();
                     }
                 });
     }
@@ -92,6 +96,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
             @Override
             public void onVideoCompleted() {
+                isRewardVideoShown = true;
                 showSolutionFromFragment();
             }
         });
@@ -185,6 +190,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadMatchMakerFragment(Bundle bundle) {
+        isRewardVideoShown = false;
         setTitle("Match : " + bundle.getString(ProgrammingBuddyConstants.KEY_PROG_TITLE, ""));
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         matchMakerFragment = new NewMatchFragment();
@@ -196,6 +202,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadTestFragment(Bundle bundle) {
+        isRewardVideoShown = false;
         setTitle("Test : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         testDragNDropFragment = (TestDragNDropFragment) getSupportFragmentManager().findFragmentByTag(TestDragNDropFragment.class.getSimpleName());
@@ -210,6 +217,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadQuizFragment(Bundle bundle) {
+        isRewardVideoShown = false;
         setTitle("Quiz : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag(QuizFragment.class.getSimpleName());
@@ -224,6 +232,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
     @Override
     public void loadFillBlanksFragment(Bundle bundle) {
+        isRewardVideoShown = false;
         setTitle("Fill blanks : " + ((ProgramIndex)(bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID))).getProgram_Description());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         fillBlankFragment = (NewFillBlankFragment) getSupportFragmentManager().findFragmentByTag(NewFillBlankFragment.class.getSimpleName());

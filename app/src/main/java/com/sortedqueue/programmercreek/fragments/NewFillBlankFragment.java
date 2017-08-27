@@ -333,12 +333,14 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     }
 
     public void addHintsToBlanks() {
-        int maxHints = (mOptionsList.size() / 2);
+        /*int maxHints = (mOptionsList.size() / 2);
         if( maxHints > 3 ) {
             maxHints = 3;
         }
         CommonUtils.displaySnackBar(getActivity(), maxHints + " new hints have been added");
 
-        matchQuestionsAdapter.addHints(maxHints);
+        matchQuestionsAdapter.addHints(maxHints);*/
+        CommonUtils.displaySnackBar(getActivity(), "Hints have been added");
+        matchQuestionsAdapter.enableHints();
     }
 }
