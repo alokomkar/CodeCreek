@@ -62,7 +62,7 @@ public class ChaptersFragment extends Fragment {
     }
 
     private void initAds() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        /*if( CreekApplication.getCreekPreferences().getAdsEnabled() )*/ {
             MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads

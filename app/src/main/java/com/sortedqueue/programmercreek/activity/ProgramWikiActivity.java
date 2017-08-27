@@ -241,7 +241,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded() && CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
             interstitialAd.show();
             isAdShown = true;
             return;
