@@ -129,7 +129,7 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                             holder.questionTextView.setText(programTable.getProgram_Line_Description());
                         }
                         else {
-                            holder.questionTextView.setText("");
+                            holder.questionTextView.setText(programTable.getProgram_Line());
                         }
 
                     }
