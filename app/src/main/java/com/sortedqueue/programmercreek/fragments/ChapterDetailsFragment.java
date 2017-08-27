@@ -130,7 +130,15 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         ChapterDetails chapterDetails = chapter.getChapterDetailsArrayList().get(position);
         if (fragment instanceof ProgramWikiFragment) {
             syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
-        } else {
+        }
+        else if( fragment instanceof TestCompletionListener ) {
+            TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
+            syntaxLearnViewPager.setAllowedSwipeDirection(
+                    testCompletionListener.isTestComplete() != -1 ?
+                            SwipeDirection.all :
+                            SwipeDirection.none);
+        }
+        else {
             if (chapterProgress != 0 && chapterProgress > chapterDetails.getProgressIndex()) {
                 syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
             } else {
@@ -223,12 +231,12 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 }
             }
         }
-        
+
     }
 
     @Override
     public void toggleFABDrawable() {
-        toggleFabDrawable(progressBar.getProgress()); 
+        toggleFabDrawable(progressBar.getProgress());
     }
 
     private void fabAction() {
