@@ -1,0 +1,131 @@
+package com.sortedqueue.programmercreek.database.lessons;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+/**
+ * Created by Alok on 28/08/17.
+ */
+
+public class BitModule implements Parcelable {
+
+    private String moduleId;
+    private String title;
+    private String description;
+    private String code;
+    private String output;
+    private String programLanguage;
+
+    public BitModule(String moduleId, String programLanguage, String title, String description, String code, String output) {
+        this.moduleId = moduleId;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.output = output;
+        this.programLanguage = programLanguage;
+    }
+
+    public BitModule(String moduleId, String programLanguage, String title, String description ) {
+        this.moduleId = moduleId;
+        this.title = title;
+        this.description = description;
+        this.programLanguage = programLanguage;
+    }
+
+    public BitModule(String moduleId, String programLanguage, String title, String description, String code) {
+        this.moduleId = moduleId;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.programLanguage = programLanguage;
+    }
+
+
+    public BitModule() {
+    }
+
+    public String getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(String moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
+    }
+
+    public String getProgramLanguage() {
+        return programLanguage;
+    }
+
+    public void setProgramLanguage(String programLanguage) {
+        this.programLanguage = programLanguage;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.moduleId);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.code);
+        dest.writeString(this.output);
+        dest.writeString(this.programLanguage);
+    }
+
+    protected BitModule(Parcel in) {
+        this.moduleId = in.readString();
+        this.title = in.readString();
+        this.description = in.readString();
+        this.code = in.readString();
+        this.output = in.readString();
+        this.programLanguage = in.readString();
+    }
+
+    public static final Parcelable.Creator<BitModule> CREATOR = new Parcelable.Creator<BitModule>() {
+        @Override
+        public BitModule createFromParcel(Parcel source) {
+            return new BitModule(source);
+        }
+
+        @Override
+        public BitModule[] newArray(int size) {
+            return new BitModule[size];
+        }
+    };
+}
