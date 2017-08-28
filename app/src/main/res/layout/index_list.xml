@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/RelativeLayout1"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    >
+    android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -65,8 +65,8 @@
             <TextView
                 android:id="@+id/txtViewProgDescription"
                 android:layout_below="@+id/completionLayout"
-                android:layout_toRightOf="@+id/programTypeTextView"
-                android:layout_toLeftOf="@+id/lockedImageView"
+                android:layout_toEndOf="@+id/programTypeTextView"
+                android:layout_toStartOf="@+id/doneImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/margin_8"
@@ -80,10 +80,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/doneImageView"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:padding="@dimen/margin_4"
+                android:src="@drawable/ic_done_all"
+                android:background="@drawable/button_check"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/lockedImageView"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/margin_8"
                 android:src="@android:drawable/ic_lock_lock"/>
             <ImageView

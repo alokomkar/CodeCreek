@@ -131,6 +131,7 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
+        holder.doneImageView.setVisibility( isAvailable ? View.VISIBLE : View.GONE );
         holder.quizTextView.setSelected(true);
         /*holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
 
@@ -179,6 +180,8 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         ImageView lockedImageView;
         @BindView(R.id.unlockedByInviteImageView)
         ImageView unlockedByInviteImageView;
+        @BindView(R.id.doneImageView)
+        ImageView doneImageView;
         @BindView(R.id.quizTextView)
         TextView quizTextView;
         @BindView(R.id.matchTextView)
