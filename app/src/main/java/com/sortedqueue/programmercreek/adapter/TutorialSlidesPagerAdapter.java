@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.sortedqueue.programmercreek.fragments.TutorialModelFragment;
-
 import java.util.ArrayList;
 
 /**
@@ -14,10 +12,10 @@ import java.util.ArrayList;
 
 public class TutorialSlidesPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<TutorialModelFragment> fragmentArrayList;
+    private ArrayList<Fragment> fragmentArrayList;
 
 
-    public TutorialSlidesPagerAdapter(FragmentManager fm, ArrayList<TutorialModelFragment> fragmentArrayList) {
+    public TutorialSlidesPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragmentArrayList) {
         super(fm);
         this.fragmentArrayList = fragmentArrayList;
     }

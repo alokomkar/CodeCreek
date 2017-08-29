@@ -314,12 +314,14 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "Summary",
                 "Let’s summarize everything about static usage in java.\n" +
                         "\n" +
-                        "1. Static members belong to class. No need to create class instance to access static members.\n" +
-                        "2. Static members (variables and methods) can be accessed inside static methods and static blocks only.\n" +
-                        "3. Non-static members cannot be accessed inside static methods, blocks and inner classes.\n" +
-                        "4. A class can have multiple static blocks and they will be executed in order they appear in class definition.\n" +
-                        "5. A class can be static only if its declared as inner class inside outer class.\n" +
+                        "1. Static members belong to class. No need to create class instance to access static members.\n\n" +
+                        "2. Static members (variables and methods) can be accessed inside static methods and static blocks only.\n\n" +
+                        "3. Non-static members cannot be accessed inside static methods, blocks and inner classes.\n\n" +
+                        "4. A class can have multiple static blocks and they will be executed in order they appear in class definition.\n\n" +
+                        "5. A class can be static only if its declared as inner class inside outer class.\n\n" +
                         "6. Static imports can be used to import all static members from a class. These members can be referred without any class reference."));
+
+        lesson.setBitModules(bitModules);
 
         lessons.add(lesson);
 

@@ -73,7 +73,6 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        checkFAB.setVisibility(View.GONE);
         loadLessons();
         initAds();
         checkFAB.setOnClickListener(this);
