@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="vertical"
-            android:background="@color/bg"
+            android:background="@color/md_green_200"
             android:layout_alignParentBottom="true"
             android:id="@+id/navigationLayout">
 
@@ -94,26 +94,17 @@
                 android:padding="@dimen/margin_4"
                 android:src="@android:drawable/ic_media_next"/>
         </RelativeLayout>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/checkFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/md_green_400"
-            android:layout_gravity="bottom|center"
-            app:srcCompat="@android:drawable/ic_media_play"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
     </android.support.v7.widget.CardView>
 
-
-
-
-
-
-
-
-
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/checkFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center"
+        app:backgroundTint="@color/md_blue_grey_300"
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,9 +21,6 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.kbiakov.codeview.CodeView;
-import io.github.kbiakov.codeview.adapters.Options;
-import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 /**
  * Created by Alok on 29/08/17.
@@ -45,6 +43,8 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
     ImageView nextImageView;
     @BindView(R.id.navigationLayout)
     RelativeLayout navigationLayout;
+    @BindView(R.id.checkFAB)
+    FloatingActionButton checkFAB;
     private BitModule bitModule;
     private int lastFirstIndicator = -1; //first - 0, last = 1
     private BitModuleNavigationListener navigationListener;
@@ -67,7 +67,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         titleTextView.setText(bitModule.getTitle());
-
+        checkFAB.setVisibility(View.GONE);
         descriptionTextView.setVisibility(View.GONE);
         if (bitModule.getDescription() != null) {
             descriptionTextView.setVisibility(View.VISIBLE);
@@ -78,12 +78,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         if (bitModule.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(bitModule.getCode()), bitModule.getProgramLanguage(), true));
-            /*codeRecyclerView
-                    .setOptions(Options.Default.get(getContext())
-                            .withLanguage(bitModule.getProgramLanguage().toLowerCase())
-                            .withCode(bitModule.getCode())
-                            .withTheme(ColorTheme.SOLARIZED_LIGHT));*/
-            //codeRecyclerView.setText(bitModule.getCode());
+            checkFAB.setVisibility(View.VISIBLE);
             codeRecyclerView.setVisibility(View.VISIBLE);
         }
 
