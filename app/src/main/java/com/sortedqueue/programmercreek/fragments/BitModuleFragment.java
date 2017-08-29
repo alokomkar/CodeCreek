@@ -20,6 +20,9 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.adapters.Options;
+import io.github.kbiakov.codeview.highlight.ColorTheme;
 
 /**
  * Created by Alok on 29/08/17.
@@ -75,6 +78,12 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         if (bitModule.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(bitModule.getCode()), bitModule.getProgramLanguage()));
+            /*codeRecyclerView
+                    .setOptions(Options.Default.get(getContext())
+                            .withLanguage(bitModule.getProgramLanguage().toLowerCase())
+                            .withCode(bitModule.getCode())
+                            .withTheme(ColorTheme.SOLARIZED_LIGHT));*/
+            //codeRecyclerView.setText(bitModule.getCode());
             codeRecyclerView.setVisibility(View.VISIBLE);
         }
 

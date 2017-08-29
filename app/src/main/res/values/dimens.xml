@@ -41,4 +41,5 @@
     <dimen name="margin_200">200dp</dimen>
     <dimen name="margin_40">40dp</dimen>
     <dimen name="divider_height">0.5dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
 </resources>
