@@ -273,4 +273,6 @@
     <string name="legend">Legend :</string>
     <string name="hint_video">Reward Video</string>
     <string name="reward_video_description">Watch a reward video to get hints</string>
+    <string name="bits_and_bytes">Bits and Bytes</string>
+    <string name="lesson_description">Bit sized lessons for Byte sized concepts</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.asynctask;
 
+import android.os.AsyncTask;
+
 import com.sortedqueue.programmercreek.database.lessons.BitModule;
 import com.sortedqueue.programmercreek.database.lessons.Lesson;
 
@@ -9,7 +11,17 @@ import java.util.ArrayList;
  * Created by Alok on 28/08/17.
  */
 
-public class LessonFetchTask {
+public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
+
+    private final LessonFetcherTaskListener mLessonListener;
+
+    public interface LessonFetcherTaskListener {
+        void onSuccess( ArrayList<Lesson> lessons );
+    }
+
+    public LessonFetchTask( LessonFetcherTaskListener lessonFetcherTaskListener ) {
+        this.mLessonListener = lessonFetcherTaskListener;
+    }
 
     //http://howtodoinjava.com/java-tutorials-list-howtodoinjava/
     public ArrayList<Lesson> getLessons() {
@@ -311,7 +323,41 @@ public class LessonFetchTask {
 
         lessons.add(lesson);
 
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency in Java");
+        lessons.add(lesson);
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Collection in Java");
+        lessons.add(lesson);
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("NIO[New IO] in Java");
+        lessons.add(lesson);
+        
         return lessons;
 
+    }
+
+    @Override
+    protected ArrayList<Lesson> doInBackground(Void... voids) {
+        return getLessons();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Lesson> lessons) {
+        super.onPostExecute(lessons);
+        mLessonListener.onSuccess(lessons);
     }
 }

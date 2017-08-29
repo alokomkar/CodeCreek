@@ -154,6 +154,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activity.LessonActivity"
+            android:label="@string/title_program_wiki"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activity.CodeLabActivity"
             android:label="@string/title_code_lab"
             android:windowSoftInputMode="adjustPan"

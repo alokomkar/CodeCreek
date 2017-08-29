@@ -22,11 +22,11 @@ import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.activity.CodeLabActivity;
 import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
+import com.sortedqueue.programmercreek.activity.LessonActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.activity.SyntaxLearnActivity;
-import com.sortedqueue.programmercreek.activity.WebViewActivity;
 import com.sortedqueue.programmercreek.adapter.AlgorithmsRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -110,6 +110,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     TextView addCodeTextView;
     @BindView(R.id.downloadFileTextView)
     TextView downloadFileTextView;
+    @BindView(R.id.lessonsLayout)
+    FrameLayout lessonsLayout;
+    @BindView(R.id.codeLabTextView)
+    TextView codeLabTextView;
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
     private AlgorithmsRecyclerAdapter algorithmsRecyclerAdapter;
@@ -165,15 +169,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 introLayout.setVisibility(View.GONE);
                 wizardLayout.setVisibility(View.GONE);
                 syntaxLayout.setVisibility(View.GONE);
+                lessonsLayout.setVisibility(View.GONE);
             } else {
                 introLayout.setVisibility(View.VISIBLE);
                 wizardLayout.setVisibility(View.VISIBLE);
                 syntaxLayout.setVisibility(View.VISIBLE);
+                lessonsLayout.setVisibility(View.VISIBLE);
             }
 
             dashboardScrollView.scrollTo(0, 0);
             introLayout.setAlpha(0.0f);
             wizardLayout.setAlpha(0.0f);
+            lessonsLayout.setAlpha(0.0f);
             syntaxLayout.setAlpha(0.0f);
             indexLayout.setAlpha(0.0f);
             wikiLayout.setAlpha(0.0f);
@@ -190,6 +197,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             initAnimations(introLayout, delay);
             delay = delay + standardDelay;
             initAnimations(wizardLayout, delay);
+            delay = delay + standardDelay;
+            initAnimations(lessonsLayout, delay);
             delay = delay + standardDelay;
             initAnimations(syntaxLayout, delay);
             delay = delay + standardDelay;
@@ -231,6 +240,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         reviseLayout.setOnClickListener(this);
         quizLayout.setOnClickListener(this);
         wizardLayout.setOnClickListener(this);
+        lessonsLayout.setOnClickListener(this);
         introLayout.setOnClickListener(this);
         fillLayout.setOnClickListener(this);
         codeLabLayout.setOnClickListener(this);
@@ -242,7 +252,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @Override
@@ -305,6 +314,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 startActivity(textModeIntent);
                 break;
 
+            case R.id.lessonsLayout:
+                Intent lessonIntent = new Intent(getContext(), LessonActivity.class);
+                startActivity(lessonIntent);
+                break;
+
             case R.id.testLayout:
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST);
                 break;
@@ -332,7 +346,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);*/
                 break;
-            case R.id.addCodeTextView :
+            case R.id.addCodeTextView:
                 dashboardNavigationListener.importCodeFile();
                 break;
         }
