@@ -14,16 +14,28 @@ public class BitModule implements Parcelable {
     private String description;
     private String code;
     private String output;
+    private String testMode;
     private String programLanguage;
 
-    public BitModule(String moduleId, String programLanguage, String title, String description, String code, String output) {
+    public BitModule(String moduleId, String programLanguage, String title, String description, String code, String testMode) {
+        this.moduleId = moduleId;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.testMode = testMode;
+        this.programLanguage = programLanguage;
+    }
+
+    public BitModule(String moduleId, String programLanguage, String title, String description, String code, String testMode, String output) {
         this.moduleId = moduleId;
         this.title = title;
         this.description = description;
         this.code = code;
         this.output = output;
+        this.testMode = testMode;
         this.programLanguage = programLanguage;
     }
+
 
     public BitModule(String moduleId, String programLanguage, String title, String description ) {
         this.moduleId = moduleId;
@@ -42,6 +54,14 @@ public class BitModule implements Parcelable {
 
 
     public BitModule() {
+    }
+
+    public String getTestMode() {
+        return testMode;
+    }
+
+    public void setTestMode(String testMode) {
+        this.testMode = testMode;
     }
 
     public String getModuleId() {
@@ -105,6 +125,7 @@ public class BitModule implements Parcelable {
         dest.writeString(this.description);
         dest.writeString(this.code);
         dest.writeString(this.output);
+        dest.writeString(this.testMode);
         dest.writeString(this.programLanguage);
     }
 
@@ -114,10 +135,11 @@ public class BitModule implements Parcelable {
         this.description = in.readString();
         this.code = in.readString();
         this.output = in.readString();
+        this.testMode = in.readString();
         this.programLanguage = in.readString();
     }
 
-    public static final Parcelable.Creator<BitModule> CREATOR = new Parcelable.Creator<BitModule>() {
+    public static final Creator<BitModule> CREATOR = new Creator<BitModule>() {
         @Override
         public BitModule createFromParcel(Parcel source) {
             return new BitModule(source);

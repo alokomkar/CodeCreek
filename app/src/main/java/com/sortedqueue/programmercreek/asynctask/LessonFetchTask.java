@@ -50,7 +50,8 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 programLanguage,
                 "Static Variable",
                 "To declare a variable static, use static keyword in variable declaration. static variable syntax is:",
-                "ACCESS_MODIFER static DATA_TYPE VARNAME;"));
+                "ACCESS_MODIFER static DATA_TYPE VARNAME;",
+                "random"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -90,6 +91,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "    public static Integer staticVar;\n" +
                         "    public Integer nonStaticVar;\n" +
                         "}",
+                        "fill",
                 "Output:\n" +
                         " \n" +
                         "10\n" +
@@ -109,7 +111,8 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 programLanguage,
                 "Static Method",
                 "To declare a static method, use static keyword in method declaration. Static method syntax is:",
-                "ACCESS_MODIFER static RETURN_TYPE METHOD_NAME;"));
+                "ACCESS_MODIFER static RETURN_TYPE METHOD_NAME;"
+                ));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -154,6 +157,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "        return staticVar;\n" +
                         "    }\n" +
                         "}",
+                "fill",
                 "Output:\n" +
                         " \n" +
                         "30\n" +
@@ -204,6 +208,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "{\n" +
                         "    public static Integer staticVar;    //static variable\n" +
                         "}",
+                "fill",
                 "Output:\n" +
                         " \n" +
                         "30"));
@@ -240,6 +245,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "        out.println(staticVar);\n" +
                         "    }\n" +
                         "}",
+                "fill",
                 "Output:\n" +
                         " \n" +
                         "40"));
@@ -266,7 +272,8 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "        Integer innerNonStaticVar = 60; \n" +
                         "        static Integer innerStaticVar = 70;     //static variable inside inner class\n" +
                         "    }\n" +
-                        "}"));
+                        "}"
+        ,"fill"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -304,6 +311,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "        }\n" +
                         "    }\n" +
                         "}",
+                "fill",
                         "Output:\n" +
                                 " \n" +
                                 "40"));

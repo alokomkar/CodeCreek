@@ -70,6 +70,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
         titleTextView.setText(bitModule.getTitle());
         checkFAB.setVisibility(View.GONE);
+        checkFAB.setOnClickListener(this);
         descriptionTextView.setVisibility(View.GONE);
         if (bitModule.getDescription() != null) {
             descriptionTextView.setVisibility(View.VISIBLE);
@@ -80,7 +81,6 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         if (bitModule.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(bitModule.getCode()), bitModule.getProgramLanguage(), true));
-            checkFAB.setVisibility(View.VISIBLE);
             codeRecyclerView.setVisibility(View.VISIBLE);
         }
 
@@ -94,6 +94,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         nextImageView.setOnClickListener(this);
         backImageView.setVisibility(lastFirstIndicator == 0 ? View.GONE : View.VISIBLE);
         nextImageView.setVisibility(lastFirstIndicator == 1 ? View.GONE : View.VISIBLE);
+        checkFAB.setVisibility(bitModule.getTestMode() == null ? View.GONE : View.VISIBLE);
         if( lastFirstIndicator == 1 ) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
@@ -117,6 +118,21 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.checkFAB:
+                if( lastFirstIndicator == 1 ) {
+                    getActivity().onBackPressed();
+                }
+                else {
+                    if( bitModule.getTestMode() != null ) {
+                        switch ( bitModule.getTestMode() ) {
+                            case "fill" :
+                                break;
+                            case "random" :
+                                break;
+                        }
+                    }
+                }
+                break;
             case R.id.nextImageView:
                 navigationListener.onMoveForward();
                 break;

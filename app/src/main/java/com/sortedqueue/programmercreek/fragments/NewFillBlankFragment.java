@@ -186,7 +186,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mOptionsList.size() <= 4) {
-            optionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            optionRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
         } else {
             //optionRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
             optionRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
