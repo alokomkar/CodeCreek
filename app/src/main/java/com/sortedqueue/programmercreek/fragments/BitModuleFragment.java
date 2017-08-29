@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.lessons.BitModule;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
@@ -92,6 +94,11 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         nextImageView.setOnClickListener(this);
         backImageView.setVisibility(lastFirstIndicator == 0 ? View.GONE : View.VISIBLE);
         nextImageView.setVisibility(lastFirstIndicator == 1 ? View.GONE : View.VISIBLE);
+        if( lastFirstIndicator == 1 ) {
+            checkFAB.setVisibility(View.VISIBLE);
+            checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
+        }
+
     }
 
     public void setBitModule(BitModule bitModule) {

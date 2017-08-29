@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
-        android:layout_margin="@dimen/margin_16"
+        android:layout_margin="@dimen/margin_8"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
         android:id="@+id/cardView">
