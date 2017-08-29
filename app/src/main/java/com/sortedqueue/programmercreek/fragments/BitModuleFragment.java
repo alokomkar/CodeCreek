@@ -77,7 +77,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         codeRecyclerView.setVisibility(View.GONE);
         if (bitModule.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(bitModule.getCode()), bitModule.getProgramLanguage()));
+            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(bitModule.getCode()), bitModule.getProgramLanguage(), true));
             /*codeRecyclerView
                     .setOptions(Options.Default.get(getContext())
                             .withLanguage(bitModule.getProgramLanguage().toLowerCase())

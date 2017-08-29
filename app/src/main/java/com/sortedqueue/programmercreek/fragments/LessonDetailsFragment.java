@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.database.lessons.BitModule;
 import com.sortedqueue.programmercreek.database.lessons.Lesson;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
         ((BitModuleFragment) (fragments.get(0))).setLastFirstIndicator(0);
         ((BitModuleFragment) (fragments.get(fragments.size() - 1))).setLastFirstIndicator(1);
         lessonDetailsViewPager.setAdapter(new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments));
-        lessonDetailsViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        lessonDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         lessonDetailsViewPager.setOffscreenPageLimit(fragments.size());
         CommonUtils.dismissProgressDialog();
     }

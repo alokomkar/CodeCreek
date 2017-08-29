@@ -56,8 +56,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout progressLayout;
     @BindView(R.id.container)
     FrameLayout container;
-    @BindView(R.id.checkFAB)
-    FloatingActionButton checkFAB;
+
     private FragmentTransaction mFragmentTransaction;
     private LessonsFragment lessonsFragment;
     private boolean isFirstTime;
@@ -68,14 +67,14 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wizard_module);
+        setContentView(R.layout.activity_lesson);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         loadLessons();
         initAds();
-        checkFAB.setOnClickListener(this);
+
         shareNowTextView.setOnClickListener(this);
         laterTextView.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -118,9 +117,6 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.checkFAB :
-
-                break;
             case R.id.shareNowTextView :
                 shareNow("");
                 AnimationUtils.slideOutToLeft(shareLayout);

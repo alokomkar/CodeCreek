@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
     android:orientation="vertical"
@@ -13,7 +14,8 @@
         app:cardBackgroundColor="@color/white"
         android:layout_margin="@dimen/margin_16"
         app:cardCornerRadius="@dimen/cardview_default_radius"
-        app:cardElevation="@dimen/cardview_default_elevation">
+        app:cardElevation="@dimen/cardview_default_elevation"
+        android:id="@+id/cardView">
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,12 +42,18 @@
                     android:padding="@dimen/margin_8"
                     android:text="@string/index_description"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@color/bg" />
+
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:text="@string/about_string"
                     android:background="@color/white"
+                    tools:listitem="@layout/item_code"
                     android:id="@+id/codeRecyclerView"/>
 
                 <TextView
@@ -86,7 +94,18 @@
                 android:padding="@dimen/margin_4"
                 android:src="@android:drawable/ic_media_next"/>
         </RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/checkFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/md_green_400"
+            android:layout_gravity="bottom|center"
+            app:srcCompat="@android:drawable/ic_media_play"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </android.support.v7.widget.CardView>
+
+
 
 
 

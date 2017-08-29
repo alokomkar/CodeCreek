@@ -32,6 +32,7 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
     private String programLanguage;
     private int editableIndex = -1;
     private String TAG = CodeEditorRecyclerAdapter.class.getSimpleName();
+    private boolean codeMode = false;
 
     public CodeEditorRecyclerAdapter(Context context, ArrayList<String> programLines, String programLanguage) {
         this.context = context;
@@ -40,9 +41,19 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
         this.prettifyHighlighter = PrettifyHighlighter.getInstance();
     }
 
+    public CodeEditorRecyclerAdapter(Context context, ArrayList<String> programLines, String programLanguage, boolean codeMode) {
+        this.context = context;
+        this.codeMode = codeMode;
+        this.programLines = programLines;
+        this.programLanguage = programLanguage;
+        this.prettifyHighlighter = PrettifyHighlighter.getInstance();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_edit_code, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                codeMode ? R.layout.item_code
+                : R.layout.item_edit_code, parent, false);
         return new ViewHolder(view);
     }
 

@@ -261,7 +261,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/md_blue_grey_300"
+                    android:background="@color/md_yellow_700"
                     android:layout_marginLeft="@dimen/margin_32"
                     android:elevation="@dimen/margin_8"
                     android:orientation="vertical"
