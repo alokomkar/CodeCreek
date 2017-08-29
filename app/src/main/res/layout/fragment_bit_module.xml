@@ -103,6 +103,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|center"
+        app:elevation="@dimen/margin_16"
         app:backgroundTint="@color/md_blue_grey_300"
         app:srcCompat="@android:drawable/ic_menu_help" />
 
