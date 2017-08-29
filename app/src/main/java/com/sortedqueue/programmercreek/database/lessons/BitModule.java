@@ -30,9 +30,9 @@ public class BitModule implements Parcelable {
         this.moduleId = moduleId;
         this.title = title;
         this.description = description;
-        this.code = code;
-        this.output = output;
-        this.testMode = testMode;
+        this.code = code.equals("") ? null : code;
+        this.output = output.equals("") ? null : output;
+        this.testMode = testMode.equals("") ? null : testMode;
         this.programLanguage = programLanguage;
     }
 

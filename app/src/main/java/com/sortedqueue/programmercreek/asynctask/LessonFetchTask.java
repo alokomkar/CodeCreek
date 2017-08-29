@@ -34,7 +34,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         Lesson lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
-        lesson.setTitle("Object Oriented Principles");
+        lesson.setTitle("Object Oriented Principles - Static Keyword");
 
         ArrayList<BitModule> bitModules = new ArrayList<>();
         bitModules.add(new BitModule(
@@ -333,10 +333,416 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
 
         lessons.add(lesson);
 
+        moduleIndex = 1;
+
         lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
-        lesson.setTitle("Concurrency in Java");
+        lesson.setTitle("Constructors - O O Principles");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Constructors",
+                "Java constructors are special methods (without return type) which allow you to fully initialize the object state before it can be used by other classes inside application. Constructors in java are invoked using new keyword.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What are Constructors",
+                "Constructors are special method like (no exactly methods) constructs which helps programmer in writing object initialization code, before the object is available for use by other objects in the application.\n" +
+                        "\n" +
+                        "Whenever application needs a new instance of any class, JVM allocates a memory area inside heap. Then JVM executes the invoked constructor (class can have multiple constructors) and initialize the object state. Inside constructor, you can access all object attributes and assign them to their default values or any desired values.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Initializing a constructor - \"new\" keyword",
+                "Initializing an Object\n" +
+                        "\n" +
+                        "Here's the code for the Point class:\n" +
+                        "\n",
+
+                        "public class Point {\n" +
+                        "    public int x = 0;\n" +
+                        "    public int y = 0;\n" +
+                        "    //constructor\n" +
+                        "    public Point(int a, int b) {\n" +
+                        "        x = a;\n" +
+                        "        y = b;\n" +
+                        "    }\n" +
+                        "}\n",
+                "fill",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Default Constructor (no-arg constructor)",
+                "In case, programmer does not provide any constructor in class definition – JVM provides a default constructor to the class in runtime.\n" +
+                        "\n" +
+                        "Programmer also can override default constructor in class. Let’s look at the syntax.",
+                "public class Employee \n" +
+                        "{   \n" +
+                        "    public Employee() {\n" +
+                        "         \n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "In default constructor, name of the constructor MUST match the class name and it should not have any parameters."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Parameterized Constructor via Constructor Overloading",
+                "As stated above, there can be multiple constructors inside a class. This is possible by having overloaded constructors. In constructor overloading, you can pass list of arguments as per requirements i.e. how many ways a class can be initialized.",
+                "public class Employee {\n" +
+                        "    private String firstName;\n" +
+                        "    private String lastName;\n" +
+                        " \n" +
+                        "    public Employee() { //constructor 1\n" +
+                        " \n" +
+                        "    }\n" +
+                        " \n" +
+                        "    public Employee(String firstName) { //constructor 2\n" +
+                        " \n" +
+                        "    }\n" +
+                        " \n" +
+                        "    public Employee(String firstName, String lastName) { //constructor 3\n" +
+                        " \n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "In above class, we have defined 3 constructors to handle 3 situations – how the employee object might be required to create by the application i.e. without name, with first name only and with first and last name both.\n" +
+                        "Employee employee1 = new Employee();\n" +
+                        "Employee employee2 = new Employee(\"Lokesh\");\n" +
+                        "Employee employee3 = new Employee(\"Lokesh\", \"Gupta\");"));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Constructor Rules",
+                "There are few mandatory rules for creating the constructors in java.\n" +
+                        "\n" +
+                        "\n1. Constructor name MUST be same as name of the class.\n" +
+                        "\n2. There cannot be any return type in constructor definition.\n" +
+                        "\n3. There cannot be any return statement in constructor.\n" +
+                        "\n4. Constructors can be overloaded by different arguments.\n" +
+                        "\n5. If you want to use super() i.e. super class constructor then it must be first statement inside constructor.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Constructor Chaining",
+                "In java, it’s possible to call other constructors inside a constructor. It’s just like method calling but without any reference variable (obviously as instance is fully initialized as of now).\n" +
+                        "\n" +
+                        "Now we can call constructors of either same class or of parent class. Both uses different syntax.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Call same class constructor",
+                "To call other constructors from same class, use this keyword. For example,",
+                "public Employee() { \n" +
+                        "     \n" +
+                        "}\n" +
+                        " \n" +
+                        "public Employee(String firstName) { \n" +
+                        "    this();     //calling default constructor\n" +
+                        "}\n" +
+                        " \n" +
+                        "public Employee(String firstName, String lastName) {\n" +
+                        "    this(firstName);    //calling constructor with single argument of String type\n" +
+                        "}",
+                "fill",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Call super class constructor",
+                "To call constructors from super or parent class, use super keyword. The usage of super keyword is similar to this keyword – only difference is that super refers to super class and this refers to current instance.",
+                "public Employee() { \n" +
+                        "    //refer to Object class constructor \n" +
+                        "    //as it is parent class for every class\n" +
+                        "    super();    \n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Private Constructors",
+                "Sometimes you want to protect the constructor from being called by other classes. Altogether you want that nobody should be able to create a new instance of the class.\n" +
+                        "\n" +
+                        "Why anybody would want that? Well, it’s necessary for singleton pattern. In singleton, an application wants to have one and only one instance of any class.\n" +
+                        "\n" +
+                        "A common singleton class definition looks like this:",
+                "public class DemoSingleton implements Serializable \n" +
+                        "{\n" +
+                        "    private static final long serialVersionUID = 1L;\n" +
+                        "  \n" +
+                        "    private DemoSingleton() {\n" +
+                        "        // private constructor\n" +
+                        "    }\n" +
+                        "  \n" +
+                        "    private static class DemoSingletonHolder {\n" +
+                        "        public static final DemoSingleton INSTANCE = new DemoSingleton();\n" +
+                        "    }\n" +
+                        "  \n" +
+                        "    public static DemoSingleton getInstance() {\n" +
+                        "        return DemoSingletonHolder.INSTANCE;\n" +
+                        "    }\n" +
+                        "  \n" +
+                        "    protected Object readResolve() {\n" +
+                        "        return getInstance();\n" +
+                        "    }\n" +
+                        "}",
+                "fill",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        /*bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "",
+                "",
+                "",
+                "",
+                ""));
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);*/
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency : the beginning");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Concurrency? What's that?",
+                "In simple words, concurrency is the ability to run several programs or several parts of a program in parallel. Concurrency enable a program to achieve high performance and throughput by utilizing the untapped capabilities of underlying operating system and machine hardware. e.g. modern computers has several CPU’s or several cores within one CPU, program can utilize all cores for some part of processing; thus completing task much before in time in comparison to sequential processing.\n" +
+                        "\n" +
+                        "The backbone of java concurrency are threads. A thread is a lightweight process which has its own call stack, but can access shared data of other threads in the same process. A Java application runs by default in one process. Within a Java application you can work with many threads to achieve parallel processing or concurrency.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What makes java application concurrent?",
+                "The very first class, you will need to make a java class concurrent, is java.lang.Thread class. This class is the basis of all concurrency concepts in java. Then you have java.lang.Runnable interface to abstract the thread behavior out of thread class.\n" +
+                        "\n" +
+                        "Other classes you will need to build advance applications can be found at java.util.concurrent package added in Java 1.5.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Is java concurrency really that simple?",
+                "Concurrent applications usually have more complex design in comparison to single threaded application. Code executed by multiple threads accessing shared data need special attention. Errors arising from incorrect thread synchronization are very hard to detect, reproduce and fix. They usually shows up in higher environments like production, and replicating the error is sometimes not possible in lower environments.\n" +
+                        "\n" +
+                        "Apart from complex defects, concurrency requires more resources to run the application. So make sure, you have sufficient resources in your kitty.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Is java concurrency really that simple?",
+                "Concurrent applications usually have more complex design in comparison to single threaded application. Code executed by multiple threads accessing shared data need special attention. Errors arising from incorrect thread synchronization are very hard to detect, reproduce and fix. They usually shows up in higher environments like production, and replicating the error is sometimes not possible in lower environments.\n" +
+                        "\n" +
+                        "Apart from complex defects, concurrency requires more resources to run the application. So make sure, you have sufficient resources in your kitty.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multi-threading Evolution",
+                "As per JDK 1.x release, there were only few classes present in this initial release. To be very specific, there classes/interfaces were:\n" +
+                        "\n" +
+                        "    java.lang.Thread\n" +
+                        "    java.lang.ThreadGroup\n" +
+                        "    java.lang.Runnable\n" +
+                        "    java.lang.Process\n" +
+                        "    java.lang.ThreadDeath\n" +
+                        "    and some exception classes\n" +
+                        "\n" +
+                        "e.g.\n" +
+                        "\n" +
+                        "    java.lang.IllegalMonitorStateException\n" +
+                        "    java.lang.IllegalStateException\n" +
+                        "    java.lang.IllegalThreadStateException.\n" +
+                        "\n" +
+                        "It also had few synchronized collections e.g. java.util.Hashtable.\n" +
+                        "\n" +
+                        "JDK 1.2 and JDK 1.3 had no noticeable changes related to multi-threading. (Correct me if I have missed anything).\n" +
+                        "\n" +
+                        "JDK 1.4, there were few JVM level changes to suspend/resume multiple threads with single call. But no major API changes were present.\n" +
+                        "\n" +
+                        "JDK 1.5 was first big release after JDK 1.x; and it had included multiple concurrency utilities. Executor, semaphore, mutex, barrier, latches, concurrent collections and blocking queues; all were included in this release itself. The biggest change in java multi-threading applications cloud happened in this release.\n" +
+                        "\n" +
+                        "    Read full set of changes in this link: http://docs.oracle.com/javase/1.5.0/docs/guide/concurrency/overview.html\n" +
+                        "\n" +
+                        "JDK 1.6 was more of platform fixes than API upgrades. So new change was present in JDK 1.6.\n" +
+                        "\n" +
+                        "JDK 1.7 added support for ForkJoinPool which implemented work-stealing technique to maximize the throughput. Also Phaser class was added.\n" +
+                        "\n" +
+                        "JDK 1.8 is largely known for Lambda changes, but it also had few concurrency changes as well. Two new interfaces and four new classes were added in java.util.concurrent package e.g. CompletableFuture and CompletionException.\n" +
+                        "\n" +
+                        "The Collections Framework has undergone a major revision in Java 8 to add aggregate operations based on the newly added streams facility and lambda expressions; resulting in large number of methods added in almost all Collection classes, and thus in concurrent collections as well.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency : Thread safety");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Thread Safety",
+                "Defining thread safety is surprisingly tricky. A quick Google search turns up numerous “definitions” like these:\n" +
+                        "\n" +
+                        "\n1. Thread-safe code is code that will work even if many Threads are executing it simultaneously.\n" +
+                        "\n2. A piece of code is thread-safe if it only manipulates shared data structures in a manner that guarantees safe execution by multiple threads at the same time.\n" +
+                        "\n" +
+                        "And there are more similar definitions.\n" +
+                        "\n" +
+                        "Don’t you think that definitions like above actually does not communicate anything meaningful and even add some more confusion. Though these definitions can’t be ruled out just like that, because they are not wrong. But the fact is they do not provide any practical help or perspective. How do we make a difference between a thread-safe class and an unsafe one? What do we even mean by “safe”?",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What is Correctness in thread safety?",
+                "At the heart of any reasonable definition of thread safety is the concept of correctness. So, before understanding the thread-safety we should understand first, this “correctness“.\n" +
+                        "\n" +
+                        "    Correctness means that a class conforms to its specification.\n" +
+                        "\n" +
+                        "You will agree that a good class specification will have all information about a class’s state at any given time and it’s post condition if some operation is performed on it. Since we often don’t write adequate specifications for our classes, how can we possibly know they are correct? We can’t, but that doesn’t stop us from using them anyway once we’ve convinced ourselves that “the code works”. This “code confidence” is about as close as many of us get to correctness.\n" +
+                        "\n" +
+                        "Having optimistically defined “correctness” as something that can be recognized, we can now define thread safety in a somewhat less circular way: a class is thread-safe when it continues to behave correctly when accessed from multiple threads.\n" +
+                        "\n" +
+                        "    A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional synchronization or other coordination on the part of the calling code.\n" +
+                        "\n" +
+                        "If the loose use of “correctness” here bothers you, you may prefer to think of a thread-safe class as one that is no more broken in a concurrent environment than in a single-threaded environment. Thread-safe classes encapsulate any needed synchronization so that clients need not provide their own",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Example: A Stateless Servlet",
+                "A good example of thread safe class is java servlets which have no fields and references, no fields from other classes etc. They are stateless.",
+                "public class StatelessFactorizer implements Servlet \n" +
+                        "{\n" +
+                        "    public void service(ServletRequest req, ServletResponse resp) \n" +
+                        "    {\n" +
+                        "        BigInteger i = extractFromRequest(req);\n" +
+                        "        BigInteger[] factors = factor(i);\n" +
+                        "        encodeIntoResponse(resp, factors);\n" +
+                        "    }\n" +
+                        "}",
+                "fill",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Example: A Stateless Servlet",
+                "The transient state for a particular computation exists solely in local variables that are stored on the thread’s stack and are accessible only to the executing thread. One thread accessing a StatelessFactorizer cannot influence the result of another thread accessing the same StatelessFactorizer; because the two threads do not share state, it is as if they were accessing different instances. Since the actions of a thread accessing a stateless object cannot affect the correctness of operations in other threads, stateless objects are thread-safe.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
         lesson = new Lesson();
