@@ -163,6 +163,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             adaScrollView.setVisibility(View.VISIBLE);
             new FirebaseDatabaseHandler(getContext()).getAllAlgorithmIndex(this);
         } else {
+            if( null == dashboardScrollView ) {
+                return;
+            }
             dashboardScrollView.setVisibility(View.VISIBLE);
             adaScrollView.setVisibility(View.GONE);
             if (creekPreferences.isProgramsOnly()) {

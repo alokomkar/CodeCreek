@@ -16,6 +16,7 @@ public class BitModule implements Parcelable {
     private String output;
     private String testMode;
     private String programLanguage;
+    private String imageUrl;
 
     public BitModule(String moduleId, String programLanguage, String title, String description, String code, String testMode) {
         this.moduleId = moduleId;
@@ -36,6 +37,17 @@ public class BitModule implements Parcelable {
         this.programLanguage = programLanguage;
     }
 
+    public BitModule(String moduleId, String programLanguage, String title, String description, String code, String testMode, String output, String imageUrl) {
+        this.moduleId = moduleId;
+        this.title = title;
+        this.description = description;
+        this.code = code.equals("") ? null : code;
+        this.output = output.equals("") ? null : output;
+        this.testMode = testMode.equals("") ? null : testMode;
+        this.programLanguage = programLanguage;
+        this.imageUrl = imageUrl;
+    }
+
 
     public BitModule(String moduleId, String programLanguage, String title, String description ) {
         this.moduleId = moduleId;
@@ -54,6 +66,14 @@ public class BitModule implements Parcelable {
 
 
     public BitModule() {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getTestMode() {
@@ -127,6 +147,7 @@ public class BitModule implements Parcelable {
         dest.writeString(this.output);
         dest.writeString(this.testMode);
         dest.writeString(this.programLanguage);
+        dest.writeString(this.imageUrl);
     }
 
     protected BitModule(Parcel in) {
@@ -137,6 +158,7 @@ public class BitModule implements Parcelable {
         this.output = in.readString();
         this.testMode = in.readString();
         this.programLanguage = in.readString();
+        this.imageUrl = in.readString();
     }
 
     public static final Creator<BitModule> CREATOR = new Creator<BitModule>() {

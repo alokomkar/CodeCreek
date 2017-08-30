@@ -338,7 +338,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
-        lesson.setTitle("Constructors - O O Principles");
+        lesson.setTitle("Constructors - Object Oriented Principles");
 
         bitModules = new ArrayList<>();
 
@@ -423,8 +423,8 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "",
                 "In above class, we have defined 3 constructors to handle 3 situations – how the employee object might be required to create by the application i.e. without name, with first name only and with first and last name both.\n" +
                         "Employee employee1 = new Employee();\n" +
-                        "Employee employee2 = new Employee(\"Lokesh\");\n" +
-                        "Employee employee3 = new Employee(\"Lokesh\", \"Gupta\");"));
+                        "Employee employee2 = new Employee(\"Mark\");\n" +
+                        "Employee employee3 = new Employee(\"Mark\", \"Wahlberg\");"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -519,11 +519,22 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
-        /*bitModules.add(new BitModule(
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Inheritance : Object Oriented");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
                 programLanguage,
-                "",
-                "",
+                "Inheritance",
+                "Inheritance in java (IS-A relationship) is referred to the ability where child objects inherit or acquire all the properties and behaviors from parent object. In object oriented programming, inheritance is used to promote the code re-usability.\n" +
+                        "\n" +
+                        "In this tutorial, we will learn about inheritance types and how inheritance is achieved in java programming.",
                 "",
                 "",
                 ""));
@@ -531,17 +542,10 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
                 programLanguage,
-                "",
-                "",
-                "",
-                "",
-                ""));
-
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "",
-                "",
+                "Inheritance in detail",
+                "As said before, inheritance is all about inheriting the common state and behavior of parent class (super class) by it’s derived class (sub class or child class). A sub class can inherit all non-private members from super class, by default.\n" +
+                        "\n" +
+                        "In java, extends keyword is used for inheritance between classes. let’s see a quick inheritance example.",
                 "",
                 "",
                 ""));
@@ -549,8 +553,98 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
                 programLanguage,
+                "Java Inheritance Example",
+                "Let’s say we have Employee class. This class has all common attributes and methods which all employees must have within organization. There can be other specialized employees as well e.g. Manager. Managers are regular employees of organization but, additionally, they have few more attributes over other employees e.g. they have reportees or subordinates.\n" +
+                        "\n" +
+                        "Let’s design above classes.\n" +
+                        "\n" +
+                        "Employee.java",
+                "Employee.java\n" +
+                        "\n" +
+                        "public class Employee \n" +
+                        "{   \n" +
+                        "    private Long id;\n" +
+                        "    private String firstName;\n" +
+                        "    private String lastName;\n" +
+                        "     \n" +
+                        "    public Long getId() {\n" +
+                        "        return id;\n" +
+                        "    }\n" +
+                        "    public void setId(Long id) {\n" +
+                        "        this.id = id;\n" +
+                        "    }\n" +
+                        "    public String getFirstName() {\n" +
+                        "        return firstName;\n" +
+                        "    }\n" +
+                        "    public void setFirstName(String firstName) {\n" +
+                        "        this.firstName = firstName;\n" +
+                        "    }\n" +
+                        "    public String getLastName() {\n" +
+                        "        return lastName;\n" +
+                        "    }\n" +
+                        "    public void setLastName(String lastName) {\n" +
+                        "        this.lastName = lastName;\n" +
+                        "    }\n" +
+                        "    @Override\n" +
+                        "    public String toString() {\n" +
+                        "        return \"Employee [id=\" + id + \", firstName=\" + firstName + \", lastName=\" + lastName + \"]\";\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "Manager.java\n" +
+                        "\n" +
+                        "import java.util.List;\n" +
+                        " \n" +
+                        "public class Manager extends Employee \n" +
+                        "{\n" +
+                        "    private List<Employee> subordinates;\n" +
+                        " \n" +
+                        "    public List<Employee> getSubordinates() {\n" +
+                        "        return subordinates;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    public void setSubordinates(List<Employee> subordinates) {\n" +
+                        "        this.subordinates = subordinates;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    @Override\n" +
+                        "    public String toString() {\n" +
+                        "        return \"Manager [subordinates=\" + subordinates + \", details=\" + super.toString() + \"]\";\n" +
+                        "    }\n" +
+                        "}",
                 "",
-                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "How it works?",
+                "In previous implementation, employees have common attributes like id, first name and last name; while manager has it’s specialized subordinates attribute only. To inherit all non-private members from Employee class (in this case getter and setter methods), Manager extends Employee is used.\n" +
+                        "\n" +
+                        "Let’s see how it works?",
+                "public class Main {\n" +
+                        "    public static void main(String[] args) \n" +
+                        "    {\n" +
+                        "        Manager mgr = new Manager();\n" +
+                        "        mgr.setId(1L);\n" +
+                        "        mgr.setFirstName(\"Mark\");\n" +
+                        "        mgr.setLastName(\"Wahlberg\");\n" +
+                        "         \n" +
+                        "        System.out.println(mgr);\n" +
+                        "    }\n" +
+                        "}",
+                "Fill",
+                "Output:\n" +
+                        " \n" +
+                        "Manager [subordinates=null, details=Employee [id=1, firstName=Mark, lastName=Wahlberg]]\n\n" +
+                        "Clearly, Manager class is able to use members of Employee class. This very behavior is called inheritance. Simple, isn’t it?\n" +
+                        "\n" +
+                        "Now consider if we do not use inheritance. Then we would have defined id, firstName and lastName in both classes. It would have caused code duplication which always create problems in code maintenance."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Types of Inheritance in Java",
+                "In java, inheritance can be one of four types – depending on classes hierarchy. Let’s learn about all four types of inheritances.",
                 "",
                 "",
                 ""));
@@ -558,22 +652,188 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
                 programLanguage,
+                "Single Inheritance",
+                "This one is simple. There is one Parent class and one Child class. One child class extends one parent class. It’s single inheritance. The above example code (employee and manager) is example of single inheritance.",
                 "",
+                "",
+                "",
+                "http://howtodoinjava.com/wp-content/uploads/2017/06/Single-Inheritance-Example.png"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multilevel Inheritance",
+                "In multilevel inheritance, there will be inheritance between more than three classes in such a way that a child class will act as parent class for another child class. Let’s understand with a diagram.",
+                "",
+                "",
+                "In above example, Class B extends class A, so class B is child class of class A. But C extends B, so B is parent class of C. So B is parent class as well as child class also."
+        ,"http://howtodoinjava.com/wp-content/uploads/2017/06/Multilevel-Inheritance.png"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Hierarchical Inheritance",
+                "In hierarchical inheritance, there is one super class and more than one sub classes extend the super class.",
+                "",
+                "",
+                "These subclasses B, C, D will share the common members inherited from A, but they will not be aware of members from each other.",
+                "http://howtodoinjava.com/wp-content/uploads/2017/06/Hierarchical-Inheritance.png"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multiple inheritance",
+                "In multiple inheritance, a class can inherit the behavior from more than one parent classes as well. Let’s understand with diagram.",
+                "",
+                "",
+                "In diagram, D is extending class A and B, both. In this way, D can inherit the non-private members of both the classes.\n" +
+                        "\n" +
+                        "BUT, in java, you cannot use extends keyword with two classes. So, how multiple inheritance will work?\n" +
+                        "\n" +
+                        "Till JDK 1.7, multiple inheritance was not possible in java. But from JDK 1.8 onwards, multiple inheritance is possible via use of interfaces with default methods."
+        ,"http://howtodoinjava.com/wp-content/uploads/2017/06/Multiple-inheritance.png"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Hierarchical Inheritance",
+                "In hierarchical inheritance, there is one super class and more than one sub classes extend the super class.",
+                "",
+                "",
+                "These subclasses B, C, D will share the common members inherited from A, but they will not be aware of members from each other.",
+                "http://howtodoinjava.com/wp-content/uploads/2017/06/Hierarchical-Inheritance.png"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Accessing Inherited Super Class Members",
+                "Now we know that using four types of inheritance mechanisms, we can access non-private members of parent classes. Let’s see how individual member can be accessed.",
                 "",
                 "",
                 "",
                 ""));
-
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
                 programLanguage,
+                "Constructors",
+                "Constructors of super class can be called via super keyword. There are only two rules:\n" +
+                        "\n" +
+                        "\n1. super() call must be made from child class constructor.\n" +
+                        "\n2. super() call must be first statement inside constructor.",
+                "public class Manager extends Employee \n" +
+                        "{\n" +
+                        "    public Manager() \n" +
+                        "    {\n" +
+                        "        //This must be first statement inside constructor\n" +
+                        "        super();\n" +
+                        "         \n" +
+                        "        //Other code after super class\n" +
+                        "    }\n" +
+                        "}",
                 "",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Fields",
+                "In java, non-private member fields can be inherited in child class. You can access them using dot operator e.g. manager.id. Here id attribute is inherited from parent class Employee.\n" +
+                        "\n" +
+                        "You need to be careful when dealing with fields with same name in parent and child class. Remember that java fields cannot be overridden. Having same name field will hide the field from parent class – while accessing via child class.",
+                "//In this case, attribute accessed will be decided based on the class of reference type.\n" +
+                        "\n" +
+                        "ReferenceClass variable = new ActualClass();\n" +
+                        "//In above case, member field will be accessed from ReferenceClass. e.g.\n" +
+                        "\n" +
+                        "//Parent class\n" +
+                        "public class Employee \n" +
+                        "{   \n" +
+                        "    public Long id = 10L;\n" +
+                        "}\n" +
+                        " \n" +
+                        "//Child class\n" +
+                        "public class Manager extends Employee \n" +
+                        "{\n" +
+                        "    public Long id = 20L;   //same name field\n" +
+                        "}\n" +
+                        " \n" +
+                        "public class Main {\n" +
+                        "    public static void main(String[] args) \n" +
+                        "    {\n" +
+                        "        Employee manager = new Manager();\n" +
+                        "        System.out.println(manager.id);     //Reference of type Employee\n" +
+                        "         \n" +
+                        "        Manager mgr = new Manager();\n" +
+                        "        System.out.println(mgr.id);     //Reference of type Manager\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "Output:\n" +
+                        " \n" +
+                        "10\n" +
+                        "20",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Methods",
+                "Opposite to field access, method access uses the type of actual object created in runtime.\n" +
+                        "\n" +
+                        "java]ReferenceClass variable = new ActualClass();[/java]\n" +
+                        "\n" +
+                        "In above case, member method will be accessed from ActualClass. e.g.",
+                "public class Employee \n" +
+                        "{   \n" +
+                        "    private Long id = 10L;\n" +
+                        "     \n" +
+                        "    public Long getId() {\n" +
+                        "        return id;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "public class Manager extends Employee \n" +
+                        "{\n" +
+                        "    private Long id = 20L;\n" +
+                        " \n" +
+                        "    public Long getId() {\n" +
+                        "        return id;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "public class Main \n" +
+                        "{\n" +
+                        "    public static void main(String[] args) \n" +
+                        "    {\n" +
+                        "        Employee employee = new Employee();     //Actual object is Employee Type\n" +
+                        "        System.out.println(employee.getId());\n" +
+                        "         \n" +
+                        "        Employee manager = new Manager();       //Actual object is Manager Type\n" +
+                        "        System.out.println(manager.getId());\n" +
+                        "         \n" +
+                        "        Manager mgr = new Manager();       //Actual object is Manager Type\n" +
+                        "        System.out.println(mgr.getId());\n" +
+                        "    }\n" +
+                        "}",
+                "Fill",
+                "Output:\n" +
+                        " \n" +
+                        "10\n" +
+                        "20\n" +
+                        "20",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Summary",
+                "Let’s summarize what we learned about java inheritance:\n" +
+                        "\n" +
+                        "\n* Inheritance is also known IS-A relationship.\n" +
+                        "\n* It provides child class the ability to inherit non-private members of parent class.\n" +
+                        "\n* In java, inheritance is achieved via extends keyword.\n" +
+                        "\n* From Java 8 onward, you can use interfaces with default methods to achieve multiple inheritance.\n" +
+                        "\n* Member fields are accessed from reference type class.\n" +
+                        "\n* Member methods are accessed from actual instance types.",
                 "",
                 "",
                 "",
                 ""));
         lesson.setBitModules(bitModules);
-        lessons.add(lesson);*/
+        lessons.add(lesson);
 
         moduleIndex = 1;
 
@@ -617,16 +877,6 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "",
                 ""));
 
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "Is java concurrency really that simple?",
-                "Concurrent applications usually have more complex design in comparison to single threaded application. Code executed by multiple threads accessing shared data need special attention. Errors arising from incorrect thread synchronization are very hard to detect, reproduce and fix. They usually shows up in higher environments like production, and replicating the error is sometimes not possible in lower environments.\n" +
-                        "\n" +
-                        "Apart from complex defects, concurrency requires more resources to run the application. So make sure, you have sufficient resources in your kitty.",
-                "",
-                "",
-                ""));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -745,7 +995,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
-        lesson = new Lesson();
+        /*lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
         lesson.setTitle("Collection in Java");
@@ -755,7 +1005,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
         lesson.setTitle("NIO[New IO] in Java");
-        lessons.add(lesson);
+        lessons.add(lesson);*/
         
         return lessons;
 

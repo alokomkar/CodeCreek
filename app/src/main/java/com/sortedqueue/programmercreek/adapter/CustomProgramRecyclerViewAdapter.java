@@ -131,8 +131,8 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
                 isAvailable = creekUserStats.getUnlockedSqlProgramIndexList().contains(program_Index);
                 break;
         }
-        holder.doneImageView.setVisibility( isAvailable ? View.VISIBLE : View.GONE );
-        holder.quizTextView.setSelected(true);
+        //holder.doneImageView.setVisibility( isAvailable ? View.VISIBLE : View.GONE );
+        //holder.quizTextView.setSelected(true);
         /*holder.lockedImageView.setVisibility( isAvailable ? View.GONE : View.VISIBLE );
 
         if( !isAvailable ) {

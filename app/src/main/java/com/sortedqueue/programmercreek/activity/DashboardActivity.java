@@ -234,15 +234,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     private void checkForDBUpdates() {
+        CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         new FirebaseDatabaseHandler(DashboardActivity.this).readCreekUserDB(new FirebaseDatabaseHandler.GetCreekUserDBListener() {
             @Override
             public void onSuccess(CreekUserDB creekUserDB) {
-
+                CommonUtils.dismissProgressDialog();
             }
 
             @Override
             public void onError(DatabaseError databaseError) {
                 Log.d(TAG, databaseError.getMessage());
+                CommonUtils.dismissProgressDialog();
             }
         });
     }
@@ -256,9 +258,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void hideLanguageFragment() {
-        languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
-        DashboardFragment.getInstance().animateViews();
-        getSupportFragmentManager().popBackStack();
+        try {
+            languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
+            DashboardFragment.getInstance().animateViews();
+            getSupportFragmentManager().popBackStack();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     private int progressBarStatus;

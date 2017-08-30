@@ -39,13 +39,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/descriptionTextView"
+                    android:textSize="@dimen/text_dashboard_small"
                     android:padding="@dimen/margin_8"
                     android:text="@string/index_description"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_height"
-                    android:background="@color/bg" />
+                    android:background="@color/md_blue_grey_200" />
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
