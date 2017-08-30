@@ -166,6 +166,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             if( null == dashboardScrollView ) {
                 return;
             }
+
             dashboardScrollView.setVisibility(View.VISIBLE);
             adaScrollView.setVisibility(View.GONE);
             if (creekPreferences.isProgramsOnly()) {
@@ -177,13 +178,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 introLayout.setVisibility(View.VISIBLE);
                 wizardLayout.setVisibility(View.VISIBLE);
                 syntaxLayout.setVisibility(View.VISIBLE);
-                lessonsLayout.setVisibility(View.VISIBLE);
+                if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
+                    lessonsLayout.setVisibility(View.VISIBLE);
+                }
+                else {
+                    lessonsLayout.setVisibility(View.GONE);
+                }
             }
 
             dashboardScrollView.scrollTo(0, 0);
             introLayout.setAlpha(0.0f);
             wizardLayout.setAlpha(0.0f);
-            lessonsLayout.setAlpha(0.0f);
+            if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") )
+                lessonsLayout.setAlpha(0.0f);
             syntaxLayout.setAlpha(0.0f);
             indexLayout.setAlpha(0.0f);
             wikiLayout.setAlpha(0.0f);
@@ -200,8 +207,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             initAnimations(introLayout, delay);
             delay = delay + standardDelay;
             initAnimations(wizardLayout, delay);
-            delay = delay + standardDelay;
-            initAnimations(lessonsLayout, delay);
+            if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
+                delay = delay + standardDelay;
+                initAnimations(lessonsLayout, delay);
+            }
             delay = delay + standardDelay;
             initAnimations(syntaxLayout, delay);
             delay = delay + standardDelay;
