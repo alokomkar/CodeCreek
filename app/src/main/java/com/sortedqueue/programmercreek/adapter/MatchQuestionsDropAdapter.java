@@ -125,16 +125,46 @@ public class MatchQuestionsDropAdapter extends RecyclerView.Adapter<MatchQuestio
                 }
                 else {
                     if( isFillBlanks ) {
-                        if( programTable.isHintEnabled ) {
+                        if( programTable.isHintEnabled && programTable.getProgram_Line().trim().length() == 0 ) {
                             holder.questionTextView.setText(programTable.getProgram_Line_Description());
                         }
                         else {
-                            holder.questionTextView.setText(programTable.getProgram_Line());
+                            String programLine = programTable.getProgram_Line();
+                            if (programLine.contains("<") || programLine.contains(">")) {
+                                holder.questionTextView.setText(programTable.getProgram_Line());
+                                holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+                            } else {
+                                String programLineHtml = prettifyHighlighter.highlight("c", programLine);
+                                if( Build.VERSION.SDK_INT >= 24 ) {
+                                    holder.questionTextView.setText(Html.fromHtml(programLineHtml, Html.FROM_HTML_MODE_LEGACY));
+                                }
+                                else {
+                                    holder.questionTextView.setText(Html.fromHtml(programLineHtml));
+                                }
+                            }
                         }
 
                     }
-                    else
-                        holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                    else {
+                        if( programTable.getProgram_Line().trim().length() == 0  )
+                            holder.questionTextView.setText(programTable.getProgram_Line_Description());
+                        else {
+                            String programLine = programTable.getProgram_Line();
+                            if (programLine.contains("<") || programLine.contains(">")) {
+                                holder.questionTextView.setText(programTable.getProgram_Line());
+                                holder.questionTextView.setTextColor(Color.parseColor("#006699"));
+                            } else {
+                                String programLineHtml = prettifyHighlighter.highlight("c", programLine);
+                                if( Build.VERSION.SDK_INT >= 24 ) {
+                                    holder.questionTextView.setText(Html.fromHtml(programLineHtml, Html.FROM_HTML_MODE_LEGACY));
+                                }
+                                else {
+                                    holder.questionTextView.setText(Html.fromHtml(programLineHtml));
+                                }
+                            }
+                        }
+                    }
+
                 }
                 holder.questionTextView.setTextColor(Color.parseColor("#FFFFFF"));
             }
