@@ -47,6 +47,7 @@ import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
+import com.sortedqueue.programmercreek.billing.BillingPresenter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -125,6 +126,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     CardView selectedLanguageCardView;
     @BindView(R.id.container)
     FrameLayout container;
+    @BindView(R.id.upgradeTextView)
+    TextView upgradeTextView;
+    @BindView(R.id.laterTextView)
+    TextView laterTextView;
+    @BindView(R.id.premiumLayout)
+    RelativeLayout premiumLayout;
 
 
     private String TAG = getClass().getSimpleName();
@@ -140,6 +147,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private Handler handler;
     private CreekUserStats creekUserStats;
     private Runnable runnable;
+    private BillingPresenter billingPresenter;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -158,8 +166,15 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         ButterKnife.bind(this);
         setupToolbar();
         creekPreferences = CreekApplication.getCreekPreferences();
+        if( creekPreferences.showUpgradeDialog() ) {
+            AnimationUtils.slideInToLeft(premiumLayout);
+        }
+        else {
+            creekPreferences.setUpgradeDialog( true );
+        }
         configureGoogleSignup();
         checkForDBUpdates();
+        billingPresenter = new BillingPresenter(this);
         if (!creekPreferences.getProgramLanguage().equals("")) {
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
         }
@@ -190,7 +205,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             showLanguageFragment();
             languageSelectionTextView.setText("Select Language");
         } else {
-            languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
+            languageSelectionTextView.setText(creekPreferences.getProgramLanguage().toUpperCase());
             dashboardViewPager.setCurrentItem(0);
             getSupportActionBar().setTitle(getString(R.string.app_name) + " - " + creekPreferences.getProgramLanguage().toUpperCase());
         }
@@ -218,6 +233,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             }
         });
+        upgradeTextView.setOnClickListener(this);
+        laterTextView.setOnClickListener(this);
 
         //new FirebaseDatabaseHandler(DashboardActivity.this).searchPrograms("Swap");
         //new FirebaseDatabaseHandler(DashboardActivity.this).updateAdSettings(1);
@@ -232,6 +249,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //getOutputResponse(58011332);
 
     }
+
 
     private void checkForDBUpdates() {
         CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
@@ -259,10 +277,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void hideLanguageFragment() {
         try {
-            languageSelectionTextView.setText( creekPreferences.getProgramLanguage().toUpperCase() );
+            languageSelectionTextView.setText(creekPreferences.getProgramLanguage().toUpperCase());
             DashboardFragment.getInstance().animateViews();
             getSupportFragmentManager().popBackStack();
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -673,6 +691,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     }
 
     MenuItem searchItem = null;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -696,7 +715,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             hideLanguageFragment();
             return;
         }
@@ -792,8 +811,15 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             case R.id.addUserCodeFAB:
                 importFromFile();
                 break;
-            case R.id.selectedLanguageCardView :
+            case R.id.selectedLanguageCardView:
                 showLanguageFragment();
+                break;
+            case R.id.upgradeTextView :
+                billingPresenter.onUpgradeAppButtonClicked();
+                break;
+            case R.id.laterTextView :
+                AnimationUtils.slideOutToLeft(premiumLayout);
+                creekPreferences.setUpgradeDialog( false );
                 break;
         }
 
@@ -958,4 +984,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     public void onError(String errorMessage) {
         CommonUtils.displayToast(DashboardActivity.this, errorMessage);
     }
+
+
 }

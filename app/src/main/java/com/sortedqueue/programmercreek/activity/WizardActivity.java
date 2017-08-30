@@ -8,8 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -40,6 +46,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     private TestDragNDropFragment testDragNDropFragment;
     private QuizFragment quizFragment;
     private NewFillBlankFragment fillBlankFragment;
+    private boolean isAdShown;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -166,6 +173,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wizard);
+        initAds();
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         switch (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST)) {
@@ -254,6 +262,38 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 R.anim.anim_slide_out_right);
     }
 
+    private InterstitialAd interstitialAd;
+    private void initAds() {
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                finish();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+        });
+        requestNewInterstitial();
+
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        interstitialAd.loadAd(adRequest);
+    }
+
     @Override
     public void onBackPressed() {
         String title = getTitle().toString();
@@ -275,9 +315,10 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 return;
             }
         }
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
-            StartAppAd.onBackPressed(this);
-            super.onBackPressed();
+        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+            interstitialAd.show();
+            isAdShown = true;
+            return;
         }
         else {
             finish();

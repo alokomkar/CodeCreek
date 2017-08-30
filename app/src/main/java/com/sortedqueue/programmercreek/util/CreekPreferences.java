@@ -971,4 +971,12 @@ public class CreekPreferences {
         Log.d(TAG, "getAdsEnabled : " + sharedPreferences.getBoolean("adsEnabled", false));
         return sharedPreferences.getBoolean("adsEnabled", false);
     }
+
+    public boolean showUpgradeDialog() {
+        return sharedPreferences.getBoolean("showUpgradeDialog", false);
+    }
+
+    public void setUpgradeDialog(boolean showDialog) {
+        sharedPreferences.edit().putBoolean("showUpgradeDialog", showDialog).apply();
+    }
 }

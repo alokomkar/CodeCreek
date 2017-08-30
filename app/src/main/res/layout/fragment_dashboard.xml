@@ -255,6 +255,56 @@
         tools:visibility="gone"
         android:id="@+id/container"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:id="@+id/premiumLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/shareTextView"
+            android:gravity="left"
+            android:text="@string/premium_description"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:text="@string/upgrade"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/upgradeTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:layout_toRightOf="@+id/upgradeTextView"
+            android:text="@string/may_be_later"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/laterTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
 

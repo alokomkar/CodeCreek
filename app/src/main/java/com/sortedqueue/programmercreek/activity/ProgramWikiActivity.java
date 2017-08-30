@@ -51,7 +51,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private WebView webView;
     private String programWiki;
     private ContentLoadingProgressBar progressBar;
-    private InterstitialAd interstitialAd;
+
     private AdView mAdView;
     private String WIKI_BASE_URL = "https://syntaxdb.com";
     private CreekPreferences creekPreferences;
@@ -149,6 +149,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         }
     }
 
+    private InterstitialAd interstitialAd;
     private void initAds() {
         if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
             MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -181,7 +182,6 @@ public class ProgramWikiActivity extends AppCompatActivity {
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                finish();
             }
 
             @Override
@@ -191,6 +191,23 @@ public class ProgramWikiActivity extends AppCompatActivity {
         });
         requestNewInterstitial();
 
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        interstitialAd.loadAd(adRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+            interstitialAd.show();
+            isAdShown = true;
+            return;
+        }
+        finish();
     }
 
     private class MyWebViewClient extends WebViewClient {
@@ -223,12 +240,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         }
     }
 
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
-                .build();
-        interstitialAd.loadAd(adRequest);
-    }
+
 
     @Override
     public void finish() {
@@ -239,13 +251,5 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     boolean isAdShown = false;
 
-    @Override
-    public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
-            interstitialAd.show();
-            isAdShown = true;
-            return;
-        }
-        finish();
-    }
+
 }
