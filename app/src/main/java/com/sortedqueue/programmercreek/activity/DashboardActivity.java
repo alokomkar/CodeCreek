@@ -624,7 +624,23 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             } else {
             }
             // Rest of code that converts txt file's content into arraylist
-        } else
+        }
+        if( requestCode == BillingPresenter.RC_REQUEST ) {
+            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+            if (billingPresenter == null) return;
+
+            // Pass on the activity result to the helper for handling
+            if (!billingPresenter.getIabHelper().handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+            else {
+                Log.d(TAG, "onActivityResult handled by IABUtil.");
+            }
+        }
+        else
             super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -816,6 +832,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 break;
             case R.id.upgradeTextView :
                 billingPresenter.onUpgradeAppButtonClicked();
+                AnimationUtils.slideOutToLeft(premiumLayout);
                 break;
             case R.id.laterTextView :
                 AnimationUtils.slideOutToLeft(premiumLayout);

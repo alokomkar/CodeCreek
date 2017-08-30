@@ -83,7 +83,8 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
     }
 
     // SKUs for our products: the premium upgrade (non-consumable) and gas (consumable)
-    private static final String SKU_PREMIUM = "premium";
+    //private static final String SKU_PREMIUM = "premium";
+    private static final String SKU_PREMIUM = "android.test.purchased";
 
     private boolean mIsPremium;
     // Listener that's called when we finish querying the items and subscriptions we own
@@ -128,7 +129,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
     }
 
     // (arbitrary) request code for the purchase flow
-    private static final int RC_REQUEST = 10001;
+    public static final int RC_REQUEST = 10001;
 
     // Callback for when a purchase is finished
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
@@ -212,6 +213,10 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
          */
 
         return true;
+    }
+
+    public IabHelper getIabHelper() {
+        return mHelper;
     }
 
     @Override
