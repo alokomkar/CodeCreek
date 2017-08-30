@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.activity.ChaptersActivity;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.lessons.BitModule;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +48,8 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
     RelativeLayout navigationLayout;
     @BindView(R.id.checkFAB)
     FloatingActionButton checkFAB;
+    @BindView(R.id.slideImageView)
+    ImageView slideImageView;
     private BitModule bitModule;
     private int lastFirstIndicator = -1; //first - 0, last = 1
     private BitModuleNavigationListener navigationListener;
@@ -77,6 +80,18 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
             descriptionTextView.setText(bitModule.getDescription());
         }
 
+        slideImageView.setVisibility(View.GONE);
+        if( bitModule.getImageUrl() != null && bitModule.getImageUrl().trim().length() > 0 ) {
+            Glide.with(getContext())
+                    .load(bitModule.getImageUrl())
+                    .asBitmap()
+                    .centerCrop()
+                    .error(R.color.md_blue_600)
+                    .placeholder(R.color.md_blue_600)
+                    .into(slideImageView);
+            slideImageView.setVisibility(View.VISIBLE);
+        }
+
         codeRecyclerView.setVisibility(View.GONE);
         if (bitModule.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -95,7 +110,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
         backImageView.setVisibility(lastFirstIndicator == 0 ? View.GONE : View.VISIBLE);
         nextImageView.setVisibility(lastFirstIndicator == 1 ? View.GONE : View.VISIBLE);
         checkFAB.setVisibility(bitModule.getTestMode() == null ? View.GONE : View.VISIBLE);
-        if( lastFirstIndicator == 1 ) {
+        if (lastFirstIndicator == 1) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
         }
@@ -119,15 +134,15 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.checkFAB:
-                if( lastFirstIndicator == 1 ) {
+                if (lastFirstIndicator == 1) {
                     getActivity().onBackPressed();
-                }
-                else {
-                    if( bitModule.getTestMode() != null ) {
-                        switch ( bitModule.getTestMode() ) {
-                            case "fill" :
+                } else {
+                    CommonUtils.displaySnackBar(getActivity(), "Coming Soon");
+                    if (bitModule.getTestMode() != null) {
+                        switch (bitModule.getTestMode()) {
+                            case "fill":
                                 break;
-                            case "random" :
+                            case "random":
                                 break;
                         }
                     }

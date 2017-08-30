@@ -300,6 +300,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
         return solutionList;
     }
 
+
     public void onBackPressed() {
         if (!quizComplete) {
             AuxilaryUtils.showConfirmationDialog(getActivity());

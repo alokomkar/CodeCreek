@@ -173,7 +173,6 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wizard);
-        initAds();
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         switch (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST)) {
@@ -262,37 +261,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
                 R.anim.anim_slide_out_right);
     }
 
-    private InterstitialAd interstitialAd;
-    private void initAds() {
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                finish();
-            }
 
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                super.onAdLeftApplication();
-            }
-        });
-        requestNewInterstitial();
-
-    }
-
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
-                .build();
-        interstitialAd.loadAd(adRequest);
-    }
 
     @Override
     public void onBackPressed() {
@@ -300,29 +269,25 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
         if( title.startsWith("Match") ) {
             if( matchMakerFragment != null ) {
                 matchMakerFragment.onBackPressed();
-                return;
             }
         }
         else if( title.startsWith("Test") ) {
             if( testDragNDropFragment != null ) {
                 testDragNDropFragment.onBackPressed();
-                return;
             }
         }
         else if( title.startsWith("Quiz") ) {
             if( quizFragment != null ) {
                 quizFragment.onBackPressed();
-                return;
             }
         }
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
-            interstitialAd.show();
-            isAdShown = true;
-            return;
+        else if( title.startsWith("Fill") ) {
+            if( fillBlankFragment != null ) {
+                fillBlankFragment.onBackPressed();
+            }
         }
-        else {
-            finish();
-        }
+        else super.onBackPressed();
+
     }
 
 }

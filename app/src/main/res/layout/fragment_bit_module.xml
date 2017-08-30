@@ -42,7 +42,14 @@
                     android:textSize="@dimen/text_dashboard_small"
                     android:padding="@dimen/margin_8"
                     android:text="@string/index_description"/>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:minHeight="@dimen/margin_200"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/slideImageView"
+                    android:src="@android:drawable/ic_menu_gallery"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_height"

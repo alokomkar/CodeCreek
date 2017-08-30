@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.database.DatabaseError;
@@ -62,6 +63,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     AdView adView;
     private CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter;
     private Animation fadeOutAnimation;
+    private boolean isAdShown;
 
 
     private void logDebugMessage(String message) {
@@ -131,6 +133,15 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
         CreekApplication.getInstance().setAppRunning(true);
     }
 
+    private InterstitialAd interstitialAd;
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
+                .build();
+        interstitialAd.loadAd(adRequest);
+    }
+
     private void initAds() {
         if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
             MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -149,6 +160,26 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
                 }
             });
         }
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                finish();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+        });
+        requestNewInterstitial();
     }
 
     @Override
@@ -524,13 +555,12 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
-            StartAppAd.onBackPressed(this);
-            super.onBackPressed();
+        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+            interstitialAd.show();
+            isAdShown = true;
+            return;
         }
-        else {
-            finish();
-        }
+        finish();
     }
 
     private CreekPreferences creekPreferences;
