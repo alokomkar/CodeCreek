@@ -284,6 +284,10 @@ public class FirebaseDatabaseHandler {
         if( userId.equalsIgnoreCase("") ) {
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
+        verifyPurchase(userId, verifyPurchaseListener);
+    }
+
+    public void verifyPurchase(String userId, final VerifyPurchaseListener verifyPurchaseListener) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

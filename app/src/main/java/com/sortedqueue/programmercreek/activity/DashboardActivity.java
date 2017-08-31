@@ -455,6 +455,41 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 //onInviteClicked();
                 return true;
 
+            case R.id.action_upgrade :
+                billingPresenter.onUpgradeAppButtonClicked();
+                return true;
+
+            case R.id.action_restore_purchase :
+                AuxilaryUtils.displayInputDialog(DashboardActivity.this, "Restore Purchase", "Enter unique Id you got when you purchased the item : ", new AuxilaryUtils.InputTextListener() {
+                    @Override
+                    public void onSuccess(String text) {
+                        CommonUtils.displayProgressDialog(DashboardActivity.this, "Verifying");
+                        new FirebaseDatabaseHandler(DashboardActivity.this).verifyPurchase(text, new FirebaseDatabaseHandler.VerifyPurchaseListener() {
+                            @Override
+                            public void onSuccess(Purchase purchase) {
+                                CommonUtils.dismissProgressDialog();
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                CommonUtils.displayProgressDialog(DashboardActivity.this, "Verifying");
+                                if( e != null ) {
+                                    AuxilaryUtils.displayAlert( "Verification Error", "Error : "+ e.getMessage() +"\n\nUnable to Verify, Try later", DashboardActivity.this);
+                                    e.printStackTrace();
+                                }
+                                else
+                                    AuxilaryUtils.displayAlert( "Verification Error", "Unable to Verify, Try later", DashboardActivity.this);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                });
+                return true;
+
             /*case R.id.action_sync:
                 //downloadFile();
                 LanguageFragment.getInstance().getFirebaseDBVerion();
