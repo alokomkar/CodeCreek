@@ -111,7 +111,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
         nextImageView.setOnClickListener(this);
         backImageView.setVisibility(lastFirstIndicator == 0 ? View.GONE : View.VISIBLE);
         nextImageView.setVisibility(lastFirstIndicator == 1 ? View.GONE : View.VISIBLE);
-        checkFAB.setVisibility(bitModule.getTestMode() == null ? View.GONE : View.VISIBLE);
+        checkFAB.setVisibility(bitModule.getTestMode() == null || bitModule.getTestMode().equalsIgnoreCase("Random") ? View.GONE : View.VISIBLE);
         if (lastFirstIndicator == 1) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
