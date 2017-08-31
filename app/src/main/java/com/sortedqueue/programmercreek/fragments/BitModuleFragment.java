@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.lessons.BitModule;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
+import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 29/08/17.
  */
 
-public class BitModuleFragment extends Fragment implements View.OnClickListener {
+public class BitModuleFragment extends Fragment implements View.OnClickListener, OnBackPressListener {
 
 
     @BindView(R.id.titleTextView)
@@ -137,10 +139,19 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
                 if (lastFirstIndicator == 1) {
                     getActivity().onBackPressed();
                 } else {
-                    CommonUtils.displaySnackBar(getActivity(), "Coming Soon");
                     if (bitModule.getTestMode() != null) {
                         switch (bitModule.getTestMode()) {
                             case "fill":
+                                navigationListener.onTestTriggered(bitModule.getTestMode());
+                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
+                                fragmentTransaction.addToBackStack(null);
+                                BitFillBlankFragment bitFillBlankFragment = new BitFillBlankFragment();
+                                bitFillBlankFragment.setOnBackPressListener(BitModuleFragment.this);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("BitModule", bitModule);
+                                bitFillBlankFragment.setArguments(bundle);
+                                fragmentTransaction.replace(R.id.testContainer, bitFillBlankFragment).commit();
                                 break;
                             case "random":
                                 break;
@@ -155,5 +166,21 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener 
                 navigationListener.onMoveBackward();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getChildFragmentManager().getBackStackEntryCount() > 0) {
+            navigationListener.onTestTriggered(null);
+            getChildFragmentManager().popBackStack();
+        }
+    }
+
+    public BitModule getBitModule() {
+        return bitModule;
+    }
+
+    public boolean isTestLoaded() {
+        return getChildFragmentManager().getBackStackEntryCount() > 0;
     }
 }

@@ -8,4 +8,5 @@ import com.sortedqueue.programmercreek.database.lessons.Lesson;
 
 public interface LessonNavigationListener {
     void onLessonSelected(Lesson lesson);
+    void onProgessStatsUpdate( int points );
 }

@@ -25,6 +25,7 @@ public class CreekUserStats implements Parcelable {
     private ArrayList<Integer> unlockedCppProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedJavaProgramIndexList = new ArrayList<>();
     private ArrayList<Integer> unlockedSqlProgramIndexList = new ArrayList<>();
+    private ArrayList<String> unlockedJavaBitsAndBytesList = new ArrayList<>();
 
     private ArrayList<String> unlockedCLanguageModuleIdList = new ArrayList<>();
     private ArrayList<String> unlockedUspLanguageModuleIdList = new ArrayList<>();
@@ -355,6 +356,8 @@ public class CreekUserStats implements Parcelable {
             return false;
         if (unlockedSqlProgramIndexList != null ? !unlockedSqlProgramIndexList.equals(that.unlockedSqlProgramIndexList) : that.unlockedSqlProgramIndexList != null)
             return false;
+        if (unlockedJavaBitsAndBytesList != null ? !unlockedJavaBitsAndBytesList.equals(that.unlockedJavaBitsAndBytesList) : that.unlockedJavaBitsAndBytesList != null)
+            return false;
         if (unlockedCLanguageModuleIdList != null ? !unlockedCLanguageModuleIdList.equals(that.unlockedCLanguageModuleIdList) : that.unlockedCLanguageModuleIdList != null)
             return false;
         if (unlockedUspLanguageModuleIdList != null ? !unlockedUspLanguageModuleIdList.equals(that.unlockedUspLanguageModuleIdList) : that.unlockedUspLanguageModuleIdList != null)
@@ -383,8 +386,11 @@ public class CreekUserStats implements Parcelable {
             return false;
         if (unlockedJavaWikiIdList != null ? !unlockedJavaWikiIdList.equals(that.unlockedJavaWikiIdList) : that.unlockedJavaWikiIdList != null)
             return false;
-        return unlockedSqlWikiIdList != null ? unlockedSqlWikiIdList.equals(that.unlockedSqlWikiIdList) : that.unlockedSqlWikiIdList == null;
-
+        if (unlockedSqlWikiIdList != null ? !unlockedSqlWikiIdList.equals(that.unlockedSqlWikiIdList) : that.unlockedSqlWikiIdList != null)
+            return false;
+        if (userAddedPrograms != null ? !userAddedPrograms.equals(that.userAddedPrograms) : that.userAddedPrograms != null)
+            return false;
+        return unlockedUserAddedPrograms != null ? unlockedUserAddedPrograms.equals(that.unlockedUserAddedPrograms) : that.unlockedUserAddedPrograms == null;
     }
 
     @Override
@@ -401,6 +407,7 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedCppProgramIndexList != null ? unlockedCppProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedJavaProgramIndexList != null ? unlockedJavaProgramIndexList.hashCode() : 0);
         result = 31 * result + (unlockedSqlProgramIndexList != null ? unlockedSqlProgramIndexList.hashCode() : 0);
+        result = 31 * result + (unlockedJavaBitsAndBytesList != null ? unlockedJavaBitsAndBytesList.hashCode() : 0);
         result = 31 * result + (unlockedCLanguageModuleIdList != null ? unlockedCLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedUspLanguageModuleIdList != null ? unlockedUspLanguageModuleIdList.hashCode() : 0);
         result = 31 * result + (unlockedCppLanguageModuleIdList != null ? unlockedCppLanguageModuleIdList.hashCode() : 0);
@@ -416,6 +423,8 @@ public class CreekUserStats implements Parcelable {
         result = 31 * result + (unlockedCppWikiIdList != null ? unlockedCppWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedJavaWikiIdList != null ? unlockedJavaWikiIdList.hashCode() : 0);
         result = 31 * result + (unlockedSqlWikiIdList != null ? unlockedSqlWikiIdList.hashCode() : 0);
+        result = 31 * result + (userAddedPrograms != null ? userAddedPrograms.hashCode() : 0);
+        result = 31 * result + (unlockedUserAddedPrograms != null ? unlockedUserAddedPrograms.hashCode() : 0);
         return result;
     }
 
@@ -539,6 +548,19 @@ public class CreekUserStats implements Parcelable {
         return false;
     }
 
+    public boolean addToUnlockedJavaBitsAndBytesIndexList(String programId) {
+        if( !unlockedJavaBitsAndBytesList.contains(programId) ) {
+            unlockedJavaBitsAndBytesList.add(programId);
+            creekUserReputation += PROGRAM_SCORE;
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<String> getUnlockedJavaBitsAndBytesList() {
+        return unlockedJavaBitsAndBytesList;
+    }
+
     public boolean addToUnlockedSqlProgramIndexList(int i) {
         if( !unlockedSqlProgramIndexList.contains(i) ) {
             unlockedSqlProgramIndexList.add(i);
@@ -631,85 +653,7 @@ public class CreekUserStats implements Parcelable {
         return false;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.javaProgressIndex);
-        dest.writeInt(this.cProgressIndex);
-        dest.writeInt(this.cppProgressIndex);
-        dest.writeInt(this.uspProgramIndex);
-        dest.writeInt(this.sqlProgressIndex);
-        dest.writeInt(this.totalLanguages);
-        dest.writeList(this.unlockedCProgramIndexList);
-        dest.writeList(this.unlockedUspProgramIndexList);
-        dest.writeList(this.unlockedCppProgramIndexList);
-        dest.writeList(this.unlockedJavaProgramIndexList);
-        dest.writeStringList(this.unlockedCLanguageModuleIdList);
-        dest.writeStringList(this.unlockedUspLanguageModuleIdList);
-        dest.writeStringList(this.unlockedCppLanguageModuleIdList);
-        dest.writeStringList(this.unlockedJavaLanguageModuleIdList);
-        dest.writeStringList(this.unlockedSqlLanguageModuleIdList);
-        dest.writeStringList(this.unlockedCSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedUspSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedJavaSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedSqlSyntaxModuleIdList);
-        dest.writeStringList(this.unlockedCWikiIdList);
-        dest.writeStringList(this.unlockedUspWikiIdList);
-        dest.writeStringList(this.unlockedCppWikiIdList);
-        dest.writeStringList(this.unlockedJavaWikiIdList);
-        dest.writeStringList(this.userAddedPrograms);
-        dest.writeStringList(this.unlockedUserAddedPrograms);
-    }
-
-    protected CreekUserStats(Parcel in) {
-        this.javaProgressIndex = in.readInt();
-        this.cProgressIndex = in.readInt();
-        this.cppProgressIndex = in.readInt();
-        this.uspProgramIndex = in.readInt();
-        this.sqlProgressIndex = in.readInt();
-        this.totalLanguages = in.readInt();
-        this.unlockedCProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedCProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedUspProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedUspProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedCppProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedCppProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedJavaProgramIndexList = new ArrayList<Integer>();
-        in.readList(this.unlockedJavaProgramIndexList, Integer.class.getClassLoader());
-        this.unlockedCLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedUspLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedCppLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedJavaLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedSqlLanguageModuleIdList = in.createStringArrayList();
-        this.unlockedCSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedUspSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedJavaSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedSqlSyntaxModuleIdList = in.createStringArrayList();
-        this.unlockedCWikiIdList = in.createStringArrayList();
-        this.unlockedUspWikiIdList = in.createStringArrayList();
-        this.unlockedCppWikiIdList = in.createStringArrayList();
-        this.unlockedJavaWikiIdList = in.createStringArrayList();
-        this.userAddedPrograms = in.createStringArrayList();
-        this.unlockedUserAddedPrograms = in.createStringArrayList();
-    }
-
-    public static final Creator<CreekUserStats> CREATOR = new Creator<CreekUserStats>() {
-        @Override
-        public CreekUserStats createFromParcel(Parcel source) {
-            return new CreekUserStats(source);
-        }
-
-        @Override
-        public CreekUserStats[] newArray(int size) {
-            return new CreekUserStats[size];
-        }
-    };
 
     public void calculateReputation() {
         creekUserReputation = 0;
@@ -773,8 +717,101 @@ public class CreekUserStats implements Parcelable {
             userStats += getUnlockedUserAddedPrograms().size() * PROGRAM_SCORE;
         }
 
+        if( getUnlockedJavaBitsAndBytesList().size() > 0 ) {
+            userStats += getUnlockedJavaBitsAndBytesList().size() * PROGRAM_SCORE;
+        }
+
         creekUserReputation += userStats;
         Log.d("UserStats", "Creek User Reputation : " + creekUserReputation );
 
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.javaProgressIndex);
+        dest.writeInt(this.cProgressIndex);
+        dest.writeInt(this.cppProgressIndex);
+        dest.writeInt(this.uspProgramIndex);
+        dest.writeInt(this.sqlProgressIndex);
+        dest.writeInt(this.totalLanguages);
+        dest.writeInt(this.creekUserReputation);
+        dest.writeList(this.unlockedCProgramIndexList);
+        dest.writeList(this.unlockedUspProgramIndexList);
+        dest.writeList(this.unlockedCppProgramIndexList);
+        dest.writeList(this.unlockedJavaProgramIndexList);
+        dest.writeList(this.unlockedSqlProgramIndexList);
+        dest.writeStringList(this.unlockedJavaBitsAndBytesList);
+        dest.writeStringList(this.unlockedCLanguageModuleIdList);
+        dest.writeStringList(this.unlockedUspLanguageModuleIdList);
+        dest.writeStringList(this.unlockedCppLanguageModuleIdList);
+        dest.writeStringList(this.unlockedJavaLanguageModuleIdList);
+        dest.writeStringList(this.unlockedSqlLanguageModuleIdList);
+        dest.writeStringList(this.unlockedCSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedUspSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedCppSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedJavaSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedSqlSyntaxModuleIdList);
+        dest.writeStringList(this.unlockedCWikiIdList);
+        dest.writeStringList(this.unlockedUspWikiIdList);
+        dest.writeStringList(this.unlockedCppWikiIdList);
+        dest.writeStringList(this.unlockedJavaWikiIdList);
+        dest.writeStringList(this.unlockedSqlWikiIdList);
+        dest.writeStringList(this.userAddedPrograms);
+        dest.writeStringList(this.unlockedUserAddedPrograms);
+    }
+
+    protected CreekUserStats(Parcel in) {
+        this.javaProgressIndex = in.readInt();
+        this.cProgressIndex = in.readInt();
+        this.cppProgressIndex = in.readInt();
+        this.uspProgramIndex = in.readInt();
+        this.sqlProgressIndex = in.readInt();
+        this.totalLanguages = in.readInt();
+        this.creekUserReputation = in.readInt();
+        this.unlockedCProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedCProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedUspProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedUspProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedCppProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedCppProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedJavaProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedJavaProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedSqlProgramIndexList = new ArrayList<Integer>();
+        in.readList(this.unlockedSqlProgramIndexList, Integer.class.getClassLoader());
+        this.unlockedJavaBitsAndBytesList = in.createStringArrayList();
+        this.unlockedCLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedUspLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedCppLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedJavaLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedSqlLanguageModuleIdList = in.createStringArrayList();
+        this.unlockedCSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedUspSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedCppSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedJavaSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedSqlSyntaxModuleIdList = in.createStringArrayList();
+        this.unlockedCWikiIdList = in.createStringArrayList();
+        this.unlockedUspWikiIdList = in.createStringArrayList();
+        this.unlockedCppWikiIdList = in.createStringArrayList();
+        this.unlockedJavaWikiIdList = in.createStringArrayList();
+        this.unlockedSqlWikiIdList = in.createStringArrayList();
+        this.userAddedPrograms = in.createStringArrayList();
+        this.unlockedUserAddedPrograms = in.createStringArrayList();
+    }
+
+    public static final Creator<CreekUserStats> CREATOR = new Creator<CreekUserStats>() {
+        @Override
+        public CreekUserStats createFromParcel(Parcel source) {
+            return new CreekUserStats(source);
+        }
+
+        @Override
+        public CreekUserStats[] newArray(int size) {
+            return new CreekUserStats[size];
+        }
+    };
 }

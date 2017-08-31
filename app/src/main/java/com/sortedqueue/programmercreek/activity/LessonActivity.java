@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
@@ -23,11 +24,13 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.lessons.Lesson;
 import com.sortedqueue.programmercreek.fragments.LessonDetailsFragment;
 import com.sortedqueue.programmercreek.fragments.LessonsFragment;
 import com.sortedqueue.programmercreek.interfaces.LessonNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +66,11 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     private LessonDetailsFragment lessonDetailsFragment;
     private InterstitialAd interstitialAd;
     private Lesson currentLesson;
+    private Handler handler;
+    private CreekPreferences creekPreferences;
+    private CreekUserStats creekUserStats;
+    private Runnable runnable;
+    private int previousLevel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,6 +183,92 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void onProgessStatsUpdate(int points) {
+        progressLayout.setVisibility(View.VISIBLE);
+        animateProgress(points);
+    }
+
+    private int progressBarStatus;
+
+    public void animateProgress(final int points) {
+        try {
+            if (reputationProgressBar != null) {
+
+                if (handler == null) {
+                    handler = new Handler();
+                }
+                if (creekPreferences == null) {
+                    creekPreferences = CreekApplication.getCreekPreferences();
+                }
+                creekUserStats = creekPreferences.getCreekUserStats();
+                if (creekUserStats == null) {
+                    reputationProgressBar.setVisibility(View.GONE);
+                    reputationTextView.setVisibility(View.GONE);
+                    progressLayout.setVisibility(View.GONE);
+                    return;
+                }
+                final int progress = creekUserStats.getCreekUserReputation() % 100;
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
+
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if (reputationProgressBar != null) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete");
+                                        int level = creekUserStats.getCreekUserReputation() / 100;
+                                        if (level > 0) {
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete : Level : " + level);
+                                        }
+                                    }
+                                }
+                            });
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
+                            }
+                        }
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressLayout.setVisibility(View.GONE);
+                                int level = creekUserStats.getCreekUserReputation() / 100;
+                                if (level > 0) {
+                                    showShareLayout(level);
+                                }
+
+                            }
+                        }, 1500);
+
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (progressLayout != null) {
+                progressLayout.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    private void showShareLayout(int level) {
+        previousLevel = creekPreferences.getLevel();
+        if (previousLevel < level) {
+            previousLevel = level - 1;
+            shareTextView.setText("Congratulations on cracking the level "+ (level - 1) +". You are moving on to next level. Let's share your progress...");
+            AnimationUtils.slideInToLeft(shareLayout);
+            creekPreferences.setLevel(level);
+        }
+    }
+
+    @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.anim_slide_in_right,
@@ -188,7 +282,18 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
 
         String title = getSupportActionBar().getTitle().toString();
         if( currentLesson != null && title.equals(currentLesson.getTitle()) ) {
-            loadLessons();
+            if( lessonDetailsFragment.getCurrentFragment() == null ) {
+                loadLessons();
+            }
+            else {
+                if( lessonDetailsFragment.getCurrentFragment().isTestLoaded() ) {
+                    lessonDetailsFragment.getCurrentFragment().onBackPressed();
+                }
+                else {
+                    loadLessons();
+                }
+            }
+
         }
         else {
             if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {

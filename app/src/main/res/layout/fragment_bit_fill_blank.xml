@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/optionsTextView">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/cardview_default_radius"
+            app:cardElevation="@dimen/cardview_default_elevation">
+            <android.support.v7.widget.RecyclerView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/questionRecyclerView"
+                android:nestedScrollingEnabled="false"
+                >
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options"
+        android:textColor="@color/white"
+        android:background="@color/transparent_black"
+        android:paddingStart="@dimen/margin_12"
+        android:paddingEnd="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_8"
+        android:id="@+id/optionsTextView"
+        android:layout_above="@+id/optionRecyclerView"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:padding="@dimen/margin_8"
+        android:background="@color/transparent_black"
+        android:layout_height="wrap_content"
+        android:id="@+id/optionRecyclerView"
+        android:layout_above="@+id/buttonLayout"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/buttonLayout"
+        android:orientation="horizontal"
+        android:background="@color/md_blue_grey_100">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/check"
+            android:id="@+id/checkButton"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_dashboard_small"
+            android:layout_margin="@dimen/margin_8"
+            android:background="@drawable/button_check"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/hintBtn"
+            android:id="@+id/hintButton"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_dashboard_small"
+            android:layout_margin="@dimen/margin_8"
+            android:background="@drawable/button_check"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        tools:visibility="visible"
+        android:elevation="@dimen/margin_24"
+        android:padding="@dimen/margin_8"
+        android:animateLayoutChanges="true"
+        android:background="@color/transparent_black"
+        android:id="@+id/resultLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/resultTextView"
+            android:gravity="left"
+            android:layout_toStartOf="@+id/proceedTextView"
+            android:text="@string/congratulations"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:text="@string/finish"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/proceedTextView"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

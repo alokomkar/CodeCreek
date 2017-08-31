@@ -148,6 +148,9 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
 
     @Override
     public void onBackPressed() {
+        if( shareLayout.getVisibility() == View.VISIBLE ) {
+            AnimationUtils.slideOutToLeft(shareLayout);
+        }
         String title = getSupportActionBar().getTitle().toString();
         if (!title.equals("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase())) {
             loadChapterFragment();

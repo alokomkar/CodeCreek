@@ -15,6 +15,8 @@ import com.sortedqueue.programmercreek.database.lessons.Lesson;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
+import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
+import com.sortedqueue.programmercreek.view.SwipeDirection;
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
@@ -30,9 +32,10 @@ import butterknife.Unbinder;
 public class LessonDetailsFragment extends Fragment implements BitModuleNavigationListener{
 
     @BindView(R.id.lessonDetailsViewPager)
-    ViewPager lessonDetailsViewPager;
+    OneDirectionalScrollableViewPager lessonDetailsViewPager;
     Unbinder unbinder;
     private Lesson lesson;
+    private TutorialSlidesPagerAdapter adapter;
 
     public void setLesson(Lesson lesson) {
         this.lesson = lesson;
@@ -59,7 +62,8 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
         }
         ((BitModuleFragment) (fragments.get(0))).setLastFirstIndicator(0);
         ((BitModuleFragment) (fragments.get(fragments.size() - 1))).setLastFirstIndicator(1);
-        lessonDetailsViewPager.setAdapter(new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments));
+        adapter = new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments);
+        lessonDetailsViewPager.setAdapter(adapter);
         lessonDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         lessonDetailsViewPager.setOffscreenPageLimit(fragments.size());
         CommonUtils.dismissProgressDialog();
@@ -83,6 +87,22 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
 
     @Override
     public void onTestTriggered(String testType) {
+        if( testType != null ) {
+            lessonDetailsViewPager.setAllowedSwipeDirection(SwipeDirection.none);
+        }
+        else {
+            lessonDetailsViewPager.setAllowedSwipeDirection(SwipeDirection.all);
+        }
 
+    }
+
+    public BitModuleFragment getCurrentFragment() {
+        BitModuleFragment bitModuleFragment = (BitModuleFragment) adapter.getItem(lessonDetailsViewPager.getCurrentItem());
+        if( bitModuleFragment.getBitModule().getCode() != null && bitModuleFragment.getBitModule().getCode().trim().length() > 0 ) {
+            return bitModuleFragment;
+        }
+        else {
+            return null;
+        }
     }
 }

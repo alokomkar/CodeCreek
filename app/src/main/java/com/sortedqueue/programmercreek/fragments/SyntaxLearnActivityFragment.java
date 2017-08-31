@@ -289,7 +289,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 openVoiceIntent();
                 break;
             case R.id.proceedTextView:
-                AnimationUtils.slideDownGone(resultLayout);
+                AnimationUtils.slideOutToLeft(resultLayout);
                 if (modulteDetailsScrollPageListener != null) {
                     modulteDetailsScrollPageListener.onScrollForward();
                 }
@@ -330,7 +330,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void checkSolution() {
         String solutionText = syntaxSolutionTextView.getText().toString();
         if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
-            AnimationUtils.slideUpVisible(resultLayout);
+            AnimationUtils.slideInToLeft(resultLayout);
             /*CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
