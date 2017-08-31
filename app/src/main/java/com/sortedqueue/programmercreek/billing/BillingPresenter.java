@@ -160,7 +160,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
                 new FirebaseDatabaseHandler(activity).updatePurchasePayload(purchase);
                 // bought the premium upgrade!
                 Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
-                alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getCreekPreferences().getUserId() + " in case you need to use the app other phones" );
+                alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getCreekPreferences().getUserId() + " in case you need to use the app other phones, restart app for effects to take place." );
                 mIsPremium = true;
                 updateUi();
                 setWaitScreen(false);

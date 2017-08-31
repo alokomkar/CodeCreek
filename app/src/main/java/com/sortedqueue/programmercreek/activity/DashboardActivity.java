@@ -468,6 +468,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                             @Override
                             public void onSuccess(Purchase purchase) {
                                 CommonUtils.dismissProgressDialog();
+                                AuxilaryUtils.displayAlert( "Verification Success", "Restart app for update to take place", DashboardActivity.this);
                             }
 
                             @Override
