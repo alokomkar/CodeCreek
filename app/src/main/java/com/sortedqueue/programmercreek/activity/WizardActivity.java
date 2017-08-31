@@ -65,7 +65,7 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         if( item.getItemId() == R.id.action_hint ) {
-            if( !isRewardVideoShown )
+            if( !isRewardVideoShown && !CreekApplication.getCreekPreferences().isPremiumUser() )
                 showRewardedVideoDialog();
             else
                 showSolutionFromFragment();

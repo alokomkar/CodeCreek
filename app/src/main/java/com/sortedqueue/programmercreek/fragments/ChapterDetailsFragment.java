@@ -203,7 +203,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     @Override
     public void onScrollForward() {
         if( fabDrawable == R.drawable.ic_help_outline_white_24dp ) {
-            if( !isRewardVideoShown ) {
+            if( !isRewardVideoShown && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
                 showRewardedVideoDialog();
             }
             else {
