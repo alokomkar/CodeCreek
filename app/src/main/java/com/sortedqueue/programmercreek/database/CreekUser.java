@@ -15,7 +15,7 @@ public class CreekUser {
     private String userPhotoUrl;
     private String programLanguage;
     private String wasAnonUser = "No";
-    private String userId;
+    private String userId = "";
 
 
     public CreekUser() {

@@ -13,7 +13,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minLines="8"
         android:textSize="14sp"
         android:gravity="top"
         tools:text="@string/app_name"

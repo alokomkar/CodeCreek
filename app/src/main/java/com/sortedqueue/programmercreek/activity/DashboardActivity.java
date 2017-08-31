@@ -457,6 +457,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             case R.id.action_upgrade :
                 billingPresenter.onUpgradeAppButtonClicked();
+                //creekPreferences.setPremiumUser(true);
                 return true;
 
             case R.id.action_restore_purchase :

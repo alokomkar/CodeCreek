@@ -477,7 +477,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             creekUser.setUserId(creekPreferences.getUserId());
             creekUser.setWasAnonUser("No");
         }
-        creekUser.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         creekUser.save(SplashActivity.this);
         creekPreferences.setAccountName(account.getDisplayName());
         creekPreferences.setAccountPhoto(account.getPhotoUrl().toString());

@@ -131,13 +131,13 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
         if (fragment instanceof ProgramWikiFragment) {
             syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.none);
         }
-        else if( fragment instanceof TestCompletionListener ) {
+        /*else if( fragment instanceof TestCompletionListener ) {
             TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
             syntaxLearnViewPager.setAllowedSwipeDirection(
                     testCompletionListener.isTestComplete() != -1 ?
-                            SwipeDirection.all :
+                            SwipeDirection.left :
                             SwipeDirection.none);
-        }
+        }*/
         else {
             if (chapterProgress != 0 && chapterProgress > chapterDetails.getProgressIndex()) {
                 syntaxLearnViewPager.setAllowedSwipeDirection(SwipeDirection.all);
@@ -146,7 +146,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 syntaxLearnViewPager.setAllowedSwipeDirection(
                         testCompletionListener.isTestComplete() != -1 ?
                                 SwipeDirection.all :
-                                SwipeDirection.none);
+                                SwipeDirection.left);
             }
 
         }
