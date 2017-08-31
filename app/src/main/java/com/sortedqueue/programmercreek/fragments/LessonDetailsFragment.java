@@ -65,7 +65,7 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
         adapter = new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments);
         lessonDetailsViewPager.setAdapter(adapter);
         lessonDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
-        lessonDetailsViewPager.setOffscreenPageLimit(fragments.size());
+        lessonDetailsViewPager.setOffscreenPageLimit(3);
         CommonUtils.dismissProgressDialog();
     }
 

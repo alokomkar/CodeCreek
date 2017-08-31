@@ -87,7 +87,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
             Glide.with(getContext())
                     .load(bitModule.getImageUrl())
                     .asBitmap()
-                    .centerCrop()
+                    .fitCenter()
                     .error(R.color.md_blue_600)
                     .placeholder(R.color.md_blue_600)
                     .into(slideImageView);
@@ -140,7 +140,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
                     getActivity().onBackPressed();
                 } else {
                     if (bitModule.getTestMode() != null) {
-                        switch (bitModule.getTestMode()) {
+                        switch (bitModule.getTestMode().toLowerCase()) {
                             case "fill":
                                 navigationListener.onTestTriggered(bitModule.getTestMode());
                                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
