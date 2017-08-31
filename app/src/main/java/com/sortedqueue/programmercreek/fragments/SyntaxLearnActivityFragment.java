@@ -289,7 +289,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 openVoiceIntent();
                 break;
             case R.id.proceedTextView:
-                AnimationUtils.slideDown(resultLayout);
+                AnimationUtils.slideDownGone(resultLayout);
                 if (modulteDetailsScrollPageListener != null) {
                     modulteDetailsScrollPageListener.onScrollForward();
                 }
@@ -330,13 +330,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void checkSolution() {
         String solutionText = syntaxSolutionTextView.getText().toString();
         if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
-            AnimationUtils.slideUp(resultLayout);
-            CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
+            AnimationUtils.slideUpVisible(resultLayout);
+            /*CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
-            });
+            });*/
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
             syntaxQuestionOutputTextView.setTextColor(Color.GREEN);
             isAnswered = true;

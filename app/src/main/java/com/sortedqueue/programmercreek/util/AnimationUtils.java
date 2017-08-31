@@ -154,6 +154,32 @@ public class AnimationUtils {
 
     }
 
+    public static void slideDownGone(final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.slide_down);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
     public static void slideInToRight(final View view )
     {
         if( view != null ) {
@@ -263,6 +289,32 @@ public class AnimationUtils {
         if( view != null ) {
             Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
                     R.anim.anim_slide_out_left);
+            viewAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(viewAnimation);
+        }
+
+    }
+
+    public static void slideUpVisible( final View view )
+    {
+        if( view != null ) {
+            Animation viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.getContext(),
+                    R.anim.slide_up);
             viewAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
