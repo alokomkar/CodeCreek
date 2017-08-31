@@ -77,7 +77,9 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
         setContentView(R.layout.activity_program_list);
         ButterKnife.bind(this);
         fetchProgramsList();
-        initAds();
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         setActivityTitle();
 
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -555,7 +557,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
             interstitialAd.show();
             isAdShown = true;
             return;

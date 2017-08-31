@@ -73,8 +73,9 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         loadLessons();
-        initAds();
-
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         shareNowTextView.setOnClickListener(this);
         laterTextView.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -190,7 +191,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
             loadLessons();
         }
         else {
-            if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/) {
+            if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
                 interstitialAd.show();
                 isAdShown = true;
                 return;

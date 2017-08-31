@@ -14,6 +14,9 @@ public class CreekUser {
     private String userFullName;
     private String userPhotoUrl;
     private String programLanguage;
+    private String wasAnonUser = "No";
+    private String userId;
+
 
     public CreekUser() {
     }
@@ -23,6 +26,22 @@ public class CreekUser {
         this.userFullName = userFullName;
         this.userPhotoUrl = userPhotoUrl;
         this.programLanguage = programLanguage;
+    }
+
+    public String getWasAnonUser() {
+        return wasAnonUser;
+    }
+
+    public void setWasAnonUser(String wasAnonUser) {
+        this.wasAnonUser = wasAnonUser;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getEmailId() {
@@ -64,6 +83,8 @@ public class CreekUser {
                 ", userFullName='" + userFullName + '\'' +
                 ", userPhotoUrl='" + userPhotoUrl + '\'' +
                 ", programLanguage='" + programLanguage + '\'' +
+                ", wasAnonUser='" + wasAnonUser + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 

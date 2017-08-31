@@ -43,6 +43,7 @@ import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener;
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 
@@ -101,6 +102,12 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     ContentLoadingProgressBar progressBar;
     @BindView(R.id.programCodeView)
     CodeView programCodeView;
+    @BindView(R.id.resultTextView)
+    TextView resultTextView;
+    @BindView(R.id.proceedTextView)
+    TextView proceedTextView;
+    @BindView(R.id.resultLayout)
+    RelativeLayout resultLayout;
     private SyntaxModule syntaxModule;
     private List<ModuleOption> moduleOptions;
     private String TAG = SyntaxLearnActivityFragment.class.getSimpleName();
@@ -112,8 +119,10 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private boolean isAnswered = false;
     private Chapter nextChapter;
     private String programLanguage;
+
     public SyntaxLearnActivityFragment() {
     }
+
     private RewardedVideoAd rewardedVideoAd;
 
     @Override
@@ -123,38 +132,37 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         ButterKnife.bind(this, view);
         programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
         //initializeRewardedVideoAd();
-        if( programLanguage.equals("c++") ) {
+        if (programLanguage.equals("c++")) {
             programLanguage = "cpp";
         }
-        if( wizardUrl == null ) {
+        if (wizardUrl == null) {
             bindData(syntaxModule);
-        }
-        else {
+        } else {
             progressBar.setVisibility(View.VISIBLE);
             new FirebaseDatabaseHandler(getContext()).getSyntaxModule(syntaxId, wizardUrl,
                     new FirebaseDatabaseHandler.SyntaxModuleInterface() {
-                @Override
-                public void onSuccess(SyntaxModule syntaxModule) {
-                    SyntaxLearnActivityFragment.this.syntaxModule = syntaxModule;
-                    bindData(syntaxModule);
-                    progressBar.setVisibility(View.GONE);
-                }
+                        @Override
+                        public void onSuccess(SyntaxModule syntaxModule) {
+                            SyntaxLearnActivityFragment.this.syntaxModule = syntaxModule;
+                            bindData(syntaxModule);
+                            progressBar.setVisibility(View.GONE);
+                        }
 
-                @Override
-                public void onError(DatabaseError error) {
-                    progressBar.setVisibility(View.GONE);
-                    CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
-                }
-            });
+                        @Override
+                        public void onError(DatabaseError error) {
+                            progressBar.setVisibility(View.GONE);
+                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                        }
+                    });
         }
-
+        proceedTextView.setOnClickListener(this);
         return view;
     }
 
     private void initializeRewardedVideoAd() {
         rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getActivity());
         rewardedVideoAd.setRewardedVideoAdListener(this);
-        if(!rewardedVideoAd.isLoaded()) {
+        if (!rewardedVideoAd.isLoaded()) {
             rewardedVideoAd.loadAd(getString(R.string.hint_rewarded_interstital_ad), new AdRequest.Builder().build());
         }
     }
@@ -184,7 +192,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         syntaxCommandOutputTextView.setText(syntaxModule.getSyntaxCommandOutput());
         syntaxQuestionTextView.setText(syntaxModule.getSyntaxQuestion());
         syntaxSolutionTextView.setText("");
-        setCodeView( syntaxSolutionTextView.getText().toString() );
+        setCodeView(syntaxSolutionTextView.getText().toString());
         syntaxQuestionOutputTextView.setText("Expected Output : " + syntaxModule.getSyntaxQuestionOutput());
         if (syntaxModule.getSyntaxOptions() != null) {
             setupRecyclerView(syntaxModule.getSyntaxOptions());
@@ -199,17 +207,17 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void setCodeView(String programLines) {
         programCodeView
                 .setOptions(Options.Default.get(getContext())
-                .withLanguage(programLanguage)
-                .withCode(programLines)
-                .withTheme(ColorTheme.SOLARIZED_LIGHT));
+                        .withLanguage(programLanguage)
+                        .withCode(programLines)
+                        .withTheme(ColorTheme.SOLARIZED_LIGHT));
     }
 
     private ArrayList<String> solutionList = new ArrayList<>();
 
     private void setupRecyclerView(List<ModuleOption> syntaxOptions) {
         moduleOptions = new ArrayList<>();
-        for( ModuleOption moduleOption : syntaxOptions ) {
-            if( moduleOption.getOption().trim().length() != 0 ) {
+        for (ModuleOption moduleOption : syntaxOptions) {
+            if (moduleOption.getOption().trim().length() != 0) {
                 moduleOptions.add(moduleOption);
             }
         }
@@ -232,8 +240,8 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         clearSyntaxImageView.setVisibility(visibility);
         hintSyntaxImageView.setVisibility(visibility);
         //voiceTypeImageView.setVisibility(visibility);
-        isAnswered = syntaxOptions.size() == 1  ;
-        if( isAnswered )
+        isAnswered = syntaxOptions.size() == 1;
+        if (isAnswered)
             updateCreekUserStats();
 
     }
@@ -253,7 +261,6 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @Override
@@ -278,20 +285,27 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 }*/
                 showHint();
                 break;
-            case R.id.voiceTypeImageView :
+            case R.id.voiceTypeImageView:
                 openVoiceIntent();
+                break;
+            case R.id.proceedTextView:
+                AnimationUtils.slideDown(resultLayout);
+                if (modulteDetailsScrollPageListener != null) {
+                    modulteDetailsScrollPageListener.onScrollForward();
+                }
                 break;
         }
     }
 
     private static final int SPEECH_REQUEST = 9878;
+
     private void openVoiceIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         try {
             startActivityForResult(intent, SPEECH_REQUEST);
-        } catch ( ActivityNotFoundException e ) {
+        } catch (ActivityNotFoundException e) {
             e.printStackTrace();
             AuxilaryUtils.displayAlert("No Voice App", "Your device doesn't support voice input - no app found", getContext());
         }
@@ -301,11 +315,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK ) {
+        if (requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
             CommonUtils.displayToast(getContext(), "I heard : " + results);
-            if( spokenText.equalsIgnoreCase("print formatted") ) {
+            if (spokenText.equalsIgnoreCase("print formatted")) {
                 solutionList.add("printf(");
                 syntaxSolutionTextView.setText(getSolution(solutionList));
                 setCodeView(syntaxSolutionTextView.getText().toString());
@@ -316,12 +330,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void checkSolution() {
         String solutionText = syntaxSolutionTextView.getText().toString();
         if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
+            AnimationUtils.slideUp(resultLayout);
             CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if( modulteDetailsScrollPageListener != null ) {
-                        modulteDetailsScrollPageListener.onScrollForward();
-                    }
+
                 }
             });
             syntaxQuestionOutputTextView.setText(syntaxModule.getSyntaxQuestionOutput());
@@ -330,7 +343,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             updateCreekUserStats();
 
         } else {
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Check the syntax again", Snackbar.LENGTH_LONG).show();
+            //Snackbar.make(getActivity().findViewById(android.R.id.content), "Check the syntax again", Snackbar.LENGTH_LONG).show();
             syntaxQuestionOutputTextView.setText("Error..!!");
             syntaxQuestionOutputTextView.setTextColor(Color.RED);
         }
@@ -338,20 +351,19 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     private void updateCreekUserStats() {
         CreekUserStats creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        switch ( syntaxModule.getSyntaxLanguage().toLowerCase() ) {
+        switch (syntaxModule.getSyntaxLanguage().toLowerCase()) {
             case "c":
                 creekUserStats.addToUnlockedCLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedCSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment ) {
-                    if( nextModule != null ) {
-                        if( creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId())) {
+                if (isLastFragment) {
+                    if (nextModule != null) {
+                        if (creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId())) {
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         }
 
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
-                    }
-                    else if( nextChapter != null ) {
-                        if( creekUserStats.addToUnlockedCLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId())) {
+                    } else if (nextChapter != null) {
+                        if (creekUserStats.addToUnlockedCLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId())) {
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         }
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
@@ -363,15 +375,14 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case "c++":
                 creekUserStats.addToUnlockedCppLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedCppSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment ) {
-                    if( nextModule != null ) {
-                        if(creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId())) {
+                if (isLastFragment) {
+                    if (nextModule != null) {
+                        if (creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId())) {
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         }
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
-                    }
-                    else if( nextChapter != null ) {
-                        if( creekUserStats.addToUnlockedCppLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
+                    } else if (nextChapter != null) {
+                        if (creekUserStats.addToUnlockedCppLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
@@ -380,14 +391,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case "java":
                 creekUserStats.addToUnlockedJavaLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedJavaSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment ) {
-                    if( nextModule != null ) {
-                        if( creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId()))
+                if (isLastFragment) {
+                    if (nextModule != null) {
+                        if (creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId()))
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
-                    }
-                    else if( nextChapter != null ) {
-                        if( creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
+                    } else if (nextChapter != null) {
+                        if (creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
@@ -396,14 +406,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             case "sql":
                 creekUserStats.addToUnlockedSqlLanguageModuleIdList(syntaxModule.getModuleId());
                 creekUserStats.addToUnlockedSqlSyntaxModuleIdList(syntaxModule.getModuleId() + "_" + syntaxModule.getSyntaxModuleId());
-                if( isLastFragment ) {
-                    if( nextModule != null ) {
-                        if( creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextModule.getModuleId()) )
+                if (isLastFragment) {
+                    if (nextModule != null) {
+                        if (creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextModule.getModuleId()))
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
-                    }
-                    else if( nextChapter != null ) {
-                        if( creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()) )
+                    } else if (nextChapter != null) {
+                        if (creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
                             AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
@@ -464,7 +473,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        if( rewardItem != null ) {
+        if (rewardItem != null) {
             Log.d(TAG, "onRewarded : " + rewardItem.getAmount() + " : " + rewardItem.getType());
             showHint();
         }

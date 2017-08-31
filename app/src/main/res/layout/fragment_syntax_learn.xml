@@ -243,6 +243,44 @@
         </RelativeLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_gravity="bottom"
+        tools:visibility="visible"
+        android:elevation="@dimen/margin_24"
+        android:padding="@dimen/margin_8"
+        android:animateLayoutChanges="true"
+        android:background="@color/transparent_black"
+        android:id="@+id/resultLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/resultTextView"
+            android:gravity="left"
+            android:layout_toStartOf="@+id/proceedTextView"
+            android:text="@string/congratulations"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:text="@string/proceed"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/proceedTextView"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
 

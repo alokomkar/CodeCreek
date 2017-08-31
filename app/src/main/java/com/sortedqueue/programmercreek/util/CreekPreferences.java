@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.database.CreekUser;
@@ -251,6 +252,8 @@ public class CreekPreferences {
         creekUser.setProgramLanguage(getProgramLanguage());
         creekUser.setUserPhotoUrl(getAccountPhoto());
         creekUser.setEmailId(getSignInAccount());
+        creekUser.setUserId(getUserId());
+        creekUser.setWasAnonUser(getIsAnonAccount() ? "Yes" : "No" );
         new FirebaseDatabaseHandler(context).writeCreekUser(creekUser);
     }
 
@@ -978,5 +981,26 @@ public class CreekPreferences {
 
     public void setUpgradeDialog(boolean showDialog) {
         sharedPreferences.edit().putBoolean("showUpgradeDialog", showDialog).apply();
+    }
+
+    public void setUserId(String payload) {
+        sharedPreferences.edit().putString("userId", payload).apply();
+    }
+
+    public String getUserId() {
+        String userId = sharedPreferences.getString("userId", "");
+        if( userId.equalsIgnoreCase("") ) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            setUserId(userId);
+        }
+        return userId;
+    }
+
+    public void setPremiumUser(boolean isPremiumUser) {
+        sharedPreferences.edit().putBoolean("isPremiumUser", isPremiumUser).apply();
+    }
+
+    public boolean isPremiumUser() {
+        return sharedPreferences.getBoolean("isPremiumUser", false);
     }
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.LessonsAdapter;
@@ -55,7 +56,9 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
         View view = inflater.inflate(R.layout.fragment_lessons, container, false);
         ButterKnife.bind(this, view);
         getModules();
-        initAds();
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         return view;
     }
 

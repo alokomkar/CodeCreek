@@ -34,6 +34,9 @@ public class Purchase {
     String mSignature;
     boolean mIsAutoRenewing;
 
+    public Purchase() {
+    }
+
     public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
         mItemType = itemType;
         mOriginalJson = jsonPurchaseInfo;
@@ -60,6 +63,50 @@ public class Purchase {
     public String getOriginalJson() { return mOriginalJson; }
     public String getSignature() { return mSignature; }
     public boolean isAutoRenewing() { return mIsAutoRenewing; }
+
+    public String getmItemType() {
+        return mItemType;
+    }
+
+    public String getmOrderId() {
+        return mOrderId;
+    }
+
+    public String getmPackageName() {
+        return mPackageName;
+    }
+
+    public String getmSku() {
+        return mSku;
+    }
+
+    public long getmPurchaseTime() {
+        return mPurchaseTime;
+    }
+
+    public int getmPurchaseState() {
+        return mPurchaseState;
+    }
+
+    public String getmDeveloperPayload() {
+        return mDeveloperPayload;
+    }
+
+    public String getmToken() {
+        return mToken;
+    }
+
+    public String getmOriginalJson() {
+        return mOriginalJson;
+    }
+
+    public String getmSignature() {
+        return mSignature;
+    }
+
+    public boolean ismIsAutoRenewing() {
+        return mIsAutoRenewing;
+    }
 
     @Override
     public String toString() { return "PurchaseInfo(type:" + mItemType + "):" + mOriginalJson; }

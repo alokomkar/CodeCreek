@@ -104,7 +104,9 @@ public class ProgramWikiActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
-        initAds();
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         setupLiseners();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);

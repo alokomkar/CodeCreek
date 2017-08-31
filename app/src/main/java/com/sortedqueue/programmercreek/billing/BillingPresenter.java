@@ -5,7 +5,11 @@ import android.app.AlertDialog;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
 
 /**
@@ -144,15 +148,16 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
                 setWaitScreen(false);
                 return;
             }
-            if (!verifyDeveloperPayload(purchase)) {
+            /*if (!verifyDeveloperPayload(purchase)) {
                 complain("Error purchasing. Authenticity verification failed.");
                 setWaitScreen(false);
                 return;
-            }
+            }*/
 
             Log.d(TAG, "Purchase successful.");
 
             if (purchase.getSku().equals(SKU_PREMIUM)) {
+                new FirebaseDatabaseHandler(activity).updatePurchasePayload(purchase);
                 // bought the premium upgrade!
                 Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
                 alert("Thank you for upgrading to premium!");
@@ -172,8 +177,8 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
         /* TODO: for security, generate your payload here for verification. See the comments on
          *        verifyDeveloperPayload() for more info. Since this is a SAMPLE, we just use
          *        an empty string, but on a production app you should carefully generate this. */
-        String payload = "";
-
+        String payload = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        CreekApplication.getCreekPreferences().setUserId(payload);
         try {
             mHelper.launchPurchaseFlow(activity, SKU_PREMIUM, RC_REQUEST,
                     mPurchaseFinishedListener, payload);

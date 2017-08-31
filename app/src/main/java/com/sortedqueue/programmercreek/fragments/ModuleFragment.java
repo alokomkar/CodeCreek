@@ -55,7 +55,9 @@ public class ModuleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_module, container, false);
         ButterKnife.bind(this, view);
         getModules();
-        initAds();
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         return view;
     }
 

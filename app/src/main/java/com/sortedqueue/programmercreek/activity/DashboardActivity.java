@@ -48,6 +48,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.billing.BillingPresenter;
+import com.sortedqueue.programmercreek.billing.Purchase;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -174,6 +175,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         }
         configureGoogleSignup();
         checkForDBUpdates();
+
         billingPresenter = new BillingPresenter(this);
         if (!creekPreferences.getProgramLanguage().equals("")) {
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
@@ -265,6 +267,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 CommonUtils.dismissProgressDialog();
             }
         });
+        if( !creekPreferences.isPremiumUser() ) {
+            new FirebaseDatabaseHandler( DashboardActivity.this).verifyPurchase(new FirebaseDatabaseHandler.VerifyPurchaseListener() {
+                @Override
+                public void onSuccess(Purchase purchase) {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
+        }
+
     }
 
 

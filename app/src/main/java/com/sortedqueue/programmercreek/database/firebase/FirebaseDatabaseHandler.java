@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +16,7 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.billing.Purchase;
 import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.database.Chapter;
@@ -262,6 +264,47 @@ public class FirebaseDatabaseHandler {
     private static final String END_PROGRAM_EXPLANATION = "</program_explanation>";
     private static final String START_PROGRAM = "<program>";
     private static final String END_PROGRAM = "</program>";
+
+    public void updatePurchasePayload(Purchase purchase) {
+        String userId = creekPreferences.getUserId();
+        if( userId.equalsIgnoreCase("") ) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        Log.d(TAG, "Premium upgrade : UserId : " + userId + " :Purchase Details: " + purchase );
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).setValue(purchase);
+    }
+
+    public interface VerifyPurchaseListener {
+        void onSuccess( Purchase purchase );
+        void onError( Exception e );
+    }
+
+    public void verifyPurchase(final VerifyPurchaseListener verifyPurchaseListener ) {
+        String userId = creekPreferences.getUserId();
+        if( userId.equalsIgnoreCase("") ) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot != null ) {
+                    Purchase purchase = dataSnapshot.getValue(Purchase.class);
+                    if( purchase != null ) {
+                        verifyPurchaseListener.onSuccess(purchase);
+                        creekPreferences.setPremiumUser(true);
+                    }
+                    else {
+                        verifyPurchaseListener.onError(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                verifyPurchaseListener.onError(databaseError.toException());
+            }
+        });
+    }
 
     private class UserToken {
         private String token;
@@ -1106,6 +1149,11 @@ public class FirebaseDatabaseHandler {
                     creekPreferences.setSignInAccount(creekUser.getEmailId());
                     creekPreferences.setAccountName(creekUser.getUserFullName());
                     creekPreferences.setAccountPhoto(creekUser.getUserPhotoUrl());
+                    if( creekUser.getUserId().equalsIgnoreCase("") ) {
+                        creekUser.setUserId(creekPreferences.getUserId());
+                        creekUser.setWasAnonUser(creekPreferences.getIsAnonAccount() ? "Yes" : "No");
+                        creekUser.save(mContext);
+                    }
                     if( creekUser.getProgramLanguage() != null )
                         creekPreferences.setProgramLanguage(creekUser.getProgramLanguage().toLowerCase());
                     getCreekUserListner.onSuccess(creekUser);

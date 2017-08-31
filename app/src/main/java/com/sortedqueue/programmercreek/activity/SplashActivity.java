@@ -199,6 +199,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
             if( isAnonSignup && user.getDisplayName() == null ) {
                 creekUser.setUserFullName("Anonymous_" + new Date().getTime() );
+                creekUser.setWasAnonUser("Yes");
             }
             if (user.getPhotoUrl() != null)
                 creekUser.setUserPhotoUrl(user.getPhotoUrl().toString());
@@ -211,6 +212,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             else {
                 creekUser.setEmailId(user.getUid());
             }
+
+            creekUser.setUserId(user.getUid());
 
             creekPreferences.setAccountName(creekUser.getUserFullName());
             Log.d(TAG, "Anon User name : " + creekPreferences.getAccountName());
@@ -232,6 +235,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onSuccess(CreekUser creekUser) {
                     CommonUtils.dismissProgressDialog();
+                    if( creekUser.getUserId().equalsIgnoreCase("") ) {
+                        creekUser.setUserId( creekPreferences.getUserId() );
+                        creekUser.setWasAnonUser( creekPreferences.getIsAnonAccount() ? "Yes" : "No" );
+                    }
                     startApp();
                 }
 
@@ -466,6 +473,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         creekUser.setUserFullName(account.getDisplayName());
         creekUser.setUserPhotoUrl(account.getPhotoUrl().toString());
         creekUser.setEmailId(account.getEmail());
+        if( creekUser.getUserId().equalsIgnoreCase("") && FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            creekUser.setUserId(creekPreferences.getUserId());
+            creekUser.setWasAnonUser("No");
+        }
+        creekUser.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         creekUser.save(SplashActivity.this);
         creekPreferences.setAccountName(account.getDisplayName());
         creekPreferences.setAccountPhoto(account.getPhotoUrl().toString());
@@ -501,6 +513,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             });
             return;
         }
+        new FirebaseDatabaseHandler(SplashActivity.this).getCreekUser(creekPreferences.getSignInAccount(), new FirebaseDatabaseHandler.GetCreekUserListner() {
+            @Override
+            public void onSuccess(CreekUser creekUser) {
+
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+
+            }
+        });
         Intent i = new Intent(SplashActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();

@@ -142,7 +142,9 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                         CommonUtils.dismissProgressDialog();
                     }
                 });
-        initAds();
+        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            initAds();
+        }
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
 
@@ -241,7 +243,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/) {
+        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
             interstitialAd.show();
             isAdShown = true;
             return;
