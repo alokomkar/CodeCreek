@@ -100,7 +100,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
         hintButton.setOnClickListener(this);
         proceedTextView.setOnClickListener(this);
         showHelperDialog();
-        lessonNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
+        //lessonNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
         new FirebaseDatabaseHandler(getContext()).compileSharedProgram(bitModule.getCode(), this);
 
     }
