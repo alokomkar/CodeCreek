@@ -88,6 +88,10 @@ public class CodeEditorRecyclerAdapter extends RecyclerView.Adapter<CodeEditorRe
         return code;
     }
 
+    public ArrayList<String> getProgramLines() {
+        return programLines;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, TextWatcher {
 
         @BindView(R.id.codeEditText)

@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.sortedqueue.programmercreek.view.UserProgramDialog;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Alok on 25/05/17.
@@ -52,6 +54,11 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

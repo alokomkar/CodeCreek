@@ -58,7 +58,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 programLanguage,
                 "Static Variable",
                 "For example, a public static variable of Integer type is declared in this way.",
-                "public static Integer staticVar;")); // Single line syntax indicator - ask user to complete the same syntax..
+                "public static Integer staticVar;", "random")); // Single line syntax indicator - ask user to complete the same syntax..
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -111,7 +111,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 programLanguage,
                 "Static Method",
                 "To declare a static method, use static keyword in method declaration. Static method syntax is:",
-                "ACCESS_MODIFER static RETURN_TYPE METHOD_NAME;"
+                "ACCESS_MODIFER static RETURN_TYPE METHOD_NAME;", "random"
                 ));
 
         bitModules.add(new BitModule(
@@ -121,7 +121,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "For example, a public static variable of Integer type is declared in this way.",
                 "public static Integer getStaticVar(){\n" +
                         "    return staticVar;\n" +
-                        "}"));
+                        "}", "random"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -185,7 +185,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "For example, a public static variable of Integer type is declared in this way.",
                 "public static Integer getStaticVar(){\n" +
                         "    return staticVar;\n" +
-                        "}"));
+                        "}", "random"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -396,7 +396,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "         \n" +
                         "    }\n" +
                         "}",
-                "",
+                "random",
                 "In default constructor, name of the constructor MUST match the class name and it should not have any parameters."));
 
         bitModules.add(new BitModule(
