@@ -840,6 +840,280 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("OOPs Concepts : Abstraction\n" +
+                "Encapsulation\n" +
+                "Inheritance\n" +
+                "Polymorphism");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Abstraction",
+                "Abstraction is very easy to understand when you relate it to read world scenario. For example, when you drive your car you do not have to be concerned with the exact internal working of your car. What you are concerned with is interacting with your car via its interfaces like steering wheel, brake pedal, accelerator pedal etc. Here the knowledge you have of your car is abstract.\n" +
+                        "\n" +
+                        "In computer science, abstraction is the process by which data and programs are defined with a representation similar in form to its meaning (semantics), while hiding away the implementation details.\n" +
+                        "\n" +
+                        "In more simple terms, abstraction is to hide information that is not relevant or rather show only relevant information and to simplify it by comparing it to something similar in the real world.",
+                "",
+                "",
+                "Abstraction captures only those details about an object that are relevant to the current perspective.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Two Ways of Abstraction",
+                "1. Data abstraction\n" +
+                        "\n" +
+                        "Data abstraction is the way to create complex data types from multiple smaller data types – which is more close to real life entity. e.g. An Employee class can be a complex object of having various small associations.",
+                "public class Employee\n" +
+                        "{\n" +
+                        "    private Department department;\n" +
+                        "    private Address address;\n" +
+                        "    private Education education;\n" +
+                        "    //So on...\n" +
+                        "}",
+                "",
+                "So, if you want to fetch information of a employee, you ask it from Employee object – as you do in real life, ask the person itself.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "2nd Way",
+                "Control abstraction\n" +
+                        "\n" +
+                        "Control abstraction is achieved by hiding the sequence of actions for a complex task – inside a simple method call, so logic to perform the task can be hidden from client and could be changed in future without impacting the client code.",
+                "public class EmployeeManager\n" +
+                        "{\n" +
+                        "    public Address getPrefferedAddress(Employee e)\n" +
+                        "    {\n" +
+                        "        //Get all addresses from database\n" +
+                        "        //Apply logic to determine which address is preferred\n" +
+                        "        //Return address\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "In above example, tomorrow if you want to change the logic so that everytime domestic address is always the preferred address, you will change the logic inside getPrefferedAddress() method, and client will be unaffected.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Encapsulation",
+                "Wrapping data and methods within classes in combination with implementation hiding (through access control) is often called encapsulation. The result is a data type with characteristics and behaviors. Encapsulation essentially has both i.e. information hiding and implementation hiding.\n\n" +
+                        "Information hiding is done through using access control keywords (public, private, protected) and implementation hiding is achieved through creation of interface for a class. Information hiding gives the designer the freedom to modify how the responsibility is fulfilled by a object. This is especially valuable at points where the design (or even the requirements) are likely to change.\n" +
+                        "\n" +
+                        "Let’s take an example to make it more clear.",
+                "//Information hiding\n" +
+                        "\n" +
+                        "class InformationHiding\n" +
+                        "{\n" +
+                        "    //Restrict direct access to inward data\n" +
+                        "    private ArrayList items = new ArrayList();\n" +
+                        " \n" +
+                        "    //Provide a way to access data - internal logic can safely be changed in future\n" +
+                        "    public ArrayList getItems(){\n" +
+                        "        return items;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "//Implementation hiding\n" +
+                        "\n" +
+                        "interface ImplemenatationHiding {\n" +
+                        "    Integer sumAllItems(ArrayList items);\n" +
+                        "}\n" +
+                        "class InformationHiding implements ImplemenatationHiding\n" +
+                        "{\n" +
+                        "    //Restrict direct access to inward data\n" +
+                        "    private ArrayList items = new ArrayList();\n" +
+                        " \n" +
+                        "    //Provide a way to access data - internal logic can safely be changed in future\n" +
+                        "    public ArrayList getItems(){\n" +
+                        "        return items;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    public Integer sumAllItems(ArrayList items) {\n" +
+                        "        //Here you may do N number of things in any sequence\n" +
+                        "        //Which you do not want your clients to know\n" +
+                        "        //You can change the sequence or even whole logic\n" +
+                        "        //without affecting the client\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Inheritance",
+                "Inheritance in java is a mechanism in which one object acquires the properties and behaviors of parent object. It’s essentially creating parent-child relationship between classes. In java, you will use inheritance mainly for code re-usability and maintainability.\n" +
+                        "\n" +
+                        "Keyword “extends” is used to inherit a class in java. The “extends” keyword indicates that you are making a new class that derives from an existing class. In the terminology of Java, a class that is inherited is called a super class. The new class is called a subclass.\n" +
+                        "\n" +
+                        "A subclass inherits all the non-private members (fields, methods, and nested classes) from its superclass. Constructors are not members, so they are not inherited by subclasses, but the constructor of the superclass can be invoked from the subclass.",
+                "class Employee\n" +
+                        "{\n" +
+                        "    private Department department;\n" +
+                        "    private Address address;\n" +
+                        "    private Education education;\n" +
+                        "    //So on...\n" +
+                        "}\n" +
+                        "class Manager extends Employee {\n" +
+                        "    private List<Employee> reportees;\n" +
+                        "}",
+                "",
+                "In above example, Manager is specialized version of Employee and reuses department, address and education from Employee class as well as define it’s own reportees list.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Polymorphism",
+                "Polymorphism is the ability by which, we can create functions or reference variables which behaves differently in different programmatic context.\n" +
+                        "\n" +
+                        "In java language, polymorphism is essentially considered into two versions:\n" +
+                        "\n" +
+                        "1. Compile time polymorphism (static binding or method overloading)\n" +
+                        "2. Runtime polymorphism (dynamic binding or method overriding)",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Polymorphism - Example",
+                "In simple words, polymorphism is the ability by which, we can create functions or reference variables which behaves differently in different programmatic context.\n" +
+                        "\n" +
+                        "Polymorphism is one of the major building blocks of object oriented programming along with inheritance, abstraction and encapsulation.\n" +
+                        "\n" +
+                        "“Subtype polymorphism, often referred to as simply polymorphism in the context of object-oriented programming, is the ability to create a variable, a function, or an object that has more than one form.” – Wikipedia",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Polymorphism in Java",
+                "An example of polymorphism is referring the instance of subclass, with reference variable of super-class. e.g.",
+                "Object o = new Object(); //o can hold the reference of any subtype\n" +
+                        "Object o = new String();\n" +
+                        "Object o = new Integer();",
+                "",
+                "Here, String is subclass of Object class. This is basic example of polymorphism.\n" +
+                        "\n" +
+                        "In java language, polymorphism is essentially considered into two versions.\n" +
+                        "\n" +
+                        "1. Compile time polymorphism (static binding or method overloading)\n" +
+                        "2. Runtime polymorphism (dynamic binding or method overriding)",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Compile Time Polymorphism (static binding or method overloading)",
+                "As the meaning is implicit, this is used to write the program in such a way, that flow of control is decided in compile time itself. It is achieved using method overloading.\n" +
+                        "\n" +
+                        "In method overloading, an object can have two or more methods with same name, BUT, with their method parameters different. These parameters may be different on two bases:",
+                "",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Parameters type",
+                "Type of method parameters can be different. e.g. java.util.Math.max() function comes with following versions:",
+                "public static double Math.max(double a, double b){..}\n" +
+                        "public static float Math.max(float a, float b){..}\n" +
+                        "public static int Math.max(int a, int b){..}\n" +
+                        "public static long Math.max(long a, long b){..}",
+                "",
+                "The actual method to be called is decided on compile time based on parameters passed to function in program.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Parameters count",
+                "Functions accepting different number of parameters. e.g. in employee management application, a factory can have these methods:",
+                "EmployeeFactory.create(String firstName, String lastName){...}\n" +
+                        "EmployeeFactory.create(Integer id, String firstName, String lastName){...}",
+                "",
+                "Both methods have same name “create” but actual method invoked will be based on parameters passed in program.",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Runtime Polymorphism (dynamic binding or method overriding)",
+                "Runtime polymorphism is essentially referred as method overriding. Method overriding is a feature which you get when you implement inheritance in your program.\n" +
+                        "\n" +
+                        "A simple example can be from real world e.g. animals. An application can have Animal class, and its specialized sub classes like Cat and Dog. These subclasses will override the default behavior provided by Animal class + some of its own specific behavior.",
+                "public class Animal {\n" +
+                        "    public void makeNoise()\n" +
+                        "    {\n" +
+                        "        System.out.println(\"Some sound\");\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class Dog extends Animal{\n" +
+                        "    public void makeNoise()\n" +
+                        "    {\n" +
+                        "        System.out.println(\"Bark\");\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class Cat extends Animal{\n" +
+                        "    public void makeNoise()\n" +
+                        "    {\n" +
+                        "        System.out.println(\"Meawoo\");\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "//Now which makeNoise() method will be called, depends on type of actual instance created on runtime e.g.\n" +
+                        "\n" +
+                        "public class Demo\n" +
+                        "{\n" +
+                        "    public static void main(String[] args) {\n" +
+                        "        Animal a1 = new Cat();\n" +
+                        "        a1.makeNoise(); //Prints Meowoo\n" +
+                        "         \n" +
+                        "        Animal a2 = new Dog();\n" +
+                        "        a2.makeNoise(); //Prints Bark\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Important points",
+                "1. Polymorphism is the ability to create a variable, a function, or an object that has more than one form.\n\n" +
+                        "2. In java, polymorphism is divided into two parts : method overloading and method overriding.\n\n" +
+                        "3. Some may argue that method overloading is not polymorphism. Then what does the term compile time “polymorphism” means??\n\n" +
+                        "4. Another term operator overloading is also there, e.g. “+” operator can be used to add two integers as well as concat two sub-strings. Well, this is the only available support for operator overloading in java, and you can not have your own custom defined operator overloading in java.\n\n",
+                "",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
         lesson.setTitle("Concurrency : the beginning");
 
         bitModules = new ArrayList<>();
