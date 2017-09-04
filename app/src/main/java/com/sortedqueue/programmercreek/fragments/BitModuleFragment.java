@@ -139,7 +139,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
         if (bitModule.getTestMode() != null && bitModule.getTestMode().equalsIgnoreCase("random")) {
             constructFillBlanks(codeEditorRecyclerAdapter.getProgramLines());
         }
-        checkFAB.setVisibility(bitModule.getTestMode() == null ? View.GONE : View.VISIBLE);
+        checkFAB.setVisibility(bitModule.getTestMode() == null || bitModule.getTestMode().equalsIgnoreCase("random") ? View.GONE : View.VISIBLE);
         if (lastFirstIndicator == 1) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
@@ -155,16 +155,19 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
         for (String programLine : programLines) {
             programLine = programLine.replaceAll("  ", " ");
             String[] codeWords = programLine.split(" ");
-            int randomIndex = ProgramTable.getRandomNumberInRange(0, codeWords.length - 1);
-            fillBlankOptions.add(codeWords[randomIndex]);
-            codeWords[randomIndex] = blankString;
-            fillBlankQuestions.add(codeWords);
-            RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(getContext()).inflate(R.layout.recyclerview_fill_code, null).findViewById(R.id.codeBlanksRecyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            fillCodeAdapter = new FillCodeRecyclerAdapter(codeWords, randomIndex);
-            fillCodeRecyclerAdapters.add(fillCodeAdapter);
-            recyclerView.setAdapter(fillCodeAdapter);
-            fillCodeLayout.addView(recyclerView);
+            if( codeWords != null && codeWords.length > 1 ) {
+                int randomIndex = ProgramTable.getRandomNumberInRange(0, codeWords.length - 1);
+                fillBlankOptions.add(codeWords[randomIndex]);
+                codeWords[randomIndex] = blankString;
+                fillBlankQuestions.add(codeWords);
+                RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(getContext()).inflate(R.layout.recyclerview_fill_code, null).findViewById(R.id.codeBlanksRecyclerView);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                fillCodeAdapter = new FillCodeRecyclerAdapter(codeWords, randomIndex);
+                fillCodeRecyclerAdapters.add(fillCodeAdapter);
+                recyclerView.setAdapter(fillCodeAdapter);
+                fillCodeLayout.addView(recyclerView);
+            }
+
         }
 
         fillOptionsRecyclerView.setVisibility(View.VISIBLE);

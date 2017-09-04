@@ -121,7 +121,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "For example, a public static variable of Integer type is declared in this way.",
                 "public static Integer getStaticVar(){\n" +
                         "    return staticVar;\n" +
-                        "}", "random"));
+                        "}"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -185,7 +185,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "For example, a public static variable of Integer type is declared in this way.",
                 "public static Integer getStaticVar(){\n" +
                         "    return staticVar;\n" +
-                        "}", "random"));
+                        "}"));
 
         bitModules.add(new BitModule(
                 lesson.getLessonId() + "_module_" + moduleIndex++,
@@ -396,7 +396,6 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "         \n" +
                         "    }\n" +
                         "}",
-                "random",
                 "In default constructor, name of the constructor MUST match the class name and it should not have any parameters."));
 
         bitModules.add(new BitModule(
