@@ -396,6 +396,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                         "         \n" +
                         "    }\n" +
                         "}",
+                "",
                 "In default constructor, name of the constructor MUST match the class name and it should not have any parameters."));
 
         bitModules.add(new BitModule(
