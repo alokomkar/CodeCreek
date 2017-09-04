@@ -136,9 +136,9 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
         backImageView.setVisibility(lastFirstIndicator == 0 ? View.GONE : View.VISIBLE);
         nextImageView.setVisibility(lastFirstIndicator == 1 ? View.GONE : View.VISIBLE);
         fillOptionsRecyclerView.setVisibility(View.GONE);
-        if (bitModule.getTestMode() != null && bitModule.getTestMode().equalsIgnoreCase("random")) {
+        /*if (bitModule.getTestMode() != null && bitModule.getTestMode().equalsIgnoreCase("random")) {
             constructFillBlanks(codeEditorRecyclerAdapter.getProgramLines());
-        }
+        }*/
         checkFAB.setVisibility(bitModule.getTestMode() == null || bitModule.getTestMode().equalsIgnoreCase("random") ? View.GONE : View.VISIBLE);
         if (lastFirstIndicator == 1) {
             checkFAB.setVisibility(View.VISIBLE);
