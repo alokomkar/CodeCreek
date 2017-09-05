@@ -475,7 +475,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 //creekPreferences.setPremiumUser(true);
                 return true;
 
-            case R.id.action_restore_purchase :
+           /* case R.id.action_restore_purchase :
                 AuxilaryUtils.displayInputDialog(DashboardActivity.this, "Restore Purchase", "Enter unique Id you got when you purchased the item : ", new AuxilaryUtils.InputTextListener() {
                     @Override
                     public void onSuccess(String text) {
@@ -505,7 +505,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
                     }
                 });
-                return true;
+                return true;*/
 
             /*case R.id.action_sync:
                 //downloadFile();

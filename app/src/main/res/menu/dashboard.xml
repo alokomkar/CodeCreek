@@ -27,9 +27,10 @@
     <item android:id="@+id/action_upgrade"
         android:title="@string/upgrade"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_restore_purchase"
+    <!--<item android:id="@+id/action_restore_purchase"
         android:title="@string/restore_purchase"
-        app:showAsAction="never"/>
+        android:visible="false"
+        app:showAsAction="never"/>-->
     <item android:id="@+id/action_rate"
         android:title="@string/rate_us"
         app:showAsAction="never"/>

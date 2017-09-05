@@ -87,7 +87,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
     }
 
     // SKUs for our products: the premium upgrade (non-consumable) and gas (consumable)
-    private static final String SKU_PREMIUM = "com.sortedqueue.programmercreek.adfreeupgrade";
+    private static final String SKU_PREMIUM = "com.sortedqueue.programmercreek.adfreepremium";
     //private static final String SKU_PREMIUM = "android.test.purchased";
 
     private boolean mIsPremium;
@@ -115,6 +115,9 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
 
             // Do we have the premium upgrade?
             Purchase premiumPurchase = inventory.getPurchase(SKU_PREMIUM);
+            if( premiumPurchase != null ) {
+                new FirebaseDatabaseHandler(activity).updatePurchasePayload(premiumPurchase);
+            }
             mIsPremium = (premiumPurchase != null && verifyDeveloperPayload(premiumPurchase));
             Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
 
@@ -160,7 +163,8 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
                 new FirebaseDatabaseHandler(activity).updatePurchasePayload(purchase);
                 // bought the premium upgrade!
                 Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
-                alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getCreekPreferences().getUserId() + " in case you need to use the app other phones, restart app for effects to take place." );
+                //alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getCreekPreferences().getUserId() + " in case you need to use the app other phones, restart app for effects to take place." );
+                alert("Thank you for upgrading to premium, restart app for effects to take place." );
                 mIsPremium = true;
                 updateUi();
                 setWaitScreen(false);
