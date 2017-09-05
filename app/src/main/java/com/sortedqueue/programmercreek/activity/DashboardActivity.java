@@ -178,8 +178,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         configureGoogleSignup();
         checkForDBUpdates();
+        checkBillingInformation();
 
-        billingPresenter = new BillingPresenter(this);
         if (!creekPreferences.getProgramLanguage().equals("")) {
             AuxilaryUtils.scheduleNotification(DashboardActivity.this);
         }
@@ -252,6 +252,18 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         //calculateUserRankings();
         //executeProgram();
         //getOutputResponse(58011332);
+
+    }
+
+    private void checkBillingInformation() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                billingPresenter = new BillingPresenter(DashboardActivity.this);
+                return null;
+            }
+        }.execute();
 
     }
 
