@@ -195,7 +195,6 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                     quizComplete = true;
                     matchQuestionsAdapter.setChecked(true, programTables);
                     isAnswered = true;
-                    proceedTextView.setVisibility(View.GONE);
                     String message = "";
                     if (rightAnswers == mOptionsList.size()) {
                         message = "Congratulations, you've got it";
@@ -209,9 +208,10 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                     AnimationUtils.slideInToLeft(resultLayout);
                     updateCreekStats();
                     lessonNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
+                    proceedTextView.setText("Okay");
                     if (isAnswered) {
+                        proceedTextView.setText("Proceed");
                         checkButton.setText("Finish");
-                        proceedTextView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     onBackPressListener.onBackPressed();
@@ -240,8 +240,10 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.proceedTextView :
+                if( proceedTextView.getText().toString().equalsIgnoreCase("Proceed")) {
+                    onBackPressListener.onBackPressed();
+                }
                 AnimationUtils.slideOutToLeft(resultLayout);
-                onBackPressListener.onBackPressed();
                 break;
         }
 

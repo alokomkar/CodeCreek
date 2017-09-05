@@ -87,7 +87,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
     }
 
     // SKUs for our products: the premium upgrade (non-consumable) and gas (consumable)
-    private static final String SKU_PREMIUM = "premium";
+    private static final String SKU_PREMIUM = "com.sortedqueue.programmercreek.adfreeupgrade";
     //private static final String SKU_PREMIUM = "android.test.purchased";
 
     private boolean mIsPremium;
