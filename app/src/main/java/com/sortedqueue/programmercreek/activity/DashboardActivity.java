@@ -797,7 +797,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
         signUpItem = menu.findItem(R.id.action_signup);
-        signUpItem.setVisible(CreekApplication.getCreekPreferences().getAccountName().startsWith("Anonymous_"));
+        signUpItem.setVisible(CreekApplication.getCreekPreferences().getIsAnonAccount());
         return true;
     }
 

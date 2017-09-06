@@ -122,7 +122,7 @@ public class CreekPreferences {
     }
 
     public boolean getIsAnonAccount() {
-        return sharedPreferences.getBoolean(KEY_ANON_ACCOUNT, false);
+        return getSignInAccount().equals(getUserId());
     }
 
     public void setAnonAccount( boolean isAnonAccount ) {
