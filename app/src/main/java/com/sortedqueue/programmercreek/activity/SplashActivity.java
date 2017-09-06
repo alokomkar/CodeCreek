@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private static int SPLASH_TIMEOUT = 1000;
     @BindView(R.id.googleSignInButton)
-    SignInButton googleSignInButton;
+    Button googleSignInButton;
     @BindView(R.id.fbLoginButton)
     LoginButton fbLoginButton;
     @BindView(R.id.signEmailButton)
@@ -109,7 +109,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             signEmailButton.setOnClickListener(this);
             signAnonButton.setOnClickListener(this);
             configureGoogleSignup();
-            fbLoginButton.setVisibility(View.VISIBLE);
+            //fbLoginButton.setVisibility(View.VISIBLE);
             List<String> fbPermissions = new ArrayList<>();
             fbPermissions.add("email");
             fbPermissions.add("public_profile");

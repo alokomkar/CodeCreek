@@ -279,4 +279,5 @@
     <string name="premium_description">Ads are annoying, upgrade to premium version and bid good bye to Ads.</string>
     <string name="upgrade">Upgrade</string>
     <string name="restore_purchase">Restore Purchase</string>
+    <string name="sign_in_with_google">Sign up with Gmail</string>
 </resources>
