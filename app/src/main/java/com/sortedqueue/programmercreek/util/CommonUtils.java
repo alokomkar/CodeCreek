@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
@@ -30,10 +32,15 @@ public class CommonUtils {
     public static void displayProgressDialog(Context context, String message ) {
         try {
             if( context != null ) {
-                mProgressDialog = new ProgressDialog(context);
+                /*mProgressDialog = new ProgressDialog(context);
                 mProgressDialog.show();
-                mProgressDialog.setContentView(R.layout.progress_content_view);
-
+                mProgressDialog.setContentView(R.layout.progress_content_view);*/
+                mProgressDialog = new ProgressDialog(context, android.R.style.Theme_Translucent);
+                mProgressDialog.show();
+                mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#59000000")));
+                //mProgressDialog.setMessage(dialogueMessage);
+                mProgressDialog.setContentView(R.layout.progress_dialog);
+                mProgressDialog.setCancelable(false);
                 TextView progressTextView = (TextView) mProgressDialog.findViewById(R.id.progressTextView);
                 progressTextView.setText(message);
                 Animation animation = new AlphaAnimation(1, 0);
@@ -41,7 +48,8 @@ public class CommonUtils {
                 animation.setInterpolator(new LinearInterpolator());
                 animation.setRepeatCount(Animation.INFINITE);
                 animation.setRepeatMode(Animation.REVERSE);
-                ((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
+                progressTextView.startAnimation(animation);
+                //((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
             /*Glide.with(context)
                     .load(R.drawable.ip)
                     .asGif()

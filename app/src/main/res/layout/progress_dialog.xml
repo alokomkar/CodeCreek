@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent_black_60">
+
+    <com.sortedqueue.programmercreek.view.ProgressWheel
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/progressWheel"
+        wheel:matProg_barColor="@color/white"
+        wheel:matProg_progressIndeterminate="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center"
+        android:layout_below="@+id/progressWheel"
+        android:gravity="center"
+        android:textSize="@dimen/text_dashboard_small"
+        android:id="@+id/progressTextView"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>
