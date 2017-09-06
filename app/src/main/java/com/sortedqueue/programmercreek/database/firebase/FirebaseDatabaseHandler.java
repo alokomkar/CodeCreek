@@ -274,6 +274,36 @@ public class FirebaseDatabaseHandler {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).setValue(purchase);
     }
 
+    public void updateAnonAccountStats(final CreekUser creekUser) {
+
+        getUserStatsDatabase().child(creekUser.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CreekUserStats creekUserStats = dataSnapshot.getValue(CreekUserStats.class);
+                if( creekUserStats != null ) {
+                    creekPreferences.saveCreekUserStats( creekUserStats );
+                    Log.d(TAG, "getCreekUserStatsInBackground : success : retrieved stats are : " + creekUserStats.toString());
+                    if( creekUser.getUserId() != null && !creekUser.getUserId().trim().equalsIgnoreCase("")) {
+                        getUserStatsDatabase().child(creekUser.getUserId()).removeValue();
+                        getUserStatsDatabase().child(creekUser.getEmailId().replaceAll("[-+.^:,]","")).setValue(creekUserStats);
+                    }
+
+                }
+                else {
+                    creekPreferences.saveCreekUserStats(new CreekUserStats());
+                    Log.d(TAG, "getCreekUserStatsInBackground : Failed : creating new stats : " + new CreekUserStats().toString());
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public interface VerifyPurchaseListener {
         void onSuccess( Purchase purchase );
         void onError( Exception e );

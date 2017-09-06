@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_black_60">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4"
+        android:id="@+id/googleSignInButton"
+        android:background="@drawable/button_clear"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/signEmailButton"
+        android:text="@string/sign_in_with_google"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signEmailButton"
+        android:layout_margin="@dimen/margin_4"
+        android:visibility="gone"
+        android:background="@drawable/button_blue"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/signAnonButton"
+        android:text="@string/sign_in"/>
+
+</LinearLayout>

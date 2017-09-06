@@ -2,10 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Search / will display always -->
-    <item android:id="@+id/action_sync"
-        android:title="@string/sync_with_server"
-        android:icon="@drawable/ic_refresh"
-        android:visible="false"
+    <item android:id="@+id/action_signup"
+        android:title="@string/signup"
         app:showAsAction="never"/>
     <item android:id="@+id/action_link"
         android:title="@string/link_account"
@@ -41,6 +39,12 @@
         android:title="@string/search"
         android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_sync"
+        android:icon="@drawable/ic_refresh"
+        android:title="@string/sync_with_server"
+        android:visible="false"
+        app:showAsAction="always" />
     <!-- <item android:id="@+id/action_refresh_database"
           android:icon="@drawable/refresh32"
           android:title="@string/title_refresh_database"

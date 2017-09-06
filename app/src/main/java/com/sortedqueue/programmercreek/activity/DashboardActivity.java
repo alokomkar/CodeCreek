@@ -62,6 +62,7 @@ import com.sortedqueue.programmercreek.fragments.DashboardFragment;
 import com.sortedqueue.programmercreek.fragments.LanguageFragment;
 import com.sortedqueue.programmercreek.fragments.QuickReferenceFragment;
 import com.sortedqueue.programmercreek.fragments.SearchFragment;
+import com.sortedqueue.programmercreek.fragments.SignupFragment;
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.retrofit.DownloadHTMLService;
 import com.sortedqueue.programmercreek.network.RetrofitCreator;
@@ -149,6 +150,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private CreekUserStats creekUserStats;
     private Runnable runnable;
     private BillingPresenter billingPresenter;
+    private MenuItem signUpItem;
 
     private void logDebugMessage(String message) {
         Log.d(TAG, message);
@@ -444,6 +446,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 onBackPressed();
                 return true;
 
+            case R.id.action_signup :
+                showSignupFragment();
+                return true;
+
             case R.id.action_link:
                 if (creekPreferences.getIsAnonAccount()) {
                     Intent spashIntent = new Intent(DashboardActivity.this, SplashActivity.class);
@@ -554,6 +560,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
         }
 
+    }
+
+    private void showSignupFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, new SignupFragment()).commit();
     }
 
     private void showSearchFragment() {
@@ -783,6 +796,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         getMenuInflater().inflate(R.menu.dashboard, menu);
         searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
+        signUpItem = menu.findItem(R.id.action_signup);
+        signUpItem.setVisible(CreekApplication.getCreekPreferences().getAccountName().startsWith("Anonymous_"));
         return true;
     }
 
@@ -801,6 +816,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             hideLanguageFragment();
+            invalidateOptionsMenu();
             return;
         }
         this.overridePendingTransition(R.anim.anim_slide_in_right,

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.sortedqueue.programmercreek.R;
 
@@ -26,6 +27,7 @@ public class LoginSignupDialog {
 
     public static final int MODE_SIGNUP = 1;
     public static final int MODE_LOGIN = 2;
+    private boolean signupOnly;
     @BindView(R.id.doneButton)
     Button doneButton;
     @BindView(R.id.cancelButton)
@@ -51,6 +53,8 @@ public class LoginSignupDialog {
     EditText reinputPassword;
     @BindView(R.id.reinput_layout_password)
     TextInputLayout reinputLayoutPassword;
+    @BindView(R.id.signupRadioGroup)
+    RadioGroup signupRadioGroup;
 
     private int mode;
     private Context context;
@@ -61,6 +65,12 @@ public class LoginSignupDialog {
     private String userEmail;
     private String userPassword;
     private String reEnterPassword;
+
+    public LoginSignupDialog(Context context, boolean signupOnly) {
+        this.context = context;
+        this.signupOnly = signupOnly;
+        initViews();
+    }
 
     public interface LoginSignupListener {
         void onSuccess(String name, String email, String password);
@@ -135,6 +145,10 @@ public class LoginSignupDialog {
                 alertDialog.dismiss();
             }
         });
+
+        if( signupOnly ) {
+            signupRadioGroup.setVisibility(View.GONE);
+        }
 
     }
 
