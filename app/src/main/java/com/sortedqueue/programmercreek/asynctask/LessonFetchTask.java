@@ -1109,91 +1109,7 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
-        moduleIndex = 1;
 
-        lesson = new Lesson();
-        lesson.setProgramLanguage(programLanguage);
-        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
-        lesson.setTitle("Concurrency : the beginning");
-
-        bitModules = new ArrayList<>();
-
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "Concurrency? What's that?",
-                "In simple words, concurrency is the ability to run several programs or several parts of a program in parallel. Concurrency enable a program to achieve high performance and throughput by utilizing the untapped capabilities of underlying operating system and machine hardware. e.g. modern computers has several CPU’s or several cores within one CPU, program can utilize all cores for some part of processing; thus completing task much before in time in comparison to sequential processing.\n" +
-                        "\n" +
-                        "The backbone of java concurrency are threads. A thread is a lightweight process which has its own call stack, but can access shared data of other threads in the same process. A Java application runs by default in one process. Within a Java application you can work with many threads to achieve parallel processing or concurrency.",
-                "",
-                "",
-                ""));
-
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "What makes java application concurrent?",
-                "The very first class, you will need to make a java class concurrent, is java.lang.Thread class. This class is the basis of all concurrency concepts in java. Then you have java.lang.Runnable interface to abstract the thread behavior out of thread class.\n" +
-                        "\n" +
-                        "Other classes you will need to build advance applications can be found at java.util.concurrent package added in Java 1.5.",
-                "",
-                "",
-                ""));
-
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "Is java concurrency really that simple?",
-                "Concurrent applications usually have more complex design in comparison to single threaded application. Code executed by multiple threads accessing shared data need special attention. Errors arising from incorrect thread synchronization are very hard to detect, reproduce and fix. They usually shows up in higher environments like production, and replicating the error is sometimes not possible in lower environments.\n" +
-                        "\n" +
-                        "Apart from complex defects, concurrency requires more resources to run the application. So make sure, you have sufficient resources in your kitty.",
-                "",
-                "",
-                ""));
-
-
-        bitModules.add(new BitModule(
-                lesson.getLessonId() + "_module_" + moduleIndex++,
-                programLanguage,
-                "Multi-threading Evolution",
-                "As per JDK 1.x release, there were only few classes present in this initial release. To be very specific, there classes/interfaces were:\n" +
-                        "\n" +
-                        "    java.lang.Thread\n" +
-                        "    java.lang.ThreadGroup\n" +
-                        "    java.lang.Runnable\n" +
-                        "    java.lang.Process\n" +
-                        "    java.lang.ThreadDeath\n" +
-                        "    and some exception classes\n" +
-                        "\n" +
-                        "e.g.\n" +
-                        "\n" +
-                        "    java.lang.IllegalMonitorStateException\n" +
-                        "    java.lang.IllegalStateException\n" +
-                        "    java.lang.IllegalThreadStateException.\n" +
-                        "\n" +
-                        "It also had few synchronized collections e.g. java.util.Hashtable.\n" +
-                        "\n" +
-                        "JDK 1.2 and JDK 1.3 had no noticeable changes related to multi-threading. (Correct me if I have missed anything).\n" +
-                        "\n" +
-                        "JDK 1.4, there were few JVM level changes to suspend/resume multiple threads with single call. But no major API changes were present.\n" +
-                        "\n" +
-                        "JDK 1.5 was first big release after JDK 1.x; and it had included multiple concurrency utilities. Executor, semaphore, mutex, barrier, latches, concurrent collections and blocking queues; all were included in this release itself. The biggest change in java multi-threading applications cloud happened in this release.\n" +
-                        "\n" +
-                        "    Read full set of changes in this link: http://docs.oracle.com/javase/1.5.0/docs/guide/concurrency/overview.html\n" +
-                        "\n" +
-                        "JDK 1.6 was more of platform fixes than API upgrades. So new change was present in JDK 1.6.\n" +
-                        "\n" +
-                        "JDK 1.7 added support for ForkJoinPool which implemented work-stealing technique to maximize the throughput. Also Phaser class was added.\n" +
-                        "\n" +
-                        "JDK 1.8 is largely known for Lambda changes, but it also had few concurrency changes as well. Two new interfaces and four new classes were added in java.util.concurrent package e.g. CompletableFuture and CompletionException.\n" +
-                        "\n" +
-                        "The Collections Framework has undergone a major revision in Java 8 to add aggregate operations based on the newly added streams facility and lambda expressions; resulting in large number of methods added in almost all Collection classes, and thus in concurrent collections as well.",
-                "",
-                "",
-                ""));
-
-        lesson.setBitModules(bitModules);
-        lessons.add(lesson);
 
         moduleIndex = 1;
 
@@ -1306,14 +1222,56 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
                 "Levels of Access Control",
                 "There are two levels of access control.\n" +
                         "\n" +
-                        "Class level — Allowed modifiers are public, or package-private (default).\n" +
-                        "Method level — Allowed modifiers are public, private, protected, or package-private (default).\n" +
+                        "1. Class level — Allowed modifiers are public, or package-private (default).\n" +
+                        "2. Method level — Allowed modifiers are public, private, protected, or package-private (default).\n" +
                         "A class may be declared with the modifier public, in which case that class is visible to all classes everywhere. If a class has no modifier (the default, also known as package-private), it is visible only within its own package.\n" +
                         "\n" +
                         "For members, there are two additional access modifiers: private and protected. The private modifier specifies that the member can only be accessed in its own class. The protected modifier specifies that the member can only be accessed within its own package (as with package-private) and, in addition, by a subclass of its class in another package.",
                 "",
                 "",
                 "Both private and protected can be (and frequently are) applied to nested classes and interfaces, just never top-level classes and interfaces."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Instances of same class can access private members of each other",
+                "The official doc and most of reference variables talk about using these access modifiers for controlling the access level “when used in some other class”. Most of us misinterpret this information wrongly, and start thinking in terms of instances of separate class.\n" +
+                        "\n" +
+                        "\n" +
+                        "Remember, access control is compile time feature and checked when you compile your program. It is applied at class level and not at instance level.\n" +
+                        "To establish this fact, let’s create two instances of a class and try to access the private members of each other.",
+                "public class AccessControlDemo\n" +
+                        "{\n" +
+                        "    //Private member variable\n" +
+                        "    private String privateMemberVariable = null;\n" +
+                        "     \n" +
+                        "    //Private member method\n" +
+                        "    private String privateMethod(){\n" +
+                        "        return privateMemberVariable;\n" +
+                        "    }\n" +
+                        "     \n" +
+                        "    public AccessControlDemo(String str) {\n" +
+                        "        privateMemberVariable = str;\n" +
+                        "    }\n" +
+                        "     \n" +
+                        "    public void demoAccessOtherClass(AccessControlDemo otherInstance)\n" +
+                        "    {\n" +
+                        "        //Access private members of second instance\n" +
+                        "        System.out.println(\"Private member variable :\" + otherInstance.privateMemberVariable);\n" +
+                        "        System.out.println(\"Private member method :\" + otherInstance.privateMethod());\n" +
+                        "    }\n" +
+                        "     \n" +
+                        "    public static void main(String[] args) {\n" +
+                        "        AccessControlDemo firstInstance = new AccessControlDemo(\"first instance\");\n" +
+                        "        AccessControlDemo secondInstance = new AccessControlDemo(\"second instance\");\n" +
+                        "         \n" +
+                        "        firstInstance.demoAccessOtherClass(secondInstance);\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "Private member variable :second instance\n" +
+                        "Private member method :second instance\n\n" +
+                        "As you can see, we are able to access the private members of another instance from same class."));
 
 
         lesson.setBitModules(bitModules);
@@ -1524,6 +1482,92 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency : the beginning");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Concurrency? What's that?",
+                "In simple words, concurrency is the ability to run several programs or several parts of a program in parallel. Concurrency enable a program to achieve high performance and throughput by utilizing the untapped capabilities of underlying operating system and machine hardware. e.g. modern computers has several CPU’s or several cores within one CPU, program can utilize all cores for some part of processing; thus completing task much before in time in comparison to sequential processing.\n" +
+                        "\n" +
+                        "The backbone of java concurrency are threads. A thread is a lightweight process which has its own call stack, but can access shared data of other threads in the same process. A Java application runs by default in one process. Within a Java application you can work with many threads to achieve parallel processing or concurrency.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What makes java application concurrent?",
+                "The very first class, you will need to make a java class concurrent, is java.lang.Thread class. This class is the basis of all concurrency concepts in java. Then you have java.lang.Runnable interface to abstract the thread behavior out of thread class.\n" +
+                        "\n" +
+                        "Other classes you will need to build advance applications can be found at java.util.concurrent package added in Java 1.5.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Is java concurrency really that simple?",
+                "Concurrent applications usually have more complex design in comparison to single threaded application. Code executed by multiple threads accessing shared data need special attention. Errors arising from incorrect thread synchronization are very hard to detect, reproduce and fix. They usually shows up in higher environments like production, and replicating the error is sometimes not possible in lower environments.\n" +
+                        "\n" +
+                        "Apart from complex defects, concurrency requires more resources to run the application. So make sure, you have sufficient resources in your kitty.",
+                "",
+                "",
+                ""));
+
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multi-threading Evolution",
+                "As per JDK 1.x release, there were only few classes present in this initial release. To be very specific, there classes/interfaces were:\n" +
+                        "\n" +
+                        "    java.lang.Thread\n" +
+                        "    java.lang.ThreadGroup\n" +
+                        "    java.lang.Runnable\n" +
+                        "    java.lang.Process\n" +
+                        "    java.lang.ThreadDeath\n" +
+                        "    and some exception classes\n" +
+                        "\n" +
+                        "e.g.\n" +
+                        "\n" +
+                        "    java.lang.IllegalMonitorStateException\n" +
+                        "    java.lang.IllegalStateException\n" +
+                        "    java.lang.IllegalThreadStateException.\n" +
+                        "\n" +
+                        "It also had few synchronized collections e.g. java.util.Hashtable.\n" +
+                        "\n" +
+                        "JDK 1.2 and JDK 1.3 had no noticeable changes related to multi-threading. (Correct me if I have missed anything).\n" +
+                        "\n" +
+                        "JDK 1.4, there were few JVM level changes to suspend/resume multiple threads with single call. But no major API changes were present.\n" +
+                        "\n" +
+                        "JDK 1.5 was first big release after JDK 1.x; and it had included multiple concurrency utilities. Executor, semaphore, mutex, barrier, latches, concurrent collections and blocking queues; all were included in this release itself. The biggest change in java multi-threading applications cloud happened in this release.\n" +
+                        "\n" +
+                        "    Read full set of changes in this link: http://docs.oracle.com/javase/1.5.0/docs/guide/concurrency/overview.html\n" +
+                        "\n" +
+                        "JDK 1.6 was more of platform fixes than API upgrades. So new change was present in JDK 1.6.\n" +
+                        "\n" +
+                        "JDK 1.7 added support for ForkJoinPool which implemented work-stealing technique to maximize the throughput. Also Phaser class was added.\n" +
+                        "\n" +
+                        "JDK 1.8 is largely known for Lambda changes, but it also had few concurrency changes as well. Two new interfaces and four new classes were added in java.util.concurrent package e.g. CompletableFuture and CompletionException.\n" +
+                        "\n" +
+                        "The Collections Framework has undergone a major revision in Java 8 to add aggregate operations based on the newly added streams facility and lambda expressions; resulting in large number of methods added in almost all Collection classes, and thus in concurrent collections as well.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
         lesson.setTitle("Concurrency : Thread safety");
 
         bitModules = new ArrayList<>();
@@ -1603,7 +1647,9 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
         lesson.setTitle("NIO[New IO] in Java");
         lessons.add(lesson);*/
-        
+
+        //For Java Introduction
+        //https://howtodoinjava.com/core-java/basics/what-is-java-programming-language/
         return lessons;
 
     }
