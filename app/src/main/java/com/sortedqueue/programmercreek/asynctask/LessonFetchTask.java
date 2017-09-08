@@ -1636,6 +1636,740 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency : Object level Locking vs. Class level Locking");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Synchronization",
+                "Synchronization refers to multi-threading. A synchronized block of code can only be executed by one thread at a time.\n" +
+                        "\n" +
+                        "Java supports multiple threads to be executed. This may cause two or more threads to access the same fields or objects. Synchronization is a process which keeps all concurrent threads in execution to be in synch. Synchronization avoids memory consistence errors caused due to inconsistent view of shared memory. When a method is declared as synchronized; the thread holds the monitor for that method’s object If another thread is executing the synchronized method, your thread is blocked until that thread releases the monitor.\n" +
+                        "\n" +
+                        "Synchronization in java is achieved using synchronized keyword. You can use synchronized keyword in your class on defined methods or blocks. Keyword can not be used with variables or attributes in class definition.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Object level locking",
+                "Object level locking is mechanism when you want to synchronize a non-static method or non-static code block such that only one thread will be able to execute the code block on given instance of the class. This should always be done to make instance level data thread safe. This can be done as below :",
+                "public class DemoClass\n" +
+                        "{\n" +
+                        "    public synchronized void demoMethod(){}\n" +
+                        "}\n" +
+                        " \n" +
+                        "or\n" +
+                        " \n" +
+                        "public class DemoClass\n" +
+                        "{\n" +
+                        "    public void demoMethod(){\n" +
+                        "        synchronized (this)\n" +
+                        "        {\n" +
+                        "            //other thread safe code\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "or\n" +
+                        " \n" +
+                        "public class DemoClass\n" +
+                        "{\n" +
+                        "    private final Object lock = new Object();\n" +
+                        "    public void demoMethod(){\n" +
+                        "        synchronized (lock)\n" +
+                        "        {\n" +
+                        "            //other thread safe code\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Class level locking",
+                "Class level locking prevents multiple threads to enter in synchronized block in any of all available instances on runtime. This means if in runtime there are 100 instances of  DemoClass, then only one thread will be able to execute demoMethod() in any one of instance at a time, and all other instances will be locked for other threads. This should always be done to make static data thread safe.",
+                "public class DemoClass\n" +
+                        "{\n" +
+                        "    public synchronized static void demoMethod(){}\n" +
+                        "}\n" +
+                        " \n" +
+                        "or\n" +
+                        " \n" +
+                        "public class DemoClass\n" +
+                        "{\n" +
+                        "    public void demoMethod(){\n" +
+                        "        synchronized (DemoClass.class)\n" +
+                        "        {\n" +
+                        "            //other thread safe code\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "or\n" +
+                        " \n" +
+                        "public class DemoClass\n" +
+                        "{\n" +
+                        "    private final static Object lock = new Object();\n" +
+                        "    public void demoMethod(){\n" +
+                        "        synchronized (lock)\n" +
+                        "        {\n" +
+                        "            //other thread safe code\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Some Important Notes",
+                "1. Synchronization in java guarantees that no two threads can execute a synchronized method which requires same lock simultaneously or concurrently.\n" +
+                        "2. synchronized keyword can be used only with methods and code blocks. These methods or blocks can be static or non-static both.\n" +
+                        "3. When ever a thread enters into java synchronized method or block it acquires a lock and whenever it leaves java synchronized method or block it releases the lock. Lock is released even if thread leaves synchronized method after completion or due to any Error or Exception.\n" +
+                        "4. java synchronized keyword is re-entrant in nature it means if a java synchronized method calls another synchronized method which requires same lock then current thread which is holding lock can enter into that method without acquiring lock.\n" +
+                        "5. Java Synchronization will throw NullPointerException if object used in java synchronized block is null. For example, in above code sample if lock is initialized as null, the synchronized (lock) will throw NullPointerException.\n" +
+                        "6. Synchronized methods in Java put a performance cost on your application. So use synchronization when it is absolutely required. Also, consider using synchronized code blocks for synchronizing only critical section of your code.\n" +
+                        "7. It’s possible that both static synchronized and non static synchronized method can run simultaneously or concurrently because they lock on different object.\n" +
+                        "8. According to the Java language specification you can not use java synchronized keyword with constructor it’s illegal and result in compilation error.\n" +
+                        "9. Do not synchronize on non final field on synchronized block in Java. because reference of non final field may change any time and then different thread might synchronizing on different objects i.e. no synchronization at all. Best is to use String class, which is already immutable and declared final.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Threading : Working With wait(), notify() and notifyAll()");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multi Threading",
+                "Multithreading in java is pretty complex topic and requires a lot of attention while writing application code dealing with multiple threads accessing one/more shared resources at any given time. Java 5, introduced some classes like BlockingQueue and Executors which take away some of the complexity by providing easy to use APIs. Programmers using these classes will feel a lot more confident than programmers directly handling synchronization stuff using wait() and notify() method calls. I will also recommend to use these newer APIs over synchronization yourself, BUT many times we are required to do so for various reasons e.g. maintaining legacy code. A good knowledge around these methods will help you in such situation when arrived. In this tutorial, I am discussing some concepts around methods wait(), notify() and notifyAll().",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What are wait(), notify() and notifyAll() methods?",
+                "Before moving into concepts, lets note down few very basic definitions involved for these methods.\n" +
+                        "\n" +
+                        "The Object class in Java has three final methods that allow threads to communicate about the locked status of a resource. These are :\n" +
+                        "\n" +
+                        "wait() : It tells the calling thread to give up the lock and go to sleep until some other thread enters the same monitor and calls notify(). The wait() method releases the lock prior to waiting and reacquires the lock prior to returning from the wait() method. The wait() method is actually tightly integrated with the synchronization lock, using a feature not available directly from the synchronization mechanism. In other words, it is not possible for us to implement the wait() method purely in Java: it is a native method.\n" +
+                        "General syntax for calling wait() method is like this:",
+                "synchronized( lockObject )\n" +
+                        "{\n" +
+                        "    while( ! condition )\n" +
+                        "    {\n" +
+                        "        lockObject.wait();\n" +
+                        "    }\n" +
+                        "     \n" +
+                        "    //take the action here;\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "notify() method",
+                "notify() : It wakes up one single thread that called wait() on the same object. It should be noted that calling notify() does not actually give up a lock on a resource. It tells a waiting thread that that thread can wake up. However, the lock is not actually given up until the notifier’s synchronized block has completed. So, if a notifier calls notify() on a resource but the notifier still needs to perform 10 seconds of actions on the resource within its synchronized block, the thread that had been waiting will need to wait at least another additional 10 seconds for the notifier to release the lock on the object, even though notify() had been called.\n" +
+                        "General syntax for calling notify() method is like this:",
+                "synchronized(lockObject)\n" +
+                        "{\n" +
+                        "    //establish_the_condition;\n" +
+                        " \n" +
+                        "    lockObject.notify();\n" +
+                        "     \n" +
+                        "    //any additional code if needed\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "notifyAll() method",
+                "notifyAll() : It wakes up all the threads that called wait() on the same object. The highest priority thread will run first in most of the situation, though not guaranteed. Other things are same as notify() method above.\n" +
+                        "General syntax for calling notify() method is like this:",
+                "synchronized(lockObject)\n" +
+                        "{\n" +
+                        "    establish_the_condition;\n" +
+                        " \n" +
+                        "    lockObject.notifyAll();\n" +
+                        "}",
+                "",
+                "In general, a thread that uses the wait() method confirms that a condition does not exist (typically by checking a variable) and then calls the wait() method. When another thread establishes the condition (typically by setting the same variable), it calls the notify() method. The wait-and-notify mechanism does not specify what the specific condition/ variable value is. It is on developer’s hand to specify the condition to be checked before calling wait() or notify()."));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Multi Threading : Producer Consumer example");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Multi Threading : Producer Consumer example",
+                "Multithreading in java is pretty complex topic and requires a lot of attention while writing application code dealing with multiple threads accessing one/more shared resources at any given time. Java 5, introduced some classes like BlockingQueue and Executors which take away some of the complexity by providing easy to use APIs. Programmers using these classes will feel a lot more confident than programmers directly handling synchronization stuff using wait() and notify() method calls. I will also recommend to use these newer APIs over synchronization yourself, BUT many times we are required to do so for various reasons e.g. maintaining legacy code. A good knowledge around these methods will help you in such situation when arrived. In this tutorial, I am discussing some concepts around methods wait(), notify() and notifyAll().",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What are wait(), notify() and notifyAll() methods?",
+                "In this exercise, we will solve producer consumer problem using wait() and notify() methods. To keep program simple and to keep focus on usage of wait() and notify() methods, we will involve only one producer and one consumer thread.\n" +
+                        "\n" +
+                        "Other features of the program are :\n" +
+                        "\n" +
+                        "1) Producer thread produce a new resource in every 1 second and put it in ‘taskQueue’.\n" +
+                        "2) Consumer thread takes 1 seconds to process consumed resource from ‘taskQueue’.\n" +
+                        "3) Max capacity of taskQueue is 5 i.e. maximum 5 resources can exist inside ‘taskQueue’ at any given time.\n" +
+                        "4) Both threads run infinitely.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Designing Producer Thread",
+                "Below is the code for producer thread based on our requirements :",
+                "class Producer implements Runnable\n" +
+                        "{\n" +
+                        "   private final List<Integer> taskQueue;\n" +
+                        "   private final int           MAX_CAPACITY;\n" +
+                        " \n" +
+                        "   public Producer(List<Integer> sharedQueue, int size)\n" +
+                        "   {\n" +
+                        "      this.taskQueue = sharedQueue;\n" +
+                        "      this.MAX_CAPACITY = size;\n" +
+                        "   }\n" +
+                        " \n" +
+                        "   @Override\n" +
+                        "   public void run()\n" +
+                        "   {\n" +
+                        "      int counter = 0;\n" +
+                        "      while (true)\n" +
+                        "      {\n" +
+                        "         try\n" +
+                        "         {\n" +
+                        "            produce(counter++);\n" +
+                        "         }\n" +
+                        "         catch (InterruptedException ex)\n" +
+                        "         {\n" +
+                        "            ex.printStackTrace();\n" +
+                        "         }\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        " \n" +
+                        "   private void produce(int i) throws InterruptedException\n" +
+                        "   {\n" +
+                        "      synchronized (taskQueue)\n" +
+                        "      {\n" +
+                        "         while (taskQueue.size() == MAX_CAPACITY)\n" +
+                        "         {\n" +
+                        "            System.out.println(\"Queue is full \" + Thread.currentThread().getName() + \" is waiting , size: \" + taskQueue.size());\n" +
+                        "            taskQueue.wait();\n" +
+                        "         }\n" +
+                        "           \n" +
+                        "         Thread.sleep(1000);\n" +
+                        "         taskQueue.add(i);\n" +
+                        "         System.out.println(\"Produced: \" + i);\n" +
+                        "         taskQueue.notifyAll();\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "1) Here “produce(counter++)” code has been written inside infinite loop so that producer keeps producing elements at regular interval.\n" +
+                        "2) We have written the produce() method code following the general guideline to write wait() method as mentioned in first section.\n" +
+                        "3) Once the wait() is over, producer add an element in taskQueue and called notifyAll() method. Because the last-time wait() method was called by consumer thread (that’s why producer is out of waiting state), consumer gets the notification.\n" +
+                        "4) Consumer thread after getting notification, if ready to consume the element as per written logic.\n" +
+                        "5) Note that both threads use sleep() methods as well for simulating time delays in creating and consuming elements."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Designing Consumer Thread",
+                "Below is the code for consumer thread based on our requirements :",
+                "class Consumer implements Runnable\n" +
+                        "{\n" +
+                        "   private final List<Integer> taskQueue;\n" +
+                        " \n" +
+                        "   public Consumer(List<Integer> sharedQueue)\n" +
+                        "   {\n" +
+                        "      this.taskQueue = sharedQueue;\n" +
+                        "   }\n" +
+                        " \n" +
+                        "   @Override\n" +
+                        "   public void run()\n" +
+                        "   {\n" +
+                        "      while (true)\n" +
+                        "      {\n" +
+                        "         try\n" +
+                        "         {\n" +
+                        "            consume();\n" +
+                        "         } catch (InterruptedException ex)\n" +
+                        "         {\n" +
+                        "            ex.printStackTrace();\n" +
+                        "         }\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        " \n" +
+                        "   private void consume() throws InterruptedException\n" +
+                        "   {\n" +
+                        "      synchronized (taskQueue)\n" +
+                        "      {\n" +
+                        "         while (taskQueue.isEmpty())\n" +
+                        "         {\n" +
+                        "            System.out.println(\"Queue is empty \" + Thread.currentThread().getName() + \" is waiting , size: \" + taskQueue.size());\n" +
+                        "            taskQueue.wait();\n" +
+                        "         }\n" +
+                        "         Thread.sleep(1000);\n" +
+                        "         int i = (Integer) taskQueue.remove(0);\n" +
+                        "         System.out.println(\"Consumed: \" + i);\n" +
+                        "         taskQueue.notifyAll();\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "1) Here “consume()” code has been written inside infinite loop so that consumer keeps consuming elements whenever it finds something in taskQueue..\n" +
+                        "2) Once the wait() is over, consumer removes an element in taskQueue and called notifyAll() method. Because the last-time wait() method was called by producer thread (that’s why producer is in waiting state), producer gets the notification.\n" +
+                        "3) Producer thread after getting notification, if ready to produce the element as per written logic."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Test the Application",
+                "Now lets test producer and consumer threads.",
+                "public class ProducerConsumerExampleWithWaitAndNotify\n" +
+                        "{\n" +
+                        "   public static void main(String[] args)\n" +
+                        "   {\n" +
+                        "      List<Integer> taskQueue = new ArrayList<Integer>();\n" +
+                        "      int MAX_CAPACITY = 5;\n" +
+                        "      Thread tProducer = new Thread(new Producer(taskQueue, MAX_CAPACITY), \"Producer\");\n" +
+                        "      Thread tConsumer = new Thread(new Consumer(taskQueue), \"Consumer\");\n" +
+                        "      tProducer.start();\n" +
+                        "      tConsumer.start();\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "Output:\n" +
+                        " \n" +
+                        "Produced: 0\n" +
+                        "Consumed: 0\n" +
+                        "Queue is empty Consumer is waiting , size: 0\n" +
+                        "Produced: 1\n" +
+                        "Produced: 2\n" +
+                        "Consumed: 1\n" +
+                        "Consumed: 2\n" +
+                        "Queue is empty Consumer is waiting , size: 0\n" +
+                        "Produced: 3\n" +
+                        "Produced: 4\n" +
+                        "Consumed: 3\n" +
+                        "Produced: 5\n" +
+                        "Consumed: 4\n" +
+                        "Produced: 6\n" +
+                        "Consumed: 5\n" +
+                        "Consumed: 6\n" +
+                        "Queue is empty Consumer is waiting , size: 0\n" +
+                        "Produced: 7\n" +
+                        "Consumed: 7\n" +
+                        "Queue is empty Consumer is waiting , size: 0\n\n" +
+                        "//Output varies on each run"));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Interview Questions : wait(), notify() and notifyAll() Methods");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What happens when notify() is called and no thread is waiting?",
+                "In general practice, this will not be the case in most scenarios if these methods are used correctly. Though if the notify() method is called when no other thread is waiting, notify() simply returns and the notification is lost.\n" +
+                        "\n" +
+                        "Since the wait-and-notify mechanism does not know the condition about which it is sending notification, it assumes that a notification goes unheard if no thread is waiting. A thread that later executes the wait() method has to wait for another notification to occur.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Can there be a race condition during the period that the wait() method releases OR reacquires the lock?",
+                "The wait() method is tightly integrated with the lock mechanism. The object lock is not actually freed until the waiting thread is already in a state in which it can receive notifications. It means only when thread state is changed such that it is able to receive notifications, lock is held. The system prevents any race conditions from occurring in this mechanism.\n" +
+                        "\n" +
+                        "Similarly, system ensures that lock should be held by object completely before moving the thread out of waiting state.",
+                "",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "If a thread receives a notification, is it guaranteed that the condition is set correctly?",
+                "Simply, no. Prior to calling the wait() method, a thread should always test the condition while holding the synchronization lock. Upon returning from the wait() method, the thread should always retest the condition to determine if it should wait again. This is because another thread can also test the condition and determine that a wait is not necessary — processing the valid data that was set by the notification thread.\n" +
+                        "\n" +
+                        "This is a common case when multiple threads are involved in the notifications. More particularly, the threads that are processing the data can be thought of as consumers; they consume the data produced by other threads. There is no guarantee that when a consumer receives a notification that it has not been processed by another consumer. As such, when a consumer wakes up, it cannot assume that the state it was waiting for is still valid. It may have been valid in the past, but the state may have been changed after the notify() method was called and before the consumer thread woke up. Waiting threads must provide the option to check the state and to return back to a waiting state in case the notification has already been handled. This is why we always put calls to the wait() method in a loop.",
+                "",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "What happens when more than one thread is waiting for notification? Which threads actually get the notification when the notify() method is called?",
+                "It depends on many factors.Java specification doesn’t define which thread gets notified. In runtime, which thread actually receives the notification varies based on several factors, including the implementation of the Java virtual machine and scheduling and timing issues during the execution of the program. There is no way to determine, even on a single processor platform, which of multiple threads receives the notification.\n" +
+                        "\n" +
+                        "Just like the notify() method, the notifyAll() method does not allow us to decide which thread gets the notification: they all get notified. When all the threads receive the notification, it is possible to work out a mechanism for the threads to choose among themselves which thread should continue and which thread(s) should call the wait() method again.",
+                "",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Does the notifyAll() method really wake up all the threads?",
+                "Yes and no. All of the waiting threads wake up, but they still have to reacquire the object lock. So the threads do not run in parallel: they must each wait for the object lock to be freed. Thus, only one thread can run at a time, and only after the thread that called the notifyAll() method releases its lock.",
+                "",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Why would you want to wake up all of the threads if only one is going to execute at all?",
+                "There are a few reasons. For example, there might be more than one condition to wait for. Since we cannot control which thread gets the notification, it is entirely possible that a notification wakes up a thread that is waiting for an entirely different condition. By waking up all the threads, we can design the program so that the threads decide among themselves which thread should execute next. Another option could be when producers generate data that can satisfy more than one consumer. Since it may be difficult to determine how many consumers can be satisfied with the notification, an option is to notify them all, allowing the consumers to sort it out among themselves.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Thread Vs. Runnable");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Difference between Runnable vs Thread in Java",
+                "In java language, as we all know that there are two ways to create threads. One using Runnable interface and another by extending Thread class. Let’s identify the differences between both ways i.e Runnable vs Thread.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Java Code to Create Threads using Runnable Interface and Thread class",
+                "Let’s quickly check the java code of usage of both techniques.",
+                "public class DemoRunnable implements Runnable {\n" +
+                        "    public void run() {\n" +
+                        "        //Code\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "//with a \"new Thread(demoRunnable).start()\" call\n" +
+                        " \n" +
+                        "public class DemoThread extends Thread {\n" +
+                        "    public DemoThread() {\n" +
+                        "        super(\"DemoThread\");\n" +
+                        "    }\n" +
+                        "    public void run() {\n" +
+                        "        //Code\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "//with a \"demoThread.start()\" call",
+                "",
+                ""));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Difference between Runnable vs Thread",
+                "There has been a good amount of debate on which is better way. Well, I also tried to find out and below is my learning:\n" +
+                        "\n" +
+                        "\n1. Implementing Runnable is the preferred way to do it. Here, you’re not really specializing or modifying the thread’s behavior. You’re just giving the thread something to run. That means composition is the better way to go.\n" +
+                        "\n2. Java only supports single inheritance, so you can only extend one class.\n" +
+                        "\n3. Instantiating an interface gives a cleaner separation between your code and the implementation of threads.\n" +
+                        "\n4. Implementing Runnable makes your class more flexible. If you extend thread then the action you’re doing is always going to be in a thread. However, if you extend Runnable it doesn’t have to be. You can run it in a thread, or pass it to some kind of executor service, or just pass it around as a task within a single threaded application.\n" +
+                        "\n5. By extending Thread, each of your threads has a unique object associated with it, whereas implementing Runnable, many threads can share the same runnable instance.",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Concurrency : yield() and join()");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Difference between yield() and join()",
+                "yield() method\n" +
+                        "\n" +
+                        "Theoretically, to ‘yield’ means to let go, to give up, to surrender. A yielding thread tells the virtual machine that it’s willing to let other threads be scheduled in its place. This indicates that it’s not doing something too critical. Note that it’s only a hint, though, and not guaranteed to have any effect at all.\n" +
+                        "\n" +
+                        "yield() is defined as following in Thread.java.",
+                "/**\n" +
+                        "  * A hint to the scheduler that the current thread is willing to yield its current use of a processor. The scheduler is free to ignore\n" +
+                        "  * this hint. Yield is a heuristic attempt to improve relative progression between threads that would otherwise over-utilize a CPU.\n" +
+                        "  * Its use should be combined with detailed profiling and benchmarking to ensure that it actually has the desired effect.\n" +
+                        "  */\n" +
+                        " \n" +
+                        "public static native void yield();",
+                "",
+                "Let’s list down important points from above definition:\n" +
+                        "\n" +
+                        "\n1. Yield is a Static method and Native too.\n" +
+                        "\n2. Yield tells the currently executing thread to give a chance to the threads that have equal priority in the Thread Pool.\n" +
+                        "\n3. There is no guarantee that Yield will make the currently executing thread to runnable state immediately.\n" +
+                        "\n4. It can only make a thread from Running State to Runnable State, not in wait or blocked state."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "yield() method example usage",
+                "In below example program, I have created two threads named producer and consumer for no specific reason. Producer is set to minimum priority and consumer is set to maximum priority. I will run below code with/without commenting the line Thread.yield(). Without yield(), though the output changes sometimes, but usually first all consumer lines are printed and then all producer lines.\n" +
+                        "\n" +
+                        "With using yield() method, both prints one line at a time and pass the chance to another thread, almost all the time.",
+                "package test.core.threads;\n" +
+                        " \n" +
+                        "public class YieldExample\n" +
+                        "{\n" +
+                        "   public static void main(String[] args)\n" +
+                        "   {\n" +
+                        "      Thread producer = new Producer();\n" +
+                        "      Thread consumer = new Consumer();\n" +
+                        "       \n" +
+                        "      producer.setPriority(Thread.MIN_PRIORITY); //Min Priority\n" +
+                        "      consumer.setPriority(Thread.MAX_PRIORITY); //Max Priority\n" +
+                        "       \n" +
+                        "      producer.start();\n" +
+                        "      consumer.start();\n" +
+                        "   }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class Producer extends Thread\n" +
+                        "{\n" +
+                        "   public void run()\n" +
+                        "   {\n" +
+                        "      for (int i = 0; i < 5; i++)\n" +
+                        "      {\n" +
+                        "         System.out.println(\"I am Producer : Produced Item \" + i);\n" +
+                        "         Thread.yield();\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class Consumer extends Thread\n" +
+                        "{\n" +
+                        "   public void run()\n" +
+                        "   {\n" +
+                        "      for (int i = 0; i < 5; i++)\n" +
+                        "      {\n" +
+                        "         System.out.println(\"I am Consumer : Consumed Item \" + i);\n" +
+                        "         Thread.yield();\n" +
+                        "      }\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "Output of above program “without” yield() method\n" +
+                        "\n" +
+                        "I am Consumer : Consumed Item 0\n" +
+                        " I am Consumer : Consumed Item 1\n" +
+                        " I am Consumer : Consumed Item 2\n" +
+                        " I am Consumer : Consumed Item 3\n" +
+                        " I am Consumer : Consumed Item 4\n" +
+                        " I am Producer : Produced Item 0\n" +
+                        " I am Producer : Produced Item 1\n" +
+                        " I am Producer : Produced Item 2\n" +
+                        " I am Producer : Produced Item 3\n" +
+                        " I am Producer : Produced Item 4\n" +
+                        "Output of above program “with” yield() method added\n" +
+                        "\n" +
+                        "I am Producer : Produced Item 0\n" +
+                        " I am Consumer : Consumed Item 0\n" +
+                        " I am Producer : Produced Item 1\n" +
+                        " I am Consumer : Consumed Item 1\n" +
+                        " I am Producer : Produced Item 2\n" +
+                        " I am Consumer : Consumed Item 2\n" +
+                        " I am Producer : Produced Item 3\n" +
+                        " I am Consumer : Consumed Item 3\n" +
+                        " I am Producer : Produced Item 4\n" +
+                        " I am Consumer : Consumed Item 4"));
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "join() method",
+                "The join() method of a Thread instance can be used to “join” the start of a thread’s execution to the end of another thread’s execution so that a thread will not start running until another thread has ended. If join() is called on a Thread instance, the currently running thread will block until the Thread instance has finished executing.",
+                "//Waits for this thread to die.\n" +
+                        " \n" +
+                        "public final void join() throws InterruptedException",
+                "",
+                "Giving a timeout within join(), will make the join() effect to be nullified after the specific timeout. When the timeout is reached, the main thread and taskThread are equally probable candidates to execute. However, as with sleep, join is dependent on the OS for timing, so you should not assume that join will wait exactly as long as you specify.\n" +
+                        "\n" +
+                        "Like sleep, join responds to an interrupt by exiting with an InterruptedException."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "join() method example usage",
+                "Sample Program using join()",
+                "package test.core.threads;\n" +
+                        " \n" +
+                        "public class JoinExample\n" +
+                        "{\n" +
+                        "   public static void main(String[] args) throws InterruptedException\n" +
+                        "   {\n" +
+                        "      Thread t = new Thread(new Runnable()\n" +
+                        "         {\n" +
+                        "            public void run()\n" +
+                        "            {\n" +
+                        "               System.out.println(\"First task started\");\n" +
+                        "               System.out.println(\"Sleeping for 2 seconds\");\n" +
+                        "               try\n" +
+                        "               {\n" +
+                        "                  Thread.sleep(2000);\n" +
+                        "               } catch (InterruptedException e)\n" +
+                        "               {\n" +
+                        "                  e.printStackTrace();\n" +
+                        "               }\n" +
+                        "               System.out.println(\"First task completed\");\n" +
+                        "            }\n" +
+                        "         });\n" +
+                        "      Thread t1 = new Thread(new Runnable()\n" +
+                        "         {\n" +
+                        "            public void run()\n" +
+                        "            {\n" +
+                        "               System.out.println(\"Second task completed\");\n" +
+                        "            }\n" +
+                        "         });\n" +
+                        "      t.start(); // Line 15\n" +
+                        "      t.join(); // Line 16\n" +
+                        "      t1.start();\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "Output:\n" +
+                        " \n" +
+                        "First task started\n" +
+                        "Sleeping for 2 seconds\n" +
+                        "First task completed\n" +
+                        "Second task completed"));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Difference between sleep() and wait()?");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Difference between sleep() and wait()?",
+                "sleep() is a method which is used to hold the process for few seconds or the time you wanted but in case of wait() method thread goes in waiting state and it won’t come back automatically until we call the notify() or notifyAll().\n" +
+                        "\n" +
+                        "The major difference is that wait() releases the lock or monitor while sleep() doesn’t releases any lock or monitor while waiting. Wait is used for inter-thread communication while sleep is used to introduce pause on execution, generally.\n" +
+                        "\n" +
+                        "Thread.sleep() sends the current thread into the “Not Runnable” state for some amount of time. The thread keeps the monitors it has acquired — i.e. if the thread is currently in a synchronized block or method no other thread can enter this block or method. If another thread calls t.interrupt() it will wake up the sleeping thread. Note that sleep is a static method, which means that it always affects the current thread (the one that is executing the sleep method). A common mistake is to call t.sleep() where t is a different thread; even then, it is the current thread that will sleep, not the t thread.\n" +
+                        "\n" +
+                        "object.wait() sends the current thread into the “Not Runnable” state, like sleep(), but with a twist. Wait is called on an object, not a thread; we call this object the “lock object.” Before lock.wait() is called, the current thread must synchronize on the lock object; wait() then releases this lock, and adds the thread to the “wait list” associated with the lock. Later, another thread can synchronize on the same lock object and call lock.notify(). This wakes up the original, waiting thread. Basically, wait()/notify() is like sleep()/interrupt(), only the active thread does not need a direct pointer to the sleeping thread, but only to the shared lock object.",
+                "synchronized(LOCK) {   \n" +
+                        "    Thread.sleep(1000); // LOCK is held\n" +
+                        "}\n" +
+                        "\n" +
+                        "synchronized(LOCK) {   \n" +
+                        "    LOCK.wait(); // LOCK is not held\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Let categorize all above points :",
+                "Call on:\n" +
+                        "\n" +
+                        "    wait(): Call on an object; current thread must synchronize on the lock object.\n" +
+                        "    sleep(): Call on a Thread; always currently executing thread.\n" +
+                        "Synchronized:\n" +
+                        "\n" +
+                        "    wait(): when synchronized multiple threads access same Object one by one.\n" +
+                        "    sleep(): when synchronized multiple threads wait for sleep over of sleeping thread.\n" +
+                        "Hold lock:\n" +
+                        "\n" +
+                        "    wait(): release the lock for other objects to have chance to execute.\n" +
+                        "    sleep(): keep lock for at least t times if timeout specified or somebody interrupt.\n" +
+                        "Wake-up condition:\n" +
+                        "\n" +
+                        "    wait(): until call notify(), notifyAll() from object\n" +
+                        "    sleep(): until at least time expire or call interrupt().\n" +
+                        "Usage:\n" +
+                        "\n" +
+                        "    sleep(): for time-synchronization and;\n" +
+                        "    wait(): for multi-thread-synchronization.",
+                "",
+                "",
+                ""));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
         /*lesson = new Lesson();
         lesson.setProgramLanguage(programLanguage);
         lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
