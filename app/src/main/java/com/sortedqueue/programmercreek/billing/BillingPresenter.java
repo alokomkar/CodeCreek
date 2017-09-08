@@ -7,9 +7,14 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -197,7 +202,12 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
         String payload = p.getDeveloperPayload();
         Log.d(TAG, "Developer Payload : " + payload);
         Log.d(TAG, "Purchase Details : " + p.toString());
-
+        try {
+            CreekAnalytics.logEvent(TAG, "verifyDeveloperPayload");
+            CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(p)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         /*
          * TODO: verify that the developer payload of the purchase is correct. It will be
          * the same one that you sent when initiating the purchase.
@@ -241,10 +251,12 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
 
     private void complain(String message) {
         Log.e(TAG, "**** TrivialDrive Error: " + message);
+        CreekAnalytics.logEvent(TAG, "complain : " + message);
         alert("Error: " + message);
     }
 
     private void alert(String message) {
+        CreekAnalytics.logEvent(TAG, "alert : " + message);
         AlertDialog.Builder bld = new AlertDialog.Builder(activity);
         bld.setMessage(message);
         bld.setNeutralButton("OK", null);

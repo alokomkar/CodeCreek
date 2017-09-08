@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity;
@@ -36,7 +37,11 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -117,6 +122,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private CreekPreferences creekPreferences;
     private FirebaseDatabaseHandler firebaseDatabaseHandler;
     private AlgorithmsRecyclerAdapter algorithmsRecyclerAdapter;
+    private String TAG = DashboardFragment.class.getSimpleName();
 
     public static DashboardFragment getInstance() {
         if (instance == null) {
@@ -288,28 +294,34 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         Intent intent;
         switch (v.getId()) {
             case R.id.wikiLayout:
+                CreekAnalytics.logEvent(TAG, "Wiki");
                 intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.quickReferenceLayout:
                 /*intent = new Intent(getContext(), WebViewActivity.class);
                 startActivity(intent);*/
+                CreekAnalytics.logEvent(TAG, "Quick Reference");
                 dashboardNavigationListener.showQuickReferenceFragment();
                 break;
             case R.id.interviewLayout:
+                CreekAnalytics.logEvent(TAG, "Interview");
                 intent = new Intent(getContext(), InterviewActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:
+                CreekAnalytics.logEvent(TAG, "Syntax");
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);
                 syntaxIntent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(syntaxIntent);
                 break;
             case R.id.indexLayout:
+                CreekAnalytics.logEvent(TAG, "Wizard - Program Index");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
                 break;
 
             case R.id.introLayout:
+                CreekAnalytics.logEvent(TAG, "Intro");
                 Intent introIntent = new Intent(getContext(), IntroActivity.class);
                 startActivity(introIntent);
                 break;
@@ -322,32 +334,39 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 break;
 
             case R.id.wizardLayout:
+                CreekAnalytics.logEvent(TAG, "Chapters");
                 Intent textModeIntent = new Intent(getContext(), ChaptersActivity.class);
                 startActivity(textModeIntent);
                 break;
 
             case R.id.lessonsLayout:
+                CreekAnalytics.logEvent(TAG, "Bits and Bytes");
                 Intent lessonIntent = new Intent(getContext(), LessonActivity.class);
                 startActivity(lessonIntent);
                 break;
 
             case R.id.testLayout:
+                CreekAnalytics.logEvent(TAG, "Test");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST);
                 break;
 
             case R.id.matchLayout:
+                CreekAnalytics.logEvent(TAG, "Match");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
                 break;
 
             case R.id.fillLayout:
+                CreekAnalytics.logEvent(TAG, "Fill Code");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
                 break;
 
             case R.id.quizLayout:
+                CreekAnalytics.logEvent(TAG, "Quiz");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
 
             case R.id.codeLabLayout:
+                CreekAnalytics.logEvent(TAG, "Code Lab");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
                 break;
 

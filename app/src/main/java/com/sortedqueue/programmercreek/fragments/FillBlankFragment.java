@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -24,7 +25,11 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIProgramFetcherListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.ShuffleList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -129,6 +134,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
     private String programLanguage;
     private Bundle bundle;
+    private String TAG = FillBlankFragment.class.getSimpleName();
 
     public FillBlankFragment() {
         // Required empty public constructor
@@ -235,7 +241,13 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
     @Override
     public void updateUI(ArrayList<ProgramTable> program_TableList) {
-
+        try {
+            if( mProgramIndex != null ) {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         ArrayList<ProgramTable> originalList = new ArrayList<>();
         for (ProgramTable program_table : program_TableList) {
             originalList.add(program_table);

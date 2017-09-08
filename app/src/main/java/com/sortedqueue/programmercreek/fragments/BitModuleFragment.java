@@ -31,6 +31,7 @@ import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 
 import java.util.ArrayList;
 
@@ -78,6 +79,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
     private FillCodeRecyclerAdapter fillCodeAdapter;
     private FillOptionsRecyclerAdapter fillOptionsAdapter;
     private ArrayList<FillCodeRecyclerAdapter> fillCodeRecyclerAdapters;
+    private String TAG = BitModuleFragment.class.getSimpleName();
 
     public void setNavigationListener(BitModuleNavigationListener navigationListener) {
         this.navigationListener = navigationListener;
@@ -96,6 +98,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        CreekAnalytics.logEvent(TAG, bitModule.getTitle());
         titleTextView.setText(bitModule.getTitle());
         checkFAB.setVisibility(View.GONE);
         checkFAB.setOnClickListener(this);

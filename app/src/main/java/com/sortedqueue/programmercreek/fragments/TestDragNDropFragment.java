@@ -22,6 +22,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -41,8 +42,12 @@ import com.sortedqueue.programmercreek.interfaces.TestCompletionListener;
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.view.DragNDropListView;
 import com.sortedqueue.programmercreek.view.ScrollableViewPager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -94,6 +99,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private SubTestPagerAdapter subTestPagerAdapter;
     private ArrayList<ProgramTable> mProgramTableList;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
+    private String TAG = TestDragNDropFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -196,7 +202,13 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void initUI( ArrayList<ProgramTable> program_TableList) {
-
+        if(  mProgramIndex != null ) {
+            try {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         program_TableList = ProgramTable.getMinimalisticCode(program_TableList);
 
         getActivity().setTitle("Test : " + mProgramIndex.getProgram_Description());

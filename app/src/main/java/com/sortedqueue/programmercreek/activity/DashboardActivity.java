@@ -69,6 +69,7 @@ import com.sortedqueue.programmercreek.network.RetrofitCreator;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner;
@@ -915,6 +916,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 showLanguageFragment();
                 break;
             case R.id.upgradeTextView :
+                CreekAnalytics.logEvent(TAG, "Upgrade opted");
                 billingPresenter.onUpgradeAppButtonClicked();
                 AnimationUtils.slideOutToLeft(premiumLayout);
                 break;

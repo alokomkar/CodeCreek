@@ -47,6 +47,7 @@ import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.view.LoginSignupDialog;
 
@@ -99,7 +100,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         signEmailButton.setVisibility(View.GONE);
         signAnonButton.setVisibility(View.GONE);
         if (creekPreferences.getSignInAccount().equals("")) {
-
+            CreekAnalytics.logEvent(TAG, "Fresh Signup");
             googleSignInButton.setOnClickListener(SplashActivity.this);
 
             googleSignInButton.setVisibility(View.VISIBLE);

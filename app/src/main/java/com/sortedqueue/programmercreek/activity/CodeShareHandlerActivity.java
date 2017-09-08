@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -13,9 +14,13 @@ import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.view.UserProgramDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -32,6 +37,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
     private CreekPreferences creekPreferences;
     private String filepath;
     private String sharedText;
+    private String TAG = CodeShareHandlerActivity.class.getSimpleName();
 
 
     @Override
@@ -45,7 +51,7 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
-
+        CreekAnalytics.logEvent(TAG, "Adding Code");
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 handleSendText(intent); // Handle text being sent
@@ -104,6 +110,11 @@ public class CodeShareHandlerActivity extends AppCompatActivity implements Fireb
                     userProgramDetails.setProgramTitle(programIndex.getProgram_Description().toLowerCase());
 
                     if (creekPreferences.addUserFile(userProgramDetails.getMd5())) {
+                        try {
+                            CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(programIndex)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         firebaseDatabaseHandler.writeUserProgramDetails(userProgramDetails);
                         onProgressStatsUpdate(CreekUserStats.CHAPTER_SCORE);
                     } else {

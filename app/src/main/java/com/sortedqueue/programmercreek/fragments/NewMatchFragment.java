@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -32,6 +33,10 @@ import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,6 +72,8 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
     private boolean quizComplete;
     private ArrayList<String> solutionList;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
+    private String TAG = NewMatchFragment.class.getSimpleName();
+
 
     @Nullable
     @Override
@@ -145,6 +152,13 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
+        if( mProgramIndex != null ) {
+            try {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         questionRecyclerView.setVisibility(View.INVISIBLE);
         optionRecyclerView.setVisibility(View.INVISIBLE);
         optionsTextView.setVisibility(View.INVISIBLE);

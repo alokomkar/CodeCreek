@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
 import com.sortedqueue.programmercreek.adapter.QuizRecyclerAdapter;
@@ -35,7 +36,11 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.ShuffleList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -75,6 +80,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private int mInvokeMode;
     private ArrayList<ProgramTable> mProgramTableList;
     private ModuleDetailsScrollPageListener moduleDetailsScrollPageListener;
+    private String TAG = QuizFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -167,7 +173,13 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
-
+        if(  program_index != null ) {
+            try {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(program_index)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         getActivity().setTitle("Quiz : " + program_index.getProgram_Description());
         mProgramTableList = program_TableList;
         if (program_TableList != null && program_TableList.size() > 0) {

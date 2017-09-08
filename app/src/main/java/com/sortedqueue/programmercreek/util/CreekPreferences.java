@@ -15,6 +15,9 @@ import com.sortedqueue.programmercreek.database.LanguageModule;
 import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -255,6 +258,13 @@ public class CreekPreferences {
         creekUser.setUserId(getUserId());
         creekUser.setWasAnonUser(getIsAnonAccount() ? "Yes" : "No" );
         new FirebaseDatabaseHandler(context).writeCreekUser(creekUser);
+
+        try {
+            CreekAnalytics.logEvent(TAG, "setProgramLanguage : " + language);
+            CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(creekUser)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getProgramWiki() {

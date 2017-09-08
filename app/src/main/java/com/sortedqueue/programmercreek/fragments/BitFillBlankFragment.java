@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.VideoListener;
@@ -81,6 +82,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
     private BitModule bitModule;
     private OnBackPressListener onBackPressListener;
     private LessonNavigationListener lessonNavigationListener;
+    private String TAG = BitFillBlankFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -93,6 +95,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        CreekAnalytics.logEvent(TAG, "Fill Blanks - Bits and Bytes");
         bitModule = getArguments().getParcelable("BitModule");
         programLangauge = bitModule.getProgramLanguage();
         moduleId = bitModule.getModuleId();

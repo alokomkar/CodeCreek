@@ -27,6 +27,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -39,7 +40,11 @@ import com.sortedqueue.programmercreek.interfaces.UIUpdateListener;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.sortedqueue.programmercreek.util.ShuffleList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -87,6 +92,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private ArrayList<ProgramTable> program_TableList;
     private int mInvokeMode;
     private List<ProgramTable> mProgramTableList;
+    private String TAG = MatchMakerFragment.class.getSimpleName();
 
     public ArrayList<String> getmProgramList() {
         ArrayList<String> programList = new ArrayList<>();
@@ -171,6 +177,13 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     }
 
     private void initUI(List<ProgramTable> program_TableList) {
+        if( mProgramIndex != null ) {
+            try {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         mProgramTableList = program_TableList;
         if (program_TableList != null && program_TableList.size() > 0) {
             //TODO

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
+import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -35,10 +36,14 @@ import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekAnalytics;
 import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.VideoListener;
 import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +81,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     private boolean isAnswered;
     private CreekUserStats creekUserStats;
     private int program_index;
+    private String TAG = NewFillBlankFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -154,6 +160,13 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     }
 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
+        if( mProgramIndex != null ) {
+            try {
+                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         questionRecyclerView.setVisibility(View.INVISIBLE);
         optionRecyclerView.setVisibility(View.INVISIBLE);
         optionsTextView.setVisibility(View.INVISIBLE);
