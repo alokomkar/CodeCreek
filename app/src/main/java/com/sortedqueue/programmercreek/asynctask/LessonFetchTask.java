@@ -1195,6 +1195,329 @@ public class LessonFetchTask extends AsyncTask<Void, Void, ArrayList<Lesson>> {
         lesson.setBitModules(bitModules);
         lessons.add(lesson);
 
+        moduleIndex = 1;
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Java Access Modifiers");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Access Modifiers",
+                "Java provides 4 access modifiers to set access levels for classes, variables, methods and constructors i.e. public, private, protected and default. Access level modifiers determine whether other classes can use a particular field or invoke a particular method.\n\n" +
+                        "Let’s quickly compare these access modifiers in nutshell.\n" +
+                        "\n" +
+                        "1. public – accessible everywhere\n" +
+                        "2. protected – accessible in the same package and in sub-classes\n" +
+                        "3. default – accessible only in the same package\n" +
+                        "4. private – accessible only in the same class\n" +
+                        "\n\nThe access specifiers can be strictly ordered as below :\n" +
+                        "\n",
+
+                "",
+                "",
+                "public > protected > package-private (or default) > private"));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "public",
+                "Public are accessible from everywhere. A class, method, constructor, interface etc declared public can be accessed from any other class.\n" +
+                        "\n" +
+                        "However if the public class we are trying to access is in a different package, then the public class still need to be imported.",
+                "public class HelloWorld\n" +
+                        "{\n" +
+                        "   private String format;\n" +
+                        " \n" +
+                        "   public String getFormat() {\n" +
+                        "      return this.format;\n" +
+                        "   }\n" +
+                        "   public void setFormat(String format) {\n" +
+                        "      this.format = format;\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "In above example, getFormat() and setFormat() methods are public, so they can be accessed anywhere."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "protected",
+                "Protected are accessible by the classes of the same package and the subclasses residing in any package. Protected access gives the subclass a chance to use the helper method or variable, while preventing a non-related class from trying to use it.",
+                "public class HelloWorld\n" +
+                        "{\n" +
+                        "   private String format;\n" +
+                        " \n" +
+                        "   protected String getFormat() {\n" +
+                        "      return this.format;\n" +
+                        "   }\n" +
+                        "   protected void setFormat(String format) {\n" +
+                        "      this.format = format;\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "In above given example of HelloWorld, variable format is declared protected, so it can be accessed by all the classes present in same package where HelloWorld.java is present, as well as sub-classes present in other packages as well."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "default (Package Private)",
+                "Default access modifier means we do not explicitly declare an access modifier for a class, field, method, etc. Default are accessible by the classes of the same package.\n" +
+                        "\n" +
+                        "Please note that the fields in an interface are implicitly public static final and the methods in an interface are by default public.",
+                "public class HelloWorld\n" +
+                        "{\n" +
+                        "   String format;\n" +
+                        " \n" +
+                        "   public String getFormat() {\n" +
+                        "      return this.format;\n" +
+                        "   }\n" +
+                        "   public void setFormat(String format) {\n" +
+                        "      this.format = format;\n" +
+                        "   }\n" +
+                        "}",
+                "",
+                "In above given example of HelloWorld, variable format is declared default, so it can be accessed by all the classes present in same package where HelloWorld.java is present."));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "private",
+                "Private access modifier is the most restrictive access level. (Top most) Classes and interfaces cannot be private. private members are accessible within the same class only. Methods, Variables and Constructors that are declared private can only be accessed within the declared class itself.\n" +
+                        "\n" +
+                        "In above given example of HelloWorld, variable format is declared private, so no class can access it directly. It must be accessed though public methods getFormat() and setFormat().\n" +
+                        "\n" +
+                        "Access levels affect you in two ways. First, when you use classes that come from another source, access levels determine which members of those classes your own classes can use. Second, when you write a class, you need to decide what access level every member variable and every method in your class should have.\n" +
+                        "\n" +
+                        "Local variables and formal parameters cannot take access specifiers. Since they are inherently inaccessible to the outside according to scoping rules, they are effectively private.\n" +
+                        "\n" +
+                        "If other programmers use your class, you want to ensure that errors from misuse cannot happen. Access levels can help you do this.",
+                "",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Levels of Access Control",
+                "There are two levels of access control.\n" +
+                        "\n" +
+                        "Class level — Allowed modifiers are public, or package-private (default).\n" +
+                        "Method level — Allowed modifiers are public, private, protected, or package-private (default).\n" +
+                        "A class may be declared with the modifier public, in which case that class is visible to all classes everywhere. If a class has no modifier (the default, also known as package-private), it is visible only within its own package.\n" +
+                        "\n" +
+                        "For members, there are two additional access modifiers: private and protected. The private modifier specifies that the member can only be accessed in its own class. The protected modifier specifies that the member can only be accessed within its own package (as with package-private) and, in addition, by a subclass of its class in another package.",
+                "",
+                "",
+                "Both private and protected can be (and frequently are) applied to nested classes and interfaces, just never top-level classes and interfaces."));
+
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
+
+        lesson = new Lesson();
+        lesson.setProgramLanguage(programLanguage);
+        lesson.setLessonId("lesson_" + programLanguage + lessonIndex++ );
+        lesson.setTitle("Method Overloading vs Overriding");
+
+        bitModules = new ArrayList<>();
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overloading vs Overriding",
+                "Method overloading deals with the notion of having two or more methods in the same class with the same name but different arguments.",
+
+                "void foo(int a)\n" +
+                        "void foo(int a, float b)",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overriding",
+                "Method overriding means having two methods with the same arguments, but different implementations. One of them would exist in the parent class, while another will be in the derived, or child class. The @Override annotation, while not required, can be helpful to enforce proper overriding of a method at compile time.",
+                "class Parent {\n" +
+                        "    void foo(double d) {\n" +
+                        "        // do something\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "class Child extends Parent {\n" +
+                        "\n" +
+                        "    @Override\n" +
+                        "    void foo(double d){\n" +
+                        "        // this method is overridden.  \n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overloading Rules",
+                "Here are the rules which you keep in mind while overloading any method in java:\n" +
+                        "\n" +
+                        "1) First and important rule to overload a method in java is to change method signature. Method signature is made of number of arguments, type of arguments and order of arguments if they are of different types.",
+                "public class DemoClass {\n" +
+                        "    // Overloaded method\n" +
+                        "    public Integer sum(Integer a, Integer b) {\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    // Overloading method\n" +
+                        "    public Integer sum(Float a, Integer b) {  //Valid\n" +
+                        "        return null;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overloading Rules",
+                "2) Return type of method is never part of method signature, so only changing the return type of method does not amount to method overloading.",
+                "public class DemoClass {\n" +
+                        "    // Overloaded method\n" +
+                        "    public Integer sum(Integer a, Integer b) {\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    // Overloading method\n" +
+                        "    public Float sum(Integer a, Integer b) {     //Not valid; Compile time error\n" +
+                        "        return null;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overloading Rules",
+                "3) Thrown exceptions from methods are also not considered when overloading a method. So your overloaded method throws the same exception, a different exception or it simply does no throw any exception; no effect at all on method loading.",
+                "public class DemoClass {\n" +
+                        "    // Overloaded method\n" +
+                        "    public Integer sum(Integer a, Integer b) throws NullPointerException{\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        " \n" +
+                        "    // Overloading method\n" +
+                        "    public Integer sum(Integer a, Integer b) throws Exception{  //Not valid; Compile time error\n" +
+                        "        return null;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overriding Rules",
+                "We read above the rules for method overloading, now its time to list down the rules which you should keep remember while overriding a method in java.\n" +
+                        "\n" +
+                        "1) The method argument list in overridden and overriding methods must be exactly same If they don’t match, you will end up with an overloaded method.\n" +
+                        "\n" +
+                        "2) The return type of overriding method can be child class of return type declared in overridden method.",
+                "public class SuperClass {\n" +
+                        "    //Overriden method\n" +
+                        "    public Number sum(Integer a, Integer b) {\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class SubClass extends SuperClass {\n" +
+                        "    //Overriding method\n" +
+                        "    @Override\n" +
+                        "    public Integer sum(Integer a, Integer b) {\n" +
+                        "    //Integer extends Number; so it's valid\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overriding Rules",
+                "We read above the rules for method overloading, now its time to list down the rules which you should keep remember while overriding a method in java.\n" +
+                        "\n" +
+                        "3) Above all rules, private, static and final methods can not be overridden in java in any way. As simple as that !!",
+                "public class SuperClass {\n" +
+                        "    private Integer sum(Integer a, Integer b) {   \n" +
+                        "    //private method; overriding not possible\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class SubClass extends SuperClass {\n" +
+                        "    //Overriding method\n" +
+                        "    public Integer sum(Integer a, Integer b) {  \n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overriding Rules",
+                "4) Overriding method can not throw checked Exception higher in hierarchy than thrown by overridden method. Let’s say for example overridden method in parent class throws FileNotFoundException, the overriding method in child class can throw FileNotFoundException; but it is not allowed to throw IOException or Exception, because IOException or Exception are higher in hierarchy i.e. super classes of FileNotFoundException.\n" +
+                        "\n" +
+                        "More to it, you can omit the exception declaration from overriding method. It’s allowed and perfectly valid. Also overriding method can throw any unchecked (runtime) exception, regardless of whether the overridden method declares the exception.",
+                "public class SuperClass {\n" +
+                        "    //Overriden method\n" +
+                        "    public Integer sum(Integer a, Integer b) throws FileNotFoundException {\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class SubClass extends SuperClass {\n" +
+                        "    //Overriding method\n" +
+                        "    public Integer sum(Integer a, Integer b) throws IOException {       //Not valid; Compile time error\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "    //Exception IOException is not compatible with throws clause in SuperClass.sum(Integer, Integer)\n" +
+                        "    public Integer sum(Integer a, Integer b)  {                     //It's valid; Don't declare the exception at all is permitted.\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                ""));
+
+        bitModules.add(new BitModule(
+                lesson.getLessonId() + "_module_" + moduleIndex++,
+                programLanguage,
+                "Method Overriding Rules",
+                "5) Also note that overriding method can not reduce the access scope of overridden method. Put in simple words, if overridden method in parent class is protected, then overriding method in child class can not be private. It must be either protected (same access) or public (wider access).",
+                "public class SuperClass {\n" +
+                        "    //Overriden method\n" +
+                        "    protected Integer sum(Integer a, Integer b) {\n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}\n" +
+                        " \n" +
+                        "class SubClass extends SuperClass {\n" +
+                        "    //Overriding method\n" +
+                        "    //Not valid; Compile time error &quot;Cannot reduce the visibility of the inherited method from SuperClass&quot;\n" +
+                        "    private Integer sum(Integer a, Integer b)  {   \n" +
+                        "        return a + b;\n" +
+                        "    }\n" +
+                        "}",
+                "",
+                "Not to repeat again that method overriding is legal when talking in terms on parent classes and child classes. It does not happen within same class."));
+
+        lesson.setBitModules(bitModules);
+        lessons.add(lesson);
 
         moduleIndex = 1;
 
