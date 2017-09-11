@@ -47,8 +47,8 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.FileUtils;
 import com.sortedqueue.programmercreek.util.PermissionUtils;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+/*import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;*/
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,7 +63,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import id.zelory.compressor.Compressor;
+//import id.zelory.compressor.Compressor;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -352,21 +352,21 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     }
 
     private void compressAndCropPhoto(String mCurrentPhotoPath) {
-        Compressor compressor = new Compressor.Builder(getContext())
+        /*Compressor compressor = new Compressor.Builder(getContext())
                 .setCompressFormat(Bitmap.CompressFormat.WEBP)
                 .setQuality(100)
                 .build();
         Uri compressedImageUri = Uri.fromFile(compressor.compressToFile(new File(mCurrentPhotoPath)));
-        startCropPhotoActivity(compressedImageUri);
+        startCropPhotoActivity(compressedImageUri);*/
     }
 
     private void startCropPhotoActivity(Uri selectedImageUri) {
         if( selectedImageUri != null ) {
-            CropImage.activity(selectedImageUri)
+            /*CropImage.activity(selectedImageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
-                /*.setFixAspectRatio(true)
-                .setAspectRatio(16, 9)*/
-                    .start(getContext(), this);
+                *//*.setFixAspectRatio(true)
+                .setAspectRatio(16, 9)*//*
+                    .start(getContext(), this);*/
         }
     }
 
@@ -386,7 +386,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                     compressAndCropPhoto(AuxilaryUtils.getFilePath(getContext(), selectedImageUri));
                 }
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+            /*case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     if (result != null) {
@@ -408,7 +408,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                         CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_crop_image);
                     }
                 }
-                break;
+                break;*/
 
 
         }

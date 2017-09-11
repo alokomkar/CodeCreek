@@ -789,7 +789,7 @@ public class FirebaseDatabaseHandler {
                     int isAdEnabled = dataSnapshot.getValue(Integer.class);
                     Log.d(TAG, "isAdEnabled : " + isAdEnabled);
                     CreekApplication.getCreekPreferences().setAdsEnabled(isAdEnabled == 1);
-                    CreekApplication.getInstance().initAdsSdk();
+                    //CreekApplication.getInstance().initAdsSdk();
                 }
             }
 

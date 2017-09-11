@@ -28,7 +28,7 @@ import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener;
 import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-import com.startapp.android.publish.adsCommon.StartAppAd;
+//import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -155,11 +155,11 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
         if (!title.equals("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
-            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            /*if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
                 StartAppAd.onBackPressed(this);
                 super.onBackPressed();
             }
-            else {
+            else */{
                 finish();
             }
         }
