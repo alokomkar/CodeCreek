@@ -170,14 +170,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         ButterKnife.bind(this);
         setupToolbar();
         creekPreferences = CreekApplication.getCreekPreferences();
-        if( !creekPreferences.isPremiumUser() ) {
+        /*if( !creekPreferences.isPremiumUser() ) {
             if( creekPreferences.showUpgradeDialog() ) {
                 AnimationUtils.slideInToLeft(premiumLayout);
             }
             else {
                 creekPreferences.setUpgradeDialog( true );
             }
-        }
+        }*/
 
         configureGoogleSignup();
         checkForDBUpdates();

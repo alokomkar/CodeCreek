@@ -20,10 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SpinnerAdapter;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -59,8 +59,8 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.noProgramsLayout)
     LinearLayout noProgramsLayout;
-    @BindView(R.id.adView)
-    AdView adView;
+    /*@BindView(R.id.adView)
+    AdView adView;*/
     @BindView(R.id.languageSpinner)
     AppCompatSpinner languageSpinner;
     @BindView(R.id.communityScrollView)
@@ -113,13 +113,13 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         });
         fetchUserPrograms("All programs");
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         return view;
     }
 
-    private void initAds() {
-        /*if(CreekApplication.getCreekPreferences().getAdsEnabled())*/ {
+   /* private void initAds() {
+        *//*if(CreekApplication.getCreekPreferences().getAdsEnabled())*//* {
             MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads
@@ -136,7 +136,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
                 }
             });
         }
-    }
+    }*/
 
 
     private CompoundButton.OnCheckedChangeListener checkChangedListener = new CompoundButton.OnCheckedChangeListener() {

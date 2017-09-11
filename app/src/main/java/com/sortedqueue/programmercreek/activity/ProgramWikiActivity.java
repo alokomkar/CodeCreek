@@ -15,11 +15,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -52,7 +52,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
     private String programWiki;
     private ContentLoadingProgressBar progressBar;
 
-    private AdView mAdView;
+    //private AdView mAdView;
     private String WIKI_BASE_URL = "https://syntaxdb.com";
     private CreekPreferences creekPreferences;
     private ArrayList<ProgramIndex> program_indices;
@@ -105,7 +105,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         setupLiseners();
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -151,7 +151,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         }
     }
 
-    private InterstitialAd interstitialAd;
+    /*private InterstitialAd interstitialAd;
     private void initAds() {
         if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
             MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
@@ -200,15 +200,15 @@ public class ProgramWikiActivity extends AppCompatActivity {
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         interstitialAd.loadAd(adRequest);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        /*if (!isAdShown && interstitialAd.isLoaded() *//*&& CreekApplication.getCreekPreferences().getAdsEnabled()*//* ) {
             interstitialAd.show();
             isAdShown = true;
             return;
-        }
+        }*/
         finish();
     }
 

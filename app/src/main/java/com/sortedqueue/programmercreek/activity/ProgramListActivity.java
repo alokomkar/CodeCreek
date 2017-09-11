@@ -18,11 +18,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -37,7 +37,7 @@ import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-import com.startapp.android.publish.adsCommon.StartAppAd;
+//import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -59,8 +59,8 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     private String TAG = getClass().getSimpleName();
     private ProgramIndex program_Index;
-    @BindView(R.id.adView)
-    AdView adView;
+    /*@BindView(R.id.adView)
+    AdView adView;*/
     private CustomProgramRecyclerViewAdapter customProgramRecyclerViewAdapter;
     private Animation fadeOutAnimation;
     private boolean isAdShown;
@@ -78,7 +78,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
         ButterKnife.bind(this);
         fetchProgramsList();
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         setActivityTitle();
 
@@ -135,7 +135,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
         CreekApplication.getInstance().setAppRunning(true);
     }
 
-    private InterstitialAd interstitialAd;
+    /*private InterstitialAd interstitialAd;
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
@@ -182,7 +182,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
             }
         });
         requestNewInterstitial();
-    }
+    }*/
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -557,11 +557,11 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        /*if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() *//*&& CreekApplication.getCreekPreferences().getAdsEnabled()*//* ) {
             interstitialAd.show();
             isAdShown = true;
             return;
-        }
+        }*/
         finish();
     }
 

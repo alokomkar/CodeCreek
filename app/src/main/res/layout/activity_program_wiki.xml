@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/progressBar" />
-        <com.google.android.gms.ads.AdView
+        <!--<com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_above="@+id/navigationLayout"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_wiki_unit_id">
-        </com.google.android.gms.ads.AdView>
+        </com.google.android.gms.ads.AdView>-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

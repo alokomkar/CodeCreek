@@ -8,14 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+//import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
@@ -26,10 +26,10 @@ import com.sortedqueue.programmercreek.fragments.QuizFragment;
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment;
 import com.sortedqueue.programmercreek.interfaces.WizardNavigationListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
-import com.startapp.android.publish.adsCommon.Ad;
+/*import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.VideoListener;
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;*/
 
 import java.util.ArrayList;
 
@@ -93,12 +93,13 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
     }
 
     private void showRewardedClick() {
-        final StartAppAd rewardedVideo = new StartAppAd(WizardActivity.this);
+        showSolutionFromFragment();
+        /*final StartAppAd rewardedVideo = new StartAppAd(WizardActivity.this);
 
-        /**
+        *//**
          * This is very important: set the video listener to be triggered after video
          * has finished playing completely
-         */
+         *//*
         rewardedVideo.setVideoListener(new VideoListener() {
 
             @Override
@@ -108,10 +109,10 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
             }
         });
 
-        /**
+        *//**
          * Load rewarded by specifying AdMode.REWARDED
          * We are using AdEventListener to trigger ad show
-         */
+         *//*
         rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
 
             @Override
@@ -121,15 +122,15 @@ public class WizardActivity extends AppCompatActivity implements WizardNavigatio
 
             @Override
             public void onFailedToReceiveAd(Ad arg0) {
-                /**
+                *//**
                  * Failed to load rewarded video:
                  * 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
                  * See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
                  * 2. Is android API level above 16?
-                 */
+                 *//*
                 Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
             }
-        });
+        });*/
     }
 
     private void showSolutionFromFragment() {

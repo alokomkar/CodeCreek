@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -42,8 +42,8 @@ public class ChaptersFragment extends Fragment {
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @BindView(R.id.modulesRecyclerView)
     RecyclerView chaptersRecyclerView;
-    @BindView(R.id.adView)
-    AdView adView;
+    /*@BindView(R.id.adView)
+    AdView adView;*/
 
     private ChapterNavigationListener chapterNavigationListener;
     private ArrayList<Chapter> chapters;
@@ -58,13 +58,13 @@ public class ChaptersFragment extends Fragment {
         ButterKnife.bind(this, view);
         getModules();
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         return view;
     }
 
-    private void initAds() {
-        /*if( CreekApplication.getCreekPreferences().getAdsEnabled() )*/ {
+   /* private void initAds() {
+        *//*if( CreekApplication.getCreekPreferences().getAdsEnabled() )*//* {
             MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads
@@ -81,7 +81,7 @@ public class ChaptersFragment extends Fragment {
                 }
             });
         }
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {

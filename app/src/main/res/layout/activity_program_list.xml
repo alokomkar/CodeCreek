@@ -32,7 +32,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/programListRecyclerView"
-        android:layout_above="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
@@ -42,7 +41,7 @@
         android:footerDividersEnabled="true"
         android:background="@color/md_grey_300" >
     </android.support.v7.widget.RecyclerView>
-    <com.google.android.gms.ads.AdView
+    <!--<com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -51,5 +50,5 @@
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_wiki_unit_id">
-    </com.google.android.gms.ads.AdView>
+    </com.google.android.gms.ads.AdView>-->
 </RelativeLayout>

@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
@@ -41,8 +41,8 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
     @BindView(R.id.modulesRecyclerView)
     RecyclerView lessonsRecyclerView;
-    @BindView(R.id.adView)
-    AdView adView;
+    /*@BindView(R.id.adView)
+    AdView adView;*/
 
     private String TAG = LessonsFragment.class.getSimpleName();
     private ArrayList<Lesson> lessons;
@@ -57,13 +57,13 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
         ButterKnife.bind(this, view);
         getModules();
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         return view;
     }
 
-    private void initAds() {
-        /*if( CreekApplication.getCreekPreferences().getAdsEnabled() )*/ {
+    /*private void initAds() {
+        *//*if( CreekApplication.getCreekPreferences().getAdsEnabled() )*//* {
             MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads
@@ -80,7 +80,7 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
                 }
             });
         }
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {
