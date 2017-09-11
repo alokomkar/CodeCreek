@@ -19,10 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -66,7 +66,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     private LessonsFragment lessonsFragment;
     private boolean isFirstTime;
     private LessonDetailsFragment lessonDetailsFragment;
-    private InterstitialAd interstitialAd;
+    //private InterstitialAd interstitialAd;
     private Lesson currentLesson;
     private Handler handler;
     private CreekPreferences creekPreferences;
@@ -84,7 +84,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         loadLessons();
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         shareNowTextView.setOnClickListener(this);
         laterTextView.setOnClickListener(this);
@@ -98,7 +98,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void initAds() {
+   /* private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
@@ -128,7 +128,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         interstitialAd.loadAd(adRequest);
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -303,11 +303,11 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
 
         }
         else {
-            if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            /*if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
                 interstitialAd.show();
                 isAdShown = true;
                 return;
-            }
+            }*/
             finish();
 
         }

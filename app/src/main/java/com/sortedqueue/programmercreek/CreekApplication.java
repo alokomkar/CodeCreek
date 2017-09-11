@@ -30,7 +30,7 @@ import com.sortedqueue.programmercreek.database.SyntaxModule;
 import com.sortedqueue.programmercreek.database.UserProgramDetails;
 import com.sortedqueue.programmercreek.database.WikiModel;
 import com.sortedqueue.programmercreek.util.CreekPreferences;
-import com.startapp.android.publish.adsCommon.StartAppSDK;
+//import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,9 +102,9 @@ public class CreekApplication extends Application {
         //setupExceptionHandler();
     }
 
-    public void initAdsSdk() {
+    /*public void initAdsSdk() {
         StartAppSDK.init(this, "207164192", creekPreferences.getAdsEnabled());
-    }
+    }*/
 
     public static CreekPreferences getCreekPreferences() {
         if( creekPreferences == null ) {

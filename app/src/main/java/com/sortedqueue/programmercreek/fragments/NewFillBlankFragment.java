@@ -37,10 +37,10 @@ import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekAnalytics;
-import com.startapp.android.publish.adsCommon.Ad;
+/*import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.VideoListener;
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;*/
 
 import org.json.JSONException;
 import org.json.JSONObject;

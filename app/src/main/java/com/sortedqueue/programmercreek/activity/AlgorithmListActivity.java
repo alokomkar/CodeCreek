@@ -18,7 +18,7 @@ import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment;
 import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment;
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener;
-import com.startapp.android.publish.adsCommon.StartAppAd;
+//import com.startapp.android.publish.adsCommon.StartAppAd;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,11 +127,11 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
 
     @Override
     public void onBackPressed() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        /*if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
             StartAppAd.onBackPressed(this);
             super.onBackPressed();
         }
-        else {
+        else */{
             finish();
         }
 

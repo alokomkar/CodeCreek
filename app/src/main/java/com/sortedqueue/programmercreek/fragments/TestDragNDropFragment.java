@@ -17,10 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.google.firebase.database.DatabaseError;
 import com.google.gson.Gson;
 import com.sortedqueue.programmercreek.CreekApplication;
@@ -88,7 +88,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     Button timerButton;
     @BindView(R.id.testTabLayout)
     TabLayout testTabLayout;
-    private InterstitialAd interstitialAd;
+    //private InterstitialAd interstitialAd;
     private DragNDropListView dragNDropListView;
     private DragNDropAdapter dragNDropAdapter;
     private int programSize;
@@ -111,7 +111,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
         handleBundle();
 
-        MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
+        /*MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
         interstitialAd = new InterstitialAd(getContext());
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
         requestNewInterstitial();
@@ -121,7 +121,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 super.onAdClosed();
                 getActivity().finish();
             }
-        });
+        });*/
 
         return view;
     }
@@ -352,9 +352,9 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     private void showAd() {
 
-        if (interstitialAd != null && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        /*if (interstitialAd != null && interstitialAd.isLoaded() *//*&& CreekApplication.getCreekPreferences().getAdsEnabled()*//* ) {
             interstitialAd.show();
-        } else
+        } else*/
             getActivity().finish();
     }
 
@@ -629,12 +629,12 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     }
 
-    private void requestNewInterstitial() {
+   /* private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         interstitialAd.loadAd(adRequest);
-    }
+    }*/
 
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;

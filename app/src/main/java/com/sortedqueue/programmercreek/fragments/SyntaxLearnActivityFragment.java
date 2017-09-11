@@ -24,11 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
+/*import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;*/
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -60,7 +60,7 @@ import io.github.kbiakov.codeview.highlight.ColorTheme;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener, RewardedVideoAdListener {
+public class SyntaxLearnActivityFragment extends Fragment implements View.OnClickListener, TestCompletionListener/*, RewardedVideoAdListener*/ {
 
     @BindView(R.id.syntaxExplanationCardView)
     CardView syntaxExplanationCardView;
@@ -123,7 +123,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     public SyntaxLearnActivityFragment() {
     }
 
-    private RewardedVideoAd rewardedVideoAd;
+    //private RewardedVideoAd rewardedVideoAd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -159,13 +159,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         return view;
     }
 
-    private void initializeRewardedVideoAd() {
+    /*private void initializeRewardedVideoAd() {
         rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getActivity());
         rewardedVideoAd.setRewardedVideoAdListener(this);
         if (!rewardedVideoAd.isLoaded()) {
             rewardedVideoAd.loadAd(getString(R.string.hint_rewarded_interstital_ad), new AdRequest.Builder().build());
         }
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -451,7 +451,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
 
     //RewardedVideoAdListener methods :
 
-    @Override
+    /*@Override
     public void onRewardedVideoAdLoaded() {
         Log.d(TAG, "onRewardedVideoAdLoaded");
     }
@@ -477,7 +477,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             Log.d(TAG, "onRewarded : " + rewardItem.getAmount() + " : " + rewardItem.getType());
             showHint();
         }
-    }
+    }*/
 
     private void showHint() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -494,7 +494,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         builder.show();
     }
 
-    @Override
+    /*@Override
     public void onRewardedVideoAdLeftApplication() {
         Log.d(TAG, "onRewardedVideoAdLoaded");
     }
@@ -502,5 +502,5 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
         Log.d(TAG, "onRewardedVideoAdLoaded");
-    }
+    }*/
 }

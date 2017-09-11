@@ -30,10 +30,10 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
-import com.startapp.android.publish.adsCommon.Ad;
+/*import com.startapp.android.publish.adsCommon.Ad;
 import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.VideoListener;
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;*/
 
 import java.util.ArrayList;
 
@@ -387,12 +387,13 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     }
 
     private void showRewardedClick() {
-        final StartAppAd rewardedVideo = new StartAppAd(getContext());
+        showSolutionFromFragment();
+        /*final StartAppAd rewardedVideo = new StartAppAd(getContext());
 
-        /**
+        *//**
          * This is very important: set the video listener to be triggered after video
          * has finished playing completely
-         */
+         *//*
         rewardedVideo.setVideoListener(new VideoListener() {
 
             @Override
@@ -401,10 +402,10 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             }
         });
 
-        /**
+        *//**
          * Load rewarded by specifying AdMode.REWARDED
          * We are using AdEventListener to trigger ad show
-         */
+         *//*
         rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
 
             @Override
@@ -414,15 +415,15 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
 
             @Override
             public void onFailedToReceiveAd(Ad arg0) {
-                /**
+                *//**
                  * Failed to load rewarded video:
                  * 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
                  * See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
                  * 2. Is android API level above 16?
-                 */
+                 *//*
                 Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
             }
-        });
+        });*/
     }
 
     private void showSolutionFromFragment() {

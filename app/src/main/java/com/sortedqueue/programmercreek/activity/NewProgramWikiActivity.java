@@ -18,10 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
+/*import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.MobileAds;*/
 import com.google.firebase.database.DatabaseError;
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -68,7 +68,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     private ProgramWikiPagerAdapter programWikiPagerAdapter;
-    private InterstitialAd interstitialAd;
+    //private InterstitialAd interstitialAd;
     private Toolbar toolbar;
 
     @Override
@@ -143,7 +143,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                     }
                 });
         if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
-            initAds();
+            //initAds();
         }
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
@@ -156,7 +156,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         programRecyclerView.setAdapter( new ProgramWikiNavRecyclerAdapter(NewProgramWikiActivity.this, programWikis));
     }
 
-    private void initAds() {
+    /*private void initAds() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstital_wiki_ad_id));
@@ -186,7 +186,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                 .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                 .build();
         interstitialAd.loadAd(adRequest);
-    }
+    }*/
 
     private void setupNavigationListener() {
         firstQuestionImageView.setOnClickListener(this);
@@ -243,11 +243,11 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        /*if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
             interstitialAd.show();
             isAdShown = true;
             return;
-        }
+        }*/
         finish();
     }
 
