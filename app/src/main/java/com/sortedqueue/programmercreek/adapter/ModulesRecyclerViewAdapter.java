@@ -51,7 +51,7 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         LanguageModule languageModule = languageModules.get(position);
         holder.moduleNameTextView.setText(languageModule.getModuleName());
         holder.moduleDescriptionTextView.setText(languageModule.getModuleDescription());
-        boolean isLocked = true;
+        /*boolean isLocked = true;
         switch ( programLanguage ) {
             case "c" :
                 isLocked = !(creekUserStats.getUnlockedCLanguageModuleIdList().contains(languageModule.getModuleId()));
@@ -66,7 +66,7 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
             case "sql" :
                 isLocked = !(creekUserStats.getUnlockedSqlLanguageModuleIdList().contains(languageModule.getModuleId()));
                 break;
-        }
+        }*/
 
         //holder.lockedImageView.setVisibility(isLocked ? View.VISIBLE : View.INVISIBLE);
         holder.lockedImageView.setVisibility(View.INVISIBLE);
