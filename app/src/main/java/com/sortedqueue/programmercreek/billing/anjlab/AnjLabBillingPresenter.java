@@ -64,12 +64,15 @@ public class AnjLabBillingPresenter {
                 e.printStackTrace();
             }
             new FirebaseDatabaseHandler(activity).updatePurchasePayload(details);
+            alert("Thank you for upgrading to premium, restart app for effects to take place." );
             updateTextViews();
         }
         @Override
         public void onBillingError(int errorCode, @Nullable Throwable error) {
-            complain("Error occurred while purchase : " + error.getMessage());
-            error.printStackTrace();
+            if( error != null && error.getMessage() != null ) {
+                complain("Error occurred while purchase : " + error.getMessage());
+                error.printStackTrace();
+            }
         }
         @Override
         public void onBillingInitialized() {
