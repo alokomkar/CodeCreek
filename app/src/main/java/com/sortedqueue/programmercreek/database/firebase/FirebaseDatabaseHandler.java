@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -304,6 +305,48 @@ public class FirebaseDatabaseHandler {
         });
     }
 
+    public void updatePurchasePayload(TransactionDetails details) {
+        String userId = creekPreferences.getUserId();
+        if( userId.equalsIgnoreCase("") ) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        Log.d(TAG, "Premium upgrade : UserId : " + userId + " :Purchase Details: " + details );
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).setValue(details);
+    }
+
+    public interface AnjVerifyPurchaseListener {
+        void onSuccess( TransactionDetails purchase );
+        void onError( Exception e );
+    }
+
+    public void verifyPurchase(final AnjVerifyPurchaseListener verifyPurchaseListener ) {
+        String userId = creekPreferences.getUserId();
+        verifyPurchase(userId, verifyPurchaseListener);
+    }
+
+    private void verifyPurchase(String userId, final AnjVerifyPurchaseListener verifyPurchaseListener) {
+        FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot != null ) {
+                    TransactionDetails purchase = dataSnapshot.getValue(TransactionDetails.class);
+                    if( purchase != null ) {
+                        verifyPurchaseListener.onSuccess(purchase);
+                        creekPreferences.setPremiumUser(true);
+                    }
+                    else {
+                        verifyPurchaseListener.onError(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                verifyPurchaseListener.onError(databaseError.toException());
+            }
+        });
+    }
+
     public interface VerifyPurchaseListener {
         void onSuccess( Purchase purchase );
         void onError( Exception e );
@@ -311,13 +354,10 @@ public class FirebaseDatabaseHandler {
 
     public void verifyPurchase(final VerifyPurchaseListener verifyPurchaseListener ) {
         String userId = creekPreferences.getUserId();
-        if( userId.equalsIgnoreCase("") ) {
-            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        }
         verifyPurchase(userId, verifyPurchaseListener);
     }
 
-    public void verifyPurchase(String userId, final VerifyPurchaseListener verifyPurchaseListener) {
+    private void verifyPurchase(String userId, final VerifyPurchaseListener verifyPurchaseListener) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

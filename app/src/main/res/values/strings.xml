@@ -280,4 +280,6 @@
     <string name="upgrade">Upgrade</string>
     <string name="restore_purchase">Restore Purchase</string>
     <string name="sign_in_with_google">Sign up with Gmail</string>
+    <string name="upgrade_google_play"><![CDATA[In-app billing service is unavailable, please upgrade Android Market/Play to version >= 3.9.16]]></string>
+    <string name="merchant_id">09153164281394552832</string>
 </resources>

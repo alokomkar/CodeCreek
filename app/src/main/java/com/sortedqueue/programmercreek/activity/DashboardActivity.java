@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -49,6 +50,7 @@ import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter;
 import com.sortedqueue.programmercreek.billing.BillingPresenter;
 import com.sortedqueue.programmercreek.billing.Purchase;
+import com.sortedqueue.programmercreek.billing.anjlab.AnjLabBillingPresenter;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.CreekUserDB;
 import com.sortedqueue.programmercreek.database.CreekUserStats;
@@ -150,7 +152,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     private Handler handler;
     private CreekUserStats creekUserStats;
     private Runnable runnable;
-    private BillingPresenter billingPresenter;
+    //private BillingPresenter billingPresenter;
+    private AnjLabBillingPresenter anjLabBillingPresenter;
     private MenuItem signUpItem;
 
     private void logDebugMessage(String message) {
@@ -263,7 +266,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
 
             @Override
             protected Void doInBackground(Void... voids) {
-                billingPresenter = new BillingPresenter(DashboardActivity.this);
+                //billingPresenter = new BillingPresenter(DashboardActivity.this);
+                anjLabBillingPresenter = new AnjLabBillingPresenter(DashboardActivity.this);
                 return null;
             }
         }.execute();
@@ -286,9 +290,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             }
         });
         if( !creekPreferences.isPremiumUser() ) {
-            new FirebaseDatabaseHandler( DashboardActivity.this).verifyPurchase(new FirebaseDatabaseHandler.VerifyPurchaseListener() {
+            new FirebaseDatabaseHandler( DashboardActivity.this).verifyPurchase(new FirebaseDatabaseHandler.AnjVerifyPurchaseListener() {
                 @Override
-                public void onSuccess(Purchase purchase) {
+                public void onSuccess(TransactionDetails purchase) {
 
                 }
 
@@ -478,7 +482,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 return true;
 
             case R.id.action_upgrade :
-                billingPresenter.onUpgradeAppButtonClicked();
+                //billingPresenter.onUpgradeAppButtonClicked();
+                anjLabBillingPresenter.purchasePremiumItem();
                 //creekPreferences.setPremiumUser(true);
                 return true;
 
@@ -707,7 +712,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             }
             // Rest of code that converts txt file's content into arraylist
         }
-        if( requestCode == BillingPresenter.RC_REQUEST ) {
+        /*if( requestCode == BillingPresenter.RC_REQUEST ) {
             Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
             if (billingPresenter == null) return;
 
@@ -721,9 +726,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
             else {
                 Log.d(TAG, "onActivityResult handled by IABUtil.");
             }
-        }
-        else
+        }*/
+        else {
+            if( anjLabBillingPresenter.getBillingProcessor().handleActivityResult(requestCode, resultCode, data) )
             super.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 
     private void downloadTemplateFile() {
@@ -917,7 +925,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                 break;
             case R.id.upgradeTextView :
                 CreekAnalytics.logEvent(TAG, "Upgrade opted");
-                billingPresenter.onUpgradeAppButtonClicked();
+                //billingPresenter.onUpgradeAppButtonClicked();
+                anjLabBillingPresenter.purchasePremiumItem();
                 AnimationUtils.slideOutToLeft(premiumLayout);
                 break;
             case R.id.laterTextView :
