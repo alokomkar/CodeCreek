@@ -1,23 +1,26 @@
 <!-- Use a ScrollView around EditText to have a padding around the text
 	contents. If we make EditText scrollable, contents will be cut off
 	at the specified padding but before the visible border. -->
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="Overdraw"
-    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_editor">
-    <LinearLayout
+    android:orientation="vertical">
+    <ScrollView
+        tools:ignore="Overdraw"
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/codeShortCutsRecyclerView"
+        android:background="@color/background_editor">
+
 
         <com.sortedqueue.programmercreek.view.CodeEditor
             android:id="@+id/editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/codeShortCutsRecyclerView"
             android:padding="8dp"
             android:text="@string/hello_world_program"
             android:gravity="start|top"
@@ -28,12 +31,16 @@
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textNoSuggestions"
             android:background="@android:color/transparent"/>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/md_black_1000"
-            android:id="@+id/codeShortCutsRecyclerView"
-            tools:listitem="@layout/item_code_shortcut"/>
-    </LinearLayout>
 
-</ScrollView>
+
+
+    </ScrollView>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:background="@color/md_black_1000"
+        android:id="@+id/codeShortCutsRecyclerView"
+        tools:listitem="@layout/item_code_shortcut"/>
+</RelativeLayout>
+
