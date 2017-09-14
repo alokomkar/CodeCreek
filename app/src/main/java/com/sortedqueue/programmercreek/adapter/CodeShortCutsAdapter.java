@@ -4,11 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.CodeShortCuts;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Alok on 14/09/17.
@@ -18,6 +22,7 @@ public class CodeShortCutsAdapter extends RecyclerView.Adapter<CodeShortCutsAdap
 
     private ArrayList<CodeShortCuts> mCodeShortCuts;
     private CustomProgramRecyclerViewAdapter.AdapterClickListner mAdapterClickListner;
+
     public CodeShortCutsAdapter(ArrayList<CodeShortCuts> codeShortCuts, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         mCodeShortCuts = codeShortCuts;
         mAdapterClickListner = adapterClickListner;
@@ -30,7 +35,7 @@ public class CodeShortCutsAdapter extends RecyclerView.Adapter<CodeShortCutsAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.codeTextView.setText(mCodeShortCuts.get(position).getKey());
     }
 
     @Override
@@ -39,16 +44,20 @@ public class CodeShortCutsAdapter extends RecyclerView.Adapter<CodeShortCutsAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.codeTextView)
+        TextView codeTextView;
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            if( position != RecyclerView.NO_POSITION )
+            if (position != RecyclerView.NO_POSITION)
                 mAdapterClickListner.onItemClick(position);
         }
     }
+
 }
