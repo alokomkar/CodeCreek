@@ -1013,4 +1013,14 @@ public class CreekPreferences {
     public boolean isPremiumUser() {
         return sharedPreferences.getBoolean("isPremiumUser", false);
     }
+
+    private int updateDelay = 1000;
+    public int getUpdateDelay() {
+        return updateDelay;
+    }
+
+    private int tabWidth = 4;
+    public int getTabWidth() {
+        return tabWidth;
+    }
 }
