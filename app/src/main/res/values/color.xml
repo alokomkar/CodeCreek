@@ -306,6 +306,8 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="syntax_number">#7ba212</color>
     <color name="syntax_keyword">#399ed7</color>
     <color name="syntax_builtin">#d79e39</color>
-    <color name="syntax_comment">#808080</color>
+    <color name="syntax_comment">#E0E0E0</color>
+    <color name="syntax_punctuation">#EF6C00</color>
+
 
 </resources>

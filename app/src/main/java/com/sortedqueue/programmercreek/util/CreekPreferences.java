@@ -81,7 +81,7 @@ public class CreekPreferences {
     private static final int RUN_MANUALLY_EXTRA_NEW = 4;
 
     private int runMode = RUN_AUTO;
-    private int textSize = 12;
+    private int textSize = 16;
 
 
     public CreekPreferences(Context context) {

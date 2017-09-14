@@ -60,7 +60,8 @@ public class CodeEditor extends AppCompatEditText {
                     "require|sub|use|wantarray|as|assert|del|except|exec|finally|from|global|import|is|lambda|nonlocal|" +
                     "pass|print|raise|try|with|False|True|None|alias|and|begin|class|def|defined|elsif|end|ensure|false|module|next|nil|not|or|redo" +
                     "|rescue|retry|self|super|true|undef|unless|when|yield|BEGIN|END|break|continue|do" +
-                    "|else|for|if|return|while|case|done|elif|esac|eval|fi|function|in|local|set|then|until)\\b");
+                    "|else|for|if|return|while|case|done|elif|esac|eval|fi|function|in|local|set|then|until" +
+                    "|printf|scanf|gets|puts|println|getchar|putchar|getch|exception|perror|cin|cout)\\b");
     private static final Pattern PATTERN_BUILTINS = Pattern.compile(
             "\\b(radians|degrees|sin|cos|tan|asin|acos|atan|pow|" +
                     "exp|log|exp2|log2|sqrt|inversesqrt|abs|sign|floor|ceil|fract|mod|" +
@@ -105,6 +106,7 @@ public class CodeEditor extends AppCompatEditText {
     private int colorKeyword;
     private int colorBuiltin;
     private int colorComment;
+    private int colorPunctuation;
     private int tabWidthInCharacters = 0;
     private int tabWidth = 0;
 
@@ -344,6 +346,9 @@ public class CodeEditor extends AppCompatEditText {
         colorComment = ContextCompat.getColor(
                 context,
                 R.color.syntax_comment);
+        colorPunctuation = ContextCompat.getColor(
+                context,
+                R.color.syntax_punctuation);
     }
 
     private void cancelUpdate() {
@@ -419,6 +424,14 @@ public class CodeEditor extends AppCompatEditText {
                         m.end(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
+
+            /*TODO for (Matcher m = PATTERN_COMMENTS.matcher(e); m.find(); ) {
+                e.setSpan(
+                        new ForegroundColorSpan(colorPunctuation),
+                        m.start(),
+                        m.end(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }*/
         } catch (IllegalStateException ex) {
             // raised by Matcher.start()/.end() when
             // no successful match has been made what
