@@ -75,6 +75,14 @@ public class CreekPreferences {
     private String KEY_WELCOME_DONE = "welcome_done";
     private String TAG = CreekPreferences.class.getSimpleName();
 
+    private static final int RUN_AUTO = 1;
+    private static final int RUN_MANUALLY = 2;
+    private static final int RUN_MANUALLY_EXTRA = 3;
+    private static final int RUN_MANUALLY_EXTRA_NEW = 4;
+
+    private int runMode = RUN_AUTO;
+    private int textSize = 12;
+
 
     public CreekPreferences(Context context) {
         this.context = context;
@@ -1022,5 +1030,13 @@ public class CreekPreferences {
     private int tabWidth = 4;
     public int getTabWidth() {
         return tabWidth;
+    }
+
+    public boolean doesRunOnChange() {
+        return runMode == RUN_AUTO;
+    }
+
+    public int getTextSize() {
+        return textSize;
     }
 }

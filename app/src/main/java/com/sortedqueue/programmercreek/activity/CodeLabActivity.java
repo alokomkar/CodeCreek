@@ -17,6 +17,7 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants;
 import com.sortedqueue.programmercreek.database.firebase.Code;
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment;
+import com.sortedqueue.programmercreek.fragments.CodeEditorFragment;
 import com.sortedqueue.programmercreek.fragments.CodeLanguageFragment;
 import com.sortedqueue.programmercreek.fragments.CompileCodeFragment;
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener;
@@ -67,17 +68,29 @@ public class CodeLabActivity extends AppCompatActivity implements CodeLabNavigat
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        bundle = getIntent().getExtras();
+        /*bundle = getIntent().getExtras();
         if( bundle == null ) {
             loadCompileCodeFragment(null);
         }
         else {
             Code code = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
             loadCompileCodeFragment(code);
-        }
+        }*/
+        loadCodeEditorFragment();
         checkFAB.setOnClickListener(this);
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left);
+    }
+
+    private void loadCodeEditorFragment() {
+        getSupportActionBar().setTitle("Code Editor" );
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        checkFAB.setImageDrawable(ContextCompat.getDrawable(CodeLabActivity.this, android.R.drawable.ic_media_play));
+        AnimationUtils.enterReveal(checkFAB);
+        mFragmentTransaction.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        mFragmentTransaction.replace(R.id.container, new CodeEditorFragment(), CodeEditorFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
     }
 
 

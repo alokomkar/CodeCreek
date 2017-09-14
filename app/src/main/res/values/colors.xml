@@ -9,6 +9,8 @@
     <color name="transparent_black_75">#99000000</color>
     <color name="transparent_black_65">#A6000000</color>
     <color name="transparent_black_60">#99000000</color>
+    <color name="background_editor">#8000</color>
+    <color name="editor_text">#fff</color>
     <!--http://stackoverflow.com/a/16890937/2648035-->
     <!--<color name="colorPrimaryDark">#673AB7</color>
     <color name="colorPrimary">#311B92</color>-->

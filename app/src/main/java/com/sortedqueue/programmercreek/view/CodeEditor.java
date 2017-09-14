@@ -40,14 +40,27 @@ public class CodeEditor extends AppCompatEditText {
             "\\b(\\d*[.]?\\d+)\\b");
     private static final Pattern PATTERN_PREPROCESSOR = Pattern.compile(
             "^[\t ]*(#define|#undef|#if|#ifdef|#ifndef|#else|#elif|#endif|" +
-                    "#error|#pragma|#extension|#version|#line)\\b",
+                    "#error|#pragma|#extension|#version|#line|#include)\\b",
             Pattern.MULTILINE);
     private static final Pattern PATTERN_KEYWORDS = Pattern.compile(
-            "\\b(attribute|const|uniform|varying|break|continue|" +
-                    "do|for|while|if|else|in|out|inout|float|int|void|bool|true|false|" +
-                    "lowp|mediump|highp|precision|invariant|discard|return|mat2|mat3|" +
+            "\\b(attribute|uniform|varying|inout|" +
+                    "lowp|mediump|highp|precision|invariant|discard|mat2|mat3|" +
                     "mat4|vec2|vec3|vec4|ivec2|ivec3|ivec4|bvec2|bvec3|bvec4|sampler2D|" +
-                    "samplerCube|struct|gl_Vertex|gl_FragCoord|gl_FragColor)\\b");
+                    "samplerCube|gl_Vertex|gl_FragCoord|gl_FragColor|" +
+                    "alignof|align_union|asm|axiom|bool|concept|concept_map|const_cast|" +
+                    "constexpr|decltype|dynamic_cast|explicit|friend|generic|late_check|mutable|namespace|" +
+                    "nullptr|property|reinterpret_cast|static_assert|static_cast|template|typeid|typename|using|" +
+                    "abstract|boolean|byte|extends|final|implements|instanceof|interface|native|strictfp|" +
+                    "synchronized|throws|transient|base|by|checked|decimal|delegate|descending|dynamic|event|fixed|group|implicit|" +
+                    "internal|into|let|lock|object|out|override|orderby|params|partial|readonly|ref|sbyte|sealed|" +
+                    "stackalloc|string|select|uint|ulong|unchecked|unsafe|ushort|virtual|where|auto|char|const|default|" +
+                    "double|enum|extern|float|inline|int|long|register|short|signed|sizeof|static|struct|switch|typedef|union|" +
+                    "unsigned|void|volatile|catch|new|operator|private|protected|public|this|throw|typeof|debugger" +
+                    "|export|get|null|undefined|var|Infinity|NaN|caller|delete|die|dump|exit|foreach|goto|last|my|no|our|package|" +
+                    "require|sub|use|wantarray|as|assert|del|except|exec|finally|from|global|import|is|lambda|nonlocal|" +
+                    "pass|print|raise|try|with|False|True|None|alias|and|begin|class|def|defined|elsif|end|ensure|false|module|next|nil|not|or|redo" +
+                    "|rescue|retry|self|super|true|undef|unless|when|yield|BEGIN|END|break|continue|do" +
+                    "|else|for|if|return|while|case|done|elif|esac|eval|fi|function|in|local|set|then|until)\\b");
     private static final Pattern PATTERN_BUILTINS = Pattern.compile(
             "\\b(radians|degrees|sin|cos|tan|asin|acos|atan|pow|" +
                     "exp|log|exp2|log2|sqrt|inversesqrt|abs|sign|floor|ceil|fract|mod|" +
@@ -108,6 +121,10 @@ public class CodeEditor extends AppCompatEditText {
     public CodeEditor(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    public void setOnTextChangedListener(OnTextChangedListener listener) {
+        onTextChangedListener = listener;
     }
 
     public void setUpdateDelay(int ms) {
