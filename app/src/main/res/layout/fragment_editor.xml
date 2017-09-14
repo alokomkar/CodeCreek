@@ -13,12 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/md_black_1000"
-            android:id="@+id/codeShortCutsRecyclerView"
-            tools:listitem="@layout/item_code_shortcut"/>
+
         <com.sortedqueue.programmercreek.view.CodeEditor
             android:id="@+id/editor"
             android:layout_width="match_parent"
@@ -33,6 +28,12 @@
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textNoSuggestions"
             android:background="@android:color/transparent"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_black_1000"
+            android:id="@+id/codeShortCutsRecyclerView"
+            tools:listitem="@layout/item_code_shortcut"/>
     </LinearLayout>
 
 </ScrollView>
