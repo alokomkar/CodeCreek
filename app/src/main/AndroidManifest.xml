@@ -162,7 +162,7 @@
         <activity
             android:name=".activity.CodeLabActivity"
             android:label="@string/title_code_lab"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -182,8 +182,8 @@
             android:label="@string/title_activity_syntax_learn"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <!--<activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>-->
         <receiver android:name=".receiver.NotificationPublisher" >
             <!--<intent-filter>
                 <action android:name="com.sortedqueue.programmercreek.did_you_know"></action>

@@ -59,6 +59,11 @@ public class CodeEditorFragment extends Fragment implements CodeEditor.OnTextCha
                 "#include \"conio.h\"");
         codeShortCutsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         final ArrayList<CodeShortCuts> codeShortCuts = new ArrayList<>();
+        codeShortCuts.add(new CodeShortCuts("{}", "{\n\n}"));
+        codeShortCuts.add(new CodeShortCuts("TAB", "    "));
+        codeShortCuts.add(new CodeShortCuts(";", ";"));
+        codeShortCuts.add(new CodeShortCuts("main", "void main()\n{\n\n\n}"));
+        codeShortCuts.add(new CodeShortCuts("int main", "int main()\n{\n\n\nreturn0;\n}"));
         codeShortCuts.add(new CodeShortCuts("do_while", "do{ \n\n }while();"));
         codeShortCuts.add(new CodeShortCuts("for_loop", "for( ; ; ){\n\n}"));
         codeShortCuts.add(new CodeShortCuts("if", "if(  ){\n\n}"));
@@ -66,11 +71,10 @@ public class CodeEditorFragment extends Fragment implements CodeEditor.OnTextCha
         codeShortCuts.add(new CodeShortCuts("else_if", "else{\n\n}"));
         codeShortCuts.add(new CodeShortCuts("printf", "printf(\"\");"));
         codeShortCuts.add(new CodeShortCuts("scanf", "scanf(\"\");"));
-        codeShortCuts.add(new CodeShortCuts("{}", "{\n\n}"));
         codeShortCuts.add(new CodeShortCuts("stdio", "#include \"stdio.h\""));
         codeShortCuts.add(new CodeShortCuts("conio", "#include \"conio.h\""));
-        codeShortCuts.add(new CodeShortCuts("main", "void main{\n\n\n}"));
-        codeShortCuts.add(new CodeShortCuts("int main", "void main{\n\n\nreturn0;\n}"));
+
+
         codeShortCutsRecyclerView.setAdapter(new CodeShortCutsAdapter(codeShortCuts, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
             @Override
             public void onItemClick(int position) {

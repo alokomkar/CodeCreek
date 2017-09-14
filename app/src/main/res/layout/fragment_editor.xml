@@ -13,14 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/codeShortCutsRecyclerView"
-        android:background="@color/background_editor">
+        android:background="@color/md_black_1000">
 
 
         <com.sortedqueue.programmercreek.view.CodeEditor
             android:id="@+id/editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/codeShortCutsRecyclerView"
             android:padding="8dp"
             android:text="@string/hello_world_program"
             android:gravity="start|top"
@@ -30,7 +29,7 @@
             android:ellipsize="end"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textNoSuggestions"
-            android:background="@android:color/transparent"/>
+            android:background="@color/md_black_1000"/>
 
 
 
@@ -39,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
-        android:background="@color/md_black_1000"
+        android:background="@color/md_grey_500"
         android:id="@+id/codeShortCutsRecyclerView"
         tools:listitem="@layout/item_code_shortcut"/>
 </RelativeLayout>
