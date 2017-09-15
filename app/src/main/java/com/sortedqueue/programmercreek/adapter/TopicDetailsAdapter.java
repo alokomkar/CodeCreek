@@ -1,6 +1,8 @@
 package com.sortedqueue.programmercreek.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,9 @@ import butterknife.ButterKnife;
 public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapter.ViewHolder> {
     private final ArrayList<Lesson> lessons;
     private final CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListener;
+    private int completePosition = 3;
+    private Drawable completeDrawable;
+    private Drawable inCompleteDrawable;
 
     public TopicDetailsAdapter( ArrayList<Lesson> lessons, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.lessons = lessons;
@@ -30,6 +35,8 @@ public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapte
 
     @Override
     public TopicDetailsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        inCompleteDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.button_grey);
+        completeDrawable = ContextCompat.getDrawable(parent.getContext(), R.drawable.button_check);
         return new TopicDetailsAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_topics, parent, false));
     }
 
@@ -38,6 +45,8 @@ public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapte
         Lesson lesson = getItem(position);
         holder.topicsTextView.setText(lesson.getTitle());
         holder.dividerView.setVisibility( position == (lessons.size() - 1) ? View.GONE : View.VISIBLE);
+        holder.topicsTextView.setBackground( position <= completePosition ? completeDrawable : inCompleteDrawable );
+        holder.dividerView.setBackgroundColor(holder.itemView.getContext().getColor(position <= completePosition ? R.color.md_green_500 : R.color.md_grey_500));
     }
 
     @Override
