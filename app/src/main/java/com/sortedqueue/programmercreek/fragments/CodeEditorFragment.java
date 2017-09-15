@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,11 +58,16 @@ public class CodeEditorFragment extends Fragment implements CodeEditor.OnTextCha
         editor.setOnTextChangedListener(this);
         editor.setText("#include \"stdio.h\"\n" +
                 "#include \"conio.h\"");
-        codeShortCutsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        codeShortCutsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
         final ArrayList<CodeShortCuts> codeShortCuts = new ArrayList<>();
         codeShortCuts.add(new CodeShortCuts("{}", "{\n\n}"));
         codeShortCuts.add(new CodeShortCuts("TAB", "    "));
         codeShortCuts.add(new CodeShortCuts(";", ";"));
+        codeShortCuts.add(new CodeShortCuts("++", "++"));
+        codeShortCuts.add(new CodeShortCuts("--", "--"));
+        codeShortCuts.add(new CodeShortCuts("<", "<"));
+        codeShortCuts.add(new CodeShortCuts(">", ">"));
+        codeShortCuts.add(new CodeShortCuts("()", "()"));
         codeShortCuts.add(new CodeShortCuts("main", "void main()\n{\n\n\n}"));
         codeShortCuts.add(new CodeShortCuts("int main", "int main()\n{\n\n\nreturn0;\n}"));
         codeShortCuts.add(new CodeShortCuts("do_while", "do{ \n\n }while();"));
