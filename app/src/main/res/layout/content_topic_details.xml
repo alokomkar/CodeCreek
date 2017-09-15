@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_intro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sortedqueue.programmercreek.activity.NewProgramWikiActivity"
+    >
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        tools:max="4"
+        tools:progress="1"
+        android:progressDrawable="@drawable/greenprogress" />
+
+    <com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/topicDetailsViewPager"
+        android:layout_below="@+id/progressBar">
+
+    </com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager>
+
+</RelativeLayout>

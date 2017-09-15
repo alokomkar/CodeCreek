@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topicsTextView"
+        android:text="@string/app_name"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="@dimen/margin_8"
+        android:textSize="@dimen/text_dashboard_small"
+        android:background="@drawable/button_grey"
+        />
+
+    <View
+        android:layout_width="@dimen/margin_2"
+        android:layout_height="@dimen/margin_16"
+        android:id="@+id/dividerView"
+        android:layout_gravity="center"
+        android:background="@color/md_grey_400"/>
+
+
+</LinearLayout>

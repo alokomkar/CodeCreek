@@ -24,6 +24,7 @@ import com.sortedqueue.programmercreek.activity.CodeLabActivity;
 import com.sortedqueue.programmercreek.activity.InterviewActivity;
 import com.sortedqueue.programmercreek.activity.IntroActivity;
 import com.sortedqueue.programmercreek.activity.LessonActivity;
+import com.sortedqueue.programmercreek.activity.NewIntroActivity;
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity;
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity;
 import com.sortedqueue.programmercreek.activity.ProgramListActivity;
@@ -321,9 +322,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 break;
 
             case R.id.introLayout:
-                CreekAnalytics.logEvent(TAG, "Intro");
-                Intent introIntent = new Intent(getContext(), IntroActivity.class);
-                startActivity(introIntent);
+                if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
+                    CreekAnalytics.logEvent(TAG, "Intro");
+                    Intent introIntent = new Intent(getContext(), NewIntroActivity.class);
+                    startActivity(introIntent);
+                }
+                else {
+                    CreekAnalytics.logEvent(TAG, "Intro");
+                    Intent introIntent = new Intent(getContext(), IntroActivity.class);
+                    startActivity(introIntent);
+                }
+
                 break;
 
             //TODO : To be removed later

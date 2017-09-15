@@ -282,4 +282,19 @@
     <string name="sign_in_with_google">Sign up with Gmail</string>
     <string name="upgrade_google_play"><![CDATA[In-app billing service is unavailable, please upgrade Android Market/Play to version >= 3.9.16]]></string>
     <string name="merchant_id">09153164281394552832</string>
+    <string name="intro_to_java">Introduction to Java</string>
+    <string name="java">Java</string>
+    <string name="intro_java_humor">Q: What\'s the object oriented way to become wealthy?\nA: Inheritence</string>
+    <string name="class_java_humor">Q: 0 is false, 1 is true right?\nA: 1</string>
+    <string name="java_main">Java main() method</string>
+    <string name="main_java_humor">Q: Why do Java Programmers have to wear glasses?\nA: Because they don\'t C# [See Sharp]</string>
+    <string name="java_keywords">Java Keywords</string>
+    <string name="keyword_java_humor">0, 1, 2, 3... \nReal programmers count from 0.</string>
+    <string name="java_class">Java Class</string>
+    <string name="loops_in_java">Loops in Java</string>
+    <string name="loops_humor">A \"foo\" walks into a \"bar\", takes a look around and says \"Hello world!!\"</string>
+    <string name="java_statements">Statments</string>
+    <string name="statments_humor">[\"hip\", \"hip\"] - (hip hip array!)</string>
+    <string name="java_operators">Operators</string>
+    <string name="operators_humor">Hide and Seek champion...\n \";\"  \nsince 1958</string>
 </resources>

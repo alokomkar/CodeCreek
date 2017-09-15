@@ -238,6 +238,13 @@
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.NewIntroActivity"
+            android:label="@string/title_activity_intro"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <service
             android:name=".service.CreekMessagingService">
             <intent-filter>
