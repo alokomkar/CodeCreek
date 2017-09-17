@@ -33,6 +33,8 @@ public class NewIntroActivity extends AppCompatActivity implements NewIntroNavig
         setContentView(R.layout.activity_new_intro);
         ButterKnife.bind(this);
         loadIntroTopicsFragment();
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left);
     }
 
     @Override
