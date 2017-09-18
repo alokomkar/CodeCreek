@@ -18,7 +18,6 @@
         android:textColor="@color/white"
         android:padding="@dimen/margin_8"
         android:textSize="@dimen/text_dashboard_small"
-        android:background="@drawable/button_grey"
         />
 
     <View
