@@ -120,6 +120,243 @@ public class TopicDetailsTask {
         topicDetails.setSubTopicsArrayList(subTopics);
         topicDetailsArrayList.add(topicDetails);
 
+
+        topicDetails = new TopicDetails( programLanguage + "_" + topicIndex, programLanguage, "Working with Class[class]"  );
+        subTopic = 1;
+        subTopics = new ArrayList<>();
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to create a class in Java?",
+                "Classes are the basic units of programming in the object-oriented paradigm. In this tutorial, we will look into some basic yet important stuffs, you need to know, while writing a class in java."  );
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Components of class",
+                "In Java, classes are used as templates to create objects. Let’s discuss how to define a class. A class in Java may consist of five components:\n\n" +
+                        "1. Fields\n" +
+                        "2. Methods\n" +
+                        "3. Constructors\n" +
+                        "4. Static initializers\n" +
+                        "5. Instance initializers",
+                "",
+                "",
+                "",
+                "single_choice",
+                "What intermediate language is Java converted to?",
+                "sourcecode|||bytecode|||decode",
+                "bytecode");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Components explained",
+                "1. Fields and methods are also known as members of the class. Rest 3 components are used to during initialization of class i.e. creating objects using class template. " +
+                        "\n\n2. Constructors are used to create objects of a class. You must have at least one constructor for a class (if you do declare explicitely then JVM inject default contructor for you). " +
+                        "\n\n3. Initializers are used to initialize fields of a class. You can have zero or more initializers of static or instance types.",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare class?",
+                "The general syntax for declaring a class in Java is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // Body of the class goes here\n" +
+                        "}",
+                "A class declaration may have zero or more modifiers. The keyword class is used to declare a class. The <<class name>> is a user-defined name of the class, which should be a valid identifier. Each class has a body, which is specified inside a pair of braces ({}). The body of a class contains its different components, for example, fields, methods, etc.",
+                "",
+                "single_choice",
+                "What keyword is used while declaring a class in Java?",
+                "class|||Class|||<<modifiers>>",
+                "class");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Example",
+                "An example of class declaration will be :",
+                "// Main.java filename\n" +
+                        "class Main {\n" +
+                        "    // Empty body for now; Write you own\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Example",
+                "Suppose every object of human class has two properties: a name and a gender. The human class should include declarations of two fields: one to represent name and one to represent gender. So the fields declared would look like this:",
+                "// Human.java\n" +
+                        "class Human {\n" +
+                        "        String name;\n" +
+                        "        String gender;\n" +
+                        "}",
+                "Here the Human class declares two fields: name and gender. Both fields are of the String type. Every instance (or object) of the Human class will have a copy of these two fields.",
+                "",
+                "multi_choice",
+                "Identify all the valid fields : ",
+                "String name;|||String gender;|||age;|||Human human;",
+                "String name;|||String gender;|||Human human;",
+                "age isn't a valid field since it doesn't have a preceding datatype, rest all the options are correct.");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "How to declare fields in a Class",
+                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
+                "<<modifiers>> class <<class name>> {\n" +
+                        "        // A field declaration\n" +
+                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                        "}",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+        subTopics.add(subTopics1);
+
+        topicDetails.setSubTopicsArrayList(subTopics);
+        topicDetailsArrayList.add(topicDetails);
+
         return topicDetailsArrayList;
 
     }

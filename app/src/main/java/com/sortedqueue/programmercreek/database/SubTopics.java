@@ -20,6 +20,7 @@ public class SubTopics implements Parcelable {
     private String question;
     private String options; // all separated by delimiter - |||
     private String answer;
+    private String explanation;
 
     public SubTopics() {
     }
@@ -81,6 +82,30 @@ public class SubTopics implements Parcelable {
         this.question = question;
         this.options = options;
         this.answer = answer;
+    }
+
+    public SubTopics(String subTopicId, String programLanguage, String title, String description, String code, String output,  String imageUrl, String testMode, String question, String options, String answer, String explanation) {
+        this.subTopicId = subTopicId;
+        this.programLanguage = programLanguage;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.output = output;
+        this.testMode = testMode;
+        this.imageUrl = imageUrl;
+        this.question = question;
+        this.options = options;
+        this.answer = answer;
+        this.explanation = explanation;
+    }
+
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public String getSubTopicId() {
@@ -190,6 +215,7 @@ public class SubTopics implements Parcelable {
         dest.writeString(this.question);
         dest.writeString(this.options);
         dest.writeString(this.answer);
+        dest.writeString(this.explanation);
     }
 
     protected SubTopics(Parcel in) {
@@ -204,9 +230,10 @@ public class SubTopics implements Parcelable {
         this.question = in.readString();
         this.options = in.readString();
         this.answer = in.readString();
+        this.explanation = in.readString();
     }
 
-    public static final Parcelable.Creator<SubTopics> CREATOR = new Parcelable.Creator<SubTopics>() {
+    public static final Creator<SubTopics> CREATOR = new Creator<SubTopics>() {
         @Override
         public SubTopics createFromParcel(Parcel source) {
             return new SubTopics(source);
