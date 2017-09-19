@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/white"
+            android:layout_margin="@dimen/margin_8"
+            app:cardCornerRadius="@dimen/cardview_default_radius"
+            app:cardElevation="@dimen/cardview_default_elevation"
+            android:id="@+id/cardView">
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_40">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/titleTextView"
+                        android:background="@color/bg"
+                        android:textSize="@dimen/text_dashboard"
+                        android:textColor="@color/md_black_1000"
+                        android:padding="@dimen/margin_8"
+                        android:text="@string/app_name"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/descriptionTextView"
+                        android:textSize="@dimen/text_dashboard_small"
+                        android:padding="@dimen/margin_8"
+                        android:text="@string/index_description"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
+                        android:minHeight="@dimen/margin_200"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/slideImageView"
+                        android:src="@android:drawable/ic_menu_gallery"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:background="@color/md_blue_grey_200" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:text="@string/about_string"
+                        android:background="@color/white"
+                        tools:listitem="@layout/item_code"
+                        android:id="@+id/codeRecyclerView"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:padding="@dimen/margin_8"
+                        android:background="@color/md_black_1000"
+                        android:text="@string/index_description"
+                        android:id="@+id/outputTextView"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/fillCodeLayout"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fillOptionsRecyclerView"/>
+
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:background="@color/md_green_200"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/navigationLayout">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/backImageView"
+                    android:padding="@dimen/margin_4"
+                    android:src="@android:drawable/ic_media_previous"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/nextImageView"
+                    android:padding="@dimen/margin_4"
+                    android:src="@android:drawable/ic_media_next"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/checkFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
+            app:elevation="@dimen/margin_16"
+            app:backgroundTint="@color/md_blue_grey_300"
+            app:srcCompat="@android:drawable/ic_menu_help" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/testContainer"/>
+
+
+</FrameLayout>

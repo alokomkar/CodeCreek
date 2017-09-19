@@ -22,9 +22,9 @@ import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.TopicDetailsAdapter;
 import com.sortedqueue.programmercreek.adapter.TutorialSlidesPagerAdapter;
-import com.sortedqueue.programmercreek.asynctask.LessonFetchTask;
-import com.sortedqueue.programmercreek.database.lessons.BitModule;
-import com.sortedqueue.programmercreek.database.lessons.Lesson;
+import com.sortedqueue.programmercreek.asynctask.TopicDetailsTask;
+import com.sortedqueue.programmercreek.database.SubTopics;
+import com.sortedqueue.programmercreek.database.TopicDetails;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
@@ -40,7 +40,7 @@ import butterknife.Unbinder;
  * Created by Alok on 15/09/17.
  */
 
-public class TopicDetailsFragment extends Fragment implements LessonFetchTask.LessonFetcherTaskListener {
+public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.TopicDetailsListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -57,7 +57,7 @@ public class TopicDetailsFragment extends Fragment implements LessonFetchTask.Le
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     private Unbinder unbinder;
-    private ArrayList<Lesson> mLessons;
+    private ArrayList<TopicDetails> mLessons;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +72,7 @@ public class TopicDetailsFragment extends Fragment implements LessonFetchTask.Le
         super.onViewCreated(view, savedInstanceState);
         setupToolBar();
         CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
-        new LessonFetchTask(this).execute();
+        new TopicDetailsTask(getContext(), "", this).execute();
     }
 
     private void setupToolBar() {
@@ -91,31 +91,15 @@ public class TopicDetailsFragment extends Fragment implements LessonFetchTask.Le
         unbinder.unbind();
     }
 
-    @Override
-    public void onSuccess(final ArrayList<Lesson> lessons) {
-        mLessons = lessons;
-        CommonUtils.dismissProgressDialog();
-        if( lessons != null && lessons.size() > 0 )
-            initLessons(0);
-        topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        topicsRecyclerView.setAdapter(new TopicDetailsAdapter( lessons, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
-
-            @Override
-            public void onItemClick(int position) {
-                initLessons(position);
-                drawerLayout.closeDrawer(GravityCompat.START);
-            }
-        }));
-    }
 
     private void initLessons(int position) {
-        Lesson lesson = mLessons.get(position);
-        toolbar.setTitle(lesson.getTitle());
+        TopicDetails lesson = mLessons.get(position);
+        toolbar.setTitle(lesson.getTopicDescription());
         CommonUtils.displayProgressDialog(getContext(), getString(R.string.loading));
         ArrayList<Fragment> fragments = new ArrayList<>();
-        for( BitModule bitModule : lesson.getBitModules() ) {
-            BitModuleFragment bitModuleFragment = new BitModuleFragment();
-            bitModuleFragment.setBitModule(bitModule);
+        for( SubTopics subTopics : lesson.getSubTopicsArrayList() ) {
+            SubTopicFragment bitModuleFragment = new SubTopicFragment();
+            bitModuleFragment.setSubTopics(subTopics);
             bitModuleFragment.setNavigationListener(new BitModuleNavigationListener() {
                 @Override
                 public void onMoveForward() {
@@ -141,5 +125,22 @@ public class TopicDetailsFragment extends Fragment implements LessonFetchTask.Le
         topicDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         topicDetailsViewPager.setOffscreenPageLimit(3);
         CommonUtils.dismissProgressDialog();
+    }
+
+    @Override
+    public void onSuccess(ArrayList<TopicDetails> topicDetails) {
+        mLessons = topicDetails;
+        CommonUtils.dismissProgressDialog();
+        if( topicDetails != null && topicDetails.size() > 0 )
+            initLessons(0);
+        topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        topicsRecyclerView.setAdapter(new TopicDetailsAdapter( topicDetails, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+
+            @Override
+            public void onItemClick(int position) {
+                initLessons(position);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }));
     }
 }

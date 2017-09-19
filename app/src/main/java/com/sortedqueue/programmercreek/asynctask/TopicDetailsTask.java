@@ -1,7 +1,13 @@
 package com.sortedqueue.programmercreek.asynctask;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
+import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.database.TopicDetails;
+import com.sortedqueue.programmercreek.database.lessons.Lesson;
+import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -9,13 +15,21 @@ import java.util.ArrayList;
  * Created by Alok on 18/09/17.
  */
 
-public class TopicDetailsTask {
+public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetails>> {
 
 
     private final String mTopic;
+    private Context mContext;
+    private TopicDetailsListener mTopicDetailsListener;
 
-    public TopicDetailsTask(String topic ) {
+    public TopicDetailsTask(Context context, String topic, TopicDetailsListener topicDetailsListener ) {
+        this.mContext = context;
         this.mTopic = topic;
+        this.mTopicDetailsListener = topicDetailsListener;
+    }
+
+    public interface TopicDetailsListener {
+        void onSuccess( ArrayList<TopicDetails> topicDetails );
     }
 
     private ArrayList<TopicDetails> getTopicDetailsForTopic( ) {
@@ -255,13 +269,48 @@ public class TopicDetailsTask {
         subTopics1 = new SubTopics(
                 topicDetails.getTopicId() + "_" + subTopic++,
                 programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
-                        "}",
+                "Creating Instances of a Class",
+                "The following is the general syntax to create an instance of a class:",
+                "<<Class>> <<variable>> = new <<Call to Class Constructor>>;\n" +
+                        " \n" +
+                        "//e.g.\n" +
+                        " \n" +
+                        "Human h = new Human();",
+                "When you do not add a constructor to a class, the Java compiler adds one for you. The constructor that is added by the Java compiler is called a default constructor. The default constructor accepts no arguments. The name of the constructor of a class is the same as the class name. The new operator is followed by a call to the constructor of the class whose instance is being created. The new operator creates an instance of a class by allocating the memory on heap.",
                 "",
+                "single_choice",
+                "Identify default constructor :",
+                "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");",
+                "new Human();",
+                "Default constructor has no parameters");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "The null Reference Type",
+                "Java has a special reference type called null type. It has no name. Therefore, you cannot define a variable of the null reference type. The null reference type has only one value defined by Java, which is the null literal. It is simply null. The null reference type is assignment compatible with any other reference type. That is, you can assign a null value to a variable of any reference type. Practically, a null value stored in a reference type variable means that the reference variable is referring to no object.",
+                "// Assign null value to john\n" +
+                        "Human john = null;  // john is not referring to any object\n" +
+                        "john = new Human(); // Now, john is referring to a valid Human object",
+                "Note that null is a literal of null type. You cannot assign null to a primitive type variable, and that’s why java compiler does not allow you to compare a primitive value to a null value.",
+                "",
+                "single_choice",
+                "Can null be assigned to primitive data types such as int?",
+                "Yes|||No",
+                "No",
+                "You cannot assign null to a primitive type variable");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Constructors",
+                "A constructor is a named block of code that is used to initialize an object of a class immediately after the object is created. The general syntax for a constructor declaration is:",
+                "<<Modifiers>> <<Constructor Name>>(<<parameters list>>) throws <<Exceptions list>> {\n" +
+                        "        // Body of constructor goes here\n" +
+                        "}",
+                "A constructor can have its access modifier as public, private, protected, or package-level (no modifier). The constructor name is the same as the simple name of the class. The constructor name is followed by a pair of opening and closing parentheses, which may include parameters. Optionally, the closing parenthesis may be followed by the keyword throws, which in turn is followed by a comma-separated list of exceptions.",
                 "",
                 "",
                 "",
@@ -272,13 +321,32 @@ public class TopicDetailsTask {
         subTopics1 = new SubTopics(
                 topicDetails.getTopicId() + "_" + subTopic++,
                 programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
-                        "}",
+                "Special note on Constructors",
+                "Unlike a method, a constructor does not have a return type. You cannot even specify void as a return type for a constructor. If there is any return type then it is method. Remember that if the name of a construct is the same as the simple name of the class, it could be a method or a constructor. If it specifies a return type, it is a method. If it does not specify a return type, it is a constructor",
                 "",
+                "",
+                "",
+                "multiple_choice",
+                "Identify valid constructors : ",
+                "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");|||Human getInstance();",
+                "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");",
+                "getInstance() refers to a instance creation method with return type Human.");
+        subTopics.add(subTopics1);
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "Instance Initialization Block",
+                "You saw that a constructor is used to initialize an instance of a class. An instance initialization block, also called instance initializer, is also used to initialize objects of a class. An instance initializer is simply a block of code inside the body of a class, but outside any methods or constructors. An instance initializer does not have a name. Its code is simply placed inside an opening brace and a closing brace.\n" +
+                        "\n" +
+                        "Note that an instance initializer is executed in instance context and the keyword this is available inside the instance initializer.",
+                "// An instance initializer\n" +
+                        "{\n" +
+                        "        /* Other code for the instance initializer goes here */\n" +
+                        "}",
+                "You can have multiple instance initializers for a class. All of them are executed automatically in textual order for every object you create. Code for all instance initializers are executed before any constructor.\n" +
+                        "\n" +
+                        "An instance initializer cannot have a return statement. It cannot throw checked exceptions unless all declared constructors list those checked exceptions in their throws clause.",
                 "",
                 "",
                 "",
@@ -289,69 +357,22 @@ public class TopicDetailsTask {
         subTopics1 = new SubTopics(
                 topicDetails.getTopicId() + "_" + subTopic++,
                 programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
+                "static Initialization Block",
+                "A static initialization block is also known as a static initializer. It is similar to an instance initialization block. It is used to initialize a class. An instance initializer is executed once per object whereas a static initializer is executed only once for a class when the class definition is loaded into JVM. To differentiate it from an instance initializer, you need to use the static keyword in the beginning of its declaration.\n" +
+                        "\n" +
+                        "You can have multiple static initializers in a class. All static initializers are executed in textual order in which they appear, and execute before any instance initializers.",
+                "// An static initializer\n" +
+                        "static {\n" +
+                        "        /* Other code for the static initializer goes here */\n" +
                         "}",
+                "A static initializer cannot throw checked exceptions and it cannot have a return statement.",
                 "",
-                "",
-                "",
-                "",
-                "",
-                "");
-        subTopics.add(subTopics1);
-
-        subTopics1 = new SubTopics(
-                topicDetails.getTopicId() + "_" + subTopic++,
-                programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
-                        "}",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
-        subTopics.add(subTopics1);
-
-        subTopics1 = new SubTopics(
-                topicDetails.getTopicId() + "_" + subTopic++,
-                programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
-                        "}",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
-        subTopics.add(subTopics1);
-
-        subTopics1 = new SubTopics(
-                topicDetails.getTopicId() + "_" + subTopic++,
-                programLanguage,
-                "How to declare fields in a Class",
-                "Fields of a class represent properties (also called attributes) of objects of that class. The fields are declared inside the body of the class. The general syntax to declare a field in a class is:",
-                "<<modifiers>> class <<class name>> {\n" +
-                        "        // A field declaration\n" +
-                        "        <<modifiers>> <<data type>> <<field name>> = <<initial value>>;\n" +
-                        "}",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
+                "rearrange",
+                "Rearrange in the right execution order",
+                "Hello|||Namasthe|||Hola",
+                "Namasthe|||Hola|||Hello",
+                "All static initializers are executed in textual order in which they appear",
+                "static{ System.out.println(\"Namasthe\")}\nstatic{ System.out.println(\"Hola\")}\nstatic{ System.out.println(\"Hello\")}");
         subTopics.add(subTopics1);
 
         topicDetails.setSubTopicsArrayList(subTopics);
@@ -359,5 +380,23 @@ public class TopicDetailsTask {
 
         return topicDetailsArrayList;
 
+    }
+
+    @Override
+    protected ArrayList<TopicDetails> doInBackground(Void... voids) {
+        return getTopicDetailsForTopic();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<TopicDetails> topicDetails) {
+        super.onPostExecute(topicDetails);
+        CommonUtils.dismissProgressDialog();
+        mTopicDetailsListener.onSuccess(topicDetails);
     }
 }

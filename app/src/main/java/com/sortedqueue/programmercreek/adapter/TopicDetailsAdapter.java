@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.R;
+import com.sortedqueue.programmercreek.database.TopicDetails;
 import com.sortedqueue.programmercreek.database.lessons.Lesson;
 
 import java.util.ArrayList;
@@ -25,14 +26,14 @@ import butterknife.ButterKnife;
  */
 
 public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapter.ViewHolder> {
-    private final ArrayList<Lesson> lessons;
+    private final ArrayList<TopicDetails> lessons;
     private final CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListener;
     private final AlphaAnimation animation;
     private int completePosition = 3;
     private Drawable completeDrawable;
     private Drawable inCompleteDrawable;
 
-    public TopicDetailsAdapter( ArrayList<Lesson> lessons, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
+    public TopicDetailsAdapter( ArrayList<TopicDetails> lessons, CustomProgramRecyclerViewAdapter.AdapterClickListner adapterClickListner) {
         this.lessons = lessons;
         this.adapterClickListener = adapterClickListner;
         animation = new AlphaAnimation(1, 0);
@@ -51,8 +52,8 @@ public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapte
 
     @Override
     public void onBindViewHolder(TopicDetailsAdapter.ViewHolder holder, int position) {
-        Lesson lesson = getItem(position);
-        holder.topicsTextView.setText(lesson.getTitle());
+        TopicDetails lesson = getItem(position);
+        holder.topicsTextView.setText(lesson.getTopicDescription());
         holder.dividerView.setVisibility( position == (lessons.size() - 1) ? View.GONE : View.VISIBLE);
         holder.topicsTextView.setTextColor(holder.itemView.getContext().getColor(position <= completePosition ? R.color.md_green_500 : R.color.md_grey_500));
         holder.dividerView.setBackgroundColor(holder.itemView.getContext().getColor(position <= completePosition ? R.color.md_green_500 : R.color.md_grey_500));
@@ -70,7 +71,7 @@ public class TopicDetailsAdapter extends RecyclerView.Adapter<TopicDetailsAdapte
         return lessons.size();
     }
 
-    public Lesson getItem(int position) {
+    public TopicDetails getItem(int position) {
         return lessons.get(position);
     }
 

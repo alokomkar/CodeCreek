@@ -21,6 +21,7 @@ public class SubTopics implements Parcelable {
     private String options; // all separated by delimiter - |||
     private String answer;
     private String explanation;
+    private String questionCode;
 
     public SubTopics() {
     }
@@ -97,6 +98,22 @@ public class SubTopics implements Parcelable {
         this.options = options;
         this.answer = answer;
         this.explanation = explanation;
+    }
+
+    public SubTopics(String subTopicId, String programLanguage, String title, String description, String code, String output,  String imageUrl, String testMode, String question, String options, String answer, String explanation, String questionCode) {
+        this.subTopicId = subTopicId;
+        this.programLanguage = programLanguage;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.output = output;
+        this.testMode = testMode;
+        this.imageUrl = imageUrl;
+        this.question = question;
+        this.options = options;
+        this.answer = answer;
+        this.explanation = explanation;
+        this.questionCode = questionCode;
     }
 
 
@@ -197,6 +214,14 @@ public class SubTopics implements Parcelable {
     }
 
 
+    public String getQuestionCode() {
+        return questionCode;
+    }
+
+    public void setQuestionCode(String questionCode) {
+        this.questionCode = questionCode;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -216,6 +241,7 @@ public class SubTopics implements Parcelable {
         dest.writeString(this.options);
         dest.writeString(this.answer);
         dest.writeString(this.explanation);
+        dest.writeString(this.questionCode);
     }
 
     protected SubTopics(Parcel in) {
@@ -231,6 +257,7 @@ public class SubTopics implements Parcelable {
         this.options = in.readString();
         this.answer = in.readString();
         this.explanation = in.readString();
+        this.questionCode = in.readString();
     }
 
     public static final Creator<SubTopics> CREATOR = new Creator<SubTopics>() {
