@@ -182,6 +182,9 @@ public class SubTopics implements Parcelable {
     }
 
     public String getTestMode() {
+        if( testMode != null && testMode.equalsIgnoreCase("") ) {
+            return null;
+        }
         return testMode;
     }
 
