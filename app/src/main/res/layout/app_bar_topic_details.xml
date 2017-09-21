@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true">
+    android:animateLayoutChanges="true"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true"
+    tools:context="com.sortedqueue.programmercreek.activity.ChaptersActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,6 +22,8 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <include layout="@layout/content_topic_details" />
+    <include
+
+        layout="@layout/content_topic_details" />
 
 </android.support.design.widget.CoordinatorLayout>

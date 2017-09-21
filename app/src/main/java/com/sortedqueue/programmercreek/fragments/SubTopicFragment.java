@@ -65,8 +65,6 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     ImageView slideImageView;
     @BindView(R.id.fillCodeLayout)
     LinearLayout fillCodeLayout;
-    @BindView(R.id.cardView)
-    CardView cardView;
     @BindView(R.id.testContainer)
     FrameLayout testContainer;
     @BindView(R.id.fillOptionsRecyclerView)

@@ -44,8 +44,6 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     @BindView(R.id.topicDetailsViewPager)
     OneDirectionalScrollableViewPager topicDetailsViewPager;
     @BindView(R.id.content_intro)
