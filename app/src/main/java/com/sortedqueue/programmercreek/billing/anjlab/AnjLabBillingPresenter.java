@@ -69,7 +69,9 @@ public class AnjLabBillingPresenter {
         }
         @Override
         public void onBillingError(int errorCode, @Nullable Throwable error) {
+            CreekAnalytics.logEvent(TAG, "onBillingError");
             if( error != null && error.getMessage() != null ) {
+                CreekAnalytics.logEvent(TAG, error.getMessage());
                 complain("Error occurred while purchase : " + error.getMessage());
                 error.printStackTrace();
             }

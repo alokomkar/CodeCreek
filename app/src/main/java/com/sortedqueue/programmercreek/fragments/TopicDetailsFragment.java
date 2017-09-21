@@ -95,12 +95,11 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     private void initLessons(int position) {
         TopicDetails lesson = mLessons.get(position);
         toolbar.setTitle(lesson.getTopicDescription());
-        CommonUtils.displayProgressDialog(getContext(), getString(R.string.loading));
         ArrayList<Fragment> fragments = new ArrayList<>();
         for( SubTopics subTopics : lesson.getSubTopicsArrayList() ) {
-            SubTopicFragment bitModuleFragment = new SubTopicFragment();
-            bitModuleFragment.setSubTopics(subTopics);
-            bitModuleFragment.setNavigationListener(new BitModuleNavigationListener() {
+            SubTopicFragment subTopicFragment = new SubTopicFragment();
+            subTopicFragment.setSubTopics(subTopics);
+            subTopicFragment.setNavigationListener(new BitModuleNavigationListener() {
                 @Override
                 public void onMoveForward() {
 
@@ -116,10 +115,10 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
                 }
             });
-            fragments.add(bitModuleFragment);
+            fragments.add(subTopicFragment);
         }
-        ((BitModuleFragment) (fragments.get(0))).setLastFirstIndicator(0);
-        ((BitModuleFragment) (fragments.get(fragments.size() - 1))).setLastFirstIndicator(1);
+        ((SubTopicFragment) (fragments.get(0))).setLastFirstIndicator(0);
+        ((SubTopicFragment) (fragments.get(fragments.size() - 1))).setLastFirstIndicator(1);
         TutorialSlidesPagerAdapter adapter = new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments);
         topicDetailsViewPager.setAdapter(adapter);
         topicDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());

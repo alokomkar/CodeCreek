@@ -158,6 +158,7 @@ public class SubTopics implements Parcelable {
     }
 
     public String getCode() {
+        if( code.equalsIgnoreCase("") ) return null;
         return code;
     }
 
@@ -166,6 +167,7 @@ public class SubTopics implements Parcelable {
     }
 
     public String getOutput() {
+        if( output.equalsIgnoreCase("") ) return null;
         return output;
     }
 

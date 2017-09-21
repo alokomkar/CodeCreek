@@ -390,13 +390,11 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
     }
 
     @Override
     protected void onPostExecute(ArrayList<TopicDetails> topicDetails) {
         super.onPostExecute(topicDetails);
-        CommonUtils.dismissProgressDialog();
         mTopicDetailsListener.onSuccess(topicDetails);
     }
 }
