@@ -9,8 +9,21 @@
     tools:context="com.sortedqueue.programmercreek.activity.NewProgramWikiActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        android:max="4"
+        android:progress="1"
+        android:progressDrawable="@drawable/greenprogress" />
+
     <com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
         android:layout_width="match_parent"
+        android:layout_below="@+id/progressBar"
         android:layout_height="match_parent"
         android:id="@+id/topicDetailsViewPager"
         >

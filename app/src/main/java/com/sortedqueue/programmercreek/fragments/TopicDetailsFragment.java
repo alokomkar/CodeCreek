@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,8 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     NavigationView navView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private Unbinder unbinder;
     private ArrayList<TopicDetails> mLessons;
 
@@ -94,7 +97,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         TopicDetails lesson = mLessons.get(position);
         toolbar.setTitle(lesson.getTopicDescription());
         ArrayList<Fragment> fragments = new ArrayList<>();
-        for( SubTopics subTopics : lesson.getSubTopicsArrayList() ) {
+        for (SubTopics subTopics : lesson.getSubTopicsArrayList()) {
             SubTopicFragment subTopicFragment = new SubTopicFragment();
             subTopicFragment.setSubTopics(subTopics);
             subTopicFragment.setNavigationListener(new BitModuleNavigationListener() {
@@ -121,6 +124,24 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         topicDetailsViewPager.setAdapter(adapter);
         topicDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         topicDetailsViewPager.setOffscreenPageLimit(3);
+        progressBar.setProgress(1);
+        progressBar.setMax(fragments.size());
+        topicDetailsViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                progressBar.setProgress( position + 1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         CommonUtils.dismissProgressDialog();
     }
 
@@ -128,10 +149,10 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     public void onSuccess(ArrayList<TopicDetails> topicDetails) {
         mLessons = topicDetails;
         CommonUtils.dismissProgressDialog();
-        if( topicDetails != null && topicDetails.size() > 0 )
+        if (topicDetails != null && topicDetails.size() > 0)
             initLessons(0);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        topicsRecyclerView.setAdapter(new TopicDetailsAdapter( topicDetails, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        topicsRecyclerView.setAdapter(new TopicDetailsAdapter(topicDetails, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
 
             @Override
             public void onItemClick(int position) {
