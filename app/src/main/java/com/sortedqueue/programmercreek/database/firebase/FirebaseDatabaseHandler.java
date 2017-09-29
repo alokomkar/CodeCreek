@@ -1718,24 +1718,30 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
     public void readCreekUserDB(final GetCreekUserDBListener getCreekUserDBListener ) {
-        getCreekUserDBDatabase();
-        mCreekUserDBDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if( dataSnapshot != null ) {
-                    CreekUserDB creekUserDB = dataSnapshot.getValue(CreekUserDB.class);
-                    creekPreferences.setCreekUserDB(creekUserDB);
-                    if( creekUserDB != null ) {
-                        getCreekUserDBListener.onSuccess(creekUserDB);
+        if( creekPreferences.getCreekUserDB() == null ) {
+            getCreekUserDBDatabase();
+            mCreekUserDBDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if( dataSnapshot != null ) {
+                        CreekUserDB creekUserDB = dataSnapshot.getValue(CreekUserDB.class);
+                        creekPreferences.setCreekUserDB(creekUserDB);
+                        if( creekUserDB != null ) {
+                            getCreekUserDBListener.onSuccess(creekUserDB);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getCreekUserDBListener.onError(databaseError);
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    getCreekUserDBListener.onError(databaseError);
+                }
+            });
+        }
+        else {
+            getCreekUserDBListener.onSuccess(creekPreferences.getCreekUserDB());
+        }
+
     }
 
 

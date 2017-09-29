@@ -322,12 +322,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 break;
 
             case R.id.introLayout:
-                if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
+                /*if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
                     CreekAnalytics.logEvent(TAG, "Intro");
                     Intent introIntent = new Intent(getContext(), NewIntroActivity.class);
                     startActivity(introIntent);
                 }
-                else {
+                else */{
                     CreekAnalytics.logEvent(TAG, "Intro");
                     Intent introIntent = new Intent(getContext(), IntroActivity.class);
                     startActivity(introIntent);
