@@ -292,7 +292,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         if( !creekPreferences.isPremiumUser() ) {
             new FirebaseDatabaseHandler( DashboardActivity.this).verifyPurchase(new FirebaseDatabaseHandler.AnjVerifyPurchaseListener() {
                 @Override
-                public void onSuccess(TransactionDetails purchase) {
+                public void onSuccess(com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails purchase) {
 
                 }
 

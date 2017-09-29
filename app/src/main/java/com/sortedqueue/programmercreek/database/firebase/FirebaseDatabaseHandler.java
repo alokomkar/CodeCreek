@@ -311,11 +311,13 @@ public class FirebaseDatabaseHandler {
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
         Log.d(TAG, "Premium upgrade : UserId : " + userId + " :Purchase Details: " + details );
+        //TODO Change this later
+        creekPreferences.setPremiumUser(true);
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).setValue(details);
     }
 
     public interface AnjVerifyPurchaseListener {
-        void onSuccess( TransactionDetails purchase );
+        void onSuccess( com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails purchase );
         void onError( Exception e );
     }
 
@@ -328,8 +330,8 @@ public class FirebaseDatabaseHandler {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" +  userId ).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if( dataSnapshot != null ) {
-                    TransactionDetails purchase = dataSnapshot.getValue(TransactionDetails.class);
+                if( dataSnapshot != null && dataSnapshot.getValue() != null ) {
+                    com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails purchase = dataSnapshot.getValue(com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails.class);
                     if( purchase != null ) {
                         verifyPurchaseListener.onSuccess(purchase);
                         creekPreferences.setPremiumUser(true);
