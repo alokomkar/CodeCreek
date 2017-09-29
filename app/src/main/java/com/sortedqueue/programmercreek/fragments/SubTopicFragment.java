@@ -78,6 +78,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     private FillOptionsRecyclerAdapter fillOptionsAdapter;
     private ArrayList<FillCodeRecyclerAdapter> fillCodeRecyclerAdapters;
     private String TAG = BitModuleFragment.class.getSimpleName();
+    private InterviewQuestionsFragment interviewQuestionsFragment;
 
     public void setNavigationListener(BitModuleNavigationListener navigationListener) {
         this.navigationListener = navigationListener;
@@ -198,7 +199,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
                 if (lastFirstIndicator == 1) {
                     getActivity().onBackPressed();
                 } else {
-                    if (subTopics.getTestMode() != null) {
+                    /*if (subTopics.getTestMode() != null) {
                         switch (subTopics.getTestMode().toLowerCase()) {
                             case "fill":
                                 navigationListener.onTestTriggered(subTopics.getTestMode());
@@ -216,7 +217,16 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
                                 checkSolution();
                                 break;
                         }
+                    }*/
+                    if (interviewQuestionsFragment == null) {
+                        interviewQuestionsFragment = new InterviewQuestionsFragment();
                     }
+                    //AnimationUtils.enterReveal(checkFAB);
+                    interviewQuestionsFragment.setProgramLanguage("java");
+                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.testContainer, interviewQuestionsFragment).commit();
                 }
                 break;
             case R.id.nextImageView:

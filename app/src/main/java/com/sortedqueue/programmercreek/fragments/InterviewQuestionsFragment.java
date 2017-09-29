@@ -258,7 +258,8 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         cancelTimer();
         //mInterviewNavigationListener.showExplanation("Some explanation");
         if (null != interviewQuestionModel.getExplanation()) {
-            mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
+           // mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
+            navigateToNext();
         } else {
             if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
                 navigateToNext();
@@ -334,9 +335,9 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
     public void onItemClick(int position) {
         if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
             cancelTimer();
-            if (null != interviewQuestionModel.getExplanation()) {
+            /*if (null != interviewQuestionModel.getExplanation()) {
                 mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
-            }
+            }*/
         }
     }
 }
