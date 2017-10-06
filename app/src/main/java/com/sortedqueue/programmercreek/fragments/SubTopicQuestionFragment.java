@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,16 @@ import com.sortedqueue.programmercreek.database.OptionModel;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_REARRANGE;
+import static com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.REARRANGE;
 
 /**
  * Created by Alok on 06/10/17.
@@ -88,6 +93,12 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
         subTopicsQuestionAdapter.setCorrectAnswers(subTopic.getAnswer());
         optionsRecyclerView.setAdapter( subTopicsQuestionAdapter );
 
+        if (subTopic.getTestMode().equals(REARRANGE)) {
+            ItemTouchHelper.Callback callback =
+                    new SimpleItemTouchHelperCallback(subTopicsQuestionAdapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(optionsRecyclerView);
+        }
 
     }
 
