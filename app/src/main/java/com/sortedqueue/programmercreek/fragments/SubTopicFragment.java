@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -78,7 +77,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     private FillOptionsRecyclerAdapter fillOptionsAdapter;
     private ArrayList<FillCodeRecyclerAdapter> fillCodeRecyclerAdapters;
     private String TAG = BitModuleFragment.class.getSimpleName();
-    private InterviewQuestionsFragment interviewQuestionsFragment;
+    private SubTopicQuestionFragment subTopicQuestionFragment;
 
     public void setNavigationListener(BitModuleNavigationListener navigationListener) {
         this.navigationListener = navigationListener;
@@ -218,15 +217,15 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
                                 break;
                         }
                     }*/
-                    if (interviewQuestionsFragment == null) {
-                        interviewQuestionsFragment = new InterviewQuestionsFragment();
-                    }
+                    subTopicQuestionFragment = new SubTopicQuestionFragment();
+                    subTopicQuestionFragment.setOnBackPressListener(SubTopicFragment.this);
                     //AnimationUtils.enterReveal(checkFAB);
-                    interviewQuestionsFragment.setProgramLanguage("java");
+                    subTopicQuestionFragment.setProgramLanguage("java");
+                    subTopicQuestionFragment.setSubTopic(subTopics);
                     FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.testContainer, interviewQuestionsFragment).commit();
+                    fragmentTransaction.replace(R.id.testContainer, subTopicQuestionFragment).commit();
                 }
                 break;
             case R.id.nextImageView:

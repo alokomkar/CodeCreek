@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_above="@+id/timerLayout"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/questionLayout"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/questionTextView"
+                    android:padding="@dimen/margin_8"
+                    android:background="@color/bg"
+                    android:textSize="@dimen/text_dashboard_small"
+                    tools:text="This is a long question to check overlapping issue"/>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_edit_code"
+                    android:id="@+id/codeRecyclerView">
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@color/md_grey_200" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/optionsRecyclerView"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_interview_option"
+                    >
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:id="@+id/timerLayout"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_1"
+            android:background="@color/md_grey_200" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/margin_100"
+                android:drawableRight="@drawable/ic_done_all"
+                android:textAllCaps="true"
+                android:drawablePadding="@dimen/margin_8"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="@string/check"
+                android:id="@+id/checkAnswerImageView"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/progressLayout"
+                android:padding="@dimen/margin_8"
+                android:background="@drawable/button_check"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/progressLayout">
+                <TextView
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/text_dashboard_small"
+                    android:textColor="@color/md_blue_800"
+                    android:id="@+id/progressTextView" />
+                <ProgressBar
+                    android:layout_width="@dimen/margin_52"
+                    android:layout_height="@dimen/margin_52"
+                    android:layout_centerInParent="true"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:indeterminate="false"
+                    android:max="48"
+                    android:progress="10"
+                    android:background="@drawable/circle_shape"
+                    android:progressDrawable="@drawable/circular_progressbar"
+                    android:id="@+id/timerProgressBar"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+

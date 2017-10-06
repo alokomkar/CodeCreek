@@ -11,6 +11,10 @@ import com.sortedqueue.programmercreek.util.CommonUtils;
 
 import java.util.ArrayList;
 
+import static com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.MULTI_CHOICE;
+import static com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.REARRANGE;
+import static com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.SINGLE_CHOICE;
+
 /**
  * Created by Alok on 18/09/17.
  */
@@ -56,7 +60,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                 "",
                 "",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "What intermediate language is Java converted to?",
                 "sourcecode|||bytecode|||decode",
                 "bytecode");
@@ -91,7 +95,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                 "",
                 "",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "How does Java manage memory in the object lifecycle?",
                 "trash can|||garbage collector",
                 "garbage collector");
@@ -109,7 +113,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "}",
                 "Hello World!",
                 "",
-                "rearrange",
+                "",
                 "",
                 "",
                 "");
@@ -158,7 +162,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                 "",
                 "",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "What intermediate language is Java converted to?",
                 "sourcecode|||bytecode|||decode",
                 "bytecode");
@@ -190,7 +194,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "}",
                 "A class declaration may have zero or more modifiers. The keyword class is used to declare a class. The <<class name>> is a user-defined name of the class, which should be a valid identifier. Each class has a body, which is specified inside a pair of braces ({}). The body of a class contains its different components, for example, fields, methods, etc.",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "What keyword is used while declaring a class in Java?",
                 "class|||Class|||<<modifiers>>",
                 "class");
@@ -259,7 +263,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "}",
                 "Here the Human class declares two fields: name and gender. Both fields are of the String type. Every instance (or object) of the Human class will have a copy of these two fields.",
                 "",
-                "multi_choice",
+                MULTI_CHOICE,
                 "Identify all the valid fields : ",
                 "String name;|||String gender;|||age;|||Human human;",
                 "String name;|||String gender;|||Human human;",
@@ -278,7 +282,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "Human h = new Human();",
                 "When you do not add a constructor to a class, the Java compiler adds one for you. The constructor that is added by the Java compiler is called a default constructor. The default constructor accepts no arguments. The name of the constructor of a class is the same as the class name. The new operator is followed by a call to the constructor of the class whose instance is being created. The new operator creates an instance of a class by allocating the memory on heap.",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "Identify default constructor :",
                 "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");",
                 "new Human();",
@@ -295,7 +299,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "john = new Human(); // Now, john is referring to a valid Human object",
                 "Note that null is a literal of null type. You cannot assign null to a primitive type variable, and that’s why java compiler does not allow you to compare a primitive value to a null value.",
                 "",
-                "single_choice",
+                SINGLE_CHOICE,
                 "Can null be assigned to primitive data types such as int?",
                 "Yes|||No",
                 "No",
@@ -326,7 +330,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                 "",
                 "",
                 "",
-                "multiple_choice",
+                MULTI_CHOICE,
                 "Identify valid constructors : ",
                 "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");|||Human getInstance();",
                 "new Human( \"Kylie\", \"female\");|||new Human();|||new Human(\"James\");",
@@ -367,7 +371,29 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
                         "}",
                 "A static initializer cannot throw checked exceptions and it cannot have a return statement.",
                 "",
-                "rearrange",
+                REARRANGE,
+                "Rearrange in the right execution order",
+                "Hello|||Namasthe|||Hola",
+                "Namasthe|||Hola|||Hello",
+                "All static initializers are executed in textual order in which they appear",
+                "static{ System.out.println(\"Namasthe\")}\nstatic{ System.out.println(\"Hola\")}\nstatic{ System.out.println(\"Hello\")}");
+        subTopics.add(subTopics1);
+
+
+        subTopics1 = new SubTopics(
+                topicDetails.getTopicId() + "_" + subTopic++,
+                programLanguage,
+                "static Initialization Block",
+                "A static initialization block is also known as a static initializer. It is similar to an instance initialization block. It is used to initialize a class. An instance initializer is executed once per object whereas a static initializer is executed only once for a class when the class definition is loaded into JVM. To differentiate it from an instance initializer, you need to use the static keyword in the beginning of its declaration.\n" +
+                        "\n" +
+                        "You can have multiple static initializers in a class. All static initializers are executed in textual order in which they appear, and execute before any instance initializers.",
+                "// An static initializer\n" +
+                        "static {\n" +
+                        "        /* Other code for the static initializer goes here */\n" +
+                        "}",
+                "A static initializer cannot throw checked exceptions and it cannot have a return statement.",
+                "",
+                REARRANGE,
                 "Rearrange in the right execution order",
                 "Hello|||Namasthe|||Hola",
                 "Namasthe|||Hola|||Hello",

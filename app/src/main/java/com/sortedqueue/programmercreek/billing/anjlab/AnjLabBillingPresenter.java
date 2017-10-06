@@ -79,6 +79,7 @@ public class AnjLabBillingPresenter {
         @Override
         public void onBillingInitialized() {
             readyToPurchase = true;
+            CreekAnalytics.logEvent(TAG, "onBillingInitialized");
             updateTextViews();
         }
         @Override
