@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,7 @@ import com.sortedqueue.programmercreek.asynctask.TopicDetailsTask;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.database.TopicDetails;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
+import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
@@ -59,6 +61,9 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     ProgressBar progressBar;
     private Unbinder unbinder;
     private ArrayList<TopicDetails> mLessons;
+    private NewIntroNavigationListener mNewIntroNavigationListener;
+    private TopicDetailsAdapter topicDetailsAdapter;
+    private TutorialSlidesPagerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +79,13 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         setupToolBar();
         CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
         new TopicDetailsTask(getContext(), "", this).execute();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if( context instanceof NewIntroNavigationListener )
+            mNewIntroNavigationListener = (NewIntroNavigationListener) context;
     }
 
     private void setupToolBar() {
@@ -100,6 +112,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         for (SubTopics subTopics : lesson.getSubTopicsArrayList()) {
             SubTopicFragment subTopicFragment = new SubTopicFragment();
             subTopicFragment.setSubTopics(subTopics);
+            subTopicFragment.setIntroNavigationListener(mNewIntroNavigationListener);
             subTopicFragment.setNavigationListener(new BitModuleNavigationListener() {
                 @Override
                 public void onMoveForward() {
@@ -120,7 +133,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         }
         ((SubTopicFragment) (fragments.get(0))).setLastFirstIndicator(0);
         ((SubTopicFragment) (fragments.get(fragments.size() - 1))).setLastFirstIndicator(1);
-        TutorialSlidesPagerAdapter adapter = new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments);
+        adapter = new TutorialSlidesPagerAdapter(getChildFragmentManager(), fragments);
         topicDetailsViewPager.setAdapter(adapter);
         topicDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         topicDetailsViewPager.setOffscreenPageLimit(3);
@@ -152,13 +165,23 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         if (topicDetails != null && topicDetails.size() > 0)
             initLessons(0);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        topicsRecyclerView.setAdapter(new TopicDetailsAdapter(topicDetails, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
+        topicDetailsAdapter = new TopicDetailsAdapter(topicDetails, new CustomProgramRecyclerViewAdapter.AdapterClickListner() {
 
             @Override
             public void onItemClick(int position) {
                 initLessons(position);
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
-        }));
+        });
+        topicsRecyclerView.setAdapter(topicDetailsAdapter);
+    }
+
+    public boolean hideSubTopicFragment() {
+        SubTopicFragment subTopicFragment = (SubTopicFragment) adapter.getItem(topicDetailsViewPager.getCurrentItem());
+        if( subTopicFragment != null && subTopicFragment.isTestLoaded() ) {
+            subTopicFragment.hideSubTopicQuestionFragment();
+            return true;
+        }
+        return false;
     }
 }

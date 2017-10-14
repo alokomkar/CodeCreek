@@ -26,6 +26,7 @@ public class NewIntroActivity extends AppCompatActivity implements NewIntroNavig
     @BindView(R.id.container)
     FrameLayout container;
     private FragmentTransaction mFragmentTransaction;
+    private TopicDetailsFragment topicDetailsFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class NewIntroActivity extends AppCompatActivity implements NewIntroNavig
     @Override
     public void loadTopicDetailsFragment( String topic ) {
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        TopicDetailsFragment topicDetailsFragment = new TopicDetailsFragment();
+        topicDetailsFragment = new TopicDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("topic", topic);
         topicDetailsFragment.setArguments(bundle);
@@ -63,12 +64,20 @@ public class NewIntroActivity extends AppCompatActivity implements NewIntroNavig
     }
 
     @Override
+    public boolean onBackPressFromFragment() {
+        return topicDetailsFragment != null && topicDetailsFragment.hideSubTopicFragment();
+    }
+
+    @Override
     public void onBackPressed() {
-        if( getSupportFragmentManager().getBackStackEntryCount() > 1 ) {
-            getSupportFragmentManager().popBackStack();
+        if( !onBackPressFromFragment() ) {
+            if( getSupportFragmentManager().getBackStackEntryCount() > 1 ) {
+                getSupportFragmentManager().popBackStack();
+            }
+            else
+                finish();
         }
-        else
-            finish();
+
     }
 
     @Override

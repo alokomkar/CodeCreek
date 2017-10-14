@@ -7,4 +7,5 @@ package com.sortedqueue.programmercreek.interfaces;
 public interface NewIntroNavigationListener {
     void loadIntroTopicsFragment();
     void loadTopicDetailsFragment( String topic );
+    boolean onBackPressFromFragment();
 }

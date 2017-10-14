@@ -27,6 +27,7 @@ import com.sortedqueue.programmercreek.adapter.FillOptionsRecyclerAdapter;
 import com.sortedqueue.programmercreek.database.ProgramTable;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
+import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
@@ -78,6 +79,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     private ArrayList<FillCodeRecyclerAdapter> fillCodeRecyclerAdapters;
     private String TAG = BitModuleFragment.class.getSimpleName();
     private SubTopicQuestionFragment subTopicQuestionFragment;
+    private NewIntroNavigationListener introNavigationListener;
 
     public void setNavigationListener(BitModuleNavigationListener navigationListener) {
         this.navigationListener = navigationListener;
@@ -275,5 +277,13 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
                 break;
             }
         }
+    }
+
+    public void setIntroNavigationListener(NewIntroNavigationListener introNavigationListener) {
+        this.introNavigationListener = introNavigationListener;
+    }
+
+    public void hideSubTopicQuestionFragment() {
+        subTopicQuestionFragment.callBackClick();
     }
 }

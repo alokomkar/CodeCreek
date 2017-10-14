@@ -141,4 +141,8 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
     public void setOnBackPressListener(OnBackPressListener onBackPressListener) {
         this.onBackPressListener = onBackPressListener;
     }
+
+    public void callBackClick() {
+        onBackPressListener.onBackPressed();
+    }
 }
