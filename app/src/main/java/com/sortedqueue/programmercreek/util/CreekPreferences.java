@@ -1039,4 +1039,32 @@ public class CreekPreferences {
     public int getTextSize() {
         return textSize;
     }
+
+    public void setUnlockedSubTopic(String subTopicId) {
+        String programLanguage = getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
+        Set<String> unlockedPrograms = getUnlockedTopics();
+        if( !unlockedPrograms.contains(String.valueOf(subTopicId) ) ) {
+            unlockedPrograms.add(String.valueOf(subTopicId));
+            sharedPreferences.edit().putStringSet(programLanguage + "_unlockedSubTopics", unlockedPrograms ).apply();
+        }
+    }
+
+    private Set<String> getUnlockedTopics() {
+        String programLanguage = getProgramLanguage();
+        if( programLanguage.equals("c++") ) {
+            programLanguage = "cpp";
+        }
+        Set<String> unlockedPrograms = sharedPreferences.getStringSet(programLanguage + "_unlockedSubTopics", null);
+        if( unlockedPrograms == null ) {
+            unlockedPrograms = new HashSet<>();
+        }
+        return unlockedPrograms;
+    }
+
+    public boolean isUnlockedTopic( String programIndex ) {
+        return getUnlockedTopics().contains(String.valueOf(programIndex));
+    }
 }

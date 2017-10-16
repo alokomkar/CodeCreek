@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter;
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
@@ -23,6 +24,7 @@ import com.sortedqueue.programmercreek.database.OptionModel;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
@@ -119,6 +121,8 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
             checkAnswerImageView.setText("Finish");
         }
         else {
+            CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+            creekPreferences.setUnlockedSubTopic(subTopic.getSubTopicId());
             onBackPressListener.onBackPressed();
         }
 

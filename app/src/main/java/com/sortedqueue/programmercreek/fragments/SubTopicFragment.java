@@ -224,6 +224,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
                     //AnimationUtils.enterReveal(checkFAB);
                     subTopicQuestionFragment.setProgramLanguage("java");
                     subTopicQuestionFragment.setSubTopic(subTopics);
+                    navigationListener.onTestTriggered("test");
                     FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
                     fragmentTransaction.addToBackStack(null);

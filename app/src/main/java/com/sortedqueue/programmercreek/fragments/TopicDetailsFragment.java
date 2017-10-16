@@ -32,6 +32,7 @@ import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
+import com.sortedqueue.programmercreek.view.SwipeDirection;
 
 import java.util.ArrayList;
 
@@ -126,7 +127,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
                 @Override
                 public void onTestTriggered(String testType) {
-
+                    topicDetailsViewPager.setAllowedSwipeDirection( testType != null ? SwipeDirection.none : SwipeDirection.all );
                 }
             });
             fragments.add(subTopicFragment);

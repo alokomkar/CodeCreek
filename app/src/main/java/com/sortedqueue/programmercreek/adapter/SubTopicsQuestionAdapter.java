@@ -113,6 +113,35 @@ public class SubTopicsQuestionAdapter extends RecyclerView.Adapter<SubTopicsQues
         notifyDataSetChanged();
     }
 
+    public int countCorrectAnswers() {
+        int correctAnswers = 0;
+        switch ( quizType ) {
+            case SINGLE_CHOICE :
+                for( OptionModel optionModel : optionModels ) {
+                    if( optionModel.isSelected() && optionModel.getOption().equals( this.correctAnswers.get(0) ) ) {
+                        correctAnswers = 1;
+                    }
+                }
+                break;
+            case MULTI_CHOICE :
+                for( OptionModel optionModel : optionModels ) {
+                    if( optionModel.isSelected() && this.correctAnswers.contains(optionModel.getOption()) ) {
+                        correctAnswers++;
+                    }
+                }
+                break;
+            case REARRANGE :
+                int position = 0;
+                for( OptionModel optionModel : optionModels ) {
+                    if( optionModel.isSelected() && optionModel.getOption().equals(this.correctAnswers.get(position++)) ) {
+                        correctAnswers++;
+                    }
+                }
+                break;
+        }
+        return correctAnswers;
+    }
+
     private OptionModel getItemAtPosition(int position) {
         return optionModels.get(position);
     }
