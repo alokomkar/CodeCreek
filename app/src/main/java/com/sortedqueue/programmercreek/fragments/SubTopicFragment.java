@@ -145,7 +145,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
         }*/
         checkFAB.setVisibility(subTopics.getTestMode() == null || subTopics.getTestMode().equalsIgnoreCase("random") ? View.GONE : View.VISIBLE);
         isTestAvailable = !(subTopics.getTestMode() == null || subTopics.getTestMode().isEmpty());
-        if ( lastFirstIndicator == 1 &&  isTestAvailable ) {
+        if ( lastFirstIndicator == 1 &&  !isTestAvailable ) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
         }
