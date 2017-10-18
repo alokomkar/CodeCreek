@@ -42,7 +42,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
         String programLanguage = "java";
 
         ArrayList<TopicDetails> topicDetailsArrayList = new ArrayList<>();
-        TopicDetails topicDetails = new TopicDetails( programLanguage + "_" + topicIndex, programLanguage, "Java Basics"  );
+        TopicDetails topicDetails = new TopicDetails( programLanguage + "_" + topicIndex++, programLanguage, "Java Basics"  );
         int subTopic = 1;
         ArrayList<SubTopics> subTopics = new ArrayList<>();
         SubTopics subTopics1 = new SubTopics(
@@ -139,7 +139,7 @@ public class TopicDetailsTask extends AsyncTask<Void, Void, ArrayList<TopicDetai
         topicDetailsArrayList.add(topicDetails);
 
 
-        topicDetails = new TopicDetails( programLanguage + "_" + topicIndex, programLanguage, "Working with Class[class]"  );
+        topicDetails = new TopicDetails( programLanguage + "_" + topicIndex++, programLanguage, "Working with Class[class]"  );
         subTopic = 1;
         subTopics = new ArrayList<>();
         subTopics1 = new SubTopics(
