@@ -1065,6 +1065,6 @@ public class CreekPreferences {
     }
 
     public boolean isUnlockedTopic( String programIndex ) {
-        return getUnlockedTopics().contains(String.valueOf(programIndex));
+        return getUnlockedTopics().contains(programIndex);
     }
 }

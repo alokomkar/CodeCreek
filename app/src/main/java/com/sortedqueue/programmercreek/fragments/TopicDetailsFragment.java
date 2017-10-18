@@ -30,6 +30,7 @@ import com.sortedqueue.programmercreek.database.TopicDetails;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener;
 import com.sortedqueue.programmercreek.util.CommonUtils;
+import com.sortedqueue.programmercreek.util.CreekPreferences;
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer;
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager;
 import com.sortedqueue.programmercreek.view.SwipeDirection;
@@ -65,12 +66,16 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     private NewIntroNavigationListener mNewIntroNavigationListener;
     private TopicDetailsAdapter topicDetailsAdapter;
     private TutorialSlidesPagerAdapter adapter;
+    private TopicDetails lesson;
+    private CreekPreferences creekPreferences;
+    private int currentTopicPosition = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_topic_details, container, false);
         unbinder = ButterKnife.bind(this, view);
+        creekPreferences = CreekApplication.getCreekPreferences();
         return view;
     }
 
@@ -107,7 +112,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
 
     private void initLessons(int position) {
-        TopicDetails lesson = mLessons.get(position);
+        lesson = mLessons.get(position);
         toolbar.setTitle(lesson.getTopicDescription());
         ArrayList<Fragment> fragments = new ArrayList<>();
         for (SubTopics subTopics : lesson.getSubTopicsArrayList()) {
@@ -128,6 +133,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
                 @Override
                 public void onTestTriggered(String testType) {
                     topicDetailsViewPager.setAllowedSwipeDirection( testType != null ? SwipeDirection.none : SwipeDirection.all );
+                    changeScrollBehavior(currentTopicPosition);
                 }
             });
             fragments.add(subTopicFragment);
@@ -148,6 +154,8 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
             @Override
             public void onPageSelected(int position) {
+                currentTopicPosition = position;
+                changeScrollBehavior(position);
                 progressBar.setProgress( position + 1);
             }
 
@@ -157,6 +165,21 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
             }
         });
         CommonUtils.dismissProgressDialog();
+    }
+
+    private void changeScrollBehavior(int position) {
+
+        SubTopics subTopics = lesson.getSubTopicsArrayList().get(position);
+        if( subTopics.getTestMode() != null && !subTopics.getTestMode().isEmpty() ) {
+            topicDetailsViewPager.setAllowedSwipeDirection(
+                    creekPreferences.isUnlockedTopic(subTopics.getSubTopicId())    ?
+                    SwipeDirection.all :
+                    SwipeDirection.left);
+        }
+        else {
+            topicDetailsViewPager.setAllowedSwipeDirection(SwipeDirection.all);
+        }
+
     }
 
     @Override
