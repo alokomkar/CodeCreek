@@ -80,6 +80,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     private String TAG = BitModuleFragment.class.getSimpleName();
     private SubTopicQuestionFragment subTopicQuestionFragment;
     private NewIntroNavigationListener introNavigationListener;
+    private boolean isTestAvailable;
 
     public void setNavigationListener(BitModuleNavigationListener navigationListener) {
         this.navigationListener = navigationListener;
@@ -143,7 +144,8 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
             constructFillBlanks(codeEditorRecyclerAdapter.getProgramLines());
         }*/
         checkFAB.setVisibility(subTopics.getTestMode() == null || subTopics.getTestMode().equalsIgnoreCase("random") ? View.GONE : View.VISIBLE);
-        if (lastFirstIndicator == 1) {
+        isTestAvailable = !(subTopics.getTestMode() == null || subTopics.getTestMode().isEmpty());
+        if ( lastFirstIndicator == 1 &&  isTestAvailable ) {
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
         }
@@ -197,28 +199,9 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.checkFAB:
-                if (lastFirstIndicator == 1) {
+                if ( lastFirstIndicator == 1 && !isTestAvailable ) {
                     getActivity().onBackPressed();
                 } else {
-                    /*if (subTopics.getTestMode() != null) {
-                        switch (subTopics.getTestMode().toLowerCase()) {
-                            case "fill":
-                                navigationListener.onTestTriggered(subTopics.getTestMode());
-                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
-                                fragmentTransaction.addToBackStack(null);
-                                BitFillBlankFragment bitFillBlankFragment = new BitFillBlankFragment();
-                                bitFillBlankFragment.setOnBackPressListener(SubTopicFragment.this);
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable("BitModule", subTopics);
-                                bitFillBlankFragment.setArguments(bundle);
-                                fragmentTransaction.replace(R.id.testContainer, bitFillBlankFragment).commit();
-                                break;
-                            case "random":
-                                checkSolution();
-                                break;
-                        }
-                    }*/
                     subTopicQuestionFragment = new SubTopicQuestionFragment();
                     subTopicQuestionFragment.setOnBackPressListener(SubTopicFragment.this);
                     //AnimationUtils.enterReveal(checkFAB);
@@ -256,6 +239,11 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     public void onBackPressed() {
         if (getChildFragmentManager().getBackStackEntryCount() > 0) {
             navigationListener.onTestTriggered(null);
+            if( lastFirstIndicator == 1 ) {
+                isTestAvailable = false;
+                checkFAB.setVisibility(View.VISIBLE);
+                checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
+            }
             getChildFragmentManager().popBackStack();
         }
     }
