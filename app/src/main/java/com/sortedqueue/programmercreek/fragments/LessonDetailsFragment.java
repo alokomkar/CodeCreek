@@ -96,6 +96,11 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
 
     }
 
+    @Override
+    public void showLevelUpDialog(int reputation) {
+
+    }
+
     public BitModuleFragment getCurrentFragment() {
         BitModuleFragment bitModuleFragment = (BitModuleFragment) adapter.getItem(lessonDetailsViewPager.getCurrentItem());
         if( bitModuleFragment.getBitModule().getCode() != null && bitModuleFragment.getBitModule().getCode().trim().length() > 0 ) {

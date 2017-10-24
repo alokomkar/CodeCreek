@@ -65,6 +65,7 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
     private SubTopics subTopic;
     private SubTopicsQuestionAdapter subTopicsQuestionAdapter;
     private OnBackPressListener onBackPressListener;
+    private int correctAnswers = 0;
 
     @Nullable
     @Override
@@ -119,6 +120,7 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
         if( checkAnswerImageView.getText().equals("Check") ) {
             subTopicsQuestionAdapter.isAnswerChecked(true);
             checkAnswerImageView.setText("Finish");
+            correctAnswers = subTopicsQuestionAdapter.countCorrectAnswers();
         }
         else {
             CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
@@ -128,6 +130,9 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
 
     }
 
+    public int getCorrectAnswers() {
+        return correctAnswers;
+    }
 
     public void setProgramLanguage(String programLanguage) {
         this.programLanguage = programLanguage;

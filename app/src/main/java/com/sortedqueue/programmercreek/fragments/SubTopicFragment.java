@@ -46,7 +46,8 @@ import butterknife.ButterKnife;
  * Created by Alok on 19/09/17.
  */
 
-public class SubTopicFragment extends Fragment implements View.OnClickListener, OnBackPressListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
+public class SubTopicFragment extends Fragment implements View.OnClickListener,
+        OnBackPressListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
 
     @BindView(R.id.titleTextView)
@@ -251,6 +252,10 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onBackPressed() {
         if (getChildFragmentManager().getBackStackEntryCount() > 0) {
+            int correctAnswers = subTopicQuestionFragment.getCorrectAnswers();
+            if( correctAnswers > 0 ) {
+                navigationListener.showLevelUpDialog(correctAnswers * 10);
+            }
             navigationListener.onTestTriggered(null);
             if( lastFirstIndicator == 1 ) {
                 isTestAvailable = false;

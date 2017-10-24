@@ -89,12 +89,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:background="@color/transparent_black_60"
+            android:padding="@dimen/margin_8"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minWidth="@dimen/margin_100"
-                android:drawableRight="@drawable/ic_done_all"
                 android:textAllCaps="true"
                 android:drawablePadding="@dimen/margin_8"
                 android:gravity="center"
@@ -109,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:visibility="gone"
                 android:id="@+id/progressLayout">
                 <TextView
                     android:text="60"
@@ -121,14 +123,15 @@
                 <ProgressBar
                     android:layout_width="@dimen/margin_52"
                     android:layout_height="@dimen/margin_52"
-                    android:layout_centerInParent="true"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:indeterminate="false"
                     android:max="48"
                     android:progress="10"
                     android:background="@drawable/circle_shape"
                     android:progressDrawable="@drawable/circular_progressbar"
-                    android:id="@+id/timerProgressBar"/>
+                    android:id="@+id/timerProgressBar"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </RelativeLayout>
 

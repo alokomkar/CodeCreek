@@ -8,4 +8,5 @@ public interface BitModuleNavigationListener {
     void onMoveForward();
     void onMoveBackward();
     void onTestTriggered(String testType);
+    void showLevelUpDialog( int reputation );
 }

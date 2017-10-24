@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sortedqueue.programmercreek.CreekApplication;
 import com.sortedqueue.programmercreek.R;
@@ -25,6 +28,7 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter;
 import com.sortedqueue.programmercreek.adapter.TopicDetailsAdapter;
 import com.sortedqueue.programmercreek.adapter.TutorialSlidesPagerAdapter;
 import com.sortedqueue.programmercreek.asynctask.TopicDetailsTask;
+import com.sortedqueue.programmercreek.database.CreekUserStats;
 import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.database.TopicDetails;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
@@ -61,6 +65,12 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     DrawerLayout drawerLayout;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.reputationProgressBar)
+    ProgressBar reputationProgressBar;
+    @BindView(R.id.reputationTextView)
+    TextView reputationTextView;
+    @BindView(R.id.progressLayout)
+    LinearLayout progressLayout;
     private Unbinder unbinder;
     private ArrayList<TopicDetails> mLessons;
     private NewIntroNavigationListener mNewIntroNavigationListener;
@@ -69,6 +79,9 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     private TopicDetails lesson;
     private CreekPreferences creekPreferences;
     private int currentTopicPosition = 0;
+    private Handler handler;
+    private CreekUserStats creekUserStats;
+    private Runnable runnable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,7 +103,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof NewIntroNavigationListener )
+        if (context instanceof NewIntroNavigationListener)
             mNewIntroNavigationListener = (NewIntroNavigationListener) context;
     }
 
@@ -132,8 +145,13 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
                 @Override
                 public void onTestTriggered(String testType) {
-                    topicDetailsViewPager.setAllowedSwipeDirection( testType != null ? SwipeDirection.none : SwipeDirection.all );
+                    topicDetailsViewPager.setAllowedSwipeDirection(testType != null ? SwipeDirection.none : SwipeDirection.all);
                     changeScrollBehavior(currentTopicPosition);
+                }
+
+                @Override
+                public void showLevelUpDialog(int reputation) {
+                    animateProgress(reputation);
                 }
             });
             fragments.add(subTopicFragment);
@@ -156,7 +174,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
             public void onPageSelected(int position) {
                 currentTopicPosition = position;
                 changeScrollBehavior(position);
-                progressBar.setProgress( position + 1);
+                progressBar.setProgress(position + 1);
             }
 
             @Override
@@ -167,16 +185,85 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
         CommonUtils.dismissProgressDialog();
     }
 
+    private int progressBarStatus;
+
+    public void animateProgress(final int points) {
+        try {
+            if (reputationProgressBar != null) {
+
+                if (handler == null) {
+                    handler = new Handler();
+                }
+                if (creekPreferences == null) {
+                    creekPreferences = CreekApplication.getCreekPreferences();
+                }
+                creekUserStats = creekPreferences.getCreekUserStats();
+                if (creekUserStats == null) {
+                    reputationProgressBar.setVisibility(View.GONE);
+                    reputationTextView.setVisibility(View.GONE);
+                    progressLayout.setVisibility(View.GONE);
+                    return;
+                }
+                final int progress = creekUserStats.getCreekUserReputation() % 100;
+                reputationProgressBar.setVisibility(View.VISIBLE);
+                reputationTextView.setVisibility(View.VISIBLE);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
+
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if (reputationProgressBar != null) {
+                                        reputationProgressBar.setProgress(progressBarStatus);
+
+                                        reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete");
+                                        int level = creekUserStats.getCreekUserReputation() / 100;
+                                        if (level > 0) {
+                                            reputationTextView.setText("You've gained " + points + "xp\n" + progressBarStatus + "% Complete : Level : " + level);
+                                        }
+                                    }
+                                }
+                            });
+                            try {
+                                Thread.sleep(40);
+                            } catch (Exception ex) {
+                            }
+                        }
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressLayout.setVisibility(View.GONE);
+                                int level = creekUserStats.getCreekUserReputation() / 100;
+                                /*if (level > 0) {
+                                    showShareLayout(level);
+                                }*/
+
+                            }
+                        }, 1500);
+
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (progressLayout != null) {
+                progressLayout.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
     private void changeScrollBehavior(int position) {
 
         SubTopics subTopics = lesson.getSubTopicsArrayList().get(position);
-        if( subTopics.getTestMode() != null && !subTopics.getTestMode().isEmpty() ) {
+        if (subTopics.getTestMode() != null && !subTopics.getTestMode().isEmpty()) {
             topicDetailsViewPager.setAllowedSwipeDirection(
-                    creekPreferences.isUnlockedTopic(subTopics.getSubTopicId())    ?
-                    SwipeDirection.all :
-                    SwipeDirection.left);
-        }
-        else {
+                    creekPreferences.isUnlockedTopic(subTopics.getSubTopicId()) ?
+                            SwipeDirection.all :
+                            SwipeDirection.left);
+        } else {
             topicDetailsViewPager.setAllowedSwipeDirection(SwipeDirection.all);
         }
 
@@ -202,7 +289,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
     public boolean hideSubTopicFragment() {
         SubTopicFragment subTopicFragment = (SubTopicFragment) adapter.getItem(topicDetailsViewPager.getCurrentItem());
-        if( subTopicFragment != null && subTopicFragment.isTestLoaded() ) {
+        if (subTopicFragment != null && subTopicFragment.isTestLoaded()) {
             subTopicFragment.hideSubTopicQuestionFragment();
             return true;
         }
