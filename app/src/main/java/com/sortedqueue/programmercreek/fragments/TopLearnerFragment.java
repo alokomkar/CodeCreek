@@ -47,7 +47,7 @@ public class TopLearnerFragment extends Fragment implements View.OnClickListener
     CardView twitterCardView;
 
     private final String TWITTER_LINK = "https://twitter.com/Programmercreek";
-    private final String FACEBOOK_LINK = "https://www.facebook.com/Infinite-Programmer-1819430981602209/?fref=ts";
+    private final String FACEBOOK_LINK = "https://www.facebook.com/Practice-Code-2073203816026988/";
     private final String GOOGLE_PLUS_LINK = "https://plus.google.com/u/1/communities/117275222080442676688";
     @BindView(R.id.emptyTextView)
     TextView emptyTextView;
