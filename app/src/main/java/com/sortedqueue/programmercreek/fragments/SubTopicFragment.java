@@ -12,6 +12,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +32,7 @@ import com.sortedqueue.programmercreek.database.SubTopics;
 import com.sortedqueue.programmercreek.interfaces.BitModuleNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener;
 import com.sortedqueue.programmercreek.interfaces.OnBackPressListener;
+import com.sortedqueue.programmercreek.util.AnimationUtils;
 import com.sortedqueue.programmercreek.util.AuxilaryUtils;
 import com.sortedqueue.programmercreek.util.CommonUtils;
 import com.sortedqueue.programmercreek.util.CreekAnalytics;
@@ -149,6 +153,14 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
             checkFAB.setVisibility(View.VISIBLE);
             checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
         }
+        if( isTestAvailable ) {
+            Animation animation = new AlphaAnimation(1, 0);
+            animation.setDuration(800);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.REVERSE);
+            checkFAB.startAnimation(animation);
+        }
 
     }
 
@@ -199,6 +211,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.checkFAB:
+                checkFAB.clearAnimation();
                 if ( lastFirstIndicator == 1 && !isTestAvailable ) {
                     getActivity().onBackPressed();
                 } else {
@@ -241,6 +254,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener, 
             navigationListener.onTestTriggered(null);
             if( lastFirstIndicator == 1 ) {
                 isTestAvailable = false;
+
                 checkFAB.setVisibility(View.VISIBLE);
                 checkFAB.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_done_all));
             }
