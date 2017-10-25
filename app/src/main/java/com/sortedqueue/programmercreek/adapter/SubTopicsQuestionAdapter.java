@@ -133,7 +133,7 @@ public class SubTopicsQuestionAdapter extends RecyclerView.Adapter<SubTopicsQues
             case REARRANGE :
                 int position = 0;
                 for( OptionModel optionModel : optionModels ) {
-                    if( optionModel.isSelected() && optionModel.getOption().equals(this.correctAnswers.get(position++)) ) {
+                    if( optionModel.getOption().equals(this.correctAnswers.get(position++)) ) {
                         correctAnswers++;
                     }
                 }

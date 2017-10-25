@@ -205,6 +205,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
                     return;
                 }
                 final int progress = creekUserStats.getCreekUserReputation() % 100;
+                progressLayout.setVisibility(View.VISIBLE);
                 reputationProgressBar.setVisibility(View.VISIBLE);
                 reputationTextView.setVisibility(View.VISIBLE);
                 runnable = new Runnable() {
