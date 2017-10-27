@@ -133,7 +133,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     }
 
     private void updateUI(final FirebaseUser user) {
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
 
         new FirebaseDatabaseHandler(getContext()).getCreekUser(creekPreferences.getSignInAccount(), new FirebaseDatabaseHandler.GetCreekUserListner() {
             @Override

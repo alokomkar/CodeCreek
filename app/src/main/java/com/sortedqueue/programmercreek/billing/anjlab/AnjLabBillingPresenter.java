@@ -42,7 +42,7 @@ public class AnjLabBillingPresenter {
             return;
         }
         String payload = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        CreekApplication.getCreekPreferences().setUserId(payload);
+        CreekApplication.Companion.getCreekPreferences().setUserId(payload);
         billingProcessor.purchase(activity, SKU_PREMIUM, payload);
     }
 

@@ -71,7 +71,7 @@ public class IntroTopicsFragment extends Fragment implements View.OnClickListene
 
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         appCompatActivity.setSupportActionBar(toolbar);
-        toolbar.setTitle(getString(R.string.intro) + " to " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
+        toolbar.setTitle(getString(R.string.intro) + " to " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase());
         appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);

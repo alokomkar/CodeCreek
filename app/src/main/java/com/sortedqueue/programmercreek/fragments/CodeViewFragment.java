@@ -38,7 +38,7 @@ public class CodeViewFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_code_view, container, false);
         ButterKnife.bind(this, view);
-        programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }

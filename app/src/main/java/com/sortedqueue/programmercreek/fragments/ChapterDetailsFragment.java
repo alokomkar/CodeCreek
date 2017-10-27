@@ -203,7 +203,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     @Override
     public void onScrollForward() {
         if( fabDrawable == R.drawable.ic_help_outline_white_24dp ) {
-            if( !isRewardVideoShown && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            if( !isRewardVideoShown && !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
                 showRewardedVideoDialog();
             }
             else {
@@ -257,7 +257,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     private void updateCreekStats() {
         ChapterDetails chapterDetails = chapterDetailsPagerAdapter.getChapterDetailsForPosition(syntaxLearnViewPager.getCurrentItem());
         creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        switch (CreekApplication.getCreekPreferences().getProgramLanguage()) {
+        switch (CreekApplication.Companion.getCreekPreferences().getProgramLanguage()) {
             case "c":
                 if (creekUserStats.getcProgressIndex() < chapterDetails.getProgressIndex()) {
                     creekUserStats.setcProgressIndex(chapterDetails.getProgressIndex());

@@ -178,7 +178,7 @@ public class AuxilaryUtils {
                                            int description,
                                            final UnlockByInviteInterface unlockByInviteInterface ) {
         final String preferenceString = context.getString(title).replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        final CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -213,7 +213,7 @@ public class AuxilaryUtils {
                                           DialogInterface.OnDismissListener onCancelListner) {
 
         final String preferenceString = context.getString(title).replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        final CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -259,7 +259,7 @@ public class AuxilaryUtils {
                                           final DialogInterface.OnDismissListener onCancelListner) {
 
         final String preferenceString = context.getString(title).replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        final CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -304,7 +304,7 @@ public class AuxilaryUtils {
                                           DialogInterface.OnDismissListener onCancelListner) {
 
         final String preferenceString = title.replaceAll("\\s+", "");
-        final CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        final CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(title)
@@ -353,7 +353,7 @@ public class AuxilaryUtils {
         long delay = 1000 * 15;
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         if( !creekPreferences.isNotificationScheduled() ) {
             creekPreferences.setNotificationScheduled(true);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
@@ -370,7 +370,7 @@ public class AuxilaryUtils {
         long delay = 1000 * 60 * 60 * 8;
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         if( !creekPreferences.isNotificationScheduled() ) {
             creekPreferences.setNotificationScheduled(true);
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
@@ -388,7 +388,7 @@ public class AuxilaryUtils {
         javaNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.java_notifications_array)));
         ArrayList<String> uspNotifications = new ArrayList<>();
         uspNotifications.addAll(Arrays.asList(context.getResources().getStringArray(R.array.usp_notifications_array)));
-        String programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        String programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         String notification = "";
         Random random = new Random();
         switch ( programLanguage ) {
@@ -553,7 +553,7 @@ public class AuxilaryUtils {
                     }
                 })
                 .create();
-        CreekApplication.getCreekPreferences().setShowInviteDialog(true);
+        CreekApplication.Companion.getCreekPreferences().setShowInviteDialog(true);
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.AchievementDialogAnimation;
         alertDialog.show();
     }

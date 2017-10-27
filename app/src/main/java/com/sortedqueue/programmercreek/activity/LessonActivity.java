@@ -83,7 +83,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         loadLessons();
-        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             initAds();
         }
         shareNowTextView.setOnClickListener(this);
@@ -162,7 +162,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void loadLessons() {
-        getSupportActionBar().setTitle("Bits & Bytes : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
+        getSupportActionBar().setTitle("Bits & Bytes : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         lessonsFragment = (LessonsFragment) getSupportFragmentManager().findFragmentByTag(LessonsFragment.class.getSimpleName());
         if (lessonsFragment == null) {
@@ -205,7 +205,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
                     handler = new Handler();
                 }
                 if (creekPreferences == null) {
-                    creekPreferences = CreekApplication.getCreekPreferences();
+                    creekPreferences = CreekApplication.Companion.getCreekPreferences();
                 }
                 creekUserStats = creekPreferences.getCreekUserStats();
                 if (creekUserStats == null) {
@@ -303,7 +303,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
 
         }
         else {
-            if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+            if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
                 interstitialAd.show();
                 isAdShown = true;
                 return;

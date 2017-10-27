@@ -130,7 +130,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_syntax_learn, container, false);
         ButterKnife.bind(this, view);
-        programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         //initializeRewardedVideoAd();
         if (programLanguage.equals("c++")) {
             programLanguage = "cpp";

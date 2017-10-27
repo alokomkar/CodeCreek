@@ -111,7 +111,7 @@ public class IntroActivity extends AppCompatActivity
     }
 
     private void initAndSetUserValues(View view) {
-        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         drawerEmailTextView = (TextView) view.findViewById(R.id.drawerEmailTextView);
         drawerNameTextView = (TextView) view.findViewById(R.id.drawerNameTextView);
         drawerImageView = (ImageView) view.findViewById(R.id.drawerImageView);
@@ -121,7 +121,7 @@ public class IntroActivity extends AppCompatActivity
 
     private void loadChapters() {
         introChapters = new ArrayList<>();
-        programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         /*programLanguage = "sql";
         new CreekPreferences(IntroActivity.this).setProgramLanguage(programLanguage);
         IntroChapter introChapter = new IntroChapter();
@@ -388,7 +388,7 @@ public class IntroActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
                 StartAppAd.onBackPressed(this);
                 super.onBackPressed();
             }

@@ -123,7 +123,7 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
             correctAnswers = subTopicsQuestionAdapter.countCorrectAnswers();
         }
         else {
-            CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+            CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
             creekPreferences.setUnlockedSubTopic(subTopic.getSubTopicId());
             onBackPressListener.onBackPressed();
         }

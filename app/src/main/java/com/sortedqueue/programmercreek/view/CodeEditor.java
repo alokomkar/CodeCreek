@@ -326,8 +326,8 @@ public class CodeEditor extends AppCompatEditText {
         });
 
         setSyntaxColors(context);
-        setUpdateDelay(CreekApplication.getCreekPreferences().getUpdateDelay());
-        setTabWidth(CreekApplication.getCreekPreferences().getTabWidth());
+        setUpdateDelay(CreekApplication.Companion.getCreekPreferences().getUpdateDelay());
+        setTabWidth(CreekApplication.Companion.getCreekPreferences().getTabWidth());
     }
 
     private void setSyntaxColors(Context context) {

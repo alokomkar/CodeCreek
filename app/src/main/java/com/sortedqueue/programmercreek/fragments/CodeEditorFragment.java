@@ -99,7 +99,7 @@ public class CodeEditorFragment extends Fragment implements CodeEditor.OnTextCha
 
     @Override
     public void onTextChanged(String text) {
-        if (!CreekApplication.getCreekPreferences().doesRunOnChange()) {
+        if (!CreekApplication.Companion.getCreekPreferences().doesRunOnChange()) {
             return;
         }
 
@@ -116,7 +116,7 @@ public class CodeEditorFragment extends Fragment implements CodeEditor.OnTextCha
     }
 
     private void updateToPreferences() {
-        CreekPreferences preferences = CreekApplication.getCreekPreferences();
+        CreekPreferences preferences = CreekApplication.Companion.getCreekPreferences();
 
         editor.setUpdateDelay(preferences.getUpdateDelay());
 

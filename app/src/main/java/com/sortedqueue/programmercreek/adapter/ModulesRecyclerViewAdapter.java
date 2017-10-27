@@ -37,7 +37,7 @@ public class ModulesRecyclerViewAdapter extends RecyclerView.Adapter<ModulesRecy
         this.languageModules = languageModules;
         this.adapterClickListner = adapterClickListner;
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        this.programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
     }
 
     @Override

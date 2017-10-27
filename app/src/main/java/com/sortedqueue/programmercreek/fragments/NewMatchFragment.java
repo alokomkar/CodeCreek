@@ -248,7 +248,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
                 newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
                 newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
                 newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
-                Log.d("MatchFragment", "Preference Language : " + CreekApplication.getCreekPreferences().getProgramLanguage());
+                Log.d("MatchFragment", "Preference Language : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage());
                 if (program_TableList.size() <= 15) {
                     wizardNavigationListener.loadTestFragment(newIntentBundle);
                 } else {

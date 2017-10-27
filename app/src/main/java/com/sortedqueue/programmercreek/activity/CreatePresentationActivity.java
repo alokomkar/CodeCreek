@@ -86,7 +86,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         presentationModel = new PresentationModel();
-        CreekPreferences creekPreferences = CreekApplication.getCreekPreferences();
+        CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
         presentationModel.setPresenterEmail(creekPreferences.getSignInAccount());
         presentationModel.setPresenterName(creekPreferences.getAccountName());
 

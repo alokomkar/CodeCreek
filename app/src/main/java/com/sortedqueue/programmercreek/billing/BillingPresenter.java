@@ -168,7 +168,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
                 new FirebaseDatabaseHandler(activity).updatePurchasePayload(purchase);
                 // bought the premium upgrade!
                 Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
-                //alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getCreekPreferences().getUserId() + " in case you need to use the app other phones, restart app for effects to take place." );
+                //alert("Thank you for upgrading to premium! Note down your unique id : " + CreekApplication.getPreferences().getUserId() + " in case you need to use the app other phones, restart app for effects to take place." );
                 alert("Thank you for upgrading to premium, restart app for effects to take place." );
                 mIsPremium = true;
                 updateUi();
@@ -187,7 +187,7 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
          *        verifyDeveloperPayload() for more info. Since this is a SAMPLE, we just use
          *        an empty string, but on a production app you should carefully generate this. */
         String payload = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        CreekApplication.getCreekPreferences().setUserId(payload);
+        CreekApplication.Companion.getCreekPreferences().setUserId(payload);
         try {
             mHelper.launchPurchaseFlow(activity, SKU_PREMIUM, RC_REQUEST,
                     mPurchaseFinishedListener, payload);

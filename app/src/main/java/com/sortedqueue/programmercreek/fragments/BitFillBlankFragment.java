@@ -221,7 +221,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                 }
                 break;
             case R.id.hintButton:
-                if (!CreekApplication.getCreekPreferences().isPremiumUser()) {
+                if (!CreekApplication.Companion.getCreekPreferences().isPremiumUser()) {
                     AuxilaryUtils.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
                             new DialogInterface.OnClickListener() {
                                 @Override

@@ -77,7 +77,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
         setContentView(R.layout.activity_program_list);
         ButterKnife.bind(this);
         fetchProgramsList();
-        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             initAds();
         }
         setActivityTitle();
@@ -145,7 +145,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     }
 
     private void initAds() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
             MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads
@@ -557,7 +557,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() /*&& CreekApplication.getPreferences().getAdsEnabled()*/ ) {
             interstitialAd.show();
             isAdShown = true;
             return;
@@ -572,7 +572,7 @@ public class ProgramListActivity extends AppCompatActivity implements UIUpdateLi
     @Override
     public void onUnlockClick(int programIndex) {
         mToBeUnlockedIndex = programIndex;
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
                 .setMessage(getString(R.string.invitation_message))
                 .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))

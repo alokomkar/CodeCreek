@@ -180,7 +180,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
     }
 
     private void loadModuleDetailsFragment(LanguageModule module, LanguageModule nextModule, ArrayList<SyntaxModule> syntaxModules) {
-        getSupportActionBar().setTitle( CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase() + " Syntax Learner");
+        getSupportActionBar().setTitle( CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase() + " Syntax Learner");
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         moduleDetailsFragment = (ModuleDetailsFragment) getSupportFragmentManager().findFragmentByTag(ModuleDetailsFragment.class.getSimpleName());
@@ -206,7 +206,7 @@ public class SyntaxLearnActivity extends AppCompatActivity implements SyntaxNavi
             loadModulesFragment();
         }
         else {
-            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
                 StartAppAd.onBackPressed(this);
                 super.onBackPressed();
             }

@@ -88,7 +88,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_topic_details, container, false);
         unbinder = ButterKnife.bind(this, view);
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         return view;
     }
 
@@ -110,7 +110,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     private void setupToolBar() {
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         appCompatActivity.setSupportActionBar(toolbar);
-        toolbar.setTitle("Program Wiki : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
+        toolbar.setTitle("Program Wiki : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 appCompatActivity, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -195,7 +195,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
                     handler = new Handler();
                 }
                 if (creekPreferences == null) {
-                    creekPreferences = CreekApplication.getCreekPreferences();
+                    creekPreferences = CreekApplication.Companion.getCreekPreferences();
                 }
                 creekUserStats = creekPreferences.getCreekUserStats();
                 if (creekUserStats == null) {

@@ -112,14 +112,14 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
             }
         });
         fetchUserPrograms("All programs");
-        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             initAds();
         }
         return view;
     }
 
     private void initAds() {
-        /*if(CreekApplication.getCreekPreferences().getAdsEnabled())*/ {
+        /*if(CreekApplication.getPreferences().getAdsEnabled())*/ {
             MobileAds.initialize(getContext(), getString(R.string.mobile_banner_id));
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
             //For creating test ads

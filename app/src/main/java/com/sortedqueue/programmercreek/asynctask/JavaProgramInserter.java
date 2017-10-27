@@ -2655,7 +2655,7 @@ public class JavaProgramInserter {
             programLanguage = "cpp";
         }*/
         String programLanguage = "sql";
-        CreekApplication.getCreekPreferences().setProgramLanguage("sql");
+        CreekApplication.Companion.getCreekPreferences().setProgramLanguage("sql");
         moduleId = 7;
         String generatedId = programLanguage + "_" + moduleId++;
         int syntaxIndex = 1;
@@ -3638,7 +3638,7 @@ public class JavaProgramInserter {
     public void insertProgramIndex() {
 
         int index = 1;
-        String programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        String programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
         firebaseDatabaseHandler.writeProgramIndex( new ProgramIndex(index++, "Swap by reference - inline",
                 programLanguage, ""));

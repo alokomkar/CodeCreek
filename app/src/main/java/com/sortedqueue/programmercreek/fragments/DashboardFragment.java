@@ -154,7 +154,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_child_dashboard, container, false);
         ButterKnife.bind(this, view);
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         //creekPreferences.setProgramLanguage("sql");
         initUI();
         animateViews();
@@ -163,7 +163,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     public void animateViews() {
         if (creekPreferences == null) {
-            creekPreferences = CreekApplication.getCreekPreferences();
+            creekPreferences = CreekApplication.Companion.getCreekPreferences();
         }
         if (creekPreferences.getProgramLanguage().toLowerCase().equals("ada")) {
             dashboardScrollView.setVisibility(View.GONE);

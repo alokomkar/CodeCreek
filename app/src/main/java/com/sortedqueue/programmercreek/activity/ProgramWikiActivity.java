@@ -75,7 +75,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_wiki);
         ButterKnife.bind(this);
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
         webView.setWebViewClient(new MyWebViewClient());
@@ -104,7 +104,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
-        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             initAds();
         }
         setupLiseners();
@@ -153,7 +153,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     private InterstitialAd interstitialAd;
     private void initAds() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
             MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id));
             mAdView = (AdView) findViewById(R.id.adView);
             mAdView.setVisibility(View.GONE);
@@ -204,7 +204,7 @@ public class ProgramWikiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/ ) {
+        if (!isAdShown && interstitialAd.isLoaded() /*&& CreekApplication.getPreferences().getAdsEnabled()*/ ) {
             interstitialAd.show();
             isAdShown = true;
             return;

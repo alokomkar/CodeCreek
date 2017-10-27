@@ -94,7 +94,7 @@ public class LanguageFragment extends Fragment {
                 getProgramLanguages();
             }
         });
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         getProgramLanguages();
         handler = new Handler();
         animateProgress();
@@ -177,7 +177,7 @@ public class LanguageFragment extends Fragment {
                 .into(profileImageView);
         nameTextView.setText(creekPreferences.getAccountName());
         if (creekPreferences == null) {
-            creekPreferences = CreekApplication.getCreekPreferences();
+            creekPreferences = CreekApplication.Companion.getCreekPreferences();
         }
         if (creekPreferences.getCreekUserStats() != null) {
             int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
@@ -304,7 +304,7 @@ public class LanguageFragment extends Fragment {
                 handler = new Handler();
             }
             if (creekPreferences == null) {
-                creekPreferences = CreekApplication.getCreekPreferences();
+                creekPreferences = CreekApplication.Companion.getCreekPreferences();
             }
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();
             if (creekUserStats == null) {

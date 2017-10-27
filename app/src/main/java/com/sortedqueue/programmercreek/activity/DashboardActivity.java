@@ -172,7 +172,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         setContentView(R.layout.fragment_dashboard);
         ButterKnife.bind(this);
         setupToolbar();
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         if( !creekPreferences.isPremiumUser() ) {
             if( creekPreferences.showUpgradeDialog() ) {
                 AnimationUtils.slideInToLeft(premiumLayout);
@@ -333,7 +333,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
                     handler = new Handler();
                 }
                 if (creekPreferences == null) {
-                    creekPreferences = CreekApplication.getCreekPreferences();
+                    creekPreferences = CreekApplication.Companion.getCreekPreferences();
                 }
                 creekUserStats = creekPreferences.getCreekUserStats();
                 if (creekUserStats == null) {
@@ -806,7 +806,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
         searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
         signUpItem = menu.findItem(R.id.action_signup);
-        signUpItem.setVisible(CreekApplication.getCreekPreferences().getIsAnonAccount());
+        signUpItem.setVisible(CreekApplication.Companion.getCreekPreferences().getIsAnonAccount());
         return true;
     }
 
@@ -858,7 +858,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardNav
     @Override
     public void calculateReputation() {
         if (creekPreferences == null) {
-            creekPreferences = CreekApplication.getCreekPreferences();
+            creekPreferences = CreekApplication.Companion.getCreekPreferences();
         }
         if (creekPreferences != null && !creekPreferences.getProgramLanguage().equals("")) {
             CreekUserStats creekUserStats = creekPreferences.getCreekUserStats();

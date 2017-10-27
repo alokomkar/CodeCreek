@@ -830,7 +830,7 @@ public class FirebaseDatabaseHandler {
                 if( dataSnapshot != null ) {
                     int isAdEnabled = dataSnapshot.getValue(Integer.class);
                     Log.d(TAG, "isAdEnabled : " + isAdEnabled);
-                    CreekApplication.getCreekPreferences().setAdsEnabled(isAdEnabled == 1);
+                    CreekApplication.Companion.getCreekPreferences().setAdsEnabled(isAdEnabled == 1);
                     CreekApplication.getInstance().initAdsSdk();
                 }
             }
@@ -1114,7 +1114,7 @@ public class FirebaseDatabaseHandler {
 
     public FirebaseDatabaseHandler(Context context) {
         this.mContext = context;
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
         programLanguage = creekPreferences.getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";

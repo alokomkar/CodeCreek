@@ -113,7 +113,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
     private boolean isFirstTime = true;
 
     private void loadChapterFragment() {
-        getSupportActionBar().setTitle("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
+        getSupportActionBar().setTitle("Chapters : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase());
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         chaptersFragment = (ChaptersFragment) getSupportFragmentManager().findFragmentByTag(ChaptersFragment.class.getSimpleName());
         if (chaptersFragment == null) {
@@ -152,10 +152,10 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
             AnimationUtils.slideOutToLeft(shareLayout);
         }
         String title = getSupportActionBar().getTitle().toString();
-        if (!title.equals("Chapters : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase())) {
+        if (!title.equals("Chapters : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase())) {
             loadChapterFragment();
         } else {
-            if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+            if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
                 StartAppAd.onBackPressed(this);
                 super.onBackPressed();
             }
@@ -238,7 +238,7 @@ public class ChaptersActivity extends AppCompatActivity implements ChapterNaviga
                     handler = new Handler();
                 }
                 if (creekPreferences == null) {
-                    creekPreferences = CreekApplication.getCreekPreferences();
+                    creekPreferences = CreekApplication.Companion.getCreekPreferences();
                 }
                 creekUserStats = creekPreferences.getCreekUserStats();
                 if (creekUserStats == null) {

@@ -77,7 +77,7 @@ public class ProgramInserterFragment extends Fragment implements View.OnClickLis
     }
 
     private void setupViews() {
-        language = CreekApplication.getCreekPreferences().getProgramLanguage();
+        language = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         if (language.equals("c++")) {
             language = "cpp";
         }

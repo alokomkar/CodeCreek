@@ -70,9 +70,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = (AdapterClickListner) context;
         this.mUnlockByInviteInterface = (UnlockByInviteInterface) context;
-        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        this.programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.creekPreferences = CreekApplication.getCreekPreferences();
+        this.creekPreferences = CreekApplication.Companion.getCreekPreferences();
         this.unlockByInviteDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_media_ff);
         this.lockedDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_lock_lock);
         mProgramType = programLanguage.substring(0, 1).toUpperCase();
@@ -84,9 +84,9 @@ public class CustomProgramRecyclerViewAdapter extends RecyclerView.Adapter<Custo
         this.mContext = context;
         this.mProgram_Indexs = mProgram_indexs;
         this.mAdapterClickListner = adapterClickListner;
-        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        this.programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         this.creekUserStats = CreekApplication.getInstance().getCreekUserStats();
-        this.creekPreferences = CreekApplication.getCreekPreferences();
+        this.creekPreferences = CreekApplication.Companion.getCreekPreferences();
         this.unlockByInviteDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_media_ff);
         this.lockedDrawable = ContextCompat.getDrawable(context, android.R.drawable.ic_lock_lock);
         mProgramType = programLanguage.substring(0, 1).toUpperCase();

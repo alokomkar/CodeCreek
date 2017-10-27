@@ -35,7 +35,7 @@ public class ProgramWikiRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public ProgramWikiRecyclerAdapter(Context context, List<ProgramWiki> programWikis) {
         this.context = context;
         this.programWikis = programWikis;
-        this.programLanguage = CreekApplication.getCreekPreferences().getProgramLanguage();
+        this.programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
         if( programLanguage.equals("c++") ) {
             programLanguage = "cpp";
         }

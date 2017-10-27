@@ -95,7 +95,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         ButterKnife.bind(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Program Wiki : " + CreekApplication.getCreekPreferences().getProgramLanguage().toUpperCase());
+        toolbar.setTitle("Program Wiki : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage().toUpperCase());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -142,7 +142,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                         CommonUtils.dismissProgressDialog();
                     }
                 });
-        if( !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             initAds();
         }
         this.overridePendingTransition(R.anim.anim_slide_in_left,
@@ -243,7 +243,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.getCreekPreferences().isPremiumUser() ) {
+        if (!isAdShown && interstitialAd != null && interstitialAd.isLoaded() && !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {
             interstitialAd.show();
             isAdShown = true;
             return;

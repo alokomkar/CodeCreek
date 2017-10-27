@@ -32,7 +32,7 @@ public class FirebaseStorageHandler {
 
     public FirebaseStorageHandler(Context context) {
         defaultInstance = FirebaseStorage.getInstance();
-        creekPreferences = CreekApplication.getCreekPreferences();
+        creekPreferences = CreekApplication.Companion.getCreekPreferences();
     }
 
     public interface TemplateDownloadListener {

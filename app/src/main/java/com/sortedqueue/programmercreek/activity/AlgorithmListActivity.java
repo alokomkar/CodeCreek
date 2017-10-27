@@ -127,7 +127,7 @@ public class AlgorithmListActivity extends AppCompatActivity implements Algorith
 
     @Override
     public void onBackPressed() {
-        if( CreekApplication.getCreekPreferences().getAdsEnabled() ) {
+        if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
             StartAppAd.onBackPressed(this);
             super.onBackPressed();
         }
