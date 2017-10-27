@@ -139,7 +139,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
         if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
             mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-            mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+            mWizard = bundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(mProgramTableList);
         }
         else {
@@ -160,7 +160,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                         });
             } else {
                 mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-                mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+                mWizard = bundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD());
                 getProgramTables();
             }
         }

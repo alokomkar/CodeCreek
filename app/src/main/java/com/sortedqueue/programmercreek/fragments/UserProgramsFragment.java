@@ -211,7 +211,7 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
         new FirebaseDatabaseHandler(getContext()).updateViewCount(userProgramDetails);
         Bundle newIntentBundle = new Bundle();
         Intent newIntent = null;
-        newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, userProgramDetails.getProgramIndex());
         newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
         newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, userProgramDetails.getProgramIndex().getProgram_Description());

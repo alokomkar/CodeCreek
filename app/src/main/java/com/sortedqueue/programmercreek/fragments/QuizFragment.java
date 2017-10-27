@@ -94,10 +94,10 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
         mTimerBtn.setEnabled(false);
 
 
-        mWizard = bundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+        mWizard = bundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD());
 
         if (bundle != null) {
-            mQuizMode = bundle.getInt(ProgramListActivity.KEY_QUIZ_TYPE, ProgramListActivity.KEY_QUIZ_PROGRAM_CODE_QUESTION);
+            mQuizMode = bundle.getInt(ProgramListActivity.Companion.getKEY_QUIZ_TYPE(), ProgramListActivity.Companion.getKEY_QUIZ_PROGRAM_CODE_QUESTION());
             initQuiz(mQuizMode);
         }
 
@@ -188,7 +188,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
             Iterator<ProgramTable> iterator = program_TableList.iterator();
             String programLine = null;
-            if (mQuizMode == ProgramListActivity.KEY_QUIZ_DESCRIPTION_QUESTION) {
+            if (mQuizMode == ProgramListActivity.Companion.getKEY_QUIZ_DESCRIPTION_QUESTION()) {
                 while (iterator.hasNext()) {
                     ProgramTable newProgram_Table = iterator.next();
                     programLine = newProgram_Table.getProgram_Line().trim();
@@ -355,7 +355,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     protected void navigateToMatchMaker() {
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
-        newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
         newIntentBundle.putParcelableArrayList( ProgrammingBuddyConstants.KEY_USER_PROGRAM, bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM) );
         wizardNavigationListener.loadMatchMakerFragment(bundle);
     }

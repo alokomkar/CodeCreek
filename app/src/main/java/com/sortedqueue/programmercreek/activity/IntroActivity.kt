@@ -1,127 +1,121 @@
-package com.sortedqueue.programmercreek.activity;
+package com.sortedqueue.programmercreek.activity
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.NavigationView
+import android.support.v4.content.ContextCompat
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.ContentLoadingProgressBar
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.CardView
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 
-import com.google.firebase.database.DatabaseError;
-import com.sortedqueue.programmercreek.CreekApplication;
-import com.sortedqueue.programmercreek.R;
-import com.sortedqueue.programmercreek.database.IntroChapter;
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler;
-import com.sortedqueue.programmercreek.util.CommonUtils;
-import com.sortedqueue.programmercreek.util.CreekPreferences;
-import com.startapp.android.publish.adsCommon.StartAppAd;
+import com.google.firebase.database.DatabaseError
+import com.sortedqueue.programmercreek.CreekApplication
+import com.sortedqueue.programmercreek.R
+import com.sortedqueue.programmercreek.database.IntroChapter
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
+import com.sortedqueue.programmercreek.util.CommonUtils
+import com.sortedqueue.programmercreek.util.CreekPreferences
+import com.startapp.android.publish.adsCommon.StartAppAd
 
-import java.util.ArrayList;
+import java.util.ArrayList
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.github.kbiakov.codeview.CodeView;
-import io.github.kbiakov.codeview.adapters.Options;
-import io.github.kbiakov.codeview.highlight.ColorTheme;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import butterknife.BindView
+import butterknife.ButterKnife
+import io.github.kbiakov.codeview.CodeView
+import io.github.kbiakov.codeview.adapters.Options
+import io.github.kbiakov.codeview.highlight.ColorTheme
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-public class IntroActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.progressBar)
-    ContentLoadingProgressBar progressBar;
+    internal var progressBar: ContentLoadingProgressBar? = null
     @BindView(R.id.chapterHeaderTextView)
-    TextView chapterHeaderTextView;
+    internal var chapterHeaderTextView: TextView? = null
     @BindView(R.id.chapterIntroTextView)
-    TextView chapterIntroTextView;
+    internal var chapterIntroTextView: TextView? = null
     @BindView(R.id.chapterNoteTextView)
-    TextView chapterNoteTextView;
+    internal var chapterNoteTextView: TextView? = null
     @BindView(R.id.chapterProgramCodeView)
-    CodeView chapterProgramCodeView;
+    internal var chapterProgramCodeView: CodeView? = null
     @BindView(R.id.chapterProgramOutputTextView)
-    TextView chapterProgramOutputTextView;
+    internal var chapterProgramOutputTextView: TextView? = null
     @BindView(R.id.chapterProgramDescriptionTextView)
-    TextView chapterProgramDescriptionTextView;
+    internal var chapterProgramDescriptionTextView: TextView? = null
     @BindView(R.id.syntaxExplanationCardView)
-    RelativeLayout syntaxExplanationCardView;
+    internal var syntaxExplanationCardView: RelativeLayout? = null
     @BindView(R.id.content_syntax_learn)
-    RelativeLayout contentSyntaxLearn;
+    internal var contentSyntaxLearn: RelativeLayout? = null
     @BindView(R.id.content_intro)
-    RelativeLayout contentIntro;
-    private Toolbar toolbar;
-    private ImageView drawerImageView;
+    internal var contentIntro: RelativeLayout? = null
+    private var toolbar: Toolbar? = null
+    private var drawerImageView: ImageView? = null
     @BindView(R.id.doneFAB)
-    FloatingActionButton doneFAB;
+    internal var doneFAB: FloatingActionButton? = null
 
-    private TextView drawerNameTextView;
-    private TextView drawerEmailTextView;
+    private var drawerNameTextView: TextView? = null
+    private var drawerEmailTextView: TextView? = null
 
-    private ArrayList<IntroChapter> introChapters = new ArrayList<>();
-    private String programLanguage;
+    private var introChapters = ArrayList<IntroChapter>()
+    private var programLanguage: String? = null
 
-    private int currentIndex = 0;
+    private var currentIndex = 0
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
-        ButterKnife.bind(this);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_intro)
+        ButterKnife.bind(this)
+        toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        val toggle = ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        initAndSetUserValues(navigationView.getHeaderView(0));
-        doneFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentIndex++;
-                if( currentIndex <= 3 ) {
-                    int drawable = currentIndex == 3 ? R.drawable.ic_done_all : android.R.drawable.ic_media_play;
-                    doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, drawable));
-                    initChapter(introChapters.get(currentIndex));
-                }
-                else {
-                    onBackPressed();
-                    //navigateToChapters();
-                }
+        val navigationView = findViewById(R.id.nav_view) as NavigationView
+        navigationView.setNavigationItemSelectedListener(this)
+        initAndSetUserValues(navigationView.getHeaderView(0))
+        doneFAB!!.setOnClickListener {
+            currentIndex++
+            if (currentIndex <= 3) {
+                val drawable = if (currentIndex == 3) R.drawable.ic_done_all else android.R.drawable.ic_media_play
+                doneFAB!!.setImageDrawable(ContextCompat.getDrawable(this@IntroActivity, drawable))
+                initChapter(introChapters[currentIndex])
+            } else {
+                onBackPressed()
+                //navigateToChapters();
             }
-        });
+        }
         this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left);
+                R.anim.anim_slide_out_left)
     }
 
-    private void initAndSetUserValues(View view) {
-        CreekPreferences creekPreferences = CreekApplication.Companion.getCreekPreferences();
-        drawerEmailTextView = (TextView) view.findViewById(R.id.drawerEmailTextView);
-        drawerNameTextView = (TextView) view.findViewById(R.id.drawerNameTextView);
-        drawerImageView = (ImageView) view.findViewById(R.id.drawerImageView);
-        drawerNameTextView.setText(creekPreferences.getAccountName());
-        loadChapters();
+    private fun initAndSetUserValues(view: View) {
+        val creekPreferences = CreekApplication.creekPreferences
+        drawerEmailTextView = view.findViewById(R.id.drawerEmailTextView) as TextView
+        drawerNameTextView = view.findViewById(R.id.drawerNameTextView) as TextView
+        drawerImageView = view.findViewById(R.id.drawerImageView) as ImageView
+        drawerNameTextView!!.text = creekPreferences!!.accountName
+        loadChapters()
     }
 
-    private void loadChapters() {
-        introChapters = new ArrayList<>();
-        programLanguage = CreekApplication.Companion.getCreekPreferences().getProgramLanguage();
+    private fun loadChapters() {
+        introChapters = ArrayList<IntroChapter>()
+        programLanguage = CreekApplication.creekPreferences!!.programLanguage
         /*programLanguage = "sql";
         new CreekPreferences(IntroActivity.this).setProgramLanguage(programLanguage);
         IntroChapter introChapter = new IntroChapter();
@@ -308,141 +302,131 @@ public class IntroActivity extends AppCompatActivity
         initChapter( introChapters.get(0) );*/
 
 
-        FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(IntroActivity.this);
-        firebaseDatabaseHandler.getIntroChapters(new FirebaseDatabaseHandler.GetIntroChaptersListener() {
-            @Override
-            public void onSuccess(ArrayList<IntroChapter> introChapters) {
-                IntroActivity.this.introChapters = introChapters;
-                initChapter( introChapters.get(0) );
-                currentIndex = 0;
+        val firebaseDatabaseHandler = FirebaseDatabaseHandler(this@IntroActivity)
+        firebaseDatabaseHandler.getIntroChapters(object : FirebaseDatabaseHandler.GetIntroChaptersListener {
+            override fun onSuccess(introChapters: ArrayList<IntroChapter>) {
+                this@IntroActivity.introChapters = introChapters
+                initChapter(introChapters[0])
+                currentIndex = 0
             }
 
-            @Override
-            public void onError(DatabaseError error) {
-                CommonUtils.displaySnackBar(IntroActivity.this, R.string.unable_to_fetch_data);
+            override fun onError(error: DatabaseError) {
+                CommonUtils.displaySnackBar(this@IntroActivity, R.string.unable_to_fetch_data)
             }
-        });
-        for( IntroChapter chapter : introChapters ) {
-            firebaseDatabaseHandler.writeIntroChapter( chapter );
+        })
+        for (chapter in introChapters) {
+            firebaseDatabaseHandler.writeIntroChapter(chapter)
         }
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CreekApplication.getInstance().setAppRunning(true);
+
+    override fun onResume() {
+        super.onResume()
+        CreekApplication.instance.isAppRunning = (true)
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        CreekApplication.getInstance().setAppRunning(false);
+    override fun onPause() {
+        super.onPause()
+        CreekApplication.instance.isAppRunning = (false)
     }
 
-    private void initChapter(IntroChapter introChapter) {
+    private fun initChapter(introChapter: IntroChapter) {
 
-        toolbar.setTitle(introChapter.getChapterHeader());
-        chapterNoteTextView.setVisibility(View.GONE);
-        chapterProgramCodeView.setVisibility(View.GONE);
-        chapterProgramDescriptionTextView.setVisibility(View.GONE);
-        chapterProgramOutputTextView.setVisibility(View.GONE);
+        toolbar!!.title = introChapter.chapterHeader
+        chapterNoteTextView!!.visibility = View.GONE
+        chapterProgramCodeView!!.visibility = View.GONE
+        chapterProgramDescriptionTextView!!.visibility = View.GONE
+        chapterProgramOutputTextView!!.visibility = View.GONE
 
-        chapterHeaderTextView.setText(introChapter.getChapterHeader());
-        chapterIntroTextView.setText(introChapter.getChapterIntro());
+        chapterHeaderTextView!!.text = introChapter.chapterHeader
+        chapterIntroTextView!!.text = introChapter.chapterIntro
 
-        if( introChapter.getChapterNote() != null ) {
-            chapterNoteTextView.setVisibility(View.VISIBLE);
-            chapterNoteTextView.setText(introChapter.getChapterNote());
+        if (introChapter.chapterNote != null) {
+            chapterNoteTextView!!.visibility = View.VISIBLE
+            chapterNoteTextView!!.text = introChapter.chapterNote
         }
 
-        if( introChapter.getChapterProgram() != null ) {
-            chapterProgramCodeView.setVisibility(View.VISIBLE);
-            chapterProgramCodeView.setOptions(Options.Default.get(IntroActivity.this)
-                    .withLanguage(programLanguage)
-                    .withCode(introChapter.getChapterProgram())
-                    .withTheme(ColorTheme.MONOKAI));
+        if (introChapter.chapterProgram != null) {
+            chapterProgramCodeView!!.visibility = View.VISIBLE
+            chapterProgramCodeView!!.setOptions(Options.get(this@IntroActivity)
+                    .withLanguage(programLanguage!!)
+                    .withCode(introChapter.chapterProgram)
+                    .withTheme(ColorTheme.MONOKAI))
         }
 
-        if( introChapter.getChapterProgramDescription() != null ) {
-            chapterProgramDescriptionTextView.setVisibility(View.VISIBLE);
-            chapterProgramDescriptionTextView.setText(introChapter.getChapterProgramDescription());
+        if (introChapter.chapterProgramDescription != null) {
+            chapterProgramDescriptionTextView!!.visibility = View.VISIBLE
+            chapterProgramDescriptionTextView!!.text = introChapter.chapterProgramDescription
         }
 
-        if( introChapter.getChapterProgramOutput() != null ) {
-            chapterProgramOutputTextView.setVisibility(View.VISIBLE);
-            chapterProgramOutputTextView.setText(introChapter.getChapterProgramOutput());
+        if (introChapter.chapterProgramOutput != null) {
+            chapterProgramOutputTextView!!.visibility = View.VISIBLE
+            chapterProgramOutputTextView!!.text = introChapter.chapterProgramOutput
         }
-
 
 
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    override fun onBackPressed() {
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+            drawer.closeDrawer(GravityCompat.START)
         } else {
-            if( CreekApplication.Companion.getCreekPreferences().getAdsEnabled() ) {
-                StartAppAd.onBackPressed(this);
-                super.onBackPressed();
-            }
-            else {
-                finish();
+            if (CreekApplication.creekPreferences!!.adsEnabled) {
+                StartAppAd.onBackPressed(this)
+                super.onBackPressed()
+            } else {
+                finish()
             }
         }
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if( introChapters.size() > 0 ) {
+        val id = item.itemId
+        if (introChapters.size > 0) {
             if (id == R.id.intro_item) {
-                toolbar.setTitle(item.getTitle());
-                initChapter( introChapters.get(0) );
-                currentIndex = 0;
-                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
+                toolbar!!.title = item.title
+                initChapter(introChapters[0])
+                currentIndex = 0
+                doneFAB!!.setImageDrawable(ContextCompat.getDrawable(this@IntroActivity, android.R.drawable.ic_media_play))
             } else if (id == R.id.basics_item) {
-                toolbar.setTitle(item.getTitle());
-                initChapter( introChapters.get(1) );
-                currentIndex = 1;
-                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
+                toolbar!!.title = item.title
+                initChapter(introChapters[1])
+                currentIndex = 1
+                doneFAB!!.setImageDrawable(ContextCompat.getDrawable(this@IntroActivity, android.R.drawable.ic_media_play))
             } else if (id == R.id.comments_item) {
-                toolbar.setTitle(item.getTitle());
-                initChapter( introChapters.get(2) );
-                currentIndex = 2;
-                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, android.R.drawable.ic_media_play));
+                toolbar!!.title = item.title
+                initChapter(introChapters[2])
+                currentIndex = 2
+                doneFAB!!.setImageDrawable(ContextCompat.getDrawable(this@IntroActivity, android.R.drawable.ic_media_play))
             } else if (id == R.id.installation_item) {
-                toolbar.setTitle(item.getTitle());
-                initChapter(introChapters.get(3));
-                currentIndex = 3;
-                doneFAB.setImageDrawable(ContextCompat.getDrawable(IntroActivity.this, R.drawable.ic_done_all));
+                toolbar!!.title = item.title
+                initChapter(introChapters[3])
+                currentIndex = 3
+                doneFAB!!.setImageDrawable(ContextCompat.getDrawable(this@IntroActivity, R.drawable.ic_done_all))
             } /*else if( id == R.id.chapters_item ) {
                 navigateToChapters();
             }*/
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        drawer.closeDrawer(GravityCompat.START)
+        return true
     }
 
-    private void navigateToChapters() {
-        Intent textModeIntent = new Intent(IntroActivity.this, ChaptersActivity.class);
-        startActivity(textModeIntent);
+    private fun navigateToChapters() {
+        val textModeIntent = Intent(this@IntroActivity, ChaptersActivity::class.java)
+        startActivity(textModeIntent)
     }
 
-    @Override
-    public void finish() {
-        super.finish();
+    override fun finish() {
+        super.finish()
         this.overridePendingTransition(R.anim.anim_slide_in_right,
-                R.anim.anim_slide_out_right);
+                R.anim.anim_slide_out_right)
     }
 }

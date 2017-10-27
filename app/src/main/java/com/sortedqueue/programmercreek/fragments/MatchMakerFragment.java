@@ -127,7 +127,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
         if( program_TableList != null && program_TableList.size() > 0 ) {
             mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(program_TableList);
         }
         else {
@@ -149,7 +149,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
             }
             else {
                 mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
 
                 getProgramTables();
             }
@@ -496,7 +496,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
         Bundle newIntentBundle = new Bundle();
         newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
-        newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+        newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
         newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
         Log.d("MatchFragment", "Preference Language : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage() );
         if( program_TableList.size() <= 15 ) {

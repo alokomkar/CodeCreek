@@ -722,7 +722,7 @@ public class ChaptersFragment extends Fragment {
                 if (position + 1 > ChaptersFragment.this.chapters.size()) {
                     Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
                     programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_WIZARD);
-                    programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, true);
+                    programListIntent.putExtra(ProgramListActivity.Companion.getKEY_WIZARD(), true);
                     programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
                     startActivity(programListIntent);
                     return;

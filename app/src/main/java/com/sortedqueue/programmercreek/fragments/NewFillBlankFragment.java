@@ -100,7 +100,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
         showHelperDialog();
         if (program_TableList != null && program_TableList.size() > 0) {
             mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+            mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(program_TableList);
         } else {
             if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
@@ -120,7 +120,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
                         });
             } else {
                 mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
-                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD, false);
+                mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
 
                 getProgramTables();
             }

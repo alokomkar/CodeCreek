@@ -95,7 +95,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 		mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
         programIndex = mProgramIndex.getProgram_index();
 		mTotalPrograms = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS);
-		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.KEY_WIZARD);
+		mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD());
 		mShowAllDrawable = ContextCompat.getDrawable(this, R.drawable.ic_show_all);
 		mHideDrawable = ContextCompat.getDrawable(this, R.drawable.ic_remove);
 		Log.d("Program Activity", " :: ProgramIndex :  " +  mProgramIndex+"");
@@ -524,7 +524,7 @@ public class MemorizeProgramActivity extends AppCompatActivity implements UIUpda
 			Bundle newIntentBundle = new Bundle();
 			Intent newIntent = new Intent(MemorizeProgramActivity.this, WizardActivity.class);
             newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_QUIZ);
-			newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true);
+			newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
 
 			switch ( which ) {
 

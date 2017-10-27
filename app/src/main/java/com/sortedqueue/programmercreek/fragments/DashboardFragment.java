@@ -419,7 +419,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
             programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
             boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
-            programListIntent.putExtra(ProgramListActivity.KEY_WIZARD, isWizard);
+            programListIntent.putExtra(ProgramListActivity.Companion.getKEY_WIZARD(), isWizard);
             if (isWizard) {
                 programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
             }
