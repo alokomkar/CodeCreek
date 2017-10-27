@@ -39,18 +39,18 @@ public class DragNDropListView extends ListView {
 	int mStartPosition;
 	int mEndPosition;
 	int mDragPointOffset;		//Used to adjust drag view location
-	
+
 	ImageView mDragView;
 	GestureDetector mGestureDetector;
-	
+
 	DropListenerInterface mDropListener;
 	RemoveListenerInterface mRemoveListener;
 	DragListenerInterface mDragListener;
-	
+
 	public DragNDropListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
-	
+
 	public void setDropListener(DropListenerInterface l) {
 		mDropListener = l;
 	}
@@ -58,7 +58,7 @@ public class DragNDropListView extends ListView {
 	public void setRemoveListener(RemoveListenerInterface l) {
 		mRemoveListener = l;
 	}
-	
+
 	public void setDragListener(DragListenerInterface l) {
 		mDragListener = l;
 	}
@@ -67,13 +67,13 @@ public class DragNDropListView extends ListView {
 	public boolean onTouchEvent(MotionEvent ev) {
 		final int action = ev.getAction();
 		final int x = (int) ev.getX();
-		final int y = (int) ev.getY();	
-		
+		final int y = (int) ev.getY();
+
 		if (action == MotionEvent.ACTION_DOWN && x < this.getWidth()/4) {
 			mDragMode = true;
 		}
 
-		if (!mDragMode) 
+		if (!mDragMode)
 			return super.onTouchEvent(ev);
 
 		switch (action) {
@@ -85,7 +85,7 @@ public class DragNDropListView extends ListView {
                     mDragPointOffset -= ((int)ev.getRawY()) - y;
 					startDrag(mItemPosition,y);
 					drag(0,y);// replace 0 with x if desired
-				}	
+				}
 				break;
 			case MotionEvent.ACTION_MOVE:
 				drag(0,y);// replace 0 with x if desired
@@ -96,13 +96,13 @@ public class DragNDropListView extends ListView {
 				mDragMode = false;
 				mEndPosition = pointToPosition(x,y);
 				stopDrag(mStartPosition - getFirstVisiblePosition());
-				if (mDropListener != null && mStartPosition != INVALID_POSITION && mEndPosition != INVALID_POSITION) 
+				if (mDropListener != null && mStartPosition != INVALID_POSITION && mEndPosition != INVALID_POSITION)
 	        		 mDropListener.onDrop(mStartPosition, mEndPosition);
 				break;
 		}
 		return true;
-	}	
-	
+	}
+
 	// move the drag view
 	private void drag(int x, int y) {
 		if (mDragView != null) {
@@ -127,11 +127,11 @@ public class DragNDropListView extends ListView {
 		item.setDrawingCacheEnabled(true);
 		if (mDragListener != null)
 			mDragListener.onStartDrag(item);
-		
+
         // Create a copy of the drawing cache so that it does not get recycled
         // by the framework when the list tries to clean up memory
         Bitmap bitmap = Bitmap.createBitmap(item.getDrawingCache());
-        
+
         WindowManager.LayoutParams mWindowParams = new WindowManager.LayoutParams();
         mWindowParams.gravity = Gravity.TOP;
         mWindowParams.x = 0;
@@ -146,10 +146,10 @@ public class DragNDropListView extends ListView {
                 | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
         mWindowParams.format = PixelFormat.TRANSLUCENT;
         mWindowParams.windowAnimations = 0;
-        
+
         Context context = getContext();
         ImageView v = new ImageView(context);
-        v.setImageBitmap(bitmap);      
+        v.setImageBitmap(bitmap);
 
         WindowManager mWindowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         mWindowManager.addView(v, mWindowParams);
@@ -173,15 +173,15 @@ public class DragNDropListView extends ListView {
 //		return new GestureDetector(getContext(), new SimpleOnGestureListener() {
 //            @Override
 //            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-//                    float velocityY) {         	
-//                if (mDragView != null) {              	
+//                    float velocityY) {
+//                if (mDragView != null) {
 //                	int deltaX = (int)Math.abs(e1.getX()-e2.getX());
 //                	int deltaY = (int)Math.abs(e1.getY() - e2.getY());
-//               
+//
 //                	if (deltaX > mDragView.getWidth()/2 && deltaY < mDragView.getHeight()) {
 //                		mRemoveListener.onRemove(mStartPosition);
 //                	}
-//                	
+//
 //                	stopDrag(mStartPosition - getFirstVisiblePosition());
 //
 //                    return true;

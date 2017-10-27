@@ -33,7 +33,7 @@ class QuickRefernceRecyclerAdapter(private var quickReferences: ArrayList<QuickR
     private var context: Context? = null
 
     init {
-        this.prettifyHighlighter = PrettifyHighlighter.getInstance()
+        this.prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

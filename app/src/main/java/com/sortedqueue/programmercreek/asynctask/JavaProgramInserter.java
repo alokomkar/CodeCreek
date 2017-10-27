@@ -2395,7 +2395,7 @@ public class JavaProgramInserter {
     }
 
     public void insertPrograms( ) {
-        CommonUtils.displayProgressDialog(context, "Inserting programs");
+        CommonUtils.INSTANCE.displayProgressDialog(context, "Inserting programs");
         int index = 1;
 
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
@@ -2428,11 +2428,11 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "String copy", "https://programercreek.blogspot.in/", "c++"));
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "Sine series ", "https://programercreek.blogspot.in/", "c++"));
         firebaseDatabaseHandler.writeProgramIndex(new ProgramIndex(index++, "Polynomial", "https://programercreek.blogspot.in/", "c++"));
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     public void insertProgramTables( ) {
-        CommonUtils.displayProgressDialog((Activity) context, "Inserting program tables");
+        CommonUtils.INSTANCE.displayProgressDialog((Activity) context, "Inserting program tables");
         int programIndex = 24;
         int lineNo = 1;
         FirebaseDatabaseHandler firebaseDatabaseHandler = new FirebaseDatabaseHandler(context);
@@ -2587,7 +2587,7 @@ public class JavaProgramInserter {
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++, " getch();", "Wait for keyboard input", "c++"));
         firebaseDatabaseHandler.writeProgramTable( new ProgramTable(programIndex, lineNo++, "}", "End of main", "c++"));
 
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     public void insertLanguageModules() {

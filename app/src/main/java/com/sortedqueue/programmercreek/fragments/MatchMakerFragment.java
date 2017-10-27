@@ -143,7 +143,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                             }
                         });
             }
@@ -169,7 +169,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
 
             }
         });
@@ -179,7 +179,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
     private void initUI(List<ProgramTable> program_TableList) {
         if( mProgramIndex != null ) {
             try {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -210,7 +210,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
         mShuffleProgramList = new ArrayList<String>();
         mShuffleProgramList.addAll(mProgramList);
-        mShuffleProgramList = ShuffleList.shuffleList(mShuffleProgramList);
+        mShuffleProgramList = ShuffleList.INSTANCE.shuffleList(mShuffleProgramList);
 
 
 

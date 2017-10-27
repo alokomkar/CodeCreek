@@ -100,11 +100,11 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
 
     private void fetchAllTags() {
 
-        CommonUtils.displayProgressDialog(getContext(), getString(R.string.loading));
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), getString(R.string.loading));
         new FirebaseDatabaseHandler(getContext()).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
 
             @Override
@@ -118,7 +118,7 @@ public class PresentationTitleFragment extends Fragment implements View.OnClickL
         tagsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         tagsRecyclerAdapter = new TagsRecyclerAdapter(tagModel.getTagArrayList());
         tagsRecyclerView.setAdapter(tagsRecyclerAdapter);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     @Override

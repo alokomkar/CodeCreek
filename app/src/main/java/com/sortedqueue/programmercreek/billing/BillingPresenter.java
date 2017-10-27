@@ -203,8 +203,8 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
         Log.d(TAG, "Developer Payload : " + payload);
         Log.d(TAG, "Purchase Details : " + p.toString());
         try {
-            CreekAnalytics.logEvent(TAG, "verifyDeveloperPayload");
-            CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(p)));
+            CreekAnalytics.INSTANCE.logEvent(TAG, "verifyDeveloperPayload");
+            CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(p)));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -251,12 +251,12 @@ public class BillingPresenter implements IabBroadcastReceiver.IabBroadcastListen
 
     private void complain(String message) {
         Log.e(TAG, "**** TrivialDrive Error: " + message);
-        CreekAnalytics.logEvent(TAG, "complain : " + message);
+        CreekAnalytics.INSTANCE.logEvent(TAG, "complain : " + message);
         alert("Error: " + message);
     }
 
     private void alert(String message) {
-        CreekAnalytics.logEvent(TAG, "alert : " + message);
+        CreekAnalytics.INSTANCE.logEvent(TAG, "alert : " + message);
         AlertDialog.Builder bld = new AlertDialog.Builder(activity);
         bld.setMessage(message);
         bld.setNeutralButton("OK", null);

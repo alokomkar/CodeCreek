@@ -40,14 +40,14 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, ArrayList<ProgramT
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		CommonUtils.displayProgressDialog(mContext, "Initializing Program, Please Wait...");
+		CommonUtils.INSTANCE.displayProgressDialog(mContext, "Initializing Program, Please Wait...");
 	}
 
 	@Override
 	protected void onPostExecute(ArrayList<ProgramTable> result) {
 		super.onPostExecute(result);
 		if( result.size() > 0 ) {
-			CommonUtils.dismissProgressDialog();
+			CommonUtils.INSTANCE.dismissProgressDialog();
 			if( mUiProgramFetcherListener != null ) {
 				mUiProgramFetcherListener.updateUI( result );
 			}
@@ -57,12 +57,12 @@ public class ProgramFetcherTask extends AsyncTask<Void, Void, ArrayList<ProgramT
 				@Override
 				public void onSuccess(ArrayList<ProgramTable> programTables) {
 					mUiProgramFetcherListener.updateUI(programTables);
-					CommonUtils.dismissProgressDialog();
+					CommonUtils.INSTANCE.dismissProgressDialog();
 				}
 
 				@Override
 				public void onError(DatabaseError databaseError) {
-					CommonUtils.dismissProgressDialog();
+					CommonUtils.INSTANCE.dismissProgressDialog();
 				}
 			});
 		}

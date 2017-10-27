@@ -98,7 +98,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CreekAnalytics.logEvent(TAG, bitModule.getTitle());
+        CreekAnalytics.INSTANCE.logEvent(TAG, bitModule.getTitle());
         titleTextView.setText(bitModule.getTitle());
         checkFAB.setVisibility(View.GONE);
         checkFAB.setOnClickListener(this);
@@ -238,7 +238,7 @@ public class BitModuleFragment extends Fragment implements View.OnClickListener,
             if( fillCodeRecyclerAdapter.getCodeLine().trim().replaceAll("\\s+", "").equals( programLine.trim().replaceAll("\\s+", "") ) ) {
                 correctAnswers++;
             }
-            CommonUtils.displayToast(getContext(), "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter.getProgramLines().size() + " correct");
+            CommonUtils.INSTANCE.displayToast(getContext(), "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter.getProgramLines().size() + " correct");
         }
     }
 

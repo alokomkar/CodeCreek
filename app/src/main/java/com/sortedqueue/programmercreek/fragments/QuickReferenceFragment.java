@@ -82,11 +82,11 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
     }
 
     private void fetchAllTags() {
-        CommonUtils.displayProgressDialog(getContext(), getContext().getString(R.string.loading));
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), getContext().getString(R.string.loading));
         new FirebaseDatabaseHandler(getContext()).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
 
             @Override
@@ -106,7 +106,7 @@ public class QuickReferenceFragment extends Fragment implements CustomProgramRec
         selectedTextView.setText("C");
         selectedTextView.setOnClickListener(this);
         onItemClick(0);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     private void getAllReference() {

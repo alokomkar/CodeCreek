@@ -194,14 +194,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                             }
                         });
                     }
 
                     @Override
                     public void onError(DatabaseError databaseError) {
-                        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                        CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                     }
                 });
             }
@@ -221,14 +221,14 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
                         @Override
                         public void onError(DatabaseError databaseError) {
-                            CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                            CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                         }
                     });
                 }
 
                 @Override
                 public void onError(DatabaseError databaseError) {
-                    CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                    CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
                 }
             });
         }
@@ -243,7 +243,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
     public void updateUI(ArrayList<ProgramTable> program_TableList) {
         try {
             if( mProgramIndex != null ) {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -366,7 +366,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(1));
         shuffleList.add(solutions.get(2));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer1RadioButton1.setText(shuffleList.get(0));
         answer1RadioButton2.setText(shuffleList.get(1));
@@ -378,7 +378,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(2));
         shuffleList.add(solutions.get(3));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer2RadioButton1.setText(shuffleList.get(0));
         answer2RadioButton2.setText(shuffleList.get(1));
@@ -389,7 +389,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(3));
         shuffleList.add(solutions.get(4));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer3RadioButton1.setText(shuffleList.get(0));
         answer3RadioButton2.setText(shuffleList.get(1));
@@ -400,7 +400,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(4));
         shuffleList.add(solutions.get(5));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer4RadioButton1.setText(shuffleList.get(0));
         answer4RadioButton2.setText(shuffleList.get(1));
@@ -414,7 +414,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(5));
         shuffleList.add(solutions.get(6));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer5RadioButton1.setText(shuffleList.get(0));
         answer5RadioButton2.setText(shuffleList.get(1));
@@ -426,7 +426,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(6));
         shuffleList.add(solutions.get(7));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer6RadioButton1.setText(shuffleList.get(0));
         answer6RadioButton2.setText(shuffleList.get(1));
@@ -437,7 +437,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(7));
         shuffleList.add(solutions.get(0));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer7RadioButton1.setText(shuffleList.get(0));
         answer7RadioButton2.setText(shuffleList.get(1));
@@ -448,7 +448,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
         shuffleList.add(solutions.get(0));
         shuffleList.add(solutions.get(1));
 
-        shuffleList = ShuffleList.shuffleList(shuffleList);
+        shuffleList = ShuffleList.INSTANCE.shuffleList(shuffleList);
 
         answer8RadioButton1.setText(shuffleList.get(0));
         answer8RadioButton2.setText(shuffleList.get(1));
@@ -846,7 +846,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
                     break;
             }
             isAnswered = rightAnswers == 8;
-            CommonUtils.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/8");
+            CommonUtils.INSTANCE.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/8");
             if (wizardMode) {
                 updateCreekStats();
             }

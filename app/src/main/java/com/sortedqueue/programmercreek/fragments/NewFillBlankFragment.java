@@ -115,7 +115,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                             }
                         });
             } else {
@@ -149,7 +149,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
 
             }
         });
@@ -162,7 +162,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     private void initUI(ArrayList<ProgramTable> program_TableList) {
         if( mProgramIndex != null ) {
             try {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -213,9 +213,9 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToRight(questionRecyclerView);
-                AnimationUtils.slideInToLeft(optionRecyclerView);
-                AnimationUtils.slideInToLeft(optionsTextView);
+                AnimationUtils.INSTANCE.slideInToRight(questionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionsTextView);
             }
         }, 400);
 
@@ -255,7 +255,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
                 message = "Almost perfect, you are few steps away, retry";
             }
             isAnswered = rightAnswers == mOptionsList.size();
-            CommonUtils.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/" + mOptionsList.size());
+            CommonUtils.INSTANCE.displaySnackBar(getActivity(), message + ". You scored : " + rightAnswers + "/" + mOptionsList.size());
             if (mWizard) {
                 updateCreekStats();
             }
@@ -354,7 +354,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
         CommonUtils.displaySnackBar(getActivity(), maxHints + " new hints have been added");
 
         matchQuestionsAdapter.addHints(maxHints);*/
-        CommonUtils.displaySnackBar(getActivity(), "Hints have been added");
+        CommonUtils.INSTANCE.displaySnackBar(getActivity(), "Hints have been added");
         matchQuestionsAdapter.enableHints();
     }
 }

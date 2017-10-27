@@ -90,7 +90,7 @@ public class SubTestFragment extends Fragment {
             mRandomTest.add(item);
         }
 
-        mRandomTest = ShuffleList.shuffleList(mRandomTest);
+        mRandomTest = ShuffleList.INSTANCE.shuffleList(mRandomTest);
         programSize = mRandomTest.size();
         dragNDropAdapter = new DragNDropAdapter(getContext(), new int[]{R.layout.dragitem}, new int[]{R.id.programLineTextView}, mRandomTest);
         dragNDropListView.setAdapter(dragNDropAdapter);//new DragNDropAdapter(this,content)

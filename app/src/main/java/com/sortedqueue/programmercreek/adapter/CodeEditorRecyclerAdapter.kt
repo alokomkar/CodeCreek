@@ -39,7 +39,7 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
         this.context = context
         this.programLines = programLines
         this.programLanguage = programLanguage
-        this.prettifyHighlighter = PrettifyHighlighter.getInstance()
+        this.prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     constructor(context: Context, programLines: ArrayList<String>, programLanguage: String, codeMode: Boolean) {
@@ -47,7 +47,7 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
         this.codeMode = codeMode
         this.programLines = programLines
         this.programLanguage = programLanguage
-        this.prettifyHighlighter = PrettifyHighlighter.getInstance()
+        this.prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -108,7 +108,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     private void emailSignup(String name, String email, String password) {
         userFullName = name;
         userEmail = email;
-        CommonUtils.displayProgressDialog(getContext(), "Signing up");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Signing up");
         AuthCredential credential = EmailAuthProvider.getCredential(email, password);
         mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -122,7 +122,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                             Log.w(TAG, "linkWithCredential:failure", task.getException());
                             Toast.makeText(getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            CommonUtils.dismissProgressDialog();
+                            CommonUtils.INSTANCE.dismissProgressDialog();
                             loginSignupDialog.cancelDialog();
                             getActivity().onBackPressed();
                         }
@@ -138,7 +138,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         new FirebaseDatabaseHandler(getContext()).getCreekUser(creekPreferences.getSignInAccount(), new FirebaseDatabaseHandler.GetCreekUserListner() {
             @Override
             public void onSuccess(final CreekUser creekUser) {
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
                 creekUser.setEmailId(userEmail);
                 creekUser.setUserFullName(userFullName);
                 creekUser.setUserPhotoUrl("");
@@ -163,15 +163,15 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                CommonUtils.displayToast(getContext(), "Signup Successful");
+                CommonUtils.INSTANCE.displayToast(getContext(), "Signup Successful");
                 loginSignupDialog.cancelDialog();
                 getActivity().onBackPressed();
             }
 
             @Override
             public void onFailure(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
-                CommonUtils.displayToast(getContext(), "Signup Failed, Try later");
+                CommonUtils.INSTANCE.dismissProgressDialog();
+                CommonUtils.INSTANCE.displayToast(getContext(), "Signup Failed, Try later");
                 loginSignupDialog.cancelDialog();
                 getActivity().onBackPressed();
             }

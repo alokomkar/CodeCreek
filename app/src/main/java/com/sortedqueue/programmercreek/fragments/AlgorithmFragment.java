@@ -80,7 +80,7 @@ public class AlgorithmFragment extends Fragment implements FirebaseDatabaseHandl
 
     @Override
     public void onError(DatabaseError databaseError) {
-        CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data, R.string.retry, new View.OnClickListener() {
+        CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data, R.string.retry, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fetchAlgorithmsIndex();

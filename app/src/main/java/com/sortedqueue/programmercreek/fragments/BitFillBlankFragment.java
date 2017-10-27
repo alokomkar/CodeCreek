@@ -95,7 +95,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CreekAnalytics.logEvent(TAG, "Fill Blanks - Bits and Bytes");
+        CreekAnalytics.INSTANCE.logEvent(TAG, "Fill Blanks - Bits and Bytes");
         bitModule = getArguments().getParcelable("BitModule");
         programLangauge = bitModule.getProgramLanguage();
         moduleId = bitModule.getModuleId();
@@ -169,9 +169,9 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToRight(questionRecyclerView);
-                AnimationUtils.slideInToLeft(optionRecyclerView);
-                AnimationUtils.slideInToLeft(optionsTextView);
+                AnimationUtils.INSTANCE.slideInToRight(questionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionsTextView);
             }
         }, 400);
 
@@ -208,7 +208,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                     }
                     isAnswered = rightAnswers == mOptionsList.size();
                     resultTextView.setText( message + ". You scored : " + rightAnswers + "/" + mOptionsList.size());
-                    AnimationUtils.slideInToLeft(resultLayout);
+                    AnimationUtils.INSTANCE.slideInToLeft(resultLayout);
                     updateCreekStats();
                     lessonNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
                     proceedTextView.setText("Okay");
@@ -246,7 +246,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                 if( proceedTextView.getText().toString().equalsIgnoreCase("Proceed")) {
                     onBackPressListener.onBackPressed();
                 }
-                AnimationUtils.slideOutToLeft(resultLayout);
+                AnimationUtils.INSTANCE.slideOutToLeft(resultLayout);
                 break;
         }
 
@@ -314,12 +314,12 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
     @Override
     public void onSuccess(ProgramIndex programIndex, ArrayList<ProgramTable> programTables) {
         initUI(programTables);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     @Override
     public void onError(String errorMessage) {
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     public void setOnBackPressListener(OnBackPressListener onBackPressListener) {

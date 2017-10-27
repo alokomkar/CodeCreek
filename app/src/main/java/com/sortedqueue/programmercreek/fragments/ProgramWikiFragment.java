@@ -66,7 +66,7 @@ public class ProgramWikiFragment extends Fragment implements TestCompletionListe
 
                 @Override
                 public void onError(DatabaseError databaseError) {
-                    CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                    CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                     progressBar.setVisibility(View.GONE);
                     if( wikiNavigationListener != null ) {
                         wikiNavigationListener.enableViewPager();

@@ -111,7 +111,7 @@ public class LanguageFragment extends Fragment {
 
     private void getProgramLanguages() {
         if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
-            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+            CommonUtils.INSTANCE.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
                     getProgramLanguages();
@@ -135,7 +135,7 @@ public class LanguageFragment extends Fragment {
             @Override
             public void onError(DatabaseError databaseError) {
                 swipeRefreshLayout.setRefreshing(false);
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
             }
         });
     }
@@ -199,7 +199,7 @@ public class LanguageFragment extends Fragment {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
-            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+            CommonUtils.INSTANCE.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
                     getFirebaseDBVerion();
@@ -263,7 +263,7 @@ public class LanguageFragment extends Fragment {
 
     private void selectAndInitDb(final int position) {
         if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
-            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+            CommonUtils.INSTANCE.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
                     selectAndInitDb(position);

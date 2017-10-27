@@ -259,9 +259,9 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         switch (view.getId()) {
             case R.id.languageTextView:
                 if (languageRecyclerView.getVisibility() == View.GONE) {
-                    AnimationUtils.enterReveal(languageRecyclerView);
+                    AnimationUtils.INSTANCE.enterReveal(languageRecyclerView);
                 } else {
-                    AnimationUtils.exitRevealGone(languageRecyclerView);
+                    AnimationUtils.INSTANCE.exitRevealGone(languageRecyclerView);
                 }
                 break;
             case R.id.importFromFileTextView:
@@ -274,7 +274,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     private int REQUEST_CODE_SEARCH = 1000;
 
     private void importFromFile() {
-        if (PermissionUtils.checkSelfPermission(this,
+        if (PermissionUtils.INSTANCE.checkSelfPermission(this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -289,8 +289,8 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
-            if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
+        if (requestCode == PermissionUtils.INSTANCE.getPERMISSION_REQUEST()) {
+            if (PermissionUtils.INSTANCE.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
                 importFromFile();
             } else {
                 if (permissions.length == 3) {
@@ -310,7 +310,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
                 if (uri != null) {
 
                     Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
-                    String filepath = FileUtils.getPath(getContext(), uri);
+                    String filepath = FileUtils.INSTANCE.getPath(getContext(), uri);
                     Log.d(TAG, "File path : " + filepath);
                     InputStream fis = new FileInputStream(filepath);
                     InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
@@ -343,7 +343,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         languageTextView.setText(selectedLanguage);
         getCodeTemplate(selectedLanguage);
 
-        AnimationUtils.exitRevealGone(languageRecyclerView);
+        AnimationUtils.INSTANCE.exitRevealGone(languageRecyclerView);
     }
 
     private void getCodeTemplate(String selectedLanguage) {

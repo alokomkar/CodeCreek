@@ -52,7 +52,7 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CommonUtils.displayProgressDialog(getContext(), getString(R.string.loading));
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), getString(R.string.loading));
         ArrayList<Fragment> fragments = new ArrayList<>();
         for( BitModule bitModule : lesson.getBitModules() ) {
             BitModuleFragment bitModuleFragment = new BitModuleFragment();
@@ -66,7 +66,7 @@ public class LessonDetailsFragment extends Fragment implements BitModuleNavigati
         lessonDetailsViewPager.setAdapter(adapter);
         lessonDetailsViewPager.setPageTransformer(true, new ParallaxPageTransformer());
         lessonDetailsViewPager.setOffscreenPageLimit(3);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     @Override

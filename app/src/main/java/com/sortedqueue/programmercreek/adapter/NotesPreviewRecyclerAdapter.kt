@@ -24,7 +24,7 @@ class NotesPreviewRecyclerAdapter(private val notesModelArrayList: ArrayList<Not
     private val prettifyHighlighter: PrettifyHighlighter
 
     init {
-        this.prettifyHighlighter = PrettifyHighlighter.getInstance()
+        this.prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

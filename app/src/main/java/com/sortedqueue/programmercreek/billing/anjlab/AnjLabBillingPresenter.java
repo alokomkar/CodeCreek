@@ -58,8 +58,8 @@ public class AnjLabBillingPresenter {
         public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
             Log.d(TAG, "onProductPurchased: " + productId);
             try {
-                CreekAnalytics.logEvent(TAG, "onProductPurchased");
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(details)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, "onProductPurchased");
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(details)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -69,9 +69,9 @@ public class AnjLabBillingPresenter {
         }
         @Override
         public void onBillingError(int errorCode, @Nullable Throwable error) {
-            CreekAnalytics.logEvent(TAG, "onBillingError");
+            CreekAnalytics.INSTANCE.logEvent(TAG, "onBillingError");
             if( error != null && error.getMessage() != null ) {
-                CreekAnalytics.logEvent(TAG, error.getMessage());
+                CreekAnalytics.INSTANCE.logEvent(TAG, error.getMessage());
                 complain("Error occurred while purchase : " + error.getMessage());
                 error.printStackTrace();
             }
@@ -79,7 +79,7 @@ public class AnjLabBillingPresenter {
         @Override
         public void onBillingInitialized() {
             readyToPurchase = true;
-            CreekAnalytics.logEvent(TAG, "onBillingInitialized");
+            CreekAnalytics.INSTANCE.logEvent(TAG, "onBillingInitialized");
             updateTextViews();
         }
         @Override
@@ -99,7 +99,7 @@ public class AnjLabBillingPresenter {
     private void setupInAppBilling() {
 
         if(!BillingProcessor.isIabServiceAvailable(activity)) {
-            CommonUtils.displayToast(activity, R.string.upgrade_google_play);
+            CommonUtils.INSTANCE.displayToast(activity, R.string.upgrade_google_play);
             return;
         }
         String LICENSE_KEY = activity.getString(R.string.public_key);
@@ -109,12 +109,12 @@ public class AnjLabBillingPresenter {
 
     private void complain(String message) {
         Log.e(TAG, "**** TrivialDrive Error: " + message);
-        CreekAnalytics.logEvent(TAG, "complain : " + message);
+        CreekAnalytics.INSTANCE.logEvent(TAG, "complain : " + message);
         alert("Error: " + message);
     }
 
     private void alert(String message) {
-        CreekAnalytics.logEvent(TAG, "alert : " + message);
+        CreekAnalytics.INSTANCE.logEvent(TAG, "alert : " + message);
         AlertDialog.Builder bld = new AlertDialog.Builder(activity);
         bld.setMessage(message);
         bld.setNeutralButton("OK", null);

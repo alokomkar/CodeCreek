@@ -101,7 +101,7 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        CommonUtils.displayProgressDialog(NewProgramWikiActivity.this, "Loading");
+        CommonUtils.INSTANCE.displayProgressDialog(NewProgramWikiActivity.this, "Loading");
         new FirebaseDatabaseHandler(NewProgramWikiActivity.this).initializeProgramWiki(
                 new FirebaseDatabaseHandler.ProgramWikiInterface() {
                     @Override
@@ -133,13 +133,13 @@ public class NewProgramWikiActivity extends AppCompatActivity implements View.On
                             }
                         });
                         setupNavigationListener();
-                        CommonUtils.dismissProgressDialog();
+                        CommonUtils.INSTANCE.dismissProgressDialog();
                     }
 
 
                     @Override
                     public void onError(DatabaseError error) {
-                        CommonUtils.dismissProgressDialog();
+                        CommonUtils.INSTANCE.dismissProgressDialog();
                     }
                 });
         if( !CreekApplication.Companion.getCreekPreferences().isPremiumUser() ) {

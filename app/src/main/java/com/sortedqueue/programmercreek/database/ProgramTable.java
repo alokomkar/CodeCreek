@@ -45,7 +45,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("cpp", program_Line);
+        this.program_Line_Html = PrettifyHighlighter.Companion.getInstance().highlight("cpp", program_Line);
         this.userProgramId = userProgramId;
     }
 
@@ -55,7 +55,7 @@ public class ProgramTable extends RushObject implements Parcelable {
         this.program_Language = program_Language;
         this.program_Line = program_Line;
         this.program_Line_Description = program_Line_Description;
-        this.program_Line_Html = PrettifyHighlighter.getInstance().highlight("cpp", program_Line);
+        this.program_Line_Html = PrettifyHighlighter.Companion.getInstance().highlight("cpp", program_Line);
     }
 
     public String getUserProgramId() {

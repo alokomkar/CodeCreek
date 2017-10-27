@@ -155,7 +155,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                             }
                         });
             } else {
@@ -179,7 +179,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
                     @Override
                     public void onError(DatabaseError databaseError) {
-                        CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                        CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                     }
                 });
 
@@ -204,7 +204,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private void initUI( ArrayList<ProgramTable> program_TableList) {
         if(  mProgramIndex != null ) {
             try {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -393,7 +393,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                 checkProgramScore(programCheck, programLength);
             }
             else {
-                CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), "Complete the test to proceed");
             }
 
 

@@ -96,7 +96,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupToolBar();
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Loading chapters");
         new TopicDetailsTask(getContext(), "", this).execute();
     }
 
@@ -182,7 +182,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
 
             }
         });
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     private int progressBarStatus;
@@ -273,7 +273,7 @@ public class TopicDetailsFragment extends Fragment implements TopicDetailsTask.T
     @Override
     public void onSuccess(ArrayList<TopicDetails> topicDetails) {
         mLessons = topicDetails;
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
         if (topicDetails != null && topicDetails.size() > 0)
             initLessons(0);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

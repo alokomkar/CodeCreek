@@ -239,7 +239,7 @@ public class ProgramInserterFragment extends Fragment implements View.OnClickLis
 
     private boolean validateEmptyEditText( EditText editText ) {
         boolean result =  editText.getText().toString().trim().length() == 0;
-        CommonUtils.displaySnackBar(getActivity(), "Content missing");
+        CommonUtils.INSTANCE.displaySnackBar(getActivity(), "Content missing");
         editText.requestFocus();
         return result;
     }

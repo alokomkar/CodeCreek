@@ -98,7 +98,7 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
 
     private void getModules() {
         lessonsRecyclerView.setVisibility(View.INVISIBLE);
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Loading chapters");
         new LessonFetchTask(this).execute();
 
     }
@@ -128,11 +128,11 @@ public class LessonsFragment extends Fragment implements LessonFetchTask.LessonF
         });
         lessonsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         lessonsRecyclerView.setAdapter(lessonsAdapter);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToLeft(lessonsRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(lessonsRecyclerView);
             }
         }, 450);
     }

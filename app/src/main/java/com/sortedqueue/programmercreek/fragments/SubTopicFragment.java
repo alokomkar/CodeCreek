@@ -104,7 +104,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CreekAnalytics.logEvent(TAG, subTopics.getTitle());
+        CreekAnalytics.INSTANCE.logEvent(TAG, subTopics.getTitle());
         titleTextView.setText(subTopics.getTitle());
         checkFAB.setVisibility(View.GONE);
         checkFAB.setOnClickListener(this);
@@ -245,7 +245,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener,
             if( fillCodeRecyclerAdapter.getCodeLine().trim().replaceAll("\\s+", "").equals( programLine.trim().replaceAll("\\s+", "") ) ) {
                 correctAnswers++;
             }
-            CommonUtils.displayToast(getContext(), "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter.getProgramLines().size() + " correct");
+            CommonUtils.INSTANCE.displayToast(getContext(), "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter.getProgramLines().size() + " correct");
         }
     }
 

@@ -151,7 +151,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                         @Override
                         public void onError(DatabaseError error) {
                             progressBar.setVisibility(View.GONE);
-                            CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                            CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                         }
                     });
         }
@@ -289,7 +289,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 openVoiceIntent();
                 break;
             case R.id.proceedTextView:
-                AnimationUtils.slideOutToLeft(resultLayout);
+                AnimationUtils.INSTANCE.slideOutToLeft(resultLayout);
                 if (modulteDetailsScrollPageListener != null) {
                     modulteDetailsScrollPageListener.onScrollForward();
                 }
@@ -318,7 +318,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
         if (requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            CommonUtils.displayToast(getContext(), "I heard : " + results);
+            CommonUtils.INSTANCE.displayToast(getContext(), "I heard : " + results);
             if (spokenText.equalsIgnoreCase("print formatted")) {
                 solutionList.add("printf(");
                 syntaxSolutionTextView.setText(getSolution(solutionList));
@@ -330,7 +330,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
     private void checkSolution() {
         String solutionText = syntaxSolutionTextView.getText().toString();
         if (solutionText.trim().replaceAll("\\s+", "").equals(syntaxModule.getSyntaxSolution().trim().replaceAll("\\s+", ""))) {
-            AnimationUtils.slideInToLeft(resultLayout);
+            AnimationUtils.INSTANCE.slideInToLeft(resultLayout);
             /*CommonUtils.displaySnackBar(getActivity(), R.string.congratulations, R.string.proceed, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

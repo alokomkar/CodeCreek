@@ -193,10 +193,10 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.languageTextView:
                 if( languageRecyclerView.getVisibility() == View.GONE ) {
-                    AnimationUtils.enterReveal(languageRecyclerView);
+                    AnimationUtils.INSTANCE.enterReveal(languageRecyclerView);
                 }
                 else {
-                    AnimationUtils.exitRevealGone(languageRecyclerView);
+                    AnimationUtils.INSTANCE.exitRevealGone(languageRecyclerView);
                 }
                 break;
             case R.id.importFromFileTextView:
@@ -212,7 +212,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     private int REQUEST_CODE_SEARCH = 1000;
 
     private void importFromFile() {
-        if (PermissionUtils.checkSelfPermission(this,
+        if (PermissionUtils.INSTANCE.checkSelfPermission(this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE}, 1000)) {
@@ -254,7 +254,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1000) {
-            if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
+            if (PermissionUtils.INSTANCE.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
                 importFromFile();
             } else {
                 if (permissions.length == 3) {
@@ -263,12 +263,12 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
             }
         }
         else
-        if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
-            if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
+        if (requestCode == PermissionUtils.INSTANCE.getPERMISSION_REQUEST()) {
+            if (PermissionUtils.INSTANCE.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
                 AuxilaryUtils.INSTANCE.displayPhotoDialog(getContext(), this);
             } else {
                 if (permissions.length == 3) {
-                    CommonUtils.displaySnackBar(getActivity(), R.string.camera_read_write_storage_permission_to_open_gallery);
+                    CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.camera_read_write_storage_permission_to_open_gallery);
                 }
             }
         } else {
@@ -299,7 +299,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                CommonUtils.displayToast(getContext(), "Unable to open Camera");
+                CommonUtils.INSTANCE.displayToast(getContext(), "Unable to open Camera");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -419,7 +419,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 if (uri != null) {
 
                     Log.d(TAG, "File Uri : " + uri.getEncodedPath() + " Path " + uri.getPath());
-                    String filepath = FileUtils.getPath(getContext(), uri);
+                    String filepath = FileUtils.INSTANCE.getPath(getContext(), uri);
                     Log.d(TAG, "File path : " + filepath);
                     InputStream fis = new FileInputStream(filepath);
                     InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
@@ -448,7 +448,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 @Override
                 public void onSuccess(Uri downloadUri) {
                     uploadProgressBar.setVisibility(View.GONE);
-                    CommonUtils.displayToast(getContext(), "Success");
+                    CommonUtils.INSTANCE.displayToast(getContext(), "Success");
                     Log.d(TAG, "Upload Success : " + downloadUri.toString());
                     CreateSlideFragment.this.selectedImageUri = downloadUri;
                     slideModel.setSlideImageUrl(downloadUri.toString());
@@ -464,14 +464,14 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 public void onError(Exception e) {
                     uploadProgressBar.setVisibility(View.GONE);
                     if (e != null) {
-                        CommonUtils.displayToast(getContext(), "Error occurred while upload : " + e.getMessage());
+                        CommonUtils.INSTANCE.displayToast(getContext(), "Error occurred while upload : " + e.getMessage());
                         e.printStackTrace();
                     }
                 }
             });
         } else {
             uploadProgressBar.setVisibility(View.GONE);
-            CommonUtils.displaySnackBar(getActivity(), R.string.image_upload_failed);
+            CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.image_upload_failed);
         }
 
     }
@@ -486,12 +486,12 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
 
     public void insertCode() {
         if( importLayout.getVisibility() != View.VISIBLE ) {
-            AnimationUtils.enterReveal(importLayout);
-            AnimationUtils.enterReveal(codeEditRecyclerView);
+            AnimationUtils.INSTANCE.enterReveal(importLayout);
+            AnimationUtils.INSTANCE.enterReveal(codeEditRecyclerView);
         }
         else {
-            AnimationUtils.exitRevealGone(importLayout);
-            AnimationUtils.exitRevealGone(codeEditRecyclerView);
+            AnimationUtils.INSTANCE.exitRevealGone(importLayout);
+            AnimationUtils.INSTANCE.exitRevealGone(codeEditRecyclerView);
         }
     }
 
@@ -505,7 +505,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     }
 
     private void checkPhotoPermissions() {
-        if (PermissionUtils.checkSelfPermission(this,
+        if (PermissionUtils.INSTANCE.checkSelfPermission(this,
                 new String[]{Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -547,7 +547,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         languageTextView.setText(selectedLanguage);
         setSelectedLanguage(selectedLanguage);
 
-        AnimationUtils.exitRevealGone(languageRecyclerView);
+        AnimationUtils.INSTANCE.exitRevealGone(languageRecyclerView);
     }
 
     private void setupRecyclerView() {

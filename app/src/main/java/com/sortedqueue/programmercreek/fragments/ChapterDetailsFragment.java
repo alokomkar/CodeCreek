@@ -67,7 +67,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wizard_module, container, false);
         ButterKnife.bind(this, view);
-        CommonUtils.displayProgressDialog(getContext(), "Loading modules");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Loading modules");
         setupViews();
         return view;
     }
@@ -120,7 +120,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             }
         }
         syntaxLearnViewPager.setCurrentItem(currentIndex);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
 
     }
 
@@ -231,7 +231,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                             updateCreekStats();
                             break;
                         case -1:
-                            CommonUtils.displaySnackBar(getActivity(), "Complete the test to proceed");
+                            CommonUtils.INSTANCE.displaySnackBar(getActivity(), "Complete the test to proceed");
                             break;
                     }
                 }

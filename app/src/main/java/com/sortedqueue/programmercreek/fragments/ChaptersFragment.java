@@ -697,7 +697,7 @@ public class ChaptersFragment extends Fragment {
         for( Chapter chapter1 : chapters ) {
             firebaseDatabaseHandler.writeChapter(chapter1);
         }*/
-        CommonUtils.displayProgressDialog(getContext(), "Loading chapters");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Loading chapters");
         new FirebaseDatabaseHandler(getContext()).getChaptersInBackground(new FirebaseDatabaseHandler.GetChapterListener() {
             @Override
             public void onSuccess(ArrayList<Chapter> chaptersList) {
@@ -706,8 +706,8 @@ public class ChaptersFragment extends Fragment {
 
             @Override
             public void onErrror(DatabaseError error) {
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
         });
 
@@ -735,11 +735,11 @@ public class ChaptersFragment extends Fragment {
             }
         });
         chaptersRecyclerView.setAdapter(chapterRecyclerAdapter);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToLeft(chaptersRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(chaptersRecyclerView);
             }
         }, 450);
     }

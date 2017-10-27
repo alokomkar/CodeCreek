@@ -24,7 +24,7 @@ class DragNDropAdapter : BaseAdapter, RemoveListenerInterface, DropListenerInter
     private var mInflater: LayoutInflater? = null
     private var mContent: ArrayList<String>? = null
 
-    internal var highlighter = PrettifyHighlighter.getInstance()
+    internal var highlighter = PrettifyHighlighter.instance
     //String highlighted = null;
 
 

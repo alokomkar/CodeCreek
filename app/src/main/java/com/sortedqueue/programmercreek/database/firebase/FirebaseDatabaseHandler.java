@@ -607,13 +607,13 @@ public class FirebaseDatabaseHandler {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
+                CommonUtils.INSTANCE.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
             }
 
             @Override
             protected void onPostExecute(String aVoid) {
                 super.onPostExecute(aVoid);
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
                 if( aVoid == null ) {
                     confirmUserProgram.onSuccess(programIndex, programTables);
                 }
@@ -748,13 +748,13 @@ public class FirebaseDatabaseHandler {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
+                CommonUtils.INSTANCE.displayProgressDialog(mContext, mContext.getString(R.string.loading_program));
             }
 
             @Override
             protected void onPostExecute(String aVoid) {
                 super.onPostExecute(aVoid);
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
                 if( aVoid == null ) {
                     confirmUserProgram.onSuccess(programIndex, programTables);
                 }
@@ -1000,13 +1000,13 @@ public class FirebaseDatabaseHandler {
                 else {
                     getAllAlgorithmsListener.onSuccess(algorithmsIndices);
                 }
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 getAllAlgorithmsListener.onError(databaseError);
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
         });
     }
@@ -1016,7 +1016,7 @@ public class FirebaseDatabaseHandler {
         void onError( DatabaseError databaseError );
     }
     public void getAlgorithmForIndex(int algorithmIndex, final GetAlgorithmListener getAlgorithmListener ) {
-        CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+        CommonUtils.INSTANCE.displayProgressDialog(mContext, mContext.getString(R.string.loading));
         mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM);
         mAlgorithmReference.child( ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1028,13 +1028,13 @@ public class FirebaseDatabaseHandler {
                 else {
                     getAlgorithmListener.onError(null);
                 }
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 getAlgorithmListener.onError(databaseError);
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
         });
     }
@@ -1264,7 +1264,7 @@ public class FirebaseDatabaseHandler {
 
     public void getIntroChapters(final GetIntroChaptersListener getIntroChaptersListener ) {
         getIntroDB();
-        CommonUtils.displayProgressDialog(mContext, "Fetching chapters");
+        CommonUtils.INSTANCE.displayProgressDialog(mContext, "Fetching chapters");
         if( !creekPreferences.getIntroChapters() ) {
             mIntroChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -1281,13 +1281,13 @@ public class FirebaseDatabaseHandler {
                         }
                     });
                     creekPreferences.setIntroChapters(true);
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     getIntroChaptersListener.onError(databaseError);
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                 }
             });
         }
@@ -1319,7 +1319,7 @@ public class FirebaseDatabaseHandler {
                 protected void onPostExecute(ArrayList<IntroChapter> introChapters) {
                     super.onPostExecute(introChapters);
                     getIntroChaptersListener.onSuccess(introChapters);
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                 }
             }.execute();
         }
@@ -2048,7 +2048,7 @@ public class FirebaseDatabaseHandler {
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
 
         if( !creekPreferences.checkProgramIndexUpdate() ) {
-            CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
+            CommonUtils.INSTANCE.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
                 AuxilaryUtils.INSTANCE.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Practice Code, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
@@ -2084,7 +2084,7 @@ public class FirebaseDatabaseHandler {
                             }
                             creekPreferences.setProgramIndex(program_indices.get(program_indices.size() - 1 ).getProgram_index());
                             Log.d(TAG, "Inserted program indexes : " + program_indices.size());
-                            CommonUtils.dismissProgressDialog();
+                            CommonUtils.INSTANCE.dismissProgressDialog();
                             programIndexInterface.getProgramIndexes(program_indices);
                         }
 
@@ -2093,12 +2093,12 @@ public class FirebaseDatabaseHandler {
                             Log.d(TAG, "initializeProgramIndexes : " + databaseError.toException().getMessage());
                             databaseError.toException().printStackTrace();
                             programIndexInterface.onError(databaseError);
-                            CommonUtils.dismissProgressDialog();
+                            CommonUtils.INSTANCE.dismissProgressDialog();
                         }
                     });
         }
         else {
-            CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
+            CommonUtils.INSTANCE.displayProgressDialog((Activity) mContext, "Loading program index");
             new AsyncTask<Void, Void, ArrayList<ProgramIndex>>() {
 
                 @Override
@@ -2110,7 +2110,7 @@ public class FirebaseDatabaseHandler {
                 @Override
                 protected void onPostExecute(ArrayList<ProgramIndex> programIndices) {
                     super.onPostExecute(programIndices);
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                     programIndexInterface.getProgramIndexes(programIndices);
                 }
             }.execute();

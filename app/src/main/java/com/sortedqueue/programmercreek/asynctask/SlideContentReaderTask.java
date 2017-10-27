@@ -56,13 +56,13 @@ public class SlideContentReaderTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        CommonUtils.displayProgressDialog(context, "Loading questions");
+        CommonUtils.INSTANCE.displayProgressDialog(context, "Loading questions");
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
         if( onDataReadListener != null ) {
             onDataReadListener.onDataReadComplete(contentArrayList);
         }

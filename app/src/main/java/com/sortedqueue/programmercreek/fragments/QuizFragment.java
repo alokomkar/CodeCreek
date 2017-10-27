@@ -142,7 +142,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
                             }
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                             }
                         });
             }
@@ -175,7 +175,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
     private void initUI(ArrayList<ProgramTable> program_TableList) {
         if(  program_index != null ) {
             try {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(program_index)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(program_index)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -222,7 +222,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             //Get Options List
             optionList = getOptionsList(questionIndex, programSize);
             //Shuffle Options
-            mShuffleProgramList = ShuffleList.shuffleList(optionList);
+            mShuffleProgramList = ShuffleList.INSTANCE.shuffleList(optionList);
             quizModel.setOptionsList(mShuffleProgramList);
             quizModels.add(quizModel);
         }

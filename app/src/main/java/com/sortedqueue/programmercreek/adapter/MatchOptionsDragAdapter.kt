@@ -30,7 +30,7 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
     private val mPrettifyHighlighter: PrettifyHighlighter
 
     init {
-        mPrettifyHighlighter = PrettifyHighlighter.getInstance()
+        mPrettifyHighlighter = PrettifyHighlighter.instance
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -50,13 +50,13 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
 
     constructor(mProgramList: ArrayList<ProgramTable>) {
         this.programList = mProgramList
-        prettifyHighlighter = PrettifyHighlighter.getInstance()
+        prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     constructor(mProgramQuestionList: ArrayList<ProgramTable>, isFillBlanks: Boolean) {
         this.isFillBlanks = true
         this.programList = mProgramQuestionList
-        prettifyHighlighter = PrettifyHighlighter.getInstance()
+        prettifyHighlighter = PrettifyHighlighter.instance
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

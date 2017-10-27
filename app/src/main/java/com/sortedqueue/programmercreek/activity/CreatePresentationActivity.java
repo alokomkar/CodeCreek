@@ -128,10 +128,10 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                     if( isFabOpen ) {
                         optionsFAB.callOnClick();
                     }
-                    com.sortedqueue.programmercreek.util.AnimationUtils.exitRevealGone(optionsFAB);
+                    com.sortedqueue.programmercreek.util.AnimationUtils.INSTANCE.exitRevealGone(optionsFAB);
                 }
                 else {
-                    com.sortedqueue.programmercreek.util.AnimationUtils.enterReveal(optionsFAB);
+                    com.sortedqueue.programmercreek.util.AnimationUtils.INSTANCE.enterReveal(optionsFAB);
                 }
             }
 
@@ -169,7 +169,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
                     mPagerAdapter.notifyDataSetChanged();
                     pager.setOffscreenPageLimit(mPagerAdapter.getCount());
                 } else {
-                    CommonUtils.displaySnackBar(CreatePresentationActivity.this, R.string.presentation_needs_one_slide);
+                    CommonUtils.INSTANCE.displaySnackBar(CreatePresentationActivity.this, R.string.presentation_needs_one_slide);
                 }
                 break;
             case R.id.addCodeFAB:

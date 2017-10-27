@@ -276,7 +276,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(final View v) {
         if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
-            CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
+            CommonUtils.INSTANCE.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
                     onClick(v);
@@ -285,7 +285,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             return;
         }
         if (creekPreferences.getProgramLanguage().equals("")) {
-            CommonUtils.displaySnackBar(getActivity(), R.string.choose_language);
+            CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.choose_language);
             if (dashboardNavigationListener != null) {
                 dashboardNavigationListener.navigateToLanguage();
             }
@@ -295,40 +295,40 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         Intent intent;
         switch (v.getId()) {
             case R.id.wikiLayout:
-                CreekAnalytics.logEvent(TAG, "Wiki");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Wiki");
                 intent = new Intent(getContext(), NewProgramWikiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.quickReferenceLayout:
                 /*intent = new Intent(getContext(), WebViewActivity.class);
                 startActivity(intent);*/
-                CreekAnalytics.logEvent(TAG, "Quick Reference");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Quick Reference");
                 dashboardNavigationListener.showQuickReferenceFragment();
                 break;
             case R.id.interviewLayout:
-                CreekAnalytics.logEvent(TAG, "Interview");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Interview");
                 intent = new Intent(getContext(), InterviewActivity.class);
                 startActivity(intent);
                 break;
             case R.id.syntaxLayout:
-                CreekAnalytics.logEvent(TAG, "Syntax");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Syntax");
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);
                 syntaxIntent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, creekPreferences.getProgramWiki());
                 startActivity(syntaxIntent);
                 break;
             case R.id.indexLayout:
-                CreekAnalytics.logEvent(TAG, "Wizard - Program Index");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Wizard - Program Index");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
                 break;
 
             case R.id.introLayout:
                 if( creekPreferences.getProgramLanguage().equalsIgnoreCase("java") ) {
-                    CreekAnalytics.logEvent(TAG, "Intro");
+                    CreekAnalytics.INSTANCE.logEvent(TAG, "Intro");
                     Intent introIntent = new Intent(getContext(), NewIntroActivity.class);
                     startActivity(introIntent);
                 }
                 else {
-                    CreekAnalytics.logEvent(TAG, "Intro");
+                    CreekAnalytics.INSTANCE.logEvent(TAG, "Intro");
                     Intent introIntent = new Intent(getContext(), IntroActivity.class);
                     startActivity(introIntent);
                 }
@@ -343,39 +343,39 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 break;
 
             case R.id.wizardLayout:
-                CreekAnalytics.logEvent(TAG, "Chapters");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Chapters");
                 Intent textModeIntent = new Intent(getContext(), ChaptersActivity.class);
                 startActivity(textModeIntent);
                 break;
 
             case R.id.lessonsLayout:
-                CreekAnalytics.logEvent(TAG, "Bits and Bytes");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Bits and Bytes");
                 Intent lessonIntent = new Intent(getContext(), LessonActivity.class);
                 startActivity(lessonIntent);
                 break;
 
             case R.id.testLayout:
-                CreekAnalytics.logEvent(TAG, "Test");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Test");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST);
                 break;
 
             case R.id.matchLayout:
-                CreekAnalytics.logEvent(TAG, "Match");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Match");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
                 break;
 
             case R.id.fillLayout:
-                CreekAnalytics.logEvent(TAG, "Fill Code");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Fill Code");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
                 break;
 
             case R.id.quizLayout:
-                CreekAnalytics.logEvent(TAG, "Quiz");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Quiz");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
                 break;
 
             case R.id.codeLabLayout:
-                CreekAnalytics.logEvent(TAG, "Code Lab");
+                CreekAnalytics.INSTANCE.logEvent(TAG, "Code Lab");
                 LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
                 break;
 
@@ -393,18 +393,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     private void LaunchProgramListActivity(final int invokeMode) {
         if (creekPreferences.getProgramTables() == -1) {
-            CommonUtils.displayProgressDialog(getActivity(), "Initializing data for the first time : " + creekPreferences.getProgramLanguage().toUpperCase());
+            CommonUtils.INSTANCE.displayProgressDialog(getActivity(), "Initializing data for the first time : " + creekPreferences.getProgramLanguage().toUpperCase());
             firebaseDatabaseHandler = new FirebaseDatabaseHandler(getContext());
             firebaseDatabaseHandler.initializeProgramTables(new FirebaseDatabaseHandler.ProgramTableInterface() {
                 @Override
                 public void getProgramTables(ArrayList<ProgramTable> program_tables) {
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                     LaunchProgramListActivity(invokeMode);
                 }
 
                 @Override
                 public void onError(DatabaseError error) {
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                 }
             });
         } else {
@@ -440,12 +440,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         adaRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         algorithmsRecyclerAdapter = new AlgorithmsRecyclerAdapter(getContext(), this, algorithmsIndexArrayList);
         adaRecyclerView.setAdapter(algorithmsRecyclerAdapter);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     @Override
     public void onError(DatabaseError databaseError) {
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
     }
 
     @Override

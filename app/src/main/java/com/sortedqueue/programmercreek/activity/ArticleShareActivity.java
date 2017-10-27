@@ -86,7 +86,7 @@ public class ArticleShareActivity extends AppCompatActivity implements View.OnCl
         new FirebaseDatabaseHandler(ArticleShareActivity.this).getAllTags(new FirebaseDatabaseHandler.GetAllTagsListener() {
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
 
             @Override
@@ -110,19 +110,19 @@ public class ArticleShareActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    CommonUtils.displayProgressDialog(ArticleShareActivity.this, "Loading");
+                    CommonUtils.INSTANCE.displayProgressDialog(ArticleShareActivity.this, "Loading");
                 }
 
                 @Override
                 protected void onPostExecute(ArrayList<NotesModel> notesModelArrayList) {
                     super.onPostExecute(notesModelArrayList);
-                    CommonUtils.dismissProgressDialog();
+                    CommonUtils.INSTANCE.dismissProgressDialog();
                     setupRecyclerView(notesModelArrayList);
                 }
 
                 @Override
                 protected ArrayList<NotesModel> doInBackground(Void... voids) {
-                    return NotesUtils.splitParaIntoNotes(sharedText);
+                    return NotesUtils.INSTANCE.splitParaIntoNotes(sharedText);
                 }
 
             }.execute();
@@ -140,13 +140,13 @@ public class ArticleShareActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.saveButton:
                 if( tagsRecyclerAdapter.getSelectedTag().equals("") ) {
-                    CommonUtils.displayToast(ArticleShareActivity.this, "Select language");
+                    CommonUtils.INSTANCE.displayToast(ArticleShareActivity.this, "Select language");
                     return;
                 }
                 break;
             case R.id.previewButton:
                 if( tagsRecyclerAdapter.getSelectedTag().equals("") ) {
-                    CommonUtils.displayToast(ArticleShareActivity.this, "Select language");
+                    CommonUtils.INSTANCE.displayToast(ArticleShareActivity.this, "Select language");
                     return;
                 }
                 container.setVisibility(View.VISIBLE);

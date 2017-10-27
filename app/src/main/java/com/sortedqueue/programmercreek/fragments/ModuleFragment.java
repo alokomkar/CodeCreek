@@ -97,7 +97,7 @@ public class ModuleFragment extends Fragment {
 
     private void getModules() {
         modulesRecyclerView.setVisibility(View.INVISIBLE);
-        CommonUtils.displayProgressDialog(getContext(), "Loading modules");
+        CommonUtils.INSTANCE.displayProgressDialog(getContext(), "Loading modules");
         new FirebaseDatabaseHandler(getContext()).initializeModules(new FirebaseDatabaseHandler.ModuleInterface() {
             @Override
             public void getModules(ArrayList<LanguageModule> languageModules) {
@@ -107,7 +107,7 @@ public class ModuleFragment extends Fragment {
             @Override
             public void onError(DatabaseError error) {
                 Log.e(TAG, "Error : " + error.getMessage() + " : Details : " + error.getDetails());
-                CommonUtils.dismissProgressDialog();
+                CommonUtils.INSTANCE.dismissProgressDialog();
             }
         });
     }
@@ -127,11 +127,11 @@ public class ModuleFragment extends Fragment {
             }
         });
         modulesRecyclerView.setAdapter(moduleRecyclerAdapter);
-        CommonUtils.dismissProgressDialog();
+        CommonUtils.INSTANCE.dismissProgressDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToLeft(modulesRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(modulesRecyclerView);
             }
         }, 450);
     }

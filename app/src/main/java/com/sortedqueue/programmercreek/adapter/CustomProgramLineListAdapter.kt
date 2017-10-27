@@ -18,7 +18,7 @@ import java.util.ArrayList
 
 class CustomProgramLineListAdapter(private val mContext: Context, resource: Int, textViewResourceId: Int,
                                    private val mProgramLineList: ArrayList<String>, private val isExplanation: Boolean) : ArrayAdapter<String>(mContext, resource, textViewResourceId, mProgramLineList) {
-    internal var highlighter = PrettifyHighlighter.getInstance()
+    internal var highlighter = PrettifyHighlighter.instance
     internal var highlighted: String? = null
 
     init {

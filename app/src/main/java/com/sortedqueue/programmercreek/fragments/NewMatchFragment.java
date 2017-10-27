@@ -111,7 +111,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                CommonUtils.displayToast(getContext(), R.string.unable_to_fetch_data);
+                                CommonUtils.INSTANCE.displayToast(getContext(), R.string.unable_to_fetch_data);
                             }
                         });
             } else {
@@ -145,7 +145,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
 
             @Override
             public void onError(DatabaseError databaseError) {
-                CommonUtils.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
+                CommonUtils.INSTANCE.displaySnackBar(getActivity(), R.string.unable_to_fetch_data);
 
             }
         });
@@ -154,7 +154,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
     private void initUI(ArrayList<ProgramTable> program_TableList) {
         if( mProgramIndex != null ) {
             try {
-                CreekAnalytics.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
+                CreekAnalytics.INSTANCE.logEvent(TAG, new JSONObject(new Gson().toJson(mProgramIndex)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -205,9 +205,9 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimationUtils.slideInToRight(questionRecyclerView);
-                AnimationUtils.slideInToLeft(optionRecyclerView);
-                AnimationUtils.slideInToLeft(optionsTextView);
+                AnimationUtils.INSTANCE.slideInToRight(questionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionRecyclerView);
+                AnimationUtils.INSTANCE.slideInToLeft(optionsTextView);
             }
         }, 400);
 
