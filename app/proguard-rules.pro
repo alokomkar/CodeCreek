@@ -114,3 +114,6 @@
 -dontwarn android.webkit.JavascriptInterface
 -dontwarn com.startapp.**
 -keep class com.android.vending.billing.**
+
+-keep class com.appnext.** { *; }
+-dontwarn com.appnext.**
