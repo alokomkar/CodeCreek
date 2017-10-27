@@ -620,8 +620,7 @@ object AuxilaryUtils {
             var explanation = programLine
             for (key in commandExplanationMap.keys) {
                 if (explanation.contains(key)) {
-                    explanation = explanation.replace(key.toRegex(), commandExplanationMap[key])
-                   // explanation = explanation.replace(key.toRegex(), commandExplanationMap[key])
+                    explanation = explanation.replace( key.toRegex(), commandExplanationMap[key] as String )
                 }
 
             }
