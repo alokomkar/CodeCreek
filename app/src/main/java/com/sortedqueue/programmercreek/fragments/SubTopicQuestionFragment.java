@@ -96,7 +96,7 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
         subTopicsQuestionAdapter.setCorrectAnswers(subTopic.getAnswer());
         optionsRecyclerView.setAdapter( subTopicsQuestionAdapter );
 
-        if (subTopic.getTestMode().equals(REARRANGE)) {
+        if (subTopic.getTestMode().equals(INSTANCE.getREARRANGE())) {
             ItemTouchHelper.Callback callback =
                     new SimpleItemTouchHelperCallback(subTopicsQuestionAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

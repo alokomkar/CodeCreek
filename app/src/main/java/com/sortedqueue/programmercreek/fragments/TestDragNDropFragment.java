@@ -135,17 +135,17 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     }
 
     private void handleBundle() {
-        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM());
 
         if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
-            mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
             mWizard = bundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(mProgramTableList);
         }
         else {
-            if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
+            if (bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1) == ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
                 mWizard = false;
-                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID()),
                         new FirebaseDatabaseHandler.GetProgramIndexListener() {
                             @Override
                             public void onSuccess(ProgramIndex programIndex) {
@@ -159,7 +159,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                             }
                         });
             } else {
-                mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mProgramIndex = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
                 mWizard = bundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD());
                 getProgramTables();
             }
@@ -283,7 +283,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
     private void enableTimer() {
         timerButton.setEnabled(false);
         progressLayout.setVisibility(View.GONE);
-        if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) != ProgrammingBuddyConstants.KEY_LESSON) {
+        if (bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1) != ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
             progressLayout.setVisibility(View.VISIBLE);
             time = (programSize / 2) * 60 * 1000;
             interval = 1000;
@@ -431,7 +431,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Keep Working..";
             }
-            if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
+            if (bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1) == ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
                 resultAlert = "You have scored " + score;
             }
             AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float) (maxScore - mProgramHint) / maxScore * 100), 100);
@@ -642,7 +642,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     @Override
     public int isTestComplete() {
-        return mQuizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
+        return mQuizComplete ? ProgrammingBuddyConstants.INSTANCE.getKEY_MATCH() : -1;
     }
 
     @Override

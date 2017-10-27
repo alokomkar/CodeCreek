@@ -52,10 +52,10 @@ public class AlgorithmContent extends RushObject implements Parcelable {
     public AlgorithmContent(int contentType, String tabTitle, String algorithmPseudoCode) {
         this.contentType = contentType;
         this.tabTitle = tabTitle;
-        if( contentType == AlgorithmConstants.CONTENT_ALGORITHM ) {
+        if( contentType == AlgorithmConstants.Companion.getCONTENT_ALGORITHM()) {
             this.algorithmPseudoCode = algorithmPseudoCode;
         }
-        else if( contentType == AlgorithmConstants.CONTENT_OUTPUT ) {
+        else if( contentType == AlgorithmConstants.Companion.getCONTENT_OUTPUT()) {
             this.output = algorithmPseudoCode;
         }
         else {

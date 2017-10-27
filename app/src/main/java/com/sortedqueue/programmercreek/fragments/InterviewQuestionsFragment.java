@@ -145,7 +145,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupMultiRightModel() {
         interviewQuestionModel = new InterviewQuestionModel();
-        interviewQuestionModel.setTypeOfQuestion(TYPE_MULTIPLE_RIGHT);
+        interviewQuestionModel.setTypeOfQuestion(Companion.getTYPE_MULTIPLE_RIGHT());
         ArrayList<OptionModel> optionModels = new ArrayList<>();
         int index = 1;
         optionModels.add(new OptionModel(index++, "int a = 1;"));
@@ -164,7 +164,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupRearrangeModel() {
         interviewQuestionModel = new InterviewQuestionModel();
-        interviewQuestionModel.setTypeOfQuestion(TYPE_REARRANGE);
+        interviewQuestionModel.setTypeOfQuestion(Companion.getTYPE_REARRANGE());
         ArrayList<OptionModel> optionModels = new ArrayList<>();
         int index = 1;
         optionModels.add(new OptionModel(index++, "void main() {"));
@@ -187,7 +187,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupSingleRightModel() {
         interviewQuestionModel = new InterviewQuestionModel();
-        interviewQuestionModel.setTypeOfQuestion(TYPE_SINGLE_RIGHT);
+        interviewQuestionModel.setTypeOfQuestion(Companion.getTYPE_SINGLE_RIGHT());
         ArrayList<OptionModel> optionModels = new ArrayList<>();
         int index = 1;
         optionModels.add(new OptionModel(index++, "True"));
@@ -203,7 +203,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     private void setupTrueFalseModel() {
         interviewQuestionModel = new InterviewQuestionModel();
-        interviewQuestionModel.setTypeOfQuestion(TYPE_TRUE_FALSE);
+        interviewQuestionModel.setTypeOfQuestion(Companion.getTYPE_TRUE_FALSE());
         ArrayList<OptionModel> optionModels = new ArrayList<>();
         int index = 1;
         optionModels.add(new OptionModel(index++, "True"));
@@ -239,7 +239,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         optionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         interviewQuestionsAdapter = new InterviewQuestionsAdapter(interviewQuestionModel, this);
         optionsRecyclerView.setAdapter(interviewQuestionsAdapter);
-        if (interviewQuestionModel.getTypeOfQuestion() == TYPE_REARRANGE) {
+        if (interviewQuestionModel.getTypeOfQuestion() == Companion.getTYPE_REARRANGE()) {
             ItemTouchHelper.Callback callback =
                     new SimpleItemTouchHelperCallback(interviewQuestionsAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -261,7 +261,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
            // mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
             navigateToNext();
         } else {
-            if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
+            if (interviewQuestionModel.getTypeOfQuestion() != Companion.getTYPE_MULTIPLE_RIGHT() && interviewQuestionModel.getTypeOfQuestion() != Companion.getTYPE_REARRANGE()) {
                 navigateToNext();
             } else {
                 new Handler().postDelayed(new Runnable() {
@@ -333,7 +333,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
 
     @Override
     public void onItemClick(int position) {
-        if (interviewQuestionModel.getTypeOfQuestion() != TYPE_MULTIPLE_RIGHT && interviewQuestionModel.getTypeOfQuestion() != TYPE_REARRANGE) {
+        if (interviewQuestionModel.getTypeOfQuestion() != Companion.getTYPE_MULTIPLE_RIGHT() && interviewQuestionModel.getTypeOfQuestion() != Companion.getTYPE_REARRANGE()) {
             cancelTimer();
             /*if (null != interviewQuestionModel.getExplanation()) {
                 mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());

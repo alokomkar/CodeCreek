@@ -26,8 +26,8 @@ public class CreekMessagingService extends FirebaseMessagingService {
 
 
         Intent intent = new Intent();
-        intent.setAction(ProgrammingBuddyConstants.CUSTOM_ACTION_NOTIFICATION);
-        intent.putExtra(ProgrammingBuddyConstants.INTENT_EXTRA_NOTIFICATION_MESSAGE, remoteMessage);
+        intent.setAction(ProgrammingBuddyConstants.INSTANCE.getCUSTOM_ACTION_NOTIFICATION());
+        intent.putExtra(ProgrammingBuddyConstants.INSTANCE.getINTENT_EXTRA_NOTIFICATION_MESSAGE(), remoteMessage);
         this.sendBroadcast(intent);
 
 

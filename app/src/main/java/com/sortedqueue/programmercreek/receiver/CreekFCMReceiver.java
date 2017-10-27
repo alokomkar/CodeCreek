@@ -21,7 +21,7 @@ public class CreekFCMReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        RemoteMessage remoteMessage = intent.getParcelableExtra(ProgrammingBuddyConstants.INTENT_EXTRA_NOTIFICATION_MESSAGE);
+        RemoteMessage remoteMessage = intent.getParcelableExtra(ProgrammingBuddyConstants.INSTANCE.getINTENT_EXTRA_NOTIFICATION_MESSAGE());
         String imageUrl = "";
         String messageBody = "";
         if ( remoteMessage.getData() != null && remoteMessage.getData().size() > 0) {

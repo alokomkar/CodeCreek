@@ -222,10 +222,10 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
                 if (fragment instanceof TestCompletionListener) {
                     TestCompletionListener testCompletionListener = (TestCompletionListener) fragment;
                     switch (testCompletionListener.isTestComplete()) {
-                        case ProgrammingBuddyConstants.KEY_MATCH:
-                        case ProgrammingBuddyConstants.KEY_TEST: //Has same index as wiki - no changes for wiki
-                        case ProgrammingBuddyConstants.KEY_QUIZ:
-                        case ProgrammingBuddyConstants.KEY_FILL_BLANKS:
+                        case ProgrammingBuddyConstants.INSTANCE.getKEY_MATCH():
+                        case ProgrammingBuddyConstants.INSTANCE.getKEY_TEST(): //Has same index as wiki - no changes for wiki
+                        case ProgrammingBuddyConstants.INSTANCE.getKEY_QUIZ():
+                        case ProgrammingBuddyConstants.INSTANCE.getKEY_FILL_BLANKS():
                         case ChapterDetails.TYPE_SYNTAX_MODULE:
                             fabAction();
                             updateCreekStats();

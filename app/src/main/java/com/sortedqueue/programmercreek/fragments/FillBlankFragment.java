@@ -173,9 +173,9 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
             answerLayout4.setAlpha(0.0f);
         }
         if( bundle != null ) {
-            mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgramIndex = bundle.getParcelable(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
             mProgram_Index = mProgramIndex.getProgram_index();
-            ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+            ArrayList<ProgramTable> programTables = bundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM());
             if( programTables != null && programTables.size() > 0 ) {
                 updateUI(programTables);
             }
@@ -879,7 +879,7 @@ public class FillBlankFragment extends Fragment implements UIProgramFetcherListe
 
     @Override
     public int isTestComplete() {
-        return isAnswered ? ProgrammingBuddyConstants.KEY_FILL_BLANKS : -1;
+        return isAnswered ? ProgrammingBuddyConstants.INSTANCE.getKEY_FILL_BLANKS() : -1;
     }
 
     public void setWizardMode(boolean wizardMode) {

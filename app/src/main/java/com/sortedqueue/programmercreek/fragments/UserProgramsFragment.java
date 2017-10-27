@@ -207,10 +207,10 @@ public class UserProgramsFragment extends Fragment implements UserProgramRecycle
         Bundle newIntentBundle = new Bundle();
         Intent newIntent = null;
         newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
-        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, userProgramDetails.getProgramIndex());
-        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
-        newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, userProgramDetails.getProgramIndex().getProgram_Description());
-        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, userProgramDetails.getProgramTables());
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), userProgramDetails.getProgramIndex());
+        newIntentBundle.putInt(ProgrammingBuddyConstants.INSTANCE.getKEY_TOTAL_PROGRAMS(), 1);
+        newIntentBundle.putString(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_TITLE(), userProgramDetails.getProgramIndex().getProgram_Description());
+        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM(), userProgramDetails.getProgramTables());
         newIntent = new Intent(getContext(), ProgramActivity.class);
         newIntent.putExtras(newIntentBundle);
         startActivity(newIntent);

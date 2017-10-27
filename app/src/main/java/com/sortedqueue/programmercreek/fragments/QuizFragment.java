@@ -121,18 +121,18 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     @SuppressLint("SimpleDateFormat")
     private void initQuiz(int quizMode) {
-        mInvokeMode = bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
+        mInvokeMode = bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1);
         progressLayout.setVisibility(View.GONE);
-        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        mProgramTableList = bundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM());
         if( mProgramTableList != null && mProgramTableList.size() > 0 ) {
-            program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
             mProgramIndex = program_index.getProgram_index();
             initUI(mProgramTableList);
         }
         else {
-            if( mInvokeMode  == ProgrammingBuddyConstants.KEY_LESSON ) {
+            if( mInvokeMode  == ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
                 mWizard = false;
-                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(bundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID()),
                         new FirebaseDatabaseHandler.GetProgramIndexListener() {
                             @Override
                             public void onSuccess(ProgramIndex programIndex) {
@@ -147,7 +147,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
                         });
             }
             else {
-                program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                program_index = (ProgramIndex) bundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
                 mProgramIndex = program_index.getProgram_index();
                 getProgramTables();
             }
@@ -276,7 +276,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
             }
         });
 
-        if( mInvokeMode != ProgrammingBuddyConstants.KEY_LESSON ) {
+        if( mInvokeMode != ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
             progressLayout.setVisibility(View.VISIBLE);
             mCountDownTimer.start();
         }
@@ -354,9 +354,9 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     protected void navigateToMatchMaker() {
         Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, program_index);
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), program_index);
         newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
-        newIntentBundle.putParcelableArrayList( ProgrammingBuddyConstants.KEY_USER_PROGRAM, bundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM) );
+        newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM(), bundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM()) );
         wizardNavigationListener.loadMatchMakerFragment(bundle);
     }
 
@@ -445,7 +445,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     @Override
     public int isTestComplete() {
-        return quizComplete ? ProgrammingBuddyConstants.KEY_QUIZ : -1;
+        return quizComplete ? ProgrammingBuddyConstants.INSTANCE.getKEY_QUIZ() : -1;
     }
 
     public void setModuleDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {

@@ -117,9 +117,9 @@ public class SearchFragment extends Fragment implements TextWatcher, FirebaseDat
         Bundle newIntentBundle = new Bundle();
         Intent newIntent = null;
         newIntentBundle.putBoolean(Companion.getKEY_WIZARD(), true);
-        newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, customProgramRecyclerViewAdapter.getItemAtPosition(position));
-        newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1);
-        newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, customProgramRecyclerViewAdapter.getItemAtPosition(position).getProgram_Description());
+        newIntentBundle.putParcelable(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), customProgramRecyclerViewAdapter.getItemAtPosition(position));
+        newIntentBundle.putInt(ProgrammingBuddyConstants.INSTANCE.getKEY_TOTAL_PROGRAMS(), 1);
+        newIntentBundle.putString(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_TITLE(), customProgramRecyclerViewAdapter.getItemAtPosition(position).getProgram_Description());
         newIntent = new Intent(getContext(), ProgramActivity.class);
         newIntent.putExtras(newIntentBundle);
         startActivity(newIntent);

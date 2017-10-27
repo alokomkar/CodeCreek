@@ -350,18 +350,18 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
         this.selectedLanguage = selectedLanguage;
         switch (selectedLanguage) {
             case "C":
-                selectedLanguageIndex = LanguageConstants.C_INDEX;
-                codeTemplate = LanguageConstants.C_TEMPLATE;
+                selectedLanguageIndex = LanguageConstants.Companion.getC_INDEX();
+                codeTemplate = LanguageConstants.Companion.getC_TEMPLATE();
                 inputList.clear();
                 break;
             case "C++":
-                selectedLanguageIndex = LanguageConstants.CPP_INDEX;
-                codeTemplate = LanguageConstants.CPP_TEMPLATE;
+                selectedLanguageIndex = LanguageConstants.Companion.getCPP_INDEX();
+                codeTemplate = LanguageConstants.Companion.getCPP_TEMPLATE();
                 inputList.clear();
                 break;
             case "Java":
-                selectedLanguageIndex = LanguageConstants.JAVA_INDEX;
-                codeTemplate = LanguageConstants.JAVA_TEMPLATE;
+                selectedLanguageIndex = LanguageConstants.Companion.getJAVA_INDEX();
+                codeTemplate = LanguageConstants.Companion.getJAVA_TEMPLATE();
                 inputList.clear();
                 break;
         }

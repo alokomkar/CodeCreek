@@ -721,9 +721,9 @@ public class ChaptersFragment extends Fragment {
             public void onItemClick(int position) {
                 if (position + 1 > ChaptersFragment.this.chapters.size()) {
                     Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
-                    programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_WIZARD);
+                    programListIntent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), ProgrammingBuddyConstants.INSTANCE.getKEY_WIZARD());
                     programListIntent.putExtra(ProgramListActivity.Companion.getKEY_WIZARD(), true);
-                    programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
+                    programListIntent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), ProgrammingBuddyConstants.INSTANCE.getKEY_REVISE());
                     startActivity(programListIntent);
                     return;
                 }

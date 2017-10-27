@@ -313,12 +313,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             case R.id.syntaxLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Syntax");
                 Intent syntaxIntent = new Intent(getContext(), SyntaxLearnActivity.class);
-                syntaxIntent.putExtra(ProgrammingBuddyConstants.KEY_WIKI, creekPreferences.getProgramWiki());
+                syntaxIntent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_WIKI(), creekPreferences.getProgramWiki());
                 startActivity(syntaxIntent);
                 break;
             case R.id.indexLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Wizard - Program Index");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_WIZARD());
                 break;
 
             case R.id.introLayout:
@@ -356,27 +356,27 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
             case R.id.testLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Test");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_TEST());
                 break;
 
             case R.id.matchLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Match");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_MATCH());
                 break;
 
             case R.id.fillLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Fill Code");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_FILL_BLANKS());
                 break;
 
             case R.id.quizLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Quiz");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_QUIZ());
                 break;
 
             case R.id.codeLabLayout:
                 CreekAnalytics.INSTANCE.logEvent(TAG, "Code Lab");
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB);
+                LaunchProgramListActivity(ProgrammingBuddyConstants.INSTANCE.getKEY_CODE_LAB());
                 break;
 
             case R.id.downloadFileTextView:
@@ -408,17 +408,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 }
             });
         } else {
-            if (invokeMode == ProgrammingBuddyConstants.KEY_CODE_LAB) {
+            if (invokeMode == ProgrammingBuddyConstants.INSTANCE.getKEY_CODE_LAB()) {
                 Intent intent = new Intent(getContext(), CodeLabActivity.class);
                 startActivity(intent);
                 return;
             }
             Intent programListIntent = new Intent(getContext(), ProgramListActivity.class);
-            programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, invokeMode);
-            boolean isWizard = invokeMode == ProgrammingBuddyConstants.KEY_WIZARD;
+            programListIntent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), invokeMode);
+            boolean isWizard = invokeMode == ProgrammingBuddyConstants.INSTANCE.getKEY_WIZARD();
             programListIntent.putExtra(ProgramListActivity.Companion.getKEY_WIZARD(), isWizard);
             if (isWizard) {
-                programListIntent.putExtra(ProgrammingBuddyConstants.KEY_INVOKE_TEST, ProgrammingBuddyConstants.KEY_REVISE);
+                programListIntent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), ProgrammingBuddyConstants.INSTANCE.getKEY_REVISE());
             }
             startActivity(programListIntent);
             /*AuxilaryUtils.displayInformation(getContext(), R.string.unlock_programs, R.string.unlock_programs_description, new DialogInterface.OnDismissListener() {
@@ -451,7 +451,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), AlgorithmListActivity.class);
-        intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, algorithmsRecyclerAdapter.getItemAtPosition(position));
+        intent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), algorithmsRecyclerAdapter.getItemAtPosition(position));
         startActivity(intent);
     }
 }

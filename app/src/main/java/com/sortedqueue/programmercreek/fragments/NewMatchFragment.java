@@ -91,17 +91,17 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkButton.setOnClickListener(this);
-        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
-        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1);
+        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM());
         showHelperDialog();
         if (program_TableList != null && program_TableList.size() > 0) {
-            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
             mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(program_TableList);
         } else {
-            if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
+            if (mInvokeMode == ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
                 mWizard = false;
-                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID()),
                         new FirebaseDatabaseHandler.GetProgramIndexListener() {
                             @Override
                             public void onSuccess(ProgramIndex programIndex) {
@@ -115,7 +115,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
                             }
                         });
             } else {
-                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
                 mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
 
                 getProgramTables();
@@ -245,9 +245,9 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
                 getActivity().finish();
             } else {
                 Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex);
+                newIntentBundle.putParcelable(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), mProgramIndex);
                 newIntentBundle.putBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), true);
-                newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM));
+                newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM(), newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM()));
                 Log.d("MatchFragment", "Preference Language : " + CreekApplication.Companion.getCreekPreferences().getProgramLanguage());
                 if (program_TableList.size() <= 15) {
                     wizardNavigationListener.loadTestFragment(newIntentBundle);
@@ -280,7 +280,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public int isTestComplete() {
-        return quizComplete ? ProgrammingBuddyConstants.KEY_MATCH : -1;
+        return quizComplete ? ProgrammingBuddyConstants.INSTANCE.getKEY_MATCH() : -1;
     }
 
     public void setModuleDetailsScrollPageListener(ModuleDetailsScrollPageListener moduleDetailsScrollPageListener) {

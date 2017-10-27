@@ -1,43 +1,45 @@
-package com.sortedqueue.programmercreek.constants;
+package com.sortedqueue.programmercreek.constants
 
 /**
  * Created by Alok Omkar on 2017-03-13.
  */
 
-public interface LanguageConstants {
+interface LanguageConstants {
+    companion object {
 
-    String C_INDEX = "11";
-    String CPP_INDEX = "1";
-    String JAVA_INDEX = "10";
-    String SQL_INDEX = "40";
+        val C_INDEX = "11"
+        val CPP_INDEX = "1"
+        val JAVA_INDEX = "10"
+        val SQL_INDEX = "40"
 
-    String C_TEMPLATE =
-            "#include <stdio.h>\n" +
-                    "int main( ) {\n" +
-                    "\n" +
-                    "   char str[100];\n" +
-                    "\n" +
-                    "   printf( \"Enter a value :\");\n" +
-                    "   gets( str );\n" +
-                    "\n" +
-                    "   printf( \"\\nYou entered: \");\n" +
-                    "   puts( str );\n" +
-                    "\n" +
-                    "   return 0;\n" +
-                    "}";
-    String CPP_TEMPLATE =
-            "#include\"iostream\"\n" +
-                    "using namespace std;\n" +
-                    "int main() {\n\n\n" +
-                    "return 0;\n" +
-                    "}";
+        val C_TEMPLATE =
+                "#include <stdio.h>\n" +
+                        "int main( ) {\n" +
+                        "\n" +
+                        "   char str[100];\n" +
+                        "\n" +
+                        "   printf( \"Enter a value :\");\n" +
+                        "   gets( str );\n" +
+                        "\n" +
+                        "   printf( \"\\nYou entered: \");\n" +
+                        "   puts( str );\n" +
+                        "\n" +
+                        "   return 0;\n" +
+                        "}"
+        val CPP_TEMPLATE =
+                "#include\"iostream\"\n" +
+                        "using namespace std;\n" +
+                        "int main() {\n\n\n" +
+                        "return 0;\n" +
+                        "}"
 
-    String JAVA_TEMPLATE =
-            "public class Main {\n" +
-                    "    public static void main(String[] args) {\n" +
-                    "        System.out.println(\"Hello, World!\");\n" +
-                    "    }\n" +
-                    "}\n";
+        val JAVA_TEMPLATE =
+                "public class Main {\n" +
+                        "    public static void main(String[] args) {\n" +
+                        "        System.out.println(\"Hello, World!\");\n" +
+                        "    }\n" +
+                        "}\n"
+    }
     //{"7":"Ada (gnat 5.1.1)",
     // "13":"Assembler (NASM 2.11.05)",
     // "45":"Assembler (gcc 4.9.3)",

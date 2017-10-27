@@ -105,7 +105,7 @@ public class Algorithm extends RushObject implements Parcelable {
     public String toAlgorithmString() {
         String algorithmString = "/**** Title : " + getAlgorithmsIndex().getProgramTitle() + "****/\n\n";
         for( AlgorithmContent algorithmContent : algorithmContentArrayList ) {
-            if( algorithmContent.getContentType() == CONTENT_CODE ) {
+            if( algorithmContent.getContentType() == Companion.getCONTENT_CODE()) {
                 algorithmString += algorithmContent.getProgramCode() + "\n\n";
             }
         }

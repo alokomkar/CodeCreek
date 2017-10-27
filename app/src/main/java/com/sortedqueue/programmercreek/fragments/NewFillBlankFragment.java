@@ -95,17 +95,17 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkButton.setOnClickListener(this);
-        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1);
-        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM);
+        mInvokeMode = newProgramActivityBundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_INVOKE_TEST(), -1);
+        program_TableList = newProgramActivityBundle.getParcelableArrayList(ProgrammingBuddyConstants.INSTANCE.getKEY_USER_PROGRAM());
         showHelperDialog();
         if (program_TableList != null && program_TableList.size() > 0) {
-            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+            mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
             mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
             initUI(program_TableList);
         } else {
-            if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
+            if (mInvokeMode == ProgrammingBuddyConstants.INSTANCE.getKEY_LESSON()) {
                 mWizard = false;
-                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                new FirebaseDatabaseHandler(getContext()).getProgramIndexInBackGround(newProgramActivityBundle.getInt(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID()),
                         new FirebaseDatabaseHandler.GetProgramIndexListener() {
                             @Override
                             public void onSuccess(ProgramIndex programIndex) {
@@ -119,7 +119,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
                             }
                         });
             } else {
-                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.KEY_PROG_ID);
+                mProgramIndex = (ProgramIndex) newProgramActivityBundle.get(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID());
                 mWizard = newProgramActivityBundle.getBoolean(ProgramListActivity.Companion.getKEY_WIZARD(), false);
 
                 getProgramTables();
@@ -330,7 +330,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
     @Override
     public int isTestComplete() {
-        return isAnswered ? ProgrammingBuddyConstants.KEY_FILL_BLANKS : -1;
+        return isAnswered ? ProgrammingBuddyConstants.INSTANCE.getKEY_FILL_BLANKS() : -1;
     }
 
     public void setWizardMode(boolean wizardMode) {

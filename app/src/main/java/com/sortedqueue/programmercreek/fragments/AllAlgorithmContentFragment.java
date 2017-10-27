@@ -58,26 +58,26 @@ public class AllAlgorithmContentFragment extends Fragment {
         algorithmNestedScrollview.setVisibility(View.GONE);
 
         switch (algorithmContent.getContentType()) {
-            case AlgorithmConstants.CONTENT_AIM_DESCRIPTION:
+            case AlgorithmConstants.Companion.getCONTENT_AIM_DESCRIPTION():
                 algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 titleTextView.setVisibility(View.VISIBLE);
                 contentTextView.setVisibility(View.VISIBLE);
                 titleTextView.setText(algorithmContent.getAim());
                 contentTextView.setText(algorithmContent.getProgramDescription());
                 break;
-            case AlgorithmConstants.CONTENT_ALGORITHM:
+            case AlgorithmConstants.Companion.getCONTENT_ALGORITHM():
                 algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 algorithmsTextView.setVisibility(View.VISIBLE);
                 algorithmsTextView.setText(algorithmContent.getAlgorithmPseudoCode());
                 break;
-            case AlgorithmConstants.CONTENT_CODE:
+            case AlgorithmConstants.Companion.getCONTENT_CODE():
                 algorithmCodeView.setVisibility(View.VISIBLE);
                 algorithmCodeView.setOptions(Options.Default.get(getContext())
                         .withLanguage(programLanguage)
                         .withCode(algorithmContent.getProgramCode())
                         .withTheme(ColorTheme.SOLARIZED_LIGHT));
                 break;
-            case AlgorithmConstants.CONTENT_OUTPUT:
+            case AlgorithmConstants.Companion.getCONTENT_OUTPUT():
                 algorithmNestedScrollview.setVisibility(View.VISIBLE);
                 outputTextView.setVisibility(View.VISIBLE);
                 outputTextView.setText(algorithmContent.getOutput());

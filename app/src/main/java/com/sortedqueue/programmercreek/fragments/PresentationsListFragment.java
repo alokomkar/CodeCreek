@@ -84,7 +84,7 @@ public class PresentationsListFragment extends Fragment implements View.OnClickL
     public void onItemClick(int position) {
         PresentationModel presentationModel = adapter.getItemAtPosition(position);
         Intent intent = new Intent(getContext(), ViewPresentationActivity.class);
-        intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, presentationModel);
+        intent.putExtra(ProgrammingBuddyConstants.INSTANCE.getKEY_PROG_ID(), presentationModel);
         startActivity(intent);
     }
 }
