@@ -41,10 +41,10 @@ public class CreekFCMReceiver extends BroadcastReceiver {
             }
         }
         if( imageUrl.equals("") ) {
-            AuxilaryUtils.generateBigTextNotification(context, context.getString(R.string.app_name), messageBody);
+            AuxilaryUtils.INSTANCE.generateBigTextNotification(context, context.getString(R.string.app_name), messageBody);
         }
         else {
-            AuxilaryUtils.generateImageNotification(context, context.getString(R.string.app_name), messageBody, imageUrl);
+            AuxilaryUtils.INSTANCE.generateImageNotification(context, context.getString(R.string.app_name), messageBody, imageUrl);
         }
     }
 }

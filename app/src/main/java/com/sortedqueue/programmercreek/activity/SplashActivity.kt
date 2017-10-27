@@ -285,7 +285,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
     }
 
     override fun onClick(view: View) {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable) {
             CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener {
                 override fun onClick(snackBarView: View) {
                     onClick(view)
@@ -454,7 +454,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
     }
 
     private fun startApp() {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable) {
             CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry) { startApp() }
             return
         }

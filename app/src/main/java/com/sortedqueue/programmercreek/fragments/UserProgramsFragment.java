@@ -44,7 +44,7 @@ import butterknife.ButterKnife;
  * Created by Alok on 16/05/17.
  */
 
-public class UserProgramsFragment extends Fragment implements View.OnClickListener, UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener, AdapterView.OnItemSelectedListener {
+public class UserProgramsFragment extends Fragment implements UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener, AdapterView.OnItemSelectedListener {
 
     private static UserProgramsFragment instance;
     @BindView(R.id.userProgramsRecyclerView)
@@ -182,11 +182,6 @@ public class UserProgramsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-    }
-
-    @Override
-    public void onClick(View v) {
-        dashboardNavigationListener.importCodeFile();
     }
 
     @Override

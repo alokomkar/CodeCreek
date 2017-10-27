@@ -130,7 +130,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
     }
 
     private void showHelperDialog() {
-        AuxilaryUtils.displayInformation(getContext(), R.string.fill_blanks, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
+        AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.fill_blanks, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
 
@@ -316,7 +316,7 @@ public class NewFillBlankFragment extends Fragment implements View.OnClickListen
 
     public void onBackPressed() {
         if (!quizComplete) {
-            AuxilaryUtils.showConfirmationDialog(getActivity());
+            AuxilaryUtils.INSTANCE.showConfirmationDialog(getActivity());
         } else {
             getActivity().finish();
         }

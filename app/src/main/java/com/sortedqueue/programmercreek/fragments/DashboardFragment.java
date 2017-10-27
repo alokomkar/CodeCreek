@@ -275,7 +275,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(final View v) {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -385,9 +385,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 /*Intent searchIntent =
                 new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);*/
-                break;
-            case R.id.addCodeTextView:
-                dashboardNavigationListener.importCodeFile();
                 break;
         }
 

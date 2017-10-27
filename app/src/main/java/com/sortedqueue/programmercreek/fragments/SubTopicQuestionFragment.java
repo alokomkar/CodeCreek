@@ -88,7 +88,7 @@ public class SubTopicQuestionFragment extends Fragment implements CustomProgramR
 
         if( subTopic.getQuestionCode() != null ) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(subTopic.getQuestionCode()), programLanguage));
+            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.INSTANCE.splitProgramIntolines(subTopic.getQuestionCode()), programLanguage));
         }
 
         optionsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );

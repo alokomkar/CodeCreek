@@ -126,7 +126,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void showHelperDialog() {
-        AuxilaryUtils.displayInformation(getContext(), R.string.match_maker, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
+        AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.match_maker, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
 
@@ -266,7 +266,7 @@ public class NewMatchFragment extends Fragment implements View.OnClickListener, 
 
     public void onBackPressed() {
         if (!quizComplete) {
-            AuxilaryUtils.showConfirmationDialog(getActivity());
+            AuxilaryUtils.INSTANCE.showConfirmationDialog(getActivity());
         } else {
             getActivity().finish();
         }

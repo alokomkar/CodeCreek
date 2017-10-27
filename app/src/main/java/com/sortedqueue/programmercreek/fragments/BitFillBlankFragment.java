@@ -117,7 +117,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
     }
 
     private void showHelperDialog() {
-        AuxilaryUtils.displayInformation(getContext(), R.string.fill_blanks, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
+        AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.fill_blanks, R.string.match_maker_new_description, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
 
@@ -222,7 +222,7 @@ public class BitFillBlankFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.hintButton:
                 if (!CreekApplication.Companion.getCreekPreferences().isPremiumUser()) {
-                    AuxilaryUtils.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
+                    AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

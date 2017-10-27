@@ -110,7 +110,7 @@ public class LanguageFragment extends Fragment {
     }
 
     private void getProgramLanguages() {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -198,7 +198,7 @@ public class LanguageFragment extends Fragment {
     public void getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {
@@ -262,7 +262,7 @@ public class LanguageFragment extends Fragment {
     }
 
     private void selectAndInitDb(final int position) {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.INSTANCE.isNetworkAvailable()) {
             CommonUtils.displaySnackBarIndefinite(getActivity(), R.string.internet_unavailable, R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View snackBarView) {

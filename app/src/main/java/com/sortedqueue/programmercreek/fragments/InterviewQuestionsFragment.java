@@ -229,7 +229,7 @@ public class InterviewQuestionsFragment extends Fragment implements SlideContent
         if (interviewQuestionModel.getCode() != null) {
             codeRecyclerView.setVisibility(View.VISIBLE);
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(interviewQuestionModel.getCode()), programLanguage));
+            codeRecyclerView.setAdapter(new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.INSTANCE.splitProgramIntolines(interviewQuestionModel.getCode()), programLanguage));
         } else {
             codeRecyclerView.setVisibility(View.GONE);
         }

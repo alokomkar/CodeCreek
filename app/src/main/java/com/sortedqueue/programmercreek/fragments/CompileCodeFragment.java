@@ -151,7 +151,7 @@ public class CompileCodeFragment extends Fragment implements View.OnClickListene
 
     private void setupRecyclerView() {
         if (code != null) {
-            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(code.getSourceCode());
+            ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(code.getSourceCode());
             codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, selectedLanguage);
             codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);

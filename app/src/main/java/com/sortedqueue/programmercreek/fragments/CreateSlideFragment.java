@@ -265,7 +265,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
         else
         if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
             if (PermissionUtils.checkDeniedPermissions((AppCompatActivity) getActivity(), permissions).length == 0) {
-                AuxilaryUtils.displayPhotoDialog(getContext(), this);
+                AuxilaryUtils.INSTANCE.displayPhotoDialog(getContext(), this);
             } else {
                 if (permissions.length == 3) {
                     CommonUtils.displaySnackBar(getActivity(), R.string.camera_read_write_storage_permission_to_open_gallery);
@@ -279,10 +279,10 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
     @Override
     public void onChoiceSelected(int choice) {
         switch (choice) {
-            case AuxilaryUtils.CHOICE_CAMERA:
+            case AuxilaryUtils.INSTANCE.getCHOICE_CAMERA():
                 loadCamera();
                 break;
-            case AuxilaryUtils.CHOICE_GALLERY:
+            case AuxilaryUtils.INSTANCE.getCHOICE_GALLERY():
                 loadGallery();
                 break;
         }
@@ -383,7 +383,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
             case ACTION_GALLERY:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
                     Uri selectedImageUri = data.getData();
-                    compressAndCropPhoto(AuxilaryUtils.getFilePath(getContext(), selectedImageUri));
+                    compressAndCropPhoto(AuxilaryUtils.INSTANCE.getFilePath(getContext(), selectedImageUri));
                 }
                 break;
             /*case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
@@ -509,7 +509,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
                 new String[]{Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE})) {
-            AuxilaryUtils.displayPhotoDialog(getContext(), this);
+            AuxilaryUtils.INSTANCE.displayPhotoDialog(getContext(), this);
         }
     }
 
@@ -552,7 +552,7 @@ public class CreateSlideFragment extends Fragment implements View.OnClickListene
 
     private void setupRecyclerView() {
         if( programCode != null ) {
-            ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode.getSourceCode());
+            ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode.getSourceCode());
             codeEditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), programLines, selectedLanguage);
             codeEditRecyclerView.setAdapter(codeEditorRecyclerAdapter);

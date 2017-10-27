@@ -129,7 +129,7 @@ public class SubTopicFragment extends Fragment implements View.OnClickListener,
         codeRecyclerView.setVisibility(View.GONE);
         if (subTopics.getCode() != null) {
             codeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.splitProgramIntolines(subTopics.getCode()), subTopics.getProgramLanguage(), true);
+            codeEditorRecyclerAdapter = new CodeEditorRecyclerAdapter(getContext(), AuxilaryUtils.INSTANCE.splitProgramIntolines(subTopics.getCode()), subTopics.getProgramLanguage(), true);
             codeRecyclerView.setAdapter(codeEditorRecyclerAdapter);
             codeRecyclerView.setVisibility(View.VISIBLE);
         }

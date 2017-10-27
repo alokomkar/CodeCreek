@@ -307,7 +307,7 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
             startActivityForResult(intent, SPEECH_REQUEST);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
-            AuxilaryUtils.displayAlert("No Voice App", "Your device doesn't support voice input - no app found", getContext());
+            AuxilaryUtils.INSTANCE.displayAlert("No Voice App", "Your device doesn't support voice input - no app found", getContext());
         }
 
     }
@@ -358,13 +358,13 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if (isLastFragment) {
                     if (nextModule != null) {
                         if (creekUserStats.addToUnlockedCLanguageModuleIdList(nextModule.getModuleId())) {
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         }
 
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     } else if (nextChapter != null) {
                         if (creekUserStats.addToUnlockedCLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId())) {
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         }
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
@@ -378,12 +378,12 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if (isLastFragment) {
                     if (nextModule != null) {
                         if (creekUserStats.addToUnlockedCppLanguageModuleIdList(nextModule.getModuleId())) {
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         }
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     } else if (nextChapter != null) {
                         if (creekUserStats.addToUnlockedCppLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }
@@ -394,11 +394,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if (isLastFragment) {
                     if (nextModule != null) {
                         if (creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextModule.getModuleId()))
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     } else if (nextChapter != null) {
                         if (creekUserStats.addToUnlockedJavaLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }
@@ -409,11 +409,11 @@ public class SyntaxLearnActivityFragment extends Fragment implements View.OnClic
                 if (isLastFragment) {
                     if (nextModule != null) {
                         if (creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextModule.getModuleId()))
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_module_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_module_unlocked);
                     } else if (nextChapter != null) {
                         if (creekUserStats.addToUnlockedSqlLanguageModuleIdList(nextChapter.getChapterDetailsArrayList().get(0).getSyntaxId()))
-                            AuxilaryUtils.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
+                            AuxilaryUtils.INSTANCE.displayAchievementUnlockedDialog(getActivity(), "Congratulations..!!", getString(R.string.new_chapter_unlocked));
                         //CommonUtils.displaySnackBar(getActivity(), R.string.new_chapter_unlocked);
                     }
                 }

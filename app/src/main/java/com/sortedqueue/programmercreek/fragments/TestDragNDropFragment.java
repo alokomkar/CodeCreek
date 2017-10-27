@@ -228,7 +228,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
         containerPager.setCanScroll(false);
         /*if (programTableArray.length > 1) */{
             if( programTableArray.length >  1 ) {
-                AuxilaryUtils.displayInformation(getContext(), R.string.divide_and_conquer, R.string.divide_and_conquer_description, new DialogInterface.OnDismissListener() {
+                AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.divide_and_conquer, R.string.divide_and_conquer_description, new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                     setupSubTests(mProgramTableList);
@@ -434,7 +434,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
             if (bundle.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
                 resultAlert = "You have scored " + score;
             }
-            AuxilaryUtils.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float) (maxScore - mProgramHint) / maxScore * 100), 100);
+            AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Test Complete", resultAlert, (int) ((float) (maxScore - mProgramHint) / maxScore * 100), 100);
             checkQuizButton.setEnabled(false);
 
             mQuizComplete = true;
@@ -576,7 +576,7 @@ public class TestDragNDropFragment extends Fragment implements UIUpdateListener,
 
     public void onBackPressed() {
         if (mQuizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(getActivity());
+            AuxilaryUtils.INSTANCE.showConfirmationDialog(getActivity());
             if (mCountDownTimer != null) {
                 mCountDownTimer.cancel();
             }

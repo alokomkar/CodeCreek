@@ -40,7 +40,7 @@ public class QuickReference implements Parcelable {
     }
 
     public ArrayList<String> getContentArray() {
-        return AuxilaryUtils.splitProgramIntolines(content);
+        return AuxilaryUtils.INSTANCE.splitProgramIntolines(content);
     }
 
     @Override

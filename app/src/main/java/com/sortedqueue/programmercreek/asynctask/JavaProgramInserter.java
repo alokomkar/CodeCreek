@@ -3711,8 +3711,8 @@ public class JavaProgramInserter {
                         "*a = *b;\n" +
                         "*b = temp;\n" +
                         "}";
-        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        ArrayList<String> programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         int programIndex = 1;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -3741,8 +3741,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -3776,8 +3776,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -3829,8 +3829,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -3866,8 +3866,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -3953,8 +3953,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4040,8 +4040,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4093,8 +4093,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4140,8 +4140,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4209,8 +4209,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4262,8 +4262,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4315,8 +4315,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4368,8 +4368,8 @@ public class JavaProgramInserter {
                         "}";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4399,8 +4399,8 @@ public class JavaProgramInserter {
                         "*a = *b;\n" +
                         "*b = temp;\n" +
                         "}";
-        ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        ArrayList<String> programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         int programIndex = 1;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4470,8 +4470,8 @@ public class JavaProgramInserter {
                         "End of class ";
 
 
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4530,8 +4530,8 @@ public class JavaProgramInserter {
                         "return conn  \n" +
                         "End of getConnection  \n" +
                         "End of class  ";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex++;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4598,8 +4598,8 @@ public class JavaProgramInserter {
                         "End finally block\n" +
                         "End of main\n" +
                         "End of class ";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4648,8 +4648,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null), stmt.close(); \n" +
                         "end of if block\n" +
                         "End of function ";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4692,8 +4692,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null), stmt.close(); \n" +
                         "end of if block\n" +
                         "End of function ";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4736,8 +4736,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null), stmt.close(); \n" +
                         "end of if block\n" +
                         "End of function ";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4792,8 +4792,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4851,8 +4851,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4904,8 +4904,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -4959,8 +4959,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -5014,8 +5014,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(
@@ -5070,8 +5070,8 @@ public class JavaProgramInserter {
                         "check if (stmt != null) { stmt.close(); }\n" +
                         "end finally block\n" +
                         "End function";
-        programLines = AuxilaryUtils.splitProgramIntolines(programCode);
-        programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+        programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programCode);
+        programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
         programIndex = ++programIndex;
         for (int i = 0; i < programLines.size(); i++) {
             firebaseDatabaseHandler.writeProgramTable(

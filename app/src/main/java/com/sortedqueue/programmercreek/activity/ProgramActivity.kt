@@ -266,7 +266,7 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
     }
 
     fun getProgramTitle(program_Index: Int): String {
-        return AuxilaryUtils.getProgramTitle(program_Index, this@ProgramActivity)
+        return AuxilaryUtils.getProgramTitle(program_Index, this@ProgramActivity)!!
     }
 
     fun enableDisablePrevButton() {

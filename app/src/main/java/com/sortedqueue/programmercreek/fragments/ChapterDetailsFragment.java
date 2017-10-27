@@ -370,7 +370,7 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
     }
 
     public void showRewardedVideoDialog() {
-        AuxilaryUtils.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
+        AuxilaryUtils.INSTANCE.displayInformation(getContext(), R.string.hint_video, R.string.reward_video_description,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -447,6 +447,6 @@ public class ChapterDetailsFragment extends Fragment implements WikiNavigationLi
             solution += string + "\n";
         }
         Log.d("SolutionProgram", solution);
-        AuxilaryUtils.displayAlert("Solution", solution, getContext());
+        AuxilaryUtils.INSTANCE.displayAlert("Solution", solution, getContext());
     }
 }

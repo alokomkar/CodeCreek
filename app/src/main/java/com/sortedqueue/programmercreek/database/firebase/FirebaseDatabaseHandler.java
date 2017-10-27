@@ -546,8 +546,8 @@ public class FirebaseDatabaseHandler {
                 programIndex.setProgram_Description("");
                 programIndex.setProgram_Language("");
 
-                ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(programText);
-                ArrayList<String> programExplanations = AuxilaryUtils.mapCodeToComments(mContext, programText);
+                ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(programText);
+                ArrayList<String> programExplanations = AuxilaryUtils.INSTANCE.mapCodeToComments(mContext, programText);
 
                 int intProgramIndex = programIndex.getProgram_index();
                 programTables = new ArrayList<>();
@@ -715,8 +715,8 @@ public class FirebaseDatabaseHandler {
                     programIndex.setProgram_index(programTitle.hashCode());
                     programIndex.setProgram_Language(programLanguage);
 
-                    ArrayList<String> programLines = AuxilaryUtils.splitProgramIntolines(program);
-                    ArrayList<String> programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation);
+                    ArrayList<String> programLines = AuxilaryUtils.INSTANCE.splitProgramIntolines(program);
+                    ArrayList<String> programExplanations = AuxilaryUtils.INSTANCE.splitProgramIntolines(programExplanation);
 
                     if( programLines != null && programExplanations != null ) {
                         if( programLines.size() > programExplanations.size() ) {
@@ -1338,7 +1338,7 @@ public class FirebaseDatabaseHandler {
 
     public void getChaptersInBackground(final GetChapterListener getChapterListener ) {
         getChaptersDatabase();
-        if( AuxilaryUtils.isNetworkAvailable() ) {
+        if( AuxilaryUtils.INSTANCE.isNetworkAvailable() ) {
             mChapterDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -2050,7 +2050,7 @@ public class FirebaseDatabaseHandler {
         if( !creekPreferences.checkProgramIndexUpdate() ) {
             CommonUtils.displayProgressDialog((Activity) mContext, "Loading program index");
             if( !creekPreferences.isWelcomeDone() ) {
-                AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Practice Code, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
+                AuxilaryUtils.INSTANCE.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Practice Code, we have an array of " + programLanguage.toUpperCase() +" programs to be explored; Your learning starts here...");
                 creekPreferences.setWelcomeDone(true);
                 getCreekUserStatsInBackground(new CreekUserStatsListener() {
                     @Override

@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.activity
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
@@ -255,7 +256,9 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private fun checkBillingInformation() {
+
         object : AsyncTask<Void, Void, Void>() {
 
             override fun doInBackground(vararg voids: Void): Void? {
@@ -412,7 +415,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (!AuxilaryUtils.isNetworkAvailable()) {
+        if (!AuxilaryUtils.isNetworkAvailable) {
             CommonUtils.displaySnackBarIndefinite(this@DashboardActivity, R.string.internet_unavailable, R.string.retry) { onOptionsItemSelected(item) }
             return true
         }
@@ -560,39 +563,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         fragmentTransaction.replace(R.id.container, SearchFragment()).commit()
     }
 
-    private fun downloadFile() {
-        val downloadHTMLService = RetrofitCreator.createDownloadService(DownloadHTMLService::class.java)
-        val call = downloadHTMLService.downloadFileWithDynamicUrlSync("http://365programperday.blogspot.in/2016/01/android-saving-and-restoring-activity.html")
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    Log.d(TAG, "server contacted and has file")
-
-                    object : AsyncTask<Void, Void, Void>() {
-
-                        internal var downloadFileListner: DownloadFileListner? = null
-
-                        override fun doInBackground(vararg voids: Void): Void? {
-                            val writtenToDisk = FileUtils.writeResponseBodyToDisk(this@DashboardActivity, response.body(), null)
-
-                            Log.d(TAG, "file download was a success? " + writtenToDisk)
-                            return null
-                        }
-
-                        override fun onPostExecute(aVoid: Void) {
-                            super.onPostExecute(aVoid)
-                        }
-                    }.execute()
-                } else {
-                    Log.d(TAG, "server contact failed")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-            }
-        })
-    }
 
     private fun logoutFromFB() {
         if (AccessToken.getCurrentAccessToken() == null) {
@@ -637,14 +607,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
-        if (requestCode == REQUEST_DOWNLOAD_FILE) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (PermissionUtils.checkSelfPermission(this@DashboardActivity,
-                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_DOWNLOAD_FILE_PERMISSION)) {
-                    downloadTemplateFile()
-                }
-            }
-        } else if (requestCode == REQUEST_INVITE) {
+        if (requestCode == REQUEST_INVITE) {
             if (resultCode == Activity.RESULT_OK) {
                 // Get the invitation IDs of all sent messages
                 val ids = AppInviteInvitation.getInvitationIds(resultCode, data)
@@ -667,7 +630,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
                 if (filepath != null) {
                     val fileMd5 = FileUtils.calculateMD5(File(filepath!!))
-                    if (creekPreferences!!.creekUserStats.userAddedPrograms.contains(fileMd5)) {
+                    if (creekPreferences!!.creekUserStats!!.userAddedPrograms.contains(fileMd5)) {
                         CommonUtils.displayToast(this@DashboardActivity, "File already uploaded")
                     } else
                         FirebaseDatabaseHandler(this@DashboardActivity).readProgramFromFile(filepath, this)
@@ -697,43 +660,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     }
 
-    private fun downloadTemplateFile() {
-        CommonUtils.displayProgressDialog(this@DashboardActivity, getString(R.string.downloading_file))
-        FirebaseStorageHandler.downloadTemplateFile(this@DashboardActivity, object : FirebaseStorageHandler.TemplateDownloadListener {
-            override fun onSuccess(filePath: String) {
-                CommonUtils.dismissProgressDialog()
-                AuxilaryUtils.displayInformation(this@DashboardActivity,
-                        getString(R.string.add_code),
-                        getString(R.string.add_code_description) +
-                                "\n\nTemplate file :\n\n<program_title>\n" +
-                                "Hello World\n" +
-                                "</program_title>\n" +
-                                "<program_language>\n" +
-                                "C\n" +
-                                "</program_language>\n" +
-                                "<program_explanation>\n" +
-                                "Include header stdio\n" +
-                                "Main declaration\n" +
-                                "Print Hello\n" +
-                                "Wait for user input\n" +
-                                "End of program\n" +
-                                "</program_explanation>\n" +
-                                "<program>\n" +
-                                "#include<stdio.h>\n" +
-                                "void main() {\n" +
-                                "printf(“Hello”);\n" +
-                                "getch();\n" +
-                                "}\n" +
-                                "</program>" + "\n\nFile is saved to : " + filePath
-                ) { }
-            }
-
-            override fun onError(error: String) {
-                CommonUtils.dismissProgressDialog()
-                CommonUtils.displayToast(this@DashboardActivity, error)
-            }
-        })
-    }
 
     override fun importCodeFile() {
         if (PermissionUtils.checkSelfPermission(this@DashboardActivity,
@@ -890,15 +816,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_DOWNLOAD_FILE_PERMISSION) {
-            if (PermissionUtils.checkDeniedPermissions(this@DashboardActivity, permissions).size == 0) {
-                downloadTemplateFile()
-            } else {
-                if (permissions.size == 3) {
-                    Toast.makeText(this@DashboardActivity, "Some permissions were denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        } else if (requestCode == REQUEST_IMPORT_FILE_PERMISSION) {
+        if (requestCode == REQUEST_IMPORT_FILE_PERMISSION) {
             if (PermissionUtils.checkDeniedPermissions(this@DashboardActivity, permissions).size == 0) {
                 importCodeFile()
             } else {
@@ -977,7 +895,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
                     userProgramDetails.accessSpecifier = accessSpecifier
                     if (filepath != null)
                         userProgramDetails.md5 = FileUtils.calculateMD5(File(filepath!!))
-                    userProgramDetails.emailId = creekPreferences!!.signInAccount
+                    userProgramDetails.emailId = creekPreferences!!.getSignInAccount()
                     userProgramDetails.likes = 0
                     userProgramDetails.likesList = ArrayList<String>()
                     userProgramDetails.programIndex = programIndex

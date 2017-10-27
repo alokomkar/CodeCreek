@@ -389,13 +389,13 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
         }
         if (CheckSolution == programSize) {
             if (quizComplete == false) {
-                AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
+                AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + " in " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!", CheckSolution, programSize );
                 checkQuizButton.setEnabled(false);
             } else {
-                AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!",
+                AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Match Complete", "Congratulations.. Your Score is " + CheckSolution + "/" + programSize + ", Fantastic Work..!!",
                         CheckSolution, programSize);
                 checkQuizButton.setEnabled(false);
             }
@@ -436,7 +436,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
                 }
             }
-            AuxilaryUtils.displayResultAlert(getActivity(), "Match Complete", message, matchScore, programSize);
+            AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Match Complete", message, matchScore, programSize);
         }
         if (mWizard == true) {
             timerButton.setText("Next");
@@ -473,7 +473,7 @@ public class MatchMakerFragment extends Fragment implements UIUpdateListener, Te
 
     public void onBackPressed() {
         if (quizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(getActivity());
+            AuxilaryUtils.INSTANCE.showConfirmationDialog(getActivity());
         } else {
             getActivity().finish();
         }

@@ -337,7 +337,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!";
         }
 
-        AuxilaryUtils.displayResultAlert(getActivity(), "Quiz Complete", message, score, programSize);
+        AuxilaryUtils.INSTANCE.displayResultAlert(getActivity(), "Quiz Complete", message, score, programSize);
         quizComplete = true;
 
         if( moduleDetailsScrollPageListener != null ) moduleDetailsScrollPageListener.toggleFABDrawable();
@@ -380,7 +380,7 @@ public class QuizFragment extends Fragment implements UIUpdateListener, UIProgra
 
     public void onBackPressed() {
         if (quizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(getActivity());
+            AuxilaryUtils.INSTANCE.showConfirmationDialog(getActivity());
 
         } else {
             getActivity().finish();
