@@ -24,7 +24,6 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.adapter.ProgramLanguageAdapter
 import com.sortedqueue.programmercreek.database.CreekUserDB
-import com.sortedqueue.programmercreek.database.CreekUserStats
 import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramLanguage
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler

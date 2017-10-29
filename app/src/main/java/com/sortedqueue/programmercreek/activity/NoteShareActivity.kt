@@ -118,7 +118,7 @@ class NoteShareActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 override fun doInBackground(vararg voids: Void): ArrayList<NotesModel> {
-                    return NotesUtils.splitParaIntoNotes(sharedText)
+                    return NotesUtils.splitParaIntoNotes(sharedText!!)
                 }
 
             }.execute()
@@ -133,12 +133,12 @@ class NoteShareActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.saveButton -> if (tagsRecyclerAdapter!!.selectedTag == "") {
+            R.id.saveButton -> if (tagsRecyclerAdapter!!.getSelectedTag() == "") {
                 CommonUtils.displayToast(this@NoteShareActivity, "Select language")
                 return
             }
             R.id.previewButton -> {
-                if (tagsRecyclerAdapter!!.selectedTag == "") {
+                if (tagsRecyclerAdapter!!.getSelectedTag() == "") {
                     CommonUtils.displayToast(this@NoteShareActivity, "Select language")
                     return
                 }
@@ -146,7 +146,7 @@ class NoteShareActivity : AppCompatActivity(), View.OnClickListener {
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up)
                 fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.replace(R.id.container, NotesPreviewFragment.newInstance(notesShareRecyclerAdapter!!.notesModelArrayList, tagsRecyclerAdapter!!.selectedTag)).commit()
+                fragmentTransaction.replace(R.id.container, NotesPreviewFragment.newInstance(notesShareRecyclerAdapter!!.notesModelArrayList, tagsRecyclerAdapter!!.getSelectedTag())).commit()
             }
             R.id.discardButton -> {
             }

@@ -16,7 +16,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 
 import com.google.firebase.database.DatabaseError
-import com.google.gson.Gson
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity
@@ -41,9 +40,6 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
 import com.sortedqueue.programmercreek.util.CreekPreferences
-
-import org.json.JSONException
-import org.json.JSONObject
 
 import java.util.ArrayList
 

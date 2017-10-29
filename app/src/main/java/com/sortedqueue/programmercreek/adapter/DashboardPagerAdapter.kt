@@ -25,9 +25,9 @@ class DashboardPagerAdapter(fm: FragmentManager, private val context: Context) :
         when (position) {
         /*case INDEX_LANGUAGE :
                 return LanguageFragment.getInstance();*/
-            INDEX_DASHBOARD -> return DashboardFragment.getInstance()
-            INDEX_LEADER_BOARD -> return TopLearnerFragment.getInstance()
-            INDEX_USER_PROGRAMS -> return UserProgramsFragment.getInstance()
+            INDEX_DASHBOARD -> return DashboardFragment.instance
+            INDEX_LEADER_BOARD -> return TopLearnerFragment.instance
+            INDEX_USER_PROGRAMS -> return UserProgramsFragment.instance
         }
         return null
     }

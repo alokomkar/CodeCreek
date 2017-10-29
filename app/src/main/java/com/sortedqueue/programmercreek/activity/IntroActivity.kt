@@ -109,7 +109,7 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         drawerEmailTextView = view.findViewById(R.id.drawerEmailTextView) as TextView
         drawerNameTextView = view.findViewById(R.id.drawerNameTextView) as TextView
         drawerImageView = view.findViewById(R.id.drawerImageView) as ImageView
-        drawerNameTextView!!.text = creekPreferences!!.accountName
+        drawerNameTextView!!.text = creekPreferences!!.getAccountName()
         loadChapters()
     }
 

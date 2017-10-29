@@ -75,9 +75,12 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
 
     fun showRewardedVideoDialog() {
         AuxilaryUtils.displayInformation(this@WizardActivity, R.string.hint_video, R.string.reward_video_description,
-                { dialogInterface, i -> showRewardedClick() }
+                object : DialogInterface.OnDismissListener {
+                    override fun onDismiss(p0: DialogInterface?) {
+                        showRewardedClick()
+                    }
+                } )
 
-        ) { showRewardedClick() }
     }
 
     private fun showRewardedClick() {

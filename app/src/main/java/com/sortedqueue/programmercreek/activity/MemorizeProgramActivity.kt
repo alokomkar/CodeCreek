@@ -178,10 +178,10 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
 
             // Prepare the ListView
             mAdapterProgramList = CustomProgramLineListAdapter(this,
-                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList, false)
+                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList!!, false)
             // Prepare the ListView
             mAdapterProgramExplanationList = CustomProgramLineListAdapter(this,
-                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList, true)
+                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList!!, true)
 
             mProgramListView!!.adapter = mAdapterProgramList
             mProgramExplanationListView!!.adapter = mAdapterProgramExplanationList

@@ -4,8 +4,9 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import com.sortedqueue.programmercreek.constants.TYPE_SINGLE_RIGHT
+import com.sortedqueue.programmercreek.constants.TYPE_TRUE_FALSE
 
-import com.sortedqueue.programmercreek.constants.InterviewQuestionConstants
 import com.sortedqueue.programmercreek.database.InterviewQuestionModel
 import com.sortedqueue.programmercreek.database.OptionModel
 import com.sortedqueue.programmercreek.util.CommonUtils
@@ -111,7 +112,7 @@ class SlideContentReaderTask(private val context: Context, private val fileId: S
                         val optionA = line.split(Pattern.quote("a)").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                         interviewQuestionModel!!.optionModels = ArrayList<OptionModel>()
                         interviewQuestionModel.optionModels.add(OptionModel(1, optionA))
-                        interviewQuestionModel.typeOfQuestion = InterviewQuestionConstants.TYPE_TRUE_FALSE
+                        interviewQuestionModel.typeOfQuestion = TYPE_TRUE_FALSE
                         Log.d(TAG, "Options : " + optionA)
                         if (sc.hasNext())
                             line = sc.nextLine()
@@ -121,7 +122,7 @@ class SlideContentReaderTask(private val context: Context, private val fileId: S
                         if (sc.hasNext())
                             line = sc.nextLine()
                         interviewQuestionModel!!.optionModels.add(OptionModel(2, optionB))
-                        interviewQuestionModel.typeOfQuestion = InterviewQuestionConstants.TYPE_TRUE_FALSE
+                        interviewQuestionModel.typeOfQuestion = TYPE_TRUE_FALSE
                         Log.d(TAG, "Options : " + optionB)
                     }
                     if (line.startsWith("c)")) {
@@ -129,13 +130,13 @@ class SlideContentReaderTask(private val context: Context, private val fileId: S
                         if (sc.hasNext())
                             line = sc.nextLine()
                         interviewQuestionModel!!.optionModels.add(OptionModel(3, optionC))
-                        interviewQuestionModel.typeOfQuestion = InterviewQuestionConstants.TYPE_SINGLE_RIGHT
+                        interviewQuestionModel.typeOfQuestion = TYPE_SINGLE_RIGHT
                         Log.d(TAG, "Options : " + optionC)
                     }
                     if (line.startsWith("d)")) {
                         val optionD = line.split(Pattern.quote("d)").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                         interviewQuestionModel!!.optionModels.add(OptionModel(4, optionD))
-                        interviewQuestionModel.typeOfQuestion = InterviewQuestionConstants.TYPE_SINGLE_RIGHT
+                        interviewQuestionModel.typeOfQuestion = TYPE_SINGLE_RIGHT
                         Log.d(TAG, "Options : " + optionD)
                     }
                     line = sc.nextLine()

@@ -20,11 +20,11 @@ import java.util.Collections
 
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.sortedqueue.programmercreek.constants.TYPE_MULTIPLE_RIGHT
+import com.sortedqueue.programmercreek.constants.TYPE_REARRANGE
+import com.sortedqueue.programmercreek.constants.TYPE_SINGLE_RIGHT
+import com.sortedqueue.programmercreek.constants.TYPE_TRUE_FALSE
 
-import com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_MULTIPLE_RIGHT
-import com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_REARRANGE
-import com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_SINGLE_RIGHT
-import com.sortedqueue.programmercreek.constants.InterviewQuestionConstants.TYPE_TRUE_FALSE
 
 /**
  * Created by Alok on 09/03/17.

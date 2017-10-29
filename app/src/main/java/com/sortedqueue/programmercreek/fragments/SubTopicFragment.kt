@@ -210,7 +210,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
                     subTopicQuestionFragment!!.setOnBackPressListener(this@SubTopicFragment)
                     //AnimationUtils.enterReveal(checkFAB);
                     subTopicQuestionFragment!!.setProgramLanguage("java")
-                    subTopicQuestionFragment!!.setSubTopic(subTopics)
+                    subTopicQuestionFragment!!.setSubTopic(subTopics!!)
                     navigationListener!!.onTestTriggered("test")
                     val fragmentTransaction = childFragmentManager.beginTransaction()
                     fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up)

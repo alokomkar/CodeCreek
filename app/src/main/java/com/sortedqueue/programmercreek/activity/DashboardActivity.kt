@@ -7,7 +7,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
@@ -15,7 +14,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
-import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
@@ -33,24 +31,18 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 
-import com.anjlab.android.iab.v3.TransactionDetails
 import com.facebook.AccessToken
 import com.facebook.login.LoginManager
 import com.google.android.gms.appinvite.AppInviteInvitation
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
-import com.google.android.gms.common.api.Status
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter
-import com.sortedqueue.programmercreek.billing.BillingPresenter
-import com.sortedqueue.programmercreek.billing.Purchase
 import com.sortedqueue.programmercreek.billing.anjlab.AnjLabBillingPresenter
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.CreekUserDB
@@ -60,15 +52,12 @@ import com.sortedqueue.programmercreek.database.ProgramLanguage
 import com.sortedqueue.programmercreek.database.ProgramTable
 import com.sortedqueue.programmercreek.database.UserProgramDetails
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.database.firebase.FirebaseStorageHandler
 import com.sortedqueue.programmercreek.fragments.DashboardFragment
 import com.sortedqueue.programmercreek.fragments.LanguageFragment
 import com.sortedqueue.programmercreek.fragments.QuickReferenceFragment
 import com.sortedqueue.programmercreek.fragments.SearchFragment
 import com.sortedqueue.programmercreek.fragments.SignupFragment
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
-import com.sortedqueue.programmercreek.interfaces.retrofit.DownloadHTMLService
-import com.sortedqueue.programmercreek.network.RetrofitCreator
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
@@ -84,10 +73,6 @@ import java.util.ArrayList
 
 import butterknife.BindView
 import butterknife.ButterKnife
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, DownloadFileListner, View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
@@ -306,7 +291,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
     override fun hideLanguageFragment() {
         try {
             languageSelectionTextView!!.text = creekPreferences!!.programLanguage.toUpperCase()
-            DashboardFragment.getInstance().animateViews()
+            DashboardFragment.instance.animateViews()
             supportFragmentManager.popBackStack()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -416,7 +401,9 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(this@DashboardActivity, R.string.internet_unavailable, R.string.retry) { onOptionsItemSelected(item) }
+            CommonUtils.displaySnackBarIndefinite(this@DashboardActivity, R.string.internet_unavailable, R.string.retry,
+                    View.OnClickListener { onOptionsItemSelected(item) }
+                     )
             return true
         }
 
@@ -721,7 +708,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     override fun navigateToDashboard() {
         dashboardViewPager!!.currentItem = 1
-        DashboardFragment.getInstance().animateViews()
+        DashboardFragment.instance.animateViews()
         supportActionBar!!.title = getString(R.string.app_name) + " - " + creekPreferences!!.programLanguage.toUpperCase()
     }
 
@@ -738,7 +725,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
             val creekUserStats = creekPreferences!!.creekUserStats
             if (creekUserStats != null && creekUserStats.creekUserReputation == 0) {
                 creekUserStats.calculateReputation()
-                LanguageFragment.getInstance().animateProgress()
+                LanguageFragment.instance.animateProgress()
                 FirebaseDatabaseHandler(this@DashboardActivity).writeCreekUserStats(creekUserStats)
             }
         }

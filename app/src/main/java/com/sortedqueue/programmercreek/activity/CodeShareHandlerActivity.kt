@@ -94,7 +94,7 @@ class CodeShareHandlerActivity : AppCompatActivity(), FirebaseDatabaseHandler.Co
 
                             val userProgramDetails = UserProgramDetails()
                             userProgramDetails.accessSpecifier = accessSpecifier
-                            userProgramDetails.md5 = FileUtils.md5(sharedText)
+                            userProgramDetails.md5 = FileUtils.md5(sharedText!!)
                             userProgramDetails.emailId = creekPreferences!!.getSignInAccount()
                             userProgramDetails.likes = 0
                             userProgramDetails.likesList = ArrayList<String>()

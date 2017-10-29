@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
@@ -26,17 +25,10 @@ import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
@@ -55,6 +47,7 @@ import java.util.Date
 
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.sortedqueue.programmercreek.view.LoginSignupDialog.LoginSignupListener
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
@@ -93,7 +86,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         fbLoginButton!!.visibility = View.GONE
         signEmailButton!!.visibility = View.GONE
         signAnonButton!!.visibility = View.GONE
-        if (creekPreferences!!.signInAccount == "") {
+        if (creekPreferences!!.getSignInAccount() == "") {
             CreekAnalytics.logEvent(TAG, "Fresh Signup")
             googleSignInButton!!.setOnClickListener(this@SplashActivity)
 
@@ -119,7 +112,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
     private fun checkAndStartApp() {
         runOnUiThread {
-            if (creekPreferences!!.signInAccount != "") {
+            if (creekPreferences!!.getSignInAccount() != "") {
                 startApp()
             }
         }
@@ -170,7 +163,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
     private fun storeFirebaseUserDetails(firebaseAuth: FirebaseAuth) {
         val user = firebaseAuth.currentUser
         if (user != null) {
-            if (creekPreferences!!.signInAccount != "") {
+            if (creekPreferences!!.getSignInAccount() != "") {
                 Log.d(TAG, "Sign up complete")
                 return
             }
@@ -200,15 +193,15 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
             creekUser!!.userId = user.uid
 
-            creekPreferences!!.accountName = creekUser!!.userFullName
-            Log.d(TAG, "Anon User name : " + creekPreferences!!.accountName)
-            creekPreferences!!.accountPhoto = creekUser!!.userPhotoUrl
-            if (user.email != null && user.email!!.trim { it <= ' ' }.length > 0) {
-                creekPreferences!!.signInAccount = user.email
+            creekPreferences!!.setAccountName( creekUser!!.userFullName )
+            Log.d(TAG, "Anon User name : " + creekPreferences!!.getAccountName())
+            creekPreferences!!.setAccountPhoto(  creekUser!!.userPhotoUrl )
+            if (user.email != null && user.email!!.trim { it <= ' ' }.isNotEmpty()) {
+                creekPreferences!!.setSignInAccount( user.email!! )
             } else {
-                creekPreferences!!.signInAccount = user.uid
+                creekPreferences!!.setSignInAccount( user.uid )
             }
-            Log.d(TAG, "Anon User Account : " + creekPreferences!!.signInAccount)
+            Log.d(TAG, "Anon User Account : " + creekPreferences!!.getSignInAccount())
 
             CommonUtils.displayProgressDialog(this@SplashActivity, "Loading")
             var email = user.email
@@ -327,8 +320,10 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
     private fun signInEmail() {
         loginSignupDialog = LoginSignupDialog(this@SplashActivity)
-        loginSignupDialog!!.showDialog(object : LoginSignupDialog.LoginSignupListener {
-            override fun onSuccess(name: String?, email: String, password: String) {
+
+        loginSignupDialog!!.showDialog( object : LoginSignupListener {
+
+            override fun onSuccess(name: String, email: String, password: String) {
                 if (name != null) {
                     CommonUtils.displayProgressDialog(this@SplashActivity, "Signing up...")
                     emailSignup(name, email, password)
@@ -432,8 +427,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
             creekUser!!.wasAnonUser = "No"
         }
         creekUser!!.save(this@SplashActivity)
-        creekPreferences!!.accountName = account.displayName
-        creekPreferences!!.accountPhoto = account.photoUrl!!.toString()
+        creekPreferences!!.setAccountName( account.displayName!! )
+        creekPreferences!!.setAccountPhoto(  account.photoUrl!!.toString() )
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
         mAuth!!.signInWithCredential(credential)
@@ -455,10 +450,15 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
     private fun startApp() {
         if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry) { startApp() }
+            CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    startApp()
+                }
+
+            } )
             return
         }
-        FirebaseDatabaseHandler(this@SplashActivity).getCreekUser(creekPreferences!!.signInAccount, object : FirebaseDatabaseHandler.GetCreekUserListner {
+        FirebaseDatabaseHandler(this@SplashActivity).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
             override fun onSuccess(creekUser: CreekUser) {
 
             }

@@ -67,9 +67,9 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
             holder.codeEditText!!.setTextColor(Color.parseColor("#006699"))
         } else {
             if (Build.VERSION.SDK_INT >= 24) {
-                holder.codeEditText!!.setText(Html.fromHtml(prettifyHighlighter!!.highlight(programLanguage, programLine), Html.FROM_HTML_MODE_LEGACY))
+                holder.codeEditText!!.setText(Html.fromHtml(prettifyHighlighter!!.highlight(programLanguage!!, programLine), Html.FROM_HTML_MODE_LEGACY))
             } else {
-                holder.codeEditText!!.setText(Html.fromHtml(prettifyHighlighter!!.highlight(programLanguage, programLine)))
+                holder.codeEditText!!.setText(Html.fromHtml(prettifyHighlighter!!.highlight(programLanguage!!, programLine)))
             }
         }
     }

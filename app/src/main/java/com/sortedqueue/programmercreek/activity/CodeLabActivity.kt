@@ -112,7 +112,7 @@ class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnC
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         codeLanguageFragment = supportFragmentManager.findFragmentByTag(CodeLanguageFragment::class.java.simpleName) as CodeLanguageFragment
         if (codeLanguageFragment == null) {
-            codeLanguageFragment = CodeLanguageFragment.getInstance()
+            codeLanguageFragment = CodeLanguageFragment.instance
         }
         checkFAB!!.setImageDrawable(ContextCompat.getDrawable(this@CodeLabActivity, android.R.drawable.ic_media_play))
         if (isFirstTime) {

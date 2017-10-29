@@ -271,8 +271,8 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
             if (lessonDetailsFragment!!.currentFragment == null) {
                 loadLessons()
             } else {
-                if (lessonDetailsFragment!!.currentFragment.isTestLoaded) {
-                    lessonDetailsFragment!!.currentFragment.onBackPressed()
+                if (lessonDetailsFragment!!.currentFragment!!.isTestLoaded) {
+                    lessonDetailsFragment!!.currentFragment!!.onBackPressed()
                 } else {
                     loadLessons()
                 }
