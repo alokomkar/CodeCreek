@@ -180,7 +180,7 @@ class ProgramListActivity : AppCompatActivity(), UIUpdateListener, CustomProgram
                     override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
                         mProgram_Indexs = ArrayList(program_indices)
                         PROGRAM_LIST_SIZE = mProgram_Indexs!!.size
-                        customProgramRecyclerViewAdapter = CustomProgramRecyclerViewAdapter(this@ProgramListActivity, mProgram_Indexs)
+                        customProgramRecyclerViewAdapter = CustomProgramRecyclerViewAdapter(this@ProgramListActivity, mProgram_Indexs!!)
                         val programListRecyclerView = findViewById(R.id.programListRecyclerView) as RecyclerView
                         programListRecyclerView.layoutManager = LinearLayoutManager(this@ProgramListActivity, LinearLayoutManager.VERTICAL, false)
                         programListRecyclerView.adapter = customProgramRecyclerViewAdapter

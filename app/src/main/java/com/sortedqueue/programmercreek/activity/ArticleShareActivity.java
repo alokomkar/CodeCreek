@@ -153,7 +153,7 @@ public class ArticleShareActivity extends AppCompatActivity implements View.OnCl
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.container, NotesPreviewFragment.newInstance(notesShareRecyclerAdapter.getNotesModelArrayList(), tagsRecyclerAdapter.getSelectedTag())).commit();
+                fragmentTransaction.replace(R.id.container, NotesPreviewFragment.Companion.newInstance(notesShareRecyclerAdapter.getNotesModelArrayList(), tagsRecyclerAdapter.getSelectedTag())).commit();
                 break;
             case R.id.discardButton:
                 break;

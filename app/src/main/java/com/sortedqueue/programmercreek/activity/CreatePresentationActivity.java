@@ -111,7 +111,7 @@ public class CreatePresentationActivity extends AppCompatActivity implements Vie
 
 
     private void initPagerAdapter() {
-        fragmentArrayList.add(PresentationTitleFragment.getInstance());
+        fragmentArrayList.add(PresentationTitleFragment.Companion.getInstance());
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(mPagerAdapter);
         pager.setPageTransformer(true, new ZoomOutPageTransformer());

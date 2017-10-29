@@ -103,7 +103,7 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
         supportActionBar!!.title = "Algorithms"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, AlgorithmIndexFragment.getInstance(), AlgorithmIndexFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, AlgorithmIndexFragment.instance, AlgorithmIndexFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
