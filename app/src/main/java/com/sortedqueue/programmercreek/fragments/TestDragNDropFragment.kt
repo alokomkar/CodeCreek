@@ -169,7 +169,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                         initUI(programTables)
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
                         CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
                     }
                 })
@@ -184,7 +184,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                         initUI(program_TableList)
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
 
                     }
                 })
@@ -425,11 +425,11 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                 "java" -> creekUserStats!!.addToUnlockedJavaProgramIndexList(mProgramIndex!!.program_index + 1)
                 "usp" -> creekUserStats!!.addToUnlockedUspProgramIndexList(mProgramIndex!!.program_index + 1)
             }
-            FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+            FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
         } else {
             if (mProgramIndex!!.userProgramId != "trial") {
                 creekUserStats!!.addToUnlockedUserAddedPrograms(mProgramIndex!!.userProgramId)
-                FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+                FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
             }
         }
     }
@@ -551,7 +551,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                         }
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
 
                     }
                 })

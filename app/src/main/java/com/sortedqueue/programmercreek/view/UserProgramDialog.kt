@@ -228,7 +228,7 @@ class UserProgramDialog : CompoundButton.OnCheckedChangeListener, View.OnClickLi
     private fun fetchAllTags() {
 
         CommonUtils.displayProgressDialog(context, context!!.getString(R.string.loading))
-        FirebaseDatabaseHandler(context).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
+        FirebaseDatabaseHandler(context!!).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
             override fun onError(databaseError: DatabaseError) {
                 CommonUtils.dismissProgressDialog()
             }

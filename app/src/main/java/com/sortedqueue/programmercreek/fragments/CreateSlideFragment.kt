@@ -212,7 +212,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             code = codeEditorRecyclerAdapter!!.code
         }
         slideModel = SlideModel(null, code, titleEditText!!.text.toString(), subTitleEditText!!.text.toString(), imageUrl)
-        val presentationPushId = firebaseDatabaseHandler!!.writeSlide(slideModel)
+        val presentationPushId = firebaseDatabaseHandler!!.writeSlide(slideModel!!)
         presentationCommunicationsListener!!.onPresentationCreation(presentationPushId, slideModel)
     }
 

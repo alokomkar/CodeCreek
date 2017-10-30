@@ -218,7 +218,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
                     startApp()
                 }
 
-                override fun onFailure(databaseError: DatabaseError) {
+                override fun onFailure(databaseError: DatabaseError?) {
                     //New signup
                     creekUser!!.save(this@SplashActivity)
                     CommonUtils.dismissProgressDialog()
@@ -230,7 +230,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
                 }
 
-                override fun onFailure(databaseError: DatabaseError) {
+                override fun onFailure(databaseError: DatabaseError?) {
 
                 }
             })
@@ -463,7 +463,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
             }
 
-            override fun onFailure(databaseError: DatabaseError) {
+            override fun onFailure(databaseError: DatabaseError?) {
 
             }
         })

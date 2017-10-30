@@ -74,14 +74,14 @@ class CodeShareHandlerActivity : AppCompatActivity(), FirebaseDatabaseHandler.Co
     internal fun handleSendText(intent: Intent) {
         sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
         if (sharedText != null) {
-            FirebaseDatabaseHandler(this@CodeShareHandlerActivity).compileSharedProgram(sharedText, this)
+            FirebaseDatabaseHandler(this@CodeShareHandlerActivity).compileSharedProgram(sharedText!!, this)
         }
     }
 
 
-    override fun onSuccess(programIndex: ProgramIndex?, programTables: ArrayList<ProgramTable>) {
+    override fun onSuccess(programIndex: ProgramIndex, programTables: ArrayList<ProgramTable>) {
 
-        if (programIndex != null && programTables.size > 0) {
+        if (programTables.size > 0) {
 
             UserProgramDialog(
                     this@CodeShareHandlerActivity,

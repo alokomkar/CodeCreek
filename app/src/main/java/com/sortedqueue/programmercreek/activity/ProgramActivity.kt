@@ -120,7 +120,7 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
                         run { initUI(mProgramTableList!!) }
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
 
                     }
                 })
@@ -324,7 +324,7 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
 
                         }
 
-                        override fun onError(databaseError: DatabaseError) {
+                        override fun onError(databaseError: DatabaseError?) {
 
                         }
                     })
@@ -427,7 +427,7 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
                         }
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
 
                     }
                 })

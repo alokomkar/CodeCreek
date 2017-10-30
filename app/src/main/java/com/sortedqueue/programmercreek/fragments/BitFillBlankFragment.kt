@@ -261,7 +261,7 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
         }/*case "usp":
                 creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;*/
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun onSuccess(programIndex: ProgramIndex, programTables: ArrayList<ProgramTable>) {

@@ -699,7 +699,7 @@ class ChaptersFragment : Fragment() {
                 setupRecyclerView(chaptersList)
             }
 
-            override fun onErrror(error: DatabaseError) {
+            override fun onErrror(error: DatabaseError?) {
                 CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
                 CommonUtils.dismissProgressDialog()
             }

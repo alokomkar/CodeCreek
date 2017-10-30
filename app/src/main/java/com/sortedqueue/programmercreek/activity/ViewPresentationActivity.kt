@@ -92,7 +92,7 @@ class ViewPresentationActivity : AppCompatActivity(), FirebaseDatabaseHandler.Ge
         pager!!.offscreenPageLimit = slideModelArrayList.size
     }
 
-    override fun onFailure(databaseError: DatabaseError) {
+    override fun onFailure(databaseError: DatabaseError?) {
         CommonUtils.dismissProgressDialog()
     }
 }

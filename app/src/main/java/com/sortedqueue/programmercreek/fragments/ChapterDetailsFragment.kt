@@ -289,7 +289,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
                 }
             }
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun onBackPressed() {

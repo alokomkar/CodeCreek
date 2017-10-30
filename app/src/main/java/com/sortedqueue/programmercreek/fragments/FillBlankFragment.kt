@@ -184,7 +184,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
                                 updateUI(programTables)
                             }
 
-                            override fun onError(databaseError: DatabaseError) {
+                            override fun onError(databaseError: DatabaseError?) {
                                 CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
                             }
                         })
@@ -206,7 +206,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
                             updateUI(programTables)
                         }
 
-                        override fun onError(databaseError: DatabaseError) {
+                        override fun onError(databaseError: DatabaseError?) {
                             CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
                         }
                     })
@@ -827,7 +827,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
             "java" -> creekUserStats!!.addToUnlockedJavaProgramIndexList(mProgramIndex!!.program_index + 1)
             "usp" -> creekUserStats!!.addToUnlockedUspProgramIndexList(mProgramIndex!!.program_index + 1)
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun isTestComplete(): Int {

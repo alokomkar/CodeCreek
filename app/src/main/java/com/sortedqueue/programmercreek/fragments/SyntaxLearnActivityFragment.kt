@@ -134,7 +134,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
             bindData(syntaxModule!!)
         } else {
             progressBar!!.visibility = View.VISIBLE
-            FirebaseDatabaseHandler(context).getSyntaxModule(syntaxId, wizardUrl,
+            FirebaseDatabaseHandler(context).getSyntaxModule(syntaxId!!, wizardUrl!!,
                     object : FirebaseDatabaseHandler.SyntaxModuleInterface {
                         override fun onSuccess(syntaxModule: SyntaxModule) {
                             this@SyntaxLearnActivityFragment.syntaxModule = syntaxModule
@@ -142,7 +142,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
                             progressBar!!.visibility = View.GONE
                         }
 
-                        override fun onError(error: DatabaseError) {
+                        override fun onError(error: DatabaseError?) {
                             progressBar!!.visibility = View.GONE
                             CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
                         }
@@ -394,7 +394,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
                 }
             }
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats)
+        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
 
     }
 

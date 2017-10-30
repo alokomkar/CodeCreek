@@ -274,7 +274,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
                 }
 
-                override fun onError(e: Exception) {
+                override fun onError(e: Exception?) {
 
                 }
             })
@@ -620,7 +620,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
                     if (creekPreferences!!.creekUserStats!!.userAddedPrograms.contains(fileMd5)) {
                         CommonUtils.displayToast(this@DashboardActivity, "File already uploaded")
                     } else
-                        FirebaseDatabaseHandler(this@DashboardActivity).readProgramFromFile(filepath, this)
+                        FirebaseDatabaseHandler(this@DashboardActivity).readProgramFromFile(filepath!!, this)
                 } else
                     CommonUtils.displayToast(this@DashboardActivity, "Unable to open file")
             } else {
@@ -868,9 +868,9 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         }
     }
 
-    override fun onSuccess(programIndex: ProgramIndex?, programTables: ArrayList<ProgramTable>) {
+    override fun onSuccess(programIndex: ProgramIndex, programTables: ArrayList<ProgramTable>) {
 
-        if (programIndex != null && programTables.size > 0) {
+        if ( programTables.size > 0) {
 
             UserProgramDialog(this@DashboardActivity, programIndex, programTables, object : UserProgramDialog.UserProgramDialogListener {
                 override fun onSave(accessSpecifier: String) {

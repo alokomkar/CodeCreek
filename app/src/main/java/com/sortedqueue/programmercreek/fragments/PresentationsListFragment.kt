@@ -62,7 +62,7 @@ class PresentationsListFragment : Fragment(), View.OnClickListener, FirebaseData
         setupRecyclerView(presentationModelArrayList)
     }
 
-    override fun onError(databaseError: DatabaseError) {
+    override fun onError(databaseError: DatabaseError?) {
 
     }
 

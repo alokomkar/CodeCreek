@@ -166,7 +166,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         setupRecyclerView(userProgramDetailsArrayList)
     }
 
-    override fun onError(databaseError: DatabaseError) {
+    override fun onError(databaseError: DatabaseError?) {
         swipeRefreshLayout!!.isRefreshing = false
         noProgramsLayout!!.visibility = View.VISIBLE
         userProgramsRecyclerView!!.visibility = View.GONE

@@ -130,7 +130,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
                 initUI(program_TableList)
             }
 
-            override fun onError(databaseError: DatabaseError) {
+            override fun onError(databaseError: DatabaseError?) {
                 CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
 
             }

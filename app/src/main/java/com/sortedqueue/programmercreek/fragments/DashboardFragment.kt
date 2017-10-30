@@ -414,7 +414,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
         CommonUtils.dismissProgressDialog()
     }
 
-    override fun onError(databaseError: DatabaseError) {
+    override fun onError(databaseError: DatabaseError?) {
         CommonUtils.dismissProgressDialog()
     }
 

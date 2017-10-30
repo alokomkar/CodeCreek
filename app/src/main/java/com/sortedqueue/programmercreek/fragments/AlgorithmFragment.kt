@@ -68,7 +68,7 @@ class AlgorithmFragment : Fragment(), FirebaseDatabaseHandler.GetAlgorithmListen
         algorithmTabLayout!!.setupWithViewPager(algorithmViewPager)
     }
 
-    override fun onError(databaseError: DatabaseError) {
+    override fun onError(databaseError: DatabaseError?) {
         CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data, R.string.retry, View.OnClickListener { fetchAlgorithmsIndex() })
     }
 

@@ -52,7 +52,7 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
             progressBar!!.visibility = View.VISIBLE
             if (wikiNavigationListener != null)
                 wikiNavigationListener!!.disableViewPager()
-            FirebaseDatabaseHandler(context).getWikiModel(wizardUrl, object : FirebaseDatabaseHandler.GetWikiModelListener {
+            FirebaseDatabaseHandler(context).getWikiModel(wizardUrl!!, object : FirebaseDatabaseHandler.GetWikiModelListener {
                 override fun onSuccess(wikiModel: WikiModel) {
                     this@ProgramWikiFragment.programWiki = wikiModel
                     headerTextView!!.text = programWiki!!.wikiHeader

@@ -153,7 +153,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
                 activity.onBackPressed()
             }
 
-            override fun onFailure(databaseError: DatabaseError) {
+            override fun onFailure(databaseError: DatabaseError?) {
                 CommonUtils.dismissProgressDialog()
                 CommonUtils.displayToast(context, "Signup Failed, Try later")
                 loginSignupDialog!!.cancelDialog()

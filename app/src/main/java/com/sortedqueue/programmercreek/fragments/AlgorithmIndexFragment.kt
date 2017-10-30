@@ -71,7 +71,7 @@ class AlgorithmIndexFragment : Fragment(), FirebaseDatabaseHandler.GetAllAlgorit
         programListRecyclerView!!.adapter = algorithmsRecyclerAdapter
     }
 
-    override fun onError(databaseError: DatabaseError) {
+    override fun onError(databaseError: DatabaseError?) {
 
     }
 

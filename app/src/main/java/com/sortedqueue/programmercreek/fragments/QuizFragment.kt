@@ -156,7 +156,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
                         run { initUI(programTables) }
                     }
 
-                    override fun onError(databaseError: DatabaseError) {
+                    override fun onError(databaseError: DatabaseError?) {
 
                     }
                 })

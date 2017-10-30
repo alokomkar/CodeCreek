@@ -32,7 +32,7 @@ class ProgramFetcherTask : AsyncTask<Void, Void, ArrayList<ProgramTable>> {
     }
 
     override fun doInBackground(vararg params: Void): ArrayList<ProgramTable> {
-        mProgram_TableList = FirebaseDatabaseHandler(mContext).getProgramTables(mProgramIndex)
+        mProgram_TableList = FirebaseDatabaseHandler(mContext!!).getProgramTables(mProgramIndex)
         return mProgram_TableList!!
     }
 
@@ -49,13 +49,13 @@ class ProgramFetcherTask : AsyncTask<Void, Void, ArrayList<ProgramTable>> {
                 mUiProgramFetcherListener!!.updateUI(result)
             }
         } else {
-            FirebaseDatabaseHandler(mContext).getProgramTablesInBackground(mProgramIndex, object : FirebaseDatabaseHandler.GetProgramTablesListener {
+            FirebaseDatabaseHandler(mContext!!).getProgramTablesInBackground(mProgramIndex, object : FirebaseDatabaseHandler.GetProgramTablesListener {
                 override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                     mUiProgramFetcherListener!!.updateUI(programTables)
                     CommonUtils.dismissProgressDialog()
                 }
 
-                override fun onError(databaseError: DatabaseError) {
+                override fun onError(databaseError: DatabaseError?) {
                     CommonUtils.dismissProgressDialog()
                 }
             })

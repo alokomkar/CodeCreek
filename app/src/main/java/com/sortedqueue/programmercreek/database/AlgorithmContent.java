@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.database;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
