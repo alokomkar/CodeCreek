@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.database.firebase
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
@@ -945,6 +946,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         fun onError(databaseError: DatabaseError)
     }
 
+    @SuppressLint("StaticFieldLeak")
     fun getAllProgramLanguages(getProgramLanguageListener: GetProgramLanguageListener) {
         val creekUserDB = creekPreferences.creekUserDB
         val totalLocalLanguages = creekPreferences.totalLanguages
@@ -953,14 +955,15 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
             mProgramLanguageDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     programLanguages = ArrayList<ProgramLanguage>()
-                    object : AsyncTask<Void, Void, Void>() {
+
+                    object : AsyncTask<Void, Void, Void?>() {
 
                         override fun doInBackground(vararg voids: Void): Void? {
                             RushCore.getInstance().deleteAll(ProgramLanguage::class.java)
                             return null
                         }
 
-                        override fun onPostExecute(aVoid: Void) {
+                        override fun onPostExecute(aVoid: Void?) {
                             super.onPostExecute(aVoid)
                             for (child in dataSnapshot.children) {
                                 val programLanguage = child.getValue(ProgramLanguage::class.java)
