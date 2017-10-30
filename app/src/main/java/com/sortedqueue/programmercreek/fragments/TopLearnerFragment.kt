@@ -53,6 +53,12 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_top_learners, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -67,7 +73,6 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
 
         calculateTopLearners()
         initListeners()
-        return view
     }
 
     private fun initListeners() {

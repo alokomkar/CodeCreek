@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.sortedqueue.programmercreek.CreekApplication
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener
@@ -24,9 +25,12 @@ class InterviewChoiceFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_interview_choice, container, false)
-
-        setListeners()
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListeners()
     }
 
     private fun setListeners() {

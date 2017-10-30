@@ -80,6 +80,12 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_syntax_learn, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         //initializeRewardedVideoAd();
         if (programLanguage == "c++") {
@@ -104,7 +110,6 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
                     })
         }
         proceedTextView!!.setOnClickListener(this)
-        return view
     }
 
     private fun initializeRewardedVideoAd() {

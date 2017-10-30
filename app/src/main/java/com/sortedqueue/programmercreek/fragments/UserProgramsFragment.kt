@@ -63,6 +63,12 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_user_programs, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //language = getArguments().getString("Language");
         allProgramsRadioButton!!.isChecked = true
         allProgramsRadioButton!!.setOnCheckedChangeListener(checkChangedListener)
@@ -87,7 +93,6 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()
         }
-        return view
     }
 
     private fun initAds() {

@@ -78,11 +78,15 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         creekPreferences = CreekApplication.creekPreferences
-        //creekPreferences.setProgramLanguage("sql");
         initUI()
         animateViews()
-        return view
     }
 
     fun animateViews() {

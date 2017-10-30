@@ -35,15 +35,19 @@ class CodeViewFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_code_view, container, false)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
             programLanguage = "cpp"
         }
         programCode = ArrayList<String>()
         allCodeMap = HashMap<Int, ArrayList<String>>()
-        return view
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

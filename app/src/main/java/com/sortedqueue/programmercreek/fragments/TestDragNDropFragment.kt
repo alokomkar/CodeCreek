@@ -91,10 +91,13 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.activity_test_drag_n_drop, container, false)
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         dragNDropListView = view!!.findViewById(R.id.dragNDropListView) as DragNDropListView
-
         handleBundle()
-
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id))
         interstitialAd = InterstitialAd(context)
         interstitialAd!!.adUnitId = getString(R.string.interstital_wiki_ad_id)
@@ -105,8 +108,6 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                 activity.finish()
             }
         }
-
-        return view
     }
 
     fun getmProgramList(): ArrayList<String> {

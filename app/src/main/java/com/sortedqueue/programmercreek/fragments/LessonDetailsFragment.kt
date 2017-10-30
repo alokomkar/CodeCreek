@@ -43,6 +43,8 @@ class LessonDetailsFragment : Fragment(), BitModuleNavigationListener {
         return fragmentView
     }
 
+
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CommonUtils.displayProgressDialog(context, getString(R.string.loading))

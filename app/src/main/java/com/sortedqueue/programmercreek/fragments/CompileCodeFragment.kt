@@ -77,6 +77,12 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_compile_code, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         inputList = ArrayList<String>()
         compilerProgressLayout!!.visibility = View.GONE
         languageTextView!!.setOnClickListener(this)
@@ -103,7 +109,6 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
         if (fromWiki) {
             setupRecyclerView()
         }
-        return view
     }
 
     private fun setupLanguageRecyclerView() {

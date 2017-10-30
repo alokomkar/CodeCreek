@@ -43,8 +43,12 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
                 R.layout.fragment_editor,
                 container,
                 false)
-        setupViews()
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
     }
 
     private fun setupViews() {

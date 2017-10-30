@@ -46,14 +46,14 @@ class QuickReferenceFragment : Fragment(), CustomProgramRecyclerViewAdapter.Adap
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_quick_reference, container, false)
-        languageRecyclerView!!.visibility = View.GONE
-        headingTextView!!.text = "< Quick Reference"
-        headingTextView!!.setOnClickListener { activity.onBackPressed() }
         return fragmentView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        languageRecyclerView!!.visibility = View.GONE
+        headingTextView!!.text = "< Quick Reference"
+        headingTextView!!.setOnClickListener { activity.onBackPressed() }
         fetchAllTags()
     }
 

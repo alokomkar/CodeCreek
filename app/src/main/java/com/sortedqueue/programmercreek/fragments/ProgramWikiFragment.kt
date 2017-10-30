@@ -33,6 +33,13 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_program_wiki, null)
+
+
+        return fragmentView
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupViews(programWiki!!)
         if (wizardUrl == null) {
             progressBar!!.visibility = View.VISIBLE
@@ -58,8 +65,6 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
                 }
             })
         }
-
-        return fragmentView
     }
 
     private fun setupViews(programWiki: WikiModel) {

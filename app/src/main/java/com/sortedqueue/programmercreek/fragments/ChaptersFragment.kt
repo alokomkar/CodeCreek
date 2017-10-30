@@ -52,11 +52,16 @@ class ChaptersFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_chapters, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()
         }
-        return view
     }
 
     private fun initAds() {

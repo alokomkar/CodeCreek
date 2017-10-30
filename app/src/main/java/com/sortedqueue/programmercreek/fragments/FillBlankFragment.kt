@@ -67,15 +67,16 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fill_blank, container, false)
+        return view
+    }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
             programLanguage = "cpp"
         }
         getProgram()
-
-
-        return view
     }
 
     private fun getProgram() {

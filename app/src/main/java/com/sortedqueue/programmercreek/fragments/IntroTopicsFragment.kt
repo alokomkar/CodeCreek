@@ -29,6 +29,12 @@ class IntroTopicsFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_intro_topics, container, false)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         javaIntroCardView!!.setOnClickListener(this)
         javaClassCardView!!.setOnClickListener(this)
@@ -37,7 +43,6 @@ class IntroTopicsFragment : Fragment(), View.OnClickListener {
         javaLoopsCardView!!.setOnClickListener(this)
         javaStatementsCardView!!.setOnClickListener(this)
         javaOperatorsCardView!!.setOnClickListener(this)
-        return view
     }
 
     private fun setupToolbar() {

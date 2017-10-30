@@ -58,9 +58,14 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_wizard_module, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         CommonUtils.displayProgressDialog(context, "Loading modules")
         setupViews()
-        return view
     }
 
     fun setChapter(chapter: Chapter) {

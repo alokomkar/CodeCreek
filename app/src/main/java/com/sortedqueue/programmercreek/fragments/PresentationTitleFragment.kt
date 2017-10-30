@@ -40,9 +40,14 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentation_title, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         fetchAllTags()
         setupListeners()
-        return view
     }
 
     private fun setupListeners() {

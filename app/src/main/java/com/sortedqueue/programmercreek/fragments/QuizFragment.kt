@@ -79,7 +79,14 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         val view = inflater!!.inflate(R.layout.activity_quiz, container, false)
 
 
-        mCheckSolutionBtn = view.findViewById(R.id.checkQuizButton) as Button
+
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mCheckSolutionBtn = view!!.findViewById(R.id.checkQuizButton) as Button
         mTimerBtn = view.findViewById(R.id.timerButton) as Button
         mTimerBtn!!.text = "00:00"
         mTimerBtn!!.isEnabled = false
@@ -91,8 +98,6 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
             mQuizMode = bundle!!.getInt(ProgramListActivity.KEY_QUIZ_TYPE, ProgramListActivity.KEY_QUIZ_PROGRAM_CODE_QUESTION)
             initQuiz(mQuizMode)
         }
-
-        return view
     }
 
     fun getmProgramList(): ArrayList<String> {

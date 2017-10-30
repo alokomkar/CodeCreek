@@ -56,6 +56,12 @@ class LanguageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_language, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -71,7 +77,6 @@ class LanguageFragment : Fragment() {
         getProgramLanguages()
         handler = Handler()
         animateProgress()
-        return view
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

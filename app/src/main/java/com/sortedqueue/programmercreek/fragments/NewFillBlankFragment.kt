@@ -78,6 +78,8 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
         return fragmentView
     }
 
+
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkButton!!.setOnClickListener(this)

@@ -49,8 +49,12 @@ class AlgorithmFragment : Fragment(), FirebaseDatabaseHandler.GetAlgorithmListen
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_algorithm, container, false)
 
-        fetchAlgorithmsIndex()
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchAlgorithmsIndex()
     }
 
     private fun fetchAlgorithmsIndex() {

@@ -38,8 +38,13 @@ class PresentationsListFragment : Fragment(), View.OnClickListener, FirebaseData
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentations, container, false)
 
-        FirebaseDatabaseHandler(context).getAllPresentations(this)
+
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        FirebaseDatabaseHandler(context).getAllPresentations(this)
     }
 
     private fun setupRecyclerView(presentationModelArrayList: ArrayList<PresentationModel>) {

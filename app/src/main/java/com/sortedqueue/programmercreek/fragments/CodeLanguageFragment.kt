@@ -29,6 +29,12 @@ class CodeLanguageFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_code_language_list, container, false)
 
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         code = Code()
         code!!.language = LanguageConstants.C_INDEX
         code!!.sourceCode = "#include<stdio.h>\n" +
@@ -52,7 +58,6 @@ class CodeLanguageFragment : Fragment(), View.OnClickListener {
                 "   return 0;\n" +
                 "}\n"
         setupListeners()
-        return view
     }
 
     override fun onAttach(context: Context?) {

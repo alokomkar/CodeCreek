@@ -42,8 +42,13 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_module_details, container, false)
 
-        setupViews()
+
         return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
     }
 
     private fun setupViews() {

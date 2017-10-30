@@ -93,6 +93,12 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_slide, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         slideModel = SlideModel()
         firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         titleEditText!!.clearFocus()
@@ -109,7 +115,6 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
         codeEditRecyclerView!!.visibility = View.GONE
         setupLanguageRecyclerView()
         setupRecyclerView()
-        return view
     }
 
     private fun setupLanguageRecyclerView() {

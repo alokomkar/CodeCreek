@@ -46,14 +46,15 @@ class SignupFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_signup, container, false)
-        mAuth = FirebaseAuth.getInstance()
-        googleSignInButton!!.setOnClickListener(this)
-        signEmailButton!!.setOnClickListener(this)
+
         return fragmentView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mAuth = FirebaseAuth.getInstance()
+        googleSignInButton!!.setOnClickListener(this)
+        signEmailButton!!.setOnClickListener(this)
         signEmailButton!!.callOnClick()
     }
 

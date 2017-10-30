@@ -56,6 +56,12 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_tutorial, container, false)
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         titleTextView!!.text = "Step : " + index
         subTitleTextView!!.text = tutorialModel!!.stepDescription
         slideImageView!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.splash_logo))
@@ -89,7 +95,6 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
                     .placeholder(R.color.md_blue_600)
                     .into(slideImageView!!)
         }
-        return view
     }
 
     override fun onDestroyView() {
