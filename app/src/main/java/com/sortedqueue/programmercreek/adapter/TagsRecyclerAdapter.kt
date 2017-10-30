@@ -93,13 +93,13 @@ class TagsRecyclerAdapter : RecyclerView.Adapter<TagsRecyclerAdapter.ViewHolder>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.tagTextView)
-        internal var tagTextView: TextView? = null
-        @BindView(R.id.tagLayout)
-        internal var tagLayout: LinearLayout? = null
+
+        internal var tagTextView: TextView? = itemView.findViewById(R.id.tagTextView) as TextView
+
+        internal var tagLayout: LinearLayout? = itemView.findViewById(R.id.tagLayout) as LinearLayout
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

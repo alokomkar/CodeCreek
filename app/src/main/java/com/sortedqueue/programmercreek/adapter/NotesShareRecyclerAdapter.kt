@@ -46,17 +46,17 @@ class NotesShareRecyclerAdapter(val notesModelArrayList: ArrayList<NotesModel>) 
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), CompoundButton.OnCheckedChangeListener {
-        @BindView(R.id.notesTextView)
-        internal var notesTextView: TextView? = null
-        @BindView(R.id.codeRadioButton)
-        internal var codeRadioButton: RadioButton? = null
-        @BindView(R.id.notesRadioButton)
-        internal var notesRadioButton: RadioButton? = null
-        @BindView(R.id.headerRadioButton)
-        internal var headerRadioButton: RadioButton? = null
+
+        internal var notesTextView: TextView? = itemView.findViewById(R.id.notesTextView) as TextView
+
+        internal var codeRadioButton: RadioButton? = itemView.findViewById(R.id.codeRadioButton) as RadioButton
+
+        internal var notesRadioButton: RadioButton? = itemView.findViewById(R.id.notesRadioButton) as RadioButton
+
+        internal var headerRadioButton: RadioButton? = itemView.findViewById(R.id.headerRadioButton) as RadioButton
 
         init {
-            ButterKnife.bind(this, itemView)
+
             codeRadioButton!!.setOnCheckedChangeListener(this)
             notesRadioButton!!.setOnCheckedChangeListener(this)
             headerRadioButton!!.setOnCheckedChangeListener(this)

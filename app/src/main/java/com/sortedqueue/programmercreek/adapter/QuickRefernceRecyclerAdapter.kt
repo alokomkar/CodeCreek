@@ -86,16 +86,16 @@ class QuickRefernceRecyclerAdapter(private var quickReferences: ArrayList<QuickR
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.headerTextView)
-        internal var headerTextView: TextView? = null
-        @BindView(R.id.explanationLayout)
-        internal var explanationLayout: LinearLayout? = null
-        @BindView(R.id.indicatorImageview)
-        internal var indicatorImageview: ImageView? = null
+
+        internal var headerTextView: TextView? = itemView.findViewById(R.id.headerTextView) as TextView
+
+        internal var explanationLayout: LinearLayout? = itemView.findViewById(R.id.explanationLayout) as LinearLayout
+
+        internal var indicatorImageview: ImageView? = itemView.findViewById(R.id.indicatorImageview) as ImageView
 
 
         init {
-            ButterKnife.bind(this, itemView)
+
             headerTextView!!.setOnClickListener(this)
         }
 

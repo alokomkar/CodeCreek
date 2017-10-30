@@ -48,18 +48,18 @@ class ProgramLanguageAdapter(private val context: Context, private val programLa
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.programmingTextView)
-        internal var programmingTextView: TextView? = null
-        @BindView(R.id.progressBar)
-        internal var progressBar: ProgressBar? = null
-        @BindView(R.id.programLanguageDescriptionTextView)
-        internal var programLanguageDescriptionTextView: TextView? = null
-        @BindView(R.id.languageIdTextView)
-        internal var languageIdTextView: TextView? = null
+
+        internal var programmingTextView: TextView? = itemView.findViewById(R.id.programmingTextView) as TextView
+
+        internal var progressBar: ProgressBar? = itemView.findViewById(R.id.progressBar) as ProgressBar
+
+        internal var programLanguageDescriptionTextView: TextView? = itemView.findViewById(R.id.programLanguageDescriptionTextView) as TextView
+
+        internal var languageIdTextView: TextView? = itemView.findViewById(R.id.languageIdTextView) as TextView
 
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

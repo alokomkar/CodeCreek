@@ -72,22 +72,22 @@ class UserProgramRecyclerAdapter(private val context: Context, private val acces
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.titleTextView)
-        internal var titleTextView: TextView? = null
-        @BindView(R.id.subTitleTextView)
-        internal var subTitleTextView: TextView? = null
-        @BindView(R.id.viewsTextView)
-        internal var viewsTextView: TextView? = null
-        @BindView(R.id.likesTextView)
-        internal var likesTextView: TextView? = null
-        @BindView(R.id.shareImageView)
-        internal var shareImageView: ImageView? = null
-        @BindView(R.id.extrasLayout)
-        internal var extrasLayout: LinearLayout? = null
+
+        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView) as TextView
+
+        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView) as TextView
+
+        internal var viewsTextView: TextView? = itemView.findViewById(R.id.viewsTextView) as TextView
+
+        internal var likesTextView: TextView? = itemView.findViewById(R.id.likesTextView) as TextView
+
+        internal var shareImageView: ImageView? = itemView.findViewById(R.id.shareImageView) as ImageView
+
+        internal var extrasLayout: LinearLayout? = itemView.findViewById(R.id.extrasLayout) as LinearLayout
 
 
         init {
-            ButterKnife.bind(this, itemView)
+
             titleTextView!!.setOnClickListener(this)
             subTitleTextView!!.setOnClickListener(this)
             viewsTextView!!.setOnClickListener(this)

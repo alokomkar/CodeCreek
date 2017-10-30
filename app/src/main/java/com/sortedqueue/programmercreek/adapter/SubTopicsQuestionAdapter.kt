@@ -157,15 +157,15 @@ class SubTopicsQuestionAdapter(private val optionModels: ArrayList<OptionModel>,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.progamLineTxtView)
-        internal var progamLineTxtView: TextView? = null
-        @BindView(R.id.reorderImageView)
-        internal var reorderImageView: ImageView? = null
-        @BindView(R.id.optionCardView)
-        internal var optionCardView: LinearLayout? = null
+
+        internal var progamLineTxtView: TextView? = itemView.findViewById(R.id.progamLineTxtView) as TextView
+
+        internal var reorderImageView: ImageView? = itemView.findViewById(R.id.reorderImageView) as ImageView
+
+        internal var optionCardView: LinearLayout? = itemView.findViewById(R.id.optionCardView) as LinearLayout
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

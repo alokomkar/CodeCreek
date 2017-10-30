@@ -63,15 +63,15 @@ class NotesPreviewRecyclerAdapter(private val notesModelArrayList: ArrayList<Not
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.headerTextView)
-        internal var headerTextView: TextView? = null
-        @BindView(R.id.contentTextView)
-        internal var contentTextView: TextView? = null
-        @BindView(R.id.codeTextView)
-        internal var codeTextView: TextView? = null
+
+        internal var headerTextView: TextView = itemView.findViewById(R.id.headerTextView) as TextView
+
+        internal var contentTextView: TextView = itemView.findViewById(R.id.contentTextView) as TextView
+
+        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
         }
     }
 }

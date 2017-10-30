@@ -101,29 +101,29 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
     }
 
     inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        @BindView(R.id.syntaxNameTextView)
-        internal var syntaxNameTextView: TextView? = null
+
+        internal var syntaxNameTextView: TextView? = view.findViewById(R.id.syntaxNameTextView) as TextView
 
         init {
-            ButterKnife.bind(this, view)
+
         }
     }
 
     inner class ProgramViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        @BindView(R.id.syntaxDescriptionTextView)
-        internal var syntaxDescriptionTextView: TextView? = null
 
-        @BindView(R.id.syntaxSolutionTextView)
-        internal var syntaxSolutionTextView: TextView? = null
+        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView) as TextView
 
-        @BindView(R.id.programCodeView)
-        internal var programCodeView: CodeView? = null
 
-        @BindView(R.id.codeLabTextView)
-        internal var codeLabTextView: TextView? = null
+        internal var syntaxSolutionTextView: TextView? = view.findViewById(R.id.syntaxSolutionTextView) as TextView
+
+
+        internal var programCodeView: CodeView? = view.findViewById(R.id.programCodeView) as CodeView
+
+
+        internal var codeLabTextView: TextView? = view.findViewById(R.id.codeLabTextView) as TextView
 
         init {
-            ButterKnife.bind(this, view)
+
             codeLabTextView!!.setOnClickListener(this)
         }
 
@@ -146,11 +146,11 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
     }
 
     inner class ProgramExplanationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        @BindView(R.id.syntaxDescriptionTextView)
-        internal var syntaxDescriptionTextView: TextView? = null
+
+        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView) as TextView
 
         init {
-            ButterKnife.bind(this, view)
+
         }
     }
 }

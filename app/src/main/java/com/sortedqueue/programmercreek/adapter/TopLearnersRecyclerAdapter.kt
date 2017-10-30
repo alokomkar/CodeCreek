@@ -45,15 +45,15 @@ class TopLearnersRecyclerAdapter(private val context: Context, private val userR
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        @BindView(R.id.movieGridItemImageView)
-        internal var movieGridItemImageView: ImageView? = null
-        @BindView(R.id.userNameTextView)
-        internal var userNameTextView: TextView? = null
-        @BindView(R.id.levelTextView)
-        internal var levelTextView: TextView? = null
+
+        internal var movieGridItemImageView: ImageView? = view.findViewById(R.id.movieGridItemImageView) as ImageView
+
+        internal var userNameTextView: TextView? = view.findViewById(R.id.userNameTextView) as TextView
+
+        internal var levelTextView: TextView? = view.findViewById(R.id.levelTextView) as TextView
 
         init {
-            ButterKnife.bind(this, view)
+
         }
     }
 }

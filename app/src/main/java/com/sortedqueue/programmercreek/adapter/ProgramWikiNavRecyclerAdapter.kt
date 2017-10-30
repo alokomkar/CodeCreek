@@ -48,15 +48,15 @@ class ProgramWikiNavRecyclerAdapter(private val context: Context, private val pr
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.programTypeTextView)
-        internal var programTypeTextView: TextView? = null
-        @BindView(R.id.txtViewProgDescription)
-        internal var txtViewProgDescription: TextView? = null
-        @BindView(R.id.lockedImageView)
-        internal var lockedImageView: ImageView? = null
+
+        internal var programTypeTextView: TextView? = itemView.findViewById(R.id.programTypeTextView) as TextView
+
+        internal var txtViewProgDescription: TextView? = itemView.findViewById(R.id.txtViewProgDescription) as TextView
+
+        internal var lockedImageView: ImageView? = itemView.findViewById(R.id.lockedImageView) as ImageView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
             lockedImageView!!.visibility = View.GONE
         }

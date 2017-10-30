@@ -33,11 +33,11 @@ class OptionsRecyclerViewAdapter(private val context: Context, private val modul
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.optionTextView)
-        internal var optionTextView: TextView? = null
+
+        internal var optionTextView: TextView? = itemView.findViewById(R.id.optionTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

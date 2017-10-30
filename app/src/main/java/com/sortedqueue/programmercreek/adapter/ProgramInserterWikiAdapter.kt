@@ -11,8 +11,7 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.ProgramWiki
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
-
-
+import org.w3c.dom.Text
 
 
 /**
@@ -67,17 +66,17 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
     }
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.wikiHeaderTextView)
-        internal var wikiHeaderTextView: TextView? = null
-        @BindView(R.id.wikiExplanationTextView)
-        internal var wikiExplanationTextView: TextView? = null
-        @BindView(R.id.wikiExampleTextView)
-        internal var wikiExampleTextView: TextView? = null
-        @BindView(R.id.wikiOuptputTextView)
-        internal var wikiOuptputTextView: TextView? = null
+
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
+
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView) as TextView
+
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             wikiExplanationTextView!!.visibility = View.GONE
             wikiExampleTextView!!.visibility = View.GONE
             wikiOuptputTextView!!.visibility = View.GONE
@@ -103,17 +102,14 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
     }
 
     inner class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.wikiHeaderTextView)
-        internal var wikiHeaderTextView: TextView? = null
-        @BindView(R.id.wikiExplanationTextView)
-        internal var wikiExplanationTextView: TextView? = null
-        @BindView(R.id.wikiExampleTextView)
-        internal var wikiExampleTextView: TextView? = null
-        @BindView(R.id.wikiOuptputTextView)
-        internal var wikiOuptputTextView: TextView? = null
+
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             wikiHeaderTextView!!.visibility = View.GONE
             wikiExampleTextView!!.visibility = View.GONE
             wikiOuptputTextView!!.visibility = View.GONE
@@ -140,17 +136,17 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
     }
 
     inner class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.wikiHeaderTextView)
-        internal var wikiHeaderTextView: TextView? = null
-        @BindView(R.id.wikiExplanationTextView)
-        internal var wikiExplanationTextView: TextView? = null
-        @BindView(R.id.wikiExampleTextView)
-        internal var wikiExampleTextView: TextView? = null
-        @BindView(R.id.wikiOuptputTextView)
-        internal var wikiOuptputTextView: TextView? = null
+
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
+
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView) as TextView
+
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             wikiExplanationTextView!!.visibility = View.GONE
             wikiHeaderTextView!!.visibility = View.GONE
             wikiOuptputTextView!!.setOnClickListener(this)

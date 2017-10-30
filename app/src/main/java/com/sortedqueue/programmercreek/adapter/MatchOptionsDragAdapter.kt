@@ -60,13 +60,11 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnTouchListener {
-        @BindView(R.id.questionTextView)
-        internal var questionTextView: TextView? = null
-        @BindView(R.id.matchQuestionLayout)
-        internal var matchQuestionLayout: LinearLayout? = null
+
+        internal var questionTextView: TextView = itemView.findViewById(R.id.questionTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             questionTextView!!.setOnLongClickListener(this)
         }
 

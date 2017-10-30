@@ -67,7 +67,7 @@ class ArticleShareAdaper(val notesModelArrayList: ArrayList<NotesModel>) : Recyc
         internal var notesTextView: TextView = itemView.findViewById(R.id.notesTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

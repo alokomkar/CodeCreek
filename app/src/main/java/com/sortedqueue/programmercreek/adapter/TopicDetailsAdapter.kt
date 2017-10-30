@@ -69,13 +69,13 @@ class TopicDetailsAdapter(private val lessons: ArrayList<TopicDetails>, private 
 
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.topicsTextView)
+        itemView.findViewById(R.id.topicsTextView)
         internal var topicsTextView: TextView? = null
-        @BindView(R.id.dividerView)
+        itemView.findViewById(R.id.dividerView)
         internal var dividerView: View? = null
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

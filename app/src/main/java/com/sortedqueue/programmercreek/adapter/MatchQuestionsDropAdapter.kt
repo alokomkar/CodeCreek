@@ -234,13 +234,13 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnDragListener, View.OnLongClickListener {
-        @BindView(R.id.questionTextView)
+        itemView.findViewById(R.id.questionTextView)
         internal var questionTextView: TextView? = null
-        @BindView(R.id.matchQuestionLayout)
+        itemView.findViewById(R.id.matchQuestionLayout)
         internal var matchQuestionLayout: LinearLayout? = null
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnDragListener(this)
             itemView.setOnLongClickListener(this)
             itemView.setOnClickListener(object : DoubleClickListener() {

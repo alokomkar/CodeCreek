@@ -50,15 +50,15 @@ class PresentationsListRecyclerAdapter(private val context: Context, private val
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.titleTextView)
-        internal var titleTextView: TextView? = null
-        @BindView(R.id.subTitleTextView)
-        internal var subTitleTextView: TextView? = null
-        @BindView(R.id.slideImageView)
-        internal var slideImageView: ImageView? = null
+
+        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView) as TextView
+
+        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView) as TextView
+
+        internal var slideImageView: ImageView? = itemView.findViewById(R.id.slideImageView) as ImageView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

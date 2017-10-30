@@ -165,7 +165,7 @@ class CustomProgramRecyclerViewAdapter : RecyclerView.Adapter<CustomProgramRecyc
 
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }

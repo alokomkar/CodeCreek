@@ -54,7 +54,7 @@ class FillCodeRecyclerAdapter(private val codeWords: Array<String>, private val 
         var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             codeTextView!!.setOnClickListener(this)
         }
 

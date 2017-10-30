@@ -92,7 +92,7 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
         internal var codeEditText: EditText = itemView.findViewById(R.id.codeEditText) as EditText
 
         init {
-            ButterKnife.bind(this, itemView)
+
             codeEditText!!.isEnabled = false
             codeEditText!!.setOnClickListener(this)
             codeEditText!!.addTextChangedListener(this)

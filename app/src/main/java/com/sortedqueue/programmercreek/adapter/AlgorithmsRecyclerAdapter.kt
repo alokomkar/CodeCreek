@@ -45,7 +45,7 @@ class AlgorithmsRecyclerAdapter(context: Context, private val adapterClickListne
         internal var descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

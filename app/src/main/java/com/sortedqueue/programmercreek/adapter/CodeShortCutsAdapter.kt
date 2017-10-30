@@ -37,7 +37,7 @@ class CodeShortCutsAdapter(private val mCodeShortCuts: ArrayList<CodeShortCuts>,
         internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

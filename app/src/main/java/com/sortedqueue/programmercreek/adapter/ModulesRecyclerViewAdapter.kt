@@ -79,18 +79,14 @@ class ModulesRecyclerViewAdapter(private val context: Context, private val langu
     }
 
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        @BindView(R.id.moduleNameTextView)
-        var moduleNameTextView: TextView? = null
-        @BindView(R.id.moduleDescriptionTextView)
-        var moduleDescriptionTextView: TextView? = null
-        @BindView(R.id.lockedImageView)
-        var lockedImageView: ImageView? = null
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
+        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView) as TextView
+        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView) as TextView
+        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView) as ImageView
 
         init {
-            ButterKnife.bind(this, view)
-            view.setOnClickListener(this)
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(view: View) {

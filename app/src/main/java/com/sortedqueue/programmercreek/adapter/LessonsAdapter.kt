@@ -9,6 +9,7 @@ import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.lessons.Lesson
+import org.w3c.dom.Text
 
 import java.util.ArrayList
 
@@ -41,13 +42,12 @@ class LessonsAdapter(private val context: Context, private val lessons: ArrayLis
 
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.programLanguageTextView)
-        internal var programLanguageTextView: TextView? = null
-        @BindView(R.id.lessonTitleTextView)
-        internal var lessonTitleTextView: TextView? = null
+
+        internal var programLanguageTextView: TextView = itemView.findViewById(R.id.programLanguageTextView) as TextView
+        internal var lessonTitleTextView: TextView = itemView.findViewById(R.id.lessonTitleTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 

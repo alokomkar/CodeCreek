@@ -43,7 +43,7 @@ class FillOptionsRecyclerAdapter(private val fillBlankOptions: ArrayList<String>
         var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
-            ButterKnife.bind(this, itemView)
+
             codeTextView!!.setOnClickListener(this)
         }
 

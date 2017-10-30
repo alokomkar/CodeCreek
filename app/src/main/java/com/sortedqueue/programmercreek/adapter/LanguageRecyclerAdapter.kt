@@ -43,13 +43,13 @@ class LanguageRecyclerAdapter(private val languages: ArrayList<String>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        @BindView(R.id.tagTextView)
+        itemView.findViewById(R.id.tagTextView)
         internal var tagTextView: TextView? = null
-        @BindView(R.id.tagLayout)
+        itemView.findViewById(R.id.tagLayout)
         internal var tagLayout: LinearLayout? = null
 
         init {
-            ButterKnife.bind(this, itemView)
+
             itemView.setOnClickListener(this)
         }
 
