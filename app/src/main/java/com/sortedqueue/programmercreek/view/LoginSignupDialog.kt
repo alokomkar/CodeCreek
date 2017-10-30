@@ -125,7 +125,7 @@ class LoginSignupDialog {
 
     private fun initialize( dialogView: View?) {
         doneButton = dialogView!!.findViewById(R.id.doneButton) as Button
-        cancelButton = dialogView!!.findViewById(R.id.doneButton) as Button
+        cancelButton = dialogView!!.findViewById(R.id.cancelButton) as Button
         signupRadioButton = dialogView!!.findViewById(R.id.signupRadioButton) as RadioButton
         loginRadioButton = dialogView!!.findViewById(R.id.loginRadioButton) as RadioButton
         inputName = dialogView!!.findViewById(R.id.input_name) as EditText
