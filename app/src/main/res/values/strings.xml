@@ -297,4 +297,5 @@
     <string name="statments_humor">[\"hip\", \"hip\"] - (hip hip array!)</string>
     <string name="java_operators">Operators</string>
     <string name="operators_humor">Hide and Seek champion...\n \";\"  \nsince 1958</string>
+    <string name="authenticating_account">Verifying Account</string>
 </resources>

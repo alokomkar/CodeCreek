@@ -62,6 +62,41 @@ object CommonUtils {
 
     }
 
+    fun displayProgressDialog(context: Context?, message: Int) {
+        try {
+            if (context != null) {
+                /*mProgressDialog = new ProgressDialog(context);
+                mProgressDialog.show();
+                mProgressDialog.setContentView(R.layout.progress_content_view);*/
+                mProgressDialog = ProgressDialog(context, android.R.style.Theme_Translucent)
+                mProgressDialog!!.show()
+                mProgressDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#59000000")))
+                //mProgressDialog.setMessage(dialogueMessage);
+                mProgressDialog!!.setContentView(R.layout.progress_dialog)
+                mProgressDialog!!.setCancelable(false)
+                val progressTextView = mProgressDialog!!.findViewById(R.id.progressTextView) as TextView
+                progressTextView.text = context.getString(message)
+                val animation = AlphaAnimation(1f, 0f)
+                animation.duration = 800
+                animation.interpolator = LinearInterpolator()
+                animation.repeatCount = Animation.INFINITE
+                animation.repeatMode = Animation.REVERSE
+                progressTextView.startAnimation(animation)
+                //((ImageView) mProgressDialog.findViewById(R.id.progressImageView)).startAnimation(animation);
+                /*Glide.with(context)
+                    .load(R.drawable.ip)
+                    .asGif()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into((ImageView) mProgressDialog.findViewById(R.id.progressImageView));*/
+                mProgressDialog!!.setCancelable(false)
+
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
     /**
      * get uri to drawable or any other resource type if u wish
      * @param context - context

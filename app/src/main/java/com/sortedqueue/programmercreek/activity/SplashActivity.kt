@@ -4,6 +4,7 @@ package com.sortedqueue.programmercreek.activity
  * Created by Alok Omkar on 2016-11-26.
  */
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,101 +12,87 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
-
-import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.database.CreekUser
-import com.sortedqueue.programmercreek.database.CreekUserStats
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.util.AuxilaryUtils
+import com.sortedqueue.programmercreek.auth.AuthPresenter
+import com.sortedqueue.programmercreek.auth.AuthView
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
-import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.view.LoginSignupDialog
-
-import java.util.ArrayList
-import java.util.Date
-
-
-
 import com.sortedqueue.programmercreek.view.LoginSignupDialog.LoginSignupListener
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.util.*
 
-class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
+class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult>, AuthView {
 
     private val RC_SIGN_IN = 1000
     private val TAG = "SplashActivity"
     private var mGoogleApiClient: GoogleApiClient? = null
-    private var mAuth: FirebaseAuth? = null
-    private var mAuthListener: FirebaseAuth.AuthStateListener? = null
-    private var creekUser: CreekUser? = null
-    private var creekPreferences: CreekPreferences? = null
     private var callbackManager: CallbackManager? = null
     private var splashTread: Thread? = null
     private var loginSignupDialog: LoginSignupDialog? = null
+
+    lateinit var mAuthPresenter : AuthPresenter
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-        configureFirebaseAuth()
 
-
-        creekPreferences = CreekApplication.creekPreferences
         googleSignInButton.visibility = View.GONE
         fbLoginButton.visibility = View.GONE
         signEmailButton.visibility = View.GONE
         signAnonButton.visibility = View.GONE
-        if (creekPreferences!!.getSignInAccount() == "") {
-            CreekAnalytics.logEvent(TAG, "Fresh Signup")
-            googleSignInButton.setOnClickListener(this@SplashActivity)
 
-            googleSignInButton.visibility = View.VISIBLE
-            signEmailButton.visibility = View.VISIBLE
-            signAnonButton.visibility = View.VISIBLE
-
-            signEmailButton.setOnClickListener(this)
-            signAnonButton.setOnClickListener(this)
-            configureGoogleSignup()
-            //fbLoginButton.setVisibility(View.VISIBLE);
-            val fbPermissions = ArrayList<String>()
-            fbPermissions.add("email")
-            fbPermissions.add("public_profile")
-            callbackManager = CallbackManager.Factory.create()
-            fbLoginButton.setReadPermissions(fbPermissions)
-            fbLoginButton.registerCallback(callbackManager, this@SplashActivity)
-        }
+        mAuthPresenter = AuthPresenter(this, this)
         startAnimations()
 
 
     }
 
+    override fun freshSignUp() {
+
+        CreekAnalytics.logEvent(TAG, "Fresh Signup")
+
+        googleSignInButton.visibility = View.VISIBLE
+        signEmailButton.visibility = View.VISIBLE
+        signAnonButton.visibility = View.VISIBLE
+
+        signEmailButton.setOnClickListener{ signInEmail() }
+        signAnonButton.setOnClickListener{ signInAnonymously() }
+        googleSignInButton.setOnClickListener{ googleSignIn() }
+
+        configureGoogleSignup()
+        //fbLoginButton.setVisibility(View.VISIBLE);
+
+        val fbPermissions = ArrayList<String>()
+        fbPermissions.add("email")
+        fbPermissions.add("public_profile")
+        callbackManager = CallbackManager.Factory.create()
+        fbLoginButton.setReadPermissions(fbPermissions)
+        fbLoginButton.registerCallback(callbackManager, this@SplashActivity)
+
+    }
+
     private fun checkAndStartApp() {
         runOnUiThread {
-            if (creekPreferences!!.getSignInAccount() != "") {
+            if (CreekApplication.creekPreferences!!.getSignInAccount() != "") {
                 startApp()
             }
         }
@@ -147,93 +134,6 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         splashTread!!.start()
     }
 
-    private fun configureFirebaseAuth() {
-        mAuth = FirebaseAuth.getInstance()
-        // ...
-        mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth -> storeFirebaseUserDetails(firebaseAuth) }
-    }
-
-    private fun storeFirebaseUserDetails(firebaseAuth: FirebaseAuth) {
-        val user = firebaseAuth.currentUser
-        if (user != null) {
-            if (creekPreferences!!.getSignInAccount() != "") {
-                Log.d(TAG, "Sign up complete")
-                return
-            }
-            // User is signed in
-            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.uid)
-            creekUser = CreekUser()
-            creekUser!!.userFullName = user.displayName
-
-            if (isEmailSignup) {
-                creekUser!!.userFullName = userNameEmailSignup
-            }
-
-            if (isAnonSignup && user.displayName == null) {
-                creekUser!!.userFullName = "Anonymous_" + Date().time
-                creekUser!!.wasAnonUser = "Yes"
-            }
-            if (user.photoUrl != null)
-                creekUser!!.userPhotoUrl = user.photoUrl!!.toString()
-            else {
-                creekUser!!.userPhotoUrl = ""
-            }
-            if (user.email != null) {
-                creekUser!!.emailId = user.email
-            } else {
-                creekUser!!.emailId = user.uid
-            }
-
-            creekUser!!.userId = user.uid
-
-            creekPreferences!!.setAccountName( creekUser!!.userFullName )
-            Log.d(TAG, "Anon User name : " + creekPreferences!!.getAccountName())
-            creekPreferences!!.setAccountPhoto(  creekUser!!.userPhotoUrl )
-            if (user.email != null && user.email!!.trim { it <= ' ' }.isNotEmpty()) {
-                creekPreferences!!.setSignInAccount( user.email!! )
-            } else {
-                creekPreferences!!.setSignInAccount( user.uid )
-            }
-            Log.d(TAG, "Anon User Account : " + creekPreferences!!.getSignInAccount())
-
-            CommonUtils.displayProgressDialog(this@SplashActivity, "Loading")
-            var email = user.email
-            if (email == null) {
-                email = user.uid
-            }
-            FirebaseDatabaseHandler(this@SplashActivity).getCreekUser(email, object : FirebaseDatabaseHandler.GetCreekUserListner {
-                override fun onSuccess(creekUser: CreekUser) {
-                    CommonUtils.dismissProgressDialog()
-                    if (creekUser.userId.equals("", ignoreCase = true)) {
-                        creekUser.userId = creekPreferences!!.userId
-                        creekUser.wasAnonUser = if (creekPreferences!!.isAnonAccount) "Yes" else "No"
-                    }
-                    startApp()
-                }
-
-                override fun onFailure(databaseError: DatabaseError?) {
-                    //New signup
-                    creekUser!!.save(this@SplashActivity)
-                    CommonUtils.dismissProgressDialog()
-                    startApp()
-                }
-            })
-            FirebaseDatabaseHandler(this@SplashActivity).getCreekUserStatsInBackground(object : FirebaseDatabaseHandler.CreekUserStatsListener {
-                override fun onSuccess(creekUserStats: CreekUserStats) {
-
-                }
-
-                override fun onFailure(databaseError: DatabaseError?) {
-
-                }
-            })
-
-        } else {
-            // User is signed out
-            Log.d(TAG, "onAuthStateChanged:signed_out")
-            Log.d(TAG, "isAnonSignup : " + isAnonSignup)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -247,14 +147,13 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
 
     public override fun onStart() {
         super.onStart()
-        mAuth!!.addAuthStateListener(mAuthListener!!)
+        mAuthPresenter.onStart()
+
     }
 
     public override fun onStop() {
         super.onStop()
-        if (mAuthListener != null) {
-            mAuth!!.removeAuthStateListener(mAuthListener!!)
-        }
+        mAuthPresenter.onStop()
     }
 
     private fun configureGoogleSignup() {
@@ -270,45 +169,9 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
                 .build()
     }
 
-    override fun onClick(view: View) {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener {
-                override fun onClick(snackBarView: View) {
-                    onClick(view)
-                }
-            })
-            return
-        }
-        when (view.id) {
-            R.id.googleSignInButton -> googleSignIn()
-            R.id.signEmailButton -> signInEmail()
-            R.id.signAnonButton -> signInAnonymously()
-        }
 
-    }
-
-    internal var isAnonSignup = false
     private fun signInAnonymously() {
-        isAnonSignup = true
-        CommonUtils.displayProgressDialog(this@SplashActivity, "Loading")
-        mAuth!!.signInAnonymously()
-                .addOnCompleteListener(this) { task ->
-                    Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful)
-
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful) {
-                        Log.w(TAG, "signInAnonymously", task.exception)
-                        isAnonSignup = false
-                        Toast.makeText(this@SplashActivity, "Loading Failed",
-                                Toast.LENGTH_SHORT).show()
-                    } else {
-                        isAnonSignup = true
-                    }
-                    CommonUtils.dismissProgressDialog()
-                    // ...
-                }
+        mAuthPresenter.signInAnonymously()
     }
 
     private fun signInEmail() {
@@ -317,65 +180,21 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         loginSignupDialog!!.showDialog( object : LoginSignupListener {
 
             override fun onSuccess(name: String, email: String, password: String) {
-                if (name != null) {
+                if (!name.isNullOrEmpty()) {
                     CommonUtils.displayProgressDialog(this@SplashActivity, "Signing up...")
-                    emailSignup(name, email, password)
+                    mAuthPresenter.emailSignup(name, email, password)
                 } else {
                     CommonUtils.displayProgressDialog(this@SplashActivity, "Logging in")
-                    emailLogin(email, password)
+                    mAuthPresenter.emailLogin(email, password)
                 }
             }
 
             override fun onCancel() {
-
+                loginSignupDialog!!.cancelDialog()
             }
         })
-        /**/
     }
 
-    private fun emailLogin(email: String, password: String) {
-        mAuth!!.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful)
-
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful) {
-                        Log.w(TAG, "signInWithEmail:failed", task.exception)
-                        Toast.makeText(this@SplashActivity, "Authentication failed : " + task.exception!!.message,
-                                Toast.LENGTH_SHORT).show()
-                    } else {
-                        loginSignupDialog!!.cancelDialog()
-                    }
-                    CommonUtils.dismissProgressDialog()
-                    // ...
-                }
-    }
-
-    internal var isEmailSignup = false
-    private var userNameEmailSignup: String? = null
-
-    private fun emailSignup(name: String, email: String, password: String) {
-        isEmailSignup = true
-        this.userNameEmailSignup = name
-        mAuth!!.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful) {
-                        isEmailSignup = false
-                        Log.w(TAG, "emailSignup:failed", task.exception)
-                        Toast.makeText(this@SplashActivity, "Signup failed : " + task.exception!!.message,
-                                Toast.LENGTH_SHORT).show()
-                    } else {
-                        isEmailSignup = true
-                        loginSignupDialog!!.cancelDialog()
-                    }
-                    CommonUtils.dismissProgressDialog()
-                }
-    }
 
     private fun googleSignIn() {
         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
@@ -395,7 +214,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
                 val account = result.signInAccount
                 Toast.makeText(this@SplashActivity, "Sign in success.",
                         Toast.LENGTH_SHORT).show()
-                firebaseAuthWithGoogle(account!!)
+                mAuthPresenter.firebaseAuthWithGoogle(account!!)
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -408,58 +227,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         }
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
-        CommonUtils.displayProgressDialog(this@SplashActivity, "Authenticating account")
-        creekUser = CreekUser()
-        creekUser!!.userFullName = account.displayName
-        creekUser!!.userPhotoUrl = account.photoUrl!!.toString()
-        creekUser!!.emailId = account.email
-        if (creekUser!!.userId.equals("", ignoreCase = true) && FirebaseAuth.getInstance().currentUser != null) {
-            creekUser!!.userId = creekPreferences!!.userId
-            creekUser!!.wasAnonUser = "No"
-        }
-        creekUser!!.save(this@SplashActivity)
-        creekPreferences!!.setAccountName( account.displayName!! )
-        creekPreferences!!.setAccountPhoto(  account.photoUrl!!.toString() )
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
-        mAuth!!.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful)
-
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful) {
-                        Log.w(TAG, "signInWithCredential", task.exception)
-                        Toast.makeText(this@SplashActivity, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                    }
-                    CommonUtils.dismissProgressDialog()
-                    // ...
-                }
-    }
-
-    private fun startApp() {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(this@SplashActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener{
-                override fun onClick(p0: View?) {
-                    startApp()
-                }
-
-            } )
-            return
-        }
-        FirebaseDatabaseHandler(this@SplashActivity).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
-            override fun onSuccess(creekUser: CreekUser) {
-
-            }
-
-            override fun onFailure(databaseError: DatabaseError?) {
-
-            }
-        })
+    override fun startApp() {
         val i = Intent(this@SplashActivity, DashboardActivity::class.java)
         startActivity(i)
         finish()
@@ -469,7 +238,6 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         try {
             Toast.makeText(this@SplashActivity, "Connection failed.",
                     Toast.LENGTH_SHORT).show()
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -479,27 +247,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
     override fun onSuccess(loginResult: LoginResult) {
         Toast.makeText(this@SplashActivity, "Login success.",
                 Toast.LENGTH_SHORT).show()
-        handleFBAccessToken(loginResult.accessToken)
-
-    }
-
-    private fun handleFBAccessToken(accessToken: AccessToken) {
-        val credential = FacebookAuthProvider.getCredential(accessToken.token)
-        mAuth!!.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful)
-
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful) {
-                        Log.w(TAG, "signInWithCredential", task.exception)
-                        Toast.makeText(this@SplashActivity, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                    }
-                    // ...
-                }
-
+        mAuthPresenter.handleFBAccessToken(loginResult.accessToken)
     }
 
     override fun onCancel() {
@@ -514,10 +262,23 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
                 Toast.LENGTH_SHORT).show()
     }
 
-    companion object {
-
-        private val SPLASH_TIMEOUT = 1000
+    override fun showProgress(messageId: Int) {
+        CommonUtils.displayProgressDialog(this@SplashActivity, R.string.loading)
     }
+
+    override fun hideProgress() {
+        CommonUtils.dismissProgressDialog()
+    }
+
+    override fun onError(error: String) {
+        CommonUtils.displayToast(this@SplashActivity, error)
+    }
+
+    override fun cancelLoginDialog() {
+        if( loginSignupDialog != null )
+            loginSignupDialog!!.cancelDialog()
+    }
+
 }
 
 
