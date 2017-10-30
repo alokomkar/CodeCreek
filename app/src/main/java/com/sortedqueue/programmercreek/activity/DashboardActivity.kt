@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.activity
 
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -12,24 +11,13 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
-import android.webkit.WebView
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
 
 import com.facebook.AccessToken
 import com.facebook.login.LoginManager
@@ -38,19 +26,14 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter
 import com.sortedqueue.programmercreek.billing.anjlab.AnjLabBillingPresenter
-import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
-import com.sortedqueue.programmercreek.database.CreekUserDB
+import com.sortedqueue.programmercreek.dashboard.DashboardView
 import com.sortedqueue.programmercreek.database.CreekUserStats
-import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramLanguage
-import com.sortedqueue.programmercreek.database.ProgramTable
-import com.sortedqueue.programmercreek.database.UserProgramDetails
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.fragments.DashboardFragment
 import com.sortedqueue.programmercreek.fragments.LanguageFragment
@@ -63,47 +46,36 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
 import com.sortedqueue.programmercreek.util.CreekPreferences
-import com.sortedqueue.programmercreek.util.FileUtils
-import com.sortedqueue.programmercreek.util.FileUtils.DownloadFileListner
-import com.sortedqueue.programmercreek.util.PermissionUtils
-import com.sortedqueue.programmercreek.view.UserProgramDialog
-
-import java.io.File
-import java.util.ArrayList
-
 
 
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, DownloadFileListner, View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
+class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, DashboardView {
+
+    override fun showProgress(messageId: Int) {
+        CommonUtils.displayProgressDialog(this@DashboardActivity, getString(messageId))
+    }
+
+    override fun hideProgress() {
+        CommonUtils.dismissProgressDialog()
+    }
 
 
     private val TAG = javaClass.simpleName
     private var creekPreferences: CreekPreferences? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     private val REQUEST_INVITE = 9999
-    private val REQUEST_CODE_SEARCH = 1000
-    private val alertDialog: AlertDialog? = null
     private val REQUEST_DOWNLOAD_FILE = 101
-    private val REQUEST_DOWNLOAD_FILE_PERMISSION = 1234
-    private val REQUEST_IMPORT_FILE_PERMISSION = 1334
-    private var filepath: String? = null
     private var handler: Handler? = null
     private var creekUserStats: CreekUserStats? = null
     private var runnable: Runnable? = null
-    //private BillingPresenter billingPresenter;
     private var anjLabBillingPresenter: AnjLabBillingPresenter? = null
     private var signUpItem: MenuItem? = null
-
-    private fun logDebugMessage(message: String) {
-        Log.d(TAG, message)
-    }
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,7 +92,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         }
 
         configureGoogleSignup()
-        checkForDBUpdates()
         checkBillingInformation()
 
         if (creekPreferences!!.programLanguage != "") {
@@ -129,18 +100,25 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         //adView.setVisibility(View.GONE);
 
         //initAds();
-        createPresentationFAB!!.setOnClickListener(this)
+        createPresentationFAB!!.setOnClickListener{ animateFab() }
         addPptTextView!!.visibility = View.GONE
         addCodeFAB!!.visibility = View.GONE
         addCodeTextView!!.visibility = View.GONE
         addUserCodeFAB!!.visibility = View.GONE
-        addCodeFAB!!.setOnClickListener(this)
-        addCodeTextView!!.setOnClickListener(this)
-        addPptTextView!!.setOnClickListener(this)
-        addCodeLayout!!.setOnClickListener(this)
-        addPptLayout!!.setOnClickListener(this)
-        addUserCodeFAB!!.setOnClickListener(this)
-        selectedLanguageCardView!!.setOnClickListener(this)
+        addCodeFAB!!.setOnClickListener{
+            importFromWeb()
+            animateFab()
+        }
+        addCodeTextView!!.setOnClickListener{
+            importFromWeb()
+            animateFab()
+        }
+        addPptTextView!!.setOnClickListener{
+            val intent = Intent(this@DashboardActivity, CreatePresentationActivity::class.java)
+            startActivity(intent)
+        }
+        addUserCodeFAB!!.setOnClickListener{ importFromWeb() }
+        selectedLanguageCardView!!.setOnClickListener{ showLanguageFragment() }
         fabLayout!!.visibility = View.GONE
         dashboardViewPager!!.adapter = DashboardPagerAdapter(supportFragmentManager, this@DashboardActivity)
         dashboardTabLayout!!.setupWithViewPager(dashboardViewPager)
@@ -178,8 +156,15 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
             }
         })
-        upgradeTextView!!.setOnClickListener(this)
-        laterTextView!!.setOnClickListener(this)
+        upgradeTextView!!.setOnClickListener{
+            CreekAnalytics.logEvent(TAG, "Upgrade opted")
+            anjLabBillingPresenter!!.purchasePremiumItem()
+            AnimationUtils.slideOutToLeft(premiumLayout)
+        }
+        laterTextView!!.setOnClickListener{
+            AnimationUtils.slideOutToLeft(premiumLayout)
+            creekPreferences!!.setUpgradeDialog(false)
+        }
 
         //new FirebaseDatabaseHandler(DashboardActivity.this).searchPrograms("Swap");
         //new FirebaseDatabaseHandler(DashboardActivity.this).updateAdSettings(1);
@@ -208,34 +193,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         }.execute()
 
     }
-
-
-    private fun checkForDBUpdates() {
-        CommonUtils.displayProgressDialog(this@DashboardActivity, "Checking for updates")
-        FirebaseDatabaseHandler(this@DashboardActivity).readCreekUserDB(object : FirebaseDatabaseHandler.GetCreekUserDBListener {
-            override fun onSuccess(creekUserDB: CreekUserDB) {
-                CommonUtils.dismissProgressDialog()
-            }
-
-            override fun onError(databaseError: DatabaseError) {
-                Log.d(TAG, databaseError.message)
-                CommonUtils.dismissProgressDialog()
-            }
-        })
-        if (!creekPreferences!!.isPremiumUser) {
-            FirebaseDatabaseHandler(this@DashboardActivity).verifyPurchase(object : FirebaseDatabaseHandler.AnjVerifyPurchaseListener {
-                override fun onSuccess(purchase: com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails) {
-
-                }
-
-                override fun onError(e: Exception?) {
-
-                }
-            })
-        }
-
-    }
-
 
     override fun onProgressStatsUpdate(points: Int) {
         progressLayout!!.visibility = View.VISIBLE
@@ -314,7 +271,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         FirebaseDatabaseHandler(this@DashboardActivity).getAllCreekUserStatsInBackground()
     }
 
-
     private fun initProgramLanguages() {
         val firebaseDatabaseHandler = FirebaseDatabaseHandler(this@DashboardActivity)
         val programLanguage = ProgramLanguage()
@@ -354,12 +310,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(this@DashboardActivity, R.string.internet_unavailable, R.string.retry,
-                    View.OnClickListener { onOptionsItemSelected(item) }
-                     )
-            return true
-        }
 
         when (item.itemId) {
 
@@ -409,43 +359,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
                 //creekPreferences.setPremiumUser(true);
                 return true
             }
-
-        /* case R.id.action_restore_purchase :
-                AuxilaryUtils.displayInputDialog(DashboardActivity.this, "Restore Purchase", "Enter unique Id you got when you purchased the item : ", new AuxilaryUtils.InputTextListener() {
-                    @Override
-                    public void onSuccess(String text) {
-                        CommonUtils.displayProgressDialog(DashboardActivity.this, "Verifying");
-                        new FirebaseDatabaseHandler(DashboardActivity.this).verifyPurchase(text, new FirebaseDatabaseHandler.VerifyPurchaseListener() {
-                            @Override
-                            public void onSuccess(Purchase purchase) {
-                                CommonUtils.dismissProgressDialog();
-                                AuxilaryUtils.displayAlert( "Verification Success", "Restart app for update to take place", DashboardActivity.this);
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                CommonUtils.displayProgressDialog(DashboardActivity.this, "Verifying");
-                                if( e != null ) {
-                                    AuxilaryUtils.displayAlert( "Verification Error", "Error : "+ e.getMessage() +"\n\nUnable to Verify, Try later", DashboardActivity.this);
-                                    e.printStackTrace();
-                                }
-                                else
-                                    AuxilaryUtils.displayAlert( "Verification Error", "Unable to Verify, Try later", DashboardActivity.this);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onDismiss() {
-
-                    }
-                });
-                return true;*/
-
-        /*case R.id.action_sync:
-                //downloadFile();
-                LanguageFragment.getInstance().getFirebaseDBVerion();
-                return true;*/
 
             R.id.action_log_out -> {
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
@@ -561,60 +474,12 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
             }
-        } else if (requestCode == REQUEST_CODE_SEARCH && resultCode == AppCompatActivity.RESULT_OK) {
-            val uri = data.data
-            if (uri != null) {
-
-                Log.d(TAG, "File Uri : " + uri.encodedPath + " Path " + uri.path)
-                filepath = FileUtils.getPath(this@DashboardActivity, uri)
-                Log.d(TAG, "File path : " + filepath!!)
-
-                if (filepath != null) {
-                    val fileMd5 = FileUtils.calculateMD5(File(filepath!!))
-                    if (creekPreferences!!.creekUserStats!!.userAddedPrograms.contains(fileMd5)) {
-                        CommonUtils.displayToast(this@DashboardActivity, "File already uploaded")
-                    } else
-                        FirebaseDatabaseHandler(this@DashboardActivity).readProgramFromFile(filepath!!, this)
-                } else
-                    CommonUtils.displayToast(this@DashboardActivity, "Unable to open file")
-            } else {
-            }
-            // Rest of code that converts txt file's content into arraylist
         } else {
             if (anjLabBillingPresenter!!.billingProcessor.handleActivityResult(requestCode, resultCode, data))
                 super.onActivityResult(requestCode, resultCode, data)
-        }/*if( requestCode == BillingPresenter.RC_REQUEST ) {
-            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-            if (billingPresenter == null) return;
-
-            // Pass on the activity result to the helper for handling
-            if (!billingPresenter.getIabHelper().handleActivityResult(requestCode, resultCode, data)) {
-                // not handled, so handle it ourselves (here's where you'd
-                // perform any handling of activity results not related to in-app
-                // billing...
-                super.onActivityResult(requestCode, resultCode, data);
-            }
-            else {
-                Log.d(TAG, "onActivityResult handled by IABUtil.");
-            }
-        }*/
-
-    }
-
-
-    override fun importCodeFile() {
-        if (PermissionUtils.checkSelfPermission(this@DashboardActivity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_IMPORT_FILE_PERMISSION)) {
-
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "text/plain"
-            startActivityForResult(Intent.createChooser(intent,
-                    "Load file from directory"), REQUEST_CODE_SEARCH)
-
         }
-
     }
+
 
     internal var searchItem: MenuItem? = null
 
@@ -638,7 +503,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
                 .build()
         startActivityForResult(intent, REQUEST_INVITE)
     }
-
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
@@ -700,43 +564,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
 
     }
 
-    override fun onSuccess(fileUrl: File) {
-        runOnUiThread {
-            webView!!.visibility = View.VISIBLE
-            Log.d(TAG, "File Url : file:///" + fileUrl.absolutePath)
-            webView!!.loadUrl("file:///" + fileUrl.absolutePath)
-            webView!!.settings.javaScriptEnabled = true
-        }
-
-    }
-
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.createPresentationFAB -> animateFab()
-            R.id.addPptTextView -> {
-                val intent = Intent(this@DashboardActivity, CreatePresentationActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.addCodeFAB, R.id.addCodeTextView -> {
-                importFromFile()
-                animateFab()
-            }
-            R.id.addUserCodeFAB -> importFromFile()
-            R.id.selectedLanguageCardView -> showLanguageFragment()
-            R.id.upgradeTextView -> {
-                CreekAnalytics.logEvent(TAG, "Upgrade opted")
-                //billingPresenter.onUpgradeAppButtonClicked();
-                anjLabBillingPresenter!!.purchasePremiumItem()
-                AnimationUtils.slideOutToLeft(premiumLayout)
-            }
-            R.id.laterTextView -> {
-                AnimationUtils.slideOutToLeft(premiumLayout)
-                creekPreferences!!.setUpgradeDialog(false)
-            }
-        }
-
-    }
-
     private fun showLanguageFragment() {
         container!!.visibility = View.VISIBLE
         val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -754,24 +581,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
         fragmentTransaction.replace(R.id.container, QuickReferenceFragment()).commit()
     }
 
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_IMPORT_FILE_PERMISSION) {
-            if (PermissionUtils.checkDeniedPermissions(this@DashboardActivity, permissions).size == 0) {
-                importCodeFile()
-            } else {
-                if (permissions.size == 3) {
-                    Toast.makeText(this@DashboardActivity, "Some permissions were denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
-    override fun importFromFile() {
+    override fun importFromWeb() {
         val intent = Intent(this@DashboardActivity, TutorialCarousalActivity::class.java)
         startActivityForResult(intent, REQUEST_DOWNLOAD_FILE)
     }
@@ -820,61 +630,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
             addPptTextView!!.startAnimation(fab_open)
             addCodeFAB!!.startAnimation(fab_open)
         }
-    }
-
-    override fun onSuccess(programIndex: ProgramIndex, programTables: ArrayList<ProgramTable>) {
-
-        if ( programTables.size > 0) {
-
-            UserProgramDialog(this@DashboardActivity, programIndex, programTables, object : UserProgramDialog.UserProgramDialogListener {
-                override fun onSave(accessSpecifier: String) {
-
-                    val firebaseDatabaseHandler = FirebaseDatabaseHandler(this@DashboardActivity)
-                    firebaseDatabaseHandler.updateCodeCount()
-
-                    val userProgramDetails = UserProgramDetails()
-                    userProgramDetails.accessSpecifier = accessSpecifier
-                    if (filepath != null)
-                        userProgramDetails.md5 = FileUtils.calculateMD5(File(filepath!!))
-                    userProgramDetails.emailId = creekPreferences!!.getSignInAccount()
-                    userProgramDetails.likes = 0
-                    userProgramDetails.likesList = ArrayList<String>()
-                    userProgramDetails.programIndex = programIndex
-                    userProgramDetails.programTables = programTables
-                    userProgramDetails.views = 0
-                    userProgramDetails.programLanguage = programIndex.program_Language
-                    userProgramDetails.programTitle = programIndex.program_Description.toLowerCase()
-
-                    if (creekPreferences!!.addUserFile(userProgramDetails.md5)) {
-                        firebaseDatabaseHandler.writeUserProgramDetails(userProgramDetails)
-                    } else {
-                        CommonUtils.displayToast(this@DashboardActivity, "File already added")
-                    }
-                    onProgressStatsUpdate(CreekUserStats.CHAPTER_SCORE)
-
-                }
-
-                override fun onCancel() {
-
-                }
-
-                override fun onPreview() {
-                    val newIntentBundle = Bundle()
-                    var newIntent: Intent? = null
-                    programIndex.userProgramId = "trial"
-                    newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true)
-                    newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex)
-                    newIntentBundle.putInt(ProgrammingBuddyConstants.KEY_TOTAL_PROGRAMS, 1)
-                    newIntentBundle.putString(ProgrammingBuddyConstants.KEY_PROG_TITLE, programIndex.program_Description)
-                    newIntentBundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables)
-                    newIntent = Intent(this@DashboardActivity, ProgramActivity::class.java)
-                    newIntent.putExtras(newIntentBundle)
-                    startActivity(newIntent)
-                }
-            }).showDialog()
-
-        }
-
     }
 
     override fun onError(errorMessage: String) {
