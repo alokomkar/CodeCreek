@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.interfaces;
+package com.sortedqueue.programmercreek.dashboard;
 
 /**
  * Created by Alok on 05/01/17.

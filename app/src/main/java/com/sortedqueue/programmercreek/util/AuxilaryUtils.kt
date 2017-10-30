@@ -11,12 +11,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
@@ -29,7 +27,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.CursorLoader
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -41,8 +38,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.google.firebase.messaging.RemoteMessage
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.activity.DashboardActivity
-import com.sortedqueue.programmercreek.database.ProgramIndex
+import com.sortedqueue.programmercreek.dashboard.DashboardActivity
 import com.sortedqueue.programmercreek.interfaces.UnlockByInviteInterface
 import com.sortedqueue.programmercreek.receiver.NotificationPublisher
 import com.sortedqueue.programmercreek.view.UserProgramDialog

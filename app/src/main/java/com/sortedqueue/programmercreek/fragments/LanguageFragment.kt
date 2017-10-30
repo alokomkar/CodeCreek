@@ -5,17 +5,11 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseError
@@ -27,7 +21,7 @@ import com.sortedqueue.programmercreek.database.CreekUserDB
 import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramLanguage
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
+import com.sortedqueue.programmercreek.dashboard.DashboardNavigationListener
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences

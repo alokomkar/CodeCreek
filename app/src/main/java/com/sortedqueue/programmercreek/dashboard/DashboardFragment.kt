@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.fragments
+package com.sortedqueue.programmercreek.dashboard
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -31,7 +31,6 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.database.ProgramTable
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
@@ -71,10 +70,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
-
-
         return view
     }
 

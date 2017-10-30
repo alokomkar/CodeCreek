@@ -1,9 +1,8 @@
-package com.sortedqueue.programmercreek.activity
+package com.sortedqueue.programmercreek.dashboard
 
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -28,19 +27,19 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.adapter.DashboardPagerAdapter
+import com.sortedqueue.programmercreek.activity.AboutActivity
+import com.sortedqueue.programmercreek.activity.CreatePresentationActivity
+import com.sortedqueue.programmercreek.activity.SplashActivity
+import com.sortedqueue.programmercreek.activity.TutorialCarousalActivity
 import com.sortedqueue.programmercreek.asynctask.JavaProgramInserter
 import com.sortedqueue.programmercreek.billing.anjlab.AnjLabBillingPresenter
-import com.sortedqueue.programmercreek.dashboard.DashboardView
 import com.sortedqueue.programmercreek.database.CreekUserStats
 import com.sortedqueue.programmercreek.database.ProgramLanguage
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.fragments.DashboardFragment
 import com.sortedqueue.programmercreek.fragments.LanguageFragment
 import com.sortedqueue.programmercreek.fragments.QuickReferenceFragment
 import com.sortedqueue.programmercreek.fragments.SearchFragment
 import com.sortedqueue.programmercreek.fragments.SignupFragment
-import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
@@ -60,7 +59,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
     override fun hideProgress() {
         CommonUtils.dismissProgressDialog()
     }
-
 
     private val TAG = javaClass.simpleName
     private var creekPreferences: CreekPreferences? = null

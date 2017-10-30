@@ -3,27 +3,18 @@ package com.sortedqueue.programmercreek.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.database.DataSetObserver
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.NestedScrollView
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.AppCompatSpinner
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.SpinnerAdapter
 
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
@@ -34,7 +25,7 @@ import com.sortedqueue.programmercreek.adapter.UserProgramRecyclerAdapter
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.UserProgramDetails
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
+import com.sortedqueue.programmercreek.dashboard.DashboardNavigationListener
 import kotlinx.android.synthetic.main.fragment_user_programs.*
 
 import java.util.ArrayList
