@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.constants.AlgorithmConstants
 import com.sortedqueue.programmercreek.database.AlgorithmContent
 
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.sortedqueue.programmercreek.constants.CONTENT_AIM_DESCRIPTION
+import com.sortedqueue.programmercreek.constants.CONTENT_ALGORITHM
+import com.sortedqueue.programmercreek.constants.CONTENT_CODE
+import com.sortedqueue.programmercreek.constants.CONTENT_OUTPUT
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
@@ -57,26 +60,26 @@ class AllAlgorithmContentFragment : Fragment() {
         algorithmNestedScrollview!!.visibility = View.GONE
 
         when (algorithmContent!!.contentType) {
-            AlgorithmConstants.CONTENT_AIM_DESCRIPTION -> {
+            CONTENT_AIM_DESCRIPTION -> {
                 algorithmNestedScrollview!!.visibility = View.VISIBLE
                 titleTextView!!.visibility = View.VISIBLE
                 contentTextView!!.visibility = View.VISIBLE
                 titleTextView!!.text = algorithmContent!!.aim
                 contentTextView!!.text = algorithmContent!!.programDescription
             }
-            AlgorithmConstants.CONTENT_ALGORITHM -> {
+            CONTENT_ALGORITHM -> {
                 algorithmNestedScrollview!!.visibility = View.VISIBLE
                 algorithmsTextView!!.visibility = View.VISIBLE
                 algorithmsTextView!!.text = algorithmContent!!.algorithmPseudoCode
             }
-            AlgorithmConstants.CONTENT_CODE -> {
+            CONTENT_CODE -> {
                 algorithmCodeView!!.visibility = View.VISIBLE
                 algorithmCodeView!!.setOptions(Options.get(context)
                         .withLanguage(programLanguage!!)
                         .withCode(algorithmContent!!.programCode)
                         .withTheme(ColorTheme.SOLARIZED_LIGHT))
             }
-            AlgorithmConstants.CONTENT_OUTPUT -> {
+            CONTENT_OUTPUT -> {
                 algorithmNestedScrollview!!.visibility = View.VISIBLE
                 outputTextView!!.visibility = View.VISIBLE
                 outputTextView!!.text = algorithmContent!!.output

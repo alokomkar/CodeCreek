@@ -8,6 +8,9 @@ import com.sortedqueue.programmercreek.constants.AlgorithmConstants;
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
+import static com.sortedqueue.programmercreek.constants.AlgorithmConstantsKt.CONTENT_ALGORITHM;
+import static com.sortedqueue.programmercreek.constants.AlgorithmConstantsKt.CONTENT_OUTPUT;
+
 /**
  * Created by Alok Omkar on 2017-03-15.
  */
@@ -52,10 +55,10 @@ public class AlgorithmContent extends RushObject implements Parcelable {
     public AlgorithmContent(int contentType, String tabTitle, String algorithmPseudoCode) {
         this.contentType = contentType;
         this.tabTitle = tabTitle;
-        if( contentType == AlgorithmConstants.Companion.getCONTENT_ALGORITHM()) {
+        if( contentType == CONTENT_ALGORITHM) {
             this.algorithmPseudoCode = algorithmPseudoCode;
         }
-        else if( contentType == AlgorithmConstants.Companion.getCONTENT_OUTPUT()) {
+        else if( contentType == CONTENT_OUTPUT) {
             this.output = algorithmPseudoCode;
         }
         else {

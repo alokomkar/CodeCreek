@@ -20,7 +20,6 @@ import android.util.AttributeSet
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
@@ -48,7 +47,7 @@ class CodeEditor : AppCompatEditText {
     private var onTextChangedListener: OnTextChangedListener? = null
     private var updateDelay = 1000
     private var errorLine = 0
-    var isModified = false
+    var isCodeModified = false
         private set
     private var modified = true
     private var colorError: Int = 0
@@ -110,7 +109,7 @@ class CodeEditor : AppCompatEditText {
         cancelUpdate()
 
         errorLine = 0
-        isModified = false
+        isCodeModified = false
 
         modified = false
         setText(highlight(SpannableStringBuilder(text)))
@@ -250,7 +249,7 @@ class CodeEditor : AppCompatEditText {
                     return
                 }
 
-                isModified = true
+                isCodeModified = true
                 updateHandler.postDelayed(updateRunnable, updateDelay.toLong())
             }
         })

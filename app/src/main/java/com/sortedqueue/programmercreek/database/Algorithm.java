@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
-import static com.sortedqueue.programmercreek.constants.AlgorithmConstants.CONTENT_CODE;
+import static com.sortedqueue.programmercreek.constants.AlgorithmConstantsKt.CONTENT_CODE;
+
 
 /**
  * Created by Alok Omkar on 2017-03-15.
@@ -105,7 +106,7 @@ public class Algorithm extends RushObject implements Parcelable {
     public String toAlgorithmString() {
         String algorithmString = "/**** Title : " + getAlgorithmsIndex().getProgramTitle() + "****/\n\n";
         for( AlgorithmContent algorithmContent : algorithmContentArrayList ) {
-            if( algorithmContent.getContentType() == Companion.getCONTENT_CODE()) {
+            if( algorithmContent.getContentType() == CONTENT_CODE) {
                 algorithmString += algorithmContent.getProgramCode() + "\n\n";
             }
         }

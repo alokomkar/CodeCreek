@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-import com.sortedqueue.programmercreek.constants.AlgorithmConstants
 import com.sortedqueue.programmercreek.database.Algorithm
 import com.sortedqueue.programmercreek.database.AlgorithmContent
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex

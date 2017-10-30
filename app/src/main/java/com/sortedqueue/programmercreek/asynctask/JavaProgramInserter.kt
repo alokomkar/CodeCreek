@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 
 import com.sortedqueue.programmercreek.CreekApplication
-import com.sortedqueue.programmercreek.constants.AlgorithmConstants
-import com.sortedqueue.programmercreek.constants.LanguageConstants
+import com.sortedqueue.programmercreek.constants.*
 import com.sortedqueue.programmercreek.database.Algorithm
 import com.sortedqueue.programmercreek.database.AlgorithmContent
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
@@ -182,7 +181,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                         "the time taken versus n. The elements can be read from a file or can be generated using the random number\n" +
                         "generator.", "c")
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "To Sort a given set of elements using the Quicksort method and determine the time required to sort the elements.\n" +
 "Repeat the experiment for different values of n, the number of elements in the list to be sorted and plot a graph of the\n" +
@@ -194,7 +193,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "solution to the original problem."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "1. Pick an element, called a pivot, from the list.\n" +
 "Reorder the list so that all elements with values less than the pivot come before the pivot, while all elements with\n" +
@@ -206,7 +205,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 var codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <stdio.h>\n" +
 "#include <stdlib.h>\n" +
@@ -223,7 +222,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main( int argc, char **argv)\n" +
 "{\n" +
@@ -272,7 +271,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int fnPartition(int a[], int l, int r)\n" +
 "{\n" +
@@ -294,7 +293,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnQuickSort(int a[], int l, int r)\n" +
 "{\n" +
@@ -308,7 +307,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnGenRandInput(int X[], int n)\n" +
 "{\n" +
@@ -321,7 +320,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnDispArray( int X[], int n)\n" +
 "{\n" +
@@ -350,13 +349,13 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                         "generated using the random number generator.", "c")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Program to sort an array using Merge Sort",
 "Merge sort is an O(n log n) comparison-based sorting algorithm. Most implementations produce a stable sort, meaning that the\n" + "implementation preserves the input order of equal elements in the sorted output. It is a divide and conquer algorithm."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "1. Mergesort(A[O .. n - 1])\n" +
 "2. Sorts array A[O .. n - 1] by recursive mergesort\n" +
@@ -369,7 +368,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <stdio.h>\n" +
 "#include <stdlib.h>\n" +
@@ -420,7 +419,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void merge(int a[],int low,int high)\n" +
 "{\n" +
@@ -435,7 +434,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void getnumber(int a[], int n)\n" +
 "{\n" +
@@ -445,7 +444,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main()\n" +
 "{\n" +
@@ -471,7 +470,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "GPL",
 "mergesort.gpl\n" +
 "Gnuplot script file for plotting data in file \"mergesort.txt\" This file is called mergesort.gpl\n" +
@@ -498,7 +497,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Topological Ordering",
                 "Obtain the Topological ordering of vertices in a given digraph.", "c")
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "To obtain the Topological ordering of vertices in a given\n" + "digraph.",
 "Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge uv, vertex u\n" +
@@ -506,7 +505,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "a[MAX][MAX] - adjacency matrix of the input graph int n - no of vertices in the graph"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "L Empty list that will contain the sorted elements S Set of all nodes with no incoming edges while S is non-empty do\n" +
 "remove a node n from S add n to tail of L for each node m with an edge e from n to m do remove edge e from the\n" +
@@ -515,7 +514,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <stdio.h>\n" +
 "const int MAX = 10;\n" +
@@ -537,7 +536,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnTopological(int a[MAX][MAX], int n)\n" +
 "{\n" +
@@ -576,7 +575,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Input Graph : 5 vertices 0 0 1 0 0 0 0 1 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0\n" + "Topological Sorting (JOB SEQUENCE) is:- 2 1 3 4 5"))
 
@@ -593,7 +592,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Compute the transitive closure of a given\n" + "directed graph using Warshall's algorithm.", "c")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Compute the transitive closure of a given directed graph\n" + "using Warshall's algorithm.",
 "Warshall's algorithm determines whether there is a path between any two nodes in the graph. It does not give the number of the\n" +
@@ -601,7 +600,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "there is a path from i to j through 1,..,k intermadiate nodes."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "n = |V|\n" +
 "t(0) = the adjacency matrix for G\n" +
@@ -620,7 +619,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include<stdio.h>\n" +
 "const int MAX = 100;\n" +
@@ -650,7 +649,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void WarshallTransitiveClosure(int graph[MAX][MAX], int numVert)\n" +
 "{\n" +
@@ -669,7 +668,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of vertices : 4 Enter the adjacency matrix :- 0 0 1 0 0 0 0 1 1 0 0 0 0 1 0 0\n" +
 "The transitive closure for the given graph is :- 1 0 1 0\n" +
@@ -698,7 +697,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Implement 0/1 Knapsack problem using Dynamic Programming.", "c")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "To solve 0/1 Knapsack problem using Dynamic Programming.",
 "The Knapsack problem is probably one of the most interesting and most popular in computer science, especially when we talk\n" +
@@ -708,7 +707,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "by a fixed-size knapsack and must fill it with the most valuable items."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "Input:\n" +
 "a set of items with weights and values\n" +
@@ -740,7 +739,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "#include <cstdlib>\n" +
@@ -807,7 +806,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnProfitTable(int w[MAX], int p[MAX], int n, int c, int t[MAX][MAX])\n" +
 "{\n" +
@@ -829,7 +828,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnSelectItems(int n,int c, int t[MAX][MAX], int w[MAX], int l[MAX])\n" +
 "{\n" +
@@ -850,7 +849,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the maxium number of objects : 4 Enter the weights :\n" +
 "Weight 1: 2\n" +
@@ -883,7 +882,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Dijkstra's algorithm.",
                 "From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.", "c++")
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "From a given vertex in a weighted connected\n" +
 "graph, find shortest paths to other vertices using Dijkstra's\n" +
@@ -900,7 +899,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "hopes of an optimal solution."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "function Dijkstra(Graph, source):\n" +
 "for each vertex v in Graph: // Initializations\n" +
@@ -933,7 +932,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include<iostream>\n" +
 "#include<cstdio>\n" +
@@ -979,7 +978,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnDijkstra(int c[MAXNODES][MAXNODES], int d[MAXNODES], int p[MAXNODES], int s[MAXNODES], i\n" +
 "nt so, int de, int n)\n" +
@@ -1025,7 +1024,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of nodes 5 Enter the Cost Matrix\n" +
 "0 3 9999 7 9999 3 0 4 2 9999 9999 4 0 5 6 7 2 5 0 4 9999 9999 6 4 0\n" +
@@ -1073,7 +1072,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Find Minimum Cost Spanning Tree of a given undirected graph using Kruskal's algorithm.", "c++")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Find Minimum Cost Spanning Tree of a given undirected\n" + "graph using Kruskal's algorithm.",
 "Kruskal's algorithm is an algorithm in graph theory that finds a minimum spanning tree for a connectedweighted graph. This\n" +
@@ -1082,7 +1081,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "component). Kruskal'salgorithm is an example of a greedy algorithm"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "Let G = (V, E) be the given graph, with | V| = n\n" +
 "{\n" +
@@ -1100,7 +1099,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "using namespace std;\n" +
@@ -1118,7 +1117,7 @@ AlgorithmConstants.CONTENT_CODE,
 "void kruskal(int n, edge e[], int m);"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main( int argc, char **argv)\n" +
 "{\n" +
@@ -1135,7 +1134,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int fnFindParent(int v, int parent[])\n" +
 "{\n" +
@@ -1145,7 +1144,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnUnion_ij(int i, int j, int parent[])\n" +
 "{\n" +
@@ -1156,7 +1155,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnInputGraph(int m, edge e[])\n" +
 "{\n" +
@@ -1172,7 +1171,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int fnGetMinEdge(edge e[], int n)\n" +
 "{\n" +
@@ -1191,7 +1190,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void kruskal(int n, edge e[], int m)\n" +
 "{\n" +
@@ -1239,7 +1238,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of nodes : 6\n" +
 "Enter the number of edges : 10\n" +
@@ -1285,7 +1284,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Print all the nodes reachable from a given starting node in a digraph using BFS method.", "c++")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Program to find all nodes reachable from a given node using BFS",
 "In graph theory, breadth-first search (BFS) is a strategy for searching in a graph when search is limited to essentially\n" +
@@ -1296,7 +1295,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "it inspects their neighbor ##nodes which were unvisited, and so on."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "Input: A graph G and a root v of G 1 procedure BFS(G,v) is 2 create a queue Q 3 create a set V 4 enqueue v onto Q 5\n" +
 "add v to V 6 while Q is not empty loop 7 t â† Q.dequeue() 8 if t is what we are looking for then 9 return t 10 end if 11\n" +
@@ -1305,7 +1304,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "#include <cstdlib>\n" +
@@ -1326,7 +1325,7 @@ AlgorithmConstants.CONTENT_CODE,
 "};"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main(void)\n" +
 "{\n" +
@@ -1355,7 +1354,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "/*Constructor*/\n" +
 "Queue::Queue()\n" +
@@ -1368,7 +1367,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int Queue::enqueue(int data)\n" +
 "{\n" +
@@ -1395,7 +1394,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnBreadthFirstSearchReach(int vertex, int g[MAX][MAX], int v[MAX], int n)\n" +
 "{\n" +
@@ -1419,7 +1418,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int fnGetMinEdge(edge e[], int n)\n" +
 "{\n" +
@@ -1439,7 +1438,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of vertices : 4\n" +
 "Enter the adjacency matrix :\n" +
@@ -1497,7 +1496,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Check whether a given graph is connected or\n" + "not using DFS method.",
 "Depth-first search is a graph traversal algorithm, which has a very wide application area. This algorithm may be used for finding\n" +
@@ -1506,7 +1505,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "as far as possible along each branch before backtracking."))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_ALGORITHM,
+CONTENT_ALGORITHM,
 "Algorithm",
 "DFS(G,v) ( v is the vertex where the search starts )\n" +
 "Stack S := {}; ( start with an empty stack )\n" +
@@ -1524,7 +1523,7 @@ AlgorithmConstants.CONTENT_ALGORITHM,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "#include <cstdlib>\n" +
@@ -1540,7 +1539,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main()\n" +
 "{\n" +
@@ -1579,7 +1578,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of vertices : 4\n" +
 "Enter the adjacency matrix :\n" +
@@ -1608,7 +1607,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Program to solve Subset sum problem.",
 "In computer science, the subset sum problem is an important problem in complexity theory and cryptography. The problem is this:\n" +
@@ -1620,7 +1619,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "using namespace std;\n" +
@@ -1645,7 +1644,7 @@ AlgorithmConstants.CONTENT_CODE,
 "};"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void SubSet :: getInfo(void)\n" +
 "{\n" +
@@ -1658,7 +1657,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void SubSet :: push(int data)\n" +
 "{\n" +
@@ -1670,7 +1669,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void SubSet :: display()\n" +
 "{\n" +
@@ -1682,7 +1681,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int SubSet :: fnFindSubset(int pos, int sum)\n" +
 "{\n" +
@@ -1707,7 +1706,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main(void)\n" +
 "{\n" +
@@ -1728,7 +1727,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "SAMPLE 1\n" +
 "Enter the maximum number of elements : 5\n" +
@@ -1764,7 +1763,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Implement any scheme to find the optimal solution for the TRAVELLING SALESMAN PROBLEM and then solve the\n" + "same problem instance using any approximation algorithm and determine the error in the approximation.",
 "The travelling salesman problem (TSP) asks the following question: Given a list of cities and the distances between each pair of\n" +
@@ -1781,7 +1780,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "#include <iomanip>\n" +
@@ -1810,7 +1809,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void permute(int *a, int i, int n)\n" +
 "{\n" +
@@ -1836,7 +1835,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int AppTSP(int n, int cost[MAX][MAX])\n" +
 "{\n" +
@@ -1929,7 +1928,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int main(void)\n" +
 "{\n" +
@@ -1970,7 +1969,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "The Exact Minimum Cost tour is\n" +
 "0->1->2->4->3->0\n" +
@@ -1996,7 +1995,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Find Minimum Cost Spanning Tree of a given undirected graph using Prim's algorithm.", "c++")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Find Minimum Cost Spanning Tree of a given undirected\n" + "graph using Prim's algorithm.",
 "The program uses prim's algorithm which is based on minimum spanning tree for a connected undirected graph.A predefinined\n" +
@@ -2004,7 +2003,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "find the node which is closest as well as having the least cost from the previously selected node.And also the cost of selected\n" +
 "edge is being added to variable sum.Based on the value of sum, the presence of the minimum spanning tree is found."))
 
-algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+algorithmContentArrayList.add(AlgorithmContent(CONTENT_ALGORITHM,
 "Algorithm",
 "Input: A non-empty connected weighted graph with vertices V and edges E (the weights can be\n" +
 "negative).\n" +
@@ -2016,7 +2015,7 @@ algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORI
 "Output: Vnew and Enew describe a minimal spanning tree"))
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include<iostream>\n" +
 "using namespace std;\n" +
@@ -2039,7 +2038,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnPrims(int n, int cost[MAXNODES][MAXNODES])\n" +
 "{\n" +
@@ -2112,7 +2111,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnGetMatrix(int n,int a[MAXNODES][MAXNODES])\n" +
 "{\n" +
@@ -2126,7 +2125,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of vertices : 5 Enter the Cost Adjacency Matrix\n" +
 "0 3 9999 7 9999\n" +
@@ -2165,7 +2164,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" + "OpenMP and determine the speed-up achieved.", "c")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Implement All-Pairs Shortest Paths Problem using Floyd's algorithm. Parallelize this algorithm, implement it using\n" + "OpenMP and determine the speed-up achieved.",
 "The Floyd's algorithm is a graph analysis algorithm for finding shortest paths in a weighted graph with positive or negative edge\n" +
@@ -2173,7 +2172,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "algorithm will find the lengths (summed weights) of the shortest paths between all pairs of vertices, though it does not return\n" +
 "details of the paths themselves."))
 
-algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+algorithmContentArrayList.add(AlgorithmContent(CONTENT_ALGORITHM,
 "Algorithm",
 "let dist be a |V| x |V| array of minimum distances initialized to infinity\n" +
 "for each vertex v\n" +
@@ -2188,7 +2187,7 @@ algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORI
 "end if"))
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include<stdio.h>\n" +
 "#include<stdlib.h>\n" +
@@ -2231,7 +2230,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "Enter the number of nodes:3\n" +
 "Enter the cost matrix:\n" +
@@ -2255,7 +2254,7 @@ algorithm.algorithmsIndex = AlgorithmsIndex(index - 1,
                 "Implement N Queen's problem using Back Tracking.", "c++")
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
+CONTENT_AIM_DESCRIPTION,
 "Aim and Description",
 "Program to solve N Queens problem using\n" + "backtracking.",
 "Given a CHESS BOARD of size N*N,we are supposed to place N QUEEN's such that no QUEEN is in an attacking position.\n" +
@@ -2263,7 +2262,7 @@ AlgorithmConstants.CONTENT_AIM_DESCRIPTION,
 "incrementally builds candidates to the solutions, and abandons each partial candidate c (\"backtracks\") as soon as it determines\n" +
 "that c cannot possibly be completed to a valid solution."))
 
-algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORITHM,
+algorithmContentArrayList.add(AlgorithmContent(CONTENT_ALGORITHM,
 "Algorithm",
 "1) Start in the leftmost column\n" +
 "2) If all queens are placed\n" +
@@ -2280,7 +2279,7 @@ algorithmContentArrayList.add(AlgorithmContent(AlgorithmConstants.CONTENT_ALGORI
 "backtracking."))
 codeIndex = 1
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "#include <iostream>\n" +
 "#include <cstdlib>\n" +
@@ -2304,7 +2303,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "int NQueen(int k,int n, int row[MAX])\n" +
 "{\n" +
@@ -2328,7 +2327,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "bool fnCheckPlace(int KthQueen, int ColNum, int row[MAX])\n" +
 "{\n" +
@@ -2341,7 +2340,7 @@ AlgorithmConstants.CONTENT_CODE,
 "}"))
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_CODE,
+CONTENT_CODE,
 "Code Part - " + codeIndex++,
 "void fnChessBoardShow(int n, int row[MAX])\n" +
 "{\n" +
@@ -2363,7 +2362,7 @@ AlgorithmConstants.CONTENT_CODE,
 
 
 algorithmContentArrayList.add(AlgorithmContent(
-AlgorithmConstants.CONTENT_OUTPUT,
+CONTENT_OUTPUT,
 "Output",
 "SAMPLE 1\n" +
 "Enter the number of queens : 4\n" +
