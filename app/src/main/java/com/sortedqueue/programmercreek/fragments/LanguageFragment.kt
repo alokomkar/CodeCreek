@@ -34,8 +34,8 @@ import com.sortedqueue.programmercreek.util.CreekPreferences
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 02/01/17.
@@ -70,7 +70,7 @@ class LanguageFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_language, container, false)
-        ButterKnife.bind(this, view)
+
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

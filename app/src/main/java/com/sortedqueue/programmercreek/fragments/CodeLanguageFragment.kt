@@ -13,9 +13,8 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.constants.LanguageConstants
 import com.sortedqueue.programmercreek.database.firebase.Code
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener
+import kotlinx.android.synthetic.main.fragment_code_language_list.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
 
 /**
  * Created by Alok on 12/04/17.
@@ -23,21 +22,13 @@ import butterknife.ButterKnife
 
 class CodeLanguageFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.cProgramsTextView)
-    internal var cProgramsTextView: TextView? = null
-    @BindView(R.id.cppProgramsTextView)
-    internal var cppProgramsTextView: TextView? = null
-    @BindView(R.id.javaProgramsTextView)
-    internal var javaProgramsTextView: TextView? = null
-    @BindView(R.id.adaProgramsTextView)
-    internal var adaProgramsTextView: TextView? = null
 
     private var codeLabNavigationListener: CodeLabNavigationListener? = null
     private var code: Code? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_code_language_list, container, false)
-        ButterKnife.bind(this, view)
+
         code = Code()
         code!!.language = LanguageConstants.C_INDEX
         code!!.sourceCode = "#include<stdio.h>\n" +

@@ -38,6 +38,7 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
 import com.sortedqueue.programmercreek.util.ShuffleList
+import kotlinx.android.synthetic.main.activity_quiz.*
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -45,8 +46,8 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 03/01/17.
@@ -65,14 +66,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
     internal var mCountDownTimer: CountDownTimer? = null
     internal var mWizard = false
     internal var mQuizMode = -1
-    @BindView(R.id.circular_progress_bar)
-    internal var circularProgressBar: ProgressBar? = null
-    @BindView(R.id.progressTextView)
-    internal var progressTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: FrameLayout? = null
-    @BindView(R.id.quizRecyclerView)
-    internal var quizRecyclerView: RecyclerView? = null
+
     private var quizModels: ArrayList<QuizModel>? = null
     private var quizRecyclerAdapter: QuizRecyclerAdapter? = null
     private var bundle: Bundle? = null
@@ -83,7 +77,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.activity_quiz, container, false)
-        ButterKnife.bind(this, view)
+
 
         mCheckSolutionBtn = view.findViewById(R.id.checkQuizButton) as Button
         mTimerBtn = view.findViewById(R.id.timerButton) as Button
@@ -228,7 +222,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         quizRecyclerView!!.adapter = quizRecyclerAdapter
         time = (programSize / 2 * 60 * 1000).toLong()
         interval = 1000
-        circularProgressBar!!.max = (time / 1000).toInt()
+        circular_progress_bar!!.max = (time / 1000).toInt()
 
         mCountDownTimer = object : CountDownTimer(time, interval) {
 
@@ -238,7 +232,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
                 progressTextView!!.text = mTimerBtn!!.text
                 remainingTime = time - millisUntilFinished
-                circularProgressBar!!.progress = (remainingTime / 1000).toInt()
+                circular_progress_bar!!.progress = (remainingTime / 1000).toInt()
             }
 
             override fun onFinish() {

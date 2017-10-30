@@ -71,58 +71,12 @@ import com.sortedqueue.programmercreek.view.UserProgramDialog
 import java.io.File
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, DownloadFileListner, View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
-
-    //@BindView(R.id.adView)
-    //AdView adView;
-    @BindView(R.id.dashboardViewPager)
-    internal var dashboardViewPager: ViewPager? = null
-    @BindView(R.id.dashboardTabLayout)
-    internal var dashboardTabLayout: TabLayout? = null
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.createPresentationFAB)
-    internal var createPresentationFAB: FloatingActionButton? = null
-    @BindView(R.id.webView)
-    internal var webView: WebView? = null
-    @BindView(R.id.addCodeTextView)
-    internal var addCodeTextView: TextView? = null
-    @BindView(R.id.addCodeFAB)
-    internal var addCodeFAB: FloatingActionButton? = null
-    @BindView(R.id.addUserCodeFAB)
-    internal var addUserCodeFAB: FloatingActionButton? = null
-    @BindView(R.id.addCodeLayout)
-    internal var addCodeLayout: LinearLayout? = null
-    @BindView(R.id.addPptTextView)
-    internal var addPptTextView: TextView? = null
-    @BindView(R.id.addPptLayout)
-    internal var addPptLayout: LinearLayout? = null
-    @BindView(R.id.fabLayout)
-    internal var fabLayout: LinearLayout? = null
-    @BindView(R.id.main_content)
-    internal var mainContent: RelativeLayout? = null
-    @BindView(R.id.reputationProgressBar)
-    internal var reputationProgressBar: ProgressBar? = null
-    @BindView(R.id.reputationTextView)
-    internal var reputationTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: LinearLayout? = null
-    @BindView(R.id.languageSelectionTextView)
-    internal var languageSelectionTextView: TextView? = null
-    @BindView(R.id.selectedLanguageCardView)
-    internal var selectedLanguageCardView: CardView? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.upgradeTextView)
-    internal var upgradeTextView: TextView? = null
-    @BindView(R.id.laterTextView)
-    internal var laterTextView: TextView? = null
-    @BindView(R.id.premiumLayout)
-    internal var premiumLayout: RelativeLayout? = null
 
 
     private val TAG = javaClass.simpleName
@@ -154,7 +108,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Down
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_dashboard)
-        ButterKnife.bind(this)
+
         setupToolbar()
         creekPreferences = CreekApplication.creekPreferences
         if (!creekPreferences!!.isPremiumUser) {

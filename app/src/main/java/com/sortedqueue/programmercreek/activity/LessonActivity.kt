@@ -32,8 +32,9 @@ import com.sortedqueue.programmercreek.interfaces.LessonNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_lesson.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -41,25 +42,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  */
 
 class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigationListener {
-
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.shareTextView)
-    internal var shareTextView: TextView? = null
-    @BindView(R.id.shareNowTextView)
-    internal var shareNowTextView: TextView? = null
-    @BindView(R.id.laterTextView)
-    internal var laterTextView: TextView? = null
-    @BindView(R.id.shareLayout)
-    internal var shareLayout: RelativeLayout? = null
-    @BindView(R.id.reputationProgressBar)
-    internal var reputationProgressBar: ProgressBar? = null
-    @BindView(R.id.reputationTextView)
-    internal var reputationTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: LinearLayout? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
 
     private var mFragmentTransaction: FragmentTransaction? = null
     private var lessonsFragment: LessonsFragment? = null
@@ -76,7 +58,7 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lesson)
-        ButterKnife.bind(this)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

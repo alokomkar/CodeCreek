@@ -42,8 +42,9 @@ import com.startapp.android.publish.adsCommon.StartAppAd
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_program_list.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
@@ -55,13 +56,10 @@ class ProgramListActivity : AppCompatActivity(), UIUpdateListener, CustomProgram
     internal var mProgram_Indexs: ArrayList<ProgramIndex> ?= null
 
     var PROGRAM_LIST_SIZE = 0
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: LinearLayout? = null
+
 
     private val TAG = javaClass.simpleName
     private var program_Index: ProgramIndex? = null
-    @BindView(R.id.adView)
-    internal var adView: AdView? = null
     private var customProgramRecyclerViewAdapter: CustomProgramRecyclerViewAdapter? = null
     private val fadeOutAnimation: Animation? = null
     private var isAdShown: Boolean = false
@@ -75,7 +73,7 @@ class ProgramListActivity : AppCompatActivity(), UIUpdateListener, CustomProgram
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_program_list)
-        ButterKnife.bind(this)
+
         fetchProgramsList()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()

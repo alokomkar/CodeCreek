@@ -19,8 +19,9 @@ import com.sortedqueue.programmercreek.fragments.InterviewChoiceFragment
 import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_interview.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -29,18 +30,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
 
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
-    @BindView(R.id.explanationTextView)
-    internal var explanationTextView: TextView? = null
-    @BindView(R.id.nextTextView)
-    internal var nextTextView: TextView? = null
-    @BindView(R.id.hintLayout)
-    internal var hintLayout: RelativeLayout? = null
     private var mFragmentTransaction: FragmentTransaction? = null
     private var interviewQuestionsFragment: InterviewQuestionsFragment? = null
     private var interviewChoiceFragment: InterviewChoiceFragment? = null
@@ -72,7 +61,7 @@ class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interview)
-        ButterKnife.bind(this)
+
         checkFAB!!.visibility = View.GONE
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)

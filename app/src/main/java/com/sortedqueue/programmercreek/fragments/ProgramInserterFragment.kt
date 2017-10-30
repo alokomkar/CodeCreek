@@ -20,11 +20,12 @@ import com.sortedqueue.programmercreek.database.ProgramWiki
 import com.sortedqueue.programmercreek.database.WikiModel
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_program_inserter.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-01-11.
@@ -32,32 +33,6 @@ import butterknife.ButterKnife
 
 class ProgramInserterFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.wikiHeaderEditText)
-    internal var wikiHeaderEditText: AppCompatEditText? = null
-    @BindView(R.id.wikiIdEditText)
-    internal var wikiIdEditText: AppCompatEditText? = null
-    @BindView(R.id.syntaxLanguageTextView)
-    internal var syntaxLanguageTextView: TextView? = null
-    @BindView(R.id.insertButton)
-    internal var insertButton: Button? = null
-    @BindView(R.id.deleteButton)
-    internal var deleteButton: Button? = null
-    @BindView(R.id.programWikiRecyclerView)
-    internal var programWikiRecyclerView: RecyclerView? = null
-    @BindView(R.id.saveButton)
-    internal var saveButton: Button? = null
-    @BindView(R.id.clearButton)
-    internal var clearButton: Button? = null
-    @BindView(R.id.formatCodeButton)
-    internal var formatCodeButton: Button? = null
-    @BindView(R.id.headerEditText)
-    internal var headerEditText: EditText? = null
-    @BindView(R.id.explanationEditText)
-    internal var explanationEditText: EditText? = null
-    @BindView(R.id.exampleEditText)
-    internal var exampleEditText: EditText? = null
-    @BindView(R.id.ouptputEditText)
-    internal var ouptputEditText: EditText? = null
 
     private val wikiModel = WikiModel()
     private val programWikis = ArrayList<ProgramWiki>()
@@ -67,7 +42,6 @@ class ProgramInserterFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_program_inserter, null)
-        ButterKnife.bind(this, fragmentView)
         setupViews()
         return fragmentView
     }

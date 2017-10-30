@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.view
 
 import android.content.Context
-import android.content.DialogInterface
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
@@ -9,15 +8,14 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 
 import com.sortedqueue.programmercreek.R
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-01-22.
@@ -25,43 +23,31 @@ import butterknife.ButterKnife
 
 class LoginSignupDialog {
     private var signupOnly: Boolean ?= false
-    @BindView(R.id.doneButton)
-    internal var doneButton: Button? = null
-    @BindView(R.id.cancelButton)
-    internal var cancelButton: Button? = null
-    private var loginSignupListener: LoginSignupListener? = null
-    @BindView(R.id.signupRadioButton)
-    internal var signupRadioButton: RadioButton? = null
-    @BindView(R.id.loginRadioButton)
-    internal var loginRadioButton: RadioButton? = null
-    @BindView(R.id.input_name)
-    internal var inputName: EditText? = null
-    @BindView(R.id.input_layout_name)
-    internal var inputLayoutName: TextInputLayout? = null
-    @BindView(R.id.input_email)
-    internal var inputEmail: EditText? = null
-    @BindView(R.id.input_layout_email)
-    internal var inputLayoutEmail: TextInputLayout? = null
-    @BindView(R.id.input_password)
-    internal var inputPassword: EditText? = null
-    @BindView(R.id.input_layout_password)
-    internal var inputLayoutPassword: TextInputLayout? = null
-    @BindView(R.id.reinput_password)
-    internal var reinputPassword: EditText? = null
-    @BindView(R.id.reinput_layout_password)
-    internal var reinputLayoutPassword: TextInputLayout? = null
-    @BindView(R.id.signupRadioGroup)
-    internal var signupRadioGroup: RadioGroup? = null
+    private var loginSignupListener: LoginSignupListener ?= null
+    
+    internal var doneButton: Button ?= null
+    internal var cancelButton: Button ?= null
+    internal var signupRadioButton: RadioButton ?= null
+    internal var loginRadioButton: RadioButton ?= null
+    internal var inputName: EditText ?= null
+    internal var inputLayoutName: TextInputLayout ?= null
+    internal var inputEmail: EditText ?= null
+    internal var inputLayoutEmail: TextInputLayout ?= null
+    internal var inputPassword: EditText ?= null
+    internal var inputLayoutPassword: TextInputLayout ?= null
+    internal var reinputPassword: EditText ?= null
+    internal var reinputLayoutPassword: TextInputLayout ?= null
+    internal var signupRadioGroup: RadioGroup ?= null
 
     private val mode: Int = 0
-    private var context: Context? = null
-    private var alertDialog: AlertDialog? = null
-    private var builder: AlertDialog.Builder? = null
+    private var context: Context ?= null
+    private var alertDialog: AlertDialog ?= null
+    private var builder: AlertDialog.Builder ?= null
 
-    private var userName: String? = null
-    private var userEmail: String? = null
-    private var userPassword: String? = null
-    private var reEnterPassword: String? = null
+    private var userName: String ?= null
+    private var userEmail: String ?= null
+    private var userPassword: String ?= null
+    private var reEnterPassword: String ?= null
 
     constructor(context: Context, signupOnly: Boolean) {
         this.context = context
@@ -97,7 +83,7 @@ class LoginSignupDialog {
                 .setIcon(R.mipmap.ic_launcher)
         builder!!.setTitle(R.string.sign_in)
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_signup_login, null)
-        ButterKnife.bind(this, dialogView)
+        initialize(dialogView)
         builder!!.setView(dialogView)
         alertDialog = builder!!.create()
 
@@ -135,6 +121,22 @@ class LoginSignupDialog {
             signupRadioGroup!!.visibility = View.GONE
         }
 
+    }
+
+    private fun initialize( dialogView: View?) {
+        doneButton = dialogView!!.findViewById(R.id.doneButton) as Button
+        cancelButton = dialogView!!.findViewById(R.id.doneButton) as Button
+        signupRadioButton = dialogView!!.findViewById(R.id.signupRadioButton) as RadioButton
+        loginRadioButton = dialogView!!.findViewById(R.id.loginRadioButton) as RadioButton
+        inputName = dialogView!!.findViewById(R.id.input_name) as EditText
+        inputLayoutName = dialogView!!.findViewById(R.id.input_layout_name) as TextInputLayout
+        inputEmail = dialogView!!.findViewById(R.id.input_email) as EditText
+        inputLayoutEmail = dialogView!!.findViewById(R.id.input_layout_email) as TextInputLayout
+        inputPassword = dialogView!!.findViewById(R.id.input_password) as EditText
+        inputLayoutPassword = dialogView!!.findViewById(R.id.input_layout_password) as TextInputLayout
+        reinputPassword = dialogView!!.findViewById(R.id.reinput_password) as EditText
+        reinputLayoutPassword = dialogView!!.findViewById(R.id.reinput_layout_password) as TextInputLayout
+        signupRadioGroup = dialogView!!.findViewById(R.id.signupRadioGroup) as RadioGroup
     }
 
     private fun validateAllFields(): Boolean {

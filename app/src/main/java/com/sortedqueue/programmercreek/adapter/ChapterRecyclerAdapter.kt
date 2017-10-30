@@ -21,8 +21,8 @@ import com.sortedqueue.programmercreek.util.CommonUtils
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 06/01/17.
@@ -125,32 +125,27 @@ class ChapterRecyclerAdapter(private val context: Context, private val chapters:
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        @BindView(R.id.moduleNameTextView)
-        var moduleNameTextView: TextView? = null
-        @BindView(R.id.moduleDescriptionTextView)
-        var moduleDescriptionTextView: TextView? = null
-        @BindView(R.id.headerTextView)
-        var headerTextView: TextView? = null
-        @BindView(R.id.lockedImageView)
-        var lockedImageView: ImageView? = null
-        @BindView(R.id.appCompatSeekBar)
-        var appCompatSeekBar: SeekBar? = null
-        @BindView(R.id.moduleLayout)
-        var moduleLayout: RelativeLayout? = null
+
+        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView) as TextView
+        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView) as TextView
+        var headerTextView: TextView = itemView.findViewById(R.id.headerTextView) as TextView
+        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView) as ImageView
+        var appCompatSeekBar: SeekBar = itemView.findViewById(R.id.appCompatSeekBar) as SeekBar
+        var moduleLayout: RelativeLayout = itemView.findViewById(R.id.moduleLayout) as RelativeLayout
 
         init {
             ButterKnife.bind(this, view)
-            headerTextView!!.text = "Chapter"
-            appCompatSeekBar!!.visibility = View.VISIBLE
-            appCompatSeekBar!!.isActivated = false
-            appCompatSeekBar!!.isEnabled = false
+            headerTextView.text = "Chapter"
+            appCompatSeekBar.visibility = View.VISIBLE
+            appCompatSeekBar.isActivated = false
+            appCompatSeekBar.isEnabled = false
             view.setOnClickListener(this)
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                if (lockedImageView!!.visibility == View.VISIBLE) {
+                if (lockedImageView.visibility == View.VISIBLE) {
                     CommonUtils.displaySnackBar(context as Activity, R.string.chapter_locked)
                     return
                 }

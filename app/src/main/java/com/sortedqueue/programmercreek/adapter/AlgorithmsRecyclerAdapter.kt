@@ -12,8 +12,8 @@ import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-03-17.
@@ -40,10 +40,9 @@ class AlgorithmsRecyclerAdapter(context: Context, private val adapterClickListne
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.titleTextView)
-        internal var titleTextView: TextView? = null
-        @BindView(R.id.descriptionTextView)
-        internal var descriptionTextView: TextView? = null
+
+        internal var titleTextView: TextView = itemView.findViewById(R.id.titleTextView) as TextView
+        internal var descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView) as TextView
 
         init {
             ButterKnife.bind(this, itemView)

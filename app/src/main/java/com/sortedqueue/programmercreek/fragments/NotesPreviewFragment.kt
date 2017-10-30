@@ -16,19 +16,19 @@ import com.sortedqueue.programmercreek.adapter.ProgramWikiRecyclerAdapter
 import com.sortedqueue.programmercreek.database.NotesModel
 import com.sortedqueue.programmercreek.database.ProgramWiki
 import com.sortedqueue.programmercreek.database.WikiModel
+import kotlinx.android.synthetic.main.fragment_notes.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-07-28.
  */
 class NotesPreviewFragment : Fragment() {
 
-    @BindView(R.id.programRecyclerView)
-    internal var programRecyclerView: RecyclerView? = null
+
     private var wikiModel = WikiModel()
     private var programWikis = ArrayList<ProgramWiki>()
     private var notesModelArrayList: ArrayList<NotesModel>? = null
@@ -36,7 +36,6 @@ class NotesPreviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_notes, container, false)
-        ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 

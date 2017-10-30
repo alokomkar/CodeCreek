@@ -37,12 +37,15 @@ import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.util.ParallaxPageTransformer
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
 import com.sortedqueue.programmercreek.view.SwipeDirection
+import kotlinx.android.synthetic.main.app_bar_topic_details.*
+import kotlinx.android.synthetic.main.content_topic_details.*
+import kotlinx.android.synthetic.main.fragment_topic_details.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 /**
  * Created by Alok on 15/09/17.
@@ -50,27 +53,6 @@ import butterknife.Unbinder
 
 class TopicDetailsFragment : Fragment(), TopicDetailsTask.TopicDetailsListener {
 
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.topicDetailsViewPager)
-    internal var topicDetailsViewPager: OneDirectionalScrollableViewPager? = null
-    @BindView(R.id.content_intro)
-    internal var contentIntro: RelativeLayout? = null
-    @BindView(R.id.topicsRecyclerView)
-    internal var topicsRecyclerView: RecyclerView? = null
-    @BindView(R.id.nav_view)
-    internal var navView: NavigationView? = null
-    @BindView(R.id.drawer_layout)
-    internal var drawerLayout: DrawerLayout? = null
-    @BindView(R.id.progressBar)
-    internal var progressBar: ProgressBar? = null
-    @BindView(R.id.reputationProgressBar)
-    internal var reputationProgressBar: ProgressBar? = null
-    @BindView(R.id.reputationTextView)
-    internal var reputationTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: LinearLayout? = null
-    private var unbinder: Unbinder? = null
     private var mLessons: ArrayList<TopicDetails>? = null
     private var mNewIntroNavigationListener: NewIntroNavigationListener? = null
     private var topicDetailsAdapter: TopicDetailsAdapter? = null
@@ -85,7 +67,6 @@ class TopicDetailsFragment : Fragment(), TopicDetailsTask.TopicDetailsListener {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_topic_details, container, false)
-        unbinder = ButterKnife.bind(this, view)
         creekPreferences = CreekApplication.creekPreferences
         return view
     }
@@ -108,14 +89,14 @@ class TopicDetailsFragment : Fragment(), TopicDetailsTask.TopicDetailsListener {
         appCompatActivity.setSupportActionBar(toolbar)
         toolbar!!.title = "Program Wiki : " + CreekApplication.creekPreferences!!.programLanguage.toUpperCase()
         val toggle = ActionBarDrawerToggle(
-                appCompatActivity, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout!!.addDrawerListener(toggle)
+                appCompatActivity, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout!!.addDrawerListener(toggle)
         toggle.syncState()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
 
@@ -262,7 +243,7 @@ class TopicDetailsFragment : Fragment(), TopicDetailsTask.TopicDetailsListener {
 
             override fun onItemClick(position: Int) {
                 initLessons(position)
-                drawerLayout!!.closeDrawer(GravityCompat.START)
+                drawer_layout!!.closeDrawer(GravityCompat.START)
             }
         })
         topicsRecyclerView!!.adapter = topicDetailsAdapter

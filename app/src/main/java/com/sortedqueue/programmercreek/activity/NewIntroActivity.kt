@@ -12,8 +12,8 @@ import com.sortedqueue.programmercreek.fragments.TopicDetailsFragment
 import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener
 
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -22,15 +22,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class NewIntroActivity : AppCompatActivity(), NewIntroNavigationListener {
 
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
     private var mFragmentTransaction: FragmentTransaction? = null
     private var topicDetailsFragment: TopicDetailsFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_intro)
-        ButterKnife.bind(this)
+
         loadIntroTopicsFragment()
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left)

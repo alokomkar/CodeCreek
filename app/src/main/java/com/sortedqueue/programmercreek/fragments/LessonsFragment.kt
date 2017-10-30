@@ -26,11 +26,9 @@ import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener
 import com.sortedqueue.programmercreek.interfaces.LessonNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_lessons.*
 
 import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
 
 /**
  * Created by Alok on 29/08/17.
@@ -39,10 +37,6 @@ import butterknife.ButterKnife
 class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @BindView(R.id.modulesRecyclerView)
-    internal var lessonsRecyclerView: RecyclerView? = null
-    @BindView(R.id.adView)
-    internal var adView: AdView? = null
 
     private val TAG = LessonsFragment::class.java.simpleName
     private var lessons: ArrayList<Lesson>? = null
@@ -53,7 +47,7 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_lessons, container, false)
-        ButterKnife.bind(this, view)
+
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()
@@ -93,7 +87,7 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
     }
 
     private fun getModules() {
-        lessonsRecyclerView!!.visibility = View.INVISIBLE
+        modulesRecyclerView!!.visibility = View.INVISIBLE
         CommonUtils.displayProgressDialog(context, "Loading chapters")
         LessonFetchTask(this).execute()
 
@@ -118,9 +112,9 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
                 lessonNavigationListener!!.onLessonSelected(lessonsAdapter!!.getItem(position))
             }
         })
-        lessonsRecyclerView!!.layoutManager = GridLayoutManager(context, 2)
-        lessonsRecyclerView!!.adapter = lessonsAdapter
+        modulesRecyclerView!!.layoutManager = GridLayoutManager(context, 2)
+        modulesRecyclerView!!.adapter = lessonsAdapter
         CommonUtils.dismissProgressDialog()
-        Handler().postDelayed({ AnimationUtils.slideInToLeft(lessonsRecyclerView) }, 450)
+        Handler().postDelayed({ AnimationUtils.slideInToLeft(modulesRecyclerView) }, 450)
     }
 }

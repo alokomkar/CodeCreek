@@ -34,26 +34,18 @@ import com.startapp.android.publish.adsCommon.Ad
 import com.startapp.android.publish.adsCommon.StartAppAd
 import com.startapp.android.publish.adsCommon.VideoListener
 import com.startapp.android.publish.adsCommon.adListeners.AdEventListener
+import kotlinx.android.synthetic.main.fragment_wizard_module.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 05/01/17.
  */
 
 class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsScrollPageListener {
-
-    @BindView(R.id.ProgressBar)
-    internal var progressBar: ProgressBar? = null
-    @BindView(R.id.syntaxLearnViewPager)
-    internal var syntaxLearnViewPager: OneDirectionalScrollableViewPager? = null
-    @BindView(R.id.viewPagerLayout)
-    internal var viewPagerLayout: LinearLayout? = null
-    @BindView(R.id.doneFAB)
-    internal var doneFAB: FloatingActionButton? = null
 
     private var chapter: Chapter? = null
     private var chapterDetailsPagerAdapter: ChapterDetailsPagerAdapter? = null
@@ -65,7 +57,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_wizard_module, container, false)
-        ButterKnife.bind(this, view)
+
         CommonUtils.displayProgressDialog(context, "Loading modules")
         setupViews()
         return view
@@ -81,10 +73,10 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
         chapterDetailsPagerAdapter = ChapterDetailsPagerAdapter(context, this, childFragmentManager, chapter!!.chapterDetailsArrayList, this, nextChapter!!)
         syntaxLearnViewPager!!.adapter = chapterDetailsPagerAdapter
         syntaxLearnViewPager!!.setAllowedSwipeDirection(SwipeDirection.left)
-        progressBar!!.max = chapter!!.chapterDetailsArrayList.size
-        progressBar!!.progress = 1
+        ProgressBar!!.max = chapter!!.chapterDetailsArrayList.size
+        ProgressBar!!.progress = 1
         doneFAB!!.setOnClickListener { onScrollForward() }
-        toggleFabDrawable(progressBar!!.progress)
+        toggleFabDrawable(ProgressBar!!.progress)
         changeViewPagerBehavior(0)
         syntaxLearnViewPager!!.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -92,8 +84,8 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
             }
 
             override fun onPageSelected(position: Int) {
-                progressBar!!.progress = position + 1
-                toggleFabDrawable(progressBar!!.progress)
+                ProgressBar!!.progress = position + 1
+                toggleFabDrawable(ProgressBar!!.progress)
                 changeViewPagerBehavior(position)
             }
 
@@ -157,7 +149,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
 
     private fun toggleFabDrawable(progress: Int) {
         val fragment = chapterDetailsPagerAdapter!!.getItem(progress - 1)
-        fabDrawable = if (progress == progressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
+        fabDrawable = if (progress == ProgressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
         if (fragment is NewMatchFragment) {
             fabDrawable = R.drawable.ic_help_outline_white_24dp
         } else if (fragment is NewFillBlankFragment) {
@@ -171,7 +163,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
             val testCompletionListener = fragment as TestCompletionListener
             if (testCompletionListener.isTestComplete != -1) {
                 isRewardVideoShown = false
-                fabDrawable = if (progress == progressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
+                fabDrawable = if (progress == ProgressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
             }
         }
         doneFAB!!.setImageDrawable(ContextCompat.getDrawable(context, fabDrawable))
@@ -212,7 +204,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     }
 
     override fun toggleFABDrawable() {
-        toggleFabDrawable(progressBar!!.progress)
+        toggleFabDrawable(ProgressBar!!.progress)
     }
 
     private fun fabAction() {
@@ -305,7 +297,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
 
     override fun enableViewPager() {
         if (syntaxLearnViewPager != null) {
-            changeViewPagerBehavior(progressBar!!.progress - 1)
+            changeViewPagerBehavior(ProgressBar!!.progress - 1)
             doneFAB!!.isEnabled = true
         }
 
@@ -358,7 +350,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     }
 
     private fun showSolutionFromFragment() {
-        val fragment = chapterDetailsPagerAdapter!!.getItem(progressBar!!.progress - 1)
+        val fragment = chapterDetailsPagerAdapter!!.getItem(ProgressBar!!.progress - 1)
         if (fragment is NewMatchFragment) {
             showSolutionDialog(fragment.getmProgramList())
         } else if (fragment is NewFillBlankFragment) {

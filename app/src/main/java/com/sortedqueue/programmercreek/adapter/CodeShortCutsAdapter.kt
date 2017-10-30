@@ -11,8 +11,8 @@ import com.sortedqueue.programmercreek.database.CodeShortCuts
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 14/09/17.
@@ -33,8 +33,8 @@ class CodeShortCutsAdapter(private val mCodeShortCuts: ArrayList<CodeShortCuts>,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.codeTextView)
-        internal var codeTextView: TextView? = null
+
+        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
             ButterKnife.bind(this, itemView)

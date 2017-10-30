@@ -34,8 +34,10 @@ import com.sortedqueue.programmercreek.view.ScrollableViewPager
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_new_program_wiki.*
+import kotlinx.android.synthetic.main.content_wiki.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -44,28 +46,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.programWikiViewPager)
-    internal var programWikiViewPager: ScrollableViewPager? = null
-    @BindView(R.id.ProgressBar)
-    internal var progressBar: ProgressBar? = null
-    @BindView(R.id.firstQuestionImageView)
-    internal var firstQuestionImageView: ImageView? = null
-    @BindView(R.id.prevQuestionImageView)
-    internal var prevQuestionImageView: ImageView? = null
-    @BindView(R.id.indexTextView)
-    internal var indexTextView: TextView? = null
-    @BindView(R.id.nextQuestionImageView)
-    internal var nextQuestionImageView: ImageView? = null
-    @BindView(R.id.lastQuestionImageView)
-    internal var lastQuestionImageView: ImageView? = null
-    @BindView(R.id.navigationLayout)
-    internal var navigationLayout: RelativeLayout? = null
-    @BindView(R.id.programRecyclerView)
-    internal var programRecyclerView: RecyclerView? = null
-    @BindView(R.id.nav_view)
-    internal var navView: NavigationView? = null
-    @BindView(R.id.drawer_layout)
-    internal var drawerLayout: DrawerLayout? = null
+
     private var programWikiPagerAdapter: ProgramWikiPagerAdapter? = null
     private var interstitialAd: InterstitialAd? = null
     private var toolbar: Toolbar? = null
@@ -87,13 +68,13 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_program_wiki)
-        ButterKnife.bind(this)
+
         toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar!!.title = "Program Wiki : " + CreekApplication.creekPreferences!!.programLanguage.toUpperCase()
         val toggle = ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout!!.addDrawerListener(toggle)
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout!!.addDrawerListener(toggle)
         toggle.syncState()
 
         CommonUtils.displayProgressDialog(this@NewProgramWikiActivity, "Loading")
@@ -104,8 +85,8 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
                         programWikiPagerAdapter = ProgramWikiPagerAdapter(supportFragmentManager, programWikis)
                         programWikiViewPager!!.adapter = programWikiPagerAdapter
                         programWikiViewPager!!.setCanScroll(false)
-                        progressBar!!.max = programWikis.size
-                        progressBar!!.progress = 1
+                        ProgressBar!!.max = programWikis.size
+                        ProgressBar!!.progress = 1
                         indexTextView!!.text = 1.toString() + "/" + programWikiPagerAdapter!!.count
                         toggleVisiblity(0)
                         programWikiViewPager!!.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -114,7 +95,7 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
                             }
 
                             override fun onPageSelected(position: Int) {
-                                progressBar!!.progress = position + 1
+                                ProgressBar!!.progress = position + 1
                                 toggleVisiblity(position)
                                 indexTextView!!.text = (position + 1).toString() + "/" + programWikiPagerAdapter!!.count
                             }
@@ -215,8 +196,8 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
     internal var isAdShown = false
 
     override fun onBackPressed() {
-        if (drawerLayout!!.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout!!.closeDrawer(GravityCompat.START)
+        if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout!!.closeDrawer(GravityCompat.START)
             return
         }
         if (!isAdShown && interstitialAd != null && interstitialAd!!.isLoaded && !CreekApplication.creekPreferences!!.isPremiumUser) {
@@ -230,7 +211,7 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
     override fun onItemClick(position: Int) {
         if (programWikiViewPager != null) {
             programWikiViewPager!!.currentItem = position
-            drawerLayout!!.closeDrawer(GravityCompat.START)
+            drawer_layout!!.closeDrawer(GravityCompat.START)
         }
     }
 }

@@ -18,8 +18,8 @@ import com.sortedqueue.programmercreek.database.lessons.Lesson
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 15/09/17.

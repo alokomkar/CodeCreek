@@ -23,12 +23,13 @@ import com.sortedqueue.programmercreek.database.LanguageModule
 import com.sortedqueue.programmercreek.database.UserRanking
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener
+import kotlinx.android.synthetic.main.fragment_top_learners.*
 
 import java.util.ArrayList
 import java.util.Collections
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-02-12.
@@ -36,22 +37,10 @@ import butterknife.ButterKnife
 
 class TopLearnerFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.topLearnersRecyclerView)
-    internal var topLearnersRecyclerView: RecyclerView? = null
-    @BindView(R.id.swipeRefreshLayout)
-    internal var swipeRefreshLayout: SwipeRefreshLayout? = null
-    @BindView(R.id.facebookCardView)
-    internal var facebookCardView: CardView? = null
-    @BindView(R.id.googleCardView)
-    internal var googleCardView: CardView? = null
-    @BindView(R.id.twitterCardView)
-    internal var twitterCardView: CardView? = null
 
     private val TWITTER_LINK = "https://twitter.com/Programmercreek"
-    private val FACEBOOK_LINK = "https://www.facebook.com/Practice-Code-2073203816026988/"
+    private val FACEBOOK_LINK = "https://www.facebook.com/PracticeC0de/"
     private val GOOGLE_PLUS_LINK = "https://plus.google.com/u/1/communities/117275222080442676688"
-    @BindView(R.id.emptyTextView)
-    internal var emptyTextView: TextView? = null
 
     private val syntaxNavigationListener: SyntaxNavigationListener? = null
     private val languageModules: ArrayList<LanguageModule>? = null
@@ -63,7 +52,7 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_top_learners, container, false)
-        ButterKnife.bind(this, view)
+
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

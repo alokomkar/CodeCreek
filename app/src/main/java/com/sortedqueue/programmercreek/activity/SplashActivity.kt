@@ -45,20 +45,13 @@ import com.sortedqueue.programmercreek.view.LoginSignupDialog
 import java.util.ArrayList
 import java.util.Date
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import com.sortedqueue.programmercreek.view.LoginSignupDialog.LoginSignupListener
+import kotlinx.android.synthetic.main.activity_splash_screen.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult> {
-    @BindView(R.id.googleSignInButton)
-    internal var googleSignInButton: Button? = null
-    @BindView(R.id.fbLoginButton)
-    internal var fbLoginButton: LoginButton? = null
-    @BindView(R.id.signEmailButton)
-    internal var signEmailButton: Button? = null
-    @BindView(R.id.signAnonButton)
-    internal var signAnonButton: Button? = null
 
     private val RC_SIGN_IN = 1000
     private val TAG = "SplashActivity"
@@ -79,31 +72,31 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener, GoogleApiClien
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         configureFirebaseAuth()
-        ButterKnife.bind(this)
+
 
         creekPreferences = CreekApplication.creekPreferences
-        googleSignInButton!!.visibility = View.GONE
-        fbLoginButton!!.visibility = View.GONE
-        signEmailButton!!.visibility = View.GONE
-        signAnonButton!!.visibility = View.GONE
+        googleSignInButton.visibility = View.GONE
+        fbLoginButton.visibility = View.GONE
+        signEmailButton.visibility = View.GONE
+        signAnonButton.visibility = View.GONE
         if (creekPreferences!!.getSignInAccount() == "") {
             CreekAnalytics.logEvent(TAG, "Fresh Signup")
-            googleSignInButton!!.setOnClickListener(this@SplashActivity)
+            googleSignInButton.setOnClickListener(this@SplashActivity)
 
-            googleSignInButton!!.visibility = View.VISIBLE
-            signEmailButton!!.visibility = View.VISIBLE
-            signAnonButton!!.visibility = View.VISIBLE
+            googleSignInButton.visibility = View.VISIBLE
+            signEmailButton.visibility = View.VISIBLE
+            signAnonButton.visibility = View.VISIBLE
 
-            signEmailButton!!.setOnClickListener(this)
-            signAnonButton!!.setOnClickListener(this)
+            signEmailButton.setOnClickListener(this)
+            signAnonButton.setOnClickListener(this)
             configureGoogleSignup()
             //fbLoginButton.setVisibility(View.VISIBLE);
             val fbPermissions = ArrayList<String>()
             fbPermissions.add("email")
             fbPermissions.add("public_profile")
             callbackManager = CallbackManager.Factory.create()
-            fbLoginButton!!.setReadPermissions(fbPermissions)
-            fbLoginButton!!.registerCallback(callbackManager, this@SplashActivity)
+            fbLoginButton.setReadPermissions(fbPermissions)
+            fbLoginButton.registerCallback(callbackManager, this@SplashActivity)
         }
         startAnimations()
 

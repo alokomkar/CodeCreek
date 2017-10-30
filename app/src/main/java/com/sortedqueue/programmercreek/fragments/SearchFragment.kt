@@ -26,11 +26,12 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 import com.sortedqueue.programmercreek.activity.ProgramListActivity.Companion.KEY_WIZARD
+import kotlinx.android.synthetic.main.fragment_search.*
 
 /**
  * Created by Alok on 08/08/17.
@@ -38,18 +39,11 @@ import com.sortedqueue.programmercreek.activity.ProgramListActivity.Companion.KE
 
 class SearchFragment : Fragment(), TextWatcher, FirebaseDatabaseHandler.ProgramIndexInterface, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.searchEditText)
-    internal var searchEditText: EditText? = null
-    @BindView(R.id.noProgramsLayout)
-    internal var noProgramsLayout: LinearLayout? = null
-    @BindView(R.id.searchRecyclerView)
-    internal var searchRecyclerView: RecyclerView? = null
-    lateinit var unbinder: Unbinder
+
     private var customProgramRecyclerViewAdapter: CustomProgramRecyclerViewAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_search, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -60,7 +54,6 @@ class SearchFragment : Fragment(), TextWatcher, FirebaseDatabaseHandler.ProgramI
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder.unbind()
     }
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {

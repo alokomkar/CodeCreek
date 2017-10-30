@@ -21,8 +21,9 @@ import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
 import com.startapp.android.publish.adsCommon.StartAppAd
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_wizard_module.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -31,12 +32,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
 
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
     private var mFragmentTransaction: FragmentTransaction? = null
 
     private var algorithmFragment: AlgorithmFragment? = null
@@ -55,7 +50,6 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wizard_module)
-        ButterKnife.bind(this)
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

@@ -10,8 +10,8 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.ModuleOption
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2016-12-25.

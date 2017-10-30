@@ -40,6 +40,7 @@ import com.startapp.android.publish.adsCommon.Ad
 import com.startapp.android.publish.adsCommon.StartAppAd
 import com.startapp.android.publish.adsCommon.VideoListener
 import com.startapp.android.publish.adsCommon.adListeners.AdEventListener
+import kotlinx.android.synthetic.main.fragment_new_fill_blank.*
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -47,8 +48,8 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Collections
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 23/08/17.
@@ -56,15 +57,6 @@ import butterknife.ButterKnife
 
 class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionListener {
 
-    @BindView(R.id.questionRecyclerView)
-    internal var questionRecyclerView: RecyclerView? = null
-    @BindView(R.id.optionRecyclerView)
-    internal var optionRecyclerView: RecyclerView? = null
-    internal var mProgramTableList: List<ProgramTable> ?= null
-    @BindView(R.id.checkButton)
-    internal var checkButton: Button? = null
-    @BindView(R.id.optionsTextView)
-    internal var optionsTextView: TextView? = null
     private var newProgramActivityBundle: Bundle? = null
     private var mInvokeMode: Int = 0
     private var program_TableList: ArrayList<ProgramTable>? = null
@@ -83,7 +75,6 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_new_fill_blank, container, false)
-        ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -143,6 +134,8 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
     fun setBundle(bundle: Bundle) {
         this.newProgramActivityBundle = bundle
     }
+
+    private var mProgramTableList: ArrayList<ProgramTable> ?= null
 
     private fun initUI(program_TableList: ArrayList<ProgramTable>?) {
         if (mProgramIndex != null) {

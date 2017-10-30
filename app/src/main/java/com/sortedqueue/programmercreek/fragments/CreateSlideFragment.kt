@@ -60,8 +60,8 @@ import java.text.SimpleDateFormat
 import java.util.ArrayList
 import java.util.Date
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 //import id.zelory.compressor.Compressor;
 
 import com.facebook.GraphRequest.TAG
@@ -122,7 +122,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_slide, container, false)
-        ButterKnife.bind(this, view)
+
         slideModel = SlideModel()
         firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         titleEditText!!.clearFocus()

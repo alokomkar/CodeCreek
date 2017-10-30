@@ -15,8 +15,9 @@ import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_tutorial_carousal.*
 
 /**
  * Created by Alok on 12/05/17.
@@ -24,17 +25,13 @@ import butterknife.ButterKnife
 
 class TutorialCarousalActivity : AppCompatActivity(), TutorialNavigationListener {
 
-
-    @BindView(R.id.tutorialViewPager)
-    internal var tutorialViewPager: ViewPager? = null
-
     private var tutorialModels: ArrayList<TutorialModel>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial_carousal)
-        ButterKnife.bind(this)
+
 
         tutorialModels = ArrayList<TutorialModel>()
         var tutorialModel = TutorialModel("Add code and gain reputation 15xp for every code added\n\nPractice other users programs and gain 30xp",

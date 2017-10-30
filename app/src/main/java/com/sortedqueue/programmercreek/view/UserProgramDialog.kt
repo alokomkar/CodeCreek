@@ -25,8 +25,8 @@ import com.sortedqueue.programmercreek.util.CommonUtils
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
@@ -37,28 +37,19 @@ import io.github.kbiakov.codeview.highlight.ColorTheme
 
 class UserProgramDialog : CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    @BindView(R.id.codeRadioButton)
+
     internal var codeRadioButton: RadioButton? = null
-    @BindView(R.id.explanationRadioButton)
     internal var explanationRadioButton: RadioButton? = null
-    @BindView(R.id.codeView)
     internal var codeView: CodeView? = null
-    @BindView(R.id.doneButton)
     internal var doneButton: Button? = null
-    @BindView(R.id.saveButton)
     internal var saveButton: Button? = null
-    @BindView(R.id.discardButton)
     internal var discardButton: Button? = null
-    @BindView(R.id.accessSwitchCompat)
     internal var accessSwitchCompat: SwitchCompat? = null
-    @BindView(R.id.accessTextView)
     internal var accessTextView: TextView? = null
-    @BindView(R.id.presentationTitleEditText)
     internal var presentationTitleEditText: EditText? = null
-    @BindView(R.id.languageRecyclerView)
     internal var languageRecyclerView: RecyclerView? = null
-    @BindView(R.id.programTitleLayout)
     internal var programTitleLayout: LinearLayout? = null
+
     private var userProgramDialogListener: UserProgramDialogListener ?= null
     private var webUserProgramDialogListener: WebUserProgramDialogListener ?= null
     private var context: Context? = null
@@ -211,7 +202,18 @@ class UserProgramDialog : CompoundButton.OnCheckedChangeListener, View.OnClickLi
         builder!!.setTitle(programIndex!!.program_Description)
 
         dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_user_program, null)
-        ButterKnife.bind(this, dialogView!!)
+
+        codeRadioButton = dialogView!!.findViewById(R.id.codeRadioButton) as RadioButton
+        explanationRadioButton  = dialogView!!.findViewById(R.id.explanationRadioButton) as RadioButton
+        codeView  = dialogView!!.findViewById(R.id.codeView) as CodeView
+        doneButton  = dialogView!!.findViewById(R.id.doneButton) as Button
+        saveButton  = dialogView!!.findViewById(R.id.saveButton) as Button
+        discardButton  = dialogView!!.findViewById(R.id.discardButton) as Button
+        accessSwitchCompat  = dialogView!!.findViewById(R.id.accessSwitchCompat) as SwitchCompat
+        accessTextView  = dialogView!!.findViewById(R.id.accessTextView) as TextView
+        presentationTitleEditText  = dialogView!!.findViewById(R.id.presentationTitleEditText) as EditText
+        languageRecyclerView  = dialogView!!.findViewById(R.id.languageRecyclerView) as RecyclerView
+        programTitleLayout  = dialogView!!.findViewById(R.id.programTitleLayout) as LinearLayout
 
         builder!!.setView(dialogView)
         alertDialog = builder!!.create()

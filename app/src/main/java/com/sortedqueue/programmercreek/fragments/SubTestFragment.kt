@@ -18,11 +18,12 @@ import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface
 import com.sortedqueue.programmercreek.interfaces.SubTestCommunicationListener
 import com.sortedqueue.programmercreek.util.ShuffleList
 import com.sortedqueue.programmercreek.view.DragNDropListView
+import kotlinx.android.synthetic.main.fragment_sub_test.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-01-26.
@@ -30,8 +31,6 @@ import butterknife.ButterKnife
 
 class SubTestFragment : Fragment() {
 
-    @BindView(R.id.dragNDropListView)
-    internal var dragNDropListView: DragNDropListView? = null
     private var programTables: ArrayList<ProgramTable>? = null
     private var mProgramList: ArrayList<String>? = null
     private var mProgramCheckList: ArrayList<String>? = null
@@ -44,7 +43,6 @@ class SubTestFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_sub_test, container, false)
-        ButterKnife.bind(this, view!!)
         setupAdapter()
         return view
     }

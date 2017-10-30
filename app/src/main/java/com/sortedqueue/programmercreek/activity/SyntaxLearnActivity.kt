@@ -28,8 +28,9 @@ import com.startapp.android.publish.adsCommon.StartAppAd
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_syntax_learn.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /*import com.tappx.sdk.android.TappxAdError;
@@ -39,12 +40,6 @@ import com.tappx.sdk.android.TappxInterstitialListener;*/
 class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.OnClickListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
     private var mFragmentTransaction: FragmentTransaction? = null
     private var moduleFragment: ModuleFragment? = null
     private val TAG = SyntaxLearnActivity::class.java.simpleName
@@ -66,7 +61,7 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_syntax_learn)
-        ButterKnife.bind(this)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

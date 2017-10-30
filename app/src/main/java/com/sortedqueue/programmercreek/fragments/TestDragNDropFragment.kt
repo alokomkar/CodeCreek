@@ -52,10 +52,11 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 import com.facebook.FacebookSdk.getApplicationContext
+import kotlinx.android.synthetic.main.activity_test_drag_n_drop.*
 
 /**
  * Created by Alok on 03/01/17.
@@ -73,20 +74,6 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
     internal var mCountDownTimer: CountDownTimer? = null
     internal var mWizard = false
 
-    @BindView(R.id.checkQuizButton)
-    internal var checkQuizButton: Button? = null
-    @BindView(R.id.circular_progress_bar)
-    internal var circularProgressBar: ProgressBar? = null
-    @BindView(R.id.progressTextView)
-    internal var progressTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: FrameLayout? = null
-    @BindView(R.id.containerPager)
-    internal var containerPager: ScrollableViewPager? = null
-    @BindView(R.id.timerButton)
-    internal var timerButton: Button? = null
-    @BindView(R.id.testTabLayout)
-    internal var testTabLayout: TabLayout? = null
     private var interstitialAd: InterstitialAd? = null
     private var dragNDropListView: DragNDropListView? = null
     private val dragNDropAdapter: DragNDropAdapter? = null
@@ -104,7 +91,6 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.activity_test_drag_n_drop, container, false)
-        ButterKnife.bind(this, view!!)
         dragNDropListView = view!!.findViewById(R.id.dragNDropListView) as DragNDropListView
 
         handleBundle()
@@ -271,7 +257,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
             progressLayout!!.visibility = View.VISIBLE
             time = (programSize / 2 * 60 * 1000).toLong()
             interval = 1000
-            circularProgressBar!!.max = (time / 1000).toInt()
+            circular_progress_bar!!.max = (time / 1000).toInt()
             if (mCountDownTimer != null) {
                 mCountDownTimer!!.cancel()
                 checkQuizButton!!.isEnabled = true
@@ -285,7 +271,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
                     progressTextView!!.text = timerButton!!.text
                     remainingTime = time - millisUntilFinished
-                    circularProgressBar!!.progress = (remainingTime / 1000).toInt()
+                    circular_progress_bar!!.progress = (remainingTime / 1000).toInt()
                 }
 
                 override fun onFinish() {

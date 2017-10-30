@@ -18,8 +18,8 @@ import com.sortedqueue.programmercreek.util.ItemTouchHelperAdapter
 import java.util.ArrayList
 import java.util.Collections
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import com.sortedqueue.programmercreek.constants.TYPE_MULTIPLE_RIGHT
 import com.sortedqueue.programmercreek.constants.TYPE_REARRANGE
 import com.sortedqueue.programmercreek.constants.TYPE_SINGLE_RIGHT
@@ -131,15 +131,12 @@ class InterviewQuestionsAdapter(private val interviewQuestionModel: InterviewQue
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.progamLineTxtView)
-        internal var progamLineTxtView: TextView? = null
-        @BindView(R.id.reorderImageView)
-        internal var reorderImageView: ImageView? = null
-        @BindView(R.id.optionCardView)
-        internal var optionCardView: LinearLayout? = null
+
+        internal var progamLineTxtView: TextView = itemView.findViewById(R.id.progamLineTxtView) as TextView
+        internal var reorderImageView: ImageView = itemView.findViewById(R.id.reorderImageView) as ImageView
+        internal var optionCardView: LinearLayout = itemView.findViewById(R.id.optionCardView) as LinearLayout
 
         init {
-            ButterKnife.bind(this, itemView)
             itemView.setOnClickListener(this)
         }
 

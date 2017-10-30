@@ -12,11 +12,12 @@ import com.sortedqueue.programmercreek.R
 import java.util.ArrayList
 import java.util.HashMap
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
+import kotlinx.android.synthetic.main.fragment_code_view.*
 
 /**
  * Created by Alok Omkar on 2017-01-26.
@@ -24,8 +25,6 @@ import io.github.kbiakov.codeview.highlight.ColorTheme
 
 class CodeViewFragment : Fragment() {
 
-    @BindView(R.id.programCodeView)
-    internal var programCodeView: CodeView? = null
     var programCode: ArrayList<String>? = null
         private set
     private var allCodeMap: HashMap<Int, ArrayList<String>>? = null
@@ -36,7 +35,6 @@ class CodeViewFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_code_view, container, false)
-        ButterKnife.bind(this, view!!)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
             programLanguage = "cpp"

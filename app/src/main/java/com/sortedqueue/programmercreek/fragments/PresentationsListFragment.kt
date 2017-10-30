@@ -19,25 +19,25 @@ import com.sortedqueue.programmercreek.adapter.PresentationsListRecyclerAdapter
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.PresentationModel
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
+import kotlinx.android.synthetic.main.fragment_presentations.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-04-04.
  */
 class PresentationsListFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHandler.GetAllPresentationsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
-    @BindView(R.id.presentationsRecyclerView)
-    internal var presentationsRecyclerView: RecyclerView? = null
+
     private var adapter: PresentationsListRecyclerAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentations, container, false)
-        ButterKnife.bind(this, view)
+
         FirebaseDatabaseHandler(context).getAllPresentations(this)
         return view
     }

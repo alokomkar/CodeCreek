@@ -25,12 +25,13 @@ import com.sortedqueue.programmercreek.interfaces.OnBackPressListener
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback
+import kotlinx.android.synthetic.main.fragment_subtopic_question.*
 
 import java.util.ArrayList
 import java.util.regex.Pattern
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 
 /**
@@ -39,25 +40,6 @@ import butterknife.ButterKnife
 
 class SubTopicQuestionFragment : Fragment(), CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-
-    @BindView(R.id.questionTextView)
-    internal var questionTextView: TextView? = null
-    @BindView(R.id.codeRecyclerView)
-    internal var codeRecyclerView: RecyclerView? = null
-    @BindView(R.id.optionsRecyclerView)
-    internal var optionsRecyclerView: RecyclerView? = null
-    @BindView(R.id.questionLayout)
-    internal var questionLayout: LinearLayout? = null
-    @BindView(R.id.checkAnswerImageView)
-    internal var checkAnswerImageView: TextView? = null
-    @BindView(R.id.progressTextView)
-    internal var progressTextView: TextView? = null
-    @BindView(R.id.timerProgressBar)
-    internal var timerProgressBar: ProgressBar? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: RelativeLayout? = null
-    @BindView(R.id.timerLayout)
-    internal var timerLayout: RelativeLayout? = null
     private var programLanguage: String? = null
     private var subTopic: SubTopics? = null
     private var subTopicsQuestionAdapter: SubTopicsQuestionAdapter? = null
@@ -67,7 +49,7 @@ class SubTopicQuestionFragment : Fragment(), CustomProgramRecyclerViewAdapter.Ad
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_subtopic_question, container, false)
-        ButterKnife.bind(this, view)
+
         return view
     }
 

@@ -9,8 +9,9 @@ import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import org.w3c.dom.Text
 
 /**
  * Created by Alok Omkar on 2017-09-01.
@@ -49,8 +50,8 @@ class FillCodeRecyclerAdapter(private val codeWords: Array<String>, private val 
         }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.codeTextView)
-        var codeTextView: TextView? = null
+
+        var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
             ButterKnife.bind(this, itemView)

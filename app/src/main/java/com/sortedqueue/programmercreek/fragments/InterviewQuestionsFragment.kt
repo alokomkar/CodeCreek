@@ -30,8 +30,8 @@ import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import com.sortedqueue.programmercreek.constants.TYPE_MULTIPLE_RIGHT
 import com.sortedqueue.programmercreek.constants.TYPE_REARRANGE
 import com.sortedqueue.programmercreek.constants.TYPE_SINGLE_RIGHT
@@ -75,7 +75,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_interview_questions, container, false)
-        ButterKnife.bind(this, view)
+
         return view
     }
 

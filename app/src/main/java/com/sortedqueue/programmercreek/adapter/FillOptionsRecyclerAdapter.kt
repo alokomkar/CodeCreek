@@ -12,8 +12,8 @@ import com.sortedqueue.programmercreek.fragments.BitModuleFragment
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-09-01.
@@ -39,8 +39,8 @@ class FillOptionsRecyclerAdapter(private val fillBlankOptions: ArrayList<String>
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.codeTextView)
-        var codeTextView: TextView? = null
+
+        var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
 
         init {
             ButterKnife.bind(this, itemView)

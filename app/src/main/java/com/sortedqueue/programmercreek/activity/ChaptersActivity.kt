@@ -30,8 +30,9 @@ import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.startapp.android.publish.adsCommon.StartAppAd
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_wizard_module.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /*import com.tappx.sdk.android.TappxAdError;
@@ -45,26 +46,7 @@ import com.tappx.sdk.android.TappxInterstitialListener;*/
 class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.OnClickListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.reputationProgressBar)
-    internal var reputationProgressBar: ProgressBar? = null
-    @BindView(R.id.reputationTextView)
-    internal var reputationTextView: TextView? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: LinearLayout? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
-    @BindView(R.id.shareTextView)
-    internal var shareTextView: TextView? = null
-    @BindView(R.id.shareNowTextView)
-    internal var shareNowTextView: TextView? = null
-    @BindView(R.id.laterTextView)
-    internal var laterTextView: TextView? = null
-    @BindView(R.id.shareLayout)
-    internal var shareLayout: RelativeLayout? = null
+
     private var mFragmentTransaction: FragmentTransaction? = null
     private var chapterDetailsFragment: ChapterDetailsFragment? = null
     private var chaptersFragment: ChaptersFragment? = null
@@ -88,7 +70,7 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wizard_module)
-        ButterKnife.bind(this)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

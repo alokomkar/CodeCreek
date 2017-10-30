@@ -36,12 +36,13 @@ import com.startapp.android.publish.adsCommon.Ad
 import com.startapp.android.publish.adsCommon.StartAppAd
 import com.startapp.android.publish.adsCommon.VideoListener
 import com.startapp.android.publish.adsCommon.adListeners.AdEventListener
+import kotlinx.android.synthetic.main.fragment_bit_fill_blank.*
 
 import java.util.ArrayList
 import java.util.Collections
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 31/08/17.
@@ -49,24 +50,6 @@ import butterknife.ButterKnife
 
 class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHandler.ConfirmUserProgram {
 
-    @BindView(R.id.questionRecyclerView)
-    internal var questionRecyclerView: RecyclerView? = null
-    @BindView(R.id.optionsTextView)
-    internal var optionsTextView: TextView? = null
-    @BindView(R.id.optionRecyclerView)
-    internal var optionRecyclerView: RecyclerView? = null
-    @BindView(R.id.checkButton)
-    internal var checkButton: Button? = null
-    @BindView(R.id.buttonLayout)
-    internal var buttonLayout: LinearLayout? = null
-    @BindView(R.id.hintButton)
-    internal var hintButton: Button? = null
-    @BindView(R.id.resultTextView)
-    internal var resultTextView: TextView? = null
-    @BindView(R.id.proceedTextView)
-    internal var proceedTextView: TextView? = null
-    @BindView(R.id.resultLayout)
-    internal var resultLayout: RelativeLayout? = null
     private var mProgramTableList: ArrayList<ProgramTable>? = null
     private var mProgramQuestionList: ArrayList<ProgramTable>? = null
     private var mOptionsList: ArrayList<String>? = null
@@ -85,7 +68,6 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_bit_fill_blank, container, false)
-        ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 

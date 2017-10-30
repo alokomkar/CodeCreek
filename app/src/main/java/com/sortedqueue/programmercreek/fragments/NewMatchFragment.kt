@@ -34,6 +34,7 @@ import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
+import kotlinx.android.synthetic.main.fragment_new_match.*
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -41,8 +42,8 @@ import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Collections
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-08-14.
@@ -50,14 +51,6 @@ import butterknife.ButterKnife
 
 class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListener {
 
-    @BindView(R.id.questionRecyclerView)
-    internal var questionRecyclerView: RecyclerView? = null
-    @BindView(R.id.optionRecyclerView)
-    internal var optionRecyclerView: RecyclerView? = null
-    internal var mProgramTableList: List<ProgramTable> ?= null
-    @BindView(R.id.checkButton)
-    internal var checkButton: Button? = null
-    @BindView(R.id.optionsTextView)
     internal var optionsTextView: TextView? = null
     private var newProgramActivityBundle: Bundle? = null
     private var mInvokeMode: Int = 0
@@ -76,7 +69,6 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_new_match, container, false)
-        ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -136,6 +128,8 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
             }
         })
     }
+
+    private var mProgramTableList: ArrayList<ProgramTable> ?= null
 
     private fun initUI(program_TableList: ArrayList<ProgramTable>?) {
         if (mProgramIndex != null) {

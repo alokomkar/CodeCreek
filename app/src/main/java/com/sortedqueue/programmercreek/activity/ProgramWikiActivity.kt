@@ -32,8 +32,9 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_program_wiki.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -42,12 +43,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ProgramWikiActivity : AppCompatActivity() {
 
-    @BindView(R.id.firstQuestionImageView)
-    internal var firstQuestionImageView: ImageView? = null
-    @BindView(R.id.indexTextView)
-    internal var indexTextView: TextView? = null
-    @BindView(R.id.lastQuestionImageView)
-    internal var lastQuestionImageView: ImageView? = null
     private var webView: WebView? = null
     private var programWiki: String? = null
     private var progressBar: ContentLoadingProgressBar? = null
@@ -72,7 +67,7 @@ class ProgramWikiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_program_wiki)
-        ButterKnife.bind(this)
+
         creekPreferences = CreekApplication.creekPreferences
         webView = findViewById(R.id.webView) as WebView
         progressBar = findViewById(R.id.progressBar) as ContentLoadingProgressBar

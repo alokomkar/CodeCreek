@@ -17,11 +17,12 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
+import kotlinx.android.synthetic.main.fragment_algorithm_index.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-03-17.
@@ -29,8 +30,6 @@ import butterknife.ButterKnife
 
 class AlgorithmIndexFragment : Fragment(), FirebaseDatabaseHandler.GetAllAlgorithmsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.programListRecyclerView)
-    internal var programListRecyclerView: RecyclerView? = null
     private var algorithmsRecyclerAdapter: AlgorithmsRecyclerAdapter? = null
 
     private var algorithmNavigationListener: AlgorithmNavigationListener? = null
@@ -51,7 +50,7 @@ class AlgorithmIndexFragment : Fragment(), FirebaseDatabaseHandler.GetAllAlgorit
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_algorithm_index, container, false)
-        ButterKnife.bind(this, view)
+
         fetchAlgorithmsList()
         return view
     }

@@ -18,12 +18,13 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.CodeShortCuts
 import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.view.CodeEditor
+import kotlinx.android.synthetic.main.fragment_editor.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 /**
  * Created by Alok on 14/09/17.
@@ -32,12 +33,6 @@ import butterknife.Unbinder
 class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
 
 
-    @BindView(R.id.editor)
-    internal var editor: CodeEditor? = null
-    @BindView(R.id.scroll_view)
-    internal var scrollView: ScrollView? = null
-    internal var unbinder: Unbinder ?= null
-    @BindView(R.id.codeShortCutsRecyclerView)
     internal var codeShortCutsRecyclerView: RecyclerView? = null
 
     override fun onCreateView(
@@ -48,7 +43,6 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
                 R.layout.fragment_editor,
                 container,
                 false)
-        unbinder = ButterKnife.bind(this, view)
         setupViews()
         return view
     }
@@ -91,7 +85,7 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     override fun onTextChanged(text: String) {

@@ -10,8 +10,8 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.fragments.ProgramInserterFragment
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 class ProgramInserterActivity : AppCompatActivity() {
 
@@ -21,7 +21,7 @@ class ProgramInserterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_program_inserter)
-        ButterKnife.bind(this)
+
         loadProgramInserterFragment()
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left)

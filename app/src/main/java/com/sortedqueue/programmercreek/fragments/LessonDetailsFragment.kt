@@ -17,12 +17,13 @@ import com.sortedqueue.programmercreek.util.ParallaxPageTransformer
 import com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
 import com.sortedqueue.programmercreek.view.SwipeDirection
 import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer
+import kotlinx.android.synthetic.main.fragment_lesson_details.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 /**
  * Created by Alok on 29/08/17.
@@ -30,9 +31,6 @@ import butterknife.Unbinder
 
 class LessonDetailsFragment : Fragment(), BitModuleNavigationListener {
 
-    @BindView(R.id.lessonDetailsViewPager)
-    internal var lessonDetailsViewPager: OneDirectionalScrollableViewPager? = null
-    internal var unbinder: Unbinder ?= null
     private var lesson: Lesson? = null
     private var adapter: TutorialSlidesPagerAdapter? = null
 
@@ -42,7 +40,6 @@ class LessonDetailsFragment : Fragment(), BitModuleNavigationListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_lesson_details, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -67,7 +64,7 @@ class LessonDetailsFragment : Fragment(), BitModuleNavigationListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     override fun onMoveForward() {

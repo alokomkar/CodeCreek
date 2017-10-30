@@ -13,10 +13,8 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
 import com.sortedqueue.programmercreek.database.QuickReference
+import kotlinx.android.synthetic.main.fragment_reference.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 
 /**
  * Created by Alok on 11/08/17.
@@ -24,21 +22,9 @@ import butterknife.Unbinder
 
 class ReferenceFragment : Fragment() {
 
-    @BindView(R.id.headerView)
-    internal var headerView: View? = null
-    @BindView(R.id.headerTextView)
-    internal var headerTextView: TextView? = null
-    @BindView(R.id.dividerView)
-    internal var dividerView: View? = null
-    @BindView(R.id.indicatorImageview)
-    internal var indicatorImageview: ImageView? = null
-    @BindView(R.id.contentRecyclerView)
-    internal var contentRecyclerView: RecyclerView? = null
-    internal var unbinder: Unbinder ?= null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_reference, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -60,7 +46,7 @@ class ReferenceFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     companion object {

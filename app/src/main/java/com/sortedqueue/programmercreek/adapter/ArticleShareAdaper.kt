@@ -14,8 +14,8 @@ import com.sortedqueue.programmercreek.database.NotesModel
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 import com.sortedqueue.programmercreek.database.NotesModel.TYPE_CODE
 import com.sortedqueue.programmercreek.database.NotesModel.TYPE_HEADER
@@ -63,8 +63,8 @@ class ArticleShareAdaper(val notesModelArrayList: ArrayList<NotesModel>) : Recyc
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        @BindView(R.id.notesTextView)
-        internal var notesTextView: TextView? = null
+
+        internal var notesTextView: TextView = itemView.findViewById(R.id.notesTextView) as TextView
 
         init {
             ButterKnife.bind(this, itemView)

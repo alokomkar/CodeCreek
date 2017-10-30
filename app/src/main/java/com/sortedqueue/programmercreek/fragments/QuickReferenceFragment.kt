@@ -26,12 +26,13 @@ import com.sortedqueue.programmercreek.database.QuickReference
 import com.sortedqueue.programmercreek.database.TagModel
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_quick_reference.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 /**
  * Created by Alok on 04/08/17.
@@ -40,28 +41,11 @@ import butterknife.Unbinder
 class QuickReferenceFragment : Fragment(), CustomProgramRecyclerViewAdapter.AdapterClickListner, View.OnClickListener, ViewPager.OnPageChangeListener {
 
 
-    @BindView(R.id.headingTextView)
-    internal var headingTextView: TextView? = null
-    @BindView(R.id.selectedTextView)
-    internal var selectedTextView: TextView? = null
-    @BindView(R.id.languageRecyclerView)
-    internal var languageRecyclerView: RecyclerView? = null
-    @BindView(R.id.languageCardView)
-    internal var languageCardView: CardView? = null
-
-    @BindView(R.id.progressBar)
-    internal var progressBar: ProgressBar? = null
-    @BindView(R.id.referenceViewPager)
-    internal var referenceViewPager: ViewPager? = null
-    @BindView(R.id.progressLayout)
-    internal var progressLayout: RelativeLayout? = null
     private var tagsRecyclerAdapter: TagsRecyclerAdapter? = null
     private var selectedTag: String? = null
-    private var unbinder: Unbinder? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_quick_reference, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         languageRecyclerView!!.visibility = View.GONE
         headingTextView!!.text = "< Quick Reference"
         headingTextView!!.setOnClickListener { activity.onBackPressed() }
@@ -136,7 +120,7 @@ class QuickReferenceFragment : Fragment(), CustomProgramRecyclerViewAdapter.Adap
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     override fun onItemClick(position: Int) {

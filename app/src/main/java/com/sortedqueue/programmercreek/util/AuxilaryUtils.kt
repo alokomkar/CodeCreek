@@ -52,7 +52,7 @@ import java.util.Arrays
 import java.util.HashMap
 import java.util.Random
 
-import butterknife.ButterKnife
+
 
 import com.facebook.login.widget.ProfilePictureView.TAG
 

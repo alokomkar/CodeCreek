@@ -16,9 +16,9 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
 
 class IntroTopicsFragment : Fragment(), View.OnClickListener {
 
@@ -49,7 +49,7 @@ class IntroTopicsFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_intro_topics, container, false)
-        unbinder = ButterKnife.bind(this, view)
+        unbinder =
         setupToolbar()
         javaIntroCardView!!.setOnClickListener(this)
         javaClassCardView!!.setOnClickListener(this)
@@ -90,7 +90,7 @@ class IntroTopicsFragment : Fragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     override fun onClick(v: View) {

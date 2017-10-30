@@ -13,9 +13,10 @@ import com.bumptech.glide.Glide
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.SlideModel
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
+import kotlinx.android.synthetic.main.fragment_view_slide.*
 
 /**
  * Created by Alok on 11/04/17.
@@ -23,23 +24,14 @@ import io.github.kbiakov.codeview.CodeView
 
 class ViewSlideFragment : Fragment() {
 
-    @BindView(R.id.titleTextView)
-    internal var titleTextView: TextView? = null
-    @BindView(R.id.subTitleTextView)
-    internal var subTitleTextView: TextView? = null
-    @BindView(R.id.slideImageView)
-    internal var slideImageView: ImageView? = null
-    @BindView(R.id.slideImageLayout)
-    internal var slideImageLayout: FrameLayout? = null
-    @BindView(R.id.codeView)
-    internal var codeView: CodeView? = null
+
     private var slideModel: SlideModel? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_view_slide, container, false)
-        ButterKnife.bind(this, view)
+
         setupViews()
         return view
     }

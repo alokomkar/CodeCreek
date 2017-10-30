@@ -23,8 +23,9 @@ import com.sortedqueue.programmercreek.fragments.CompileCodeFragment
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_wizard_module.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -34,12 +35,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnClickListener {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
+
     private var mFragmentTransaction: FragmentTransaction? = null
     private var codeLanguageFragment: CodeLanguageFragment? = null
     private var compileCodeFragment: CompileCodeFragment? = null
@@ -60,7 +56,7 @@ class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wizard_module)
-        ButterKnife.bind(this)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

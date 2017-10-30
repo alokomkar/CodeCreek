@@ -22,9 +22,8 @@ import com.sortedqueue.programmercreek.database.TagModel
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.PresentationCommunicationsListener
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_presentation_title.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
 
 /**
  * Created by Alok Omkar on 2017-04-26.
@@ -32,30 +31,6 @@ import butterknife.ButterKnife
 
 class PresentationTitleFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.presentationTitleEditText)
-    internal var presentationTitleEditText: EditText? = null
-    @BindView(R.id.presentationTitleLayout)
-    internal var presentationTitleLayout: TextInputLayout? = null
-    @BindView(R.id.presentationDescriptionEditText)
-    internal var presentationDescriptionEditText: EditText? = null
-    @BindView(R.id.presentationDescriptionLayout)
-    internal var presentationDescriptionLayout: TextInputLayout? = null
-    @BindView(R.id.tagsHeaderTextView)
-    internal var tagsHeaderTextView: TextView? = null
-    @BindView(R.id.tagsRecyclerView)
-    internal var tagsRecyclerView: RecyclerView? = null
-    @BindView(R.id.addTagEditText)
-    internal var addTagEditText: EditText? = null
-    @BindView(R.id.addTagTextView)
-    internal var addTagTextView: TextView? = null
-    @BindView(R.id.tagsLayout)
-    internal var tagsLayout: LinearLayout? = null
-    @BindView(R.id.titleLayout)
-    internal var titleLayout: LinearLayout? = null
-    @BindView(R.id.doneButton)
-    internal var doneButton: Button? = null
-    @BindView(R.id.cancelButton)
-    internal var cancelButton: Button? = null
     private var tagsRecyclerAdapter: TagsRecyclerAdapter? = null
 
     private var presentationCommunicationsListener: PresentationCommunicationsListener? = null
@@ -64,7 +39,7 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentation_title, container, false)
-        ButterKnife.bind(this, view)
+
         fetchAllTags()
         setupListeners()
         return view

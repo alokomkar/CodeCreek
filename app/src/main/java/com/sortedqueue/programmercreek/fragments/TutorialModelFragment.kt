@@ -17,9 +17,8 @@ import com.bumptech.glide.Glide
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.TutorialModel
 import com.sortedqueue.programmercreek.interfaces.TutorialNavigationListener
+import kotlinx.android.synthetic.main.fragment_tutorial.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
 
 /**
  * Created by Alok on 15/05/17.
@@ -27,20 +26,7 @@ import butterknife.ButterKnife
 
 class TutorialModelFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.titleTextView)
-    internal var titleTextView: TextView? = null
-    @BindView(R.id.subTitleTextView)
-    internal var subTitleTextView: TextView? = null
-    @BindView(R.id.slideImageView)
-    internal var slideImageView: ImageView? = null
-    @BindView(R.id.cancelButton)
-    internal var cancelButton: Button? = null
-    @BindView(R.id.nextButton)
-    internal var nextButton: Button? = null
-    @BindView(R.id.slideImageLayout)
-    internal var slideImageLayout: FrameLayout? = null
-    @BindView(R.id.buttonLayout)
-    internal var buttonLayout: LinearLayout? = null
+
     private var tutorialModel: TutorialModel? = null
     private var index = 0
     private var size: Int = 0
@@ -69,7 +55,7 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_tutorial, container, false)
-        ButterKnife.bind(this, view)
+
         titleTextView!!.text = "Step : " + index
         subTitleTextView!!.text = tutorialModel!!.stepDescription
         slideImageView!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.splash_logo))

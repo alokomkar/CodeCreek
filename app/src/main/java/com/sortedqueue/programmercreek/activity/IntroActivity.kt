@@ -30,39 +30,20 @@ import com.startapp.android.publish.adsCommon.StartAppAd
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
+import kotlinx.android.synthetic.main.app_bar_intro.*
+import kotlinx.android.synthetic.main.content_intro.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.progressBar)
-    internal var progressBar: ContentLoadingProgressBar? = null
-    @BindView(R.id.chapterHeaderTextView)
-    internal var chapterHeaderTextView: TextView? = null
-    @BindView(R.id.chapterIntroTextView)
-    internal var chapterIntroTextView: TextView? = null
-    @BindView(R.id.chapterNoteTextView)
-    internal var chapterNoteTextView: TextView? = null
-    @BindView(R.id.chapterProgramCodeView)
-    internal var chapterProgramCodeView: CodeView? = null
-    @BindView(R.id.chapterProgramOutputTextView)
-    internal var chapterProgramOutputTextView: TextView? = null
-    @BindView(R.id.chapterProgramDescriptionTextView)
-    internal var chapterProgramDescriptionTextView: TextView? = null
-    @BindView(R.id.syntaxExplanationCardView)
-    internal var syntaxExplanationCardView: RelativeLayout? = null
-    @BindView(R.id.content_syntax_learn)
-    internal var contentSyntaxLearn: RelativeLayout? = null
-    @BindView(R.id.content_intro)
-    internal var contentIntro: RelativeLayout? = null
+
     private var toolbar: Toolbar? = null
     private var drawerImageView: ImageView? = null
-    @BindView(R.id.doneFAB)
-    internal var doneFAB: FloatingActionButton? = null
 
     private var drawerNameTextView: TextView? = null
     private var drawerEmailTextView: TextView? = null
@@ -75,7 +56,7 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
-        ButterKnife.bind(this)
+
         toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 

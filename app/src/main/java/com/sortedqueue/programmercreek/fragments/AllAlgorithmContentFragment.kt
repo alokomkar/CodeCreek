@@ -11,8 +11,8 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.AlgorithmContent
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import com.sortedqueue.programmercreek.constants.CONTENT_AIM_DESCRIPTION
 import com.sortedqueue.programmercreek.constants.CONTENT_ALGORITHM
 import com.sortedqueue.programmercreek.constants.CONTENT_CODE
@@ -20,6 +20,7 @@ import com.sortedqueue.programmercreek.constants.CONTENT_OUTPUT
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
+import kotlinx.android.synthetic.main.fragment_all_content_algorithm.*
 
 /**
  * Created by Alok Omkar on 2017-03-18.
@@ -27,18 +28,6 @@ import io.github.kbiakov.codeview.highlight.ColorTheme
 
 class AllAlgorithmContentFragment : Fragment() {
 
-    @BindView(R.id.titleTextView)
-    internal var titleTextView: TextView? = null
-    @BindView(R.id.contentTextView)
-    internal var contentTextView: TextView? = null
-    @BindView(R.id.algorithmsTextView)
-    internal var algorithmsTextView: TextView? = null
-    @BindView(R.id.algorithmCodeView)
-    internal var algorithmCodeView: CodeView? = null
-    @BindView(R.id.outputTextView)
-    internal var outputTextView: TextView? = null
-    @BindView(R.id.algorithmNestedScrollview)
-    internal var algorithmNestedScrollview: NestedScrollView? = null
     private var algorithmContent: AlgorithmContent? = null
     private var programLanguage: String? = null
 
@@ -46,7 +35,7 @@ class AllAlgorithmContentFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_all_content_algorithm, container, false)
-        ButterKnife.bind(this, view)
+
         setupViews()
         return view
     }

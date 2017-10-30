@@ -15,20 +15,18 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_about.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 class AboutActivity : AppCompatActivity() {
 
-    @BindView(R.id.descriptionTextView)
-    internal var descriptionTextView: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
-        ButterKnife.bind(this)
 
         val viewProfileBtn = findViewById(R.id.btn_view_profile) as Button
         viewProfileBtn.setOnClickListener {

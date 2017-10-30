@@ -16,8 +16,8 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.ProgramWiki
 import com.sortedqueue.programmercreek.database.firebase.Code
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme

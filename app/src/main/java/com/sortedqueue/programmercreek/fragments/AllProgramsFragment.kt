@@ -13,9 +13,10 @@ import com.sortedqueue.programmercreek.adapter.AllProgramsPagerAdapter
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+
+
+
+import kotlinx.android.synthetic.main.fragment_all_programs.*
 
 /**
  * Created by Alok on 08/08/17.
@@ -23,15 +24,9 @@ import butterknife.Unbinder
 
 class AllProgramsFragment : Fragment() {
 
-    @BindView(R.id.allProgramsTabLayout)
-    internal var allProgramsTabLayout: TabLayout? = null
-    @BindView(R.id.programsViewPager)
-    internal var programsViewPager: ViewPager? = null
-    internal var unbinder: Unbinder ?= null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_all_programs, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         return fragmentView
     }
 
@@ -47,7 +42,7 @@ class AllProgramsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder!!.unbind()
+
     }
 
     companion object {

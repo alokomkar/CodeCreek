@@ -20,8 +20,8 @@ import com.sortedqueue.programmercreek.util.PrettifyHighlighter
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 04/08/17.

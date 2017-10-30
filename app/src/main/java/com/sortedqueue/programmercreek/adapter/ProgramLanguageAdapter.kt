@@ -14,8 +14,8 @@ import com.sortedqueue.programmercreek.database.ProgramLanguage
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 27/01/17.

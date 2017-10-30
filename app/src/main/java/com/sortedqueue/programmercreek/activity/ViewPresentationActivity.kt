@@ -20,8 +20,9 @@ import com.sortedqueue.programmercreek.view.ZoomOutPageTransformer
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.activity_view_presentation.*
 
 /**
  * Created by Alok on 11/04/17.
@@ -29,16 +30,12 @@ import butterknife.ButterKnife
 
 class ViewPresentationActivity : AppCompatActivity(), FirebaseDatabaseHandler.GetAllSlidesListener {
 
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
-    @BindView(R.id.pager)
-    internal var pager: ViewPager? = null
     private val TAG = ViewPresentationActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_presentation)
-        ButterKnife.bind(this)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

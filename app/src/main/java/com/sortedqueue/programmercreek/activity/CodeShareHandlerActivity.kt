@@ -24,7 +24,7 @@ import org.json.JSONObject
 
 import java.util.ArrayList
 
-import butterknife.ButterKnife
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -44,7 +44,7 @@ class CodeShareHandlerActivity : AppCompatActivity(), FirebaseDatabaseHandler.Co
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_code_share)
-        ButterKnife.bind(this)
+
         creekPreferences = CreekPreferences(this@CodeShareHandlerActivity)
         // Get intent, action and MIME type
         val intent = intent

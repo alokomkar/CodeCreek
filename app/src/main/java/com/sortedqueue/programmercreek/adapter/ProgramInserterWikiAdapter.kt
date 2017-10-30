@@ -12,8 +12,8 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.ProgramWiki
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-01-11.

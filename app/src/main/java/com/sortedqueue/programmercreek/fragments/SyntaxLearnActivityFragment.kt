@@ -50,63 +50,18 @@ import com.sortedqueue.programmercreek.util.CommonUtils
 import java.util.ArrayList
 import java.util.Locale
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
+import kotlinx.android.synthetic.main.fragment_syntax_learn.*
 
 /**
  * A placeholder fragment containing a simple view.
  */
 class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestCompletionListener, RewardedVideoAdListener {
 
-    @BindView(R.id.syntaxExplanationCardView)
-    internal var syntaxExplanationCardView: CardView? = null
-    @BindView(R.id.syntaxQuestionCardView)
-    internal var syntaxQuestionCardView: CardView? = null
-    @BindView(R.id.optionsCardView)
-    internal var optionsCardView: CardView? = null
-    @BindView(R.id.checkSyntaxImageView)
-    internal var checkSyntaxImageView: ImageView? = null
-    @BindView(R.id.clearSyntaxImageView)
-    internal var clearSyntaxImageView: ImageView? = null
-    @BindView(R.id.hintSyntaxImageView)
-    internal var hintSyntaxImageView: ImageView? = null
-    @BindView(R.id.voiceTypeImageView)
-    internal var voiceTypeImageView: ImageView? = null
-    @BindView(R.id.content_syntax_learn)
-    internal var contentSyntaxLearn: RelativeLayout? = null
-    @BindView(R.id.syntaxNameTextView)
-    internal var syntaxNameTextView: TextView? = null
-    @BindView(R.id.syntaxDescriptionTextView)
-    internal var syntaxDescriptionTextView: TextView? = null
-    @BindView(R.id.syntaxCommandTextView)
-    internal var syntaxCommandTextView: TextView? = null
-    @BindView(R.id.syntaxCommandOutputTextView)
-    internal var syntaxCommandOutputTextView: TextView? = null
-    @BindView(R.id.syntaxQuestionTextView)
-    internal var syntaxQuestionTextView: TextView? = null
-    @BindView(R.id.syntaxSolutionTextView)
-    internal var syntaxSolutionTextView: TextView? = null
-    @BindView(R.id.syntaxQuestionOutputTextView)
-    internal var syntaxQuestionOutputTextView: TextView? = null
-    @BindView(R.id.optionsRecyclerView)
-    internal var optionsRecyclerView: RecyclerView? = null
-    @BindView(R.id.checkButtonLayout)
-    internal var checkButtonLayout: LinearLayout? = null
-    @BindView(R.id.scrollView)
-    internal var scrollView: ScrollView? = null
-    @BindView(R.id.progressBar)
-    internal var progressBar: ContentLoadingProgressBar? = null
-    @BindView(R.id.programCodeView)
-    internal var programCodeView: CodeView? = null
-    @BindView(R.id.resultTextView)
-    internal var resultTextView: TextView? = null
-    @BindView(R.id.proceedTextView)
-    internal var proceedTextView: TextView? = null
-    @BindView(R.id.resultLayout)
-    internal var resultLayout: RelativeLayout? = null
     private var syntaxModule: SyntaxModule? = null
     private var moduleOptions: MutableList<ModuleOption>? = null
     private val TAG = SyntaxLearnActivityFragment::class.java.simpleName
@@ -124,7 +79,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_syntax_learn, container, false)
-        ButterKnife.bind(this, view)
+
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         //initializeRewardedVideoAd();
         if (programLanguage == "c++") {

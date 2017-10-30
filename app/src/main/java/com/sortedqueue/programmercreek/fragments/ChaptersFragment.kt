@@ -27,11 +27,12 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.ChapterNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_chapters.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 06/01/17.
@@ -40,10 +41,6 @@ import butterknife.ButterKnife
 class ChaptersFragment : Fragment() {
 
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
-    @BindView(R.id.modulesRecyclerView)
-    internal var chaptersRecyclerView: RecyclerView? = null
-    @BindView(R.id.adView)
-    internal var adView: AdView? = null
 
     private var chapterNavigationListener: ChapterNavigationListener? = null
     private var chapters: ArrayList<Chapter>? = null
@@ -54,7 +51,7 @@ class ChaptersFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_chapters, container, false)
-        ButterKnife.bind(this, view)
+
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()
@@ -94,7 +91,7 @@ class ChaptersFragment : Fragment() {
     }
 
     private fun getModules() {
-        chaptersRecyclerView!!.visibility = View.INVISIBLE
+        modulesRecyclerView!!.visibility = View.INVISIBLE
         chapters = ArrayList<Chapter>()
         /*int prevChapterMinStats = 0;
         Chapter chapter = new Chapter();
@@ -709,7 +706,7 @@ class ChaptersFragment : Fragment() {
 
     private fun setupRecyclerView(chapters: ArrayList<Chapter>) {
         this.chapters = chapters
-        chaptersRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        modulesRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         chapterRecyclerAdapter = ChapterRecyclerAdapter(context, this.chapters!!, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
             override fun onItemClick(position: Int) {
                 if (position + 1 > this@ChaptersFragment.chapters!!.size) {
@@ -727,9 +724,9 @@ class ChaptersFragment : Fragment() {
                 chapterNavigationListener!!.onChapterSelected(this@ChaptersFragment.chapters!![position], nextChapter)
             }
         })
-        chaptersRecyclerView!!.adapter = chapterRecyclerAdapter
+        modulesRecyclerView!!.adapter = chapterRecyclerAdapter
         CommonUtils.dismissProgressDialog()
-        Handler().postDelayed({ AnimationUtils.slideInToLeft(chaptersRecyclerView) }, 450)
+        Handler().postDelayed({ AnimationUtils.slideInToLeft(modulesRecyclerView) }, 450)
     }
 
     override fun onResume() {

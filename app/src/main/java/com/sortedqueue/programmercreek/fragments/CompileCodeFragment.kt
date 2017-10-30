@@ -50,8 +50,8 @@ import java.nio.charset.Charset
 import java.util.ArrayList
 import java.util.HashMap
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,7 +99,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_compile_code, container, false)
-        ButterKnife.bind(this, view)
+
         inputList = ArrayList<String>()
         compilerProgressLayout!!.visibility = View.GONE
         languageTextView!!.setOnClickListener(this)

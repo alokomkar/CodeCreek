@@ -26,8 +26,8 @@ import com.sortedqueue.programmercreek.util.CreekPreferences
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2016-12-24.
@@ -157,24 +157,12 @@ class CustomProgramRecyclerViewAdapter : RecyclerView.Adapter<CustomProgramRecyc
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
-        @BindView(R.id.programTypeTextView)
-        internal var programTypeTextView: TextView? = null
-        @BindView(R.id.txtViewProgDescription)
-        internal var txtViewProgDescription: TextView? = null
-        @BindView(R.id.lockedImageView)
-        internal var lockedImageView: ImageView? = null
-        @BindView(R.id.unlockedByInviteImageView)
-        internal var unlockedByInviteImageView: ImageView? = null
-        @BindView(R.id.doneImageView)
-        internal var doneImageView: ImageView? = null
-        @BindView(R.id.quizTextView)
-        internal var quizTextView: TextView? = null
-        @BindView(R.id.matchTextView)
-        internal var matchTextView: TextView? = null
-        @BindView(R.id.testTextView)
-        internal var testTextView: TextView? = null
-        @BindView(R.id.completionLayout)
-        internal var completionLayout: LinearLayout? = null
+
+        internal var programTypeTextView: TextView= itemView.findViewById(R.id.codeTextView) as TextView
+        internal var txtViewProgDescription: TextView= itemView.findViewById(R.id.codeTextView) as TextView
+        internal var lockedImageView: ImageView= itemView.findViewById(R.id.codeTextView) as ImageView
+        internal var unlockedByInviteImageView: ImageView= itemView.findViewById(R.id.codeTextView) as ImageView
+
 
         init {
             ButterKnife.bind(this, itemView)

@@ -35,35 +35,19 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.UserProgramDetails
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
+import kotlinx.android.synthetic.main.fragment_user_programs.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 16/05/17.
  */
 
 class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramClickListener, FirebaseDatabaseHandler.GetAllUserProgramsListener, AdapterView.OnItemSelectedListener {
-    @BindView(R.id.userProgramsRecyclerView)
-    internal var userProgramsRecyclerView: RecyclerView? = null
-    @BindView(R.id.allProgramsRadioButton)
-    internal var allProgramsRadioButton: RadioButton? = null
-    @BindView(R.id.myProgramsRadioButton)
-    internal var myProgramsRadioButton: RadioButton? = null
-    @BindView(R.id.myFavoritesRadioButton)
-    internal var myFavoritesRadioButton: RadioButton? = null
-    @BindView(R.id.swipeRefreshLayout)
-    internal var swipeRefreshLayout: SwipeRefreshLayout? = null
-    @BindView(R.id.noProgramsLayout)
-    internal var noProgramsLayout: LinearLayout? = null
-    @BindView(R.id.adView)
-    internal var adView: AdView? = null
-    @BindView(R.id.languageSpinner)
-    internal var languageSpinner: AppCompatSpinner? = null
-    @BindView(R.id.communityScrollView)
-    internal var communityScrollView: NestedScrollView? = null
+
     private var adapter: UserProgramRecyclerAdapter? = null
     private var accessSpecifier: String? = null
     private var dashboardNavigationListener: DashboardNavigationListener? = null
@@ -78,7 +62,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_user_programs, container, false)
-        ButterKnife.bind(this, view)
+
         //language = getArguments().getString("Language");
         allProgramsRadioButton!!.isChecked = true
         allProgramsRadioButton!!.setOnCheckedChangeListener(checkChangedListener)

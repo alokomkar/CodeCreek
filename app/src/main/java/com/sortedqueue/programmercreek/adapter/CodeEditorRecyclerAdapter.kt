@@ -18,8 +18,8 @@ import com.sortedqueue.programmercreek.util.PrettifyHighlighter
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 12/04/17.
@@ -89,8 +89,7 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, TextWatcher {
 
-        @BindView(R.id.codeEditText)
-        internal var codeEditText: EditText? = null
+        internal var codeEditText: EditText = itemView.findViewById(R.id.codeEditText) as EditText
 
         init {
             ButterKnife.bind(this, itemView)

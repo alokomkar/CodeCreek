@@ -13,8 +13,8 @@ import com.sortedqueue.programmercreek.database.NotesModel
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-07-28.

@@ -18,9 +18,7 @@ import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
 import com.sortedqueue.programmercreek.util.CommonUtils
-
-import butterknife.BindView
-import butterknife.ButterKnife
+import kotlinx.android.synthetic.main.fragment_algorithm.*
 
 
 /**
@@ -29,10 +27,7 @@ import butterknife.ButterKnife
 
 class AlgorithmFragment : Fragment(), FirebaseDatabaseHandler.GetAlgorithmListener {
 
-    @BindView(R.id.algorithmTabLayout)
-    internal var algorithmTabLayout: TabLayout? = null
-    @BindView(R.id.algorithmViewPager)
-    internal var algorithmViewPager: ViewPager? = null
+
     private var algorithmNavigationListener: AlgorithmNavigationListener? = null
     private var algorithm: Algorithm? = null
     private val TAG = AlgorithmFragment::class.java.simpleName
@@ -53,7 +48,7 @@ class AlgorithmFragment : Fragment(), FirebaseDatabaseHandler.GetAlgorithmListen
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_algorithm, container, false)
-        ButterKnife.bind(this, view)
+
         fetchAlgorithmsIndex()
         return view
     }

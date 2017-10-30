@@ -20,8 +20,8 @@ import java.util.Arrays
 import java.util.Collections
 import java.util.regex.Pattern
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.MULTI_CHOICE
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.REARRANGE

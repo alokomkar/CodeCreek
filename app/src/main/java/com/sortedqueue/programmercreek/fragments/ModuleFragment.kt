@@ -25,22 +25,18 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_module.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2016-12-25.
  */
 
 class ModuleFragment : Fragment() {
-
-    @BindView(R.id.modulesRecyclerView)
-    internal var modulesRecyclerView: RecyclerView? = null
-    @BindView(R.id.adView)
-    internal var adView: AdView? = null
 
     private var syntaxNavigationListener: SyntaxNavigationListener? = null
     private var languageModules: ArrayList<LanguageModule>? = null
@@ -52,7 +48,7 @@ class ModuleFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_module, container, false)
-        ButterKnife.bind(this, view)
+
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
             initAds()

@@ -33,8 +33,8 @@ import org.json.JSONObject
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import io.github.kbiakov.codeview.CodeView
 
 class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.OnCheckedChangeListener, TestCompletionListener {
@@ -148,7 +148,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fill_blank, container, false)
-        ButterKnife.bind(this, view)
+
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
             programLanguage = "cpp"

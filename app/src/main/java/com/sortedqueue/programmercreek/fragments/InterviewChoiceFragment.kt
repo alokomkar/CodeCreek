@@ -12,8 +12,8 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok Omkar on 2017-03-08.
@@ -33,7 +33,7 @@ class InterviewChoiceFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_interview_choice, container, false)
-        ButterKnife.bind(this, view)
+
         setListeners()
         return view
     }

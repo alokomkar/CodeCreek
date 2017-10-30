@@ -28,10 +28,8 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.view.LoginSignupDialog
+import kotlinx.android.synthetic.main.fragment_signup.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 
 /**
  * Created by Alok Omkar on 2017-09-06.
@@ -39,11 +37,6 @@ import butterknife.Unbinder
 
 class SignupFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.googleSignInButton)
-    internal var googleSignInButton: Button? = null
-    @BindView(R.id.signEmailButton)
-    internal var signEmailButton: Button? = null
-    lateinit var unbinder: Unbinder
 
     private var mAuth: FirebaseAuth? = null
     private val googleIdToken: String? = null
@@ -53,7 +46,6 @@ class SignupFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_signup, container, false)
-        unbinder = ButterKnife.bind(this, fragmentView)
         mAuth = FirebaseAuth.getInstance()
         googleSignInButton!!.setOnClickListener(this)
         signEmailButton!!.setOnClickListener(this)
@@ -67,7 +59,6 @@ class SignupFragment : Fragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unbinder.unbind()
     }
 
     override fun onClick(view: View) {

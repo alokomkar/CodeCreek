@@ -34,14 +34,12 @@ import com.startapp.android.publish.adsCommon.adListeners.AdEventListener
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class WizardActivity : AppCompatActivity(), WizardNavigationListener {
 
-    @BindView(R.id.container)
-    internal var container: FrameLayout? = null
     private var mFragmentTransaction: FragmentTransaction? = null
     private var matchMakerFragment: NewMatchFragment? = null
     private var testDragNDropFragment: TestDragNDropFragment? = null
@@ -152,7 +150,7 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wizard)
-        ButterKnife.bind(this)
+
         val bundle = intent.extras
         when (bundle!!.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST)) {
             ProgrammingBuddyConstants.KEY_MATCH -> loadMatchMakerFragment(bundle)

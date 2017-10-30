@@ -43,8 +43,9 @@ import com.sortedqueue.programmercreek.util.CreekPreferences
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
+import kotlinx.android.synthetic.main.fragment_child_dashboard.*
 
 /**
  * Created by Alok on 02/01/17.
@@ -52,69 +53,7 @@ import butterknife.ButterKnife
 
 class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHandler.GetAllAlgorithmsListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.syntaxTextView)
-    internal var syntaxTextView: TextView? = null
-    @BindView(R.id.syntaxLayout)
-    internal var syntaxLayout: FrameLayout? = null
-    @BindView(R.id.indexTextView)
-    internal var indexTextView: TextView? = null
-    @BindView(R.id.indexLayout)
-    internal var indexLayout: FrameLayout? = null
-    @BindView(R.id.wikiTextView)
-    internal var wikiTextView: TextView? = null
-    @BindView(R.id.wikiLayout)
-    internal var wikiLayout: FrameLayout? = null
-    @BindView(R.id.reviseTextView)
-    internal var reviseTextView: TextView? = null
-    @BindView(R.id.reviseLayout)
-    internal var reviseLayout: FrameLayout? = null
-    @BindView(R.id.quizTextView)
-    internal var quizTextView: TextView? = null
-    @BindView(R.id.quizLayout)
-    internal var quizLayout: FrameLayout? = null
-    @BindView(R.id.matchTextView)
-    internal var matchTextView: TextView? = null
-    @BindView(R.id.matchLayout)
-    internal var matchLayout: FrameLayout? = null
-    @BindView(R.id.fillBlanksTextView)
-    internal var fillBlanksTextView: TextView? = null
-    @BindView(R.id.fillLayout)
-    internal var fillLayout: FrameLayout? = null
-    @BindView(R.id.testTextView)
-    internal var testTextView: TextView? = null
-    @BindView(R.id.testLayout)
-    internal var testLayout: FrameLayout? = null
-    @BindView(R.id.interviewLayout)
-    internal var interviewLayout: FrameLayout? = null
-    @BindView(R.id.quickReferenceLayout)
-    internal var quickReferenceLayout: FrameLayout? = null
 
-    @BindView(R.id.wizardTextView)
-    internal var wizardTextView: TextView? = null
-    @BindView(R.id.wizardLayout)
-    internal var wizardLayout: FrameLayout? = null
-    @BindView(R.id.introLayout)
-    internal var introLayout: FrameLayout? = null
-    @BindView(R.id.codeLabLayout)
-    internal var codeLabLayout: FrameLayout? = null
-    @BindView(R.id.addCodeCardView)
-    internal var addCodeCardView: CardView? = null
-    @BindView(R.id.dashboardScrollView)
-    internal var dashboardScrollView: NestedScrollView? = null
-    @BindView(R.id.adaScrollView)
-    internal var adaScrollView: NestedScrollView? = null
-    @BindView(R.id.interviewTextView)
-    internal var interviewTextView: TextView? = null
-    @BindView(R.id.adaRecyclerView)
-    internal var adaRecyclerView: RecyclerView? = null
-    @BindView(R.id.addCodeTextView)
-    internal var addCodeTextView: TextView? = null
-    @BindView(R.id.downloadFileTextView)
-    internal var downloadFileTextView: TextView? = null
-    @BindView(R.id.lessonsLayout)
-    internal var lessonsLayout: FrameLayout? = null
-    @BindView(R.id.codeLabTextView)
-    internal var codeLabTextView: TextView? = null
     private var creekPreferences: CreekPreferences? = null
     private var firebaseDatabaseHandler: FirebaseDatabaseHandler? = null
     private var algorithmsRecyclerAdapter: AlgorithmsRecyclerAdapter? = null
@@ -138,7 +77,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
-        ButterKnife.bind(this, view)
+
         creekPreferences = CreekApplication.creekPreferences
         //creekPreferences.setProgramLanguage("sql");
         initUI()

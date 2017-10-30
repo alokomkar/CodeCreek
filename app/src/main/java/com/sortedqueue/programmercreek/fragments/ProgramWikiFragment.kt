@@ -20,9 +20,8 @@ import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.TestCompletionListener
 import com.sortedqueue.programmercreek.interfaces.WikiNavigationListner
 import com.sortedqueue.programmercreek.util.CommonUtils
+import kotlinx.android.synthetic.main.fragment_program_wiki.*
 
-import butterknife.BindView
-import butterknife.ButterKnife
 
 /**
  * Created by Alok Omkar on 2016-12-31.
@@ -30,19 +29,10 @@ import butterknife.ButterKnife
 
 class ProgramWikiFragment : Fragment(), TestCompletionListener {
 
-    @BindView(R.id.headerTextView)
-    internal var headerTextView: TextView? = null
-    @BindView(R.id.programWikiRecyclerView)
-    internal var programWikiRecyclerView: RecyclerView? = null
-    @BindView(R.id.backImageView)
-    internal var backImageView: ImageView? = null
-    @BindView(R.id.progressBar)
-    internal var progressBar: ContentLoadingProgressBar? = null
     private var wikiNavigationListener: WikiNavigationListner? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_program_wiki, null)
-        ButterKnife.bind(this, fragmentView)
         setupViews(programWiki!!)
         if (wizardUrl == null) {
             progressBar!!.visibility = View.VISIBLE

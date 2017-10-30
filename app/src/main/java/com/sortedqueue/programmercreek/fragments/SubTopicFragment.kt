@@ -35,11 +35,12 @@ import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
+import kotlinx.android.synthetic.main.fragment_sub_topic.*
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.ButterKnife
+
+
 
 /**
  * Created by Alok on 19/09/17.
@@ -48,30 +49,6 @@ import butterknife.ButterKnife
 class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
 
-    @BindView(R.id.titleTextView)
-    internal var titleTextView: TextView? = null
-    @BindView(R.id.descriptionTextView)
-    internal var descriptionTextView: TextView? = null
-    @BindView(R.id.codeRecyclerView)
-    internal var codeRecyclerView: RecyclerView? = null
-    @BindView(R.id.outputTextView)
-    internal var outputTextView: TextView? = null
-    @BindView(R.id.backImageView)
-    internal var backImageView: ImageView? = null
-    @BindView(R.id.nextImageView)
-    internal var nextImageView: ImageView? = null
-    @BindView(R.id.navigationLayout)
-    internal var navigationLayout: RelativeLayout? = null
-    @BindView(R.id.checkFAB)
-    internal var checkFAB: FloatingActionButton? = null
-    @BindView(R.id.slideImageView)
-    internal var slideImageView: ImageView? = null
-    @BindView(R.id.fillCodeLayout)
-    internal var fillCodeLayout: LinearLayout? = null
-    @BindView(R.id.testContainer)
-    internal var testContainer: FrameLayout? = null
-    @BindView(R.id.fillOptionsRecyclerView)
-    internal var fillOptionsRecyclerView: RecyclerView? = null
     var subTopics: SubTopics? = null
     private var lastFirstIndicator = -1 //first - 0, last = 1
     private var navigationListener: BitModuleNavigationListener? = null
@@ -94,7 +71,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_sub_topic, container, false)
-        ButterKnife.bind(this, view)
+
         return view
     }
 
