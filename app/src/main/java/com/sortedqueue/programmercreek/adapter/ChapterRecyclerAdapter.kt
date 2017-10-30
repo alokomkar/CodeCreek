@@ -134,7 +134,7 @@ class ChapterRecyclerAdapter(private val context: Context, private val chapters:
         var moduleLayout: RelativeLayout = itemView.findViewById(R.id.moduleLayout) as RelativeLayout
 
         init {
-            ButterKnife.bind(this, view)
+
             headerTextView.text = "Chapter"
             appCompatSeekBar.visibility = View.VISIBLE
             appCompatSeekBar.isActivated = false

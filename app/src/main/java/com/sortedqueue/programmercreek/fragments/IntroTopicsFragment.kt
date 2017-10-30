@@ -15,31 +15,11 @@ import android.view.ViewGroup
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.interfaces.NewIntroNavigationListener
-
-
-
+import kotlinx.android.synthetic.main.fragment_intro_topics.*
 
 
 class IntroTopicsFragment : Fragment(), View.OnClickListener {
 
-
-    @BindView(R.id.javaIntroCardView)
-    internal var javaIntroCardView: CardView? = null
-    @BindView(R.id.javaClassCardView)
-    internal var javaClassCardView: CardView? = null
-    @BindView(R.id.javaMainCardView)
-    internal var javaMainCardView: CardView? = null
-    @BindView(R.id.javaKeywordsCardView)
-    internal var javaKeywordsCardView: CardView? = null
-    @BindView(R.id.javaLoopsCardView)
-    internal var javaLoopsCardView: CardView? = null
-    @BindView(R.id.javaStatementsCardView)
-    internal var javaStatementsCardView: CardView? = null
-    @BindView(R.id.javaOperatorsCardView)
-    internal var javaOperatorsCardView: CardView? = null
-    internal var unbinder: Unbinder ?= null
-    @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +29,6 @@ class IntroTopicsFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_intro_topics, container, false)
-        unbinder =
         setupToolbar()
         javaIntroCardView!!.setOnClickListener(this)
         javaClassCardView!!.setOnClickListener(this)

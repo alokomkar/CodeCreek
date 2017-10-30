@@ -31,6 +31,7 @@ import com.sortedqueue.programmercreek.interfaces.DashboardNavigationListener
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
+import kotlinx.android.synthetic.main.fragment_language.*
 
 import java.util.ArrayList
 
@@ -42,22 +43,6 @@ import java.util.ArrayList
  */
 
 class LanguageFragment : Fragment() {
-    @BindView(R.id.languageSelectionTextView)
-    internal var languageSelectionTextView: TextView? = null
-    @BindView(R.id.profileImageView)
-    internal var profileImageView: ImageView? = null
-    @BindView(R.id.nameTextView)
-    internal var nameTextView: TextView? = null
-    @BindView(R.id.selectedLanguageCardView)
-    internal var selectedLanguageCardView: CardView? = null
-    @BindView(R.id.programLanguageRecyclerView)
-    internal var programLanguageRecyclerView: RecyclerView? = null
-    @BindView(R.id.reputationProgressBar)
-    internal var reputationProgressBar: ProgressBar? = null
-    @BindView(R.id.reputationTextView)
-    internal var reputationTextView: TextView? = null
-    @BindView(R.id.swipeRefreshLayout)
-    internal var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     private var handler: Handler? = null
 

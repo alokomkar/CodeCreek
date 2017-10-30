@@ -11,8 +11,7 @@ import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener
-
-
+import kotlinx.android.synthetic.main.fragment_interview_choice.*
 
 
 /**
@@ -21,14 +20,6 @@ import com.sortedqueue.programmercreek.interfaces.InterviewNavigationListener
 
 class InterviewChoiceFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.cQuestionsTextView)
-    internal var cQuestionsTextView: TextView? = null
-    @BindView(R.id.cppQuestionsTextView)
-    internal var cppQuestionsTextView: TextView? = null
-    @BindView(R.id.javaQuestionsTextView)
-    internal var javaQuestionsTextView: TextView? = null
-    @BindView(R.id.sqlQuestionsTextView)
-    internal var sqlQuestionsTextView: TextView? = null
     private var interviewNavigationListener: InterviewNavigationListener? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

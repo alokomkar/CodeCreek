@@ -36,6 +36,7 @@ import com.sortedqueue.programmercreek.constants.TYPE_MULTIPLE_RIGHT
 import com.sortedqueue.programmercreek.constants.TYPE_REARRANGE
 import com.sortedqueue.programmercreek.constants.TYPE_SINGLE_RIGHT
 import com.sortedqueue.programmercreek.constants.TYPE_TRUE_FALSE
+import kotlinx.android.synthetic.main.fragment_interview_questions.*
 
 
 /**
@@ -44,28 +45,6 @@ import com.sortedqueue.programmercreek.constants.TYPE_TRUE_FALSE
 
 class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataReadListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.questionTextView)
-    internal var questionTextView: TextView? = null
-    @BindView(R.id.optionsRecyclerView)
-    internal var optionsRecyclerView: RecyclerView? = null
-    @BindView(R.id.questionLayout)
-    internal var questionLayout: LinearLayout? = null
-    @BindView(R.id.lifeLine1ImageView)
-    internal var lifeLine1ImageView: ImageView? = null
-    @BindView(R.id.lifeLine2ImageView)
-    internal var lifeLine2ImageView: ImageView? = null
-    @BindView(R.id.lifeLine3ImageView)
-    internal var lifeLine3ImageView: ImageView? = null
-    @BindView(R.id.lifeLineLayout)
-    internal var lifeLineLayout: RelativeLayout? = null
-    @BindView(R.id.progressTextView)
-    internal var progressTextView: TextView? = null
-    @BindView(R.id.codeRecyclerView)
-    internal var codeRecyclerView: RecyclerView? = null
-    @BindView(R.id.timerProgressBar)
-    internal var timerProgressBar: ProgressBar? = null
-    @BindView(R.id.checkAnswerImageView)
-    internal var checkAnswerImageView: TextView? = null
 
     private var interviewQuestionModels: ArrayList<InterviewQuestionModel>? = null
     private var interviewQuestionModel: InterviewQuestionModel? = null

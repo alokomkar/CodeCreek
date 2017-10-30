@@ -234,10 +234,10 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnDragListener, View.OnLongClickListener {
-        itemView.findViewById(R.id.questionTextView)
-        internal var questionTextView: TextView? = null
-        itemView.findViewById(R.id.matchQuestionLayout)
-        internal var matchQuestionLayout: LinearLayout? = null
+
+        internal var questionTextView: TextView? = itemView.findViewById(R.id.questionTextView) as TextView
+
+        internal var matchQuestionLayout: LinearLayout? = itemView.findViewById(R.id.matchQuestionLayout) as LinearLayout
 
         init {
 

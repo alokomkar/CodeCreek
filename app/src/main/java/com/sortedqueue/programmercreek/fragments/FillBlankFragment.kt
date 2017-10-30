@@ -36,93 +36,12 @@ import java.util.ArrayList
 
 
 import io.github.kbiakov.codeview.CodeView
+import kotlinx.android.synthetic.main.fragment_fill_blank.*
 
 class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.OnCheckedChangeListener, TestCompletionListener {
 
 
-    @BindView(R.id.headerTextView)
-    internal var headerTextView: TextView? = null
-    @BindView(R.id.programBlankLineTextView)
-    internal var programBlankLineTextView: TextView? = null
-    @BindView(R.id.programCodeView)
-    internal var programCodeView: CodeView? = null
 
-    @BindView(R.id.programLayout)
-    internal var programLayout: CardView? = null
-    @BindView(R.id.answer1RadioButton1)
-    internal var answer1RadioButton1: RadioButton? = null
-    @BindView(R.id.answer1RadioButton2)
-    internal var answer1RadioButton2: RadioButton? = null
-    @BindView(R.id.answer1RadioButton3)
-    internal var answer1RadioButton3: RadioButton? = null
-    @BindView(R.id.answer2RadioButton1)
-    internal var answer2RadioButton1: RadioButton? = null
-    @BindView(R.id.answer2RadioButton2)
-    internal var answer2RadioButton2: RadioButton? = null
-    @BindView(R.id.answer2RadioButton3)
-    internal var answer2RadioButton3: RadioButton? = null
-    @BindView(R.id.answer3RadioButton1)
-    internal var answer3RadioButton1: RadioButton? = null
-    @BindView(R.id.answer3RadioButton2)
-    internal var answer3RadioButton2: RadioButton? = null
-    @BindView(R.id.answer3RadioButton3)
-    internal var answer3RadioButton3: RadioButton? = null
-    @BindView(R.id.answer4RadioButton1)
-    internal var answer4RadioButton1: RadioButton? = null
-    @BindView(R.id.answer4RadioButton2)
-    internal var answer4RadioButton2: RadioButton? = null
-    @BindView(R.id.answer4RadioButton3)
-    internal var answer4RadioButton3: RadioButton? = null
-    @BindView(R.id.checkButton)
-    internal var checkButton: Button? = null
-    @BindView(R.id.option1TextView)
-    internal var option1TextView: TextView? = null
-    @BindView(R.id.option2TextView)
-    internal var option2TextView: TextView? = null
-    @BindView(R.id.answerLayout1)
-    internal var answerLayout1: LinearLayout? = null
-    @BindView(R.id.option3TextView)
-    internal var option3TextView: TextView? = null
-    @BindView(R.id.option4TextView)
-    internal var option4TextView: TextView? = null
-    @BindView(R.id.answerLayout2)
-    internal var answerLayout2: LinearLayout? = null
-    @BindView(R.id.option5TextView)
-    internal var option5TextView: TextView? = null
-    @BindView(R.id.answer5RadioButton1)
-    internal var answer5RadioButton1: RadioButton? = null
-    @BindView(R.id.answer5RadioButton2)
-    internal var answer5RadioButton2: RadioButton? = null
-    @BindView(R.id.answer5RadioButton3)
-    internal var answer5RadioButton3: RadioButton? = null
-    @BindView(R.id.option6TextView)
-    internal var option6TextView: TextView? = null
-    @BindView(R.id.answer6RadioButton1)
-    internal var answer6RadioButton1: RadioButton? = null
-    @BindView(R.id.answer6RadioButton2)
-    internal var answer6RadioButton2: RadioButton? = null
-    @BindView(R.id.answer6RadioButton3)
-    internal var answer6RadioButton3: RadioButton? = null
-    @BindView(R.id.answerLayout3)
-    internal var answerLayout3: LinearLayout? = null
-    @BindView(R.id.option7TextView)
-    internal var option7TextView: TextView? = null
-    @BindView(R.id.answer7RadioButton1)
-    internal var answer7RadioButton1: RadioButton? = null
-    @BindView(R.id.answer7RadioButton2)
-    internal var answer7RadioButton2: RadioButton? = null
-    @BindView(R.id.answer7RadioButton3)
-    internal var answer7RadioButton3: RadioButton? = null
-    @BindView(R.id.option8TextView)
-    internal var option8TextView: TextView? = null
-    @BindView(R.id.answer8RadioButton1)
-    internal var answer8RadioButton1: RadioButton? = null
-    @BindView(R.id.answer8RadioButton2)
-    internal var answer8RadioButton2: RadioButton? = null
-    @BindView(R.id.answer8RadioButton3)
-    internal var answer8RadioButton3: RadioButton? = null
-    @BindView(R.id.answerLayout4)
-    internal var answerLayout4: LinearLayout? = null
     private var mProgram_Index = 1
     private var shuffleList: ArrayList<String>? = null
     private var fillBlanksQuestionList: ArrayList<String>? = null

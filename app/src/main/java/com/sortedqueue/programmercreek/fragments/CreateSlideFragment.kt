@@ -65,6 +65,7 @@ import java.util.Date
 //import id.zelory.compressor.Compressor;
 
 import com.facebook.GraphRequest.TAG
+import kotlinx.android.synthetic.main.fragment_slide.*
 
 /**
  * Created by Alok on 06/04/17.
@@ -72,40 +73,9 @@ import com.facebook.GraphRequest.TAG
 
 class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.PhotoOptionListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.titleEditText)
-    internal var titleEditText: EditText? = null
-    @BindView(R.id.subTitleEditText)
-    internal var subTitleEditText: EditText? = null
-    @BindView(R.id.slideImageView)
-    internal var slideImageView: ImageView? = null
-    @BindView(R.id.slideImageLayout)
-    internal var slideImageLayout: FrameLayout? = null
+
     private val ACTION_CAMERA = 1
     private val ACTION_GALLERY = 2
-    @BindView(R.id.deleteImageView)
-    internal var deleteImageView: ImageView? = null
-    @BindView(R.id.changeImageView)
-    internal var changeImageView: ImageView? = null
-    @BindView(R.id.rotateImageView)
-    internal var rotateImageView: ImageView? = null
-    @BindView(R.id.saveImageView)
-    internal var saveImageView: ImageView? = null
-    @BindView(R.id.doneButton)
-    internal var doneButton: Button? = null
-    @BindView(R.id.uploadProgressBar)
-    internal var uploadProgressBar: ProgressBar? = null
-    @BindView(R.id.languageTextView)
-    internal var languageTextView: TextView? = null
-    @BindView(R.id.importFromFileTextView)
-    internal var importFromFileTextView: TextView? = null
-    @BindView(R.id.hintPhotoTextView)
-    internal var hintPhotoTextView: TextView? = null
-    @BindView(R.id.languageRecyclerView)
-    internal var languageRecyclerView: RecyclerView? = null
-    @BindView(R.id.importLayout)
-    internal var importLayout: LinearLayout? = null
-    @BindView(R.id.codeEditRecyclerView)
-    internal var codeEditRecyclerView: RecyclerView? = null
 
     private var selectedImageUri: Uri? = null
     private var selectedBitmap: Bitmap? = null

@@ -40,6 +40,7 @@ import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.FileUtils
 import com.sortedqueue.programmercreek.util.PermissionUtils
+import kotlinx.android.synthetic.main.fragment_compile_code.*
 
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -62,30 +63,6 @@ import retrofit2.Response
 
 class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
-    @BindView(R.id.inputEditText)
-    internal var inputEditText: EditText? = null
-    @BindView(R.id.progressImageView)
-    internal var progressImageView: ImageView? = null
-    @BindView(R.id.progressTextView)
-    internal var progressTextView: TextView? = null
-    @BindView(R.id.compilerProgressLayout)
-    internal var compilerProgressLayout: RelativeLayout? = null
-    @BindView(R.id.codeEditRecyclerView)
-    internal var codeEditRecyclerView: RecyclerView? = null
-    @BindView(R.id.languageTextView)
-    internal var languageTextView: TextView? = null
-    @BindView(R.id.importFromFileTextView)
-    internal var importFromFileTextView: TextView? = null
-    @BindView(R.id.languageRecyclerView)
-    internal var languageRecyclerView: RecyclerView? = null
-    @BindView(R.id.importLayout)
-    internal var importLayout: LinearLayout? = null
-    @BindView(R.id.outputLayout)
-    internal var outputLayout: FrameLayout? = null
-    @BindView(R.id.outputTextView)
-    internal var outputTextView: TextView? = null
-    @BindView(R.id.dividerView)
-    internal var dividerView: View? = null
 
     private var submitCodeService: SubmitCodeService? = null
     private val TAG = CompileCodeFragment::class.java.simpleName

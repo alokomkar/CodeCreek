@@ -117,7 +117,6 @@ object AuxilaryUtils {
         val alertDialogBuilder = Builder(
                 context)
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_app_invite, null)
-        ButterKnife.bind(view)
         alertDialogBuilder.setView(view)
 
         val resultTextView = view.findViewById(R.id.inviteTextView) as TextView
@@ -409,7 +408,6 @@ object AuxilaryUtils {
         val alertDialogBuilder = Builder(
                 context)
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_input, null)
-        ButterKnife.bind(view)
         val inputEditText = view.findViewById(R.id.inputEditText) as EditText
         val headerTextView = view.findViewById(R.id.headerTextView) as TextView
         headerTextView.text = title
@@ -458,7 +456,6 @@ object AuxilaryUtils {
         val alertDialogBuilder = Builder(
                 activity)
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_result, null)
-        ButterKnife.bind(view)
         alertDialogBuilder.setView(view)
         val progressBar = view.findViewById(R.id.progressBar) as ProgressBar
         val bigScoreTextView = view.findViewById(R.id.bigScoreTextView) as TextView

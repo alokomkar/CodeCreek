@@ -43,10 +43,10 @@ class LanguageRecyclerAdapter(private val languages: ArrayList<String>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        itemView.findViewById(R.id.tagTextView)
-        internal var tagTextView: TextView? = null
-        itemView.findViewById(R.id.tagLayout)
-        internal var tagLayout: LinearLayout? = null
+
+        internal var tagTextView: TextView? = itemView.findViewById(R.id.tagTextView) as TextView
+
+        internal var tagLayout: LinearLayout? = itemView.findViewById(R.id.tagLayout) as LinearLayout
 
         init {
 
