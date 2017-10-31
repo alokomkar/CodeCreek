@@ -64,7 +64,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
     private var creekPreferences: CreekPreferences? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     private val REQUEST_INVITE = 9999
-    private val REQUEST_DOWNLOAD_FILE = 101
     private var handler: Handler? = null
     private var creekUserStats: CreekUserStats? = null
     private var runnable: Runnable? = null
@@ -456,13 +455,13 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
                 .build()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
         if (requestCode == REQUEST_INVITE) {
             if (resultCode == Activity.RESULT_OK) {
                 // Get the invitation IDs of all sent messages
-                val ids = AppInviteInvitation.getInvitationIds(resultCode, data)
+                val ids = AppInviteInvitation.getInvitationIds(resultCode, data!!)
                 for (id in ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id)
                 }
@@ -581,7 +580,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
 
     override fun importFromWeb() {
         val intent = Intent(this@DashboardActivity, TutorialCarousalActivity::class.java)
-        startActivityForResult(intent, REQUEST_DOWNLOAD_FILE)
+        startActivity(intent)
     }
 
     private var fab_open: Animation? = null

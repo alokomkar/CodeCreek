@@ -495,14 +495,14 @@ class ProgramListActivity : AppCompatActivity(), UIUpdateListener, CustomProgram
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
 
         if (requestCode == REQUEST_INVITE) {
             if (resultCode == Activity.RESULT_OK) {
                 // Get the invitation IDs of all sent messages
-                val ids = AppInviteInvitation.getInvitationIds(resultCode, data)
+                val ids = AppInviteInvitation.getInvitationIds(resultCode, data!!)
                 for (id in ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id)
                 }

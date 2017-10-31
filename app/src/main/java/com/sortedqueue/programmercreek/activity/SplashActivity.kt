@@ -203,7 +203,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         CommonUtils.displayProgressDialog(this@SplashActivity, "Getting accounts")
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
