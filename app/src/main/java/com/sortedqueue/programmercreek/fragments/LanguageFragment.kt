@@ -22,6 +22,7 @@ import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramLanguage
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.dashboard.DashboardNavigationListener
+import com.sortedqueue.programmercreek.database.firebase.FirebaseHelper
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
@@ -47,15 +48,12 @@ class LanguageFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_language, container, false)
-
-
-        return view
+        return inflater!!.inflate(R.layout.fragment_language, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -82,15 +80,20 @@ class LanguageFragment : Fragment() {
 
     private fun getProgramLanguages() {
         swipeRefreshLayout!!.isRefreshing = true
-        val firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
-        firebaseDatabaseHandler.getAllProgramLanguages(object : FirebaseDatabaseHandler.GetProgramLanguageListener {
+        val totalLocalLanguages = creekPreferences!!.totalLanguages
+        if( totalLocalLanguages == 0 && !AuxilaryUtils.isNetworkAvailable) {
+            CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
+            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            return
+        }
+        firebaseDatabaseHandler!!.getAllProgramLanguages(object : FirebaseDatabaseHandler.GetProgramLanguageListener {
             override fun onSuccess(programLanguages: ArrayList<ProgramLanguage>) {
                 /*ProgramLanguage programLanguage = new ProgramLanguage();
                 programLanguage.setLanguageId("Java2");
                 programLanguage.setProgramLanguage("Java Programming - II");
                 programLanguage.setDescription("Explore more concepts of Java");
                 programLanguages.add(programLanguage);*/
-                setupRecyclerview(programLanguages)
+                setupRecyclerView(programLanguages)
             }
 
             override fun onError(databaseError: DatabaseError) {
@@ -100,7 +103,7 @@ class LanguageFragment : Fragment() {
         })
     }
 
-    private fun setupRecyclerview(programLanguages: ArrayList<ProgramLanguage>) {
+    private fun setupRecyclerView(programLanguages: ArrayList<ProgramLanguage>) {
         this.programLanguages = programLanguages
         programLanguageRecyclerView!!.layoutManager = LinearLayoutManager(context)
         programLanguageRecyclerView!!.adapter = ProgramLanguageAdapter(context,
@@ -151,8 +154,12 @@ class LanguageFragment : Fragment() {
     fun getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
+        if (creekPreferences!!.creekUserDB == null && !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getFirebaseDBVerion() })
+            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            return
+        }
         swipeRefreshLayout!!.isRefreshing = true
-        firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         firebaseDatabaseHandler!!.readCreekUserDB(object : FirebaseDatabaseHandler.GetCreekUserDBListener {
             override fun onSuccess(creekUserDB: CreekUserDB) {
                 swipeRefreshLayout!!.isRefreshing = false
@@ -182,12 +189,12 @@ class LanguageFragment : Fragment() {
         logDebugMessage("Inserting all Programs Titles..")
         if (!creekPreferences!!.checkProgramIndexUpdate()) {
             if (!AuxilaryUtils.isNetworkAvailable) {
-                CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
+                CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
                 CommonUtils.displayToast(context, R.string.enable_internet_to_download)
                 return
             }
-            firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
-            firebaseDatabaseHandler!!.initializeProgramIndexes(object : FirebaseDatabaseHandler.ProgramIndexInterface {
+            FirebaseHelper( context, dashboardNavigationListener!! )
+            /*firebaseDatabaseHandler!!.initializeProgramIndexes(object : FirebaseDatabaseHandler.ProgramIndexInterface {
                 override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
                     dashboardNavigationListener!!.hideLanguageFragment()
                 }
@@ -195,7 +202,7 @@ class LanguageFragment : Fragment() {
                 override fun onError(error: DatabaseError) {
 
                 }
-            })
+            })*/
         } else {
             dashboardNavigationListener!!.hideLanguageFragment()
         }
@@ -260,34 +267,6 @@ class LanguageFragment : Fragment() {
                         nameTextView!!.append("\nLevel " + level)
                     }
                 }
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (progressBarStatus = 0; progressBarStatus <= progress; progressBarStatus++) {
-
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    if( reputationProgressBar != null ) {
-                                        reputationProgressBar.setProgress(progressBarStatus);
-                                        reputationTextView.setText(progressBarStatus +"% Complete");
-                                        int level = creekPreferences.getCreekUserStats().getCreekUserReputation() / 100;
-                                        if (level > 0) {
-                                            nameTextView.setText(creekPreferences.getAccountName());
-                                            nameTextView.append("\nLevel " + level);
-                                        }
-                                    }
-
-                                }
-                            });
-
-
-                            try {
-                                Thread.sleep(40);
-                            } catch (Exception ex) {
-                            }
-                        }
-                    }
-                }).start();*/
             } else {
                 reputationProgressBar!!.visibility = View.GONE
                 reputationTextView!!.visibility = View.GONE

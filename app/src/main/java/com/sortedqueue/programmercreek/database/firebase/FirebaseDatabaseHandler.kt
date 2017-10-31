@@ -550,152 +550,6 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         }.execute()
     }
 
-    fun readProgramFromFile(filepath: String, confirmUserProgram: ConfirmUserProgram) {
-
-        object : AsyncTask<Void, Void, String>() {
-
-            private var programIndex: ProgramIndex? = null
-            private var programTables: ArrayList<ProgramTable>? = null
-
-            override fun doInBackground(vararg params: Void): String? {
-                var fis: InputStream? = null
-                try {
-                    fis = FileInputStream(filepath)
-                    val isr = InputStreamReader(fis, Charset.forName("UTF-8"))
-                    val br = BufferedReader(isr)
-                    var line: String
-                    var programTitle = ""
-                    var programLanguage = ""
-                    var programExplanation = ""
-                    var program = ""
-                    line = br.readLine()
-                    while ((line) != null) {
-                        if (line.trim { it <= ' ' }.length == 0) {
-                            //blank line
-                            continue
-                        }
-
-                        if (line.startsWith(START_PROGRAM_TITLE) && programTitle == "") {
-                            line = br.readLine()
-
-                            while (true) {
-                                if (!line.startsWith(END_PROGRAM_TITLE))
-                                    programTitle += line
-                                else
-                                    break
-                                line = br.readLine()
-
-                            }
-
-                        }
-                        if (line.startsWith(START_PROGRAM_LANGUAGE) && programLanguage == "") {
-                            line = br.readLine()
-
-                            while (true) {
-                                if (!line.startsWith(END_PROGRAM_LANGUAGE))
-                                    programLanguage += line
-                                else
-                                    break
-                                line = br.readLine()
-
-                            }
-                        }
-                        if (line.startsWith(START_PROGRAM_EXPLANATION) && programExplanation == "") {
-                            line = br.readLine()
-
-                            while (true) {
-                                if (!line.startsWith(END_PROGRAM_EXPLANATION))
-                                    programExplanation += line + "\n"
-                                else
-                                    break
-                                line = br.readLine()
-
-                            }
-
-                        }
-                        if (line.startsWith(START_PROGRAM) && program == "") {
-                            line = br.readLine()
-
-                            while (true) {
-                                if (!line.startsWith(END_PROGRAM))
-                                    program += line + "\n"
-                                else
-                                    break
-                                line = br.readLine()
-
-                            }
-
-                        }
-                        line = br.readLine()
-                    }
-                    if (programTitle.trim { it <= ' ' }.length == 0) {
-                        return "Missing program title"
-                    }
-                    if (programLanguage.trim { it <= ' ' }.length == 0) {
-                        return "Missing program language"
-                    }
-                    if (program.trim { it <= ' ' }.length == 0) {
-                        return "Missing program code"
-                    }
-                    if (programExplanation.trim { it <= ' ' }.length == 0) {
-                        return "Missing program explanation"
-                    }
-                    programIndex = ProgramIndex()
-                    programIndex!!.program_Description = programTitle
-                    programIndex!!.program_index = programTitle.hashCode()
-                    programIndex!!.program_Language = programLanguage
-
-                    val programLines = AuxilaryUtils.splitProgramIntolines(program)
-                    val programExplanations = AuxilaryUtils.splitProgramIntolines(programExplanation)
-
-                    if (programLines != null && programExplanations != null) {
-                        if (programLines.size > programExplanations.size) {
-                            return "Explanation needed for each line of code"
-                        }
-                        if (programLines.size < programExplanations.size) {
-                            return "Code needed for each line of explanation"
-                        }
-                    }
-
-                    val intProgramIndex = programIndex!!.program_index
-                    programTables = ArrayList<ProgramTable>()
-                    for (i in programLines.indices) {
-                        programTables!!.add(
-                                ProgramTable(
-                                        intProgramIndex,
-                                        i + 1,
-                                        programLanguage,
-                                        programLines[i],
-                                        programExplanations[i]))
-                    }
-                } catch (e: java.io.IOException) {
-                    e.printStackTrace()
-                    return e.message
-                }
-
-                return null
-            }
-
-            override fun onPreExecute() {
-                super.onPreExecute()
-                CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading_program))
-            }
-
-            override fun onPostExecute(aVoid: String?) {
-                super.onPostExecute(aVoid)
-                CommonUtils.dismissProgressDialog()
-                if (aVoid == null) {
-                    confirmUserProgram.onSuccess(programIndex!!, programTables!!)
-                } else {
-                    confirmUserProgram.onError(aVoid)
-                }
-
-            }
-        }.execute()
-
-
-    }
-
     interface GetAllTagsListener {
         fun onError(databaseError: DatabaseError)
         fun onSuccess(tagModel: TagModel)
@@ -1817,7 +1671,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         //Get last n number of programs : ? Store total programs in firebase, total_programs - existing max index
 
         if (!creekPreferences.checkProgramIndexUpdate()) {
-            CommonUtils.displayProgressDialog(mContext as Activity, "Loading program index")
+            //CommonUtils.displayProgressDialog(mContext as Activity, "Loading program index")
             if (!creekPreferences.isWelcomeDone) {
                 AuxilaryUtils.generateBigNotification(mContext, "Welcome", "Hey there, Welcome to Practice Code, we have an array of " + programLanguage.toUpperCase() + " programs to be explored; Your learning starts here...")
                 creekPreferences.isWelcomeDone = true
@@ -1845,7 +1699,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                             }
                             creekPreferences.setProgramIndex(program_indices[program_indices.size - 1].program_index)
                             Log.d(TAG, "Inserted program indexes : " + program_indices.size)
-                            CommonUtils.dismissProgressDialog()
+                            //CommonUtils.dismissProgressDialog()
                             programIndexInterface.getProgramIndexes(program_indices)
                         }
 
@@ -1853,11 +1707,11 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                             Log.d(TAG, "initializeProgramIndexes : " + databaseError.toException().message)
                             databaseError.toException().printStackTrace()
                             programIndexInterface.onError(databaseError)
-                            CommonUtils.dismissProgressDialog()
+                            //CommonUtils.dismissProgressDialog()
                         }
                     })
         } else {
-            CommonUtils.displayProgressDialog(mContext as Activity, "Loading program index")
+            //CommonUtils.displayProgressDialog(mContext as Activity, "Loading program index")
             object : AsyncTask<Void, Void, ArrayList<ProgramIndex>>() {
 
                 override fun doInBackground(vararg params: Void): ArrayList<ProgramIndex> {
@@ -1867,7 +1721,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
                 override fun onPostExecute(programIndices: ArrayList<ProgramIndex>) {
                     super.onPostExecute(programIndices)
-                    CommonUtils.dismissProgressDialog()
+                    //CommonUtils.dismissProgressDialog()
                     programIndexInterface.getProgramIndexes(programIndices)
                 }
             }.execute()

@@ -477,7 +477,7 @@ class CreekPreferences(private val context: Context) {
             "c++", "cpp" -> result = getProgramIndex() == creekUserDB!!.cppProgramIndexDBVersion.toInt()
             "java" -> result = getProgramIndex() == creekUserDB!!.javaProgramIndexDBVersion.toInt()
             "usp" -> result = getProgramIndex() == creekUserDB!!.uspProgramIndexDBVersion.toInt()
-            "sql" -> result = getProgramIndex() == creekUserDB!!.uspProgramIndexDBVersion.toInt()
+            "sql" -> result = getProgramIndex() == creekUserDB!!.sqlProgramIndexDBVersion.toInt()
         }
         return result
     }

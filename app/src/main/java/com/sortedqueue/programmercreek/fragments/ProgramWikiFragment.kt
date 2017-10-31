@@ -32,16 +32,15 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
     private var wikiNavigationListener: WikiNavigationListner? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_program_wiki, null)
-
-
+        val fragmentView = inflater!!.inflate(R.layout.fragment_program_wiki, container, false)
         return fragmentView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews(programWiki!!)
+
         if (wizardUrl == null) {
+            setupViews(programWiki!!)
             progressBar!!.visibility = View.VISIBLE
             headerTextView!!.text = programWiki!!.wikiHeader
             setupRecyclerView(programWiki!!)
