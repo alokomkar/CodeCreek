@@ -93,7 +93,6 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
     private fun loadChapterFragment() {
         supportActionBar!!.title = "Chapters : " + CreekApplication.creekPreferences!!.programLanguage.toUpperCase()
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        chaptersFragment = supportFragmentManager.findFragmentByTag(ChaptersFragment::class.java.simpleName) as ChaptersFragment
         if (chaptersFragment == null) {
             chaptersFragment = ChaptersFragment()
         }
@@ -153,7 +152,6 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
         Log.d("ChaptersActivity", "Selected chapter : " + chapter.toString())
         supportActionBar!!.title = chapter.chapterName
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        chapterDetailsFragment = supportFragmentManager.findFragmentByTag(ChapterDetailsFragment::class.java.simpleName) as ChapterDetailsFragment
         if (chapterDetailsFragment == null) {
             chapterDetailsFragment = ChapterDetailsFragment()
         }

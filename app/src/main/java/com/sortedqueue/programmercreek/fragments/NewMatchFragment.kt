@@ -51,7 +51,6 @@ import java.util.Collections
 
 class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListener {
 
-    internal var optionsTextView: TextView? = null
     private var newProgramActivityBundle: Bundle? = null
     private var mInvokeMode: Int = 0
     private var program_TableList: ArrayList<ProgramTable>? = null

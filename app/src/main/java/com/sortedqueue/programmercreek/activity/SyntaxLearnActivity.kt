@@ -114,7 +114,6 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
     private fun loadModulesFragment() {
         supportActionBar!!.title = "Modules"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        moduleFragment = supportFragmentManager.findFragmentByTag(ModuleFragment::class.java.simpleName) as ModuleFragment
         if (moduleFragment == null) {
             moduleFragment = ModuleFragment()
         }
@@ -168,7 +167,6 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
         supportActionBar!!.title = CreekApplication.creekPreferences!!.programLanguage.toUpperCase() + " Syntax Learner"
 
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        moduleDetailsFragment = supportFragmentManager.findFragmentByTag(ModuleDetailsFragment::class.java.simpleName) as ModuleDetailsFragment
         if (moduleDetailsFragment == null) {
             moduleDetailsFragment = ModuleDetailsFragment()
         }
