@@ -1577,7 +1577,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
 
                     }
                 })
