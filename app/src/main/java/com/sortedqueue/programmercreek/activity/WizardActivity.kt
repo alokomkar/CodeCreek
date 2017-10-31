@@ -179,7 +179,6 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         isRewardVideoShown = false
         title = "Test : " + (bundle.getParcelable<Parcelable>(ProgrammingBuddyConstants.KEY_PROG_ID) as ProgramIndex).program_Description
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        testDragNDropFragment = supportFragmentManager.findFragmentByTag(TestDragNDropFragment::class.java.simpleName) as TestDragNDropFragment
         if (testDragNDropFragment == null) {
             testDragNDropFragment = TestDragNDropFragment()
         }
@@ -193,7 +192,6 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         isRewardVideoShown = false
         title = "Quiz : " + (bundle.getParcelable<Parcelable>(ProgrammingBuddyConstants.KEY_PROG_ID) as ProgramIndex).program_Description
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        quizFragment = supportFragmentManager.findFragmentByTag(QuizFragment::class.java.simpleName) as QuizFragment
         if (quizFragment == null) {
             quizFragment = QuizFragment()
         }
@@ -207,7 +205,6 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         isRewardVideoShown = false
         title = "Fill blanks : " + (bundle.getParcelable<Parcelable>(ProgrammingBuddyConstants.KEY_PROG_ID) as ProgramIndex).program_Description
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        fillBlankFragment = supportFragmentManager.findFragmentByTag(NewFillBlankFragment::class.java.simpleName) as NewFillBlankFragment
         if (fillBlankFragment == null) {
             fillBlankFragment = NewFillBlankFragment()
         }
