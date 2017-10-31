@@ -81,10 +81,6 @@ class LanguageFragment : Fragment() {
     }
 
     private fun getProgramLanguages() {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getProgramLanguages() })
-            return
-        }
         swipeRefreshLayout!!.isRefreshing = true
         val firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         firebaseDatabaseHandler.getAllProgramLanguages(object : FirebaseDatabaseHandler.GetProgramLanguageListener {
@@ -155,10 +151,6 @@ class LanguageFragment : Fragment() {
     fun getFirebaseDBVerion() {
         //firebaseDatabaseHandler.writeCreekUserDB( new CreekUserDB() );
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getFirebaseDBVerion() })
-            return
-        }
         swipeRefreshLayout!!.isRefreshing = true
         firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
         firebaseDatabaseHandler!!.readCreekUserDB(object : FirebaseDatabaseHandler.GetCreekUserDBListener {
@@ -189,6 +181,11 @@ class LanguageFragment : Fragment() {
     private fun initDB() {
         logDebugMessage("Inserting all Programs Titles..")
         if (!creekPreferences!!.checkProgramIndexUpdate()) {
+            if (!AuxilaryUtils.isNetworkAvailable) {
+                CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
+                CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+                return
+            }
             firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
             firebaseDatabaseHandler!!.initializeProgramIndexes(object : FirebaseDatabaseHandler.ProgramIndexInterface {
                 override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
@@ -209,10 +206,7 @@ class LanguageFragment : Fragment() {
     }
 
     private fun selectAndInitDb(position: Int) {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { selectAndInitDb(position) })
-            return
-        }
+
         val selectedString = programLanguages!![position].languageId
         languageSelectionTextView!!.text = programLanguages!![position].programLanguage
         creekPreferences!!.programLanguage = selectedString.toLowerCase()

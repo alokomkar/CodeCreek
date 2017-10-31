@@ -192,14 +192,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
     }
 
     override fun onClick(v: View) {
-        if (!AuxilaryUtils.isNetworkAvailable) {
-            CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener {
-                override fun onClick(snackBarView: View) {
-                    onClick(v)
-                }
-            })
-            return
-        }
+
         if (creekPreferences!!.programLanguage == "") {
             CommonUtils.displaySnackBar(activity, R.string.choose_language)
             if (dashboardNavigationListener != null) {

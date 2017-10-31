@@ -115,7 +115,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
             startActivity(intent)
         }
         addUserCodeFAB!!.setOnClickListener{ importFromWeb() }
-        selectedLanguageCardView!!.setOnClickListener{ showLanguageFragment() }
+        selectedLanguageCardView!!.setOnClickListener{ navigateToLanguage() }
         fabLayout!!.visibility = View.GONE
         dashboardViewPager!!.adapter = DashboardPagerAdapter(supportFragmentManager, this@DashboardActivity)
         dashboardTabLayout!!.setupWithViewPager(dashboardViewPager)
@@ -125,7 +125,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
         dashboardTabLayout!!.getTabAt(2)!!.setIcon(R.drawable.ic_add_to_queue_white_24dp)
         //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
         if (creekPreferences!!.programLanguage == "") {
-            showLanguageFragment()
+            navigateToLanguage()
             languageSelectionTextView!!.text = "Select Language"
         } else {
             languageSelectionTextView!!.text = creekPreferences!!.programLanguage.toUpperCase()
@@ -529,7 +529,11 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
 
     override fun navigateToLanguage() {
         //LanguageFragment.getInstance().animateViews();
-        showLanguageFragment()
+        container!!.visibility = View.VISIBLE
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.replace(R.id.container, LanguageFragment()).commit()
     }
 
     override fun calculateReputation() {
@@ -558,15 +562,6 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
                 }
             })
         }
-
-    }
-
-    private fun showLanguageFragment() {
-        container!!.visibility = View.VISIBLE
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.replace(R.id.container, LanguageFragment()).commit()
 
     }
 

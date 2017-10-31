@@ -298,4 +298,5 @@
     <string name="java_operators">Operators</string>
     <string name="operators_humor">Hide and Seek champion...\n \";\"  \nsince 1958</string>
     <string name="authenticating_account">Verifying Account</string>
+    <string name="enable_internet_to_download">Enable internet to download content</string>
 </resources>

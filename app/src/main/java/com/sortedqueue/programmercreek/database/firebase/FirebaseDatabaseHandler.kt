@@ -188,6 +188,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     fun getProgramLanguageDB() {
         mProgramLanguageDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PROGRAM_LANGUAGE)
+        mProgramLanguageDatabase!!.keepSynced(true)
     }
 
     fun writeProgramLanguage(programLanguage: ProgramLanguage) {
