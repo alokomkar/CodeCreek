@@ -17,7 +17,15 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
         FirebaseDatabaseHandler.ProgramIndexInterface,
         FirebaseDatabaseHandler.ProgramTableInterface,
         FirebaseDatabaseHandler.ProgramWikiInterface,
-        FirebaseDatabaseHandler.SyntaxInterface {
+        FirebaseDatabaseHandler.SyntaxInterface, FirebaseDatabaseHandler.GetChapterListener {
+    override fun onErrror(error: DatabaseError?) {
+        incrementAndFinish()
+    }
+
+    override fun onSuccess(chaptersList: ArrayList<Chapter>) {
+        incrementAndFinish()
+    }
+
     override fun getSyntaxModules(syntaxModules: ArrayList<SyntaxModule>) {
         incrementAndFinish()
     }
@@ -26,8 +34,8 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
 
     private fun incrementAndFinish() {
         progressCount++
-        Log.d(TAG,  progressCount.toString() + " == " + (3 + languageModuleCount) )
-        if( progressCount == (3 + languageModuleCount) ) {
+        Log.d(TAG,  progressCount.toString() + " == " + (4 + languageModuleCount) )
+        if( progressCount == (4 + languageModuleCount) ) {
             CommonUtils.dismissProgressDialog()
             dashboardNavigationListener.hideLanguageFragment()
         }
@@ -43,6 +51,7 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
         firebaseDatabaseHandler.initializeProgramIndexes( this)
         firebaseDatabaseHandler.initializeProgramTables( this)
         firebaseDatabaseHandler.initializeProgramWiki(this)
+        firebaseDatabaseHandler.getChaptersInBackground(this)
     }
 
     override fun getModules(languageModules: ArrayList<LanguageModule>) {
