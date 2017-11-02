@@ -77,6 +77,17 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
         drawer_layout!!.addDrawerListener(toggle)
         toggle.syncState()
 
+        initializeWiki()
+        if (!CreekApplication.creekPreferences!!.isPremiumUser) {
+            initAds()
+        }
+        this.overridePendingTransition(R.anim.anim_slide_in_left,
+                R.anim.anim_slide_out_left)
+
+
+    }
+
+    private fun initializeWiki() {
         CommonUtils.displayProgressDialog(this@NewProgramWikiActivity, "Loading")
         FirebaseDatabaseHandler(this@NewProgramWikiActivity).initializeProgramWiki(
                 object : FirebaseDatabaseHandler.ProgramWikiInterface {
@@ -113,13 +124,6 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
                         CommonUtils.dismissProgressDialog()
                     }
                 })
-        if (!CreekApplication.creekPreferences!!.isPremiumUser) {
-            initAds()
-        }
-        this.overridePendingTransition(R.anim.anim_slide_in_left,
-                R.anim.anim_slide_out_left)
-
-
     }
 
     private fun setupNavRecyclerView(programWikis: ArrayList<WikiModel>) {

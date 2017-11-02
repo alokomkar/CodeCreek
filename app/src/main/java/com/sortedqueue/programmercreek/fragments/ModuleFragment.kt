@@ -24,6 +24,7 @@ import com.sortedqueue.programmercreek.database.LanguageModule
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
+import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import kotlinx.android.synthetic.main.fragment_module.*
 
@@ -94,6 +95,11 @@ class ModuleFragment : Fragment() {
 
     private fun getModules() {
         modulesRecyclerView!!.visibility = View.INVISIBLE
+        if ( CreekApplication.creekPreferences!!.checkModulesUpdate() < 0 && !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getModules() })
+            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            return
+        }
         CommonUtils.displayProgressDialog(context, "Loading modules")
         FirebaseDatabaseHandler(context).initializeModules(object : FirebaseDatabaseHandler.ModuleInterface {
             override fun getModules(languageModules: ArrayList<LanguageModule>) {

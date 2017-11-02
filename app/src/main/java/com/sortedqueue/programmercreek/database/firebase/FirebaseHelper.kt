@@ -39,17 +39,17 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
 
     init {
         CommonUtils.displayProgressDialog(context, R.string.downloading_content)
-        firebaseDatabaseHandler.initializeModules(this)
-    }
-
-    override fun getModules(languageModules: ArrayList<LanguageModule>) {
-        languageModuleCount = languageModules.size
-        for( languageModule in languageModules ) {
-            firebaseDatabaseHandler.initializeSyntax(languageModule, this)
-        }
+        //firebaseDatabaseHandler.initializeModules(this)
         firebaseDatabaseHandler.initializeProgramIndexes( this)
         firebaseDatabaseHandler.initializeProgramTables( this)
         firebaseDatabaseHandler.initializeProgramWiki(this)
+    }
+
+    override fun getModules(languageModules: ArrayList<LanguageModule>) {
+        /*languageModuleCount = languageModules.size
+        for( languageModule in languageModules ) {
+            firebaseDatabaseHandler.initializeSyntax(languageModule, this)
+        }*/
     }
 
     override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {

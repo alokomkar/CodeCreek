@@ -57,7 +57,7 @@ import co.uk.rushorm.core.RushSearch
 /**
  * Created by binay on 05/12/16.
  */
-
+@SuppressLint("StaticFieldLeak")
 class FirebaseDatabaseHandler(private val mContext: Context) {
 
     private var mProgramDatabase: DatabaseReference? = null
@@ -1543,6 +1543,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         fun onError(error: DatabaseError)
     }
 
+    @SuppressLint("StaticFieldLeak")
     fun initializeSyntax(languageModule: LanguageModule, syntaxInterface: SyntaxInterface) {
         if (creekPreferences.checkSyntaxUpdate() < 0) {
             Log.d(TAG, "initializeSyntax : Firebase task")
@@ -1579,6 +1580,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
             })
         } else {
             Log.d(TAG, "initializeSyntax : Async task")
+
             object : AsyncTask<Void, Void, ArrayList<SyntaxModule>>() {
 
                 override fun doInBackground(vararg voids: Void): ArrayList<SyntaxModule> {

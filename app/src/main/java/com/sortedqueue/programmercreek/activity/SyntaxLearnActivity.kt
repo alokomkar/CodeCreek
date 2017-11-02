@@ -23,6 +23,7 @@ import com.sortedqueue.programmercreek.fragments.ModuleDetailsFragment
 import com.sortedqueue.programmercreek.fragments.ModuleFragment
 import com.sortedqueue.programmercreek.interfaces.SyntaxNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
+import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.startapp.android.publish.adsCommon.StartAppAd
 
@@ -145,6 +146,12 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
     }
 
     override fun onModuleLoad(module: LanguageModule, nextModule: LanguageModule) {
+
+        if ( CreekApplication.creekPreferences!!.checkSyntaxUpdate() < 0 && !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(this@SyntaxLearnActivity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { onModuleLoad(module, nextModule) })
+            CommonUtils.displayToast(this, R.string.enable_internet_to_download)
+            return
+        }
 
         CommonUtils.displayProgressDialog(this@SyntaxLearnActivity, "Loading material")
         FirebaseDatabaseHandler(this@SyntaxLearnActivity).initializeSyntax(module, object : FirebaseDatabaseHandler.SyntaxInterface {
