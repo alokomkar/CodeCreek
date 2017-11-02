@@ -471,7 +471,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         internal var backgroundColor = 0xe0103010.toInt()
         internal var defaultBackgroundColor: Int = 0
 
-        override fun onDrag(x: Int, y: Int, listView: ListView) {
+        override fun onDrag(x: Int, y: Int, listView: ListView?) {
 
         }
 
