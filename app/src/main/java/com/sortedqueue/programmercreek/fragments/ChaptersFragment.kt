@@ -77,7 +77,8 @@ class ChaptersFragment : Fragment() {
             adView!!.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     super.onAdLoaded()
-                    adView!!.visibility = View.VISIBLE
+                    if( adView != null )
+                        adView!!.visibility = View.VISIBLE
                 }
             }
         }
@@ -701,7 +702,7 @@ class ChaptersFragment : Fragment() {
                 setupRecyclerView(chaptersList)
             }
 
-            override fun onErrror(error: DatabaseError?) {
+            override fun onFetchError(error: DatabaseError?) {
                 CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
                 CommonUtils.dismissProgressDialog()
             }

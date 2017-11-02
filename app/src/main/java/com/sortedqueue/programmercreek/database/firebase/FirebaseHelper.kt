@@ -18,7 +18,7 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
         FirebaseDatabaseHandler.ProgramTableInterface,
         FirebaseDatabaseHandler.ProgramWikiInterface,
         FirebaseDatabaseHandler.SyntaxInterface, FirebaseDatabaseHandler.GetChapterListener {
-    override fun onErrror(error: DatabaseError?) {
+    override fun onFetchError(error: DatabaseError?) {
         incrementAndFinish()
     }
 
@@ -47,7 +47,7 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
 
     init {
         CommonUtils.displayProgressDialog(context, R.string.downloading_content)
-        //firebaseDatabaseHandler.initializeModules(this)
+        firebaseDatabaseHandler.initializeModules(this)
         firebaseDatabaseHandler.initializeProgramIndexes( this)
         firebaseDatabaseHandler.initializeProgramTables( this)
         firebaseDatabaseHandler.initializeProgramWiki(this)
@@ -55,10 +55,10 @@ class FirebaseHelper( context: Context, val dashboardNavigationListener: Dashboa
     }
 
     override fun getModules(languageModules: ArrayList<LanguageModule>) {
-        /*languageModuleCount = languageModules.size
+        languageModuleCount = languageModules.size
         for( languageModule in languageModules ) {
             firebaseDatabaseHandler.initializeSyntax(languageModule, this)
-        }*/
+        }
     }
 
     override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {

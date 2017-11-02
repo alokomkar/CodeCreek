@@ -1,7 +1,6 @@
 package com.sortedqueue.programmercreek.database.firebase
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
@@ -42,15 +41,9 @@ import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 
-import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.nio.charset.Charset
 import java.util.ArrayList
 import java.util.HashMap
 
-import co.uk.rushorm.core.RushCallback
 import co.uk.rushorm.core.RushCore
 import co.uk.rushorm.core.RushSearch
 
@@ -1045,7 +1038,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     interface GetChapterListener {
         fun onSuccess(chaptersList: ArrayList<Chapter>)
-        fun onErrror(error: DatabaseError?)
+        fun onFetchError(error: DatabaseError?)
     }
 
     fun getChaptersInBackground(getChapterListener: GetChapterListener) {
@@ -1067,7 +1060,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    getChapterListener.onErrror(databaseError)
+                    getChapterListener.onFetchError(databaseError)
                 }
             })
         } else {
@@ -1082,7 +1075,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     if (chapters.size > 0)
                         getChapterListener.onSuccess(chapters)
                     else
-                        getChapterListener.onErrror(null)
+                        getChapterListener.onFetchError(null)
                 }
             }.execute()
         }
