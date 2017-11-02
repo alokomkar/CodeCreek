@@ -124,9 +124,10 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
         dashboardTabLayout!!.getTabAt(1)!!.setIcon(R.drawable.ic_top_learners)
         dashboardTabLayout!!.getTabAt(2)!!.setIcon(R.drawable.ic_add_to_queue_white_24dp)
         //dashboardTabLayout.getTabAt(3).setIcon(R.drawable.ic_view_carousel_white_36dp);
-        if (creekPreferences!!.programLanguage == "") {
+        if (creekPreferences!!.programLanguage == "" || !creekPreferences!!.checkProgramIndexUpdate()) {
             navigateToLanguage()
-            languageSelectionTextView!!.text = "Select Language"
+            if( creekPreferences!!.programLanguage == ""  )
+                languageSelectionTextView!!.text = "Select Language"
         } else {
             languageSelectionTextView!!.text = creekPreferences!!.programLanguage.toUpperCase()
             dashboardViewPager!!.currentItem = 0
