@@ -136,7 +136,6 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
     private fun loadLessons() {
         supportActionBar!!.title = "Bits & Bytes : " + CreekApplication.creekPreferences!!.programLanguage.toUpperCase()
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        lessonsFragment = supportFragmentManager.findFragmentByTag(LessonsFragment::class.java.simpleName) as LessonsFragment
         if (lessonsFragment == null) {
             lessonsFragment = LessonsFragment()
         }
@@ -149,7 +148,6 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
         supportActionBar!!.title = lesson.title
         currentLesson = lesson
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        lessonDetailsFragment = supportFragmentManager.findFragmentByTag(LessonDetailsFragment::class.java.simpleName) as LessonDetailsFragment
         if (lessonDetailsFragment == null) {
             lessonDetailsFragment = LessonDetailsFragment()
         }
