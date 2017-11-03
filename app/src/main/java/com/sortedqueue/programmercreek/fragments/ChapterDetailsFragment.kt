@@ -75,7 +75,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     private fun setupViews() {
 
         //syntaxLearnViewPager.setOffscreenPageLimit(chapter.getChapterDetailsArrayList().size());
-        chapterDetailsPagerAdapter = ChapterDetailsPagerAdapter(context, this, childFragmentManager, chapter!!.chapterDetailsArrayList, this, nextChapter!!)
+        chapterDetailsPagerAdapter = ChapterDetailsPagerAdapter(context, this, childFragmentManager, chapter!!.chapterDetailsArrayList, this, nextChapter)
         syntaxLearnViewPager!!.adapter = chapterDetailsPagerAdapter
         syntaxLearnViewPager!!.setAllowedSwipeDirection(SwipeDirection.left)
         ProgressBar!!.max = chapter!!.chapterDetailsArrayList.size
@@ -308,7 +308,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
 
     }
 
-    fun setNextChapter(nextChapter: Chapter) {
+    fun setNextChapter(nextChapter: Chapter?) {
         this.nextChapter = nextChapter
     }
 

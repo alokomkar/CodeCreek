@@ -262,7 +262,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         dashboardNavigationListener = null
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         language = parent.selectedItem.toString()
         fetchUserPrograms(accessSpecifier!!)
     }

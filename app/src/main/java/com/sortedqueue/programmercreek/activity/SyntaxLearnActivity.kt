@@ -145,7 +145,7 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onModuleLoad(module: LanguageModule, nextModule: LanguageModule) {
+    override fun onModuleLoad(module: LanguageModule, nextModule: LanguageModule?) {
 
         if ( CreekApplication.creekPreferences!!.checkSyntaxUpdate() < 0 && !AuxilaryUtils.isNetworkAvailable ) {
             CommonUtils.displaySnackBar(this@SyntaxLearnActivity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { onModuleLoad(module, nextModule) })
@@ -170,7 +170,7 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
         checkFAB!!.setImageDrawable(ContextCompat.getDrawable(this@SyntaxLearnActivity, drawable))
     }
 
-    private fun loadModuleDetailsFragment(module: LanguageModule, nextModule: LanguageModule, syntaxModules: ArrayList<SyntaxModule>) {
+    private fun loadModuleDetailsFragment(module: LanguageModule, nextModule: LanguageModule?, syntaxModules: ArrayList<SyntaxModule>) {
         supportActionBar!!.title = CreekApplication.creekPreferences!!.programLanguage.toUpperCase() + " Syntax Learner"
 
         mFragmentTransaction = supportFragmentManager.beginTransaction()

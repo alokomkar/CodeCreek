@@ -30,7 +30,7 @@ class ChapterDetailsPagerAdapter(context: Context,
                                  childFragmentManager: FragmentManager,
                                  private val chapterDetailsArrayList: List<ChapterDetails>,
                                  wikiNavigationListner: WikiNavigationListner,
-                                 nextChapter: Chapter) : FragmentPagerAdapter(childFragmentManager) {
+                                 nextChapter: Chapter?) : FragmentPagerAdapter(childFragmentManager) {
 
     private val chapterFragments: ArrayList<Fragment>
 

@@ -54,7 +54,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
     private fun setupViews() {
 
         syntaxLearnViewPager!!.offscreenPageLimit = syntaxModules!!.size
-        syntaxPagerAdapter = SyntaxPagerAdapter(childFragmentManager, module!!, nextModule!!, syntaxModules!!, this)
+        syntaxPagerAdapter = SyntaxPagerAdapter(childFragmentManager, module!!, nextModule, syntaxModules!!, this)
         syntaxLearnViewPager!!.adapter = syntaxPagerAdapter
         syntaxLearnViewPager!!.setCanScroll(true)
         ProgressBar!!.max = syntaxModules!!.size
@@ -84,7 +84,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
         syntaxNavigationListener!!.setImageDrawable(drawable)
     }
 
-    fun setParameters(module: LanguageModule, syntaxModules: ArrayList<SyntaxModule>, nextModule: LanguageModule) {
+    fun setParameters(module: LanguageModule, syntaxModules: ArrayList<SyntaxModule>, nextModule: LanguageModule?) {
         this.module = module
         this.syntaxModules = syntaxModules
         this.nextModule = nextModule

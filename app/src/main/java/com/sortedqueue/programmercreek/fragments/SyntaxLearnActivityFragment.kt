@@ -362,12 +362,12 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
         this.modulteDetailsScrollPageListener = modulteDetailsScrollPageListener
     }
 
-    fun setIsLastFragment(isLastFragment: Boolean, nextModule: LanguageModule) {
+    fun setIsLastFragment(isLastFragment: Boolean, nextModule: LanguageModule?) {
         this.isLastFragment = isLastFragment
         this.nextModule = nextModule
     }
 
-    fun setIsLastFragment(isLastFragment: Boolean, nextChapter: Chapter) {
+    fun setIsLastFragment(isLastFragment: Boolean, nextChapter: Chapter?) {
         this.isLastFragment = isLastFragment
         this.nextChapter = nextChapter
     }

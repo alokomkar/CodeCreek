@@ -148,7 +148,7 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    override fun onChapterSelected(chapter: Chapter, nextChapter: Chapter) {
+    override fun onChapterSelected(chapter: Chapter, nextChapter: Chapter?) {
         Log.d("ChaptersActivity", "Selected chapter : " + chapter.toString())
         supportActionBar!!.title = chapter.chapterName
         mFragmentTransaction = supportFragmentManager.beginTransaction()

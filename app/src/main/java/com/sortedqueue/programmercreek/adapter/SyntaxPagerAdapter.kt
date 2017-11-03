@@ -14,7 +14,7 @@ import java.util.ArrayList
 /**
  * Created by cognitive on 11/30/16.
  */
-class SyntaxPagerAdapter(fm: FragmentManager, module: LanguageModule, nextModule: LanguageModule, syntaxModules: ArrayList<SyntaxModule>, private val moduleDetailsScrollPageListener: ModuleDetailsScrollPageListener) : FragmentPagerAdapter(fm) {
+class SyntaxPagerAdapter(fm: FragmentManager, module: LanguageModule, nextModule: LanguageModule?, syntaxModules: ArrayList<SyntaxModule>, private val moduleDetailsScrollPageListener: ModuleDetailsScrollPageListener) : FragmentPagerAdapter(fm) {
 
     private val syntaxLearnActivityFragments: ArrayList<SyntaxLearnActivityFragment>
 
