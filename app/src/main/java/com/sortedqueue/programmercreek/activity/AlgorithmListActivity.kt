@@ -17,7 +17,6 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment
-import com.sortedqueue.programmercreek.fragments.AlgorithmIndexFragment
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
 import com.startapp.android.publish.adsCommon.StartAppAd
 

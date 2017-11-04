@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.interfaces;
 
-import com.sortedqueue.programmercreek.database.Algorithm;
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex;
 
 /**
