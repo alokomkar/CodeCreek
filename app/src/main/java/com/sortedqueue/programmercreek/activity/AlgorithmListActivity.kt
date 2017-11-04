@@ -93,14 +93,6 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
         }
     }
 
-    override fun loadAlgoritmsListFragment() {
-        supportActionBar!!.title = "Algorithms"
-        mFragmentTransaction = supportFragmentManager.beginTransaction()
-        mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, AlgorithmIndexFragment.instance, AlgorithmIndexFragment::class.java.simpleName)
-        mFragmentTransaction!!.commit()
-    }
-
     override fun loadAlgorithmFragment(algorithm: AlgorithmsIndex) {
         supportActionBar!!.title = algorithm.programTitle
         mFragmentTransaction = supportFragmentManager.beginTransaction()
