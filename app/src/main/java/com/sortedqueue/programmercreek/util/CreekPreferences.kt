@@ -471,6 +471,9 @@ class CreekPreferences(private val context: Context) {
 
     fun checkProgramIndexUpdate(): Boolean {
         val creekUserDB = creekUserDB
+        if( creekUserDB == null )
+            return false
+
         var result = true
         when (programLanguage) {
             "c" -> result = getProgramIndex().toDouble() == creekUserDB!!.getcProgramIndexDBVersion()
