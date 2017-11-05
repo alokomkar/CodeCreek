@@ -739,28 +739,83 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     }
 
     fun getAllAlgorithmIndex(getAllAlgorithmsListener: GetAllAlgorithmsListener) {
-        //CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
-        mAlgorithmIndexReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX)
-        mAlgorithmIndexReference!!.addListenerForSingleValueEvent(object : ValueEventListener {
+
+        if( creekPreferences.isAlgorithmsInserted ) {
+            CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading));
+            getOfflineAlgorithms( getAllAlgorithmsListener )
+        }
+        else {
+            CommonUtils.displayProgressDialog(mContext, R.string.downloading_content)
+            mAlgorithmIndexReference = FirebaseDatabase
+                    .getInstance()
+                    .getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM_INDEX )
+            mAlgorithmIndexReference!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val algorithmsIndices = ArrayList<AlgorithmsIndex>()
+                    for (snapshot in dataSnapshot.children) {
+                        val algorithmsIndex = snapshot.getValue(AlgorithmsIndex::class.java)
+                        algorithmsIndices.add(algorithmsIndex)
+                    }
+                    if (algorithmsIndices.size == 0) {
+                        getAllAlgorithmsListener.onError(null)
+                        CommonUtils.dismissProgressDialog()
+                    } else {
+                        downloadAlgorihtms(algorithmsIndices, getAllAlgorithmsListener)
+
+                    }
+
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    getAllAlgorithmsListener.onError(databaseError)
+                    CommonUtils.dismissProgressDialog()
+                }
+            })
+        }
+
+    }
+
+    private fun getOfflineAlgorithms(allAlgorithmsListener: GetAllAlgorithmsListener) {
+        object : AsyncTask<Void, Void, ArrayList<AlgorithmsIndex>>() {
+            override fun doInBackground(vararg p0: Void?): ArrayList<AlgorithmsIndex> {
+                return ArrayList( RushSearch().find(AlgorithmsIndex::class.java) )
+            }
+
+            override fun onPostExecute(result: ArrayList<AlgorithmsIndex>?) {
+                super.onPostExecute(result)
+                allAlgorithmsListener.onSuccess(result!!)
+                CommonUtils.dismissProgressDialog()
+            }
+        }.execute()
+    }
+
+    private fun downloadAlgorihtms(algorithmsIndices: ArrayList<AlgorithmsIndex>,
+                                   allAlgorithmsListener: GetAllAlgorithmsListener) {
+
+        mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
+        mAlgorithmReference!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val algorithmsIndices = ArrayList<AlgorithmsIndex>()
-                for (snapshot in dataSnapshot.children) {
-                    val algorithmsIndex = snapshot.getValue(AlgorithmsIndex::class.java)
-                    algorithmsIndices.add(algorithmsIndex)
+
+                for( child in dataSnapshot.children ) {
+                    val algorithm = child.getValue(Algorithm::class.java)
+                    if( algorithm != null && algorithm.algorithmsIndex != null )
+                        algorithm.algorithmId = ALGORITHM + "_" + algorithm.algorithmsIndex.programIndex
+                    algorithm.save {  }
                 }
-                if (algorithmsIndices.size == 0) {
-                    getAllAlgorithmsListener.onError(null)
-                } else {
-                    getAllAlgorithmsListener.onSuccess(algorithmsIndices)
-                }
+                RushCore.getInstance().save(algorithmsIndices, {})
+                creekPreferences.isAlgorithmsInserted = true
+                allAlgorithmsListener.onSuccess(algorithmsIndices)
+                CommonUtils.dismissProgressDialog()
+
                 CommonUtils.dismissProgressDialog()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                getAllAlgorithmsListener.onError(databaseError)
                 CommonUtils.dismissProgressDialog()
             }
         })
+
+
     }
 
     interface GetAlgorithmListener {
@@ -770,23 +825,43 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     fun getAlgorithmForIndex(algorithmIndex: Int, getAlgorithmListener: GetAlgorithmListener) {
         CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading))
-        mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
-        mAlgorithmReference!!.child(ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val algorithm = dataSnapshot.getValue(Algorithm::class.java)
-                if (algorithm != null) {
-                    getAlgorithmListener.onSuccess(algorithm)
-                } else {
-                    getAlgorithmListener.onError(null)
+        if( creekPreferences.isAlgorithmsInserted ) {
+            getOfflineAlgorithmIndex( algorithmIndex, getAlgorithmListener )
+        }
+        else {
+            mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
+            mAlgorithmReference!!.child(ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val algorithm = dataSnapshot.getValue(Algorithm::class.java)
+                    if (algorithm != null) {
+                        getAlgorithmListener.onSuccess(algorithm)
+                    } else {
+                        getAlgorithmListener.onError(null)
+                    }
+                    CommonUtils.dismissProgressDialog()
                 }
-                CommonUtils.dismissProgressDialog()
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    getAlgorithmListener.onError(databaseError)
+                    CommonUtils.dismissProgressDialog()
+                }
+            })
+        }
+
+    }
+
+    private fun getOfflineAlgorithmIndex(algorithmIndex: Int, algorithmListener: GetAlgorithmListener) {
+        object : AsyncTask<Void, Void, Algorithm>() {
+            override fun doInBackground(vararg p0: Void?): Algorithm {
+                return RushSearch().whereEqual("algorithmId", ALGORITHM + "_" + algorithmIndex).findSingle(Algorithm::class.java)
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                getAlgorithmListener.onError(databaseError)
+            override fun onPostExecute(result: Algorithm?) {
+                super.onPostExecute(result)
+                algorithmListener.onSuccess(result!!)
                 CommonUtils.dismissProgressDialog()
             }
-        })
+        }.execute()
     }
 
     interface GetProgramLanguageListener {

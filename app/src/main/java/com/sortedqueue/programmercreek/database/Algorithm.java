@@ -18,6 +18,7 @@ import static com.sortedqueue.programmercreek.constants.AlgorithmConstantsKt.CON
 @RushTableAnnotation
 public class Algorithm extends RushObject implements Parcelable {
 
+    private String algorithmId;
     private AlgorithmsIndex algorithmsIndex;
     private ArrayList<AlgorithmContent> algorithmContentArrayList;
 
@@ -27,6 +28,14 @@ public class Algorithm extends RushObject implements Parcelable {
     }
 
     public Algorithm() {
+    }
+
+    public String getAlgorithmId() {
+        return algorithmId;
+    }
+
+    public void setAlgorithmId(String algorithmId) {
+        this.algorithmId = algorithmId;
     }
 
     public AlgorithmsIndex getAlgorithmsIndex() {
@@ -52,55 +61,21 @@ public class Algorithm extends RushObject implements Parcelable {
 
         Algorithm algorithm = (Algorithm) o;
 
+        if (algorithmId != null ? !algorithmId.equals(algorithm.algorithmId) : algorithm.algorithmId != null)
+            return false;
         if (algorithmsIndex != null ? !algorithmsIndex.equals(algorithm.algorithmsIndex) : algorithm.algorithmsIndex != null)
             return false;
         return algorithmContentArrayList != null ? algorithmContentArrayList.equals(algorithm.algorithmContentArrayList) : algorithm.algorithmContentArrayList == null;
-
     }
 
     @Override
     public int hashCode() {
-        int result = algorithmsIndex != null ? algorithmsIndex.hashCode() : 0;
+        int result = algorithmId != null ? algorithmId.hashCode() : 0;
+        result = 31 * result + (algorithmsIndex != null ? algorithmsIndex.hashCode() : 0);
         result = 31 * result + (algorithmContentArrayList != null ? algorithmContentArrayList.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Algorithm{" +
-                "algorithmsIndex=" + algorithmsIndex +
-                ", algorithmContentArrayList=" + algorithmContentArrayList +
-                '}';
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.algorithmsIndex, flags);
-        dest.writeTypedList(this.algorithmContentArrayList);
-    }
-
-    protected Algorithm(Parcel in) {
-        this.algorithmsIndex = in.readParcelable(AlgorithmsIndex.class.getClassLoader());
-        this.algorithmContentArrayList = in.createTypedArrayList(AlgorithmContent.CREATOR);
-    }
-
-    public static final Parcelable.Creator<Algorithm> CREATOR = new Parcelable.Creator<Algorithm>() {
-        @Override
-        public Algorithm createFromParcel(Parcel source) {
-            return new Algorithm(source);
-        }
-
-        @Override
-        public Algorithm[] newArray(int size) {
-            return new Algorithm[size];
-        }
-    };
 
 
     public String toAlgorithmString() {
@@ -112,4 +87,34 @@ public class Algorithm extends RushObject implements Parcelable {
         }
         return algorithmString;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.algorithmId);
+        dest.writeParcelable(this.algorithmsIndex, flags);
+        dest.writeTypedList(this.algorithmContentArrayList);
+    }
+
+    protected Algorithm(Parcel in) {
+        this.algorithmId = in.readString();
+        this.algorithmsIndex = in.readParcelable(AlgorithmsIndex.class.getClassLoader());
+        this.algorithmContentArrayList = in.createTypedArrayList(AlgorithmContent.CREATOR);
+    }
+
+    public static final Creator<Algorithm> CREATOR = new Creator<Algorithm>() {
+        @Override
+        public Algorithm createFromParcel(Parcel source) {
+            return new Algorithm(source);
+        }
+
+        @Override
+        public Algorithm[] newArray(int size) {
+            return new Algorithm[size];
+        }
+    };
 }

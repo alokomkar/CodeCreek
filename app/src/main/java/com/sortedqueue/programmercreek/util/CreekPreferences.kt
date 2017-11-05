@@ -823,4 +823,10 @@ class CreekPreferences(private val context: Context) {
 
         val UNLOCK_BY_INVITE = "unlock_by_invite"
     }
+
+    var isAlgorithmsInserted: Boolean
+        get() {
+            return sharedPreferences.getBoolean("isAlgorithmsInserted", false)
+        }
+        set(isAlgorithmsInserted) = sharedPreferences.edit().putBoolean("isAlgorithmsInserted", isAlgorithmsInserted).apply()
 }
