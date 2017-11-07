@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Button
-import android.widget.TextView
 
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
@@ -28,8 +25,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        val viewProfileBtn = findViewById(R.id.btn_view_profile) as Button
-        viewProfileBtn.setOnClickListener {
+        btn_view_profile.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/pub/alok-omkar/b/917/333"))
             startActivity(browserIntent)
         }

@@ -40,7 +40,7 @@ class FillOptionsRecyclerAdapter(private val fillBlankOptions: ArrayList<String>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
+        var codeTextView: TextView = itemView.findViewById(R.id.codeTextView)
 
         init {
 

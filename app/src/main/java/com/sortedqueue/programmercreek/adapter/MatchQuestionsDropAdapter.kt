@@ -235,9 +235,9 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnDragListener, View.OnLongClickListener {
 
-        internal var questionTextView: TextView? = itemView.findViewById(R.id.questionTextView) as TextView
+        internal var questionTextView: TextView? = itemView.findViewById(R.id.questionTextView)
 
-        internal var matchQuestionLayout: LinearLayout? = itemView.findViewById(R.id.matchQuestionLayout) as LinearLayout
+        internal var matchQuestionLayout: LinearLayout? = itemView.findViewById(R.id.matchQuestionLayout)
 
         init {
 
@@ -273,9 +273,9 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
                             //stop displaying the view where it was before it was dragged
                             //view.setVisibility(View.INVISIBLE);
                             //view dragged item is being dropped on
-                            val dropTarget = view.findViewById(R.id.questionTextView) as TextView
+                            val dropTarget = view.findViewById<TextView>(R.id.questionTextView)
                             //view being dragged and dropped
-                            val dropped = loacalView.findViewById(R.id.questionTextView) as TextView
+                            val dropped = loacalView.findViewById<TextView>(R.id.questionTextView)
                             dropped.setOnTouchListener(null)
                             //update the text in the target view to reflect the data being dropped
                             dropTarget.text = dropped.text
@@ -289,8 +289,8 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
                                 //the tag is the view id already dropped here
                                 val existingID = tag as Int
                                 //set the original view visible again
-                                if (loacalView != null && loacalView.findViewById(existingID) != null)
-                                    loacalView.findViewById(existingID).visibility = View.VISIBLE
+                                if (loacalView != null && loacalView.findViewById<View>(existingID) != null)
+                                    loacalView.findViewById<View>(existingID).visibility = View.VISIBLE
                             }
                             //set the tag in the target view being dropped on - to the ID of the view being dropped
                             if (dropTarget != null && dropped != null)

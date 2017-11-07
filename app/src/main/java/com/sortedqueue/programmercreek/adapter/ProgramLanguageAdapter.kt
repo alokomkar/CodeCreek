@@ -49,13 +49,13 @@ class ProgramLanguageAdapter(private val context: Context, private val programLa
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var programmingTextView: TextView? = itemView.findViewById(R.id.programmingTextView) as TextView
+        internal var programmingTextView: TextView? = itemView.findViewById(R.id.programmingTextView)
 
-        internal var progressBar: ProgressBar? = itemView.findViewById(R.id.progressBar) as ProgressBar
+        internal var progressBar: ProgressBar? = itemView.findViewById(R.id.progressBar)
 
-        internal var programLanguageDescriptionTextView: TextView? = itemView.findViewById(R.id.programLanguageDescriptionTextView) as TextView
+        internal var programLanguageDescriptionTextView: TextView? = itemView.findViewById(R.id.programLanguageDescriptionTextView)
 
-        internal var languageIdTextView: TextView? = itemView.findViewById(R.id.languageIdTextView) as TextView
+        internal var languageIdTextView: TextView? = itemView.findViewById(R.id.languageIdTextView)
 
 
         init {

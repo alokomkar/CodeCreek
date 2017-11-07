@@ -131,14 +131,14 @@ class SubTestFragment : Fragment() {
             itemView.visibility = View.INVISIBLE
             defaultBackgroundColor = itemView.drawingCacheBackgroundColor
             //itemView.setBackgroundColor(backgroundColor);
-            val imageView = itemView.findViewById(R.id.dragItemImageView) as ImageView
+            val imageView = itemView.findViewById<ImageView>(R.id.dragItemImageView)
             if (imageView != null) imageView.visibility = View.INVISIBLE
         }
 
         override fun onStopDrag(itemView: View) {
             itemView.visibility = View.VISIBLE
             //itemView.setBackgroundColor(defaultBackgroundColor);
-            val imageView = itemView.findViewById(R.id.dragItemImageView) as ImageView
+            val imageView = itemView.findViewById<ImageView>(R.id.dragItemImageView)
             if (imageView != null) imageView.visibility = View.VISIBLE
         }
 

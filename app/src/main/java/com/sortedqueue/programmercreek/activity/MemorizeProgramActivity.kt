@@ -33,6 +33,7 @@ import com.sortedqueue.programmercreek.database.ProgramTable
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.interfaces.UIUpdateListener
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
+import kotlinx.android.synthetic.main.activity_revise_program.*
 
 import java.util.ArrayList
 
@@ -45,8 +46,6 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
     internal var mAdapterProgramList: CustomProgramLineListAdapter ?= null
     internal var mAdapterProgramExplanationList: CustomProgramLineListAdapter ?= null
 
-    internal var mProgramListView: ListView ?= null
-    internal var mProgramExplanationListView: ListView ?= null
     internal var mProgramList: ArrayList<String> ?= null
     internal var mProgramExplanationList: ArrayList<String> ?= null
     internal var mProgramIndex: ProgramIndex ?= null
@@ -57,9 +56,6 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
     internal var mIndex = 0
     internal var mProgramLength = 0
 
-    internal var mPrevProgramBtn: ImageButton ?= null
-    internal var mNextProgramBtn: ImageButton ?= null
-    internal var mShowOrHideProgramBtn: ImageButton ?= null
     internal var mWizard = false
 
     var KEY_PROG_TABLE_INSERT = "insertProgramTable"
@@ -167,10 +163,6 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
             mProgramLength = mProgramList!!.size
             Log.d("Program Length", mProgramLength.toString() + "")
 
-            mProgramListView = findViewById(R.id.list_program) as ListView
-            mProgramExplanationListView = findViewById(R.id.list_explanation) as ListView
-
-
             mLinebylineprogramExplanationList!!.add(mProgramExplanationList!![mIndex])
             mLinebylineprogramList!!.add(mProgramList!![mIndex])
             mIndex++
@@ -183,9 +175,9 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
             mAdapterProgramExplanationList = CustomProgramLineListAdapter(this,
                     android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList!!, true)
 
-            mProgramListView!!.adapter = mAdapterProgramList
-            mProgramExplanationListView!!.adapter = mAdapterProgramExplanationList
-            mProgramExplanationListView!!.rotationY = -90f
+            list_program!!.adapter = mAdapterProgramList
+            list_explanation!!.adapter = mAdapterProgramExplanationList
+            list_explanation!!.rotationY = -90f
 
             initButtons()
 
@@ -209,19 +201,17 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
 
     private fun initButtons() {
 
-        mProgDescriptionBtn = findViewById(R.id.descriptionBtn) as Button
-        mProgDescriptionBtn!!.setOnClickListener {
-            if (mProgDescriptionBtn!!.text === "Flip") {
-                mProgDescriptionBtn!!.text = "Flip"
+        descriptionBtn!!.setOnClickListener {
+            if (descriptionBtn!!.text === "Flip") {
+                descriptionBtn!!.text = "Flip"
             } else {
-                mProgDescriptionBtn!!.text = "Flip"
+                descriptionBtn!!.text = "Flip"
             }
             flipit()
         }
 
-        mShowOrHideProgramBtn = findViewById(R.id.showAllBtn_revise) as ImageButton
-        mShowOrHideProgramBtn!!.setImageDrawable(mShowAllDrawable)
-        mShowOrHideProgramBtn!!.setOnClickListener {
+        showAllBtn_revise!!.setImageDrawable(mShowAllDrawable)
+        showAllBtn_revise!!.setOnClickListener {
             mAdapterProgramExplanationList!!.clear()
             mAdapterProgramList!!.clear()
             Log.d("Index < programlength", mIndex.toString() + "<" + mProgramLength)
@@ -233,7 +223,7 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
                 mLinebylineprogramList!!.clear()
                 mLinebylineprogramList = ArrayList<String>()
             }
-            if (mShowOrHideProgramBtn!!.drawable == mShowAllDrawable == true) {
+            if (showAllBtn_revise!!.drawable == mShowAllDrawable == true) {
 
                 for (i in 0..mProgramLength - 1) {
                     mLinebylineprogramExplanationList!!.add(mProgramExplanationList!![i])
@@ -248,22 +238,19 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
                 mAdapterProgramExplanationList!!.notifyDataSetChanged()
 
                 //To scroll down automatically upon introduction of new line
-                mProgramExplanationListView!!.setSelection(mAdapterProgramExplanationList!!.count - 1)
-                mProgramListView!!.setSelection(mAdapterProgramList!!.count - 1)
-                mShowOrHideProgramBtn!!.setImageDrawable(mHideDrawable)
+                list_explanation!!.setSelection(mAdapterProgramExplanationList!!.count - 1)
+                list_program!!.setSelection(mAdapterProgramList!!.count - 1)
+                showAllBtn_revise!!.setImageDrawable(mHideDrawable)
             } else {
                 mIndex = 1
-                mShowOrHideProgramBtn!!.setImageDrawable(mShowAllDrawable)
+                showAllBtn_revise!!.setImageDrawable(mShowAllDrawable)
             }
         }
 
 
-        mNextProgramBtn = findViewById(R.id.nextProgramBtn_revise) as ImageButton
-        mPrevProgramBtn = findViewById(R.id.prevProgramBtn_revise) as ImageButton
-
         enableDisablePrevButton()
 
-        mNextProgramBtn!!.setOnClickListener {
+        nextProgramBtn_revise!!.setOnClickListener {
             programIndex = programIndex + 1
             enableDisablePrevButton()
             mLinebylineprogramExplanationList = ArrayList<String>()
@@ -271,7 +258,7 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
             NextProgram(programIndex)
         }
 
-        mPrevProgramBtn!!.setOnClickListener {
+        prevProgramBtn_revise!!.setOnClickListener {
             programIndex = programIndex - 1
             enableDisablePrevButton()
             mLinebylineprogramExplanationList = ArrayList<String>()
@@ -280,8 +267,8 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
         }
 
 
-        val hintProgramButton = findViewById(R.id.hintProgramBtn) as ImageButton
-        hintProgramButton.setOnClickListener {
+
+        hintProgramBtn.setOnClickListener {
             mAdapterProgramExplanationList!!.clear()
             mAdapterProgramList!!.clear()
             Log.d("Index < programlength", mIndex.toString() + "<" + mProgramLength)
@@ -308,8 +295,8 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
                 mAdapterProgramExplanationList!!.notifyDataSetChanged()
 
                 //To scroll down automatically upon introduction of new line
-                mProgramExplanationListView!!.setSelection(mAdapterProgramExplanationList!!.count - 1)
-                mProgramListView!!.setSelection(mAdapterProgramList!!.count - 1)
+                list_explanation!!.setSelection(mAdapterProgramExplanationList!!.count - 1)
+                list_program!!.setSelection(mAdapterProgramList!!.count - 1)
 
             } else {
                 NextProgram(programIndex)
@@ -334,10 +321,10 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
 
         if (mWizard == true) {
 
-            mPrevProgramBtn!!.visibility = View.GONE
-            mNextProgramBtn!!.visibility = View.GONE
-            mShowOrHideProgramBtn!!.setImageDrawable(mShowAllDrawable)
-            mShowOrHideProgramBtn!!.setOnClickListener { showSelectBox() }
+            prevProgramBtn_revise!!.visibility = View.GONE
+            nextProgramBtn_revise!!.visibility = View.GONE
+            showAllBtn_revise!!.setImageDrawable(mShowAllDrawable)
+            showAllBtn_revise!!.setOnClickListener { showSelectBox() }
 
         }
 
@@ -349,9 +336,9 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
 
     fun enableDisablePrevButton() {
         if (programIndex == 1 || programIndex < 1) {
-            mPrevProgramBtn!!.isEnabled = false
+            prevProgramBtn_revise!!.isEnabled = false
         } else {
-            mPrevProgramBtn!!.isEnabled = true
+            prevProgramBtn_revise!!.isEnabled = true
         }
 
     }
@@ -437,12 +424,12 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
     private fun flipit() {
         val visibleList: ListView
         val invisibleList: ListView
-        if (mProgramListView!!.visibility == View.GONE) {
-            visibleList = mProgramExplanationListView!!
-            invisibleList = mProgramListView!!
+        if (list_program!!.visibility == View.GONE) {
+            visibleList = list_explanation!!
+            invisibleList = list_program!!
         } else {
-            invisibleList = mProgramExplanationListView!!
-            visibleList = mProgramListView!!
+            invisibleList = list_explanation!!
+            visibleList = list_program!!
         }
         mListPostion = visibleList.firstVisiblePosition
         val visToInvis = ObjectAnimator.ofFloat(visibleList, "rotationY", 0f, 90f)

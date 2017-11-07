@@ -48,7 +48,7 @@ class QuickRefernceRecyclerAdapter(private var quickReferences: ArrayList<QuickR
         holder.headerTextView!!.text = quickReference.header
         for (content in quickReference.contentArray) {
             val contentView = inflater!!.inflate(R.layout.item_edit_code, null)
-            val codeEditText = contentView.findViewById(R.id.codeEditText) as EditText
+            val codeEditText = contentView.findViewById<EditText>(R.id.codeEditText)
             codeEditText.isEnabled = false
             if (content.contains("<") || content.contains(">")) {
                 codeEditText.setText(content)
@@ -87,11 +87,11 @@ class QuickRefernceRecyclerAdapter(private var quickReferences: ArrayList<QuickR
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var headerTextView: TextView? = itemView.findViewById(R.id.headerTextView) as TextView
+        internal var headerTextView: TextView? = itemView.findViewById(R.id.headerTextView)
 
-        internal var explanationLayout: LinearLayout? = itemView.findViewById(R.id.explanationLayout) as LinearLayout
+        internal var explanationLayout: LinearLayout? = itemView.findViewById(R.id.explanationLayout)
 
-        internal var indicatorImageview: ImageView? = itemView.findViewById(R.id.indicatorImageview) as ImageView
+        internal var indicatorImageview: ImageView? = itemView.findViewById(R.id.indicatorImageview)
 
 
         init {

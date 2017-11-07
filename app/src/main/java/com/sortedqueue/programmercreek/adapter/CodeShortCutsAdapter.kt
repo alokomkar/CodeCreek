@@ -34,7 +34,7 @@ class CodeShortCutsAdapter(private val mCodeShortCuts: ArrayList<CodeShortCuts>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
+        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView)
 
         init {
 

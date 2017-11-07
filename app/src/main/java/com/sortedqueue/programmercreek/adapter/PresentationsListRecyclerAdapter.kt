@@ -32,11 +32,8 @@ class PresentationsListRecyclerAdapter(private val context: Context, private val
         holder.titleTextView!!.text = presentationModel.presentationName
         holder.subTitleTextView!!.text = presentationModel.presenterName
         Glide.with(context)
-                .load(presentationModel.presentationImage)
                 .asBitmap()
-                .centerCrop()
-                .error(R.color.md_blue_600)
-                .placeholder(R.color.md_blue_600)
+                .load(presentationModel.presentationImage)
                 .into(holder.slideImageView!!)
     }
 
@@ -51,11 +48,11 @@ class PresentationsListRecyclerAdapter(private val context: Context, private val
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView) as TextView
+        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView)
 
-        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView) as TextView
+        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView)
 
-        internal var slideImageView: ImageView? = itemView.findViewById(R.id.slideImageView) as ImageView
+        internal var slideImageView: ImageView? = itemView.findViewById(R.id.slideImageView)
 
         init {
 

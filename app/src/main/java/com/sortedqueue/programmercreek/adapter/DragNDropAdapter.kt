@@ -96,7 +96,7 @@ class DragNDropAdapter : BaseAdapter, RemoveListenerInterface, DropListenerInter
             // Creates a HeaderViewHolder and store references to the two children views
             // we want to bind data to.
             holder = ViewHolder()
-            holder.text = convertView!!.findViewById(mIds!![0]) as TextView
+            holder.text = convertView!!.findViewById(mIds!![0])
 
             convertView.tag = holder
         } else {

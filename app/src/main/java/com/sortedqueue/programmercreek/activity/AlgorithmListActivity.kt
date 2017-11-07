@@ -18,6 +18,8 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
+import com.sortedqueue.programmercreek.util.AuxilaryUtils
+import com.sortedqueue.programmercreek.util.CommonUtils
 import com.startapp.android.publish.adsCommon.StartAppAd
 
 
@@ -93,6 +95,14 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
     }
 
     override fun loadAlgorithmFragment(algorithm: AlgorithmsIndex) {
+        if( !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(this@AlgorithmListActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    loadAlgorithmFragment(algorithm)
+                }
+            })
+            return
+        }
         supportActionBar!!.title = algorithm.programTitle
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)

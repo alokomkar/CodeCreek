@@ -86,8 +86,8 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mCheckSolutionBtn = view!!.findViewById(R.id.checkQuizButton) as Button
-        mTimerBtn = view.findViewById(R.id.timerButton) as Button
+        mCheckSolutionBtn = view!!.findViewById(R.id.checkQuizButton)
+        mTimerBtn = view.findViewById(R.id.timerButton)
         mTimerBtn!!.text = "00:00"
         mTimerBtn!!.isEnabled = false
 

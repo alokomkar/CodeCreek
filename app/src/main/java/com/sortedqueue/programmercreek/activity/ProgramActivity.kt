@@ -144,8 +144,8 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
         setContentView(R.layout.activity_program)
 
         //FrameLayout container = (LinearLayout) findViewById(R.id.container);
-        mProgramListView = findViewById(R.id.list_program) as ListView
-        mProgramExplanationListView = findViewById(R.id.list_explanation) as ListView
+        mProgramListView = findViewById(R.id.list_program)
+        mProgramExplanationListView = findViewById(R.id.list_explanation)
 
 
         // Prepare the ListView
@@ -211,13 +211,13 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
 
     private fun initButtons() {
 
-        mProgDescriptionBtn = findViewById(R.id.descriptionBtn) as Button
+        mProgDescriptionBtn = findViewById(R.id.descriptionBtn)
         mProgDescriptionBtn!!.setOnClickListener(mButtonClickListener)
 
-        mNextProgramBtn = findViewById(R.id.nextProgramBtn) as ImageButton
+        mNextProgramBtn = findViewById(R.id.nextProgramBtn)
         mNextProgramBtn!!.setOnClickListener(mButtonClickListener)
 
-        mPrevProgramBtn = findViewById(R.id.prevProgramBtn) as ImageButton
+        mPrevProgramBtn = findViewById(R.id.prevProgramBtn)
         mPrevProgramBtn!!.setOnClickListener(mButtonClickListener)
         enableDisablePrevButton()
         if (mWizard == true) {

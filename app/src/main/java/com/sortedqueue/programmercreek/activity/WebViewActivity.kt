@@ -27,7 +27,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun load(url: String) {
-        mWebView = findViewById(R.id.webView1) as WebView
+        mWebView = findViewById(R.id.webView1)
         mWebView!!.setWebViewClient(WebViewClient())
         mWebView!!.loadUrl(url)
     }

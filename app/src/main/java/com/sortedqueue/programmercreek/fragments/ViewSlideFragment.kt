@@ -44,10 +44,6 @@ class ViewSlideFragment : Fragment() {
         subTitleTextView!!.text = slideModel!!.subTitle
         Glide.with(context)
                 .load(slideModel!!.slideImageUrl)
-                .asBitmap()
-                .centerCrop()
-                .error(R.color.md_blue_600)
-                .placeholder(R.color.md_blue_600)
                 .into(slideImageView!!)
         if (slideModel!!.code != null && slideModel!!.code.trim { it <= ' ' }.isNotEmpty()) {
             codeView!!.visibility = View.VISIBLE

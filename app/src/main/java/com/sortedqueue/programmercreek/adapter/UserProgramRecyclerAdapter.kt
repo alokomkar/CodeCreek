@@ -73,17 +73,17 @@ class UserProgramRecyclerAdapter(private val context: Context, private val acces
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView) as TextView
+        internal var titleTextView: TextView? = itemView.findViewById(R.id.titleTextView)
 
-        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView) as TextView
+        internal var subTitleTextView: TextView? = itemView.findViewById(R.id.subTitleTextView)
 
-        internal var viewsTextView: TextView? = itemView.findViewById(R.id.viewsTextView) as TextView
+        internal var viewsTextView: TextView? = itemView.findViewById(R.id.viewsTextView)
 
-        internal var likesTextView: TextView? = itemView.findViewById(R.id.likesTextView) as TextView
+        internal var likesTextView: TextView? = itemView.findViewById(R.id.likesTextView)
 
-        internal var shareImageView: ImageView? = itemView.findViewById(R.id.shareImageView) as ImageView
+        internal var shareImageView: ImageView? = itemView.findViewById(R.id.shareImageView)
 
-        internal var extrasLayout: LinearLayout? = itemView.findViewById(R.id.extrasLayout) as LinearLayout
+        internal var extrasLayout: LinearLayout? = itemView.findViewById(R.id.extrasLayout)
 
 
         init {

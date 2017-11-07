@@ -81,9 +81,9 @@ class ModulesRecyclerViewAdapter(private val context: Context, private val langu
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView) as TextView
-        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView) as TextView
-        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView) as ImageView
+        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView)
+        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView)
+        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView)
 
         init {
             itemView.setOnClickListener(this)

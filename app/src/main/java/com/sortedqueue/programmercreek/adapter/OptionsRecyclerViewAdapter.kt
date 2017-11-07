@@ -34,7 +34,7 @@ class OptionsRecyclerViewAdapter(private val context: Context, private val modul
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var optionTextView: TextView? = itemView.findViewById(R.id.optionTextView) as TextView
+        internal var optionTextView: TextView? = itemView.findViewById(R.id.optionTextView)
 
         init {
 

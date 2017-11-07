@@ -43,8 +43,8 @@ class LessonsAdapter(private val context: Context, private val lessons: ArrayLis
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var programLanguageTextView: TextView = itemView.findViewById(R.id.programLanguageTextView) as TextView
-        internal var lessonTitleTextView: TextView = itemView.findViewById(R.id.lessonTitleTextView) as TextView
+        internal var programLanguageTextView: TextView = itemView.findViewById(R.id.programLanguageTextView)
+        internal var lessonTitleTextView: TextView = itemView.findViewById(R.id.lessonTitleTextView)
 
         init {
 

@@ -35,7 +35,7 @@ class TopLearnersRecyclerAdapter(private val context: Context, private val userR
             holder.userNameTextView!!.text = userRanking.userFullName
         else
             holder.userNameTextView!!.text = "Anonymous"
-        Glide.with(context).load(userRanking.userPhotoUrl).asBitmap().centerCrop().into(holder.movieGridItemImageView!!)
+        Glide.with(context).load(userRanking.userPhotoUrl).into(holder.movieGridItemImageView!!)
 
     }
 
@@ -46,11 +46,11 @@ class TopLearnersRecyclerAdapter(private val context: Context, private val userR
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        internal var movieGridItemImageView: ImageView? = view.findViewById(R.id.movieGridItemImageView) as ImageView
+        internal var movieGridItemImageView: ImageView? = view.findViewById(R.id.movieGridItemImageView)
 
-        internal var userNameTextView: TextView? = view.findViewById(R.id.userNameTextView) as TextView
+        internal var userNameTextView: TextView? = view.findViewById(R.id.userNameTextView)
 
-        internal var levelTextView: TextView? = view.findViewById(R.id.levelTextView) as TextView
+        internal var levelTextView: TextView? = view.findViewById(R.id.levelTextView)
 
         init {
 

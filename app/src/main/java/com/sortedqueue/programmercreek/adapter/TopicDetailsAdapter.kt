@@ -70,7 +70,7 @@ class TopicDetailsAdapter(private val lessons: ArrayList<TopicDetails>, private 
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var topicsTextView: TextView? = itemView.findViewById(R.id.topicsTextView) as TextView
+        internal var topicsTextView: TextView? = itemView.findViewById(R.id.topicsTextView)
 
         internal var dividerView: View? = itemView.findViewById(R.id.dividerView)
 

@@ -61,7 +61,7 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnLongClickListener, View.OnTouchListener {
 
-        internal var questionTextView: TextView = itemView.findViewById(R.id.questionTextView) as TextView
+        internal var questionTextView: TextView = itemView.findViewById(R.id.questionTextView)
 
         init {
 
@@ -70,7 +70,7 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
 
         override fun onLongClick(view: View): Boolean {
             view.setOnTouchListener(this)
-            view.findViewById(R.id.questionTextView).setBackgroundResource(R.drawable.selected)
+            view.findViewById<TextView>(R.id.questionTextView).setBackgroundResource(R.drawable.selected)
             mSelectedProgramLineView = view
             //Toast.makeText(getContext(), "Selected", Toast.LENGTH_SHORT).show();
 

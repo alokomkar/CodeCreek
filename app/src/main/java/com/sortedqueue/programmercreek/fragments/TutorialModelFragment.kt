@@ -89,10 +89,6 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
             slideImageLayout!!.visibility = View.VISIBLE
             Glide.with(context)
                     .load(tutorialModel!!.stepImageUrl)
-                    .asBitmap()
-                    .fitCenter()
-                    .error(R.color.md_blue_600)
-                    .placeholder(R.color.md_blue_600)
                     .into(slideImageView!!)
         }
     }

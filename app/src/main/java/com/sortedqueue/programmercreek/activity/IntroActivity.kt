@@ -35,18 +35,15 @@ import java.util.ArrayList
 import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
+import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.app_bar_intro.*
 import kotlinx.android.synthetic.main.content_intro.*
+import kotlinx.android.synthetic.main.nav_header_intro.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
-    private var toolbar: Toolbar? = null
-    private var drawerImageView: ImageView? = null
-
-    private var drawerNameTextView: TextView? = null
-    private var drawerEmailTextView: TextView? = null
 
     private var introChapters = ArrayList<IntroChapter>()
     private var programLanguage: String? = null
@@ -57,19 +54,16 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = findViewById(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)
-        initAndSetUserValues(navigationView.getHeaderView(0))
+        nav_view.setNavigationItemSelectedListener(this)
+        initAndSetUserValues(nav_view.getHeaderView(0))
         doneFAB!!.setOnClickListener {
             currentIndex++
             if (currentIndex <= 3) {
@@ -87,9 +81,6 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     private fun initAndSetUserValues(view: View) {
         val creekPreferences = CreekApplication.creekPreferences
-        drawerEmailTextView = view.findViewById(R.id.drawerEmailTextView) as TextView
-        drawerNameTextView = view.findViewById(R.id.drawerNameTextView) as TextView
-        drawerImageView = view.findViewById(R.id.drawerImageView) as ImageView
         drawerNameTextView!!.text = creekPreferences!!.getAccountName()
         loadChapters()
     }
@@ -353,9 +344,8 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     override fun onBackPressed() {
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             if (CreekApplication.creekPreferences!!.adsEnabled) {
                 StartAppAd.onBackPressed(this)
@@ -395,8 +385,7 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 navigateToChapters();
             }*/
         }
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-        drawer.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 

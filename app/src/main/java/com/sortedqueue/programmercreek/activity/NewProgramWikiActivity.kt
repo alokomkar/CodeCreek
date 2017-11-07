@@ -37,6 +37,7 @@ import java.util.ArrayList
 
 
 import kotlinx.android.synthetic.main.activity_new_program_wiki.*
+import kotlinx.android.synthetic.main.app_bar_program_wiki.*
 import kotlinx.android.synthetic.main.content_wiki.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -48,8 +49,6 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
 
 
     private var programWikiPagerAdapter: ProgramWikiPagerAdapter? = null
-    private var interstitialAd: InterstitialAd? = null
-    private var toolbar: Toolbar? = null
 
     override fun onResume() {
         super.onResume()
@@ -69,7 +68,6 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_program_wiki)
 
-        toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar!!.title = "Program Wiki : " + CreekApplication.creekPreferences!!.programLanguage.toUpperCase()
         val toggle = ActionBarDrawerToggle(
@@ -130,6 +128,8 @@ class NewProgramWikiActivity : AppCompatActivity(), View.OnClickListener, Custom
         programRecyclerView!!.layoutManager = LinearLayoutManager(this@NewProgramWikiActivity, LinearLayoutManager.VERTICAL, false)
         programRecyclerView!!.adapter = ProgramWikiNavRecyclerAdapter(this@NewProgramWikiActivity, programWikis)
     }
+
+    private var interstitialAd: InterstitialAd ?= null
 
     private fun initAds() {
         MobileAds.initialize(applicationContext, getString(R.string.mobile_banner_id))

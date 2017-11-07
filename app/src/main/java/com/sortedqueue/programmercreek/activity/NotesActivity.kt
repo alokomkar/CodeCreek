@@ -57,7 +57,7 @@ class NotesActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
-        canvasView = findViewById(R.id.canvasView) as CanvasView
+        canvasView = findViewById(R.id.canvasView)
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
         mScreenDensity = metrics.densityDpi
@@ -66,7 +66,7 @@ class NotesActivity : AppCompatActivity() {
 
         mProjectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
 
-        mToggleButton = findViewById(R.id.toggle) as ToggleButton
+        mToggleButton = findViewById(R.id.toggle)
         mToggleButton!!.setOnClickListener { v ->
             if (ContextCompat.checkSelfPermission(this@NotesActivity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) + ContextCompat

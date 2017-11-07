@@ -39,7 +39,7 @@ object CommonUtils {
                 //mProgressDialog.setMessage(dialogueMessage);
                 mProgressDialog!!.setContentView(R.layout.progress_dialog)
                 mProgressDialog!!.setCancelable(false)
-                val progressTextView = mProgressDialog!!.findViewById(R.id.progressTextView) as TextView
+                val progressTextView = mProgressDialog!!.findViewById<TextView>(R.id.progressTextView)
                 progressTextView.text = message
                 val animation = AlphaAnimation(1f, 0f)
                 animation.duration = 800
@@ -74,7 +74,7 @@ object CommonUtils {
                 //mProgressDialog.setMessage(dialogueMessage);
                 mProgressDialog!!.setContentView(R.layout.progress_dialog)
                 mProgressDialog!!.setCancelable(false)
-                val progressTextView = mProgressDialog!!.findViewById(R.id.progressTextView) as TextView
+                val progressTextView = mProgressDialog!!.findViewById<TextView>(R.id.progressTextView)
                 progressTextView.text = context.getString(message)
                 val animation = AlphaAnimation(1f, 0f)
                 animation.duration = 800

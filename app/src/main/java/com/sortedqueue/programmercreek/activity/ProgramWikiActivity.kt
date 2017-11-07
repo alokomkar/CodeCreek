@@ -69,8 +69,8 @@ class ProgramWikiActivity : AppCompatActivity() {
         setContentView(R.layout.activity_program_wiki)
 
         creekPreferences = CreekApplication.creekPreferences
-        webView = findViewById(R.id.webView) as WebView
-        progressBar = findViewById(R.id.progressBar) as ContentLoadingProgressBar
+        webView = findViewById(R.id.webView)
+        progressBar = findViewById(R.id.progressBar)
         webView!!.setWebViewClient(MyWebViewClient())
         if (intent.extras != null) {
             programWiki = intent.extras!!.getString(ProgrammingBuddyConstants.KEY_WIKI, WIKI_BASE_URL)
@@ -140,7 +140,7 @@ class ProgramWikiActivity : AppCompatActivity() {
     private fun initAds() {
         if (CreekApplication.creekPreferences!!.adsEnabled) {
             MobileAds.initialize(applicationContext, getString(R.string.mobile_banner_id))
-            mAdView = findViewById(R.id.adView) as AdView
+            mAdView = findViewById(R.id.adView)
             mAdView!!.visibility = View.GONE
             //For actual ads : AdRequest adRequest = new AdRequest.Builder().build();
 

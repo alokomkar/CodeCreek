@@ -96,7 +96,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dragNDropListView = view!!.findViewById(R.id.dragNDropListView) as DragNDropListView
+        dragNDropListView = view!!.findViewById(R.id.dragNDropListView)
         handleBundle()
         MobileAds.initialize(getApplicationContext(), getString(R.string.mobile_banner_id))
         interstitialAd = InterstitialAd(context)
@@ -479,14 +479,14 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
             itemView.visibility = View.INVISIBLE
             defaultBackgroundColor = itemView.drawingCacheBackgroundColor
             //itemView.setBackgroundColor(backgroundColor);
-            val imageView = itemView.findViewById(R.id.dragItemImageView) as ImageView
+            val imageView = itemView.findViewById<ImageView>(R.id.dragItemImageView)
             if (imageView != null) imageView.visibility = View.INVISIBLE
         }
 
         override fun onStopDrag(itemView: View) {
             itemView.visibility = View.VISIBLE
             //itemView.setBackgroundColor(defaultBackgroundColor);
-            val imageView = itemView.findViewById(R.id.dragItemImageView) as ImageView
+            val imageView = itemView.findViewById<ImageView>(R.id.dragItemImageView)
             if (imageView != null) imageView.visibility = View.VISIBLE
         }
 

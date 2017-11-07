@@ -64,11 +64,11 @@ class NotesPreviewRecyclerAdapter(private val notesModelArrayList: ArrayList<Not
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        internal var headerTextView: TextView = itemView.findViewById(R.id.headerTextView) as TextView
+        internal var headerTextView: TextView = itemView.findViewById(R.id.headerTextView)
 
-        internal var contentTextView: TextView = itemView.findViewById(R.id.contentTextView) as TextView
+        internal var contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
 
-        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView) as TextView
+        internal var codeTextView: TextView = itemView.findViewById(R.id.codeTextView)
 
         init {
 

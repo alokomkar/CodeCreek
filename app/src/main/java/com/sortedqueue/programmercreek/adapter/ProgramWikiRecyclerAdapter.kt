@@ -102,7 +102,7 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
 
     inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        internal var syntaxNameTextView: TextView? = view.findViewById(R.id.syntaxNameTextView) as TextView
+        internal var syntaxNameTextView: TextView? = view.findViewById(R.id.syntaxNameTextView)
 
         init {
 
@@ -111,16 +111,16 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
 
     inner class ProgramViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView) as TextView
+        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView)
 
 
-        internal var syntaxSolutionTextView: TextView? = view.findViewById(R.id.syntaxSolutionTextView) as TextView
+        internal var syntaxSolutionTextView: TextView? = view.findViewById(R.id.syntaxSolutionTextView)
 
 
-        internal var programCodeView: CodeView? = view.findViewById(R.id.programCodeView) as CodeView
+        internal var programCodeView: CodeView? = view.findViewById(R.id.programCodeView)
 
 
-        internal var codeLabTextView: TextView? = view.findViewById(R.id.codeLabTextView) as TextView
+        internal var codeLabTextView: TextView? = view.findViewById(R.id.codeLabTextView)
 
         init {
 
@@ -147,7 +147,7 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
 
     inner class ProgramExplanationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView) as TextView
+        internal var syntaxDescriptionTextView: TextView? = view.findViewById(R.id.syntaxDescriptionTextView)
 
         init {
 

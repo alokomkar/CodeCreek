@@ -67,13 +67,13 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView)
 
-        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView)
 
-        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView) as TextView
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView)
 
-        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView) as TextView
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView)
 
         init {
 
@@ -103,10 +103,10 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
 
     inner class ExplanationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
-        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
-        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
-        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView)
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView)
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView)
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView)
 
         init {
 
@@ -137,13 +137,13 @@ class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : 
 
     inner class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView) as TextView
+        internal var wikiHeaderTextView: TextView? = itemView.findViewById(R.id.wikiHeaderTextView)
 
-        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView) as TextView
+        internal var wikiExplanationTextView: TextView? = itemView.findViewById(R.id.wikiExplanationTextView)
 
-        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView) as TextView
+        internal var wikiExampleTextView: TextView? = itemView.findViewById(R.id.wikiExampleTextView)
 
-        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView) as TextView
+        internal var wikiOuptputTextView: TextView? = itemView.findViewById(R.id.wikiOuptputTextView)
 
         init {
 

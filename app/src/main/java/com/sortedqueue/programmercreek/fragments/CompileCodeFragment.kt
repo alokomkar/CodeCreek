@@ -149,7 +149,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
         codeOutputResponseCall.enqueue(object : Callback<CodeOutputResponse> {
             override fun onResponse(call: Call<CodeOutputResponse>, response: Response<CodeOutputResponse>) {
                 Log.d(TAG, "Output Response : " + response.body().toString())
-                outputTextView!!.text = response.body().output
+                outputTextView!!.text = response.body()!!.output
                 stopAnimation()
             }
 
@@ -180,7 +180,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
         idResponseCall.enqueue(object : Callback<IdResponse> {
             override fun onResponse(call: Call<IdResponse>, response: Response<IdResponse>) {
                 Log.d(TAG, "Execute Response : " + response.body().toString())
-                Handler().postDelayed({ getProgramOutput(response.body()) }, 4000)
+                Handler().postDelayed({ getProgramOutput(response.body()!!) }, 4000)
 
             }
 

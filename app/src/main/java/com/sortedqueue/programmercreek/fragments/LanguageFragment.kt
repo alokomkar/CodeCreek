@@ -132,9 +132,6 @@ class LanguageFragment : Fragment() {
     private fun initUserValues() {
         Glide.with(context)
                 .load(creekPreferences!!.getAccountPhoto())
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
                 .into(profileImageView!!)
         nameTextView!!.text = creekPreferences!!.getAccountName()
         if (creekPreferences == null) {

@@ -49,11 +49,11 @@ class ProgramWikiNavRecyclerAdapter(private val context: Context, private val pr
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var programTypeTextView: TextView? = itemView.findViewById(R.id.programTypeTextView) as TextView
+        internal var programTypeTextView: TextView? = itemView.findViewById(R.id.programTypeTextView)
 
-        internal var txtViewProgDescription: TextView? = itemView.findViewById(R.id.txtViewProgDescription) as TextView
+        internal var txtViewProgDescription: TextView? = itemView.findViewById(R.id.txtViewProgDescription)
 
-        internal var lockedImageView: ImageView? = itemView.findViewById(R.id.lockedImageView) as ImageView
+        internal var lockedImageView: ImageView? = itemView.findViewById(R.id.lockedImageView)
 
         init {
 

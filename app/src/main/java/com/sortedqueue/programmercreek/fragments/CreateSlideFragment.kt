@@ -391,7 +391,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
                     Log.d(TAG, "Upload Success : " + downloadUri.toString())
                     this@CreateSlideFragment.selectedImageUri = downloadUri
                     slideModel!!.slideImageUrl = downloadUri.toString()
-                    Glide.with(context).load(downloadUri).asBitmap().into(slideImageView!!)
+                    Glide.with(context).load(downloadUri).into(slideImageView!!)
                 }
 
                 override fun onProgressUpdate(currentProgress: Double) {

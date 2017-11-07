@@ -124,19 +124,19 @@ class LoginSignupDialog {
     }
 
     private fun initialize( dialogView: View?) {
-        doneButton = dialogView!!.findViewById(R.id.doneButton) as Button
-        cancelButton = dialogView!!.findViewById(R.id.cancelButton) as Button
-        signupRadioButton = dialogView!!.findViewById(R.id.signupRadioButton) as RadioButton
-        loginRadioButton = dialogView!!.findViewById(R.id.loginRadioButton) as RadioButton
-        inputName = dialogView!!.findViewById(R.id.input_name) as EditText
-        inputLayoutName = dialogView!!.findViewById(R.id.input_layout_name) as TextInputLayout
-        inputEmail = dialogView!!.findViewById(R.id.input_email) as EditText
-        inputLayoutEmail = dialogView!!.findViewById(R.id.input_layout_email) as TextInputLayout
-        inputPassword = dialogView!!.findViewById(R.id.input_password) as EditText
-        inputLayoutPassword = dialogView!!.findViewById(R.id.input_layout_password) as TextInputLayout
-        reinputPassword = dialogView!!.findViewById(R.id.reinput_password) as EditText
-        reinputLayoutPassword = dialogView!!.findViewById(R.id.reinput_layout_password) as TextInputLayout
-        signupRadioGroup = dialogView!!.findViewById(R.id.signupRadioGroup) as RadioGroup
+        doneButton = dialogView!!.findViewById(R.id.doneButton)
+        cancelButton = dialogView!!.findViewById(R.id.cancelButton)
+        signupRadioButton = dialogView!!.findViewById(R.id.signupRadioButton)
+        loginRadioButton = dialogView!!.findViewById(R.id.loginRadioButton)
+        inputName = dialogView!!.findViewById(R.id.input_name)
+        inputLayoutName = dialogView!!.findViewById(R.id.input_layout_name)
+        inputEmail = dialogView!!.findViewById(R.id.input_email)
+        inputLayoutEmail = dialogView!!.findViewById(R.id.input_layout_email)
+        inputPassword = dialogView!!.findViewById(R.id.input_password)
+        inputLayoutPassword = dialogView!!.findViewById(R.id.input_layout_password)
+        reinputPassword = dialogView!!.findViewById(R.id.reinput_password)
+        reinputLayoutPassword = dialogView!!.findViewById(R.id.reinput_layout_password)
+        signupRadioGroup = dialogView!!.findViewById(R.id.signupRadioGroup)
     }
 
     private fun validateAllFields(): Boolean {

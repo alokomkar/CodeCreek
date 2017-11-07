@@ -91,10 +91,6 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
         if (subTopics!!.imageUrl != null && subTopics!!.imageUrl.trim { it <= ' ' }.length > 0) {
             Glide.with(context)
                     .load(subTopics!!.imageUrl)
-                    .asBitmap()
-                    .fitCenter()
-                    .error(R.color.md_blue_600)
-                    .placeholder(R.color.md_blue_600)
                     .into(slideImageView!!)
             slideImageView!!.visibility = View.VISIBLE
         }
@@ -151,7 +147,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
                 fillBlankOptions.add(codeWords[randomIndex])
                 codeWords[randomIndex] = blankString!!
                 fillBlankQuestions.add(codeWords)
-                val recyclerView = LayoutInflater.from(context).inflate(R.layout.recyclerview_fill_code, null).findViewById(R.id.codeBlanksRecyclerView) as RecyclerView
+                val recyclerView = LayoutInflater.from(context).inflate(R.layout.recyclerview_fill_code, null).findViewById<RecyclerView>(R.id.codeBlanksRecyclerView)
                 recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 fillCodeAdapter = FillCodeRecyclerAdapter(codeWords, randomIndex)
                 fillCodeRecyclerAdapters!!.add(fillCodeAdapter!!)

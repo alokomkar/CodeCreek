@@ -93,31 +93,31 @@ class QuizRecyclerAdapter(private val context: Context, private val quizModels: 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var questionTextView: TextView? = itemView.findViewById(R.id.questionTextView) as TextView
+        internal var questionTextView: TextView? = itemView.findViewById(R.id.questionTextView)
 
-        internal var option1TextView: TextView? = itemView.findViewById(R.id.option1TextView) as TextView
+        internal var option1TextView: TextView? = itemView.findViewById(R.id.option1TextView)
 
-        internal var option1Layout: LinearLayout? = itemView.findViewById(R.id.option1Layout) as LinearLayout
+        internal var option1Layout: LinearLayout? = itemView.findViewById(R.id.option1Layout)
 
-        internal var option2TextView: TextView? = itemView.findViewById(R.id.option2TextView) as TextView
+        internal var option2TextView: TextView? = itemView.findViewById(R.id.option2TextView)
 
-        internal var option2Layout: LinearLayout? = itemView.findViewById(R.id.option2Layout) as LinearLayout
+        internal var option2Layout: LinearLayout? = itemView.findViewById(R.id.option2Layout)
 
-        internal var option3TextView: TextView? = itemView.findViewById(R.id.option3TextView) as TextView
+        internal var option3TextView: TextView? = itemView.findViewById(R.id.option3TextView)
 
-        internal var option3Layout: LinearLayout? = itemView.findViewById(R.id.option3Layout) as LinearLayout
+        internal var option3Layout: LinearLayout? = itemView.findViewById(R.id.option3Layout)
 
-        internal var option4TextView: TextView? = itemView.findViewById(R.id.option4TextView) as TextView
+        internal var option4TextView: TextView? = itemView.findViewById(R.id.option4TextView)
 
-        internal var option4Layout: LinearLayout? = itemView.findViewById(R.id.option4Layout) as LinearLayout
+        internal var option4Layout: LinearLayout? = itemView.findViewById(R.id.option4Layout)
 
-        internal var option1ImageView: ImageView? = itemView.findViewById(R.id.option1ImageView) as ImageView
+        internal var option1ImageView: ImageView? = itemView.findViewById(R.id.option1ImageView)
 
-        internal var option2ImageView: ImageView? = itemView.findViewById(R.id.option2ImageView) as ImageView
+        internal var option2ImageView: ImageView? = itemView.findViewById(R.id.option2ImageView)
 
-        internal var option3ImageView: ImageView? = itemView.findViewById(R.id.option3ImageView) as ImageView
+        internal var option3ImageView: ImageView? = itemView.findViewById(R.id.option3ImageView)
 
-        internal var option4ImageView: ImageView? = itemView.findViewById(R.id.option4ImageView) as ImageView
+        internal var option4ImageView: ImageView? = itemView.findViewById(R.id.option4ImageView)
 
 
         init {

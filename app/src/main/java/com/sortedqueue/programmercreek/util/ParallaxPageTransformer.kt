@@ -26,7 +26,7 @@ class ParallaxPageTransformer : ViewPager.PageTransformer {
 
         } else if (position <= 1) { // [-1,1]
 
-            view.findViewById(R.id.checkFAB).translationX = -position * (pageWidth / 2) //Half the normal speed
+            view.findViewById<View>(R.id.checkFAB).translationX = -position * (pageWidth / 2) //Half the normal speed
 
         } else { // (1,+Infinity]
             // This page is way off-screen to the right.

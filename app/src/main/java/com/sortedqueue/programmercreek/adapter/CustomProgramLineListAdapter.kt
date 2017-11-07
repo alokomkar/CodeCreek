@@ -43,7 +43,7 @@ class CustomProgramLineListAdapter(private val mContext: Context, resource: Int,
         if (convertView == null) {
             view = mLayoutInflater!!.inflate(R.layout.program_list, null)
             mViewHolder = ViewHolder()
-            mViewHolder!!.programLineTextView = view.findViewById(R.id.progamLineTxtView) as TextView
+            mViewHolder!!.programLineTextView = view.findViewById(R.id.progamLineTxtView)
             view.tag = mViewHolder
         } else {
             mViewHolder = view!!.tag as ViewHolder

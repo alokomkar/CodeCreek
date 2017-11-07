@@ -33,8 +33,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.firebase.messaging.RemoteMessage
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
@@ -115,13 +115,13 @@ object AuxilaryUtils {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_app_invite, null)
         alertDialogBuilder.setView(view)
 
-        val resultTextView = view.findViewById(R.id.inviteTextView) as TextView
+        val resultTextView = view.findViewById<TextView>(R.id.inviteTextView)
         resultTextView.text = "Congratulations on your progress!!\nHow do you like the app so far?\n\n" + "Would you like to invite your friends in your journey of learning?"
-        val imageView = view.findViewById(R.id.congratsImageView) as ImageView
+        val imageView = view.findViewById<ImageView>(R.id.congratsImageView)
         // set title
         Glide.with(context)
-                .load(CONGRATS_GIF)
                 .asGif()
+                .load(CONGRATS_GIF)
                 .into(imageView)
         alertDialogBuilder.setTitle("Invite Friends")
 
@@ -404,8 +404,8 @@ object AuxilaryUtils {
         val alertDialogBuilder = Builder(
                 context)
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_input, null)
-        val inputEditText = view.findViewById(R.id.inputEditText) as EditText
-        val headerTextView = view.findViewById(R.id.headerTextView) as TextView
+        val inputEditText = view.findViewById<EditText>(R.id.inputEditText)
+        val headerTextView = view.findViewById<TextView>(R.id.headerTextView)
         headerTextView.text = title
         if (message != null) {
             inputEditText.setText(message)
@@ -453,9 +453,9 @@ object AuxilaryUtils {
                 activity)
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_result, null)
         alertDialogBuilder.setView(view)
-        val progressBar = view.findViewById(R.id.progressBar) as ProgressBar
-        val bigScoreTextView = view.findViewById(R.id.bigScoreTextView) as TextView
-        val resultTextView = view.findViewById(R.id.resultTextView) as TextView
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        val bigScoreTextView = view.findViewById<TextView>(R.id.bigScoreTextView)
+        val resultTextView = view.findViewById<TextView>(R.id.resultTextView)
         bigScoreTextView.text = pointsScore.toString() + "/" + maxScore
         resultTextView.text = message
         progressBar.max = maxScore
@@ -542,10 +542,10 @@ object AuxilaryUtils {
 
         Glide
                 .with(context)
-                .load(imageUrl)
                 .asBitmap()
-                .into(object : SimpleTarget<Bitmap>(SimpleTarget.SIZE_ORIGINAL, SimpleTarget.SIZE_ORIGINAL) {
-                    override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                .load(imageUrl)
+                .into( object : SimpleTarget<Bitmap>(SimpleTarget.SIZE_ORIGINAL, SimpleTarget.SIZE_ORIGINAL) {
+                    override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                         val resultIntent: Intent
                         val stackBuilder = TaskStackBuilder.create(context)
                         resultIntent = Intent(context, DashboardActivity::class.java)
@@ -580,7 +580,9 @@ object AuxilaryUtils {
                         noti.flags = noti.flags or Notification.FLAG_AUTO_CANCEL
                         mNotifyMgr.notify(mNotificationId, noti)
                     }
-                })
+
+                } )
+
     }
 
     val isNetworkAvailable: Boolean

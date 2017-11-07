@@ -94,9 +94,9 @@ class TagsRecyclerAdapter : RecyclerView.Adapter<TagsRecyclerAdapter.ViewHolder>
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
-        internal var tagTextView: TextView? = itemView.findViewById(R.id.tagTextView) as TextView
+        internal var tagTextView: TextView? = itemView.findViewById(R.id.tagTextView)
 
-        internal var tagLayout: LinearLayout? = itemView.findViewById(R.id.tagLayout) as LinearLayout
+        internal var tagLayout: LinearLayout? = itemView.findViewById(R.id.tagLayout)
 
         init {
 

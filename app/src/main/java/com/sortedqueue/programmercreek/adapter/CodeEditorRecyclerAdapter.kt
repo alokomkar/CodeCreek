@@ -89,7 +89,7 @@ class CodeEditorRecyclerAdapter : RecyclerView.Adapter<CodeEditorRecyclerAdapter
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, TextWatcher {
 
-        internal var codeEditText: EditText = itemView.findViewById(R.id.codeEditText) as EditText
+        internal var codeEditText: EditText = itemView.findViewById(R.id.codeEditText)
 
         init {
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import co.uk.rushorm.core.RushCallback
 
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.google.firebase.auth.FirebaseAuth
@@ -223,7 +224,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     mutableData.value = tagModel
                 } else {
                     val tagModel = mutableData.getValue(TagModel::class.java)
-                    val tags = tagModel.tagArrayList
+                    val tags = tagModel!!.tagArrayList
                     if (!checkArrayList(tags, newTag)) {
                         tagModel.tagArrayList.add(newTag)
                         mutableData.value = tagModel
@@ -754,14 +755,17 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     val algorithmsIndices = ArrayList<AlgorithmsIndex>()
                     for (snapshot in dataSnapshot.children) {
                         val algorithmsIndex = snapshot.getValue(AlgorithmsIndex::class.java)
-                        algorithmsIndices.add(algorithmsIndex)
+                        algorithmsIndices.add(algorithmsIndex!!)
                     }
                     if (algorithmsIndices.size == 0) {
                         getAllAlgorithmsListener.onError(null)
                         CommonUtils.dismissProgressDialog()
                     } else {
-                        downloadAlgorihtms(algorithmsIndices, getAllAlgorithmsListener)
-
+                        RushCore.getInstance().save(algorithmsIndices, {})
+                        creekPreferences.isAlgorithmsInserted = true
+                        getAllAlgorithmsListener.onSuccess(algorithmsIndices)
+                        //downloadAlgorihtms(algorithmsIndices, getAllAlgorithmsListener)
+                        CommonUtils.dismissProgressDialog()
                     }
 
                 }
@@ -800,13 +804,11 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     val algorithm = child.getValue(Algorithm::class.java)
                     if( algorithm != null && algorithm.algorithmsIndex != null )
                         algorithm.algorithmId = ALGORITHM + "_" + algorithm.algorithmsIndex.programIndex
-                    algorithm.save {  }
+                    algorithm!!.save { }
                 }
-                RushCore.getInstance().save(algorithmsIndices, {})
+
                 creekPreferences.isAlgorithmsInserted = true
                 allAlgorithmsListener.onSuccess(algorithmsIndices)
-                CommonUtils.dismissProgressDialog()
-
                 CommonUtils.dismissProgressDialog()
             }
 
@@ -824,36 +826,38 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     }
 
     fun getAlgorithmForIndex(algorithmIndex: Int, getAlgorithmListener: GetAlgorithmListener) {
+        //getOfflineAlgorithmIndex( algorithmIndex, getAlgorithmListener )
         CommonUtils.displayProgressDialog(mContext, mContext.getString(R.string.loading))
-        if( creekPreferences.isAlgorithmsInserted ) {
+        mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
+        mAlgorithmReference!!.child(ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val algorithm = dataSnapshot.getValue(Algorithm::class.java)
+                if (algorithm != null) {
+                    getAlgorithmListener.onSuccess(algorithm)
+                } else {
+                    getAlgorithmListener.onError(null)
+                }
+                CommonUtils.dismissProgressDialog()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                getAlgorithmListener.onError(databaseError)
+                CommonUtils.dismissProgressDialog()
+            }
+        })
+        /*if( creekPreferences.isAlgorithmsInserted ) {
             getOfflineAlgorithmIndex( algorithmIndex, getAlgorithmListener )
         }
         else {
-            mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
-            mAlgorithmReference!!.child(ALGORITHM + "_" + algorithmIndex).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val algorithm = dataSnapshot.getValue(Algorithm::class.java)
-                    if (algorithm != null) {
-                        getAlgorithmListener.onSuccess(algorithm)
-                    } else {
-                        getAlgorithmListener.onError(null)
-                    }
-                    CommonUtils.dismissProgressDialog()
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    getAlgorithmListener.onError(databaseError)
-                    CommonUtils.dismissProgressDialog()
-                }
-            })
-        }
+        }*/
 
     }
 
     private fun getOfflineAlgorithmIndex(algorithmIndex: Int, algorithmListener: GetAlgorithmListener) {
         object : AsyncTask<Void, Void, Algorithm>() {
             override fun doInBackground(vararg p0: Void?): Algorithm {
-                return RushSearch().whereEqual("algorithmId", ALGORITHM + "_" + algorithmIndex).findSingle(Algorithm::class.java)
+                return RushSearch().whereEqual("algorithmId",   ALGORITHM + "_" + algorithmIndex).findSingle(Algorithm::class.java)
             }
 
             override fun onPostExecute(result: Algorithm?) {
@@ -890,7 +894,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                             super.onPostExecute(aVoid)
                             for (child in dataSnapshot.children) {
                                 val programLanguage = child.getValue(ProgramLanguage::class.java)
-                                programLanguages!!.add(programLanguage)
+                                programLanguages!!.add(programLanguage!!)
                                 programLanguage.save { }
                             }
 
@@ -1061,7 +1065,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val introChapters = ArrayList<IntroChapter>()
                     for (keySnapShot in dataSnapshot.children) {
-                        introChapters.add(keySnapShot.getValue(IntroChapter::class.java))
+                        introChapters.add(keySnapShot.getValue(IntroChapter::class.java)!!)
                     }
                     getIntroChaptersListener.onSuccess(introChapters)
                     RushCore.getInstance().save(introChapters) { Log.d(TAG, "getIntroChapters : Saved to local : " + programLanguage + " : " + introChapters.toString()) }
@@ -1306,7 +1310,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
             mProgramDatabase!!.child(PROGRAM_INDEX_CHILD).child(mProgramIndex.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val programIndex = dataSnapshot.getValue(ProgramIndex::class.java)
-                    getProgramIndexListener.onSuccess(programIndex)
+                    getProgramIndexListener.onSuccess(programIndex!!)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -1434,7 +1438,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         mProgramWikiDatabase!!.child(wizardUrl).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val wikiModel = dataSnapshot.getValue(WikiModel::class.java)
-                getWikiModelListener.onSuccess(wikiModel)
+                getWikiModelListener.onSuccess(wikiModel!!)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -1551,7 +1555,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     Log.d(TAG, "Wiki model Resoponse : " + dataSnapshot.toString())
                     for (childDataSnapShot in dataSnapshot.children) {
                         val wiki = childDataSnapShot.getValue(WikiModel::class.java)
-                        wiki.save { }
+                        wiki!!.save { }
                         programWikis.add(wiki)
                     }
                     programWikiInterface.getProgramWiki(programWikis)
@@ -1624,13 +1628,13 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     for (childDataSnapShot in dataSnapshot.children) {
                         val syntaxModule = childDataSnapShot.getValue(SyntaxModule::class.java)
                         if (largestSyntaxId == "") {
-                            largestSyntaxId = syntaxModule.moduleId + "_" + syntaxModule.syntaxModuleId
+                            largestSyntaxId = syntaxModule!!.moduleId + "_" + syntaxModule.syntaxModuleId
                         } else {
-                            if (alphaNumComparator.compare(largestSyntaxId, syntaxModule.moduleId + "_" + syntaxModule.syntaxModuleId) <= 0) {
+                            if (alphaNumComparator.compare(largestSyntaxId, syntaxModule!!.moduleId + "_" + syntaxModule.syntaxModuleId) <= 0) {
                                 largestSyntaxId = syntaxModule.moduleId + "_" + syntaxModule.syntaxModuleId
                             }
                         }
-                        syntaxModule.save { }
+                        syntaxModule!!.save { }
                         if (syntaxModule.moduleId == languageModule.moduleId) {
                             syntaxModules.add(syntaxModule)
                         }
@@ -1693,7 +1697,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     val languageModules = ArrayList<LanguageModule>()
                     for (childDataSnapShot in dataSnapshot.children) {
                         val languageModule = childDataSnapShot.getValue(LanguageModule::class.java)
-                        languageModule.save { }
+                        languageModule!!.save { }
                         languageModules.add(languageModule)
                     }
                     moduleInterface.getModules(languageModules)
@@ -1764,7 +1768,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                             val program_indices = ArrayList<ProgramIndex>()
                             for (programIndexSnapshot in dataSnapshot.children) {
                                 val program_index = programIndexSnapshot.getValue(ProgramIndex::class.java)
-                                program_index.save { }
+                                program_index!!.save { }
                                 program_indices.add(program_index)
                             }
                             creekPreferences.setProgramIndex(program_indices[program_indices.size - 1].program_index)
@@ -1840,7 +1844,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                                 Log.d(TAG, "initializeProgramTables : indexSnapshot size : " + indexSnapshot.childrenCount)
                                 for (lineSnapShot in indexSnapshot.children) {
                                     val program_table = lineSnapShot.getValue(ProgramTable::class.java)
-                                    program_table.save { }
+                                    program_table!!.save { }
                                     program_tables!!.add(program_table)
                                     Log.d(TAG, "Inserted program tables : " + program_tables!!.size)
                                 }
@@ -1872,8 +1876,8 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                 for (child in dataSnapshot.children) {
                     val creekUserStats = child.getValue(CreekUserStats::class.java)
                     Log.d(TAG, "CreekUserStats : account : " + child.key)
-                    creekUserStats.calculateReputation()
-                    creekUserStatsHashMap.put(child.key, creekUserStats)
+                    creekUserStats!!.calculateReputation()
+                    creekUserStatsHashMap.put(child.key, creekUserStats!!)
                     mUserStatsDatabase!!.child(child.key.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
                     updateRankingForAllUsers(creekUserStatsHashMap)
 
@@ -1986,8 +1990,8 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         val userRankings = ArrayList<UserRanking>()
                         for (child in dataSnapshot.children) {
                             val userRanking = child.getValue(UserRanking::class.java)
-                            if (userRanking.emailId != "programmer.creek@gmail.com")
-                                userRankings.add(child.getValue(UserRanking::class.java))
+                            if (userRanking!!.emailId != "programmer.creek@gmail.com")
+                                userRankings.add(child.getValue(UserRanking::class.java)!!)
                         }
                         getTopLearnersInterface.onSuccess(userRankings)
                     }

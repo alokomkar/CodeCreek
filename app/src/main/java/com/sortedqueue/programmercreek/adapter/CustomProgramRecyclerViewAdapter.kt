@@ -158,10 +158,10 @@ class CustomProgramRecyclerViewAdapter : RecyclerView.Adapter<CustomProgramRecyc
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
 
-        internal var programTypeTextView: TextView= itemView.findViewById(R.id.programTypeTextView) as TextView
-        internal var txtViewProgDescription: TextView= itemView.findViewById(R.id.txtViewProgDescription) as TextView
-        internal var lockedImageView: ImageView= itemView.findViewById(R.id.lockedImageView) as ImageView
-        internal var unlockedByInviteImageView: ImageView= itemView.findViewById(R.id.unlockedByInviteImageView) as ImageView
+        internal var programTypeTextView: TextView= itemView.findViewById(R.id.programTypeTextView)
+        internal var txtViewProgDescription: TextView= itemView.findViewById(R.id.txtViewProgDescription)
+        internal var lockedImageView: ImageView= itemView.findViewById(R.id.lockedImageView)
+        internal var unlockedByInviteImageView: ImageView= itemView.findViewById(R.id.unlockedByInviteImageView)
 
 
         init {

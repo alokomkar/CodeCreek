@@ -41,8 +41,8 @@ class AlgorithmsRecyclerAdapter(context: Context, private val adapterClickListne
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var titleTextView: TextView = itemView.findViewById(R.id.titleTextView) as TextView
-        internal var descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView) as TextView
+        internal var titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
+        internal var descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
 
         init {
 

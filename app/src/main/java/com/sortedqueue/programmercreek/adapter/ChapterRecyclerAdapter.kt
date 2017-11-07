@@ -126,12 +126,12 @@ class ChapterRecyclerAdapter(private val context: Context, private val chapters:
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView) as TextView
-        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView) as TextView
-        var headerTextView: TextView = itemView.findViewById(R.id.headerTextView) as TextView
-        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView) as ImageView
-        var appCompatSeekBar: SeekBar = itemView.findViewById(R.id.appCompatSeekBar) as SeekBar
-        var moduleLayout: RelativeLayout = itemView.findViewById(R.id.moduleLayout) as RelativeLayout
+        var moduleNameTextView: TextView = itemView.findViewById(R.id.moduleNameTextView)
+        var moduleDescriptionTextView: TextView = itemView.findViewById(R.id.moduleDescriptionTextView)
+        var headerTextView: TextView = itemView.findViewById(R.id.headerTextView)
+        var lockedImageView: ImageView = itemView.findViewById(R.id.lockedImageView)
+        var appCompatSeekBar: SeekBar = itemView.findViewById(R.id.appCompatSeekBar)
+        var moduleLayout: RelativeLayout = itemView.findViewById(R.id.moduleLayout)
 
         init {
 

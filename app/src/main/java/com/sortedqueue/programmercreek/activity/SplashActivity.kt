@@ -104,13 +104,13 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
         var anim = AnimationUtils.loadAnimation(this, R.anim.alpha)
         anim.reset()
-        val l = findViewById(R.id.splashLayout) as LinearLayout
+        val l = findViewById<LinearLayout>(R.id.splashLayout)
         l.clearAnimation()
         l.startAnimation(anim)
 
         anim = AnimationUtils.loadAnimation(this, R.anim.translate)
         anim.reset()
-        val iv = findViewById(R.id.iconImageView) as ImageView
+        val iv = findViewById<ImageView>(R.id.iconImageView)
         iv.clearAnimation()
         iv.startAnimation(anim)
 

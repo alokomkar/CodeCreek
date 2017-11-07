@@ -47,13 +47,13 @@ class NotesShareRecyclerAdapter(val notesModelArrayList: ArrayList<NotesModel>) 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), CompoundButton.OnCheckedChangeListener {
 
-        internal var notesTextView: TextView? = itemView.findViewById(R.id.notesTextView) as TextView
+        internal var notesTextView: TextView? = itemView.findViewById(R.id.notesTextView)
 
-        internal var codeRadioButton: RadioButton? = itemView.findViewById(R.id.codeRadioButton) as RadioButton
+        internal var codeRadioButton: RadioButton? = itemView.findViewById(R.id.codeRadioButton)
 
-        internal var notesRadioButton: RadioButton? = itemView.findViewById(R.id.notesRadioButton) as RadioButton
+        internal var notesRadioButton: RadioButton? = itemView.findViewById(R.id.notesRadioButton)
 
-        internal var headerRadioButton: RadioButton? = itemView.findViewById(R.id.headerRadioButton) as RadioButton
+        internal var headerRadioButton: RadioButton? = itemView.findViewById(R.id.headerRadioButton)
 
         init {
 

@@ -64,7 +64,7 @@ class ArticleShareAdaper(val notesModelArrayList: ArrayList<NotesModel>) : Recyc
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var notesTextView: TextView = itemView.findViewById(R.id.notesTextView) as TextView
+        internal var notesTextView: TextView = itemView.findViewById(R.id.notesTextView)
 
         init {
 

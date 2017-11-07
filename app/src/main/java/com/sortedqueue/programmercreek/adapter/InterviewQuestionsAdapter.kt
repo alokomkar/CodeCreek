@@ -132,9 +132,9 @@ class InterviewQuestionsAdapter(private val interviewQuestionModel: InterviewQue
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        internal var progamLineTxtView: TextView = itemView.findViewById(R.id.progamLineTxtView) as TextView
-        internal var reorderImageView: ImageView = itemView.findViewById(R.id.reorderImageView) as ImageView
-        internal var optionCardView: LinearLayout = itemView.findViewById(R.id.optionCardView) as LinearLayout
+        internal var progamLineTxtView: TextView = itemView.findViewById(R.id.progamLineTxtView)
+        internal var reorderImageView: ImageView = itemView.findViewById(R.id.reorderImageView)
+        internal var optionCardView: LinearLayout = itemView.findViewById(R.id.optionCardView)
 
         init {
             itemView.setOnClickListener(this)

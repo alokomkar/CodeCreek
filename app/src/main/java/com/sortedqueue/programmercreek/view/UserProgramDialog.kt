@@ -203,17 +203,17 @@ class UserProgramDialog : CompoundButton.OnCheckedChangeListener, View.OnClickLi
 
         dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_user_program, null)
 
-        codeRadioButton = dialogView!!.findViewById(R.id.codeRadioButton) as RadioButton
-        explanationRadioButton  = dialogView!!.findViewById(R.id.explanationRadioButton) as RadioButton
-        codeView  = dialogView!!.findViewById(R.id.codeView) as CodeView
-        doneButton  = dialogView!!.findViewById(R.id.doneButton) as Button
-        saveButton  = dialogView!!.findViewById(R.id.saveButton) as Button
-        discardButton  = dialogView!!.findViewById(R.id.discardButton) as Button
-        accessSwitchCompat  = dialogView!!.findViewById(R.id.accessSwitchCompat) as SwitchCompat
-        accessTextView  = dialogView!!.findViewById(R.id.accessTextView) as TextView
-        presentationTitleEditText  = dialogView!!.findViewById(R.id.presentationTitleEditText) as EditText
-        languageRecyclerView  = dialogView!!.findViewById(R.id.languageRecyclerView) as RecyclerView
-        programTitleLayout  = dialogView!!.findViewById(R.id.programTitleLayout) as LinearLayout
+        codeRadioButton = dialogView!!.findViewById(R.id.codeRadioButton)
+        explanationRadioButton  = dialogView!!.findViewById(R.id.explanationRadioButton)
+        codeView  = dialogView!!.findViewById(R.id.codeView)
+        doneButton  = dialogView!!.findViewById(R.id.doneButton)
+        saveButton  = dialogView!!.findViewById(R.id.saveButton)
+        discardButton  = dialogView!!.findViewById(R.id.discardButton)
+        accessSwitchCompat  = dialogView!!.findViewById(R.id.accessSwitchCompat)
+        accessTextView  = dialogView!!.findViewById(R.id.accessTextView)
+        presentationTitleEditText  = dialogView!!.findViewById(R.id.presentationTitleEditText)
+        languageRecyclerView  = dialogView!!.findViewById(R.id.languageRecyclerView)
+        programTitleLayout  = dialogView!!.findViewById(R.id.programTitleLayout)
 
         builder!!.setView(dialogView)
         alertDialog = builder!!.create()
