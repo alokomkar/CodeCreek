@@ -32,9 +32,6 @@ class CreekPreferences(private val context: Context) {
 
     private var programIndex: Int = 0
     private var programTables: Int = 0
-    private var signInAccount: String? = null
-    private var accountName: String? = null
-    private var accountPhoto: String? = null
 
     private val sharedPreferences: SharedPreferences
     private val WIKI_HELP = "Wiki_help"
@@ -139,7 +136,6 @@ class CreekPreferences(private val context: Context) {
     }
 
     fun setSignInAccount(signInAccount: String) {
-        this.signInAccount = signInAccount
         sharedPreferences.edit().putString(SIGN_IN_ACCOUNT, signInAccount).apply()
     }
 
@@ -148,7 +144,6 @@ class CreekPreferences(private val context: Context) {
     }
 
     fun setAccountName(accountName: String) {
-        this.accountName = accountName
         sharedPreferences.edit().putString(ACCOUNT_NAME, accountName).apply()
     }
 
@@ -157,7 +152,6 @@ class CreekPreferences(private val context: Context) {
     }
 
     fun setAccountPhoto(accountPhoto: String) {
-        this.accountPhoto = accountPhoto
         sharedPreferences.edit().putString(ACCOUNT_PHOTO, accountPhoto).apply()
     }
 

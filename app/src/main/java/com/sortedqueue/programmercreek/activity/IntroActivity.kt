@@ -80,8 +80,9 @@ class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun initAndSetUserValues(view: View) {
-        val creekPreferences = CreekApplication.creekPreferences
-        drawerNameTextView!!.text = creekPreferences!!.getAccountName()
+        val creekPreferences = CreekApplication.getPreferences()
+        val drawerNameTextView : TextView = view.findViewById(R.id.drawerNameTextView)
+        drawerNameTextView.text = creekPreferences.getAccountName()
         loadChapters()
     }
 
