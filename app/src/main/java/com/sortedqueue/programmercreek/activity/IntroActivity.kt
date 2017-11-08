@@ -1,45 +1,31 @@
 package com.sortedqueue.programmercreek.activity
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.ContentLoadingProgressBar
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
-
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.IntroChapter
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
-import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.startapp.android.publish.adsCommon.StartAppAd
-
-import java.util.ArrayList
-
-
-
-import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.app_bar_intro.*
 import kotlinx.android.synthetic.main.content_intro.*
-import kotlinx.android.synthetic.main.nav_header_intro.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.util.*
 
 class IntroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
