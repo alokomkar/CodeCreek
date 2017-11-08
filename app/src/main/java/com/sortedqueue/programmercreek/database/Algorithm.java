@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 import co.uk.rushorm.core.RushObject;
+import co.uk.rushorm.core.annotations.RushList;
 import co.uk.rushorm.core.annotations.RushTableAnnotation;
 
 import static com.sortedqueue.programmercreek.constants.AlgorithmConstantsKt.CONTENT_CODE;
@@ -20,6 +21,7 @@ public class Algorithm extends RushObject implements Parcelable {
 
     private String algorithmId;
     private AlgorithmsIndex algorithmsIndex;
+    @RushList(classType = AlgorithmContent.class)
     private ArrayList<AlgorithmContent> algorithmContentArrayList;
 
     public Algorithm(AlgorithmsIndex algorithmsIndex, ArrayList<AlgorithmContent> algorithmContentArrayList) {
