@@ -1134,7 +1134,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                             }
                         }
                     }
-                    updateChaptersList(chapterArrayList)
+                    RushCore.getInstance().save(chapterArrayList) { }
                     getChapterListener.onSuccess(chapterArrayList)
                 }
 
@@ -1169,7 +1169,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         .find(Chapter::class.java))
 
     private fun updateChaptersList(chapterArrayList: ArrayList<Chapter>) {
-        RushCore.getInstance().deleteAll(Chapter::class.java) { RushCore.getInstance().save(chapterArrayList) { } }
+        RushCore.getInstance().deleteAll(Chapter::class.java) {  }
     }
 
     interface GetProgramTablesListener {
@@ -1634,7 +1634,14 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                                 largestSyntaxId = syntaxModule.moduleId + "_" + syntaxModule.syntaxModuleId
                             }
                         }
-                        syntaxModule!!.save { }
+                        if( syntaxModule.syntaxOptions != null ) {
+                            var optionIndex = 0
+                            for( syntaxOptions in syntaxModule.syntaxOptions ) {
+                                syntaxOptions.syntaxOptionId = syntaxModule.moduleId + "_" + syntaxModule.syntaxModuleId + "_" + optionIndex++
+                            }
+
+                        }
+                        syntaxModule.save { }
                         if (syntaxModule.moduleId == languageModule.moduleId) {
                             syntaxModules.add(syntaxModule)
                         }

@@ -14,6 +14,7 @@ public class ModuleOption extends RushObject implements Parcelable {
 
     private int optionId;
     private String option;
+    private String syntaxOptionId;
 
     public ModuleOption(int optionId, String option) {
         this.optionId = optionId;
@@ -39,6 +40,15 @@ public class ModuleOption extends RushObject implements Parcelable {
         this.option = option;
     }
 
+    public String getSyntaxOptionId() {
+        return syntaxOptionId;
+    }
+
+    public void setSyntaxOptionId(String syntaxOptionId) {
+        this.syntaxOptionId = syntaxOptionId;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,25 +57,17 @@ public class ModuleOption extends RushObject implements Parcelable {
         ModuleOption that = (ModuleOption) o;
 
         if (optionId != that.optionId) return false;
-        return option != null ? option.equals(that.option) : that.option == null;
-
+        if (option != null ? !option.equals(that.option) : that.option != null) return false;
+        return syntaxOptionId != null ? syntaxOptionId.equals(that.syntaxOptionId) : that.syntaxOptionId == null;
     }
 
     @Override
     public int hashCode() {
         int result = optionId;
         result = 31 * result + (option != null ? option.hashCode() : 0);
+        result = 31 * result + (syntaxOptionId != null ? syntaxOptionId.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "ModuleOption{" +
-                "optionId=" + optionId +
-                ", option='" + option + '\'' +
-                '}';
-    }
-
 
     @Override
     public int describeContents() {
@@ -76,14 +78,16 @@ public class ModuleOption extends RushObject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.optionId);
         dest.writeString(this.option);
+        dest.writeString(this.syntaxOptionId);
     }
 
     protected ModuleOption(Parcel in) {
         this.optionId = in.readInt();
         this.option = in.readString();
+        this.syntaxOptionId = in.readString();
     }
 
-    public static final Parcelable.Creator<ModuleOption> CREATOR = new Parcelable.Creator<ModuleOption>() {
+    public static final Creator<ModuleOption> CREATOR = new Creator<ModuleOption>() {
         @Override
         public ModuleOption createFromParcel(Parcel source) {
             return new ModuleOption(source);
