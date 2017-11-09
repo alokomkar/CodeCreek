@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
-import co.uk.rushorm.core.RushCallback
 
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.google.firebase.auth.FirebaseAuth
@@ -762,10 +761,10 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         CommonUtils.dismissProgressDialog()
                     } else {
                         RushCore.getInstance().save(algorithmsIndices, {})
-                        creekPreferences.isAlgorithmsInserted = true
-                        getAllAlgorithmsListener.onSuccess(algorithmsIndices)
-                        //downloadAlgorihtms(algorithmsIndices, getAllAlgorithmsListener)
-                        CommonUtils.dismissProgressDialog()
+                        //creekPreferences.isAlgorithmsInserted = true
+                        //getAllAlgorithmsListener.onSuccess(algorithmsIndices)
+                        downloadAlgorithms(algorithmsIndices, getAllAlgorithmsListener)
+                        //CommonUtils.dismissProgressDialog()
                     }
 
                 }
@@ -793,7 +792,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         }.execute()
     }
 
-    private fun downloadAlgorihtms(algorithmsIndices: ArrayList<AlgorithmsIndex>,
+    private fun downloadAlgorithms(algorithmsIndices: ArrayList<AlgorithmsIndex>,
                                    allAlgorithmsListener: GetAllAlgorithmsListener) {
 
         mAlgorithmReference = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + ALGORITHM)
