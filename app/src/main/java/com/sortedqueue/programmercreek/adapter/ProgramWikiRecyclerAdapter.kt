@@ -10,7 +10,7 @@ import android.widget.TextView
 
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.activity.CodeLabActivity
+import com.sortedqueue.programmercreek.codelab.CodeLabActivity
 import com.sortedqueue.programmercreek.constants.LanguageConstants
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.ProgramWiki

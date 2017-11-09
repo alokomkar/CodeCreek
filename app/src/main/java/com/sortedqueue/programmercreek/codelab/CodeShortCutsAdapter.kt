@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.adapter
+package com.sortedqueue.programmercreek.codelab
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.CodeShortCuts
 
 import java.util.ArrayList

@@ -16,11 +16,10 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.activity.AlgorithmListActivity
 import com.sortedqueue.programmercreek.activity.ChaptersActivity
-import com.sortedqueue.programmercreek.activity.CodeLabActivity
+import com.sortedqueue.programmercreek.codelab.CodeLabActivity
 import com.sortedqueue.programmercreek.activity.InterviewActivity
 import com.sortedqueue.programmercreek.activity.IntroActivity
 import com.sortedqueue.programmercreek.activity.LessonActivity
-import com.sortedqueue.programmercreek.activity.NewIntroActivity
 import com.sortedqueue.programmercreek.activity.NewProgramWikiActivity
 import com.sortedqueue.programmercreek.activity.ProgramInserterActivity
 import com.sortedqueue.programmercreek.activity.ProgramListActivity
@@ -209,8 +208,6 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
                 startActivity(intent)
             }
             R.id.quickReferenceLayout -> {
-                /*intent = new Intent(getContext(), WebViewActivity.class);
-                startActivity(intent);*/
                 CreekAnalytics.logEvent(TAG, "Quick Reference")
                 dashboardNavigationListener!!.showQuickReferenceFragment()
             }

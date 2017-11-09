@@ -1,22 +1,17 @@
-package com.sortedqueue.programmercreek.fragments
+package com.sortedqueue.programmercreek.codelab
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.adapter.CodeShortCutsAdapter
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.CodeShortCuts
-import com.sortedqueue.programmercreek.util.CreekPreferences
 import com.sortedqueue.programmercreek.view.CodeEditor
 import kotlinx.android.synthetic.main.fragment_editor.*
 
@@ -33,7 +28,6 @@ import java.util.ArrayList
 class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
 
 
-    internal var codeShortCutsRecyclerView: RecyclerView? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -54,7 +48,7 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
     private fun setupViews() {
         editor!!.setOnTextChangedListener(this)
         editor!!.setText("#include \"stdio.h\"\n" + "#include \"conio.h\"")
-        codeShortCutsRecyclerView!!.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
+        codeShortCutsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
         val codeShortCuts = ArrayList<CodeShortCuts>()
         codeShortCuts.add(CodeShortCuts("{}", "{\n\n}"))
         codeShortCuts.add(CodeShortCuts("TAB", "    "))
@@ -79,12 +73,12 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
 
         codeShortCutsRecyclerView!!.adapter = CodeShortCutsAdapter(codeShortCuts,
                 object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
-            override fun onItemClick(position: Int) {
-                val start = Math.max(editor!!.selectionStart, 0)
-                val end = Math.max(editor!!.selectionEnd, 0)
-                editor!!.text.insert(Math.min(start, end), codeShortCuts[position].value)
-            }
-        })
+                    override fun onItemClick(position: Int) {
+                        val start = Math.max(editor!!.selectionStart, 0)
+                        val end = Math.max(editor!!.selectionEnd, 0)
+                        editor!!.text.insert(Math.min(start, end), codeShortCuts[position].value)
+                    }
+                })
     }
 
     override fun onDestroyView() {

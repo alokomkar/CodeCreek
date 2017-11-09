@@ -6,17 +6,23 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Add the RECEIVE_SMS permission to enable OTP reading -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <!-- VERY IMPORTANT! Don't forget this permission, or in-app billing won't work. -->
     <uses-permission android:name="com.android.vending.BILLING" />
-    <!--<uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>-->
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />-->
 
+    <!--
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    -->
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+    <!--
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    -->
     <application
         android:name=".CreekApplication"
         android:allowBackup="true"
@@ -32,7 +38,6 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider341877366183342"
             android:exported="true" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.sortedqueue.programmercreek.fileprovider"
@@ -40,7 +45,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
@@ -61,36 +66,44 @@
         <activity
             android:name=".activity.TutorialCarousalActivity"
             android:label="@string/tutorial"
-            android:theme="@style/Theme.AppCompat.Translucent"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".activity.NoteShareActivity"
             android:label="@string/add_notes"
-            android:screenOrientation="portrait" >
-            <!--<intent-filter>
+            android:screenOrientation="portrait">
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".activity.ArticleShareActivity"
             android:label="@string/share_article"
-            android:screenOrientation="portrait" >
-            <!--<intent-filter>
+            android:screenOrientation="portrait">
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".activity.CodeShareHandlerActivity"
             android:label="@string/code_share"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
@@ -101,8 +114,8 @@
         <activity
             android:name=".activity.AlgorithmListActivity"
             android:label="@string/title_algorithms"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ProgramActivity"
             android:label="@string/title_activity_program"
@@ -111,9 +124,7 @@
             android:name=".dashboard.DashboardActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.MemorizeProgramActivity"
             android:label="@string/title_activity_revise_program"
@@ -126,7 +137,7 @@
             android:name=".activity.InterviewActivity"
             android:label="@string/title_interview_activity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.WebViewActivity"
             android:label="@string/title_activity_web_view"
@@ -138,13 +149,13 @@
         <activity
             android:name=".activity.ProgramWikiActivity"
             android:label="@string/title_program_wiki"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewProgramWikiActivity"
             android:label="@string/title_program_wiki"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.WizardActivity"
             android:label="@string/title_program_wiki"
@@ -160,18 +171,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.CodeLabActivity"
+            android:name=".codelab.CodeLabActivity"
             android:label="@string/title_code_lab"
-            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.CreatePresentationActivity"
             android:label="@string/title_presentation"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.ViewPresentationActivity"
             android:label="@string/title_view_presentation"
@@ -182,12 +192,17 @@
             android:label="@string/title_activity_syntax_learn"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>-->
-        <receiver android:name=".receiver.NotificationPublisher" >
-            <!--<intent-filter>
+        <!--
+            <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+        -->
+        <receiver android:name=".receiver.NotificationPublisher">
+
+            <!--
+            <intent-filter>
                 <action android:name="com.sortedqueue.programmercreek.did_you_know"></action>
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </receiver>
 
         <!--
@@ -232,69 +247,79 @@
         <activity
             android:name=".activity.ProgramInserterActivity"
             android:label="@string/program_inserter"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.IntroActivity"
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewIntroActivity"
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <service
-            android:name=".service.CreekMessagingService">
+        <service android:name=".service.CreekMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".service.CreekInstanceIDService">
+        <service android:name=".service.CreekInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <receiver android:name=".receiver.CreekFCMReceiver"
+
+        <receiver
+            android:name=".receiver.CreekFCMReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="custom.intent.action.BROADCAST_RECEIVE" />
             </intent-filter>
         </receiver>
-        <!--<activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
+        <!--
+        <activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"/>
 
         <activity android:name="com.adcolony.sdk.AdColonyAdViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"/>-->
+            android:hardwareAccelerated="true"/>
+        -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
+        <activity
+            android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
             android:theme="@android:style/Theme" />
-
-        <activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
-            android:theme="@android:style/Theme"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme" />
 
         <service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
         <service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
-        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener" >
+
+        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <!-- Add your API key here -->
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_o8elPE7VRTZcbw" />
+
+        <activity android:name=".payments.PaymentActivity"></activity>
     </application>
 
 </manifest>

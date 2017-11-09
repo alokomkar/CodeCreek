@@ -94,7 +94,7 @@ dependencies {
     /*compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     compile 'id.zelory:compressor:1.0.4'*/
     compile 'com.anjlab.android.iab.v3:library:1.0.44'
-
+    compile('com.razorpay:checkout:1.4.1')
     compile 'com.startapp:inapp-sdk:3.6.5'
 
 }
