@@ -761,10 +761,10 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         CommonUtils.dismissProgressDialog()
                     } else {
                         RushCore.getInstance().save(algorithmsIndices, {})
-                        //creekPreferences.isAlgorithmsInserted = true
-                        //getAllAlgorithmsListener.onSuccess(algorithmsIndices)
-                        downloadAlgorithms(algorithmsIndices, getAllAlgorithmsListener)
-                        //CommonUtils.dismissProgressDialog()
+                        creekPreferences.isAlgorithmsInserted = true
+                        getAllAlgorithmsListener.onSuccess(algorithmsIndices)
+                        //downloadAlgorithms(algorithmsIndices, getAllAlgorithmsListener)
+                        CommonUtils.dismissProgressDialog()
                     }
 
                 }
@@ -803,6 +803,11 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     val algorithm = child.getValue(Algorithm::class.java)
                     if( algorithm != null && algorithm.algorithmsIndex != null )
                         algorithm.algorithmId = ALGORITHM + "_" + algorithm.algorithmsIndex.programIndex
+
+                    var index = 1
+                    for( algorithmContent in algorithm!!.algorithmContentArrayList ) {
+                        algorithmContent.contentId = algorithm.algorithmId + "_" + index++
+                    }
                     algorithm!!.save { }
                 }
 
@@ -1989,14 +1994,14 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         userDatabase
         val query = mUserDatabase!!.child("ranking")
         query.orderByChild("reputation")
-                .limitToLast(21)
+                .limitToLast(52)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         Log.d(TAG, "UserRanking : " + dataSnapshot.toString())
                         val userRankings = ArrayList<UserRanking>()
                         for (child in dataSnapshot.children) {
                             val userRanking = child.getValue(UserRanking::class.java)
-                            if (userRanking!!.emailId != "programmer.creek@gmail.com")
+                            if (userRanking!!.emailId != "programmer.creek@gmail.com" && userRanking.emailId != "alokomkar.gudikote@gmail.com")
                                 userRankings.add(child.getValue(UserRanking::class.java)!!)
                         }
                         getTopLearnersInterface.onSuccess(userRankings)

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.uk.rushorm.core.RushObject;
 import co.uk.rushorm.core.annotations.RushList;
@@ -22,7 +23,7 @@ public class Algorithm extends RushObject implements Parcelable {
     private String algorithmId;
     private AlgorithmsIndex algorithmsIndex;
     @RushList(classType = AlgorithmContent.class)
-    private ArrayList<AlgorithmContent> algorithmContentArrayList;
+    private List<AlgorithmContent> algorithmContentArrayList;
 
     public Algorithm(AlgorithmsIndex algorithmsIndex, ArrayList<AlgorithmContent> algorithmContentArrayList) {
         this.algorithmsIndex = algorithmsIndex;
@@ -48,7 +49,7 @@ public class Algorithm extends RushObject implements Parcelable {
         this.algorithmsIndex = algorithmsIndex;
     }
 
-    public ArrayList<AlgorithmContent> getAlgorithmContentArrayList() {
+    public List<AlgorithmContent> getAlgorithmContentArrayList() {
         return algorithmContentArrayList;
     }
 

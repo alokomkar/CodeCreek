@@ -301,4 +301,5 @@
     <string name="enable_internet_to_download">Enable internet to download content</string>
     <string name="downloading_content">Downloading Content</string>
     <string name="accept">Accept</string>
+    <string name="loading_languages">Loading Languages</string>
 </resources>

@@ -24,6 +24,7 @@ public class AlgorithmContent extends RushObject implements Parcelable {
     private String input;
     private String programCode;
     private String algorithmPseudoCode;
+    private String contentId;
 
     public AlgorithmContent(int contentType, String programDescription, String output, String input, String programCode, String algorithmPseudoCode) {
         this.contentType = contentType;
@@ -132,6 +133,15 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         this.aim = aim;
     }
 
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,39 +150,33 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         AlgorithmContent that = (AlgorithmContent) o;
 
         if (contentType != that.contentType) return false;
+        if (tabTitle != null ? !tabTitle.equals(that.tabTitle) : that.tabTitle != null)
+            return false;
+        if (aim != null ? !aim.equals(that.aim) : that.aim != null) return false;
         if (programDescription != null ? !programDescription.equals(that.programDescription) : that.programDescription != null)
             return false;
         if (output != null ? !output.equals(that.output) : that.output != null) return false;
         if (input != null ? !input.equals(that.input) : that.input != null) return false;
         if (programCode != null ? !programCode.equals(that.programCode) : that.programCode != null)
             return false;
-        return algorithmPseudoCode != null ? algorithmPseudoCode.equals(that.algorithmPseudoCode) : that.algorithmPseudoCode == null;
-
+        if (algorithmPseudoCode != null ? !algorithmPseudoCode.equals(that.algorithmPseudoCode) : that.algorithmPseudoCode != null)
+            return false;
+        return contentId != null ? contentId.equals(that.contentId) : that.contentId == null;
     }
 
     @Override
     public int hashCode() {
         int result = contentType;
+        result = 31 * result + (tabTitle != null ? tabTitle.hashCode() : 0);
+        result = 31 * result + (aim != null ? aim.hashCode() : 0);
         result = 31 * result + (programDescription != null ? programDescription.hashCode() : 0);
         result = 31 * result + (output != null ? output.hashCode() : 0);
         result = 31 * result + (input != null ? input.hashCode() : 0);
         result = 31 * result + (programCode != null ? programCode.hashCode() : 0);
         result = 31 * result + (algorithmPseudoCode != null ? algorithmPseudoCode.hashCode() : 0);
+        result = 31 * result + (contentId != null ? contentId.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "AlgorithmContent{" +
-                "contentType=" + contentType +
-                ", programDescription='" + programDescription + '\'' +
-                ", output='" + output + '\'' +
-                ", input='" + input + '\'' +
-                ", programCode='" + programCode + '\'' +
-                ", algorithmPseudoCode='" + algorithmPseudoCode + '\'' +
-                '}';
-    }
-
 
     @Override
     public int describeContents() {
@@ -189,6 +193,7 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         dest.writeString(this.input);
         dest.writeString(this.programCode);
         dest.writeString(this.algorithmPseudoCode);
+        dest.writeString(this.contentId);
     }
 
     protected AlgorithmContent(Parcel in) {
@@ -200,6 +205,7 @@ public class AlgorithmContent extends RushObject implements Parcelable {
         this.input = in.readString();
         this.programCode = in.readString();
         this.algorithmPseudoCode = in.readString();
+        this.contentId = in.readString();
     }
 
     public static final Creator<AlgorithmContent> CREATOR = new Creator<AlgorithmContent>() {

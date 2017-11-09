@@ -95,14 +95,6 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
     }
 
     override fun loadAlgorithmFragment(algorithm: AlgorithmsIndex) {
-        if( !AuxilaryUtils.isNetworkAvailable ) {
-            CommonUtils.displaySnackBar(this@AlgorithmListActivity, R.string.internet_unavailable, R.string.retry, object : View.OnClickListener {
-                override fun onClick(p0: View?) {
-                    loadAlgorithmFragment(algorithm)
-                }
-            })
-            return
-        }
         supportActionBar!!.title = algorithm.programTitle
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)

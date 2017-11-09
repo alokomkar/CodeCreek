@@ -232,7 +232,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
             R.id.introLayout -> if (creekPreferences!!.programLanguage.equals("java", ignoreCase = true)) {
                 CreekAnalytics.logEvent(TAG, "Intro")
-                val introIntent = Intent(context, NewIntroActivity::class.java)
+                val introIntent = Intent(context, IntroActivity::class.java)
                 startActivity(introIntent)
             } else {
                 CreekAnalytics.logEvent(TAG, "Intro")
@@ -347,6 +347,12 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
     }
 
     override fun onItemClick(position: Int) {
+        if( !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener {
+                onItemClick(position)
+            })
+            return
+        }
         val intent = Intent(context, AlgorithmListActivity::class.java)
         intent.putExtra(ProgrammingBuddyConstants.KEY_PROG_ID, algorithmsRecyclerAdapter!!.getItemAtPosition(position))
         startActivity(intent)

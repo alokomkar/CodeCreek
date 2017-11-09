@@ -80,6 +80,7 @@ class LanguageFragment : Fragment() {
 
     private fun getProgramLanguages() {
         swipeRefreshLayout!!.isRefreshing = true
+        CommonUtils.displayProgressDialog(context, R.string.loading_languages)
         val totalLocalLanguages = creekPreferences!!.totalLanguages
         if( totalLocalLanguages == 0 && !AuxilaryUtils.isNetworkAvailable) {
             CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
@@ -94,10 +95,12 @@ class LanguageFragment : Fragment() {
                 programLanguage.setDescription("Explore more concepts of Java");
                 programLanguages.add(programLanguage);*/
                 setupRecyclerView(programLanguages)
+                CommonUtils.dismissProgressDialog()
             }
 
             override fun onError(databaseError: DatabaseError) {
                 swipeRefreshLayout!!.isRefreshing = false
+                CommonUtils.dismissProgressDialog()
                 CommonUtils.displaySnackBar(activity, R.string.unable_to_fetch_data)
             }
         })
@@ -114,6 +117,7 @@ class LanguageFragment : Fragment() {
                     }
                 })
         swipeRefreshLayout!!.isRefreshing = false
+        CommonUtils.dismissProgressDialog()
         var selectedPosition = -1
         val selectedLanguage = creekPreferences!!.programLanguage
 
