@@ -21,6 +21,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
@@ -92,7 +93,8 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
         if (subTopics!!.imageUrl != null && subTopics!!.imageUrl.trim { it <= ' ' }.length > 0) {
             val requestOptions = RequestOptions()
             requestOptions.optionalFitCenter()
-            requestOptions.placeholder(R.color.md_grey_500)
+            requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
+            requestOptions.placeholder(R.color.colorPrimary)
             requestOptions.fallback(R.color.md_grey_500)
             Glide.with(context)
                     .setDefaultRequestOptions(requestOptions)

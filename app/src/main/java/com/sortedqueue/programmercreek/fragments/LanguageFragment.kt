@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
@@ -137,7 +138,9 @@ class LanguageFragment : Fragment() {
     private fun initUserValues() {
         val requestOptions = RequestOptions()
         requestOptions.optionalFitCenter()
-        requestOptions.placeholder(R.color.md_grey_500)
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
+        requestOptions.placeholder(R.color.colorPrimary)
         requestOptions.fallback(R.color.md_grey_500)
         Glide.with(context)
                 .setDefaultRequestOptions(requestOptions)

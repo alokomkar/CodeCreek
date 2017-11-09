@@ -10,6 +10,7 @@ import android.widget.TextView
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.Option
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.UserRanking
@@ -28,7 +29,8 @@ class TopLearnersRecyclerAdapter(private val context: Context, private val userR
 
         requestOptions = RequestOptions()
         requestOptions.optionalFitCenter()
-        requestOptions.placeholder(R.color.md_grey_500)
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
+        requestOptions.placeholder(R.color.colorPrimary)
         requestOptions.fallback(R.color.md_grey_500)
 
         val adapterView = LayoutInflater.from(context).inflate(R.layout.item_top_learner, parent, false)
