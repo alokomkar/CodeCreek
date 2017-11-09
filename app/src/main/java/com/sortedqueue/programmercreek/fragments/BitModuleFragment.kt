@@ -19,6 +19,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
@@ -82,7 +83,12 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
 
         slideImageView!!.visibility = View.GONE
         if (bitModule!!.imageUrl != null && bitModule!!.imageUrl.trim { it <= ' ' }.length > 0) {
+            val requestOptions = RequestOptions()
+            requestOptions.optionalFitCenter()
+            requestOptions.placeholder(R.color.md_grey_500)
+            requestOptions.fallback(R.color.md_grey_500)
             Glide.with(context)
+                    .setDefaultRequestOptions(requestOptions)
                     .load(bitModule!!.imageUrl)
                     .into(slideImageView!!)
             slideImageView!!.visibility = View.VISIBLE

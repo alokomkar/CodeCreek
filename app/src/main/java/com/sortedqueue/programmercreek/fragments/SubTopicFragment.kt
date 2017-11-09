@@ -21,6 +21,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
@@ -89,7 +90,12 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
 
         slideImageView!!.visibility = View.GONE
         if (subTopics!!.imageUrl != null && subTopics!!.imageUrl.trim { it <= ' ' }.length > 0) {
+            val requestOptions = RequestOptions()
+            requestOptions.optionalFitCenter()
+            requestOptions.placeholder(R.color.md_grey_500)
+            requestOptions.fallback(R.color.md_grey_500)
             Glide.with(context)
+                    .setDefaultRequestOptions(requestOptions)
                     .load(subTopics!!.imageUrl)
                     .into(slideImageView!!)
             slideImageView!!.visibility = View.VISIBLE
