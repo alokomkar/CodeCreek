@@ -19,7 +19,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.sortedqueue.programmercreek",
-            "certificate_hash": "E454AC572441DDEDC242042A11961E01B6BFF0B1"
+            "certificate_hash": "e454ac572441ddedc242042a11961e01b6bff0b1"
           }
         },
         {
@@ -27,7 +27,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.sortedqueue.programmercreek",
-            "certificate_hash": "6F8EA9BA816427C2553595BF99588C611C6A0269"
+            "certificate_hash": "6f8ea9ba816427c2553595bf99588c611c6a0269"
           }
         },
         {
@@ -35,7 +35,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.sortedqueue.programmercreek",
-            "certificate_hash": "5ADE8519940CAEE90D772CF53BF312229EF6A035"
+            "certificate_hash": "5ade8519940caee90d772cf53bf312229ef6a035"
           }
         },
         {
