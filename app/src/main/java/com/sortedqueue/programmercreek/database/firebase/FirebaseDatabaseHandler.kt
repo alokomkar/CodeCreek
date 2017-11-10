@@ -1104,6 +1104,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
                 }
 
+
                 override fun onPostExecute(introChapters: ArrayList<IntroChapter>) {
                     super.onPostExecute(introChapters)
                     getIntroChaptersListener.onSuccess(introChapters)
@@ -1334,9 +1335,12 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     }
 
     fun getSyntaxModule(syntaxId: String, wizardUrl: String, syntaxModuleInterface: SyntaxModuleInterface) {
+
+
+
         Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + (syntaxId + "_" + wizardUrl + " : " + creekPreferences.syntaxInserted))
         Log.d(TAG, "getSyntaxModule : Syntax module comparison : " + AlphaNumComparator().compare(syntaxId + "_" + wizardUrl, creekPreferences.syntaxInserted))
-        if (AlphaNumComparator().compare(syntaxId + "_" + wizardUrl, creekPreferences.syntaxInserted) <= 0) {
+        if (false/*AlphaNumComparator().compare(syntaxId + "_" + wizardUrl, creekPreferences.syntaxInserted) <= 0*/) {
             Log.d(TAG, "getSyntaxModule : Running Async task")
             object : AsyncTask<Void, Void, SyntaxModule>() {
 
@@ -1621,7 +1625,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     @SuppressLint("StaticFieldLeak")
     fun initializeSyntax(languageModule: LanguageModule, syntaxInterface: SyntaxInterface) {
-        if (creekPreferences.checkSyntaxUpdate() < 0) {
+        if (true/*creekPreferences.checkSyntaxUpdate() < 0*/) {
             Log.d(TAG, "initializeSyntax : Firebase task")
             getSyntaxModuleDatabase()
             mSyntaxModuleDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {

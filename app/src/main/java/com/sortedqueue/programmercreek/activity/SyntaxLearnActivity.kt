@@ -147,9 +147,9 @@ class SyntaxLearnActivity : AppCompatActivity(), SyntaxNavigationListener, View.
 
     override fun onModuleLoad(module: LanguageModule, nextModule: LanguageModule?) {
 
-        if ( CreekApplication.creekPreferences!!.checkSyntaxUpdate() < 0 && !AuxilaryUtils.isNetworkAvailable ) {
-            CommonUtils.displaySnackBar(this@SyntaxLearnActivity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { onModuleLoad(module, nextModule) })
-            CommonUtils.displayToast(this, R.string.enable_internet_to_download)
+        if ( /*CreekApplication.creekPreferences!!.checkSyntaxUpdate() < 0 &&*/ !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(this@SyntaxLearnActivity, R.string.internet_required, R.string.retry, View.OnClickListener { onModuleLoad(module, nextModule) })
+            //CommonUtils.displayToast(this, R.string.enable_internet_to_download)
             return
         }
 

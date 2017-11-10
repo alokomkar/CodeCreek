@@ -305,4 +305,5 @@
     <string name="razor_key_id">rzp_test_o8elPE7VRTZcbw</string>
     <string name="razor_key_secret">YOXVrAAqV2Vxlf1Sldr1JDPS</string>
     <string name="razor_pay_merchant_id">8zMPemIC06Zji9</string>
+    <string name="internet_required">Unfortunately this section requires internet</string>
 </resources>

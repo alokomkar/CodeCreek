@@ -94,22 +94,32 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
         if (wizardUrl == null) {
             bindData(syntaxModule!!)
         } else {
-            progressBar!!.visibility = View.VISIBLE
-            FirebaseDatabaseHandler(context).getSyntaxModule(syntaxId!!, wizardUrl!!,
-                    object : FirebaseDatabaseHandler.SyntaxModuleInterface {
-                        override fun onSuccess(syntaxModule: SyntaxModule) {
-                            this@SyntaxLearnActivityFragment.syntaxModule = syntaxModule
-                            bindData(syntaxModule)
-                            progressBar!!.visibility = View.GONE
-                        }
-
-                        override fun onError(error: DatabaseError?) {
-                            progressBar!!.visibility = View.GONE
-                            CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
-                        }
-                    })
+           fetchSyntaxModule()
         }
         proceedTextView!!.setOnClickListener(this)
+    }
+
+    private fun fetchSyntaxModule() {
+        if( !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBarIndefinite(activity, R.string.internet_required, R.string.retry, View.OnClickListener {
+                fetchSyntaxModule()
+            })
+            return
+        }
+        progressBar!!.visibility = View.VISIBLE
+        FirebaseDatabaseHandler(context).getSyntaxModule(syntaxId!!, wizardUrl!!,
+                object : FirebaseDatabaseHandler.SyntaxModuleInterface {
+                    override fun onSuccess(syntaxModule: SyntaxModule) {
+                        this@SyntaxLearnActivityFragment.syntaxModule = syntaxModule
+                        bindData(syntaxModule)
+                        progressBar!!.visibility = View.GONE
+                    }
+
+                    override fun onError(error: DatabaseError?) {
+                        progressBar!!.visibility = View.GONE
+                        CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                    }
+                })
     }
 
     private fun initializeRewardedVideoAd() {
