@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
@@ -17,7 +18,10 @@ import java.util.ArrayList
 
 
 class CustomProgramLineListAdapter(private val mContext: Context, resource: Int, textViewResourceId: Int,
-                                   private val mProgramLineList: ArrayList<String>, private val isExplanation: Boolean) : ArrayAdapter<String>(mContext, resource, textViewResourceId, mProgramLineList) {
+                                   private val mProgramLineList: ArrayList<String>,
+                                   private val isExplanation: Boolean,
+                                   val isTrial: Boolean,
+                                   val adapterClickListner: CustomProgramRecyclerViewAdapter.AdapterClickListner? ) : ArrayAdapter<String>(mContext, resource, textViewResourceId, mProgramLineList) {
     internal var highlighter = PrettifyHighlighter.instance
     internal var highlighted: String? = null
 
@@ -44,15 +48,26 @@ class CustomProgramLineListAdapter(private val mContext: Context, resource: Int,
             view = mLayoutInflater!!.inflate(R.layout.program_list, null)
             mViewHolder = ViewHolder()
             mViewHolder!!.programLineTextView = view.findViewById(R.id.progamLineTxtView)
+            mViewHolder!!.deleteLineImageView = view.findViewById(R.id.deleteLineImageView)
+            mViewHolder!!.deleteLineImageView!!.setOnClickListener{
+                deleteLineAtPosition( position )
+            }
             view.tag = mViewHolder
         } else {
             mViewHolder = view!!.tag as ViewHolder
         }
         val programLine = mProgramLineList[position]
-        if (isExplanation) {
+        if ( isExplanation ) {
             mViewHolder!!.programLineTextView!!.text = programLine
+            mViewHolder!!.deleteLineImageView!!.visibility = View.GONE
             return view!!
         } else {
+            if( isTrial ) {
+                mViewHolder!!.deleteLineImageView!!.visibility = View.VISIBLE
+            }
+            else {
+                mViewHolder!!.deleteLineImageView!!.visibility = View.GONE
+            }
             if (programLine.contains("<") || programLine.contains(">")) {
                 mViewHolder!!.programLineTextView!!.text = programLine
                 mViewHolder!!.programLineTextView!!.setTextColor(Color.parseColor("#006699"))
@@ -72,12 +87,23 @@ class CustomProgramLineListAdapter(private val mContext: Context, resource: Int,
 
     }
 
+    private fun deleteLineAtPosition(position: Int) {
+        if( adapterClickListner != null )
+            adapterClickListner.onItemClick(position)
+    }
+
     internal class ViewHolder {
         var programLineTextView: TextView? = null
+        var deleteLineImageView: ImageView? = null
     }
 
     companion object {
         private var mLayoutInflater: LayoutInflater? = null
+    }
+
+    fun removeItemAtPosition(position: Int) {
+        mProgramLineList.removeAt(position)
+        notifyDataSetChanged()
     }
 
 }

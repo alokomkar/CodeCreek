@@ -15,12 +15,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.view.animation.Interpolator
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ListView
 
 import com.google.firebase.database.DatabaseError
@@ -170,10 +167,10 @@ class MemorizeProgramActivity : AppCompatActivity(), UIUpdateListener {
 
             // Prepare the ListView
             mAdapterProgramList = CustomProgramLineListAdapter(this,
-                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList!!, false)
+                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramList!!, false, false, null)
             // Prepare the ListView
             mAdapterProgramExplanationList = CustomProgramLineListAdapter(this,
-                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList!!, true)
+                    android.R.layout.simple_list_item_1, R.id.progamLineTxtView, mLinebylineprogramExplanationList!!, true, false, null)
 
             list_program!!.adapter = mAdapterProgramList
             list_explanation!!.adapter = mAdapterProgramExplanationList

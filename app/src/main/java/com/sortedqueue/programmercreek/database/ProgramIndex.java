@@ -29,6 +29,8 @@ public class ProgramIndex extends RushObject implements Parcelable {
     }
 
     public String getUserProgramId() {
+        if( userProgramId == null )
+            userProgramId = "";
         return userProgramId;
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:id="@+id/RelativeLayout1"
     android:orientation="vertical"
@@ -14,14 +14,26 @@
         android:minHeight="@dimen/margin_48"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_12"
+        android:layout_toStartOf="@+id/deleteLineImageView"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
-        android:text="text"
-        android:textSize="@dimen/text_dashboard_small" >
-    </TextView>
+        android:text="@string/app_name"
+        android:textSize="@dimen/text_dashboard_small" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteLineImageView"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_remove"/>
 
     <View
+        android:layout_below="@+id/progamLineTxtView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:background="@color/md_grey_500" />
-</LinearLayout>
+</RelativeLayout>
