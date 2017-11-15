@@ -260,7 +260,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                 if (creekUserStats != null) {
                     creekPreferences.saveCreekUserStats(creekUserStats)
                     Log.d(TAG, "getCreekUserStatsInBackground : success : retrieved stats are : " + creekUserStats.toString())
-                    if (creekUser.userId != null && !creekUser.userId.trim { it <= ' ' }.equals("", ignoreCase = true)) {
+                    if (creekUser.userId != null && !creekUser.userId.trim().equals("", ignoreCase = true)) {
                         userStatsDatabase.child(creekUser.userId).removeValue()
                         userStatsDatabase.child(creekUser.emailId.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
                     }
@@ -483,12 +483,12 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     var programLine = programLines[i]
                     var programExplanation = programExplanations[i]
                     if (programLine.contains("//")) {
-                        if (programLine.trim { it <= ' ' }.startsWith("//")) {
+                        if (programLine.trim().startsWith("//")) {
                             //Do nothing
                         } else {
-                            programLine = programLine.trim { it <= ' ' }.split("//".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                            programExplanation = programExplanation.trim { it <= ' ' }.split("//".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                            if (programLine.trim { it <= ' ' }.length > 0) {
+                            programLine = programLine.trim().split("//".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+                            programExplanation = programExplanation.trim().split("//".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+                            if (programLine.isNotEmpty()) {
                                 programTables!!.add(
                                         ProgramTable(
                                                 intProgramIndex,
@@ -498,17 +498,17 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                                                 programExplanation))
                             }
                         }
-                    } else if (programLine.trim { it <= ' ' }.startsWith("/*") && programLine.trim { it <= ' ' }.endsWith("*/")) {
+                    } else if (programLine.trim().startsWith("/*") && programLine.trim().endsWith("*/")) {
                         //Do nothing
-                    } else if (programLine.trim { it <= ' ' }.startsWith("/*")) {
+                    } else if (programLine.trim().startsWith("/*")) {
 
-                        while (i < programLines.size && (!programLine.trim { it <= ' ' }.endsWith("*/") || !programLine.trim { it <= ' ' }.contains("*/"))) {
+                        while (i < programLines.size && (!programLine.trim().endsWith("*/") || !programLine.trim().contains("*/"))) {
                             i++
                             programLine = programLines[i]
                         }
 
                     } else {
-                        if (programLine.trim { it <= ' ' }.length > 0) {
+                        if (programLine.trim().isNotEmpty()) {
                             programTables!!.add(
                                     ProgramTable(
                                             intProgramIndex,
