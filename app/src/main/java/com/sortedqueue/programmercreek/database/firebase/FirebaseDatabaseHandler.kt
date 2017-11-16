@@ -74,7 +74,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     private val CREEK_USER_PROGRAM_DETAILS_CHILD = "user_program_details"
     private val LANGUAGE_MODULE = "language_module"
     private val SYNTAX_MODULE = "syntax_module"
-    private val CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/"
+    public val CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/"
     private var programLanguage = "java"
     private val creekPreferences: CreekPreferences
 
