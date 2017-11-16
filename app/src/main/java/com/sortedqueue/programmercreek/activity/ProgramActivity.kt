@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CustomProgramLineListAdapter
+import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramTable
@@ -152,11 +153,23 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
         /*mAdapterProgramList = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, mProgramList);*/
         mAdapterProgramList = CustomProgramLineListAdapter(this, android.R.layout.simple_list_item_1,
-                R.id.progamLineTxtView, mProgramList, false)
+                R.id.progamLineTxtView, mProgramList, false, program_index!!.userProgramId.equals("trial"),
+                object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
+                    override fun onItemClick(position: Int) {
+                        mAdapterProgramList!!.removeItemAtPosition( position )
+                        mAdapterProgramExplanationList!!.removeItemAtPosition(position)
+                    }
+
+                })
 
         // Prepare the ListView
         mAdapterProgramExplanationList = CustomProgramLineListAdapter(this, android.R.layout.simple_list_item_1,
-                R.id.progamLineTxtView, mProgramExplanationList, true)
+                R.id.progamLineTxtView, mProgramExplanationList, true, program_index!!.userProgramId.equals("trial"),
+                object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
+                    override fun onItemClick(position: Int) {
+
+                    }
+                })
 
         mProgramListView!!.adapter = mAdapterProgramList
         mProgramExplanationListView!!.adapter = mAdapterProgramExplanationList

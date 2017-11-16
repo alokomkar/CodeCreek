@@ -244,9 +244,8 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
             }
 
             R.id.wizardLayout -> {
-                CreekAnalytics.logEvent(TAG, "Chapters")
-                val textModeIntent = Intent(context, ChaptersActivity::class.java)
-                startActivity(textModeIntent)
+                loadChapters()
+
             }
 
             R.id.lessonsLayout -> {
@@ -287,6 +286,16 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
                 new Intent(getContext(), ProgramWikiActivity.class);
                 startActivity(searchIntent);*/
 
+    }
+
+    private fun loadChapters() {
+        if ( !AuxilaryUtils.isNetworkAvailable ) {
+            CommonUtils.displaySnackBar(activity, R.string.internet_required, R.string.retry, View.OnClickListener { loadChapters() })
+            return
+        }
+        CreekAnalytics.logEvent(TAG, "Chapters")
+        val textModeIntent = Intent(context, ChaptersActivity::class.java)
+        startActivity(textModeIntent)
     }
 
 
