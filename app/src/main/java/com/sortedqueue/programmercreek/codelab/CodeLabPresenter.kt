@@ -42,15 +42,54 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
         codeShortCuts.add(CodeShortCuts("if", "if(  ){\n\n}"))
         codeShortCuts.add(CodeShortCuts("else", "else{\n\n}"))
         codeShortCuts.add(CodeShortCuts("else_if", "else{\n\n}"))
-        codeShortCuts.add(CodeShortCuts("printf", "printf(\"\");"))
-        codeShortCuts.add(CodeShortCuts("scanf", "scanf(\"\");"))
-        codeShortCuts.add(CodeShortCuts("stdio", "#include \"stdio.h\""))
-        codeShortCuts.add(CodeShortCuts("conio", "#include \"conio.h\""))
-        codeLabView.getCodeShortCuts(codeShortCuts)
+
+
+        var codeBody = "#include \"stdio.h\"\n" + "#include \"conio.h\""
+        when( programLanguage ) {
+            "c" -> {
+                codeShortCuts.add(CodeShortCuts("printf", "printf(\"\");"))
+                codeShortCuts.add(CodeShortCuts("scanf", "scanf(\"\");"))
+            }
+            "java" -> {
+
+                codeBody = "import java.util.*;\n" +
+                        "import java.lang.*;\n" +
+                        "import java.io.*;\n" +
+                        "\n" +
+                        "class CodeField\n" +
+                        "{\n" +
+                        "\tpublic static void main (String[] args) throws java.lang.Exception\n" +
+                        "\t{\n" +
+                        "\t}\n" +
+                        "}"
+                codeShortCuts.add(CodeShortCuts("sopln", "System.out.println(\"\");"))
+                codeShortCuts.add(CodeShortCuts("sop", "System.out.println(\"\");"))
+                codeShortCuts.add(CodeShortCuts("read_int", "Scanner sc = new Scanner(System.in);\n" +
+                        "int inputInteger = sc.nextInt();"))
+                codeShortCuts.add(CodeShortCuts("read_string", "Scanner sc = new Scanner(System.in);\\n\" +\n" +
+                        "                        \"String inputString = sc.nextLine();\""))
+            }
+            "cpp", "c++" -> {
+                codeBody = "#include \"iostream.h\"\n" +
+                        "#include \"conio.h\"\n" +
+                        "using namespace std;\n\n" +
+                        "int main() {" +
+                        "\n\n\n\n" +
+                        "return 0;" +
+                        "}"
+                codeShortCuts.add(CodeShortCuts("cout", "cout << "))
+                codeShortCuts.add(CodeShortCuts("cin", "cin >> "))
+                codeShortCuts.add(CodeShortCuts("cerr", "cerr >> "))
+            }
+        }
+
+
+        codeLabView.getCodeShortCuts(codeShortCuts, codeBody)
         codeLabView.hideProgress()
     }
 
     private val TAG: String = CodeLabPresenter::class.java.simpleName
+    var trialMode = 0
 
     fun executeCode(input : String, sourceCode : String ) {
 
@@ -59,7 +98,20 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
         codeMap.put("sourceCode", sourceCode)
         codeMap.put("input", input)
         codeLabView.startCodeExecuteAnimation()
-        val idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi())
+        Handler().postDelayed({
+            if( trialMode == 0 ) {
+                codeLabView.onOutputSuccess("Emulate Success")
+                codeLabView.stopCodeExecuteAnimation()
+                trialMode = 1
+            }
+            else {
+                trialMode = 0
+                codeLabView.onOutputError("Emulate Failure")
+                codeLabView.stopCodeExecuteAnimation()
+            }
+
+        }, 5000)
+        /*val idResponseCall = submitCodeService.postCode(codeMap, RetrofitCreator.getTokenCompilerApi())
         idResponseCall.enqueue(object : Callback<IdResponse> {
             override fun onResponse(call: Call<IdResponse>, response: Response<IdResponse>) {
                 Log.d(TAG, "Execute Response : " + response.body().toString())
@@ -76,7 +128,7 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
                 codeLabView.onError("Execute Error : " + t.message)
                 codeLabView.stopCodeExecuteAnimation()
             }
-        })
+        })*/
     }
 
     private fun getOutputResponse(submissionId: Int) {

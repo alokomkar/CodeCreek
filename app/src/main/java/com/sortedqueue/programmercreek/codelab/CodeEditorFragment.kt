@@ -36,7 +36,10 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        codeLabPresenter.getCodeShortCutsForLanguage("C")
+        checkFAB.setOnClickListener {
+            outputTextView.visibility = View.GONE
+            codeLabPresenter.executeCode("", editor.text.toString()) }
+        codeLabPresenter.getCodeShortCutsForLanguage(CreekApplication.getPreferences().programLanguage)
     }
 
     override fun showProgress(messageId: Int) {
@@ -52,9 +55,9 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
         CommonUtils.displayToast(context, error)
     }
 
-    override fun getCodeShortCuts(codeShortCuts: ArrayList<CodeShortCuts>) {
+    override fun getCodeShortCuts(codeShortCuts: ArrayList<CodeShortCuts>, codeBody: String ) {
         editor!!.setOnTextChangedListener(this)
-        editor!!.setText("#include \"stdio.h\"\n" + "#include \"conio.h\"")
+        editor!!.setText(codeBody)
         codeShortCutsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
 
         codeShortCutsRecyclerView!!.adapter = CodeShortCutsAdapter(codeShortCuts,
@@ -111,11 +114,13 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
     }
 
     override fun onOutputSuccess(output: String) {
+        outputTextView.visibility = View.VISIBLE
         outputTextView.text = output
         outputTextView.setTextColor(Color.GREEN)
     }
 
     override fun onOutputError(error: String) {
+        outputTextView.visibility = View.VISIBLE
         outputTextView.text = error
         outputTextView.setTextColor(Color.RED)
     }

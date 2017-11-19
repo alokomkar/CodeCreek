@@ -8,7 +8,7 @@ import java.util.*
  * Created by Alok Omkar on 2017-11-19.
  */
 interface CodeLabView : BaseView {
-    fun getCodeShortCuts(codeShortCuts : ArrayList<CodeShortCuts>)
+    fun getCodeShortCuts( codeShortCuts : ArrayList<CodeShortCuts>, codeBody : String )
     fun startCodeExecuteAnimation()
     fun stopCodeExecuteAnimation()
     fun onOutputSuccess( output: String )
