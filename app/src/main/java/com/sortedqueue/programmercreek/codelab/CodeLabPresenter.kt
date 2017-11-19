@@ -91,6 +91,17 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
                 codeShortCuts.add(CodeShortCuts("cin", "cin >>   ;"))
                 codeShortCuts.add(CodeShortCuts("cerr", "cerr <<  ; "))
             }
+            else -> {
+                codeBody = "#include \"stdio.h\"\n" +
+                        "#include \"conio.h\"\n" +
+                        "using namespace std;\n\n" +
+                        "int main() {" +
+                        "\n\n" +
+                        "\treturn 0;\n" +
+                        "}"
+                codeShortCuts.add(CodeShortCuts("printf", "printf(\"\");"))
+                codeShortCuts.add(CodeShortCuts("scanf", "scanf(\"\");"))
+            }
         }
 
 
