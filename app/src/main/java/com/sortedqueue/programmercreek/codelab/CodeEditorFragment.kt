@@ -12,64 +12,44 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.CodeShortCuts
+import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.view.CodeEditor
 import kotlinx.android.synthetic.main.fragment_editor.*
 
 import java.util.ArrayList
 
-
-
-
-
 /**
  * Created by Alok on 14/09/17.
  */
 
-class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
+class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLabView {
 
-
-
-    override fun onCreateView(
-            inflater: LayoutInflater?,
-            container: ViewGroup?,
-            state: Bundle?): View? {
-        val view = inflater!!.inflate(
-                R.layout.fragment_editor,
-                container,
-                false)
-        return view
+    override fun onCreateView( inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View? {
+        return inflater!!.inflate( R.layout.fragment_editor, container,false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews()
+        CodeLabPresenter(this).getCodeShortCutsForLanguage("C")
     }
 
-    private fun setupViews() {
+    override fun showProgress(messageId: Int) {
+        CommonUtils.displayProgressDialog(context, messageId)
+    }
+
+    override fun hideProgress() {
+        CommonUtils.dismissProgressDialog()
+    }
+
+    override fun onError(error: String) {
+        CommonUtils.dismissProgressDialog()
+        CommonUtils.displayToast(context, error)
+    }
+
+    override fun getCodeShortCuts(codeShortCuts: ArrayList<CodeShortCuts>) {
         editor!!.setOnTextChangedListener(this)
         editor!!.setText("#include \"stdio.h\"\n" + "#include \"conio.h\"")
         codeShortCutsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
-        val codeShortCuts = ArrayList<CodeShortCuts>()
-        codeShortCuts.add(CodeShortCuts("{}", "{\n\n}"))
-        codeShortCuts.add(CodeShortCuts("TAB", "    "))
-        codeShortCuts.add(CodeShortCuts(";", ";"))
-        codeShortCuts.add(CodeShortCuts("++", "++"))
-        codeShortCuts.add(CodeShortCuts("--", "--"))
-        codeShortCuts.add(CodeShortCuts("<", "<"))
-        codeShortCuts.add(CodeShortCuts(">", ">"))
-        codeShortCuts.add(CodeShortCuts("()", "()"))
-        codeShortCuts.add(CodeShortCuts("main", "void main()\n{\n\n\n}"))
-        codeShortCuts.add(CodeShortCuts("int main", "int main()\n{\n\n\nreturn0;\n}"))
-        codeShortCuts.add(CodeShortCuts("do_while", "do{ \n\n }while();"))
-        codeShortCuts.add(CodeShortCuts("for_loop", "for( ; ; ){\n\n}"))
-        codeShortCuts.add(CodeShortCuts("if", "if(  ){\n\n}"))
-        codeShortCuts.add(CodeShortCuts("else", "else{\n\n}"))
-        codeShortCuts.add(CodeShortCuts("else_if", "else{\n\n}"))
-        codeShortCuts.add(CodeShortCuts("printf", "printf(\"\");"))
-        codeShortCuts.add(CodeShortCuts("scanf", "scanf(\"\");"))
-        codeShortCuts.add(CodeShortCuts("stdio", "#include \"stdio.h\""))
-        codeShortCuts.add(CodeShortCuts("conio", "#include \"conio.h\""))
-
 
         codeShortCutsRecyclerView!!.adapter = CodeShortCutsAdapter(codeShortCuts,
                 object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
@@ -79,11 +59,6 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener {
                         editor!!.text.insert(Math.min(start, end), codeShortCuts[position].value)
                     }
                 })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
     }
 
     override fun onTextChanged(text: String) {

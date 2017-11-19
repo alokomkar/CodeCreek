@@ -69,8 +69,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
-        return view
+        return inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -125,38 +124,38 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
             interviewLayout!!.alpha = 0.0f
             quickReferenceLayout!!.alpha = 0.0f
             fillLayout!!.alpha = 0.0f
-            //codeLabLayout.setAlpha(0.0f);
+            codeLabLayout.alpha = 0.0f
 
             var delay = 0
             val standardDelay = 270
             initAnimations(introLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(wizardLayout!!, delay)
             if (creekPreferences!!.programLanguage.equals("java", ignoreCase = true)) {
-                delay = delay + standardDelay
+                delay += standardDelay
                 initAnimations(lessonsLayout!!, delay)
             }
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(syntaxLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(quickReferenceLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(indexLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(wikiLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(quizLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(matchLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(fillLayout!!, delay)
-            delay = delay + standardDelay
+            delay += standardDelay
             initAnimations(testLayout!!, delay)
 
-            //delay = delay + standardDelay;
-            /*initAnimations(interviewLayout, delay);
-            delay = delay + standardDelay;*/
-            //initAnimations(codeLabLayout, delay);
+            //delay += standardDelay;
+            /*initAnimations(interviewLayout, delay);*/
+            delay += standardDelay
+            initAnimations(codeLabLayout, delay)
         }
 
 
@@ -186,9 +185,6 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 
     override fun onClick(v: View) {
 
@@ -224,7 +220,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
             }
             R.id.indexLayout -> {
                 CreekAnalytics.logEvent(TAG, "Wizard - Program Index")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_WIZARD)
             }
 
             R.id.introLayout -> if (creekPreferences!!.programLanguage.equals("java", ignoreCase = true)) {
@@ -237,7 +233,6 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
                 startActivity(introIntent)
             }
 
-        //TODO : To be removed later
             R.id.reviseLayout -> {
                 val programInserterIntent = Intent(context, ProgramInserterActivity::class.java)
                 startActivity(programInserterIntent)
@@ -256,31 +251,31 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
             R.id.testLayout -> {
                 CreekAnalytics.logEvent(TAG, "Test")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_TEST)
             }
 
             R.id.matchLayout -> {
                 CreekAnalytics.logEvent(TAG, "Match")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_MATCH)
             }
 
             R.id.fillLayout -> {
                 CreekAnalytics.logEvent(TAG, "Fill Code")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_FILL_BLANKS)
             }
 
             R.id.quizLayout -> {
                 CreekAnalytics.logEvent(TAG, "Quiz")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_QUIZ)
             }
 
             R.id.codeLabLayout -> {
                 CreekAnalytics.logEvent(TAG, "Code Lab")
-                LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB)
+                launchProgramListActivity(ProgrammingBuddyConstants.KEY_CODE_LAB)
             }
 
             R.id.downloadFileTextView -> dashboardNavigationListener!!.importFromWeb()
-        }//LaunchProgramListActivity(ProgrammingBuddyConstants.KEY_REVISE);
+        }//launchProgramListActivity(ProgrammingBuddyConstants.KEY_REVISE);
         //dashboardNavigationListener.onProgressStatsUpdate(50);
         /*Intent searchIntent =
                 new Intent(getContext(), ProgramWikiActivity.class);
@@ -299,14 +294,14 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
     }
 
 
-    private fun LaunchProgramListActivity(invokeMode: Int) {
+    private fun launchProgramListActivity(invokeMode: Int) {
         if (creekPreferences!!.getProgramTables() == -1) {
             CommonUtils.displayProgressDialog(activity, "Initializing data for the first time : " + creekPreferences!!.programLanguage.toUpperCase())
             firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
             firebaseDatabaseHandler!!.initializeProgramTables(object : FirebaseDatabaseHandler.ProgramTableInterface {
                 override fun getProgramTables(program_tables: ArrayList<ProgramTable>) {
                     CommonUtils.dismissProgressDialog()
-                    LaunchProgramListActivity(invokeMode)
+                    launchProgramListActivity(invokeMode)
                 }
 
                 override fun onError(error: DatabaseError) {
