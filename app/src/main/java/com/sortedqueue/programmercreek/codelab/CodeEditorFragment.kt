@@ -37,6 +37,7 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkFAB.setOnClickListener {
+            outputDividerView.visibility = View.GONE
             outputTextView.visibility = View.GONE
             codeLabPresenter.executeCode("", editor.text.toString()) }
         codeLabPresenter.getCodeShortCutsForLanguage(CreekApplication.getPreferences().programLanguage)
@@ -114,12 +115,14 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
     }
 
     override fun onOutputSuccess(output: String) {
+        outputDividerView.visibility = View.VISIBLE
         outputTextView.visibility = View.VISIBLE
         outputTextView.text = output
         outputTextView.setTextColor(Color.GREEN)
     }
 
     override fun onOutputError(error: String) {
+        outputDividerView.visibility = View.VISIBLE
         outputTextView.visibility = View.VISIBLE
         outputTextView.text = error
         outputTextView.setTextColor(Color.RED)

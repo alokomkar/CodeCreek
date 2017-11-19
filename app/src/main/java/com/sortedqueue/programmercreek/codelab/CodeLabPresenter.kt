@@ -35,31 +35,40 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
         codeShortCuts.add(CodeShortCuts("<", "<"))
         codeShortCuts.add(CodeShortCuts(">", ">"))
         codeShortCuts.add(CodeShortCuts("()", "()"))
-        codeShortCuts.add(CodeShortCuts("main", "void main()\n{\n\n\n}"))
-        codeShortCuts.add(CodeShortCuts("int main", "int main()\n{\n\n\nreturn0;\n}"))
-        codeShortCuts.add(CodeShortCuts("do_while", "do{ \n\n }while();"))
-        codeShortCuts.add(CodeShortCuts("for_loop", "for( ; ; ){\n\n}"))
-        codeShortCuts.add(CodeShortCuts("if", "if(  ){\n\n}"))
-        codeShortCuts.add(CodeShortCuts("else", "else{\n\n}"))
-        codeShortCuts.add(CodeShortCuts("else_if", "else{\n\n}"))
+        //codeShortCuts.add(CodeShortCuts("main", "void main()\n{\n\n\n}"))
+        //codeShortCuts.add(CodeShortCuts("int main", "int main()\n{\n\n\nreturn0;\n}"))
+        codeShortCuts.add(CodeShortCuts("do_while", "do { \n\n } while();"))
+        codeShortCuts.add(CodeShortCuts("for_loop", "for( ; ; ) {\n\n}"))
+        codeShortCuts.add(CodeShortCuts("if", "if(  ) {\n\n}"))
+        codeShortCuts.add(CodeShortCuts("else", "else {\n\n}"))
+        codeShortCuts.add(CodeShortCuts("else_if", "else {\n\n}"))
 
 
         var codeBody = "#include \"stdio.h\"\n" + "#include \"conio.h\""
         when( programLanguage ) {
             "c" -> {
+                codeBody = "#include \"stdio.h\"\n" +
+                        "#include \"conio.h\"\n" +
+                        "using namespace std;\n\n" +
+                        "int main() {" +
+                        "\n\n" +
+                        "\treturn 0;\n" +
+                        "}"
                 codeShortCuts.add(CodeShortCuts("printf", "printf(\"\");"))
                 codeShortCuts.add(CodeShortCuts("scanf", "scanf(\"\");"))
             }
             "java" -> {
-
+                selectedLanguageIndex = LanguageConstants.JAVA_INDEX
                 codeBody = "import java.util.*;\n" +
                         "import java.lang.*;\n" +
                         "import java.io.*;\n" +
                         "\n" +
                         "class CodeField\n" +
                         "{\n" +
-                        "\tpublic static void main (String[] args) throws java.lang.Exception\n" +
+                        "\tpublic static void main (String[] args) \n" +
+                        "throws java.lang.Exception\n" +
                         "\t{\n" +
+                        "\n" +
                         "\t}\n" +
                         "}"
                 codeShortCuts.add(CodeShortCuts("sopln", "System.out.println(\"\");"))
@@ -70,16 +79,17 @@ class CodeLabPresenter( val codeLabView : CodeLabView ) {
                         "                        \"String inputString = sc.nextLine();\""))
             }
             "cpp", "c++" -> {
+                selectedLanguageIndex = LanguageConstants.CPP_INDEX
                 codeBody = "#include \"iostream.h\"\n" +
                         "#include \"conio.h\"\n" +
                         "using namespace std;\n\n" +
                         "int main() {" +
-                        "\n\n\n\n" +
-                        "return 0;" +
+                        "\n\n" +
+                        "\treturn 0;\n" +
                         "}"
-                codeShortCuts.add(CodeShortCuts("cout", "cout << "))
-                codeShortCuts.add(CodeShortCuts("cin", "cin >> "))
-                codeShortCuts.add(CodeShortCuts("cerr", "cerr >> "))
+                codeShortCuts.add(CodeShortCuts("cout", "cout <<   ;"))
+                codeShortCuts.add(CodeShortCuts("cin", "cin >>   ;"))
+                codeShortCuts.add(CodeShortCuts("cerr", "cerr <<  ; "))
             }
         }
 
