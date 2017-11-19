@@ -14,7 +14,6 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.firebase.Code
 import com.sortedqueue.programmercreek.fragments.ChaptersFragment
 import com.sortedqueue.programmercreek.fragments.CodeLanguageFragment
-import com.sortedqueue.programmercreek.fragments.CompileCodeFragment
 import com.sortedqueue.programmercreek.interfaces.CodeLabNavigationListener
 import com.sortedqueue.programmercreek.util.AnimationUtils
 
@@ -71,11 +70,12 @@ class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnC
     }
 
     private fun loadCodeEditorFragment() {
-        supportActionBar!!.title = "Code Editor"
+        supportActionBar!!.title = "Code Lab"
         mFragmentTransaction = supportFragmentManager.beginTransaction()
 
         checkFAB!!.setImageDrawable(ContextCompat.getDrawable(this@CodeLabActivity, android.R.drawable.ic_media_play))
-        AnimationUtils.enterReveal(checkFAB)
+        //AnimationUtils.enterReveal(checkFAB)
+        checkFAB!!.visibility = View.GONE
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
         mFragmentTransaction!!.replace(R.id.container, CodeEditorFragment(), CodeEditorFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()

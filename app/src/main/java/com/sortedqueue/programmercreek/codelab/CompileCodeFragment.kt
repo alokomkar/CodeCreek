@@ -1,14 +1,12 @@
-package com.sortedqueue.programmercreek.fragments
+package com.sortedqueue.programmercreek.codelab
 
 import android.Manifest
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -18,12 +16,6 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 
 import com.sortedqueue.programmercreek.R
@@ -45,7 +37,6 @@ import kotlinx.android.synthetic.main.fragment_compile_code.*
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 import java.util.ArrayList

@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.codelab
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -7,6 +8,9 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
 
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
@@ -24,13 +28,15 @@ import java.util.ArrayList
 
 class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLabView {
 
+    private var codeLabPresenter = CodeLabPresenter(this)
+
     override fun onCreateView( inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View? {
         return inflater!!.inflate( R.layout.fragment_editor, container,false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CodeLabPresenter(this).getCodeShortCutsForLanguage("C")
+        codeLabPresenter.getCodeShortCutsForLanguage("C")
     }
 
     override fun showProgress(messageId: Int) {
@@ -61,6 +67,16 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
                 })
     }
 
+    override fun startCodeExecuteAnimation() {
+        compilerProgressLayout.visibility = View.VISIBLE
+        val animation = AlphaAnimation(1f, 0f)
+        animation.duration = 800
+        animation.interpolator = LinearInterpolator()
+        animation.repeatCount = Animation.INFINITE
+        animation.repeatMode = Animation.REVERSE
+        progressImageView.startAnimation(animation)
+    }
+
     override fun onTextChanged(text: String) {
         if (!CreekApplication.creekPreferences!!.doesRunOnChange()) {
             return
@@ -87,5 +103,20 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
                 preferences.textSize.toFloat())
 
         editor!!.setTabWidth(preferences.tabWidth)
+    }
+
+    override fun stopCodeExecuteAnimation() {
+        progressImageView.clearAnimation()
+        compilerProgressLayout.visibility = View.GONE
+    }
+
+    override fun onOutputSuccess(output: String) {
+        outputTextView.text = output
+        outputTextView.setTextColor(Color.GREEN)
+    }
+
+    override fun onOutputError(error: String) {
+        outputTextView.text = error
+        outputTextView.setTextColor(Color.RED)
     }
 }

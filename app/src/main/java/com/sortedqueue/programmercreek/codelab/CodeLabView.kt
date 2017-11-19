@@ -9,4 +9,8 @@ import java.util.*
  */
 interface CodeLabView : BaseView {
     fun getCodeShortCuts(codeShortCuts : ArrayList<CodeShortCuts>)
+    fun startCodeExecuteAnimation()
+    fun stopCodeExecuteAnimation()
+    fun onOutputSuccess( output: String )
+    fun onOutputError( error: String )
 }

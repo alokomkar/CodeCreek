@@ -1,45 +1,135 @@
 <!-- Use a ScrollView around EditText to have a padding around the text
 	contents. If we make EditText scrollable, contents will be cut off
 	at the specified padding but before the visible border. -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-    <ScrollView
-        tools:ignore="Overdraw"
-        android:id="@+id/scroll_view"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/codeShortCutsRecyclerView"
-        android:background="@color/md_black_1000">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <ScrollView
+            tools:ignore="Overdraw"
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/executionLayout"
+            android:background="@color/md_black_1000">
 
 
-        <com.sortedqueue.programmercreek.view.CodeEditor
-            android:id="@+id/editor"
+            <com.sortedqueue.programmercreek.view.CodeEditor
+                android:id="@+id/editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/hello_world_program"
+                android:gravity="start|top"
+                android:typeface="monospace"
+                android:textSize="12sp"
+                android:textColor="@color/editor_text"
+                android:ellipsize="end"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:background="@color/md_black_1000"/>
+
+
+
+        </ScrollView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/checkFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/executionLayout"
+            app:layout_anchorGravity="top|right"
+            app:backgroundTint="@color/md_green_400"
+            app:srcCompat="@android:drawable/ic_media_play"
+            android:layout_gravity="center_vertical|start" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/hello_world_program"
-            android:gravity="start|top"
-            android:typeface="monospace"
-            android:textSize="12sp"
-            android:textColor="@color/editor_text"
-            android:ellipsize="end"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:background="@color/md_black_1000"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:id="@+id/executionLayout">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:background="@color/white"
+                android:id="@+id/compilerProgressLayout"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24"
+                    android:layout_height="@dimen/margin_24"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:id="@+id/progressImageView"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher"
+                    android:contentDescription="@string/compiling" />
+
+                <TextView
+                    tools:ignore="MissingPrefix"
+                    fontPath="fonts/Roboto-Regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressTextView"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_dashboard_small"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/compiling"
+                    android:layout_toEndOf="@+id/progressImageView"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:padding="@dimen/margin_8"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/outputTextView"
+                android:textColor="@color/md_white_1000"
+                tools:text="Hello World"
+                android:background="@color/md_black_1000"
+                android:padding="@dimen/margin_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/dividerView"
+                android:background="@color/bg" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_white_1000"
+                android:minHeight="@dimen/margin_100"
+                tools:visibility="gone"
+                android:maxHeight="@dimen/margin_200"
+                android:id="@+id/inputEditText"
+                android:hint="@string/your_input_here"
+                android:textColorHint="@color/md_grey_500"
+                android:background="@color/md_black_1000"
+                android:padding="@dimen/margin_16"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_grey_500"
+                android:id="@+id/codeShortCutsRecyclerView"
+                tools:listitem="@layout/item_code_shortcut"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 
 
-    </ScrollView>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
-        android:background="@color/md_grey_500"
-        android:id="@+id/codeShortCutsRecyclerView"
-        tools:listitem="@layout/item_code_shortcut"/>
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
 
