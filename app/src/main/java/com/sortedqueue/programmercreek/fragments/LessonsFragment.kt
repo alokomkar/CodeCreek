@@ -71,7 +71,8 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
             adView!!.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     super.onAdLoaded()
-                    adView!!.visibility = View.VISIBLE
+                    if( adView != null )
+                        adView!!.visibility = View.VISIBLE
                 }
             }
         }
