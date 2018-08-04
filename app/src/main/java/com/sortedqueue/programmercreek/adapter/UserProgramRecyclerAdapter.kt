@@ -39,8 +39,8 @@ class UserProgramRecyclerAdapter(private val context: Context, private val acces
 
     init {
         this.userEmail = CreekApplication.creekPreferences!!.getSignInAccount()
-        this.likeDrawable = ContextCompat.getDrawable(context, R.drawable.ic_star_on)
-        this.unlikeDrawable = ContextCompat.getDrawable(context, R.drawable.ic_star_off)
+        this.likeDrawable = ContextCompat.getDrawable(context, R.drawable.ic_star_on)!!
+        this.unlikeDrawable = ContextCompat.getDrawable(context, R.drawable.ic_star_off)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

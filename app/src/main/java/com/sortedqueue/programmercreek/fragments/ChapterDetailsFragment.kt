@@ -54,15 +54,15 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     private var onChapterNavigationListener: ChapterNavigationListener? = null
     private var fabDrawable: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_wizard_module, container, false)
+        val view = inflater.inflate(R.layout.fragment_wizard_module, container, false)
 
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CommonUtils.displayProgressDialog(context, "Loading modules")
         setupViews()
@@ -75,7 +75,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     private fun setupViews() {
 
         //syntaxLearnViewPager.setOffscreenPageLimit(chapter.getChapterDetailsArrayList().size());
-        chapterDetailsPagerAdapter = ChapterDetailsPagerAdapter(context, this, childFragmentManager, chapter!!.chapterDetailsArrayList, this, nextChapter)
+        chapterDetailsPagerAdapter = ChapterDetailsPagerAdapter(context!!, this, childFragmentManager, chapter!!.chapterDetailsArrayList, this, nextChapter)
         syntaxLearnViewPager!!.adapter = chapterDetailsPagerAdapter
         syntaxLearnViewPager!!.setAllowedSwipeDirection(SwipeDirection.left)
         ProgressBar!!.max = chapter!!.chapterDetailsArrayList.size
@@ -171,7 +171,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
                 fabDrawable = if (progress == ProgressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
             }
         }
-        doneFAB!!.setImageDrawable(ContextCompat.getDrawable(context, fabDrawable))
+        doneFAB!!.setImageDrawable(ContextCompat.getDrawable(context!!, fabDrawable))
         onChapterNavigationListener!!.toggleFabDrawable(fabDrawable)
     }
 
@@ -215,7 +215,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     private fun fabAction() {
 
         if (syntaxLearnViewPager!!.currentItem + 1 == chapter!!.chapterDetailsArrayList.size) {
-            activity.onBackPressed()
+            activity!!.onBackPressed()
         } else {
             syntaxLearnViewPager!!.currentItem = syntaxLearnViewPager!!.currentItem + 1
         }
@@ -286,7 +286,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
                 }
             }
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+        FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun onBackPressed() {
@@ -317,7 +317,7 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
     }
 
     fun showRewardedVideoDialog() {
-        AuxilaryUtils.displayInformation(context, R.string.hint_video, R.string.reward_video_description,
+        AuxilaryUtils.displayInformation(context!!, R.string.hint_video, R.string.reward_video_description,
                 DialogInterface.OnClickListener { dialogInterface, i -> showRewardedClick() },
 
                 DialogInterface.OnDismissListener { })
@@ -373,6 +373,6 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
             solution += string + "\n"
         }
         Log.d("SolutionProgram", solution)
-        AuxilaryUtils.displayAlert("Solution", solution, context)
+        AuxilaryUtils.displayAlert("Solution", solution, context!!)
     }
 }

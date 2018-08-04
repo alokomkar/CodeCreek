@@ -47,20 +47,20 @@ class SubTopicQuestionFragment : Fragment(), CustomProgramRecyclerViewAdapter.Ad
     var correctAnswers = 0
         private set
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_subtopic_question, container, false)
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkAnswerImageView!!.setOnClickListener { checkAnswer() }
         questionTextView!!.text = subTopic!!.question
 
         if (subTopic!!.questionCode != null) {
             codeRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context, AuxilaryUtils.splitProgramIntolines(subTopic!!.questionCode), programLanguage!!)
+            codeRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context!!, AuxilaryUtils.splitProgramIntolines(subTopic!!.questionCode), programLanguage!!)
         }
 
         optionsRecyclerView!!.layoutManager = LinearLayoutManager(context)

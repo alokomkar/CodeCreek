@@ -63,14 +63,14 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
         return mProgram_Index
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fill_blank, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
@@ -94,7 +94,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
             if (programTables != null && programTables.size > 0) {
                 updateUI(programTables)
             } else {
-                firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
+                firebaseDatabaseHandler = FirebaseDatabaseHandler(context!!)
                 firebaseDatabaseHandler!!.getProgramIndexInBackGround(mProgram_Index, object : FirebaseDatabaseHandler.GetProgramIndexListener {
                     override fun onSuccess(programIndex: ProgramIndex) {
                         headerTextView!!.text = programIndex.program_Description
@@ -116,7 +116,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
                 })
             }
         } else {
-            firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
+            firebaseDatabaseHandler = FirebaseDatabaseHandler(context!!)
             firebaseDatabaseHandler!!.getProgramIndexInBackGround(mProgram_Index, object : FirebaseDatabaseHandler.GetProgramIndexListener {
                 override fun onSuccess(programIndex: ProgramIndex) {
                     headerTextView!!.text = programIndex.program_Description
@@ -747,7 +747,7 @@ class FillBlankFragment : Fragment(), UIProgramFetcherListener, CompoundButton.O
             "java" -> creekUserStats!!.addToUnlockedJavaProgramIndexList(mProgramIndex!!.program_index + 1)
             "usp" -> creekUserStats!!.addToUnlockedUspProgramIndexList(mProgramIndex!!.program_index + 1)
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+        FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun isTestComplete(): Int {

@@ -91,7 +91,7 @@ public class FirebaseStorageHandler {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if( task.isSuccessful() ) {
-                    fileUploadListener.onSuccess(task.getResult().getDownloadUrl());
+                    //fileUploadListener.onSuccess(task.getResult().getDownloadUrl());
                 }
                 else {
                     fileUploadListener.onError(null);

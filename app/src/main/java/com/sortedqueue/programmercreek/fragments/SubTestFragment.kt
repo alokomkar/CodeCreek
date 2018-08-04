@@ -39,14 +39,14 @@ class SubTestFragment : Fragment() {
     private var dragNDropAdapter: DragNDropAdapter? = null
     private var subTestCommunicationListener: SubTestCommunicationListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_sub_test, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
     }
@@ -89,7 +89,7 @@ class SubTestFragment : Fragment() {
 
         mRandomTest = ShuffleList.shuffleList(mRandomTest!!)
         programSize = mRandomTest!!.size
-        dragNDropAdapter = DragNDropAdapter(context, intArrayOf(R.layout.dragitem), intArrayOf(R.id.programLineTextView), mRandomTest!!)
+        dragNDropAdapter = DragNDropAdapter(context!!, intArrayOf(R.layout.dragitem), intArrayOf(R.id.programLineTextView), mRandomTest!!)
         dragNDropListView!!.adapter = dragNDropAdapter//new DragNDropAdapter(this,content)
         //mListView.setBackgroundResource(R.drawable.error);
         dragNDropListView!!.setDropListener(mDropListener)

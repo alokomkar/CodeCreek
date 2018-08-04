@@ -62,15 +62,15 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_bit_module, container, false)
+        val view = inflater.inflate(R.layout.fragment_bit_module, container, false)
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CreekAnalytics.logEvent(TAG, bitModule!!.title)
         titleTextView!!.text = bitModule!!.title
@@ -99,7 +99,7 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
         codeRecyclerView!!.visibility = View.GONE
         if (bitModule!!.code != null) {
             codeRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context, AuxilaryUtils.splitProgramIntolines(bitModule!!.code), bitModule!!.programLanguage, true)
+            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, AuxilaryUtils.splitProgramIntolines(bitModule!!.code), bitModule!!.programLanguage, true)
             codeRecyclerView!!.adapter = codeEditorRecyclerAdapter
             codeRecyclerView!!.visibility = View.VISIBLE
         }
@@ -121,7 +121,7 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
         checkFAB!!.visibility = if (bitModule!!.testMode == null || bitModule!!.testMode.equals("random", ignoreCase = true)) View.GONE else View.VISIBLE
         if (lastFirstIndicator == 1) {
             checkFAB!!.visibility = View.VISIBLE
-            checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_all))
+            checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_done_all))
         }
 
     }
@@ -167,7 +167,7 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
     override fun onClick(v: View) {
         when (v.id) {
             R.id.checkFAB -> if (lastFirstIndicator == 1) {
-                activity.onBackPressed()
+                activity!!.onBackPressed()
             } else {
                 if (bitModule!!.testMode != null) {
                     when (bitModule!!.testMode.toLowerCase()) {
@@ -200,7 +200,7 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
             if (fillCodeRecyclerAdapter.codeLine.trim { it <= ' ' }.replace("\\s+".toRegex(), "") == programLine.trim { it <= ' ' }.replace("\\s+".toRegex(), "")) {
                 correctAnswers++
             }
-            CommonUtils.displayToast(context, "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter!!.programLines!!.size + " correct")
+            CommonUtils.displayToast(context!!, "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter!!.programLines!!.size + " correct")
         }
     }
 

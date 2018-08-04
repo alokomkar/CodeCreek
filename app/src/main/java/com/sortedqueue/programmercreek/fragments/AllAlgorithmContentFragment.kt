@@ -31,14 +31,14 @@ class AllAlgorithmContentFragment : Fragment() {
     private var algorithmContent: AlgorithmContent? = null
     private var programLanguage: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_all_content_algorithm, container, false)
+        val view = inflater.inflate(R.layout.fragment_all_content_algorithm, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
     }
@@ -66,7 +66,7 @@ class AllAlgorithmContentFragment : Fragment() {
             }
             CONTENT_CODE -> {
                 algorithmCodeView!!.visibility = View.VISIBLE
-                algorithmCodeView!!.setOptions(Options.get(context)
+                algorithmCodeView!!.setOptions(Options.get(context!!)
                         .withLanguage(programLanguage!!)
                         .withCode(algorithmContent!!.programCode)
                         .withTheme(ColorTheme.SOLARIZED_LIGHT))

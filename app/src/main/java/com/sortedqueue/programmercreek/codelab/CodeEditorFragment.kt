@@ -30,11 +30,11 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
 
     private var codeLabPresenter = CodeLabPresenter(this)
 
-    override fun onCreateView( inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View? {
-        return inflater!!.inflate( R.layout.fragment_editor, container,false)
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
+        return inflater.inflate( R.layout.fragment_editor, container,false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkFAB.setOnClickListener {
             outputDividerView.visibility = View.GONE
@@ -53,7 +53,7 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
 
     override fun onError(error: String) {
         CommonUtils.dismissProgressDialog()
-        CommonUtils.displayToast(context, error)
+        CommonUtils.displayToast(context!!, error)
     }
 
     override fun getCodeShortCuts(codeShortCuts: ArrayList<CodeShortCuts>, codeBody: String ) {

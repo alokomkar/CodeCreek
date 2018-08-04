@@ -45,7 +45,7 @@ class ModuleFragment : Fragment() {
     private var moduleRecyclerAdapter: ModulesRecyclerViewAdapter? = null
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_module, container, false)
@@ -54,7 +54,7 @@ class ModuleFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
@@ -98,11 +98,11 @@ class ModuleFragment : Fragment() {
         modulesRecyclerView!!.visibility = View.INVISIBLE
         if ( CreekApplication.creekPreferences!!.checkModulesUpdate() < 0 && !AuxilaryUtils.isNetworkAvailable ) {
             CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getModules() })
-            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            CommonUtils.displayToast(context!!, R.string.enable_internet_to_download)
             return
         }
         CommonUtils.displayProgressDialog(context, "Loading modules")
-        FirebaseDatabaseHandler(context).initializeModules(object : FirebaseDatabaseHandler.ModuleInterface {
+        FirebaseDatabaseHandler(context!!).initializeModules(object : FirebaseDatabaseHandler.ModuleInterface {
             override fun getModules(languageModules: ArrayList<LanguageModule>) {
                 setupRecyclerView(languageModules)
             }
@@ -117,7 +117,7 @@ class ModuleFragment : Fragment() {
     private fun setupRecyclerView(languageModulesList: ArrayList<LanguageModule>) {
         this.languageModules = languageModulesList
         modulesRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        moduleRecyclerAdapter = ModulesRecyclerViewAdapter(context, languageModules!!, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
+        moduleRecyclerAdapter = ModulesRecyclerViewAdapter(context!!, languageModules!!, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
             override fun onItemClick(position: Int) {
                 if (position + 1 < languageModules!!.size) {
                     syntaxNavigationListener!!.onModuleLoad(languageModules!![position], languageModules!![position + 1])

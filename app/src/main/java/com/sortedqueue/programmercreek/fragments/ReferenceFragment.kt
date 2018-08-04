@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_reference.*
 class ReferenceFragment : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_reference, container, false)
         return fragmentView
     }
@@ -31,17 +31,17 @@ class ReferenceFragment : Fragment() {
     private var quickReference: QuickReference? = null
     private var language: String? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        quickReference = arguments.getParcelable<QuickReference>("quickReference")
-        language = arguments.getString("language")
+        quickReference = arguments!!.getParcelable<QuickReference>("quickReference")
+        language = arguments!!.getString("language")
         headerTextView!!.text = quickReference!!.header
         setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         contentRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        contentRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context, quickReference!!.contentArray, language!!)
+        contentRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context!!, quickReference!!.contentArray, language!!)
     }
 
     override fun onDestroyView() {

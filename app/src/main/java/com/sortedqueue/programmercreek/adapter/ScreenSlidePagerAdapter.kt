@@ -30,7 +30,7 @@ class ScreenSlidePagerAdapter(supportFragmentManager: FragmentManager, val allIt
         allItems.removeAt(currentPosition)
     }
 
-    override fun getItemPosition(`object`: Any?): Int {
+    override fun getItemPosition(`object`: Any): Int {
         val index = allItems.indexOf(`object`)
 
         if (index == -1)

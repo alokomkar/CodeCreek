@@ -69,7 +69,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_sub_topic, container, false)
@@ -77,7 +77,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CreekAnalytics.logEvent(TAG, subTopics!!.title)
         titleTextView!!.text = subTopics!!.title
@@ -106,7 +106,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
         codeRecyclerView!!.visibility = View.GONE
         if (subTopics!!.code != null) {
             codeRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context, AuxilaryUtils.splitProgramIntolines(subTopics!!.code), subTopics!!.programLanguage, true)
+            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, AuxilaryUtils.splitProgramIntolines(subTopics!!.code), subTopics!!.programLanguage, true)
             codeRecyclerView!!.adapter = codeEditorRecyclerAdapter
             codeRecyclerView!!.visibility = View.VISIBLE
         }
@@ -129,7 +129,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
         isTestAvailable = !(subTopics!!.testMode == null || subTopics!!.testMode.isEmpty())
         if (lastFirstIndicator == 1 && !isTestAvailable) {
             checkFAB!!.visibility = View.VISIBLE
-            checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_all))
+            checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_done_all))
         }
         if (isTestAvailable) {
             val animation = AlphaAnimation(1f, 0f)
@@ -185,7 +185,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
             R.id.checkFAB -> {
                 checkFAB!!.clearAnimation()
                 if (lastFirstIndicator == 1 && !isTestAvailable) {
-                    activity.onBackPressed()
+                    activity!!.onBackPressed()
                 } else {
                     subTopicQuestionFragment = SubTopicQuestionFragment()
                     subTopicQuestionFragment!!.setOnBackPressListener(this@SubTopicFragment)
@@ -212,7 +212,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
             if (fillCodeRecyclerAdapter.codeLine.trim { it <= ' ' }.replace("\\s+".toRegex(), "") == programLine.trim { it <= ' ' }.replace("\\s+".toRegex(), "")) {
                 correctAnswers++
             }
-            CommonUtils.displayToast(context, "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter!!.programLines!!.size + " correct")
+            CommonUtils.displayToast(context!!, "You've got " + correctAnswers + " / " + codeEditorRecyclerAdapter!!.programLines!!.size + " correct")
         }
     }
 
@@ -227,7 +227,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
                 isTestAvailable = false
 
                 checkFAB!!.visibility = View.VISIBLE
-                checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_all))
+                checkFAB!!.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_done_all))
             }
             childFragmentManager.popBackStack()
         }

@@ -20,15 +20,16 @@ import org.w3c.dom.Text
 class ProgramInserterWikiAdapter(private val programWikis: List<ProgramWiki>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var context: Context? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         this.context = parent.context
         val adapterView = LayoutInflater.from(parent.context).inflate(R.layout.item_wiki_inserter, parent, false)
         when (viewType) {
             ProgramWiki.CONTENT_HEADER -> return HeaderViewHolder(adapterView)
             ProgramWiki.CONTENT_PROGRAM -> return ExampleViewHolder(adapterView)
             ProgramWiki.CONTENT_PROGRAM_EXPLANATION -> return ExplanationViewHolder(adapterView)
+            else -> return HeaderViewHolder(adapterView)
         }
-        return null
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

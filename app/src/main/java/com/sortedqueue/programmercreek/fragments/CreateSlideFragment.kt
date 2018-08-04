@@ -88,7 +88,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
     private var programCode: Code? = null
     private var codeEditorRecyclerAdapter: CodeEditorRecyclerAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_slide, container, false)
@@ -97,10 +97,10 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         slideModel = SlideModel()
-        firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
+        firebaseDatabaseHandler = FirebaseDatabaseHandler(context!!)
         titleEditText!!.clearFocus()
         subTitleEditText!!.clearFocus()
         deleteImageView!!.setOnClickListener(this)
@@ -213,7 +213,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             }
         } else if (requestCode == PermissionUtils.PERMISSION_REQUEST) {
             if (PermissionUtils.checkDeniedPermissions(activity as AppCompatActivity, permissions).size == 0) {
-                AuxilaryUtils.displayPhotoDialog(context, this)
+                AuxilaryUtils.displayPhotoDialog(context!!, this)
             } else {
                 if (permissions.size == 3) {
                     CommonUtils.displaySnackBar(activity, R.string.camera_read_write_storage_permission_to_open_gallery)
@@ -235,19 +235,19 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
 
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+        if (takePictureIntent.resolveActivity(context!!.packageManager) != null) {
             // Create the File where the photo should go
             var photoFile: File? = null
             try {
                 photoFile = createImageFile()
             } catch (ex: IOException) {
                 // Error occurred while creating the File
-                CommonUtils.displayToast(context, "Unable to open Camera")
+                CommonUtils.displayToast(context!!, "Unable to open Camera")
             }
 
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                val photoURI = FileProvider.getUriForFile(context,
+                val photoURI = FileProvider.getUriForFile(context!!,
                         "com.sortedqueue.programmercreek.fileprovider",
                         photoFile)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -278,7 +278,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
         // Create an image file name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "PNG_" + timeStamp + "_"
-        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val image = File.createTempFile(
                 imageFileName, /* prefix */
                 ".png", /* suffix */
@@ -324,7 +324,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             }
             ACTION_GALLERY -> if (resultCode == AppCompatActivity.RESULT_OK) {
                 val selectedImageUri = data!!.data
-                compressAndCropPhoto(AuxilaryUtils.getFilePath(context, selectedImageUri!!))
+                compressAndCropPhoto(AuxilaryUtils.getFilePath(context!!, selectedImageUri!!))
             }
         }/*case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == AppCompatActivity.RESULT_OK) {
@@ -356,7 +356,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
                 if (uri != null) {
 
                     Log.d(TAG, "File Uri : " + uri.encodedPath + " Path " + uri.path)
-                    val filepath = FileUtils.getPath(context, uri)
+                    val filepath = FileUtils.getPath(context!!, uri)
                     Log.d(TAG, "File path : " + filepath!!)
                     val fis = FileInputStream(filepath)
                     val isr = InputStreamReader(fis, Charset.forName("UTF-8"))
@@ -387,7 +387,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             FirebaseStorageHandler(context).uploadSlideImage(selectedImageUri, object : FirebaseStorageHandler.FileUploadListener {
                 override fun onSuccess(downloadUri: Uri) {
                     uploadProgressBar!!.visibility = View.GONE
-                    CommonUtils.displayToast(context, "Success")
+                    CommonUtils.displayToast(context!!, "Success")
                     Log.d(TAG, "Upload Success : " + downloadUri.toString())
                     this@CreateSlideFragment.selectedImageUri = downloadUri
                     slideModel!!.slideImageUrl = downloadUri.toString()
@@ -401,7 +401,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
                 override fun onError(e: Exception?) {
                     uploadProgressBar!!.visibility = View.GONE
                     if (e != null) {
-                        CommonUtils.displayToast(context, "Error occurred while upload : " + e.message)
+                        CommonUtils.displayToast(context!!, "Error occurred while upload : " + e.message)
                         e.printStackTrace()
                     }
                 }
@@ -441,7 +441,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
     private fun checkPhotoPermissions() {
         if (PermissionUtils.checkSelfPermission(this,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))) {
-            AuxilaryUtils.displayPhotoDialog(context, this)
+            AuxilaryUtils.displayPhotoDialog(context!!, this)
         }
     }
 
@@ -507,7 +507,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
         if (programCode != null) {
             val programLines = AuxilaryUtils.splitProgramIntolines(programCode!!.sourceCode)
             codeEditRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context, programLines, this.selectedLanguage!!)
+            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, programLines, this.selectedLanguage!!)
             codeEditRecyclerView!!.adapter = codeEditorRecyclerAdapter
             codeEditRecyclerView!!.itemAnimator.changeDuration = 0
         }

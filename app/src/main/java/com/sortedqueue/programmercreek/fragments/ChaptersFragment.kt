@@ -47,16 +47,16 @@ class ChaptersFragment : Fragment() {
     private val TAG = ChaptersFragment::class.java.simpleName
     private var chapterRecyclerAdapter: ChapterRecyclerAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_chapters, container, false)
+        val view = inflater.inflate(R.layout.fragment_chapters, container, false)
 
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
@@ -697,7 +697,7 @@ class ChaptersFragment : Fragment() {
             firebaseDatabaseHandler.writeChapter(chapter1);
         }*/
         CommonUtils.displayProgressDialog(context, "Loading chapters")
-        FirebaseDatabaseHandler(context).getChaptersInBackground(object : FirebaseDatabaseHandler.GetChapterListener {
+        FirebaseDatabaseHandler(context!!).getChaptersInBackground(object : FirebaseDatabaseHandler.GetChapterListener {
             override fun onSuccess(chaptersList: ArrayList<Chapter>) {
                 setupRecyclerView(chaptersList)
             }
@@ -713,7 +713,7 @@ class ChaptersFragment : Fragment() {
     private fun setupRecyclerView(chapters: ArrayList<Chapter>) {
         this.chapters = chapters
         modulesRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        chapterRecyclerAdapter = ChapterRecyclerAdapter(context, this.chapters!!, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
+        chapterRecyclerAdapter = ChapterRecyclerAdapter(context!!, this.chapters!!, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
             override fun onItemClick(position: Int) {
                 if (position + 1 > this@ChaptersFragment.chapters!!.size) {
                     val programListIntent = Intent(context, ProgramListActivity::class.java)

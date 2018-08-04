@@ -33,7 +33,7 @@ class PresentationsListFragment : Fragment(), View.OnClickListener, FirebaseData
 
     private var adapter: PresentationsListRecyclerAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentations, container, false)
@@ -42,14 +42,14 @@ class PresentationsListFragment : Fragment(), View.OnClickListener, FirebaseData
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FirebaseDatabaseHandler(context).getAllPresentations(this)
+        FirebaseDatabaseHandler(context!!).getAllPresentations(this)
     }
 
     private fun setupRecyclerView(presentationModelArrayList: ArrayList<PresentationModel>) {
         presentationsRecyclerView!!.layoutManager = GridLayoutManager(context, 2)
-        adapter = PresentationsListRecyclerAdapter(context, presentationModelArrayList, this)
+        adapter = PresentationsListRecyclerAdapter(context!!, presentationModelArrayList, this)
         presentationsRecyclerView!!.adapter = adapter
     }
 

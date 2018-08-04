@@ -75,7 +75,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
     private var moduleDetailsScrollPageListener: ModuleDetailsScrollPageListener? = null
     private val TAG = QuizFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.activity_quiz, container, false)
 
 
@@ -84,7 +84,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mCheckSolutionBtn = view!!.findViewById(R.id.checkQuizButton)
         mTimerBtn = view.findViewById(R.id.timerButton)
@@ -127,7 +127,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         } else {
             if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
                 mWizard = false
-                FirebaseDatabaseHandler(context).getProgramIndexInBackGround(bundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                FirebaseDatabaseHandler(context!!).getProgramIndexInBackGround(bundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                         object : FirebaseDatabaseHandler.GetProgramIndexListener {
                             override fun onSuccess(programIndex: ProgramIndex) {
                                 program_index = programIndex
@@ -136,7 +136,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
                             }
 
                             override fun onError(databaseError: DatabaseError) {
-                                CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                                CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                             }
                         })
             } else {
@@ -149,7 +149,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
     }
 
     private fun getProgramTables() {
-        FirebaseDatabaseHandler(context)
+        FirebaseDatabaseHandler(context!!)
                 .getProgramTablesInBackground(mProgramIndex, object : FirebaseDatabaseHandler.GetProgramTablesListener {
                     override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                         run { initUI(programTables) }
@@ -170,7 +170,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
             }
 
         }
-        activity.title = "Quiz : " + program_index!!.program_Description
+        activity!!.title = "Quiz : " + program_index!!.program_Description
         mProgramTableList = program_TableList
         if (program_TableList != null && program_TableList.size > 0) {
             mProgramList = ArrayList<String>()
@@ -218,7 +218,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         }
 
         quizRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        quizRecyclerAdapter = QuizRecyclerAdapter(context, quizModels!!, mProgramExplanationList!!, object : QuizRecyclerAdapter.CustomQuizAdapterListner {
+        quizRecyclerAdapter = QuizRecyclerAdapter(context!!, quizModels!!, mProgramExplanationList!!, object : QuizRecyclerAdapter.CustomQuizAdapterListner {
             override fun onOptionSelected(position: Int, option: String) {
 
                 quizRecyclerAdapter!!.notifyItemChanged(position)
@@ -300,7 +300,7 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
                     TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime))) + ", Fantastic Work..!!"
         }
 
-        AuxilaryUtils.displayResultAlert(activity, "Quiz Complete", message, score, programSize)
+        AuxilaryUtils.displayResultAlert(activity!!, "Quiz Complete", message, score, programSize)
         quizComplete = true
 
         if (moduleDetailsScrollPageListener != null) moduleDetailsScrollPageListener!!.toggleFABDrawable()
@@ -342,10 +342,10 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
 
     fun onBackPressed() {
         if (quizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(activity)
+            AuxilaryUtils.showConfirmationDialog(activity!!)
 
         } else {
-            activity.finish()
+            activity!!.finish()
         }
 
     }
@@ -382,14 +382,14 @@ class QuizFragment : Fragment(), UIUpdateListener, UIProgramFetcherListener, Tes
         }
 
         builder.setMessage("Are you sure you want to submit the Quiz?")
-        builder.setTitle(activity.title)
+        builder.setTitle(activity!!.title)
         builder.setIcon(android.R.drawable.ic_dialog_info)
         builder.show()
 
     }
 
     override fun updateUI() {
-        ProgramFetcherTask(context, mProgramIndex).execute()
+        ProgramFetcherTask(context!!, mProgramIndex).execute()
     }
 
     override fun isTestComplete(): Int {

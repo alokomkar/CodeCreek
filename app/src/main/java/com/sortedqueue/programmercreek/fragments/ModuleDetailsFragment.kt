@@ -38,7 +38,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
     private var syntaxPagerAdapter: SyntaxPagerAdapter? = null
     private var syntaxNavigationListener: SyntaxNavigationListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_module_details, container, false)
 
@@ -46,7 +46,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
     }
@@ -80,7 +80,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
 
     private fun toggleFabDrawable(progress: Int) {
         val drawable = if (progress == ProgressBar!!.max) R.drawable.ic_done_all else android.R.drawable.ic_media_play
-        doneFAB!!.setImageDrawable(ContextCompat.getDrawable(context, drawable))
+        doneFAB!!.setImageDrawable(ContextCompat.getDrawable(context!!, drawable))
         syntaxNavigationListener!!.setImageDrawable(drawable)
     }
 
@@ -97,7 +97,7 @@ class ModuleDetailsFragment : Fragment(), ModuleDetailsScrollPageListener {
 
     override fun onScrollForward() {
         if (syntaxLearnViewPager!!.currentItem + 1 == syntaxPagerAdapter!!.count) {
-            activity.onBackPressed()
+            activity!!.onBackPressed()
         } else {
             syntaxLearnViewPager!!.currentItem = syntaxLearnViewPager!!.currentItem + 1
         }

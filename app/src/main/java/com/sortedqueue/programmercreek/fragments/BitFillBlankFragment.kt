@@ -66,15 +66,15 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
     private var lessonNavigationListener: LessonNavigationListener? = null
     private val TAG = BitFillBlankFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_bit_fill_blank, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val fragmentView = inflater.inflate(R.layout.fragment_bit_fill_blank, container, false)
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CreekAnalytics.logEvent(TAG, "Fill Blanks - Bits and Bytes")
-        bitModule = arguments.getParcelable<BitModule>("BitModule")
+        bitModule = arguments!!.getParcelable<BitModule>("BitModule")
         programLangauge = bitModule!!.programLanguage
         moduleId = bitModule!!.moduleId
         checkButton!!.setOnClickListener(this)
@@ -82,7 +82,7 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
         proceedTextView!!.setOnClickListener(this)
         showHelperDialog()
         //lessonNavigationListener.onProgessStatsUpdate(CreekUserStats.PROGRAM_SCORE);
-        FirebaseDatabaseHandler(context).compileSharedProgram(bitModule!!.code, this)
+        FirebaseDatabaseHandler(context!!).compileSharedProgram(bitModule!!.code, this)
 
     }
 
@@ -94,7 +94,7 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
     }
 
     private fun showHelperDialog() {
-        AuxilaryUtils.displayInformation(context, R.string.fill_blanks, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
+        AuxilaryUtils.displayInformation(context!!, R.string.fill_blanks, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
     }
 
     private var solutionList: ArrayList<String>? = null
@@ -180,7 +180,7 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
                 onBackPressListener!!.onBackPressed()
             }
             R.id.hintButton -> if (!CreekApplication.creekPreferences!!.isPremiumUser) {
-                AuxilaryUtils.displayInformation(context, R.string.hint_video, R.string.reward_video_description,
+                AuxilaryUtils.displayInformation(context!!, R.string.hint_video, R.string.reward_video_description,
                         DialogInterface.OnClickListener { dialogInterface, i -> showRewardedClick() },
 
                         DialogInterface.OnDismissListener { showRewardedClick() })
@@ -243,7 +243,7 @@ class BitFillBlankFragment : Fragment(), View.OnClickListener, FirebaseDatabaseH
         }/*case "usp":
                 creekUserStats.addToUnlockedUspProgramIndexList(mProgramIndex.getProgram_index() + 1);
                 break;*/
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+        FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
     }
 
     override fun onSuccess(programIndex: ProgramIndex, programTables: ArrayList<ProgramTable>) {

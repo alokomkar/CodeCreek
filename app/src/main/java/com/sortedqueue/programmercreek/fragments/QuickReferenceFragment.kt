@@ -44,22 +44,22 @@ class QuickReferenceFragment : Fragment(), CustomProgramRecyclerViewAdapter.Adap
     private var tagsRecyclerAdapter: TagsRecyclerAdapter? = null
     private var selectedTag: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_quick_reference, container, false)
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         languageRecyclerView!!.visibility = View.GONE
         headingTextView!!.text = "< Quick Reference"
-        headingTextView!!.setOnClickListener { activity.onBackPressed() }
+        headingTextView!!.setOnClickListener { activity!!.onBackPressed() }
         fetchAllTags()
     }
 
     private fun fetchAllTags() {
-        CommonUtils.displayProgressDialog(context, context.getString(R.string.loading))
-        FirebaseDatabaseHandler(context).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
+        CommonUtils.displayProgressDialog(context, context!!.getString(R.string.loading))
+        FirebaseDatabaseHandler(context!!).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
             override fun onError(databaseError: DatabaseError) {
                 CommonUtils.dismissProgressDialog()
             }

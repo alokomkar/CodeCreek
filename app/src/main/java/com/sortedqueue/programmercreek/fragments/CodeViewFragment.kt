@@ -31,15 +31,15 @@ class CodeViewFragment : Fragment() {
     private var programLanguage: String? = null
     private var totalModules: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_code_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_code_view, container, false)
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         programLanguage = CreekApplication.creekPreferences!!.programLanguage
         if (programLanguage == "c++") {
@@ -87,7 +87,7 @@ class CodeViewFragment : Fragment() {
                 programLines += program_table.trim { it <= ' ' }
             }
             programCodeView!!
-                    .setOptions(Options.get(context)
+                    .setOptions(Options.get(context!!)
                             .withLanguage(programLanguage!!)
                             .withCode(programLines)
                             .withTheme(ColorTheme.SOLARIZED_LIGHT))

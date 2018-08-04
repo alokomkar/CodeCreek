@@ -31,12 +31,12 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
 
     private var wikiNavigationListener: WikiNavigationListner? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_program_wiki, container, false)
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (wizardUrl == null) {
@@ -48,7 +48,7 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
             progressBar!!.visibility = View.VISIBLE
             if (wikiNavigationListener != null)
                 wikiNavigationListener!!.disableViewPager()
-            FirebaseDatabaseHandler(context).getWikiModel(wizardUrl!!, object : FirebaseDatabaseHandler.GetWikiModelListener {
+            FirebaseDatabaseHandler(context!!).getWikiModel(wizardUrl!!, object : FirebaseDatabaseHandler.GetWikiModelListener {
                 override fun onSuccess(wikiModel: WikiModel) {
                     this@ProgramWikiFragment.programWiki = wikiModel
                     headerTextView!!.text = programWiki!!.wikiHeader
@@ -56,7 +56,7 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
                 }
 
                 override fun onError(databaseError: DatabaseError) {
-                    CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                    CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                     progressBar!!.visibility = View.GONE
                     if (wikiNavigationListener != null) {
                         wikiNavigationListener!!.enableViewPager()
@@ -71,7 +71,7 @@ class ProgramWikiFragment : Fragment(), TestCompletionListener {
     }
 
     private fun setupRecyclerView(wikiModel: WikiModel) {
-        programWikiRecyclerView!!.adapter = ProgramWikiRecyclerAdapter(context, wikiModel.programWikis)
+        programWikiRecyclerView!!.adapter = ProgramWikiRecyclerAdapter(context!!, wikiModel.programWikis)
         programWikiRecyclerView!!.layoutManager = LinearLayoutManager(context)
         backImageView!!.setOnClickListener {
             if (wikiNavigationListener != null) {

@@ -64,18 +64,18 @@ class TopicDetailsFragment : Fragment(), TopicDetailsTask.TopicDetailsListener {
     private var creekUserStats: CreekUserStats? = null
     private var runnable: Runnable? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_topic_details, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         creekPreferences = CreekApplication.creekPreferences
         setupToolBar()
         CommonUtils.displayProgressDialog(context, "Loading chapters")
-        TopicDetailsTask(context, "", this).execute()
+        TopicDetailsTask(context!!, "", this).execute()
     }
 
     override fun onAttach(context: Context?) {

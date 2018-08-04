@@ -66,7 +66,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
     private val TAG = NewMatchFragment::class.java.simpleName
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_new_match, container, false)
         return fragmentView
     }
@@ -75,7 +75,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
         this.newProgramActivityBundle = bundle
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkButton!!.setOnClickListener(this)
         mInvokeMode = newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1)
@@ -88,7 +88,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
         } else {
             if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
                 mWizard = false
-                FirebaseDatabaseHandler(context).getProgramIndexInBackGround(newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                FirebaseDatabaseHandler(context!!).getProgramIndexInBackGround(newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                         object : FirebaseDatabaseHandler.GetProgramIndexListener {
                             override fun onSuccess(programIndex: ProgramIndex) {
                                 mProgramIndex = programIndex
@@ -96,7 +96,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
                             }
 
                             override fun onError(databaseError: DatabaseError) {
-                                CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                                CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                             }
                         })
             } else {
@@ -111,11 +111,11 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
     }
 
     private fun showHelperDialog() {
-        AuxilaryUtils.displayInformation(context, R.string.match_maker, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
+        AuxilaryUtils.displayInformation(context!!, R.string.match_maker, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
     }
 
     private fun getProgramTables() {
-        FirebaseDatabaseHandler(context).getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
+        FirebaseDatabaseHandler(context!!).getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
             override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                 program_TableList = programTables
                 initUI(program_TableList)
@@ -149,9 +149,9 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
 
         mProgramTableList = program_TableList
 
-        if (program_TableList != null && program_TableList.size > 0) {
+        if (program_TableList.size > 0) {
             //TODO
-            activity.title = "Match : " + mProgramIndex!!.program_Description
+            activity!!.title = "Match : " + mProgramIndex!!.program_Description
             mProgramQuestionList = ProgramTable.getMatchList(program_TableList) { optionsList -> mOptionsList = optionsList }
             for (programTable in mProgramQuestionList!!) {
                 Log.d("Match", "programTable : " + programTable)
@@ -212,7 +212,7 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
                 checkButton!!.text = "Finish"
         } else {
             if (!mWizard) {
-                activity.finish()
+                activity!!.finish()
             } else {
                 val newIntentBundle = Bundle()
                 newIntentBundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, mProgramIndex)
@@ -236,9 +236,9 @@ class NewMatchFragment : Fragment(), View.OnClickListener, TestCompletionListene
 
     fun onBackPressed() {
         if (!quizComplete) {
-            AuxilaryUtils.showConfirmationDialog(activity)
+            AuxilaryUtils.showConfirmationDialog(activity!!)
         } else {
-            activity.finish()
+            activity!!.finish()
         }
 
     }

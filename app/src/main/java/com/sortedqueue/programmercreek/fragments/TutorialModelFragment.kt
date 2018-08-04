@@ -51,7 +51,7 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
         tutorialNavigationListener = null
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_tutorial, container, false)
@@ -60,11 +60,11 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleTextView!!.text = "Step : " + index
         subTitleTextView!!.text = tutorialModel!!.stepDescription
-        slideImageView!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.splash_logo))
+        slideImageView!!.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.splash_logo))
         if (index == 1) {
             cancelButton!!.visibility = View.GONE
             nextButton!!.visibility = View.VISIBLE

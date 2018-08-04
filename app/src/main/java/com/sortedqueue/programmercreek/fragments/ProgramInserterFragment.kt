@@ -40,13 +40,13 @@ class ProgramInserterFragment : Fragment(), View.OnClickListener {
     private var programWiki: ProgramWiki? = null
     private var language: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_program_inserter, null)
 
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
     }
@@ -243,6 +243,6 @@ class ProgramInserterFragment : Fragment(), View.OnClickListener {
         wikiModel.wikiHeader = wikiHeaderEditText!!.text.toString()
         wikiModel.wikiId = wikiIdEditText!!.text.toString()
         wikiModel.programWikis = programWikis
-        FirebaseDatabaseHandler(context).writeProgramWiki(wikiModel)
+        FirebaseDatabaseHandler(context!!).writeProgramWiki(wikiModel)
     }
 }

@@ -67,12 +67,12 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
         dashboardNavigationListener = null
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_child_dashboard, container, false)
+        return inflater.inflate(R.layout.fragment_child_dashboard, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         creekPreferences = CreekApplication.creekPreferences
         initUI()
@@ -86,7 +86,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
         if (creekPreferences!!.programLanguage.toLowerCase() == "ada") {
             dashboardScrollView!!.visibility = View.GONE
             adaScrollView!!.visibility = View.VISIBLE
-            FirebaseDatabaseHandler(context).getAllAlgorithmIndex(this)
+            FirebaseDatabaseHandler(context!!).getAllAlgorithmIndex(this)
         } else {
             if (null == dashboardScrollView) {
                 return
@@ -297,7 +297,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
     private fun launchProgramListActivity(invokeMode: Int) {
         if (creekPreferences!!.getProgramTables() == -1) {
             CommonUtils.displayProgressDialog(activity, "Initializing data for the first time : " + creekPreferences!!.programLanguage.toUpperCase())
-            firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
+            firebaseDatabaseHandler = FirebaseDatabaseHandler(context!!)
             firebaseDatabaseHandler!!.initializeProgramTables(object : FirebaseDatabaseHandler.ProgramTableInterface {
                 override fun getProgramTables(program_tables: ArrayList<ProgramTable>) {
                     CommonUtils.dismissProgressDialog()
@@ -338,7 +338,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
     override fun onSuccess(algorithmsIndexArrayList: ArrayList<AlgorithmsIndex>) {
         adaRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        algorithmsRecyclerAdapter = AlgorithmsRecyclerAdapter(context, this, algorithmsIndexArrayList)
+        algorithmsRecyclerAdapter = AlgorithmsRecyclerAdapter(context!!, this, algorithmsIndexArrayList)
         adaRecyclerView!!.adapter = algorithmsRecyclerAdapter
         CommonUtils.dismissProgressDialog()
     }

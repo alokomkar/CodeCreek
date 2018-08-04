@@ -35,7 +35,7 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
 
     private var presentationCommunicationsListener: PresentationCommunicationsListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_presentation_title, container, false)
@@ -44,7 +44,7 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchAllTags()
         setupListeners()
@@ -70,7 +70,7 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
     private fun fetchAllTags() {
 
         CommonUtils.displayProgressDialog(context, getString(R.string.loading))
-        FirebaseDatabaseHandler(context).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
+        FirebaseDatabaseHandler(context!!).getAllTags(object : FirebaseDatabaseHandler.GetAllTagsListener {
             override fun onError(databaseError: DatabaseError) {
                 CommonUtils.dismissProgressDialog()
             }
@@ -96,7 +96,7 @@ class PresentationTitleFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.doneButton -> validateAndSavePresentation()
-            R.id.cancelButton -> activity.finish()
+            R.id.cancelButton -> activity!!.finish()
             R.id.addTagTextView -> {
                 val newTag = addTagEditText!!.text.toString()
                 if (newTag != null && newTag.trim { it <= ' ' }.length > 0) {

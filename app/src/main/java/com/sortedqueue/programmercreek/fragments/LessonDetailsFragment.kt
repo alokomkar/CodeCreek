@@ -38,14 +38,14 @@ class LessonDetailsFragment : Fragment(), BitModuleNavigationListener {
         this.lesson = lesson
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_lesson_details, container, false)
         return fragmentView
     }
 
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CommonUtils.displayProgressDialog(context, getString(R.string.loading))
         val fragments = ArrayList<Fragment>()

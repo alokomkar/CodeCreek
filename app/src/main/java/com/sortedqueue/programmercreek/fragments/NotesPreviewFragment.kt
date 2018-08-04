@@ -34,16 +34,16 @@ class NotesPreviewFragment : Fragment() {
     private var notesModelArrayList: ArrayList<NotesModel>? = null
     private var selectedTag: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_notes, container, false)
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notesModelArrayList = arguments.getParcelableArrayList<NotesModel>("notes")
-        selectedTag = arguments.getString("selectedTag")
+        notesModelArrayList = arguments!!.getParcelableArrayList<NotesModel>("notes")
+        selectedTag = arguments!!.getString("selectedTag")
 
         wikiModel = WikiModel()
         programWikis = ArrayList<ProgramWiki>()

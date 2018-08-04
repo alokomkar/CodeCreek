@@ -233,7 +233,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                 return Transaction.success(mutableData)
             }
 
-            override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+            override fun onComplete(p0: DatabaseError?, p1: Boolean, p2: DataSnapshot?) {
 
             }
         })
@@ -302,8 +302,8 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     private fun verifyPurchase(userId: String, verifyPurchaseListener: AnjVerifyPurchaseListener) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" + userId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                if (dataSnapshot != null && dataSnapshot.value != null) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if ( dataSnapshot.value != null) {
                     val purchase = dataSnapshot.getValue(com.sortedqueue.programmercreek.billing.anjlab.TransactionDetails::class.java)
                     if (purchase != null) {
                         verifyPurchaseListener.onSuccess(purchase)
@@ -332,16 +332,16 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     private fun verifyPurchase(userId: String, verifyPurchaseListener: VerifyPurchaseListener) {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/premium_users/" + userId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                if (dataSnapshot != null) {
-                    val purchase = dataSnapshot.getValue(Purchase::class.java)
-                    if (purchase != null) {
-                        verifyPurchaseListener.onSuccess(purchase)
-                        creekPreferences.isPremiumUser = true
-                    } else {
-                        verifyPurchaseListener.onError(null)
-                    }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                val purchase = dataSnapshot.getValue(Purchase::class.java)
+                if (purchase != null) {
+                    verifyPurchaseListener.onSuccess(purchase)
+                    creekPreferences.isPremiumUser = true
+                } else {
+                    verifyPurchaseListener.onError(null)
                 }
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -359,7 +359,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         val userToken = UserToken(creekPreferences.getSignInAccount(), refreshedToken)
         val pushKey = mUserMessageTokenDatabase!!.push().key
         userToken.pushKey = pushKey
-        mUserMessageTokenDatabase!!.child(pushKey).setValue(userToken)
+        mUserMessageTokenDatabase!!.child(pushKey!!).setValue(userToken)
 
     }
 
@@ -583,7 +583,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
 
                     }
                 })
@@ -596,13 +596,13 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     fun getAdSettings() {
         FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/ad_settings").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                if (dataSnapshot != null) {
-                    val isAdEnabled = dataSnapshot.getValue(Int::class.java)
-                    Log.d(TAG, "isAdEnabled : " + isAdEnabled)
-                    CreekApplication.creekPreferences!!.adsEnabled = isAdEnabled == 1
-                    CreekApplication.instance.initAdsSdk()
-                }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                val isAdEnabled = dataSnapshot.getValue(Int::class.java)
+                Log.d(TAG, "isAdEnabled : " + isAdEnabled)
+                CreekApplication.creekPreferences!!.adsEnabled = isAdEnabled == 1
+                CreekApplication.instance.initAdsSdk()
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -624,7 +624,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
 
                     }
                 })
@@ -639,7 +639,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
 
                     }
                 })
@@ -1466,14 +1466,14 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
         if (creekPreferences.creekUserDB == null) {
             getCreekUserDBDatabase()
             mCreekUserDBDatabase!!.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                    if (dataSnapshot != null) {
-                        val creekUserDB = dataSnapshot.getValue(CreekUserDB::class.java)
-                        creekPreferences.creekUserDB = creekUserDB
-                        if (creekUserDB != null) {
-                            getCreekUserDBListener.onSuccess(creekUserDB)
-                        }
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    val creekUserDB = dataSnapshot.getValue(CreekUserDB::class.java)
+                    creekPreferences.creekUserDB = creekUserDB
+                    if (creekUserDB != null) {
+                        getCreekUserDBListener.onSuccess(creekUserDB)
                     }
+
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -1495,7 +1495,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
             programTable.userProgramId = programId
         }
         userProgramDetails.programIndex.userProgramId = programId
-        mUserProgramDatabase!!.child(programId).setValue(userProgramDetails)
+        mUserProgramDatabase!!.child(programId!!).setValue(userProgramDetails)
     }
 
     fun updateViewCount(userProgramDetails: UserProgramDetails) {
@@ -1512,7 +1512,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
 
                     }
                 })
@@ -1542,7 +1542,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                         return Transaction.success(currentData)
                     }
 
-                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot) {
+                    override fun onComplete(databaseError: DatabaseError?, b: Boolean, dataSnapshot: DataSnapshot?) {
 
                     }
                 })
@@ -1892,8 +1892,8 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     val creekUserStats = child.getValue(CreekUserStats::class.java)
                     Log.d(TAG, "CreekUserStats : account : " + child.key)
                     creekUserStats!!.calculateReputation()
-                    creekUserStatsHashMap.put(child.key, creekUserStats!!)
-                    mUserStatsDatabase!!.child(child.key.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
+                    creekUserStatsHashMap.put(child.key!!, creekUserStats)
+                    mUserStatsDatabase!!.child(child.key!!.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
                     updateRankingForAllUsers(creekUserStatsHashMap)
 
                 }

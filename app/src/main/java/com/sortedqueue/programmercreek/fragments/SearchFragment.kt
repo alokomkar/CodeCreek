@@ -42,12 +42,12 @@ class SearchFragment : Fragment(), TextWatcher, FirebaseDatabaseHandler.ProgramI
 
     private var customProgramRecyclerViewAdapter: CustomProgramRecyclerViewAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_search, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val fragmentView = inflater.inflate(R.layout.fragment_search, container, false)
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchEditText!!.addTextChangedListener(this)
     }
@@ -66,7 +66,7 @@ class SearchFragment : Fragment(), TextWatcher, FirebaseDatabaseHandler.ProgramI
 
     override fun afterTextChanged(s: Editable) {
         if (s.toString().length > 3) {
-            FirebaseDatabaseHandler(context).searchPrograms(s.toString(), this)
+            FirebaseDatabaseHandler(context!!).searchPrograms(s.toString(), this)
         } else {
             if (customProgramRecyclerViewAdapter != null) {
                 customProgramRecyclerViewAdapter!!.clearAll()
@@ -78,7 +78,7 @@ class SearchFragment : Fragment(), TextWatcher, FirebaseDatabaseHandler.ProgramI
 
     override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
         searchRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        customProgramRecyclerViewAdapter = CustomProgramRecyclerViewAdapter(context, program_indices, this)
+        customProgramRecyclerViewAdapter = CustomProgramRecyclerViewAdapter(context!!, program_indices, this)
         searchRecyclerView!!.adapter = customProgramRecyclerViewAdapter
         showEmptyView()
     }

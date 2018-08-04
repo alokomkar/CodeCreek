@@ -52,13 +52,13 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
     private var mCountDownTimer: CountDownTimer? = null
     private var mInterviewNavigationListener: InterviewNavigationListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_interview_questions, container, false)
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkAnswerImageView!!.setOnClickListener { checkAnswer() }
         interviewQuestionModels = ArrayList<InterviewQuestionModel>()
@@ -74,7 +74,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         setupSingleRightModel();
         setupTrueFalseModel();*/
         val fileId = "c_questions"
-        SlideContentReaderTask(activity, fileId, this).execute()
+        SlideContentReaderTask(activity!!, fileId, this).execute()
 
 
     }
@@ -196,7 +196,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         if (interviewQuestionModel!!.code != null) {
             codeRecyclerView!!.visibility = View.VISIBLE
             codeRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context, AuxilaryUtils.splitProgramIntolines(interviewQuestionModel!!.code), programLanguage!!)
+            codeRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context!!, AuxilaryUtils.splitProgramIntolines(interviewQuestionModel!!.code), programLanguage!!)
         } else {
             codeRecyclerView!!.visibility = View.GONE
         }
@@ -251,7 +251,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
             hideShowLifeLine()
             startTimer()
         } else {
-            activity.finish()
+            activity!!.finish()
         }
 
     }

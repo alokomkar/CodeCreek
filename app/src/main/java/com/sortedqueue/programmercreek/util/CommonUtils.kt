@@ -129,15 +129,11 @@ object CommonUtils {
     }
 
     fun displayToast(context: Context, message: Int) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun displayToastLong(context: Context, message: Int) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
-
-    fun displayToastLong(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        try {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        } catch ( e: Exception ) {
+            e.printStackTrace()
+        }
     }
 
     fun displaySnackBar(activity: Activity?, messageInternetUnavailable: Int) {

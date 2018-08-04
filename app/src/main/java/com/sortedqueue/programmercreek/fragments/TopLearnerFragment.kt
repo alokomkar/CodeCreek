@@ -48,7 +48,7 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
     private val moduleRecyclerAdapter: ModulesRecyclerViewAdapter? = null
     //TODO https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Showing-Interstitial-Ads
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_top_learners, container, false)
@@ -57,7 +57,7 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -96,7 +96,7 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
 
     private fun calculateTopLearners() {
         swipeRefreshLayout!!.isRefreshing = true
-        FirebaseDatabaseHandler(context)
+        FirebaseDatabaseHandler(context!!)
                 .getTopLearners(
                         object : FirebaseDatabaseHandler.GetTopLearnersInterface {
                             override fun onSuccess(userRankings: ArrayList<UserRanking>) {
@@ -117,7 +117,7 @@ class TopLearnerFragment : Fragment(), View.OnClickListener {
 
     private fun setupAdapter(userRankings: ArrayList<UserRanking>) {
         topLearnersRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        topLearnersRecyclerView!!.adapter = TopLearnersRecyclerAdapter(context, userRankings)
+        topLearnersRecyclerView!!.adapter = TopLearnersRecyclerAdapter(context!!, userRankings)
         swipeRefreshLayout!!.isRefreshing = false
         if (userRankings.size == 0) {
             swipeRefreshLayout!!.visibility = View.GONE

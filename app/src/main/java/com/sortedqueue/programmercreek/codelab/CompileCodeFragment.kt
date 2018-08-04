@@ -63,16 +63,16 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
     private var inputList: ArrayList<String>? = null
     private var languageRecyclerAdapter: LanguageRecyclerAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_compile_code, container, false)
+        val view = inflater.inflate(R.layout.fragment_compile_code, container, false)
 
 
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inputList = ArrayList<String>()
         compilerProgressLayout!!.visibility = View.GONE
@@ -121,7 +121,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
         if (code != null) {
             val programLines = AuxilaryUtils.splitProgramIntolines(code!!.sourceCode)
             codeEditRecyclerView!!.layoutManager = LinearLayoutManager(context)
-            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context, programLines, selectedLanguage!!)
+            codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, programLines, selectedLanguage!!)
             codeEditRecyclerView!!.adapter = codeEditorRecyclerAdapter
             codeEditRecyclerView!!.itemAnimator.changeDuration = 0
         }
@@ -260,7 +260,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
                 if (uri != null) {
 
                     Log.d(TAG, "File Uri : " + uri.encodedPath + " Path " + uri.path)
-                    val filepath = FileUtils.getPath(context, uri)
+                    val filepath = FileUtils.getPath(context!!, uri)
                     Log.d(TAG, "File path : " + filepath!!)
                     val fis = FileInputStream(filepath)
                     val isr = InputStreamReader(fis, Charset.forName("UTF-8"))

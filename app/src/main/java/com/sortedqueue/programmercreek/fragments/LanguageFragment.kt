@@ -48,14 +48,14 @@ class LanguageFragment : Fragment() {
     private var dashboardNavigationListener: DashboardNavigationListener? = null
     private var programLanguages: ArrayList<ProgramLanguage>? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_language, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firebaseDatabaseHandler = FirebaseDatabaseHandler(context)
+        firebaseDatabaseHandler = FirebaseDatabaseHandler(context!!)
         swipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -86,7 +86,7 @@ class LanguageFragment : Fragment() {
         val totalLocalLanguages = creekPreferences!!.totalLanguages
         if( totalLocalLanguages == 0 && !AuxilaryUtils.isNetworkAvailable) {
             CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
-            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            CommonUtils.displayToast(context!!, R.string.enable_internet_to_download)
             return
         }
         firebaseDatabaseHandler!!.getAllProgramLanguages(object : FirebaseDatabaseHandler.GetProgramLanguageListener {
@@ -111,7 +111,7 @@ class LanguageFragment : Fragment() {
     private fun setupRecyclerView(programLanguages: ArrayList<ProgramLanguage>) {
         this.programLanguages = programLanguages
         programLanguageRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        programLanguageRecyclerView!!.adapter = ProgramLanguageAdapter(context,
+        programLanguageRecyclerView!!.adapter = ProgramLanguageAdapter(context!!,
                 programLanguages,
                 object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
                     override fun onItemClick(position: Int) {
@@ -166,7 +166,7 @@ class LanguageFragment : Fragment() {
         //CommonUtils.displayProgressDialog(DashboardActivity.this, "Checking for updates");
         if (creekPreferences!!.creekUserDB == null && !AuxilaryUtils.isNetworkAvailable ) {
             CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { getFirebaseDBVerion() })
-            CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+            CommonUtils.displayToast(context!!, R.string.enable_internet_to_download)
             return
         }
         swipeRefreshLayout!!.isRefreshing = true
@@ -200,10 +200,10 @@ class LanguageFragment : Fragment() {
         if (!creekPreferences!!.checkProgramIndexUpdate()) {
             if (!AuxilaryUtils.isNetworkAvailable) {
                 CommonUtils.displaySnackBar(activity, R.string.internet_unavailable, R.string.retry, View.OnClickListener { initDB() })
-                CommonUtils.displayToast(context, R.string.enable_internet_to_download)
+                CommonUtils.displayToast(context!!, R.string.enable_internet_to_download)
                 return
             }
-            FirebaseHelper( context, dashboardNavigationListener!! )
+            FirebaseHelper( context!!, dashboardNavigationListener!! )
             /*firebaseDatabaseHandler!!.initializeProgramIndexes(object : FirebaseDatabaseHandler.ProgramIndexInterface {
                 override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
                     dashboardNavigationListener!!.hideLanguageFragment()

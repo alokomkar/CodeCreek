@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -36,7 +37,7 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         when (viewType) {
             ProgramWiki.CONTENT_HEADER -> {
@@ -51,8 +52,12 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
                 view = LayoutInflater.from(context).inflate(R.layout.item_program_explanation, parent, false)
                 return ProgramExplanationViewHolder(view)
             }
+            else -> {
+                view = LayoutInflater.from(context).inflate(R.layout.item_header, parent, false)
+                return HeaderViewHolder(view)
+            }
         }
-        return null
+
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -76,6 +81,7 @@ class ProgramWikiRecyclerAdapter(private val context: Context, private val progr
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun initProgramView(holder: RecyclerView.ViewHolder, programWiki: ProgramWiki, position: Int) {
         val programViewHolder = holder as ProgramViewHolder
         programViewHolder.syntaxDescriptionTextView!!.text = "Example : \n" + programWiki.programExample

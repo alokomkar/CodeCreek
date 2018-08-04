@@ -49,7 +49,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
     private val businessType = arrayOf("All", "C", "C++", "Java")
     internal var adapterBusinessType: ArrayAdapter<String> ?= null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_user_programs, container, false)
@@ -58,7 +58,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //language = getArguments().getString("Language");
         allProgramsRadioButton!!.isChecked = true
@@ -126,12 +126,12 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
     private fun fetchUserPrograms(accessSpecifier: String) {
         this.accessSpecifier = accessSpecifier
         swipeRefreshLayout!!.isRefreshing = true
-        FirebaseDatabaseHandler(context).getAllUserPrograms(accessSpecifier, language, this)
+        FirebaseDatabaseHandler(context!!).getAllUserPrograms(accessSpecifier, language, this)
     }
 
     private fun setupRecyclerView(userProgramDetailsArrayList: ArrayList<UserProgramDetails>) {
         userProgramsRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        adapter = UserProgramRecyclerAdapter(context, accessSpecifier!!, userProgramDetailsArrayList, this)
+        adapter = UserProgramRecyclerAdapter(context!!, accessSpecifier!!, userProgramDetailsArrayList, this)
         userProgramsRecyclerView!!.adapter = adapter
         noProgramsLayout!!.visibility = View.GONE
         userProgramsRecyclerView!!.visibility = View.VISIBLE
@@ -158,7 +158,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
         userProgramDetails.views = userProgramDetails.views + 1
         adapter!!.notifyDataSetChanged()
 
-        FirebaseDatabaseHandler(context).updateViewCount(userProgramDetails)
+        FirebaseDatabaseHandler(context!!).updateViewCount(userProgramDetails)
         val newIntentBundle = Bundle()
         var newIntent: Intent? = null
         newIntentBundle.putBoolean(ProgramListActivity.KEY_WIZARD, true)
@@ -236,7 +236,7 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
                 }
             });
         }*/
-        FirebaseDatabaseHandler(context).updateLikes(isLiked, userProgramDetails)
+        FirebaseDatabaseHandler(context!!).updateLikes(isLiked, userProgramDetails)
         adapter!!.notifyDataSetChanged()
     }
 

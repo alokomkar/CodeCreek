@@ -87,14 +87,14 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
     private var moduleDetailsScrollPageListener: ModuleDetailsScrollPageListener? = null
     private val TAG = TestDragNDropFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.activity_test_drag_n_drop, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dragNDropListView = view!!.findViewById(R.id.dragNDropListView)
         handleBundle()
@@ -105,7 +105,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         interstitialAd!!.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
-                activity.finish()
+                activity!!.finish()
             }
         }
     }
@@ -128,7 +128,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         } else {
             if (bundle!!.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
                 mWizard = false
-                FirebaseDatabaseHandler(context).getProgramIndexInBackGround(bundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                FirebaseDatabaseHandler(context!!).getProgramIndexInBackGround(bundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                         object : FirebaseDatabaseHandler.GetProgramIndexListener {
                             override fun onSuccess(programIndex: ProgramIndex) {
                                 mProgramIndex = programIndex
@@ -136,7 +136,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                             }
 
                             override fun onError(databaseError: DatabaseError) {
-                                CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                                CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                             }
                         })
             } else {
@@ -150,21 +150,21 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
     }
 
     private fun getProgramTablesInBackground() {
-        FirebaseDatabaseHandler(context)
+        FirebaseDatabaseHandler(context!!)
                 .getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
                     override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                         initUI(programTables)
                     }
 
                     override fun onError(databaseError: DatabaseError?) {
-                        CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                        CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                     }
                 })
 
     }
 
     private fun getProgramTables() {
-        FirebaseDatabaseHandler(context)
+        FirebaseDatabaseHandler(context!!)
                 .getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
                     override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                         val program_TableList = programTables
@@ -189,7 +189,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         }
         program_TableList = ProgramTable.getMinimalisticCode(program_TableList)
 
-        activity.title = "Test : " + mProgramIndex!!.program_Description
+        activity!!.title = "Test : " + mProgramIndex!!.program_Description
         mProgramTableList = program_TableList
         //Split lengthy programs into modules
         programTableArray = ProgramTable.splitIntoModules(program_TableList)
@@ -206,7 +206,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         containerPager!!.setCanScroll(false)
         /*if (programTableArray.length > 1) */run {
             if (programTableArray!!.size > 1) {
-                AuxilaryUtils.displayInformation(context, R.string.divide_and_conquer, R.string.divide_and_conquer_description, DialogInterface.OnDismissListener { setupSubTests(mProgramTableList!!) })
+                AuxilaryUtils.displayInformation(context!!, R.string.divide_and_conquer, R.string.divide_and_conquer_description, DialogInterface.OnDismissListener { setupSubTests(mProgramTableList!!) })
 
             } else {
                 setupSubTests(program_TableList)
@@ -309,7 +309,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         if (interstitialAd != null && interstitialAd!!.isLoaded /*&& CreekApplication.getCreekPreferences().getAdsEnabled()*/) {
             interstitialAd!!.show()
         } else
-            activity.finish()
+            activity!!.finish()
     }
 
 
@@ -384,7 +384,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
             if (bundle!!.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1) == ProgrammingBuddyConstants.KEY_LESSON) {
                 resultAlert = "You have scored " + score!!
             }
-            AuxilaryUtils.displayResultAlert(activity, "Test Complete", resultAlert, ((maxScore - mProgramHint).toFloat() / maxScore * 100).toInt(), 100)
+            AuxilaryUtils.displayResultAlert(activity!!, "Test Complete", resultAlert, ((maxScore - mProgramHint).toFloat() / maxScore * 100).toInt(), 100)
             checkQuizButton!!.isEnabled = false
 
             mQuizComplete = true
@@ -412,11 +412,11 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                 "java" -> creekUserStats!!.addToUnlockedJavaProgramIndexList(mProgramIndex!!.program_index + 1)
                 "usp" -> creekUserStats!!.addToUnlockedUspProgramIndexList(mProgramIndex!!.program_index + 1)
             }
-            FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+            FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
         } else {
             if (mProgramIndex!!.userProgramId != "trial") {
                 creekUserStats!!.addToUnlockedUserAddedPrograms(mProgramIndex!!.userProgramId)
-                FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+                FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
             }
         }
     }
@@ -432,7 +432,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
         builder.setNegativeButton("No") { dialog, which -> }
 
         builder.setMessage("Are you sure you want to submit the Match?")
-        builder.setTitle(activity.title)
+        builder.setTitle(activity!!.title)
         builder.setIcon(android.R.drawable.ic_dialog_info)
         builder.show()
 
@@ -496,7 +496,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
 
     fun onBackPressed() {
         if (mQuizComplete == false) {
-            AuxilaryUtils.showConfirmationDialog(activity)
+            AuxilaryUtils.showConfirmationDialog(activity!!)
             if (mCountDownTimer != null) {
                 mCountDownTimer!!.cancel()
             }
@@ -514,7 +514,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
 
     override fun updateUI() {
 
-        FirebaseDatabaseHandler(context)
+        FirebaseDatabaseHandler(context!!)
                 .getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
                     override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                         var program_TableList: ArrayList<ProgramTable>? = programTables
@@ -527,7 +527,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                                 e.printStackTrace()
                             }
 
-                            program_TableList = FirebaseDatabaseHandler(context).getProgramTables(mProgramIndex!!.program_index)
+                            program_TableList = FirebaseDatabaseHandler(context!!).getProgramTables(mProgramIndex!!.program_index)
                             if (prevProgramSize == program_TableList!!.size) {
                                 break
                             }

@@ -18,7 +18,7 @@ class PyContentHelper {
         var pythonDBReference : DatabaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://creek-55ef6.firebaseio.com/python/pythonIntro" )
         var pushId = pythonDBReference.push().key
         var pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Starting with Python",
                 "Python is an easy to learn, powerful programming language. It has efficient high-level data structures and a simple but effective approach to object-oriented programming. Python’s elegant syntax and dynamic typing, together with its interpreted nature, make it an ideal language for scripting and rapid application development in many areas on most platforms.\n" +
                         "\n" +
@@ -36,7 +36,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Why Python?",
                 "If you do much work on computers, eventually you find that there’s some task you’d like to automate. For example, you may wish to perform a search-and-replace over a large number of text files, or rename and rearrange a bunch of photo files in a complicated way. Perhaps you’d like to write a small custom database, or a specialized GUI application, or a simple game.\n" +
                         "\n" +
@@ -54,7 +54,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Simple to use",
                 "Python is simple to use, but it is a real programming language, offering much more structure and support for large programs than shell scripts or batch files can offer. On the other hand, Python also offers much more error checking than C, and, being a very-high-level language, it has high-level data types built in, such as flexible arrays and dictionaries. Because of its more general data types Python is applicable to a much larger problem domain than Awk or even Perl, yet many things are at least as easy in Python as in those languages.",
                 "",
@@ -68,7 +68,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Modular in nature and interpreted",
                 "Python allows you to split your program into modules that can be reused in other Python programs. It comes with a large collection of standard modules that you can use as the basis of your programs — or as examples to start learning to program in Python. Some of these modules provide things like file I/O, system calls, sockets, and even interfaces to graphical user interface toolkits like Tk.\n" +
                         "\n" +
@@ -84,7 +84,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Compact Language",
                 "Python enables programs to be written compactly and readably. Programs written in Python are typically much shorter than equivalent C, C++, or Java programs, for several reasons:\n" +
                         "\n" +
@@ -103,7 +103,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Interpreter configuration on Unix",
                 "The Python interpreter is usually installed as /usr/local/bin/python3.6 on those machines where it is available; putting /usr/local/bin in your Unix shell’s search path makes it possible to start it by typing the command:\n" +
                         "\n" +
@@ -120,7 +120,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "Interpreter on Windows",
                 "On Windows machines, the Python installation is usually placed in <b>C:\\Python36</b>, though you can change this when you’re running the installer. To add this directory to your path, you can type the following command into the command prompt in a DOS box:\n" +
                         "\n" +
@@ -138,7 +138,7 @@ class PyContentHelper {
         pythonDBReference  = FirebaseDatabase.getInstance().getReferenceFromUrl("https://creek-55ef6.firebaseio.com/python/pythonContent" )
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -152,7 +152,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -166,7 +166,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -180,7 +180,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -194,7 +194,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -208,7 +208,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -222,7 +222,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -236,7 +236,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -250,7 +250,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -264,7 +264,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -278,7 +278,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -292,7 +292,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -306,7 +306,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",
@@ -320,7 +320,7 @@ class PyContentHelper {
 
         pushId = pythonDBReference.push().key
         pyIntro = PyIntroduction(
-                pushId,
+                pushId!!,
                 "",
                 "",
                 "",

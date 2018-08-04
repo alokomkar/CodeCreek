@@ -44,13 +44,13 @@ class SignupFragment : Fragment(), View.OnClickListener {
     private val TAG = "SignupFragment"
     private var creekPreferences: CreekPreferences? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_signup, container, false)
 
         return fragmentView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
         googleSignInButton!!.setOnClickListener(this)
@@ -70,7 +70,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
     }
 
     private fun signInEmail() {
-        loginSignupDialog = LoginSignupDialog(context, true)
+        loginSignupDialog = LoginSignupDialog(context!!, true)
         loginSignupDialog!!.showDialog(object : LoginSignupDialog.LoginSignupListener {
             override fun onSuccess(name: String, email: String, password: String) {
                 emailSignup(name, email, password)
@@ -78,7 +78,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
 
             override fun onCancel() {
                 loginSignupDialog!!.cancelDialog()
-                activity.onBackPressed()
+                activity!!.onBackPressed()
             }
         })
     }
@@ -91,7 +91,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
         CommonUtils.displayProgressDialog(context, "Signing up")
         val credential = EmailAuthProvider.getCredential(email, password)
         mAuth!!.currentUser!!.linkWithCredential(credential)
-                .addOnCompleteListener(activity) { task ->
+                .addOnCompleteListener(activity!!) { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, "linkWithCredential:success")
                         val user = task.result.user
@@ -102,7 +102,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
                                 Toast.LENGTH_SHORT).show()
                         CommonUtils.dismissProgressDialog()
                         loginSignupDialog!!.cancelDialog()
-                        activity.onBackPressed()
+                        activity!!.onBackPressed()
                     }
 
                     // ...
@@ -113,7 +113,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
     private fun updateUI(user: FirebaseUser) {
         creekPreferences = CreekApplication.creekPreferences
 
-        FirebaseDatabaseHandler(context).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
+        FirebaseDatabaseHandler(context!!).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
             override fun onSuccess(creekUser: CreekUser) {
                 CommonUtils.dismissProgressDialog()
                 creekUser.emailId = userEmail
@@ -132,7 +132,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
                     object : AsyncTask<Void, Void, Void>() {
 
                         override fun doInBackground(vararg voids: Void): Void? {
-                            FirebaseDatabaseHandler(context).updateAnonAccountStats(creekUser)
+                            FirebaseDatabaseHandler(context!!).updateAnonAccountStats(creekUser)
                             return null
                         }
                     }.execute()
@@ -140,16 +140,16 @@ class SignupFragment : Fragment(), View.OnClickListener {
                     e.printStackTrace()
                 }
 
-                CommonUtils.displayToast(context, "Signup Successful")
+                CommonUtils.displayToast(context!!, "Signup Successful")
                 loginSignupDialog!!.cancelDialog()
-                activity.onBackPressed()
+                activity!!.onBackPressed()
             }
 
             override fun onFailure(databaseError: DatabaseError?) {
                 CommonUtils.dismissProgressDialog()
-                CommonUtils.displayToast(context, "Signup Failed, Try later")
+                CommonUtils.displayToast(context!!, "Signup Failed, Try later")
                 loginSignupDialog!!.cancelDialog()
-                activity.onBackPressed()
+                activity!!.onBackPressed()
             }
         })
     }

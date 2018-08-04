@@ -43,14 +43,14 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
     private var lessonsAdapter: LessonsAdapter? = null
     private var lessonNavigationListener: LessonNavigationListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_lessons, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getModules()
         if (!CreekApplication.creekPreferences!!.isPremiumUser) {
@@ -110,7 +110,7 @@ class LessonsFragment : Fragment(), LessonFetchTask.LessonFetcherTaskListener {
 
     override fun onSuccess(lessons: ArrayList<Lesson>) {
         this.lessons = lessons
-        this.lessonsAdapter = LessonsAdapter(context, lessons, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
+        this.lessonsAdapter = LessonsAdapter(context!!, lessons, object : CustomProgramRecyclerViewAdapter.AdapterClickListner {
 
             override fun onItemClick(position: Int) {
                 lessonNavigationListener!!.onLessonSelected(lessonsAdapter!!.getItem(position))

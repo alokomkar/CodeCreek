@@ -73,14 +73,14 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
     private var program_index: Int = 0
     private val TAG = NewFillBlankFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_new_fill_blank, container, false)
         return fragmentView
     }
 
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkButton!!.setOnClickListener(this)
         mInvokeMode = newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_INVOKE_TEST, -1)
@@ -93,7 +93,7 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
         } else {
             if (mInvokeMode == ProgrammingBuddyConstants.KEY_LESSON) {
                 mWizard = false
-                FirebaseDatabaseHandler(context).getProgramIndexInBackGround(newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
+                FirebaseDatabaseHandler(context!!).getProgramIndexInBackGround(newProgramActivityBundle!!.getInt(ProgrammingBuddyConstants.KEY_PROG_ID),
                         object : FirebaseDatabaseHandler.GetProgramIndexListener {
                             override fun onSuccess(programIndex: ProgramIndex) {
                                 mProgramIndex = programIndex
@@ -101,7 +101,7 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
                             }
 
                             override fun onError(databaseError: DatabaseError) {
-                                CommonUtils.displayToast(context, R.string.unable_to_fetch_data)
+                                CommonUtils.displayToast(context!!, R.string.unable_to_fetch_data)
                             }
                         })
             } else {
@@ -116,11 +116,11 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
     }
 
     private fun showHelperDialog() {
-        AuxilaryUtils.displayInformation(context, R.string.fill_blanks, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
+        AuxilaryUtils.displayInformation(context!!, R.string.fill_blanks, R.string.match_maker_new_description, DialogInterface.OnDismissListener { })
     }
 
     private fun getProgramTables() {
-        FirebaseDatabaseHandler(context).getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
+        FirebaseDatabaseHandler(context!!).getProgramTablesInBackground(mProgramIndex!!.program_index, object : FirebaseDatabaseHandler.GetProgramTablesListener {
             override fun onSuccess(programTables: ArrayList<ProgramTable>) {
                 program_TableList = programTables
                 initUI(program_TableList)
@@ -158,9 +158,9 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
 
         mProgramTableList = program_TableList
 
-        if (program_TableList != null && program_TableList.size > 0) {
+        if (program_TableList.size > 0) {
             //TODO
-            activity.title = "Fill blanks : " + mProgramIndex!!.program_Description
+            activity!!.title = "Fill blanks : " + mProgramIndex!!.program_Description
             mProgramQuestionList = ProgramTable.getMatchList(program_TableList) { optionsList -> mOptionsList = optionsList }
             for (programTable in mProgramQuestionList!!) {
                 Log.d("Match", "programTable : " + programTable)
@@ -241,12 +241,12 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
 
         } else {
             if (mWizard)
-                activity.finish()
+                activity!!.finish()
             else {
                 if (moduleDetailsScrollPageListener != null) {
                     moduleDetailsScrollPageListener!!.onScrollForward()
                 } else {
-                    activity.finish()
+                    activity!!.finish()
                 }
 
 
@@ -264,7 +264,7 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
             "java" -> creekUserStats!!.addToUnlockedJavaProgramIndexList(mProgramIndex!!.program_index + 1)
             "usp" -> creekUserStats!!.addToUnlockedUspProgramIndexList(mProgramIndex!!.program_index + 1)
         }
-        FirebaseDatabaseHandler(context).writeCreekUserStats(creekUserStats!!)
+        FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
     }
 
     fun getmProgramList(): ArrayList<String> {
@@ -274,9 +274,9 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
 
     fun onBackPressed() {
         if (!quizComplete) {
-            AuxilaryUtils.showConfirmationDialog(activity)
+            AuxilaryUtils.showConfirmationDialog(activity!!)
         } else {
-            activity.finish()
+            activity!!.finish()
         }
 
     }
