@@ -12,7 +12,7 @@ import java.util.*
 /**
  * Created by Alok on 31/10/17.
  */
-class FirebaseHelper( context: Context, val dashboardNavigationListener: DashboardNavigationListener ) :
+class FirebaseHelper(context: Context, private val dashboardNavigationListener: DashboardNavigationListener ) :
         FirebaseDatabaseHandler.ModuleInterface,
         FirebaseDatabaseHandler.ProgramIndexInterface,
         FirebaseDatabaseHandler.ProgramTableInterface,

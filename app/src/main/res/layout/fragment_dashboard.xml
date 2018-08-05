@@ -54,11 +54,11 @@
                                 android:layout_marginStart="@dimen/margin_8"
                                 android:textColor="@color/md_black_1000"
                                 android:textSize="@dimen/text_tool_bar"
-                                android:text="Selected Language : "/>
+                                android:text="@string/selected_language"/>
                             <TextView
                                 android:id="@+id/languageSelectionTextView"
                                 android:layout_toEndOf="@+id/selectedTextView"
-                                android:text="C"
+                                android:text="@string/c"
                                 android:textSize="@dimen/text_tool_bar"
                                 android:layout_gravity="center"
                                 android:textColor="@color/md_light_blue_900"
@@ -71,7 +71,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@+id/languageSelectionTextView"
                                 android:padding="@dimen/margin_8"
-                                android:layout_marginLeft="@dimen/margin_8"
+                                android:layout_marginStart="@dimen/margin_8"
                                 android:src="@android:drawable/arrow_down_float"
                                 android:id="@+id/downImageView"/>
 
@@ -260,7 +260,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:elevation="@dimen/margin_24"
         android:animateLayoutChanges="true"
         android:background="@color/white"

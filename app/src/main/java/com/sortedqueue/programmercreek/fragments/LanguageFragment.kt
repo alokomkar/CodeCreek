@@ -204,15 +204,6 @@ class LanguageFragment : Fragment() {
                 return
             }
             FirebaseHelper( context!!, dashboardNavigationListener!! )
-            /*firebaseDatabaseHandler!!.initializeProgramIndexes(object : FirebaseDatabaseHandler.ProgramIndexInterface {
-                override fun getProgramIndexes(program_indices: ArrayList<ProgramIndex>) {
-                    dashboardNavigationListener!!.hideLanguageFragment()
-                }
-
-                override fun onError(error: DatabaseError) {
-
-                }
-            })*/
         } else {
             dashboardNavigationListener!!.hideLanguageFragment()
         }

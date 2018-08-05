@@ -74,6 +74,7 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_dashboard)
@@ -210,7 +211,8 @@ class DashboardActivity : AppCompatActivity(), DashboardNavigationListener, Dash
 
     private var progressBarStatus: Int = 0
 
-    fun animateProgress(points: Int) {
+    @SuppressLint("SetTextI18n")
+    private fun animateProgress(points: Int) {
         try {
             if (reputationProgressBar != null) {
 

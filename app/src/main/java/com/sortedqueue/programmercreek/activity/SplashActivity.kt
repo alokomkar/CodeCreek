@@ -30,12 +30,14 @@ import com.sortedqueue.programmercreek.auth.AuthView
 import com.sortedqueue.programmercreek.dashboard.DashboardActivity
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
+import com.sortedqueue.programmercreek.v2.home.HomeActivity
 import com.sortedqueue.programmercreek.view.LoginSignupDialog
 import com.sortedqueue.programmercreek.view.LoginSignupDialog.LoginSignupListener
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
+@Suppress("PrivatePropertyName")
 class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener, FacebookCallback<LoginResult>, AuthView {
 
     private val RC_SIGN_IN = 1000
@@ -181,7 +183,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         loginSignupDialog!!.showDialog( object : LoginSignupListener {
 
             override fun onSuccess(name: String, email: String, password: String) {
-                if (!name.isNullOrEmpty()) {
+                if (!name.isEmpty()) {
                     CommonUtils.displayProgressDialog(this@SplashActivity, "Signing up...")
                     mAuthPresenter.emailSignup(name, email, password)
                 } else {
@@ -217,8 +219,6 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
                         Toast.LENGTH_SHORT).show()
                 mAuthPresenter.firebaseAuthWithGoogle(account!!)
             } else {
-                // Google Sign In failed, update UI appropriately
-                // ...
                 Log.e(TAG, "Sign In Error : " + result.status + " : " + result.toString())
                 Toast.makeText(this@SplashActivity, "Sign in failed.",
                         Toast.LENGTH_SHORT).show()
@@ -230,8 +230,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
 
     override fun startApp() {
-        val i = Intent(this@SplashActivity, DashboardActivity::class.java)
-        startActivity(i)
+        startActivity( Intent(this@SplashActivity, HomeActivity::class.java) )
         finish()
     }
 

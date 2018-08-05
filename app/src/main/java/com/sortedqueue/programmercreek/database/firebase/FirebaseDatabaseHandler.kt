@@ -74,7 +74,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     private val CREEK_USER_PROGRAM_DETAILS_CHILD = "user_program_details"
     private val LANGUAGE_MODULE = "language_module"
     private val SYNTAX_MODULE = "syntax_module"
-    public val CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/"
+    private val CREEK_BASE_FIREBASE_URL = "https://creek-55ef6.firebaseio.com/"
     private var programLanguage = "java"
     private val creekPreferences: CreekPreferences
 
@@ -113,65 +113,65 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
 
     val programDatabase: DatabaseReference
         get() {
-            mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/programs/" + programLanguage)
+            mProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/programs/$programLanguage")
             mProgramDatabase!!.keepSynced(true)
             return mProgramDatabase!!
         }
 
     fun getmUserMessageTokenDatabase(): DatabaseReference {
-        mUserMessageTokenDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_tokens")
+        mUserMessageTokenDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/user_tokens")
         mUserMessageTokenDatabase!!.keepSynced(true)
         return mUserMessageTokenDatabase!!
     }
 
     val userProgramDatabase: DatabaseReference
         get() {
-            mUserProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/user_programs")
+            mUserProgramDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/user_programs")
             mUserProgramDatabase!!.keepSynced(true)
             return mUserProgramDatabase!!
         }
 
     fun getmTagDatabase(): DatabaseReference {
-        mTagDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_TAGS)
+        mTagDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_TAGS")
         mTagDatabase!!.keepSynced(true)
         return mTagDatabase!!
     }
 
     val userDatabase: DatabaseReference
         get() {
-            mUserDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_USER_CHILD)
+            mUserDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_USER_CHILD")
             mUserDatabase!!.keepSynced(true)
             return mUserDatabase!!
         }
 
     val userStatsDatabase: DatabaseReference
         get() {
-            mUserStatsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_USER_STATS)
+            mUserStatsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_USER_STATS")
             mUserStatsDatabase!!.keepSynced(true)
             return mUserStatsDatabase!!
         }
 
     val userDetailsDatabase: DatabaseReference
         get() {
-            mUserDetailsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_USER_PROGRAM_DETAILS_CHILD)
+            mUserDetailsDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_USER_PROGRAM_DETAILS_CHILD")
             mUserDetailsDatabase!!.keepSynced(true)
             return mUserDetailsDatabase!!
         }
 
     fun getmPresentationSlidesDatabase(): DatabaseReference {
-        mPresentationSlidesDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PRESENTATIONS_SLIDES)
+        mPresentationSlidesDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_PRESENTATIONS_SLIDES")
         mPresentationSlidesDatabase!!.keepSynced(true)
         return mPresentationSlidesDatabase!!
     }
 
     fun getmPresentationDatabase(): DatabaseReference {
-        mPresentationDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_PRESENTATIONS)
+        mPresentationDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_PRESENTATIONS")
         mPresentationDatabase!!.keepSynced(true)
         return mPresentationDatabase!!
     }
 
     fun getCreekUserDBDatabase() {
-        mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl(CREEK_BASE_FIREBASE_URL + "/" + CREEK_USER_DB)
+        mCreekUserDBDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("$CREEK_BASE_FIREBASE_URL/$CREEK_USER_DB")
         mCreekUserDBDatabase!!.keepSynced(true)
     }
 

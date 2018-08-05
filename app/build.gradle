@@ -93,6 +93,12 @@ dependencies {
 
     implementation 'com.startapp:inapp-sdk:3.6.5'
 
+    // Room components
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

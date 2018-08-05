@@ -306,4 +306,8 @@
     <string name="razor_key_secret">YOXVrAAqV2Vxlf1Sldr1JDPS</string>
     <string name="razor_pay_merchant_id">8zMPemIC06Zji9</string>
     <string name="internet_required">Unfortunately this section requires internet</string>
+    <string name="selected_language">Selected Language :</string>
+    <string name="c">C</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="my_programs">My Programs</string>
 </resources>
