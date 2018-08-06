@@ -13,6 +13,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         //CodeLanguageHelper( this )
-        MasterContentHelper( this )
+        //MasterContentHelper( this )
     }
 }

@@ -47,7 +47,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
 
     private fun getAllContent() {
         for( language in masterContentMap.keys ) {
-            getFirebaseDBReference("${masterContentDB}/$language" )
+            getFirebaseDBReference("$masterContentDB/$language" )
                     .addListenerForSingleValueEvent( object : ValueEventListener {
                         override fun onCancelled(error: DatabaseError) {
 
