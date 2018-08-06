@@ -57,7 +57,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
                             for( child in snapshot.children ) {
                                 val masterContent = child.getValue(MasterContent::class.java)
                                 insertAsync( masterContent )
-                                masterContentMap[masterContent?.id]!!.add(masterContent!!)
+                                masterContentMap[masterContent?.languageId]!!.add(masterContent!!)
                             }
                         }
 
