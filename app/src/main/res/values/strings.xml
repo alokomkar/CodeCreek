@@ -283,7 +283,6 @@
     <string name="upgrade_google_play"><![CDATA[In-app billing service is unavailable, please upgrade Android Market/Play to version >= 3.9.16]]></string>
     <string name="merchant_id">09153164281394552832</string>
     <string name="intro_to_java">Introduction to Java</string>
-    <string name="java">Java</string>
     <string name="intro_java_humor">Q: What\'s the object oriented way to become wealthy?\nA: Inheritence</string>
     <string name="class_java_humor">Q: 0 is false, 1 is true right?\nA: 1</string>
     <string name="java_main">Java main() method</string>
@@ -310,4 +309,5 @@
     <string name="c">C</string>
     <string name="dashboard">Dashboard</string>
     <string name="my_programs">My Programs</string>
+    <string name="java">Java</string>
 </resources>
