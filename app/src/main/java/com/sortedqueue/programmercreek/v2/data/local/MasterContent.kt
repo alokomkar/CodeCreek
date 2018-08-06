@@ -67,6 +67,13 @@ data class MasterContent(
     }
 
     companion object {
+
+        const val typeCode = 0
+        const val typeDescription = 1
+        const val typeMatch = 2
+        const val typeMCQ = 3
+        const val typeRearrange = 4
+
         @JvmField
         val CREATOR: Parcelable.Creator<MasterContent> = object : Parcelable.Creator<MasterContent> {
             override fun createFromParcel(source: Parcel): MasterContent = MasterContent(source)

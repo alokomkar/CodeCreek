@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.data.helper.CodeLanguageHelper
+import com.sortedqueue.programmercreek.v2.data.helper.MasterContentHelper
 
 class HomeActivity : AppCompatActivity() {
 
@@ -11,6 +12,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        CodeLanguageHelper( this )
+        //CodeLanguageHelper( this )
+        MasterContentHelper( this )
     }
 }

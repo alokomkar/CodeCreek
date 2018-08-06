@@ -1,11 +1,14 @@
 package com.sortedqueue.programmercreek.v2.data.remote
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Parcelable
 import com.google.firebase.database.*
 import com.sortedqueue.programmercreek.v2.data.local.*
 import java.util.*
 
+@SuppressLint("StaticFieldLeak")
 class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
 
 
@@ -22,13 +25,25 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
 
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
-                codeLanguageDao.insert(codeLanguage!!)
-                codeLanguages.add(codeLanguage)
+                insertAsync( codeLanguage )
+                codeLanguages.add(codeLanguage!!)
                 masterContentMap[codeLanguage.id] = ArrayList()
             }
             getAllContent()
         }
     }
+
+    private fun insertAsync( obj: Parcelable? ) =
+        object : AsyncTask<Void, Void, Unit>() {
+            override fun doInBackground(vararg p0: Void?) {
+                when( obj ) {
+                    is CodeLanguage -> codeLanguageDao.insert( obj )
+                    is MasterContent -> masterContentDao.insert( obj )
+                }
+            }
+        }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+
+
 
     private fun getAllContent() {
         for( language in masterContentMap.keys ) {
@@ -41,8 +56,8 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
                         override fun onDataChange( snapshot: DataSnapshot) {
                             for( child in snapshot.children ) {
                                 val masterContent = child.getValue(MasterContent::class.java)
-                                dbInstance.masterContentDao().insert(masterContent!!)
-                                masterContentMap[masterContent.id]!!.add(masterContent)
+                                insertAsync( masterContent )
+                                masterContentMap[masterContent?.id]!!.add(masterContent!!)
                             }
                         }
 
@@ -94,7 +109,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
     }
 
     private fun getFirebaseDBReference( dbUrl : String ): DatabaseReference {
-        return FirebaseDatabase.getInstance().getReference( "${pcDBVersion}/$dbUrl")
+        return FirebaseDatabase.getInstance().getReference( "$pcDBVersion/$dbUrl")
     }
 
     override fun insertOrUpdate(obj: Parcelable) {
@@ -108,9 +123,9 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
             }
             is MasterContent -> {
                 if( obj.id.isEmpty() )
-                    obj.id = getFirebaseSortedId("${masterContentDB}/${obj.languageId}")
+                    obj.id = getFirebaseSortedId("$masterContentDB/${obj.languageId}")
 
-                insertToFirebase( "${masterContentDB}/${obj.languageId}", obj.id, obj )
+                insertToFirebase( "$masterContentDB/${obj.languageId}", obj.id, obj )
             }
         }
     }
