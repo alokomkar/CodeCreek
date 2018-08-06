@@ -10,7 +10,7 @@ import android.support.annotation.NonNull
 
 @Entity(tableName = "MasterContent",
         foreignKeys = [(ForeignKey(entity = CodeLanguage::class,
-                parentColumns = arrayOf("languageId"),
+                parentColumns = arrayOf("id"),
                 childColumns = arrayOf("languageId")))])
 data class MasterContent(
         @PrimaryKey

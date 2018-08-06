@@ -5,7 +5,7 @@ import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.remote.BaseAPI
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 
-class CodeLanguageHelper( private val context: Context ) : BaseAPI<CodeLanguage> {
+class CodeLanguageHelper( context: Context ) : BaseAPI<CodeLanguage> {
 
     private val api = PCFirebaseHandler.getAPI( context )
 
@@ -14,6 +14,25 @@ class CodeLanguageHelper( private val context: Context ) : BaseAPI<CodeLanguage>
     override fun insertOrUpdate(vararg obj: CodeLanguage) {}
 
     override fun insertOrUpdate(obj: ArrayList<out CodeLanguage>) = api.insertOrUpdate(obj)
+
+    init {
+
+        val codeLanguages = ArrayList<CodeLanguage>()
+        codeLanguages.add( CodeLanguage(
+                "",
+                "Java",
+                "Java is a general-purpose computer " +
+                        "programming language that is concurrent, " +
+                        "class-based, object-oriented, and specifically " +
+                        "designed to have as few implementation " +
+                        "dependencies as possible.",
+                ".java",
+                System.currentTimeMillis(),
+                System.currentTimeMillis()))
+
+        insertOrUpdate( codeLanguages )
+
+    }
 
 
 }

@@ -3,9 +3,7 @@ package com.sortedqueue.programmercreek.v2.data.remote
 import android.content.Context
 import android.os.Parcelable
 import com.google.firebase.database.*
-import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
-import com.sortedqueue.programmercreek.v2.data.local.MasterContent
-import com.sortedqueue.programmercreek.v2.data.local.PracticeCodeRoomDatabase
+import com.sortedqueue.programmercreek.v2.data.local.*
 import java.util.*
 
 class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
@@ -24,7 +22,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
 
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
-                dbInstance.codeLanguageDao().insert(codeLanguage!!)
+                codeLanguageDao.insert(codeLanguage!!)
                 codeLanguages.add(codeLanguage)
                 masterContentMap[codeLanguage.id] = ArrayList()
             }
@@ -58,12 +56,13 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
         private var instance : PCFirebaseHandler?= null
         private const val pcDBVersion = "v2"
         private lateinit var dbInstance : PracticeCodeRoomDatabase
+        private lateinit var codeLanguageDao : CodeLanguageDao
+        private lateinit var masterContentDao: MasterContentDao
 
         private fun getInstance( context: Context ) : PCFirebaseHandler {
 
             if( instance == null ) {
                 instance = PCFirebaseHandler(context.applicationContext)
-                dbInstance = PracticeCodeRoomDatabase.getDbInstance(context.applicationContext)
             }
             return instance!!
 
@@ -72,8 +71,10 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
         fun getAPI( context: Context ) : API {
 
             if( instance == null ) {
-                instance = PCFirebaseHandler(context.applicationContext)
+                instance = getInstance( context )
                 dbInstance = PracticeCodeRoomDatabase.getDbInstance(context.applicationContext)
+                codeLanguageDao = dbInstance.codeLanguageDao()
+                masterContentDao = dbInstance.masterContentDao()
             }
             return instance!!
 

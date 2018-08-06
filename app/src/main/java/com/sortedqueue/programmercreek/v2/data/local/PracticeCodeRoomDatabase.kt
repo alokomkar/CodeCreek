@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 
 
-@Database(entities = [(MasterContent::class)], version = 1)
+@Database(entities = [MasterContent::class, CodeLanguage::class], version = 1)
 abstract class PracticeCodeRoomDatabase : RoomDatabase() {
 
     abstract fun masterContentDao( ) : MasterContentDao
