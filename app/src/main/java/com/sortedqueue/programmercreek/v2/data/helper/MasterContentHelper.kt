@@ -1,15 +1,25 @@
 package com.sortedqueue.programmercreek.v2.data.helper
 
-import android.content.Context
+import android.app.Application
+import android.arch.lifecycle.LiveData
 import com.sortedqueue.programmercreek.v2.data.local.MasterContent
-import com.sortedqueue.programmercreek.v2.data.remote.BaseAPI
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 
-class MasterContentHelper( context: Context) : BaseAPI<MasterContent> {
+class MasterContentHelper( application: Application) : MasterContentAPI {
 
-    private val api = PCFirebaseHandler.getAPI( context )
+    override fun fetchLiveMasterContents(): LiveData<List<MasterContent>>
+            = api.fetchLiveMasterContents()
 
-    override fun insertOrUpdate(obj: MasterContent) = api.insertOrUpdate(obj)
+    override fun fetchLiveMasterContentById(id: String): LiveData<MasterContent>
+            = api.fetchLiveMasterContentById( id )
+
+    override fun fetchLiveMasterContentsByLanguage( languageId: String ): LiveData<List<MasterContent>>
+            = api.fetchLiveMasterContentsByLanguage( languageId )
+
+    private val api = PCFirebaseHandler.getAPI( application )
+
+    override fun insertOrUpdate(obj: MasterContent)
+            = api.insertOrUpdate(obj)
 
     override fun insertOrUpdate(vararg obj: MasterContent) {}
 

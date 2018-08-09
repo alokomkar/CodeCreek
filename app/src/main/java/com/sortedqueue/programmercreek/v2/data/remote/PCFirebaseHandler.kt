@@ -1,12 +1,14 @@
 package com.sortedqueue.programmercreek.v2.data.remote
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Parcelable
 import com.google.firebase.database.*
 import com.sortedqueue.programmercreek.v2.data.local.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 @SuppressLint("StaticFieldLeak")
 class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
@@ -130,9 +132,9 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
         }
     }
 
-    private fun insertToFirebase( database: String, id: String, obj: Parcelable) {
+    private fun insertToFirebase( database: String, id: String, obj: Parcelable) =
         getFirebaseDBReference( "$database/$id" ).setValue(obj)
-    }
+
 
     override fun insertOrUpdate(vararg obj: Parcelable) {
         for( data in obj ) {
@@ -146,22 +148,35 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
         }
     }
 
-    private fun getFirebaseSortedId( dbUrl: String ) : String {
-        return getFirebaseDBReference(dbUrl).push().key!!
-    }
+    private fun getFirebaseSortedId( dbUrl: String ) : String =
+         getFirebaseDBReference(dbUrl).push().key!!
 
-    override fun getAllCodeLanguage(): ArrayList<CodeLanguage> {
-        return codeLanguages
-    }
 
-    override fun getAllMasterContent(): ArrayList<MasterContent> {
-        return masterContents
-    }
+    override fun getAllCodeLanguage(): ArrayList<CodeLanguage> = codeLanguages
+
+
+    override fun getAllMasterContent(): ArrayList<MasterContent> =
+         masterContents
+
 
     override fun getAllMasterContent(languageId: String): ArrayList<MasterContent> {
         return if( masterContentMap.containsKey(languageId)) masterContentMap[languageId]!! else ArrayList()
     }
 
+    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
+            = codeLanguageDao.listAllLive()
+
+    override fun fetchLiveCodeLanguageById(id: String): LiveData<CodeLanguage>
+            = codeLanguageDao.findLiveById(id)
+
+    override fun fetchLiveMasterContents(): LiveData<List<MasterContent>>
+            = masterContentDao.listAllLive()
+
+    override fun fetchLiveMasterContentById(id: String): LiveData<MasterContent>
+            = masterContentDao.findLiveById(id)
+
+    override fun fetchLiveMasterContentsByLanguage(languageId: String): LiveData<List<MasterContent>>
+            = masterContentDao.listAllLiveByID(languageId)
 
 
 }

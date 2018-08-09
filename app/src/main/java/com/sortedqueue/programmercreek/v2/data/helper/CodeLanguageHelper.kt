@@ -1,19 +1,28 @@
 package com.sortedqueue.programmercreek.v2.data.helper
 
+import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.content.Context
 import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.remote.BaseAPI
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 
-class CodeLanguageHelper( context: Context ) : BaseAPI<CodeLanguage> {
+class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
 
-    private val api = PCFirebaseHandler.getAPI( context )
+    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
+            = api.fetchLiveCodeLanguages()
+
+    override fun fetchLiveCodeLanguageById(id: String): LiveData<CodeLanguage>
+            = api.fetchLiveCodeLanguageById(id)
+
+    private val api = PCFirebaseHandler.getAPI( application )
 
     override fun insertOrUpdate(obj: CodeLanguage) = api.insertOrUpdate(obj)
 
     override fun insertOrUpdate(vararg obj: CodeLanguage) {}
 
-    override fun insertOrUpdate(obj: ArrayList<out CodeLanguage>) = api.insertOrUpdate(obj)
+    override fun insertOrUpdate(obj: ArrayList<out CodeLanguage>)
+            = api.insertOrUpdate(obj)
 
     init {
 

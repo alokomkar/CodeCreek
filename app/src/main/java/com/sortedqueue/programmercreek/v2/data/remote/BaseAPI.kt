@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.v2.data.remote
 
+import android.arch.lifecycle.LiveData
+
 interface BaseAPI<in T> {
 
     fun insertOrUpdate( obj : T )

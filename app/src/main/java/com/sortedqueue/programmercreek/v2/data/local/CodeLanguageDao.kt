@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.v2.data.local
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -19,5 +20,12 @@ interface CodeLanguageDao {
 
     @Query("SELECT * FROM CodeLanguage ORDER BY id ASC")
     fun listAll() : List<CodeLanguage>
+
+    @Query("SELECT * FROM CodeLanguage ORDER BY id ASC")
+    fun listAllLive() : LiveData<List<CodeLanguage>>
+
+    @Query("SELECT * FROM CodeLanguage WHERE id = :languageId")
+    fun findLiveById( languageId: String ) : LiveData<CodeLanguage>
+
 
 }
