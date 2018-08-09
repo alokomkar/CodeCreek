@@ -8,24 +8,25 @@ import android.os.Parcelable
 import android.support.annotation.NonNull
 
 @Entity(tableName = "CodeLanguage")
-data class CodeLanguage(@PrimaryKey
-                   @NonNull
-                   @ColumnInfo(name = "id")
-                   var id: String = "",
-                   @NonNull
-                   @ColumnInfo(name = "language")
-                   var language: String = "",
-                   @NonNull
-                   @ColumnInfo(name = "description")
-                   var description: String = "",
-                   @NonNull
-                   @ColumnInfo(name = "languageExtension")
-                   var languageExtension: String = "",
-                   @ColumnInfo(name = "created")
-                   var created: Long = -1L,
-                   @NonNull
-                   @ColumnInfo(name = "updated")
-                   var updated: Long = -1L) : Parcelable {
+data class CodeLanguage(
+        @PrimaryKey
+        @NonNull
+        @ColumnInfo(name = "id")
+        var id: String = "",
+        @NonNull
+        @ColumnInfo(name = "language")
+        var language: String = "",
+        @NonNull
+        @ColumnInfo(name = "description")
+        var description: String = "",
+        @NonNull
+        @ColumnInfo(name = "languageExtension")
+        var languageExtension: String = "",
+        @ColumnInfo(name = "created")
+        var created: Long = -1L,
+        @NonNull
+        @ColumnInfo(name = "updated")
+        var updated: Long = -1L) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -61,6 +62,15 @@ data class CodeLanguage(@PrimaryKey
         writeLong(updated)
     }
 
+    override fun toString(): String {
+        return "CodeLanguage(id='$id', " +
+                "\nlanguage='$language', " +
+                "\ndescription='$description', " +
+                "\nlanguageExtension='$languageExtension', " +
+                "\ncreated=$created, " +
+                "\nupdated=$updated)"
+    }
+
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<CodeLanguage> = object : Parcelable.Creator<CodeLanguage> {
@@ -68,4 +78,6 @@ data class CodeLanguage(@PrimaryKey
             override fun newArray(size: Int): Array<CodeLanguage?> = arrayOfNulls(size)
         }
     }
+
+
 }

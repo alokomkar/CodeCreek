@@ -10,7 +10,7 @@ import android.arch.persistence.room.Query
 interface CodeLanguageDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert( codeLanguage: CodeLanguage)
+    fun insert( codeLanguage: CodeLanguage )
 
     @Query("DELETE FROM CodeLanguage WHERE id = :languageId")
     fun deleteById( languageId : String )

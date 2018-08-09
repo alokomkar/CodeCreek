@@ -6,26 +6,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.hide
+import com.sortedqueue.programmercreek.v2.base.show
 import kotlinx.android.synthetic.main.activity_home.*
 
+@SuppressLint("CommitTransaction")
 class HomeActivity : AppCompatActivity() {
 
-    @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         selectedLanguageCardView.setOnClickListener {
-            bottom_navigation.hide()
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.apply {
-                setCustomAnimations(R.anim.slide_in_up,
-                        R.anim.slide_in_down,
-                        R.anim.slide_out_down,
-                        R.anim.slide_out_up)
-                addToBackStack(null)
-                replace(R.id.container, CodeLanguageFragment()).commit()
-            }
-
+            showLanguageFragment()
         }
 
         //CodeLanguageHelper( this )
@@ -33,8 +24,24 @@ class HomeActivity : AppCompatActivity() {
         //handleSendText()
     }
 
+    private fun showLanguageFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.apply {
+            addUserCodeFAB.hide()
+            bottom_navigation.hide()
+            setCustomAnimations(R.anim.slide_in_up,
+                    R.anim.slide_in_down,
+                    R.anim.slide_out_down,
+                    R.anim.slide_out_up)
+            addToBackStack(null)
+            replace(R.id.container, CodeLanguageFragment()).commit()
+        }
+    }
+
     override fun onBackPressed() {
-        if( supportFragmentManager.backStackEntryCount > 1 ) {
+        if( supportFragmentManager.backStackEntryCount > 0 ) {
+            addUserCodeFAB.show()
+            bottom_navigation.show()
             supportFragmentManager.popBackStack()
         }
         else
