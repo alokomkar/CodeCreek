@@ -5,6 +5,7 @@ buildscript {
     ext.firebase_version = '11.4.2'
     ext.appcompat_version = '26.0.2'
     ext.roomVersion = '1.1.1'
+    ext.archLifecycleVersion = '1.1.1'
     repositories {
         jcenter()
         mavenLocal()
