@@ -27,6 +27,28 @@ class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
     init {
 
         /*val codeLanguages = ArrayList<CodeLanguage>()
+
+        codeLanguages.add( CodeLanguage(
+                "",
+                "C",
+                "C is a high-level and general purpose programming " +
+                        "language that is ideal for " +
+                        "developing firmware or portable applications.",
+                ".c",
+                System.currentTimeMillis(),
+                System.currentTimeMillis()))
+
+        codeLanguages.add( CodeLanguage(
+                "",
+                "C++",
+                "C++ is a general-purpose, statically typed, " +
+                        "free-form, multi-paradigm programming language " +
+                        "supporting procedural programming, " +
+                        "data abstraction, and generic programming.",
+                ".cpp",
+                System.currentTimeMillis(),
+                System.currentTimeMillis()))
+
         codeLanguages.add( CodeLanguage(
                 "",
                 "Java",
@@ -38,6 +60,20 @@ class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
                 ".java",
                 System.currentTimeMillis(),
                 System.currentTimeMillis()))
+
+        *//*codeLanguages.add( CodeLanguage(
+                "",
+                "MySQL",
+                "Java is a general-purpose computer " +
+                        "programming language that is concurrent, " +
+                        "class-based, object-oriented, and specifically " +
+                        "designed to have as few implementation " +
+                        "dependencies as possible.",
+                ".sql",
+                System.currentTimeMillis(),
+                System.currentTimeMillis()))*//*
+
+
 
         insertOrUpdate( codeLanguages )*/
 

@@ -25,17 +25,25 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showLanguageFragment() {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.apply {
-            addUserCodeFAB.hide()
-            bottom_navigation.hide()
-            setCustomAnimations(R.anim.slide_in_up,
-                    R.anim.slide_in_down,
-                    R.anim.slide_out_down,
-                    R.anim.slide_out_up)
-            addToBackStack(null)
-            replace(R.id.container, CodeLanguageFragment()).commit()
+
+        if( mCodeLanguageFragment == null ) {
+            mCodeLanguageFragment = CodeLanguageFragment()
         }
+
+        if( supportFragmentManager.findFragmentByTag( CodeLanguageFragment::class.java.simpleName ) == null ) {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.apply {
+                addUserCodeFAB.hide()
+                bottom_navigation.hide()
+                setCustomAnimations(R.anim.slide_in_up,
+                        R.anim.slide_in_down,
+                        R.anim.slide_out_down,
+                        R.anim.slide_out_up)
+                addToBackStack(null)
+                replace(R.id.container, mCodeLanguageFragment, CodeLanguageFragment::class.java.simpleName).commit()
+            }
+        }
+
     }
 
     override fun onBackPressed() {
@@ -66,4 +74,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+
+    private var mCodeLanguageFragment: CodeLanguageFragment ?= null
 }
