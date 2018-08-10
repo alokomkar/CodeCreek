@@ -5,28 +5,38 @@ import android.arch.persistence.room.*
 import android.util.Log
 
 @Dao
-interface CodeLanguageDao {
+abstract class CodeLanguageDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert( codeLanguage: CodeLanguage ) : Long
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract fun insert( codeLanguage: CodeLanguage ) : Long
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update( codeLanguage: CodeLanguage )
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    abstract fun update( codeLanguage: CodeLanguage )
 
     @Query("DELETE FROM CodeLanguage WHERE id = :languageId")
-    fun deleteById( languageId : String )
+    abstract fun deleteById( languageId : String )
 
     @Query("DELETE FROM CodeLanguage")
-    fun deleteAll()
+    abstract fun deleteAll()
 
     @Query("SELECT * FROM CodeLanguage ORDER BY id ASC")
-    fun listAll() : List<CodeLanguage>
+    abstract fun listAll() : List<CodeLanguage>
 
     @Query("SELECT * FROM CodeLanguage ORDER BY id ASC")
-    fun listAllLive() : LiveData<List<CodeLanguage>>
+    abstract fun listAllLive() : LiveData<List<CodeLanguage>>
 
     @Query("SELECT * FROM CodeLanguage WHERE id = :languageId")
-    fun findLiveById( languageId: String ) : LiveData<CodeLanguage>
+    abstract fun findLiveById( languageId: String ) : LiveData<CodeLanguage>
+
+    @Transaction
+    fun insertOrUpdate( codeLanguage: CodeLanguage ) {
+        Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt insert : $codeLanguage")
+        val id = insert( codeLanguage )
+        if( id == -1L ) {
+            Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt update : $codeLanguage")
+            update( codeLanguage )
+        }
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.v2.data.remote
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.os.AsyncTask
@@ -12,7 +13,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("StaticFieldLeak")
-class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
+class PCFirebaseHandler : API, ValueEventListener {
 
 
     override fun onCancelled(error: DatabaseError) {
@@ -41,20 +42,10 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
             override fun doInBackground(vararg p0: Void?) {
                 when( obj ) {
                     is CodeLanguage -> {
-                        Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt insert : $obj")
-                        val id = codeLanguageDao.insert( obj )
-                        if( id == -1L ) {
-                            Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt update : $obj")
-                            codeLanguageDao.update( obj )
-                        }
+                        codeLanguageDao.insertOrUpdate( obj )
                     }
                     is MasterContent -> {
-                        Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt insert : $obj")
-                        val id = masterContentDao.insert( obj )
-                        if( id == -1L ) {
-                            Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt update : $obj")
-                            masterContentDao.update( obj )
-                        }
+                        masterContentDao.insertOrUpdate( obj )
                     }
                 }
             }
@@ -87,30 +78,30 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
 
     companion object {
 
-        private var instance : PCFirebaseHandler?= null
+        private var singleInstance : PCFirebaseHandler?= null
         private const val pcDBVersion = "v2"
         private lateinit var dbInstance : PracticeCodeRoomDatabase
         private lateinit var codeLanguageDao : CodeLanguageDao
         private lateinit var masterContentDao: MasterContentDao
 
-        private fun getInstance( context: Context ) : PCFirebaseHandler {
+        private fun getInstance(): PCFirebaseHandler {
 
-            if( instance == null ) {
-                instance = PCFirebaseHandler(context.applicationContext)
+            if( singleInstance == null ) {
+                singleInstance = PCFirebaseHandler()
             }
-            return instance!!
+            return singleInstance!!
 
         }
 
-        fun getAPI( context: Context ) : API {
+        fun getAPI( application: Application ) : API {
 
-            if( instance == null ) {
-                instance = getInstance( context )
-                dbInstance = PracticeCodeRoomDatabase.getDbInstance(context.applicationContext)
+            if( singleInstance == null ) {
+                singleInstance = getInstance()
+                dbInstance = PracticeCodeRoomDatabase.getDbInstance(application)
                 codeLanguageDao = dbInstance.codeLanguageDao()
                 masterContentDao = dbInstance.masterContentDao()
             }
-            return instance!!
+            return singleInstance!!
 
         }
 

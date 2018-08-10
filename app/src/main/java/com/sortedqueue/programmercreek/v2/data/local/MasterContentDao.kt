@@ -5,31 +5,41 @@ import android.arch.persistence.room.*
 import android.util.Log
 
 @Dao
-interface MasterContentDao {
+abstract class MasterContentDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert( masterContent: MasterContent) : Long
+    abstract fun insert( masterContent: MasterContent) : Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update( masterContent: MasterContent)
+    abstract fun update( masterContent: MasterContent)
 
     @Query("DELETE FROM MasterContent WHERE id = :contentId")
-    fun deleteById( contentId : String )
+    abstract fun deleteById( contentId : String )
 
     @Query("DELETE FROM MasterContent")
-    fun deleteAll()
+    abstract fun deleteAll()
 
     @Query("SELECT * FROM MasterContent ORDER BY id ASC")
-    fun listAll() : List<MasterContent>
+    abstract fun listAll() : List<MasterContent>
 
     @Query("SELECT * FROM MasterContent ORDER BY id ASC")
-    fun listAllLive() : LiveData<List<MasterContent>>
+    abstract fun listAllLive() : LiveData<List<MasterContent>>
 
     @Query("SELECT * FROM MasterContent WHERE languageId = :languageId ORDER BY id ASC")
-    fun listAllLiveByID( languageId : String ) : LiveData<List<MasterContent>>
+    abstract fun listAllLiveByID( languageId : String ) : LiveData<List<MasterContent>>
 
     @Query("SELECT * FROM MasterContent WHERE id = :contentId")
-    fun findLiveById( contentId: String ) : LiveData<MasterContent>
+    abstract fun findLiveById( contentId: String ) : LiveData<MasterContent>
+
+    @Transaction
+    fun insertOrUpdate( masterContent: MasterContent ) {
+        Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt insert : $masterContent")
+        val id = insert( masterContent )
+        if( id == -1L ) {
+            Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt update : $masterContent")
+            update( masterContent )
+        }
+    }
 
 }

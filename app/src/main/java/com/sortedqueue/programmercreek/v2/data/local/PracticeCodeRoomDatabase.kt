@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.v2.data.local
 
+import android.app.Application
 import android.arch.persistence.room.Database
 import android.content.Context
 import android.arch.persistence.room.Room
@@ -17,11 +18,11 @@ abstract class PracticeCodeRoomDatabase : RoomDatabase() {
 
         private var dbInstance : PracticeCodeRoomDatabase?= null
 
-        fun getDbInstance( context: Context ) : PracticeCodeRoomDatabase {
+        fun getDbInstance( application: Application ) : PracticeCodeRoomDatabase {
             if (dbInstance == null) {
                 synchronized(PracticeCodeRoomDatabase::class.java) {
                     if (dbInstance == null) {
-                        dbInstance = Room.databaseBuilder(context.applicationContext,
+                        dbInstance = Room.databaseBuilder(application,
                                 PracticeCodeRoomDatabase::class.java, "practiceCodeDatabase")
                                 .build()
 
