@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Parcelable
+import android.util.Log
 import com.google.firebase.database.*
 import com.sortedqueue.programmercreek.v2.data.local.*
 import java.util.*
@@ -24,7 +25,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
             codeLanguages.clear()
             masterContentMap.clear()
             masterContents.clear()
-
+            Log.d(PCFirebaseHandler::class.java.simpleName, "CodeLanguages : " + snapshot.children.count())
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
                 insertAsync( codeLanguage )
@@ -39,11 +40,27 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
         object : AsyncTask<Void, Void, Unit>() {
             override fun doInBackground(vararg p0: Void?) {
                 when( obj ) {
-                    is CodeLanguage -> codeLanguageDao.insert( obj )
-                    is MasterContent -> masterContentDao.insert( obj )
+                    is CodeLanguage -> {
+                        Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt insert : $obj")
+                        val id = codeLanguageDao.insert( obj )
+                        if( id == -1L ) {
+                            Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt update : $obj")
+                            codeLanguageDao.update( obj )
+                        }
+                    }
+                    is MasterContent -> {
+                        Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt insert : $obj")
+                        val id = masterContentDao.insert( obj )
+                        if( id == -1L ) {
+                            Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt update : $obj")
+                            masterContentDao.update( obj )
+                        }
+                    }
                 }
             }
         }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+
+
 
 
 
@@ -107,7 +124,7 @@ class PCFirebaseHandler( context: Context ) : API, ValueEventListener {
     }
 
     init {
-        getFirebaseDBReference(codeLanguageDB).addValueEventListener( this )
+        getFirebaseDBReference(codeLanguageDB).addListenerForSingleValueEvent( this )
     }
 
     private fun getFirebaseDBReference( dbUrl : String ): DatabaseReference {

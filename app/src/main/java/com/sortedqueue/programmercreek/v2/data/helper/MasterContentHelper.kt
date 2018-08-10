@@ -27,7 +27,7 @@ class MasterContentHelper( application: Application) : MasterContentAPI {
 
     init {
 
-        val masterContents = ArrayList<MasterContent>()
+        /*val masterContents = ArrayList<MasterContent>()
         masterContents.add( MasterContent(
                 "",
                 "Sample Content",
@@ -36,7 +36,7 @@ class MasterContentHelper( application: Application) : MasterContentAPI {
                 System.currentTimeMillis(),
                 System.currentTimeMillis()))
 
-        insertOrUpdate( masterContents )
+        insertOrUpdate( masterContents )*/
 
     }
 

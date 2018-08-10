@@ -1,16 +1,18 @@
 package com.sortedqueue.programmercreek.v2.data.local
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import android.util.Log
 
 @Dao
 interface MasterContentDao {
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert( masterContent: MasterContent)
+    fun insert( masterContent: MasterContent) : Long
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update( masterContent: MasterContent)
 
     @Query("DELETE FROM MasterContent WHERE id = :contentId")
     fun deleteById( contentId : String )

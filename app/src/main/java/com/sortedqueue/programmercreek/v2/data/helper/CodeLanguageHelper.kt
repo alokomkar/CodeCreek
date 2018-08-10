@@ -26,7 +26,7 @@ class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
 
     init {
 
-        val codeLanguages = ArrayList<CodeLanguage>()
+        /*val codeLanguages = ArrayList<CodeLanguage>()
         codeLanguages.add( CodeLanguage(
                 "",
                 "Java",
@@ -39,7 +39,7 @@ class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
                 System.currentTimeMillis(),
                 System.currentTimeMillis()))
 
-        insertOrUpdate( codeLanguages )
+        insertOrUpdate( codeLanguages )*/
 
     }
 
