@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.data.viewmodels
+package com.sortedqueue.programmercreek.v2.ui.codelanguage
 
 import android.app.Application
 import android.arch.lifecycle.LiveData

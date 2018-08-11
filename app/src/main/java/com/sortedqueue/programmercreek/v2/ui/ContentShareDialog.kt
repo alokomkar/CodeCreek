@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.home
+package com.sortedqueue.programmercreek.v2.ui
 
 
 import android.annotation.SuppressLint
@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.v2.data.helper.Content
 import com.sortedqueue.programmercreek.v2.data.helper.ContentType
-import com.sortedqueue.programmercreek.v2.home.ContentShareDialog.TypeRVAdapter.ViewHolder
+import com.sortedqueue.programmercreek.v2.ui.ContentShareDialog.TypeRVAdapter.ViewHolder
 import java.util.*
 
 @Suppress("DEPRECATION")

@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".v2.home.HomeActivity"
+            android:name=".v2.ui.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >

@@ -27,10 +27,9 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.auth.AuthPresenter
 import com.sortedqueue.programmercreek.auth.AuthView
-import com.sortedqueue.programmercreek.dashboard.DashboardActivity
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
-import com.sortedqueue.programmercreek.v2.home.HomeActivity
+import com.sortedqueue.programmercreek.v2.ui.HomeActivity
 import com.sortedqueue.programmercreek.view.LoginSignupDialog
 import com.sortedqueue.programmercreek.view.LoginSignupDialog.LoginSignupListener
 import kotlinx.android.synthetic.main.activity_splash_screen.*

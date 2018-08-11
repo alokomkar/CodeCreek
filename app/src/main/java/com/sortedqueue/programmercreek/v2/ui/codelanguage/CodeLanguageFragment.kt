@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.home
+package com.sortedqueue.programmercreek.v2.ui.codelanguage
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,8 +11,7 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.base.BaseFragment
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
-import com.sortedqueue.programmercreek.v2.data.viewmodels.CodeLanguageViewModel
-import com.sortedqueue.programmercreek.v2.data.viewmodels.MasterContentViewModel
+import com.sortedqueue.programmercreek.v2.ui.mastercontent.MasterContentViewModel
 import kotlinx.android.synthetic.main.fragment_code_language.*
 
 class CodeLanguageFragment : BaseFragment(),
@@ -35,7 +34,7 @@ class CodeLanguageFragment : BaseFragment(),
         mCodeLanguageViewModel = ViewModelProviders.of(this).get(CodeLanguageViewModel::class.java)
         ViewModelProviders.of(this).get(MasterContentViewModel::class.java)
         rvCodeLanguage.layoutManager = LinearLayoutManager( context )
-        mCodeLanguageAdapter = CodeLanguageAdapter( mCodeLanguages, this )
+        mCodeLanguageAdapter = CodeLanguageAdapter(mCodeLanguages, this)
         rvCodeLanguage.adapter = mCodeLanguageAdapter
         mCodeLanguageViewModel.fetchLiveCodeLanguages().observe( this, this )
     }

@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.home
+package com.sortedqueue.programmercreek.v2.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
+import com.sortedqueue.programmercreek.v2.ui.codelanguage.CodeLanguageFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 @SuppressLint("CommitTransaction")
@@ -75,5 +76,5 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private var mCodeLanguageFragment: CodeLanguageFragment ?= null
+    private var mCodeLanguageFragment: CodeLanguageFragment?= null
 }

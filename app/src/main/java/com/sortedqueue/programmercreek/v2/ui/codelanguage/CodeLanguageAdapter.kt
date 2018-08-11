@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.home
+package com.sortedqueue.programmercreek.v2.ui.codelanguage
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
