@@ -1,17 +1,18 @@
-package com.sortedqueue.programmercreek.v2.data.local
+package com.sortedqueue.programmercreek.v2.data.db
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import android.util.Log
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
 @Dao
 abstract class CodeLanguageDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insert( codeLanguage: CodeLanguage ) : Long
+    abstract fun insert( codeLanguage: CodeLanguage) : Long
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun update( codeLanguage: CodeLanguage )
+    abstract fun update( codeLanguage: CodeLanguage)
 
     @Query("DELETE FROM CodeLanguage WHERE id = :languageId")
     abstract fun deleteById( languageId : String )
@@ -29,7 +30,7 @@ abstract class CodeLanguageDao {
     abstract fun findLiveById( languageId: String ) : LiveData<CodeLanguage>
 
     @Transaction
-    fun insertOrUpdate( codeLanguage: CodeLanguage ) {
+    open fun insertOrUpdate( codeLanguage: CodeLanguage) {
         Log.d( CodeLanguageDao::class.java.simpleName, "insertOrUpdate : attempt insert : $codeLanguage")
         val id = insert( codeLanguage )
         if( id == -1L ) {

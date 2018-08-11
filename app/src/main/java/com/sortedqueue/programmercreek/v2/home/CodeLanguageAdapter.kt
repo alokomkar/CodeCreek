@@ -9,10 +9,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
-import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
-class CodeLanguageAdapter( private val codeLanguageList : List<CodeLanguage>,
-                           private val adapterClickListener: BaseAdapterClickListener<CodeLanguage> )
+class CodeLanguageAdapter(private val codeLanguageList : List<CodeLanguage>,
+                          private val adapterClickListener: BaseAdapterClickListener<CodeLanguage> )
     : RecyclerView.Adapter<CodeLanguageAdapter.CodeLanguageViewHolder>() {
 
     @SuppressLint("InflateParams")

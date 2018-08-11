@@ -3,101 +3,100 @@ package com.sortedqueue.programmercreek.v2.data.remote
 import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.LiveData
-import android.content.Context
 import android.os.AsyncTask
 import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.database.*
-import com.sortedqueue.programmercreek.v2.data.local.*
-import java.util.*
+import com.sortedqueue.programmercreek.v2.base.BasePreferencesAPI
+import com.sortedqueue.programmercreek.v2.base.PCPreferences
+import com.sortedqueue.programmercreek.v2.data.api.API
+import com.sortedqueue.programmercreek.v2.data.api.DBIntentService
+import com.sortedqueue.programmercreek.v2.data.db.*
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
+@Suppress("PrivatePropertyName")
 @SuppressLint("StaticFieldLeak")
-class PCFirebaseHandler : API, ValueEventListener {
+class PCFirebaseHandler( private val application: Application ) : API, ValueEventListener {
 
+    private val TAG = PCFirebaseHandler::class.java.simpleName
 
-    override fun onCancelled(error: DatabaseError) {
-
-    }
+    override fun onCancelled(error: DatabaseError) {}
 
     override fun onDataChange(snapshot: DataSnapshot) {
         if( snapshot.hasChildren() ) {
-
-            codeLanguages.clear()
-            masterContentMap.clear()
-            masterContents.clear()
             Log.d(PCFirebaseHandler::class.java.simpleName, "CodeLanguages : " + snapshot.children.count())
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
                 insertAsync( codeLanguage )
-                codeLanguages.add(codeLanguage!!)
-                masterContentMap[codeLanguage.id] = ArrayList()
+                getAllContent( codeLanguage )
             }
-            getAllContent()
+
         }
     }
 
     private fun insertAsync( obj: Parcelable? ) =
-        object : AsyncTask<Void, Void, Unit>() {
-            override fun doInBackground(vararg p0: Void?) {
-                when( obj ) {
-                    is CodeLanguage -> {
-                        codeLanguageDao.insertOrUpdate( obj )
-                    }
-                    is MasterContent -> {
-                        masterContentDao.insertOrUpdate( obj )
+            object : AsyncTask<Void, Void, Unit>() {
+                override fun doInBackground(vararg p0: Void?) {
+                    when( obj ) {
+                        is CodeLanguage -> {
+                            codeLanguageDao.insertOrUpdate( obj )
+                        }
+                        is MasterContent -> {
+                            masterContentDao.insertOrUpdate( obj )
+                        }
                     }
                 }
-            }
-        }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
+            }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
 
 
 
 
 
-    private fun getAllContent() {
-        for( language in masterContentMap.keys ) {
-            getFirebaseDBReference("$masterContentDB/$language" )
-                    .addListenerForSingleValueEvent( object : ValueEventListener {
-                        override fun onCancelled(error: DatabaseError) {
+    private fun getAllContent( codeLanguage: CodeLanguage? ) {
 
+        getFirebaseDBReference("$masterContentDB/${codeLanguage!!.id}" )
+                .addListenerForSingleValueEvent( object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                    override fun onDataChange( snapshot: DataSnapshot) {
+                        for( child in snapshot.children ) {
+                            val masterContent = child.getValue(MasterContent::class.java)
+                            insertAsync( masterContent )
                         }
+                    }
 
-                        override fun onDataChange( snapshot: DataSnapshot) {
-                            for( child in snapshot.children ) {
-                                val masterContent = child.getValue(MasterContent::class.java)
-                                insertAsync( masterContent )
-                                masterContentMap[masterContent?.languageId]!!.add(masterContent!!)
-                            }
-                        }
+                })
 
-                    })
-        }
     }
 
 
     companion object {
 
         private var singleInstance : PCFirebaseHandler?= null
-        private const val pcDBVersion = "v2"
+        private var dbPreferencesAPI : BasePreferencesAPI ?= null
+
         private lateinit var dbInstance : PracticeCodeRoomDatabase
         private lateinit var codeLanguageDao : CodeLanguageDao
         private lateinit var masterContentDao: MasterContentDao
 
-        private fun getInstance(): PCFirebaseHandler {
-
+        private fun getInstance( application: Application ): PCFirebaseHandler {
             if( singleInstance == null ) {
-                singleInstance = PCFirebaseHandler()
+                singleInstance = PCFirebaseHandler( application )
             }
             return singleInstance!!
-
         }
 
         fun getAPI( application: Application ) : API {
 
             if( singleInstance == null ) {
-                singleInstance = getInstance()
+                singleInstance = getInstance( application )
                 dbInstance = PracticeCodeRoomDatabase.getDbInstance(application)
+                dbPreferencesAPI = PCPreferences.getPreferencesAPI( application )
                 codeLanguageDao = dbInstance.codeLanguageDao()
                 masterContentDao = dbInstance.masterContentDao()
             }
@@ -105,17 +104,63 @@ class PCFirebaseHandler : API, ValueEventListener {
 
         }
 
+        private const val pcDBVersion = "v2"
         private const val codeLanguageDB = "CodeLanguage"
         private const val masterContentDB = "MasterContent"
-
-        private val codeLanguages : ArrayList<CodeLanguage> = ArrayList()
-        private var masterContents : ArrayList<MasterContent> = ArrayList()
-        private var masterContentMap : HashMap<String, ArrayList<MasterContent>> = HashMap()
-
+        private const val dbVersions = "dbVersions"
     }
 
     init {
-        getFirebaseDBReference(codeLanguageDB).addListenerForSingleValueEvent( this )
+        checkForDataUpdates()
+    }
+
+    private fun checkForDataUpdates() {
+
+        getFirebaseDBReference(dbVersions).addListenerForSingleValueEvent( object : ValueEventListener {
+
+            override fun onCancelled( error : DatabaseError) {}
+
+            override fun onDataChange( snapshot: DataSnapshot ) {
+
+                if( dbPreferencesAPI != null ) {
+
+                    val remoteDBMap = HashMap<String, Long>()
+                    if( snapshot.children.count() > 0 ) {
+                        for( child in snapshot.children ) {
+                            for( gChild in child.children ) {
+                                if( gChild.value is Long )
+                                    remoteDBMap["${child.key}/${gChild.key!!}"] = gChild.value.toString().toLong()
+                            }
+                        }
+                    }
+
+                    val localDBMap = dbPreferencesAPI?.getDBVersions()
+                    Log.d(TAG, "DbUpdates : $localDBMap")
+                    if( localDBMap!!.isEmpty() ) {
+                        initCodeLanguages()
+
+                        dbPreferencesAPI?.setDBVersions(remoteDBMap)
+                    }
+                    else {
+                        checkForIndividualUpdates( remoteDBMap )
+                    }
+
+                }
+
+            }
+
+        })
+
+    }
+
+    private fun initCodeLanguages() {
+        Log.d(TAG, "initCodeLanguages" )
+        getFirebaseDBReference( codeLanguageDB ).addListenerForSingleValueEvent( this )
+    }
+
+    @Synchronized
+    private fun checkForIndividualUpdates( dbMap: HashMap<String, Long> ) {
+        DBIntentService.startDBUpdate( application, dbMap )
     }
 
     private fun getFirebaseDBReference( dbUrl : String ): DatabaseReference {
@@ -128,20 +173,23 @@ class PCFirebaseHandler : API, ValueEventListener {
                 if( obj.id.isEmpty() )
                     obj.id = getFirebaseSortedId(codeLanguageDB)
 
-                insertToFirebase(codeLanguageDB, obj.id, obj )
+                insertToFirebase(codeLanguageDB, obj.id, obj, obj.updated )
 
             }
             is MasterContent -> {
                 if( obj.id.isEmpty() )
                     obj.id = getFirebaseSortedId("$masterContentDB/${obj.languageId}")
 
-                insertToFirebase( "$masterContentDB/${obj.languageId}", obj.id, obj )
+                insertToFirebase( "$masterContentDB/${obj.languageId}", obj.id, obj, obj.updated )
             }
         }
     }
 
-    private fun insertToFirebase( database: String, id: String, obj: Parcelable) =
+    private fun insertToFirebase( database: String, id: String, obj: Parcelable, updatedAt : Long ) {
         getFirebaseDBReference( "$database/$id" ).setValue(obj)
+        val key = if( obj is CodeLanguage ) "$database/$id" else database
+        getFirebaseDBReference( "$dbVersions/$key" ).setValue(updatedAt)
+    }
 
 
     override fun insertOrUpdate(vararg obj: Parcelable) {
@@ -157,19 +205,8 @@ class PCFirebaseHandler : API, ValueEventListener {
     }
 
     private fun getFirebaseSortedId( dbUrl: String ) : String =
-         getFirebaseDBReference(dbUrl).push().key!!
+            getFirebaseDBReference(dbUrl).push().key!!
 
-
-    override fun getAllCodeLanguage(): ArrayList<CodeLanguage> = codeLanguages
-
-
-    override fun getAllMasterContent(): ArrayList<MasterContent> =
-         masterContents
-
-
-    override fun getAllMasterContent(languageId: String): ArrayList<MasterContent> {
-        return if( masterContentMap.containsKey(languageId)) masterContentMap[languageId]!! else ArrayList()
-    }
 
     override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
             = codeLanguageDao.listAllLive()

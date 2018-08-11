@@ -1,8 +1,9 @@
-package com.sortedqueue.programmercreek.v2.data.local
+package com.sortedqueue.programmercreek.v2.data.db
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import android.util.Log
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 
 @Dao
 abstract class MasterContentDao {
@@ -33,7 +34,7 @@ abstract class MasterContentDao {
     abstract fun findLiveById( contentId: String ) : LiveData<MasterContent>
 
     @Transaction
-    fun insertOrUpdate( masterContent: MasterContent ) {
+    open fun insertOrUpdate( masterContent: MasterContent) {
         Log.d( MasterContentDao::class.java.simpleName, "insertOrUpdate : attempt insert : $masterContent")
         val id = insert( masterContent )
         if( id == -1L ) {

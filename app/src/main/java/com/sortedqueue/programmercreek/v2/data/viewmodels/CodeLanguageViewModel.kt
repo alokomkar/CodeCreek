@@ -2,15 +2,16 @@ package com.sortedqueue.programmercreek.v2.data.viewmodels
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
-import com.sortedqueue.programmercreek.v2.data.helper.CodeLanguageAPI
-import com.sortedqueue.programmercreek.v2.data.helper.CodeLanguageHelper
-import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
+import com.sortedqueue.programmercreek.v2.base.BaseViewModel
+import com.sortedqueue.programmercreek.v2.data.api.CodeLanguageAPI
+import com.sortedqueue.programmercreek.v2.data.db.CodeLanguageRepository
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
 class CodeLanguageViewModel( application: Application )
     : BaseViewModel( application ),
         CodeLanguageAPI {
 
-    private val codeLanguageAPI = CodeLanguageHelper( application )
+    private val codeLanguageAPI = CodeLanguageRepository(application)
 
     override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
             = codeLanguageAPI.fetchLiveCodeLanguages()

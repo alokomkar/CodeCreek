@@ -68,7 +68,7 @@ class CreekApplication : Application() {
                 .build()
         )
 
-        val dbClasses = ArrayList<Class<out Rush>>()
+        /*val dbClasses = ArrayList<Class<out Rush>>()
 
         dbClasses.add(CreekUserDB::class.java)
         dbClasses.add(LanguageModule::class.java)
@@ -91,7 +91,7 @@ class CreekApplication : Application() {
 
         val config = AndroidInitializeConfig(applicationContext)
         config.setClasses(dbClasses)
-        RushCore.initialize(config)
+        RushCore.initialize(config)*/
         //setupExceptionHandler();
     }
 

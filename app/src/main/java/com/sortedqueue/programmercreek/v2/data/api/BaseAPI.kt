@@ -1,6 +1,4 @@
-package com.sortedqueue.programmercreek.v2.data.remote
-
-import android.arch.lifecycle.LiveData
+package com.sortedqueue.programmercreek.v2.data.api
 
 interface BaseAPI<in T> {
 

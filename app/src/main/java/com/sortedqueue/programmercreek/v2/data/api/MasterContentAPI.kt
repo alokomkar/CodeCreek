@@ -1,8 +1,8 @@
-package com.sortedqueue.programmercreek.v2.data.helper
+package com.sortedqueue.programmercreek.v2.data.api
 
 import android.arch.lifecycle.LiveData
-import com.sortedqueue.programmercreek.v2.data.local.MasterContent
-import com.sortedqueue.programmercreek.v2.data.remote.BaseAPI
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
+import com.sortedqueue.programmercreek.v2.data.api.BaseAPI
 
 interface MasterContentAPI : BaseAPI<MasterContent> {
     fun fetchLiveMasterContents() : LiveData<List<MasterContent>>

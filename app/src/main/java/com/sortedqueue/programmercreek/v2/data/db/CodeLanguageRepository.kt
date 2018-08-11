@@ -1,13 +1,12 @@
-package com.sortedqueue.programmercreek.v2.data.helper
+package com.sortedqueue.programmercreek.v2.data.db
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
-import android.content.Context
-import com.sortedqueue.programmercreek.v2.data.local.CodeLanguage
-import com.sortedqueue.programmercreek.v2.data.remote.BaseAPI
+import com.sortedqueue.programmercreek.v2.data.api.CodeLanguageAPI
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 
-class CodeLanguageHelper( application: Application ) : CodeLanguageAPI {
+class CodeLanguageRepository(application: Application ) : CodeLanguageAPI {
 
     override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
             = api.fetchLiveCodeLanguages()

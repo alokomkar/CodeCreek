@@ -1,11 +1,12 @@
-package com.sortedqueue.programmercreek.v2.data.helper
+package com.sortedqueue.programmercreek.v2.data.db
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
-import com.sortedqueue.programmercreek.v2.data.local.MasterContent
+import com.sortedqueue.programmercreek.v2.data.api.MasterContentAPI
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 
-class MasterContentHelper( application: Application) : MasterContentAPI {
+class MasterContentRepository(application: Application) : MasterContentAPI {
 
     override fun fetchLiveMasterContents(): LiveData<List<MasterContent>>
             = api.fetchLiveMasterContents()

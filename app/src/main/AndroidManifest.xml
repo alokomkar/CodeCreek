@@ -316,6 +316,9 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_o8elPE7VRTZcbw" />
 
+        <service android:name=".v2.data.api.DBIntentService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

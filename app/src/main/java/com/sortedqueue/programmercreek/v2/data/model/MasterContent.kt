@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.data.local
+package com.sortedqueue.programmercreek.v2.data.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

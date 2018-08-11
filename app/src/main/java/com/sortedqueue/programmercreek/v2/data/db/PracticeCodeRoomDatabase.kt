@@ -1,10 +1,11 @@
-package com.sortedqueue.programmercreek.v2.data.local
+package com.sortedqueue.programmercreek.v2.data.db
 
 import android.app.Application
 import android.arch.persistence.room.Database
-import android.content.Context
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 
 
 @Database(entities = [MasterContent::class, CodeLanguage::class], version = 1)

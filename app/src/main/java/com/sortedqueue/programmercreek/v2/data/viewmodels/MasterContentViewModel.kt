@@ -2,15 +2,16 @@ package com.sortedqueue.programmercreek.v2.data.viewmodels
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
-import com.sortedqueue.programmercreek.v2.data.helper.MasterContentAPI
-import com.sortedqueue.programmercreek.v2.data.helper.MasterContentHelper
-import com.sortedqueue.programmercreek.v2.data.local.MasterContent
+import com.sortedqueue.programmercreek.v2.base.BaseViewModel
+import com.sortedqueue.programmercreek.v2.data.api.MasterContentAPI
+import com.sortedqueue.programmercreek.v2.data.db.MasterContentRepository
+import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 
 class MasterContentViewModel( application: Application ) :
         BaseViewModel( application ),
-        MasterContentAPI{
+        MasterContentAPI {
 
-    private val masterContentAPI = MasterContentHelper( application )
+    private val masterContentAPI = MasterContentRepository(application)
 
     override fun fetchLiveMasterContents(): LiveData<List<MasterContent>>
             = masterContentAPI.fetchLiveMasterContents()

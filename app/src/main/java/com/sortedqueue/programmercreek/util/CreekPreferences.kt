@@ -33,7 +33,7 @@ class CreekPreferences(private val context: Context) {
     private var programIndex: Int = 0
     private var programTables: Int = 0
 
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val WIKI_HELP = "Wiki_help"
     private val KEY_WELCOME_DONE = "welcome_done"
     private val TAG = CreekPreferences::class.java.simpleName
@@ -41,10 +41,6 @@ class CreekPreferences(private val context: Context) {
     private val runMode = RUN_AUTO
     val textSize = 16
 
-
-    init {
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    }
 
     fun getProgramIndex(): Int {
         val programLanguage = programLanguage
