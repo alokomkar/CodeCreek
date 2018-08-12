@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.base.BaseFragment
+import com.sortedqueue.programmercreek.v2.base.BasePreferencesAPI
+import com.sortedqueue.programmercreek.v2.base.PCPreferences
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.ui.mastercontent.MasterContentViewModel
 import kotlinx.android.synthetic.main.fragment_code_language.*
@@ -21,6 +23,7 @@ class CodeLanguageFragment : BaseFragment(),
     private lateinit var mCodeLanguageViewModel: CodeLanguageViewModel
     private lateinit var mCodeLanguageAdapter : CodeLanguageAdapter
     private var mCodeLanguages : ArrayList<CodeLanguage> = ArrayList()
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -48,6 +51,9 @@ class CodeLanguageFragment : BaseFragment(),
     }
 
     override fun onItemClick(position: Int, item: CodeLanguage) {
-
+        if( activity != null ) {
+            mPreferencesAPI.setLanguage( item )
+            activity?.onBackPressed()
+        }
     }
 }

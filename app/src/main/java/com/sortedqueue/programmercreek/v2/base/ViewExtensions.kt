@@ -1,5 +1,7 @@
 package com.sortedqueue.programmercreek.v2.base
 
+import android.content.Context
+import android.support.design.widget.Snackbar
 import android.view.View
 
 fun View.hide() {
@@ -20,4 +22,7 @@ fun View.invisible() {
 fun View.toggleVisibility() {
     if( this.isVisible() ) this.hide() else this.hide()
 }
+
+fun View.showSnackBar( message : Int ) = Snackbar.make( this, message, Snackbar.LENGTH_SHORT ).show()
+
 
