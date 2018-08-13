@@ -3,15 +3,26 @@ package com.sortedqueue.programmercreek.v2.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.view.MenuItem
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.*
-import com.sortedqueue.programmercreek.v2.ui.chapters.ChaptersFragment
+
 import com.sortedqueue.programmercreek.v2.ui.codelanguage.CodeLanguageFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 @SuppressLint("CommitTransaction")
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when( item.itemId ) {
+            R.id.action_dashboard -> homePager.setCurrentItem(0, true )
+            R.id.action_learners -> homePager.setCurrentItem( 1, true )
+            R.id.action_programs -> homePager.setCurrentItem( 2, true )
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +32,10 @@ class HomeActivity : BaseActivity() {
             showLanguageFragment()
         }
 
-        if( mBasePreferencesAPI.getLanguage() == null ) showLanguageFragment()
-        else setViewPager()
+        if( mBasePreferencesAPI.getLanguage() == null )
+            showLanguageFragment()
+        else
+            setViewPager()
         //CodeLanguageHelper( this )
         //MasterContentHelper( this )
         //handleSendText()
@@ -37,19 +50,8 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setViewPager() {
-        if( supportFragmentManager.findFragmentByTag( ChaptersFragment::class.java.simpleName ) == null ) {
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.apply {
-                addUserCodeFAB.hide()
-                bottom_navigation.hide()
-                setCustomAnimations(R.anim.slide_in_up,
-                        R.anim.slide_in_down,
-                        R.anim.slide_out_down,
-                        R.anim.slide_out_up)
-                addToBackStack(null)
-                replace(R.id.container, ChaptersFragment(), ChaptersFragment::class.java.simpleName).commit()
-            }
-        }
+        homePager.adapter = HomePagerAdapter( supportFragmentManager )
+        bottom_navigation.setOnNavigationItemSelectedListener( this )
     }
 
     private fun showLanguageFragment() {
@@ -61,6 +63,7 @@ class HomeActivity : BaseActivity() {
         if( supportFragmentManager.findFragmentByTag( CodeLanguageFragment::class.java.simpleName ) == null ) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.apply {
+                homePager.hide()
                 addUserCodeFAB.hide()
                 bottom_navigation.hide()
                 setCustomAnimations(R.anim.slide_in_up,
@@ -84,6 +87,7 @@ class HomeActivity : BaseActivity() {
         if( supportFragmentManager.backStackEntryCount > 0 ) {
             addUserCodeFAB.show()
             bottom_navigation.show()
+            homePager.show()
             supportFragmentManager.popBackStack()
         }
         else

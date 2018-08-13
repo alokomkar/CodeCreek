@@ -94,12 +94,14 @@ class UserProgramsFragment : Fragment(), UserProgramRecyclerAdapter.UserProgramC
             val adRequest = AdRequest.Builder()
                     .addTestDevice("2510529ECB8B5E43FA6416A37C1A6101")
                     .build()
-            adView!!.loadAd(adRequest)
-            adView!!.visibility = View.GONE
-            adView!!.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView!!.visibility = View.VISIBLE
+            if( adView != null ) {
+                adView!!.loadAd(adRequest)
+                adView!!.visibility = View.GONE
+                adView!!.adListener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        if( adView != null ) adView.visibility = View.VISIBLE
+                    }
                 }
             }
         }
