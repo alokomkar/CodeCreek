@@ -163,7 +163,7 @@
         android:layout_above="@+id/bottom_navigation"
         android:layout_height="match_parent"/>
 
-    <android.support.v4.view.ViewPager
+    <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_below="@+id/appBar"
         android:id="@+id/homePager"
         android:layout_above="@+id/bottom_navigation"

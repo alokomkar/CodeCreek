@@ -51,6 +51,7 @@ import java.util.Random
 
 
 import com.facebook.login.widget.ProfilePictureView.TAG
+import java.util.regex.Pattern
 
 
 object AuxilaryUtils {
@@ -394,6 +395,15 @@ object AuxilaryUtils {
         val lines = programCode.split("\\r?\\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         return ArrayList(Arrays.asList(*lines))
     }
+
+    fun splitIntoParas( text: String ) : ArrayList<String>
+            = ArrayList(text.split("(\\n\\r|\\n|\\r){2}")  )
+
+    fun splitByRegexParas( text: String ) : Array<out String>?
+            = ( Pattern.compile("(?<=(\r\n|\r|\n))([ \\t]*$)+", Pattern.MULTILINE).split(text) )
+
+
+
 
     interface InputTextListener {
         fun onSuccess(text: String)

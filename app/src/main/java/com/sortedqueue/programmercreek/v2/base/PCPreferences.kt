@@ -11,10 +11,13 @@ import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
 class PCPreferences( application: Context ) : BasePreferencesAPI {
 
+
+
     companion object {
 
         private const val dbVersionMap = "dbVersionMap"
         private const val selectedLanguage = "selectedLanguage"
+        private const val savedNotes = "savedNotes"
 
         private var basePreferencesAPI : BasePreferencesAPI ?= null
         fun getPreferencesAPI( application: Application ) : BasePreferencesAPI {
@@ -57,6 +60,10 @@ class PCPreferences( application: Context ) : BasePreferencesAPI {
         val user = FirebaseAuth.getInstance().currentUser
         return user?.uid ?: ""
     }
+
+    override fun getSavedNotes(): String = getPreference(savedNotes)
+
+    override fun setSavedNotes( notes: String ) = setPreference( savedNotes, notes )
 
     private fun setGsonPref( prefKey: String, parcelable: Parcelable )
         = mSharedPreferences.edit().putString( prefKey, Gson().toJson(parcelable) ).apply()

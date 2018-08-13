@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:elevation="@dimen/margin_16"
+        android:animateLayoutChanges="true"
+        android:id="@+id/progressLayout">
+
+        <ProgressBar
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/margin_16"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_16"
+            android:id="@+id/reputationProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/gradient_progress"
+            tools:progress="60"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:background="@color/white"
+            android:id="@+id/reputationTextView"
+            android:gravity="left"
+            tools:text="Marked as Header"
+            tools:ignore="RtlHardcoded" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_check"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:text="@string/start"
+                android:id="@+id/tvStart"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/header"
+                android:id="@+id/tvHeader"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/content"
+                android:id="@+id/tvContent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/bullets"
+                android:id="@+id/tvBullets"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/code"
+                android:id="@+id/tvCode"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_clear"
+                android:textColor="@color/white"
+                android:padding="@dimen/margin_4"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/done"
+                android:id="@+id/tvDone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="gone"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:id="@+id/premiumLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/shareTextView"
+            android:gravity="left"
+            android:text="@string/premium_description"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:text="@string/upgrade"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/upgradeTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingEnd="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_8"
+            android:layout_toEndOf="@+id/upgradeTextView"
+            android:text="@string/may_be_later"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/laterTextView"
+            android:layout_below="@+id/shareTextView"
+            />
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/container"
+        android:layout_height="match_parent"/>
+
+    <EditText
+        android:layout_below="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/margin_8"
+        tools:visibility="gone"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        tools:text="@string/terms_and_conditions"
+        android:gravity="start"
+        android:id="@+id/etContent"
+        android:inputType="none"
+        tools:ignore="LabelFor" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/progressLayout"
+        android:id="@+id/contentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.sortedqueue.programmercreek.view.ScrollableViewPager
+        android:id="@+id/sharePager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/saveFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/fab_margin"
+        android:layout_alignParentEnd="true"
+        app:fabSize="normal"
+        app:backgroundTint="@color/md_green_400"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@android:drawable/ic_menu_save" />
+
+
+
+</RelativeLayout>

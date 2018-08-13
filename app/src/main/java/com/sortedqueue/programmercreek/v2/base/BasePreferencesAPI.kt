@@ -9,5 +9,7 @@ interface BasePreferencesAPI {
     fun setLanguage( codeLanguage: CodeLanguage )
     fun getLanguage( ) : CodeLanguage?
     fun getUserId() : String
+    fun getSavedNotes(): String
+    fun setSavedNotes( notes : String )
 
 }

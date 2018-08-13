@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/about"
-        android:background="@color/white"
-        android:layout_toStartOf="@+id/typeTextView"
-        android:padding="@dimen/margin_4"
-        android:id="@+id/contentTextView"/>
+    android:background="@color/white"
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,6 +13,17 @@
         android:padding="@dimen/margin_4"
         android:layout_alignParentEnd="true"
         android:text="@string/header"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/unlock_programs_description"
+        android:background="@color/white"
+        android:layout_below="@+id/typeTextView"
+        android:padding="@dimen/margin_4"
+        android:id="@+id/contentTextView"/>
+
+
 
     <View
         android:layout_width="match_parent"

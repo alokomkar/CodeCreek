@@ -108,7 +108,7 @@ class ContentShareDialog( context : Context, sharedText : String ) {
 
     }
 
-    inner class ContentRVAdapter( private val contentTypeList: ArrayList<Content> ) : RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
+    class ContentRVAdapter( private val contentTypeList: ArrayList<Content> ) : RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
 
         private var selectedPosition = 0
         private var contentType : ContentType ?= null

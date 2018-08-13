@@ -10,6 +10,7 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.*
 
 import com.sortedqueue.programmercreek.v2.ui.codelanguage.CodeLanguageFragment
+import com.sortedqueue.programmercreek.v2.ui.contentshare.ContentShareActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 @SuppressLint("CommitTransaction")
@@ -36,6 +37,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             showLanguageFragment()
         else
             setViewPager()
+
+        addUserCodeFAB.setOnClickListener { startActivity(Intent( this, ContentShareActivity::class.java)) }
         //CodeLanguageHelper( this )
         //MasterContentHelper( this )
         //handleSendText()
@@ -51,6 +54,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun setViewPager() {
         homePager.adapter = HomePagerAdapter( supportFragmentManager )
+        homePager.setCanScroll(false)
         bottom_navigation.setOnNavigationItemSelectedListener( this )
     }
 
@@ -95,23 +99,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     }
 
-    private fun handleSendText() {
 
-        val intent = intent
-        val action = intent.action
-        val type = intent.type
-
-        if (Intent.ACTION_SEND == action && type != null) {
-            if ("text/plain" == type) {
-                val sharedText = intent!!.getStringExtra(Intent.EXTRA_TEXT)
-                if (sharedText != null) {
-                    ContentShareDialog( this, sharedText )
-                }
-            }
-        }
-
-
-    }
 
     private var mCodeLanguageFragment: CodeLanguageFragment?= null
 }

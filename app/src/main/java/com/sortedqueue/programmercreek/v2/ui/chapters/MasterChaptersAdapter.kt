@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 import android.annotation.SuppressLint
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,17 @@ class MasterChaptersAdapter( private val chapterTitles : ArrayList<String>,
                              private val chaptersMap: LinkedHashMap<String, ArrayList<Chapter>>,
                              private val adapterClickListener: BaseAdapterClickListener<Chapter> )
     : RecyclerView.Adapter<MasterChaptersAdapter.ChapterViewHolder>() {
+
+    private val colors : Array<Int> = arrayOf(
+            R.color.md_amber_800,
+            R.color.md_cyan_500,
+            R.color.md_purple_500,
+            R.color.md_brown_700,
+            R.color.md_blue_grey_700,
+            R.color.md_light_green_900,
+            R.color.md_cyan_900,
+            R.color.md_deep_orange_900
+    )
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChapterViewHolder
@@ -34,8 +46,8 @@ class MasterChaptersAdapter( private val chapterTitles : ArrayList<String>,
 
         fun bindData( chapterTitle: String, chaptersList: java.util.ArrayList<Chapter>?) {
             tvHeader.text = chapterTitle
-            rvModules.layoutManager = LinearLayoutManager( itemView.context, LinearLayoutManager.HORIZONTAL, false )
-            rvModules.adapter = SubModulesAdapter( chaptersList, adapterClickListener )
+            rvModules.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL)
+            rvModules.adapter = SubModulesAdapter( chaptersList, colors[adapterPosition % colors.size], adapterClickListener )
         }
 
     }

@@ -310,4 +310,8 @@
     <string name="dashboard">Dashboard</string>
     <string name="my_programs">My Programs</string>
     <string name="java">Java</string>
+    <string name="content_share">Content Share</string>
+    <string name="bullets">Bullets</string>
+    <string name="start">Start</string>
+    <string name="add_to_notes">Add to Notes</string>
 </resources>

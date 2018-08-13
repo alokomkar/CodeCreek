@@ -10,7 +10,16 @@ data class Chapter( val chapterId : String,
 
             val chaptersList = ArrayList<Chapter>()
 
-            var chapterTitle = "Object-Oriented Programming Concepts"
+            var chapterTitle = "Introduction to Java"
+            chaptersList.add(Chapter("", chapterTitle, "The Java Programming Language" ))
+            chaptersList.add(Chapter("", chapterTitle,"The Java Platform" ))
+            chaptersList.add(Chapter("", chapterTitle,"What can Java do?" ))
+            chaptersList.add(Chapter("", chapterTitle,"Advantages" ))
+            chaptersList.add(Chapter("", chapterTitle,"Hello World!!" ))
+            chaptersList.add(Chapter("", chapterTitle,"Questions and Exercises: Getting started" ))
+
+
+            chapterTitle = "Object-Oriented Programming Concepts"
             chaptersList.add(Chapter("", chapterTitle, "What Is an Object?" ))
             chaptersList.add(Chapter("", chapterTitle,"What Is a Class?" ))
             chaptersList.add(Chapter("", chapterTitle,"What Is Inheritance?" ))
