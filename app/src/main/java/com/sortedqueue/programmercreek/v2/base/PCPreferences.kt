@@ -7,17 +7,21 @@ import android.os.Parcelable
 import android.preference.PreferenceManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.sortedqueue.programmercreek.v2.data.helper.Content
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
 class PCPreferences( application: Context ) : BasePreferencesAPI {
 
 
 
+    inner class StoredContent( val contentList: ArrayList<Content> )
+
     companion object {
 
         private const val dbVersionMap = "dbVersionMap"
         private const val selectedLanguage = "selectedLanguage"
         private const val savedNotes = "savedNotes"
+        private const val savedContent = "savedContent"
 
         private var basePreferencesAPI : BasePreferencesAPI ?= null
         fun getPreferencesAPI( application: Application ) : BasePreferencesAPI {
@@ -75,5 +79,20 @@ class PCPreferences( application: Context ) : BasePreferencesAPI {
     private fun getPreference( prefKey: String ) : String
             = mSharedPreferences.getString(prefKey, "")
 
+    override fun setContentList(contentList: ArrayList<Content>)
+            = mSharedPreferences.edit().putString(savedContent, Gson().toJson(StoredContent(contentList))).apply()
+
+    override fun getContentList(): ArrayList<Content> {
+
+        val savedContent = getPreference(savedContent)
+
+        return if( savedContent == "" ) {
+            ArrayList()
+        }
+        else {
+            Gson().fromJson<StoredContent>(savedContent, StoredContent::class.java).contentList
+        }
+
+    }
 
 }

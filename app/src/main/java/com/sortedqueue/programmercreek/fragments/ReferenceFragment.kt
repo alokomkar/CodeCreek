@@ -3,12 +3,9 @@ package com.sortedqueue.programmercreek.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
@@ -21,11 +18,9 @@ import kotlinx.android.synthetic.main.fragment_reference.*
  */
 
 class ReferenceFragment : Fragment() {
-
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_reference, container, false)
-        return fragmentView
+        return inflater.inflate(R.layout.fragment_reference, container, false)
     }
 
     private var quickReference: QuickReference? = null
@@ -42,11 +37,6 @@ class ReferenceFragment : Fragment() {
     private fun setupRecyclerView() {
         contentRecyclerView!!.layoutManager = LinearLayoutManager(context)
         contentRecyclerView!!.adapter = CodeEditorRecyclerAdapter(context!!, quickReference!!.contentArray, language!!)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
     }
 
     companion object {

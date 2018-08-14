@@ -192,6 +192,7 @@
         android:layout_height="match_parent"/>
 
     <com.sortedqueue.programmercreek.view.ScrollableViewPager
+        android:layout_below="@+id/progressLayout"
         android:id="@+id/sharePager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

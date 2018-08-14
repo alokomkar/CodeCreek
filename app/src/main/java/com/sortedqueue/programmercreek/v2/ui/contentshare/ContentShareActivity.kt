@@ -2,20 +2,15 @@ package com.sortedqueue.programmercreek.v2.ui.contentshare
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.util.GravitySnapHelper
 import com.sortedqueue.programmercreek.v2.base.BaseActivity
 import com.sortedqueue.programmercreek.v2.base.PCPreferences
 import com.sortedqueue.programmercreek.v2.base.hide
-import com.sortedqueue.programmercreek.v2.base.show
 import com.sortedqueue.programmercreek.v2.data.helper.Content
 import com.sortedqueue.programmercreek.v2.data.helper.ContentType
-import com.sortedqueue.programmercreek.v2.ui.ContentShareDialog
 import kotlinx.android.synthetic.main.activity_content_share.*
-import java.util.ArrayList
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 
 
 @Suppress("PrivatePropertyName")
@@ -29,11 +24,10 @@ class ContentShareActivity : BaseActivity() {
         mBasePreferencesAPI = PCPreferences( this )
 
         tvStart.setOnClickListener { splitIntoParas() }
-        tvHeader.setOnClickListener {  }
-        tvBullets.setOnClickListener {  }
-        tvContent.setOnClickListener {  }
-        tvBullets.setOnClickListener {  }
-        tvCode.setOnClickListener {  }
+        tvHeader.setOnClickListener { setContentType( 0, "Header" ) }
+        tvBullets.setOnClickListener { setContentType( 1, "Bullets" )   }
+        tvContent.setOnClickListener { setContentType( 2, "Content" )   }
+        tvCode.setOnClickListener {  setContentType( 3, "Code" )  }
         tvDone.setOnClickListener {  }
         saveFAB.setOnClickListener {
             sharedText = etContent.text.toString()
@@ -44,10 +38,23 @@ class ContentShareActivity : BaseActivity() {
         handleSendText()
     }
 
+    private fun setContentType( contentType: Int, contentTag: String) {
+        if( sharePagerAdapter != null ) {
+            val content = sharePagerAdapter!!.getItem(sharePager.currentItem).setContentType(ContentType(contentType, contentTag ))
+            if( contentList != null ) {
+                contentList!![sharePager.currentItem] = content
+                mBasePreferencesAPI.setContentList( contentList!! )
+            }
+        }
+    }
+
+    private var contentList: ArrayList<Content> ?= null
+
     private fun splitIntoParas() {
         sharedText = etContent.text.toString()
         if( sharedText != "" ) {
             etContent.hide()
+
             val p = Pattern.compile("\\n[\\n]+")
             /*if your text file has \r\n as the
             newline character then use
@@ -55,21 +62,23 @@ class ContentShareActivity : BaseActivity() {
             val result = p.split(sharedText)
 
             if (result != null) {
-                val contentList = ArrayList<Content>()
-                for( line in result ) {
-                    if( line.trim().isNotEmpty() )
-                        contentList.add(Content(line))
-                }
-                contentRecyclerView.show()
-                contentRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                val contentAdapter = ContentShareDialog.ContentRVAdapter(contentList)
-                contentRecyclerView.adapter = contentAdapter
-                GravitySnapHelper(Gravity.START).attachToRecyclerView(contentRecyclerView)
+                contentList = mBasePreferencesAPI.getContentList()
+                //if( contentList!!.isEmpty() )
+                    for( line in result ) {
+                        if( line.trim().isNotEmpty() )
+                            contentList!!.add(Content(line))
+                    }
+
+                sharePager.setCanScroll(true)
+                sharePagerAdapter = SharePagerAdapter( supportFragmentManager, contentList!! )
+                sharePager.adapter = sharePagerAdapter
+
             }
         }
     }
 
     private var sharedText: String? = ""
+    private var sharePagerAdapter : SharePagerAdapter ?= null
 
     private fun handleSendText() {
 

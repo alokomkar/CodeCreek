@@ -16,7 +16,7 @@ import java.util.ArrayList
 
 class QuickReferencePagerAdapter(childFragmentManager: FragmentManager, quickReferences: ArrayList<QuickReference>, language: String) : FragmentStatePagerAdapter(childFragmentManager) {
 
-    internal var referenceFragments = ArrayList<ReferenceFragment>()
+    private var referenceFragments = ArrayList<ReferenceFragment>()
 
     init {
         for (quickReference in quickReferences) {

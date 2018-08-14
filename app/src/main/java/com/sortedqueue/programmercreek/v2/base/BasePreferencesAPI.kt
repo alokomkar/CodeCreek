@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.v2.base
 
+import com.sortedqueue.programmercreek.v2.data.helper.Content
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
 interface BasePreferencesAPI {
@@ -11,5 +12,7 @@ interface BasePreferencesAPI {
     fun getUserId() : String
     fun getSavedNotes(): String
     fun setSavedNotes( notes : String )
+    fun setContentList( contentList : ArrayList<Content> )
+    fun getContentList( ) : ArrayList<Content>
 
 }
