@@ -65,8 +65,9 @@ class ContentShareActivity : BaseActivity() {
                 contentList = mBasePreferencesAPI.getContentList()
                 //if( contentList!!.isEmpty() )
                     for( line in result ) {
-                        if( line.trim().isNotEmpty() )
-                            contentList!!.add(Content(line))
+                        val content = Content(line)
+                        if( line.trim().isNotEmpty() && !contentList!!.contains(content) )
+                            contentList!!.add(content)
                     }
 
                 sharePager.setCanScroll(true)

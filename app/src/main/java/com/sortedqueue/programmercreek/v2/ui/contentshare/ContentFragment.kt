@@ -40,19 +40,12 @@ class ContentFragment : BaseFragment() {
         tvContent.hide()
 
         when( contentType.contentType ) {
-            0 -> {
-                tvHeader.show()
-            }
-            1 -> {
-                tvContent.show()
-            }
-            2 -> {
-                tvBullets.show()
-            }
-            3 -> {
-                scroll_view.show()
-            }
+            0 -> tvHeader.show()
+            1 -> tvBullets.show()
+            2 -> tvContent.show()
+            3 -> scroll_view.show()
         }
+
         content.contentType = contentType
         tvType.text = contentType.contentTag
         return content

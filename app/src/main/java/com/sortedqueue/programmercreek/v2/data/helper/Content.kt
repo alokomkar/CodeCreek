@@ -21,6 +21,21 @@ data class Content(
         writeParcelable(contentType, 0)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Content
+
+        if (contentString != other.contentString) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return contentString.hashCode()
+    }
+
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<Content> = object : Parcelable.Creator<Content> {
@@ -28,4 +43,6 @@ data class Content(
             override fun newArray(size: Int): Array<Content?> = arrayOfNulls(size)
         }
     }
+
+
 }

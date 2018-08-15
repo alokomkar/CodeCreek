@@ -19,6 +19,24 @@ data class ContentType(var contentType: Int = 0,
         writeString(contentTag)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ContentType
+
+        if (contentType != other.contentType) return false
+        if (contentTag != other.contentTag) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = contentType
+        result = 31 * result + contentTag.hashCode()
+        return result
+    }
+
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<ContentType> = object : Parcelable.Creator<ContentType> {
@@ -26,4 +44,8 @@ data class ContentType(var contentType: Int = 0,
             override fun newArray(size: Int): Array<ContentType?> = arrayOfNulls(size)
         }
     }
+
+
+
+
 }
