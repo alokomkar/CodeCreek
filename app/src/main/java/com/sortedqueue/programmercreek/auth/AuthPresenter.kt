@@ -113,7 +113,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                     authView.startApp()
                 }
             })
-            FirebaseDatabaseHandler(context).getCreekUserStatsInBackground(object : FirebaseDatabaseHandler.CreekUserStatsListener {
+            /*FirebaseDatabaseHandler(context).getCreekUserStatsInBackground(object : FirebaseDatabaseHandler.CreekUserStatsListener {
                 override fun onSuccess(creekUserStats: CreekUserStats) {
 
                 }
@@ -121,7 +121,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                 override fun onFailure(databaseError: DatabaseError?) {
 
                 }
-            })
+            })*/
 
         } else {
             // User is signed out

@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_16">16dp</dimen>
+    <dimen name="text_dashboard_medium">18sp</dimen>
     <dimen name="text_dashboard">22sp</dimen>
     <dimen name="text_large_dashboard">32sp</dimen>
     <dimen name="margin_32">32dp</dimen>

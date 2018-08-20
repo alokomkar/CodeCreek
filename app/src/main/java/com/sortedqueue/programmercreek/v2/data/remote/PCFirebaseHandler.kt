@@ -23,7 +23,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
 
     private val TAG = PCFirebaseHandler::class.java.simpleName
 
-    override fun onCancelled(error: DatabaseError) {}
+    override fun onCancelled(error: DatabaseError) { updateInProgress = false }
 
     override fun onDataChange(snapshot: DataSnapshot) {
         if( snapshot.hasChildren() ) {
@@ -51,16 +51,12 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
                 }
             }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR )
 
-
-
-
-
     private fun getAllContent( codeLanguage: CodeLanguage? ) {
 
         getFirebaseDBReference("$masterContentDB/${codeLanguage!!.id}" )
                 .addListenerForSingleValueEvent( object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
-
+                        updateInProgress = false
                     }
 
                     override fun onDataChange( snapshot: DataSnapshot) {
@@ -68,6 +64,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
                             val masterContent = child.getValue(MasterContent::class.java)
                             insertAsync( masterContent )
                         }
+                        updateInProgress = false
                     }
 
                 })
@@ -83,6 +80,8 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
         private lateinit var dbInstance : PracticeCodeRoomDatabase
         private lateinit var codeLanguageDao : CodeLanguageDao
         private lateinit var masterContentDao: MasterContentDao
+
+        private var updateInProgress = false
 
         private fun getInstance( application: Application ): PCFirebaseHandler {
             if( singleInstance == null ) {
@@ -116,9 +115,13 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
 
     private fun checkForDataUpdates() {
 
+        if( updateInProgress ) {
+            return
+        }
+
         getFirebaseDBReference(dbVersions).addListenerForSingleValueEvent( object : ValueEventListener {
 
-            override fun onCancelled( error : DatabaseError) {}
+            override fun onCancelled( error : DatabaseError) { updateInProgress = false }
 
             override fun onDataChange( snapshot: DataSnapshot ) {
 
@@ -138,7 +141,6 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
                     Log.d(TAG, "DbUpdates : $localDBMap")
                     if( localDBMap!!.isEmpty() ) {
                         initCodeLanguages()
-
                         dbPreferencesAPI?.setDBVersions(remoteDBMap)
                     }
                     else {

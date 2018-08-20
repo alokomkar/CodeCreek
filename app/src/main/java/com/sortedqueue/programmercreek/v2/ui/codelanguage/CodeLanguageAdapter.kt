@@ -11,7 +11,7 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 
-class CodeLanguageAdapter(private val codeLanguageList : List<CodeLanguage>,
+class CodeLanguageAdapter(private val codeLanguageList : ArrayList<CodeLanguage>,
                           private val adapterClickListener: BaseAdapterClickListener<CodeLanguage> )
     : RecyclerView.Adapter<CodeLanguageAdapter.CodeLanguageViewHolder>() {
 

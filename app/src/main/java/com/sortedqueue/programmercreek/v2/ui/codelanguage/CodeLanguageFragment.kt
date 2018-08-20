@@ -40,13 +40,14 @@ class CodeLanguageFragment : BaseFragment(),
         mCodeLanguageAdapter = CodeLanguageAdapter(mCodeLanguages, this)
         rvCodeLanguage.adapter = mCodeLanguageAdapter
         mCodeLanguageViewModel.fetchLiveCodeLanguages().observe( this, this )
+
     }
 
     override fun onChanged(t: List<CodeLanguage>?) {
         if( t != null ) {
             mCodeLanguages.clear()
             mCodeLanguages.addAll( t )
-            mCodeLanguageAdapter.notifyDataSetChanged()
+            mCodeLanguageAdapter.notifyItemRangeChanged(0, mCodeLanguages.size)
         }
     }
 

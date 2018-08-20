@@ -66,6 +66,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".v2.ui.module.ModuleActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".v2.ui.contentshare.ContentShareActivity"
             android:label="@string/add_to_notes"
             android:screenOrientation="portrait"

@@ -10,13 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvHeader"
-        android:textColor="@color/md_black_1000"
+        android:background="@drawable/button_blue"
+        android:layout_margin="@dimen/margin_4"
+        android:textColor="@color/white"
         android:padding="@dimen/margin_8"
         android:text="@string/top_learners"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rvModules"
+        android:nestedScrollingEnabled="false"
         tools:listitem="@layout/item_sub_module"
         android:layout_height="wrap_content"/>
 

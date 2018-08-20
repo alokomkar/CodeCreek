@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 data class Content(
         var contentString: String = "",
-        var contentType: ContentType = ContentType(1, "")
+        var contentType: ContentType = ContentType(2, "Content")
 ) : Parcelable {
     var isSelected: Boolean = false
 

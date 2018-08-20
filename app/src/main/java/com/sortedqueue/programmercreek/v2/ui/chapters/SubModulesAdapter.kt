@@ -36,7 +36,7 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
     inner class ModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         private val topicTextView: TextView = itemView.findViewById(R.id.topicTextView)
-        private val topicCardView: CardView = itemView.findViewById(R.id.topicCardView)
+        //private val topicCardView: CardView = itemView.findViewById(R.id.topicCardView)
 
         init {
 
@@ -51,7 +51,7 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
         }
 
         fun bindData(chapter: Chapter) {
-            topicCardView.setCardBackgroundColor(ContextCompat.getColor(topicCardView.context, color))
+            //topicCardView.setCardBackgroundColor(ContextCompat.getColor(topicCardView.context, color))
             topicTextView.text = chapter.moduleTitle
         }
     }

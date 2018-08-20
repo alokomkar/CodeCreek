@@ -33,23 +33,25 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             showLanguageFragment()
         }
 
-        if( mBasePreferencesAPI.getLanguage() == null )
-            showLanguageFragment()
-        else
-            setViewPager()
-
         addUserCodeFAB.setOnClickListener { startActivity(Intent( this, ContentShareActivity::class.java)) }
+        setLanguageSelection()
         //CodeLanguageHelper( this )
         //MasterContentHelper( this )
         //handleSendText()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if( languageSelectionTextView != null )
+    private fun setLanguageSelection() {
+
+        if( languageSelectionTextView != null ) {
+            if( mBasePreferencesAPI.getLanguage() == null )
+                showLanguageFragment()
+            else
+                setViewPager()
+
             languageSelectionTextView.apply {
                 text = mBasePreferencesAPI.getLanguage()?.language ?: ""
             }
+        }
     }
 
     private fun setViewPager() {
@@ -78,6 +80,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replace(R.id.container, mCodeLanguageFragment, CodeLanguageFragment::class.java.simpleName).commit()
             }
         }
+        else {
+            onBackPressed()
+        }
 
     }
 
@@ -89,6 +94,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
 
         if( supportFragmentManager.backStackEntryCount > 0 ) {
+            setLanguageSelection()
             addUserCodeFAB.show()
             bottom_navigation.show()
             homePager.show()
