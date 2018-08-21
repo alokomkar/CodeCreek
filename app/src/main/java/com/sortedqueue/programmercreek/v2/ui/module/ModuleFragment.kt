@@ -81,7 +81,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 "Object oriented|||" +
                         "Distributed|||" +
                         "Multithreaded|||" +
-                        "Architecture neutral|||"))
+                        "Architecture neutral"))
         simpleContentList.add(SimpleContent("",
                 "/**\n" +
                         " * The HelloWorldApp class implements an application that\n" +
@@ -92,11 +92,11 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "Not a comment",
                 SimpleContent.mcq,
                 "Multi line comment"))
-        simpleContentList.add(SimpleContent("",
+        /*simpleContentList.add(SimpleContent("",
                 "The <API> is a large collection of ready-made software " +
                         "components that provide many useful capabilities. " +
                         "It is grouped into libraries of related <classes and interfaces>; these libraries are known as <packages>.",
-                SimpleContent.fillBlanks))
+                SimpleContent.fillBlanks))*/
 
         simpleContentList.add(SimpleContent("",
                 "Qn. Rearrange in the right order?" +
@@ -108,16 +108,19 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 SimpleContent.rearrange))
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+
         questionContainer.show()
         val fragmentTransaction = childFragmentManager.beginTransaction()
-        var interviewQuestionsFragment = childFragmentManager.findFragmentByTag(InterviewQuestionsFragment::class.java.simpleName) as InterviewQuestionsFragment?
-        if (interviewQuestionsFragment == null) {
-            interviewQuestionsFragment = InterviewQuestionsFragment()
+        var pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment?
+        if (pagerFragment == null) {
+            pagerFragment = PagerFragment()
         }
+        val bundle = Bundle()
+        bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, simpleContentList)
+        pagerFragment.arguments = bundle
         //AnimationUtils.enterReveal(checkFAB);
-        interviewQuestionsFragment.setProgramLanguage("Java")
         fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        fragmentTransaction.replace(R.id.questionContainer, interviewQuestionsFragment, InterviewQuestionsFragment::class.java.simpleName)
+        fragmentTransaction.replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
         fragmentTransaction.commit()
     }
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvQuestion"
+        android:padding="@dimen/margin_8"
+        android:background="@color/bg"
+        android:textSize="@dimen/text_dashboard_small"
+        tools:text="This is a long question to check overlapping issue"/>
+
+    <ScrollView
+        tools:ignore="Overdraw"
+        android:layout_marginTop="@dimen/margin_8"
+        android:id="@+id/scroll_view"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_black_1000">
+
+        <com.sortedqueue.programmercreek.view.CodeEditor
+            android:id="@+id/codeQuestionEditor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/hello_world_program"
+            android:gravity="start|top"
+            android:typeface="monospace"
+            android:textSize="12sp"
+            android:textColor="@color/editor_text"
+            android:ellipsize="end"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:background="@color/md_black_1000"/>
+
+    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rvOptions"
+        android:nestedScrollingEnabled="false"
+        tools:listitem="@layout/item_interview_option"/>
+
+</LinearLayout>

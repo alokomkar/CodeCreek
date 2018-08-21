@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -53,7 +54,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkAnswerImageView!!.setOnClickListener { checkAnswer() }
-        interviewQuestionModels = ArrayList<InterviewQuestionModel>()
+        interviewQuestionModels = ArrayList()
         getAllInterviewModels(programLanguage!!)
 
     }
@@ -61,14 +62,12 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
     private var index = 0
 
     private fun getAllInterviewModels(programLanguage: String) {
+
         setupMultiRightModel();
         setupRearrangeModel();
         setupSingleRightModel();
         setupTrueFalseModel();
         navigateToNext()
-        //val fileId = "c_questions"
-        //SlideContentReaderTask(context!!, fileId, this).execute()
-
 
     }
 
@@ -78,6 +77,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         timerProgressBar!!.progress = 0
         mCountDownTimer = object : CountDownTimer((60 * 1000).toLong(), 1000) {
 
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 if (progressTextView != null)
                     progressTextView!!.text = "" + (millisUntilFinished / 1000).toInt()
@@ -110,7 +110,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         var index = 1
         optionModels.add(OptionModel(index++, "int a = 1;"))
         optionModels.add(OptionModel(index++, "char b = \"ava\""))
-        optionModels.add(OptionModel(index++, "char[] str = \"abcd\""))
+        optionModels.add(OptionModel(index, "char[] str = \"abcd\""))
         interviewQuestionModel!!.optionModels = optionModels
         interviewQuestionModel!!.question = "Which are valid?"
         val correctOptions = ArrayList<Int>()
@@ -130,7 +130,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         optionModels.add(OptionModel(index++, "void main() {"))
         optionModels.add(OptionModel(index++, " puts(s);"))
         optionModels.add(OptionModel(index++, " int s = 0;"))
-        optionModels.add(OptionModel(index++, "}"))
+        optionModels.add(OptionModel(index, "}"))
         val correctSequence = ArrayList<Int>()
         correctSequence.add(1)
         correctSequence.add(3)
@@ -152,7 +152,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         var index = 1
         optionModels.add(OptionModel(index++, "True"))
         optionModels.add(OptionModel(index++, "False"))
-        optionModels.add(OptionModel(index++, "No Idea"))
+        optionModels.add(OptionModel(index, "No Idea"))
         interviewQuestionModel!!.optionModels = optionModels
         interviewQuestionModel!!.question = "Is it True that !true is false?"
         interviewQuestionModel!!.correctOption = 1
@@ -167,7 +167,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         val optionModels = ArrayList<OptionModel>()
         var index = 1
         optionModels.add(OptionModel(index++, "True"))
-        optionModels.add(OptionModel(index++, "False"))
+        optionModels.add(OptionModel(index, "False"))
         interviewQuestionModel!!.optionModels = optionModels
         interviewQuestionModel!!.question = "Is it True that !true is false?"
         interviewQuestionModel!!.correctOption = 1
@@ -206,10 +206,6 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
     fun checkAnswer() {
 
         interviewQuestionsAdapter!!.isAnswerChecked(true)
@@ -227,13 +223,6 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
             }
 
         }
-
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                navigateToNext();
-            }
-        }, 2500);*/
     }
 
     fun navigateToNext() {
@@ -286,9 +275,6 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
         if (interviewQuestionModel!!.typeOfQuestion != TYPE_MULTIPLE_RIGHT
                 && interviewQuestionModel!!.typeOfQuestion != TYPE_REARRANGE) {
             cancelTimer()
-            /*if (null != interviewQuestionModel.getExplanation()) {
-                mInterviewNavigationListener.showExplanation(interviewQuestionModel.getExplanation());
-            }*/
         }
     }
 }
