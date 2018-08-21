@@ -44,12 +44,14 @@ class ModuleActivity : BaseActivity() {
         private var mode : Int = 0
         private const val modeChapter = 1
         const val modulePosition = "position"
+        const val chaptersListExtra = "chaptersListExtra"
 
-        fun loadChapter(context: Context, chapter: Chapter, position: Int) {
+        fun loadChapter(context: Context, chapter: Chapter, position: Int, chaptersList: ArrayList<Chapter>?) {
             context.apply {
                 mode = modeChapter
                 val intent = Intent( context, ModuleActivity::class.java )
                 intent.putExtra( Chapter::class.java.simpleName, chapter )
+                intent.putParcelableArrayListExtra( chaptersListExtra, chaptersList )
                 intent.putExtra( modulePosition, position )
                 startActivity( intent )
             }

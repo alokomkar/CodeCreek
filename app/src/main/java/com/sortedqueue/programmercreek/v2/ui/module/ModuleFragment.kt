@@ -1,16 +1,22 @@
 package com.sortedqueue.programmercreek.v2.ui.module
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
-import com.sortedqueue.programmercreek.v2.base.BaseFragment
+import com.sortedqueue.programmercreek.activity.InterviewActivity
+import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
+import com.sortedqueue.programmercreek.v2.ui.chapters.SubModulesAdapter
 import kotlinx.android.synthetic.main.fragment_new_module.*
+
+import com.sortedqueue.programmercreek.util.AnimationUtils
+import com.sortedqueue.programmercreek.v2.base.*
+
 
 class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
 
@@ -25,23 +31,94 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val chapter = arguments!!.getParcelable<Chapter>(Chapter::class.java.simpleName)
         tvHeader.text = chapter.moduleTitle
-        rvModuleContent.layoutManager = LinearLayoutManager(context)
 
-        when( arguments!!.getInt(ModuleActivity.modulePosition) ) {
+        rvModuleContent.layoutManager = LinearLayoutManager(context)
+        rvTracker.layoutManager = LinearLayoutManager(context)
+
+        navigateToContent( arguments!!.getInt(ModuleActivity.modulePosition) )
+
+        ivNavigation.setOnClickListener { rvTracker.show() }
+
+        val chaptersList = arguments!!.getParcelableArrayList<Chapter>(ModuleActivity.chaptersListExtra)
+        rvTracker.adapter = SubModulesAdapter( chaptersList, -1, object : BaseAdapterClickListener<Chapter> {
+            override fun onItemClick(position: Int, item: Chapter) {
+                tvHeader.text = item.moduleTitle
+                navigateToContent( position )
+                AnimationUtils.slideOutToLeft(rvTracker)
+            }
+        })
+
+        moduleProgressBar.max = chaptersList.size
+
+    }
+
+    private fun navigateToContent(moduleId: Int) {
+        questionContainer.hide()
+        when(  moduleId ) {
             0 -> getFirstContent()
             1 -> getSecondContent()
             2 -> getThirdContent()
             3 -> getFourthContent()
             4 -> getFifthContent()
+            5 -> getSixthContent()
         }
+        moduleProgressBar.progress = moduleId + 1
+    }
 
-        //getFirstContent()
-        //getSecondContent()
-        //getThirdContent()
-        //getFourthContent()
+    private fun getSixthContent() {
+        val simpleContentList = ArrayList<SimpleContent>()
+        simpleContentList.add(SimpleContent("",
+                "Qn. Choose all applicable : Java is ?" +
+                        "Object oriented|||" +
+                        "Distributed|||" +
+                        "Multithreaded|||" +
+                        "Architecture neutral|||" +
+                        "Not dynamic",
+                SimpleContent.mcq,
+                "Object oriented|||" +
+                        "Distributed|||" +
+                        "Multithreaded|||" +
+                        "Architecture neutral|||"))
+        simpleContentList.add(SimpleContent("",
+                "/**\n" +
+                        " * The HelloWorldApp class implements an application that\n" +
+                        " * simply displays \"Hello World!\" to the standard output.\n" +
+                        " */\n\nQn. What's this comment type?" +
+                        "Single line comment|||" +
+                        "Multi line comment|||" +
+                        "Not a comment",
+                SimpleContent.mcq,
+                "Multi line comment"))
+        simpleContentList.add(SimpleContent("",
+                "The <API> is a large collection of ready-made software " +
+                        "components that provide many useful capabilities. " +
+                        "It is grouped into libraries of related <classes and interfaces>; these libraries are known as <packages>.",
+                SimpleContent.fillBlanks))
 
+        simpleContentList.add(SimpleContent("",
+                "Qn. Rearrange in the right order?" +
+                        "class HelloWorldApp {\n" +
+                        "    public static void main(String[] args) {\n" +
+                        "        System.out.println(\"Hello World!\"); //Display the string.\n" +
+                        "    }\n" +
+                        "}",
+                SimpleContent.rearrange))
+
+        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        questionContainer.show()
+        val fragmentTransaction = childFragmentManager.beginTransaction()
+        var interviewQuestionsFragment = childFragmentManager.findFragmentByTag(InterviewQuestionsFragment::class.java.simpleName) as InterviewQuestionsFragment?
+        if (interviewQuestionsFragment == null) {
+            interviewQuestionsFragment = InterviewQuestionsFragment()
+        }
+        //AnimationUtils.enterReveal(checkFAB);
+        interviewQuestionsFragment.setProgramLanguage("Java")
+        fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+        fragmentTransaction.replace(R.id.questionContainer, interviewQuestionsFragment, InterviewQuestionsFragment::class.java.simpleName)
+        fragmentTransaction.commit()
     }
 
     private fun getFifthContent() {
@@ -85,12 +162,12 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
         simpleContentList.add(SimpleContent("", "We can't promise you fame, fortune, or even a job if you learn the Java programming language. Still, it is likely to make your programs better and requires less effort than other languages. We believe that Java technology will help you do the following:", SimpleContent.header ))
         simpleContentList.add(SimpleContent("",
                 "Get started quickly: Although the Java programming language is a powerful object-oriented language, it's easy to learn, especially for programmers already familiar with C or C++.\n" +
-                "Write less code: Comparisons of program metrics (class counts, method counts, and so on) suggest that a program written in the Java programming language can be four times smaller than the same program written in C++.\n" +
-                "Write better code: The Java programming language encourages good coding practices, and automatic garbage collection helps you avoid memory leaks. Its object orientation, its JavaBeans™ component architecture, and its wide-ranging, easily extendible API let you reuse existing, tested code and introduce fewer bugs.\n" +
-                "Develop programs more quickly: The Java programming language is simpler than C++, and as such, your development time could be up to twice as fast when writing in it. Your programs will also require fewer lines of code.\n" +
-                "Avoid platform dependencies: You can keep your program portable by avoiding the use of libraries written in other languages.\n" +
-                "Write once, run anywhere: Because applications written in the Java programming language are compiled into machine-independent bytecodes, they run consistently on any Java platform.\n" +
-                "Distribute software more easily: With Java Web Start software, users will be able to launch your applications with a single click of the mouse. An automatic version check at startup ensures that users are always up to date with the latest version of your software. If an update is available, the Java Web Start software will automatically update their installation.", SimpleContent.content ))
+                        "Write less code: Comparisons of program metrics (class counts, method counts, and so on) suggest that a program written in the Java programming language can be four times smaller than the same program written in C++.\n" +
+                        "Write better code: The Java programming language encourages good coding practices, and automatic garbage collection helps you avoid memory leaks. Its object orientation, its JavaBeans™ component architecture, and its wide-ranging, easily extendible API let you reuse existing, tested code and introduce fewer bugs.\n" +
+                        "Develop programs more quickly: The Java programming language is simpler than C++, and as such, your development time could be up to twice as fast when writing in it. Your programs will also require fewer lines of code.\n" +
+                        "Avoid platform dependencies: You can keep your program portable by avoiding the use of libraries written in other languages.\n" +
+                        "Write once, run anywhere: Because applications written in the Java programming language are compiled into machine-independent bytecodes, they run consistently on any Java platform.\n" +
+                        "Distribute software more easily: With Java Web Start software, users will be able to launch your applications with a single click of the mouse. An automatic version check at startup ensures that users are always up to date with the latest version of your software. If an update is available, the Java Web Start software will automatically update their installation.", SimpleContent.content ))
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
     }
@@ -146,7 +223,8 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
     private fun getFirstContent() {
         val simpleContentList = ArrayList<SimpleContent>()
         simpleContentList.add(SimpleContent("", "The Java programming language is a high-level language that can be characterized by all of the following buzzwords:", SimpleContent.header ))
-        simpleContentList.add(SimpleContent("", "Simple\n" +
+        simpleContentList.add(SimpleContent("",
+                "Simple\n" +
                 "Object oriented\n" +
                 "Distributed\n" +
                 "Multithreaded\n" +
@@ -175,4 +253,5 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
     }
+
 }

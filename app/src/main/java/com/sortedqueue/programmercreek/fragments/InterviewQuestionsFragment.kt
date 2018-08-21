@@ -6,16 +6,10 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.TextView
 
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.adapter.CodeEditorRecyclerAdapter
@@ -53,9 +47,7 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
     private var mInterviewNavigationListener: InterviewNavigationListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_interview_questions, container, false)
-
-        return view
+        return inflater.inflate(R.layout.fragment_interview_questions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,12 +61,13 @@ class InterviewQuestionsFragment : Fragment(), SlideContentReaderTask.OnDataRead
     private var index = 0
 
     private fun getAllInterviewModels(programLanguage: String) {
-        /*setupMultiRightModel();
+        setupMultiRightModel();
         setupRearrangeModel();
         setupSingleRightModel();
-        setupTrueFalseModel();*/
-        val fileId = "c_questions"
-        SlideContentReaderTask(activity!!, fileId, this).execute()
+        setupTrueFalseModel();
+        navigateToNext()
+        //val fileId = "c_questions"
+        //SlideContentReaderTask(context!!, fileId, this).execute()
 
 
     }

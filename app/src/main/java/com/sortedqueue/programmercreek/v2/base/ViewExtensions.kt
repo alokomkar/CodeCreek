@@ -1,6 +1,5 @@
 package com.sortedqueue.programmercreek.v2.base
 
-import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
 

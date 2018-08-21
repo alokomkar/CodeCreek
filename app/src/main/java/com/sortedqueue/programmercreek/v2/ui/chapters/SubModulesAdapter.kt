@@ -39,7 +39,6 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
         //private val topicCardView: CardView = itemView.findViewById(R.id.topicCardView)
 
         init {
-
             itemView.setOnClickListener(this)
         }
 

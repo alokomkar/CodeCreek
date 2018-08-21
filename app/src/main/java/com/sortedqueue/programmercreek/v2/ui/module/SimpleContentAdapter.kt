@@ -48,6 +48,7 @@ class SimpleContentAdapter( private val contentList : ArrayList<SimpleContent>,
             tvHeader.text = content.contentString
             tvBullets.text = content.contentString
             editor.setText( content.contentString )
+            editor.isEnabled = false
 
             if( content.contentType == SimpleContent.image ) {
                 Glide.with(ivContent)

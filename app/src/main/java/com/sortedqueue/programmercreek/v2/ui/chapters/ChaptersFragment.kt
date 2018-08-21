@@ -33,13 +33,13 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                               savedInstanceState: Bundle? ): View?
             = inflater.inflate(R.layout.fragment_chapters_layout, container, false)
 
+    private val chaptersMap = LinkedHashMap<String, ArrayList<Chapter>>()
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chaptersLayout.removeAllViews()
 
         val chapterList = Chapter.getAllChapters()
-        val chaptersMap = LinkedHashMap<String, ArrayList<Chapter>>()
         val chapterTitleList = ArrayList<String>()
 
         for( chapter in chapterList ) {
@@ -66,6 +66,6 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
     }
 
     override fun onItemClick(position: Int, item: Chapter) {
-        ModuleActivity.loadChapter( context!!, item, position )
+        ModuleActivity.loadChapter( context!!, item, position, chaptersMap[item.chapterTitle]  )
     }
 }

@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -27,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 /**
  * Created by Alok Omkar on 2017-03-08.
  */
-
+@SuppressLint("CommitTransaction")
 class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
 
     private var mFragmentTransaction: FragmentTransaction? = null
@@ -93,11 +94,12 @@ class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
         }
     }
 
+
     override fun onNavigateToQuestions(programLanguage: String) {
-        supportActionBar!!.title = programLanguage + " Questions"
+        supportActionBar!!.title = "$programLanguage Questions"
         this.programLanguage = programLanguage
         mFragmentTransaction = supportFragmentManager.beginTransaction()
-        interviewQuestionsFragment = supportFragmentManager.findFragmentByTag(InterviewQuestionsFragment::class.java.simpleName) as InterviewQuestionsFragment
+        interviewQuestionsFragment = supportFragmentManager.findFragmentByTag(InterviewQuestionsFragment::class.java.simpleName) as InterviewQuestionsFragment?
         if (interviewQuestionsFragment == null) {
             interviewQuestionsFragment = InterviewQuestionsFragment()
         }

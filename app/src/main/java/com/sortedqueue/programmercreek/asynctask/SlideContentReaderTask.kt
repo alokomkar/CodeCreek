@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.asynctask
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.AsyncTask
@@ -22,7 +23,7 @@ import java.util.regex.Pattern
 /**
  * Created by Alok on 27/07/17.
  */
-
+@SuppressLint("StaticFieldLeak")
 class SlideContentReaderTask(private val context: Context, private val fileId: String, //Interface to communicate back the response to UI
                              private val onDataReadListener: OnDataReadListener?) : AsyncTask<Void, Void, Void>() {
 

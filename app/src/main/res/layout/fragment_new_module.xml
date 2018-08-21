@@ -1,22 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/moduleProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvHeader"
-        android:text="@string/header"
-        android:background="@color/md_grey_500"
-        android:textColor="@color/white"
+        android:indeterminate="false"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        tools:max="4"
+        tools:progress="1"
+        android:progressDrawable="@drawable/greenprogress" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/moduleProgressBar"
+        android:id="@+id/headerLayout"
         android:layout_marginEnd="@dimen/margin_48"
-        android:padding="@dimen/margin_8"
-        style="@style/TextAppearance.AppCompat.Headline"/>
+        android:background="@color/md_grey_500"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:contentDescription="@string/navigation_drawer_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_8"
+            android:id="@+id/ivNavigation"
+            android:src="@drawable/ic_dns_white_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvHeader"
+            android:text="@string/header"
+            android:textColor="@color/white"
+            android:padding="@dimen/margin_8"
+            style="@style/TextAppearance.AppCompat.Headline"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:elevation="@dimen/margin_16"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/margin_72"
+        android:id="@+id/rvTracker"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/headerLayout"
         android:id="@+id/rvModuleContent"/>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_below="@+id/headerLayout"
+        android:id="@+id/questionContainer"
+        tools:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>
