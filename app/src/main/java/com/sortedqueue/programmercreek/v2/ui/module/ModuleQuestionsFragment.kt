@@ -33,7 +33,7 @@ class ModuleQuestionsFragment : BaseFragment() {
         val adapter = OptionsRvAdapter( simpleContent.contentType, simpleContent.getQuestionOptions(), simpleContent.getCorrectOptions() )
         rvOptions.adapter = adapter
         if( simpleContent.contentType == SimpleContent.rearrange ) {
-            val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, AuxilaryUtils.splitProgramIntolines(simpleContent.correctOptions), simpleContent.getCorrectOptions() )
+            val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, AuxilaryUtils.splitProgramIntolines(simpleContent.contentString.split("?")[1].trim()), simpleContent.getCorrectOptions() )
             rvOptions.adapter = optionsAdapter
             val callback = SimpleItemTouchHelperCallback(optionsAdapter)
             val touchHelper = ItemTouchHelper(callback)
