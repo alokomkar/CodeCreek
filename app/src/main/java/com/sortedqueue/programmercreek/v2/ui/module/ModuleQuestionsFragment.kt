@@ -10,8 +10,10 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback
 import com.sortedqueue.programmercreek.v2.base.BaseFragment
+import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import kotlinx.android.synthetic.main.fragment_module_questions.*
+import kotlin.collections.ArrayList
 
 class ModuleQuestionsFragment : BaseFragment() {
 
@@ -27,17 +29,29 @@ class ModuleQuestionsFragment : BaseFragment() {
     }
 
     private fun initViews(simpleContent: SimpleContent?) {
-        tvQuestion.text = simpleContent!!.contentString
-        codeQuestionEditor.setText( simpleContent.contentString )
+
+        tvQuestion.text = simpleContent!!.getQuestion()
+
+        if( simpleContent.contentType == SimpleContent.codeMcq ) {
+            codeQuestionEditor.setText( simpleContent.getCode() )
+        }
+        else codeQuestionEditor.hide()
+
         rvOptions.layoutManager = LinearLayoutManager( context )
         val adapter = OptionsRvAdapter( simpleContent.contentType, simpleContent.getQuestionOptions(), simpleContent.getCorrectOptions() )
         rvOptions.adapter = adapter
+        tvCheck.setOnClickListener { adapter.isAnswerChecked(true) }
         if( simpleContent.contentType == SimpleContent.rearrange ) {
-            val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, AuxilaryUtils.splitProgramIntolines(simpleContent.contentString.split("?")[1].trim()), simpleContent.getCorrectOptions() )
+            val correctOrder = AuxilaryUtils.splitProgramIntolines(simpleContent.contentString.split("?")[1].trim())
+            val shuffledList = ArrayList<String>()
+            shuffledList.addAll(correctOrder)
+            shuffledList.shuffle()
+            val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, shuffledList, correctOrder )
             rvOptions.adapter = optionsAdapter
             val callback = SimpleItemTouchHelperCallback(optionsAdapter)
             val touchHelper = ItemTouchHelper(callback)
             touchHelper.attachToRecyclerView(rvOptions)
+            tvCheck.setOnClickListener { optionsAdapter.isAnswerChecked(true) }
         }
     }
 }

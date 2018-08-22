@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 
 import com.sortedqueue.programmercreek.util.ItemTouchHelperAdapter
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
@@ -19,23 +18,23 @@ import kotlin.collections.ArrayList
 
 class OptionsRvAdapter(private val questionType : Int,
                        private val optionModels: ArrayList<String>,
-                       private var correctOptions : ArrayList<String>?) : RecyclerView.Adapter<OptionsRvAdapter.ViewHolder>(), ItemTouchHelperAdapter {
+                       private var correctOptions : ArrayList<String>?)
+    : RecyclerView.Adapter<OptionsRvAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
     private var isAnswerChecked = false
     private var context: Context? = null
     private val selectedOptions = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_interview_option, parent, false)
         context = parent.context
-        return ViewHolder(view)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_interview_option, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val optionModel = getItemAtPosition(position)
         holder.progamLineTxtView.text = optionModel
 
-        if ( questionType == SimpleContent.mcq ) {
+        if ( questionType == SimpleContent.mcq || questionType == SimpleContent.codeMcq ) {
             holder.optionCardView.setBackgroundColor(
                     ContextCompat.getColor(
                             context!!,
@@ -47,7 +46,7 @@ class OptionsRvAdapter(private val questionType : Int,
 
         if (isAnswerChecked) {
             when (questionType) {
-                SimpleContent.mcq -> {
+                SimpleContent.mcq, SimpleContent.codeMcq -> {
                     if( correctOptions != null ) {
                         holder.optionCardView.setBackgroundColor(
                                 ContextCompat.getColor(
@@ -64,7 +63,7 @@ class OptionsRvAdapter(private val questionType : Int,
                         holder.optionCardView.setBackgroundColor(
                                 ContextCompat.getColor(
                                         context!!,
-                                        if (optionModel == correctOptions!![position] )
+                                        if (optionModel == correctOptions!![position].trim() )
                                             R.color.md_green_500
                                         else
                                             R.color.md_red_500))
@@ -85,7 +84,7 @@ class OptionsRvAdapter(private val questionType : Int,
     }
 
     private fun getItemAtPosition(position: Int): String {
-        return optionModels[position]
+        return optionModels[position].trim()
     }
 
     override fun getItemCount(): Int {
@@ -126,7 +125,7 @@ class OptionsRvAdapter(private val questionType : Int,
                 return
             }
             when (questionType) {
-                SimpleContent.mcq -> {
+                SimpleContent.mcq, SimpleContent.codeMcq -> {
                     val optionModel = getItemAtPosition(position)
                     if( selectedOptions.contains(optionModel) ) {
                         selectedOptions.remove(optionModel)

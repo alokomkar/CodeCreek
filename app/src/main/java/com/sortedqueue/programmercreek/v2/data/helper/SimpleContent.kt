@@ -58,7 +58,13 @@ class SimpleContent(var contentId: String = "",
 
     fun getQuestion() : String = contentString.split("?")[0] + "?"
 
-    fun getQuestionOptions() : ArrayList<String> = ArrayList(contentString.split("?")[1].split("|||"))
+    fun getCode(): String = contentString.split("?")[1]
+
+    fun getQuestionOptions() : ArrayList<String> {
+      return if( contentType == codeMcq )
+          ArrayList(contentString.split("??")[1].split("|||"))
+      else ArrayList(contentString.split("?")[1].split("|||"))
+    }
 
     fun getCorrectOptions() : ArrayList<String> = ArrayList(correctOptions.split("|||"))
 
@@ -79,6 +85,8 @@ class SimpleContent(var contentId: String = "",
         writeString(correctOptions)
     }
 
+
+
     companion object {
         const val header = 0
 
@@ -95,6 +103,8 @@ class SimpleContent(var contentId: String = "",
         const val rearrange = 6
 
         const val fillBlanks = 7
+
+        const val codeMcq = 8 //Contains code in Question
 
         @JvmField
         val CREATOR: Parcelable.Creator<SimpleContent> = object : Parcelable.Creator<SimpleContent> {

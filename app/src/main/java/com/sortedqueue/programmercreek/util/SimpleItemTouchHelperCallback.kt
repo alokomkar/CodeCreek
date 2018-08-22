@@ -17,9 +17,10 @@ class SimpleItemTouchHelperCallback(private val mAdapter: ItemTouchHelperAdapter
         return true
     }
 
+    //https://stackoverflow.com/questions/30713121/disable-swipe-for-position-in-recyclerview-using-itemtouchhelper-simplecallback
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+        val swipeFlags = 0//ItemTouchHelper.START or ItemTouchHelper.END
         return ItemTouchHelper.Callback.makeMovementFlags(dragFlags, swipeFlags)
     }
 

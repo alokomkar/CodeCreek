@@ -83,14 +83,14 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "Multithreaded|||" +
                         "Architecture neutral"))
         simpleContentList.add(SimpleContent("",
-                "/**\n" +
+                "Qn. What's this comment type?/**\n" +
                         " * The HelloWorldApp class implements an application that\n" +
                         " * simply displays \"Hello World!\" to the standard output.\n" +
-                        " */\n\nQn. What's this comment type?" +
+                        " */\n??" +
                         "Single line comment|||" +
                         "Multi line comment|||" +
                         "Not a comment",
-                SimpleContent.mcq,
+                SimpleContent.codeMcq,
                 "Multi line comment"))
         /*simpleContentList.add(SimpleContent("",
                 "The <API> is a large collection of ready-made software " +
