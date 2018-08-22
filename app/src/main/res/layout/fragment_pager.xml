@@ -15,7 +15,7 @@
         android:minHeight="4dp"
         tools:max="4"
         tools:progress="1"
-        android:progressDrawable="@drawable/greenprogress" />
+        android:progressDrawable="@drawable/question_progress" />
 
     <com.sortedqueue.programmercreek.view.OneDirectionalScrollableViewPager
         android:layout_width="match_parent"

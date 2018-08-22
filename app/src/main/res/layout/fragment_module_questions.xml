@@ -46,6 +46,11 @@
 
         </ScrollView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/md_blue_grey_200"/>
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,6 +68,7 @@
         android:id="@+id/tvCheck"
         android:text="@string/check"
         android:gravity="center"
+        android:layout_margin="@dimen/margin_4"
         android:padding="@dimen/margin_8"
         android:textColor="@color/white"
         android:textSize="@dimen/text_14"

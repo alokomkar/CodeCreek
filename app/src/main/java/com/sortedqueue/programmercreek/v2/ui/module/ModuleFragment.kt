@@ -1,14 +1,12 @@
 package com.sortedqueue.programmercreek.v2.ui.module
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.activity.InterviewActivity
-import com.sortedqueue.programmercreek.fragments.InterviewQuestionsFragment
+
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.ui.chapters.SubModulesAdapter
@@ -92,11 +90,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "Not a comment",
                 SimpleContent.codeMcq,
                 "Multi line comment"))
-        /*simpleContentList.add(SimpleContent("",
-                "The <API> is a large collection of ready-made software " +
-                        "components that provide many useful capabilities. " +
-                        "It is grouped into libraries of related <classes and interfaces>; these libraries are known as <packages>.",
-                SimpleContent.fillBlanks))*/
+
 
         simpleContentList.add(SimpleContent("",
                 "Qn. Rearrange in the right order?" +
@@ -106,6 +100,12 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "    }\n" +
                         "}",
                 SimpleContent.rearrange))
+
+        simpleContentList.add(SimpleContent("",
+                "The <API> is a large collection of ready-made software " +
+                        "components that provide many useful capabilities. " +
+                        "It is grouped into libraries of related <classes and interfaces>; these libraries are known as <packages>.",
+                SimpleContent.fillBlanks))
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
 
@@ -191,7 +191,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "User Interface Toolkits: The JavaFX, Swing, and Java 2D toolkits make it possible to create sophisticated Graphical User Interfaces (GUIs).\n" +
                         "\n" +
                         "Integration Libraries: Integration libraries such as the Java IDL API, JDBC API, Java Naming and Directory Interface (JNDI) API, Java RMI, and Java Remote Method Invocation over Internet Inter-ORB Protocol Technology (Java RMI-IIOP Technology) enable database access and manipulation of remote objects."
-                , SimpleContent.bullets))
+                , SimpleContent.content))
 
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )

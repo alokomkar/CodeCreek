@@ -12,13 +12,15 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 
 import com.sortedqueue.programmercreek.util.ItemTouchHelperAdapter
+import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import java.util.*
 import kotlin.collections.ArrayList
 
 class OptionsRvAdapter(private val questionType : Int,
                        private val optionModels: ArrayList<String>,
-                       private var correctOptions : ArrayList<String>?)
+                       private var correctOptions : ArrayList<String>?,
+                       private var baseAdapterClickListener: BaseAdapterClickListener<String> )
     : RecyclerView.Adapter<OptionsRvAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
     private var isAnswerChecked = false
@@ -134,8 +136,9 @@ class OptionsRvAdapter(private val questionType : Int,
                     notifyItemChanged(position)
 
                 }
+                SimpleContent.fillBlanks -> baseAdapterClickListener.onItemClick( position, getItemAtPosition(position) )
             }
-            //adapterClickListner.onItemClick(position)
+
         }
     }
 

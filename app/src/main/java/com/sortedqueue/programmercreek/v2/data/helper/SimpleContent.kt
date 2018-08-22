@@ -35,7 +35,7 @@ class SimpleContent(var contentId: String = "",
         }
     }
 
-    fun getFillBlanksOptions(): ArrayList<String> {
+    private fun getFillBlanksOptions(): ArrayList<String> {
         val p = Pattern.compile("<(.*?)>")
         val m = p.matcher(contentString)
         val options = ArrayList<String>()
@@ -46,12 +46,12 @@ class SimpleContent(var contentId: String = "",
     }
 
     fun getFillBlanksQuestion(): String {
-        var question = ""
+
         val p = Pattern.compile("<(.*?)>")
         val m = p.matcher(contentString)
-        question = contentString
+        var question = contentString
         while (m.find()) {
-            question.replace(m.group(1), "________")
+            question = question.replace(m.group(1), "________")
         }
         return question
     }
@@ -61,12 +61,18 @@ class SimpleContent(var contentId: String = "",
     fun getCode(): String = contentString.split("?")[1]
 
     fun getQuestionOptions() : ArrayList<String> {
-      return if( contentType == codeMcq )
-          ArrayList(contentString.split("??")[1].split("|||"))
-      else ArrayList(contentString.split("?")[1].split("|||"))
+      return when (contentType) {
+          codeMcq -> ArrayList(contentString.split("??")[1].split("|||"))
+          fillBlanks -> getFillBlanksOptions()
+          else -> ArrayList(contentString.split("?")[1].split("|||"))
+      }
     }
 
-    fun getCorrectOptions() : ArrayList<String> = ArrayList(correctOptions.split("|||"))
+    fun getCorrectOptions() : ArrayList<String> {
+      return if( contentType == fillBlanks ) getFillBlanksOptions()
+          else
+          ArrayList(correctOptions.split("|||"))
+    }
 
 
     constructor(source: Parcel) : this(
@@ -84,7 +90,6 @@ class SimpleContent(var contentId: String = "",
         writeInt(contentType)
         writeString(correctOptions)
     }
-
 
 
     companion object {
