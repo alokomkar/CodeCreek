@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/tvCheck"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,6 +19,44 @@
             android:background="@color/bg"
             android:textSize="@dimen/text_dashboard_small"
             tools:text="This is a long question to check overlapping issue"/>
+
+        <RelativeLayout
+            android:id="@+id/fillLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvFillBlanks"
+                android:background="@color/md_grey_300"
+                android:textColor="@color/md_black_1000"
+                android:padding="@dimen/margin_8"
+                android:text="@string/fill_blanks"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivBack"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/margin_4"
+                android:background="@drawable/button_clear"
+                android:src="@drawable/ic_backspace_white_24dp"/>
+
+            <TextView
+                android:layout_below="@+id/tvFillBlanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvFillQuestion"
+                android:padding="@dimen/margin_8"
+                android:background="@color/bg"
+                android:textSize="@dimen/text_dashboard_small"
+                tools:text="This is a long question to check overlapping issue"/>
+
+        </RelativeLayout>
+
+
 
         <ScrollView
             tools:ignore="Overdraw"

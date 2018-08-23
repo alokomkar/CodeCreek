@@ -92,6 +92,26 @@ class SimpleContent(var contentId: String = "",
     }
 
 
+    fun checkAnswer( answerString: String ) : String {
+
+        val p = Pattern.compile("<(.*?)>")
+        val matcherQn = p.matcher(contentString)
+        val matcherAns = p.matcher(answerString)
+
+        var answer = answerString
+        while (matcherAns.find() && matcherQn.find()) {
+            answer = if( matcherAns.group(1) == matcherQn.group(1) ) {
+                answer.replace(matcherAns.group(1), "<font color=\"#7CB342\">" +
+                        "${matcherAns.group(1).replace(">", "")}</font>")
+            } else {
+                answer.replace(matcherAns.group(1), "<font color=\"#FF5722\">" +
+                        "${matcherAns.group(1).replace(">", "")}</font>")
+            }
+        }
+        return answer
+    }
+
+
     companion object {
         const val header = 0
 

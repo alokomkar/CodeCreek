@@ -129,11 +129,23 @@ class OptionsRvAdapter(private val questionType : Int,
             when (questionType) {
                 SimpleContent.mcq, SimpleContent.codeMcq -> {
                     val optionModel = getItemAtPosition(position)
-                    if( selectedOptions.contains(optionModel) ) {
-                        selectedOptions.remove(optionModel)
+
+                    when {
+                        correctOptions!!.size > 1 ->{
+                            if( selectedOptions.contains(optionModel) ) {
+                                selectedOptions.remove(optionModel)
+                            }
+                            else selectedOptions.add(optionModel)
+                            notifyItemChanged(position)
+                        }
+                        correctOptions!!.size == 1 -> {
+                            selectedOptions.clear()
+                            selectedOptions.add(optionModel)
+                            notifyDataSetChanged()
+                        }
                     }
-                    else selectedOptions.add(optionModel)
-                    notifyItemChanged(position)
+
+
 
                 }
                 SimpleContent.fillBlanks -> baseAdapterClickListener.onItemClick( position, getItemAtPosition(position) )
