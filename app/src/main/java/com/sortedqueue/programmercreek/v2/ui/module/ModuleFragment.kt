@@ -102,9 +102,9 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 SimpleContent.rearrange))
 
         simpleContentList.add(SimpleContent("",
-                "The <API> is a large collection of ready-made software " +
+                "The <<API>> is a large collection of ready-made software " +
                         "components that provide many useful capabilities. " +
-                        "It is grouped into libraries of related <classes and interfaces>; these libraries are known as <packages>.",
+                        "It is grouped into libraries of related <<classes and interfaces>>; these libraries are known as <<packages>>.",
                 SimpleContent.fillBlanks))
 
         rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )

@@ -36,7 +36,7 @@ class SimpleContent(var contentId: String = "",
     }
 
     private fun getFillBlanksOptions(): ArrayList<String> {
-        val p = Pattern.compile("<(.*?)>")
+        val p = Pattern.compile("<<(.*?)>>")
         val m = p.matcher(contentString)
         val options = ArrayList<String>()
         while (m.find()) {
@@ -47,7 +47,7 @@ class SimpleContent(var contentId: String = "",
 
     fun getFillBlanksQuestion(): String {
 
-        val p = Pattern.compile("<(.*?)>")
+        val p = Pattern.compile("<<(.*?)>>")
         val m = p.matcher(contentString)
         var question = contentString
         while (m.find()) {
@@ -94,7 +94,7 @@ class SimpleContent(var contentId: String = "",
 
     fun checkAnswer( answerString: String ) : String {
 
-        val p = Pattern.compile("<(.*?)>")
+        val p = Pattern.compile("<<(.*?)>>")
         val matcherQn = p.matcher(contentString)
         val matcherAns = p.matcher(answerString)
 
@@ -102,10 +102,10 @@ class SimpleContent(var contentId: String = "",
         while (matcherAns.find() && matcherQn.find()) {
             answer = if( matcherAns.group(1) == matcherQn.group(1) ) {
                 answer.replace(matcherAns.group(1), "<font color=\"#7CB342\">" +
-                        "${matcherAns.group(1).replace(">", "")}</font>")
+                        "${matcherAns.group(1)}</font>")
             } else {
                 answer.replace(matcherAns.group(1), "<font color=\"#FF5722\">" +
-                        "${matcherAns.group(1).replace(">", "")}</font>")
+                        "${matcherAns.group(1)}</font>")
             }
         }
         return answer
