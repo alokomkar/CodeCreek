@@ -8,13 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
-import com.sortedqueue.programmercreek.v2.base.BaseFragment
-import com.sortedqueue.programmercreek.v2.base.BasePreferencesAPI
-import com.sortedqueue.programmercreek.v2.base.PCPreferences
+import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.ui.mastercontent.MasterContentViewModel
 import kotlinx.android.synthetic.main.fragment_code_language.*
+import kotlinx.android.synthetic.main.progress_layout.*
 
 class CodeLanguageFragment : BaseFragment(),
         BaseAdapterClickListener<CodeLanguage>,
@@ -34,6 +32,7 @@ class CodeLanguageFragment : BaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressLayout.show()
         mCodeLanguageViewModel = ViewModelProviders.of(this).get(CodeLanguageViewModel::class.java)
         ViewModelProviders.of(this).get(MasterContentViewModel::class.java)
         rvCodeLanguage.layoutManager = LinearLayoutManager( context )
@@ -45,6 +44,9 @@ class CodeLanguageFragment : BaseFragment(),
 
     override fun onChanged(t: List<CodeLanguage>?) {
         if( t != null ) {
+            if(t.isNotEmpty()) {
+                progressLayout.hide()
+            }
             mCodeLanguages.clear()
             mCodeLanguages.addAll( t )
             mCodeLanguageAdapter.notifyItemRangeChanged(0, mCodeLanguages.size)

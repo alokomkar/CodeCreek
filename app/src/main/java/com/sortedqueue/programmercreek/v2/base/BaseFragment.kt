@@ -12,4 +12,5 @@ abstract class BaseFragment : Fragment() {
         if( context != null )
             mPreferencesAPI = PCPreferences( context )
     }
+
 }
