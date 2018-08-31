@@ -11,11 +11,12 @@ import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
+import java.util.*
 
 
-class MasterChaptersAdapter( private val chapterTitles : ArrayList<String>,
-                             private val chaptersMap: LinkedHashMap<String, ArrayList<Chapter>>,
-                             private val adapterClickListener: BaseAdapterClickListener<Chapter> )
+class MasterChaptersAdapter(private val chapterTitles : ArrayList<String>,
+                            private val chaptersMap: LinkedHashMap<String, ArrayList<Chapter>>,
+                            private val adapterClickListener: BaseAdapterClickListener<Chapter> )
     : RecyclerView.Adapter<MasterChaptersAdapter.ChapterViewHolder>() {
 
     private val colors : Array<Int> = arrayOf(

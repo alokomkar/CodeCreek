@@ -1,5 +1,6 @@
 package com.sortedqueue.programmercreek.v2.ui.module
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,13 @@ import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import com.sortedqueue.programmercreek.view.CodeEditor
+import java.util.*
 
-
-class SimpleContentAdapter( private val contentList : ArrayList<SimpleContent>,
-                            private val adapterClickListener: BaseAdapterClickListener<SimpleContent> )
+@SuppressLint("InflateParams")
+class SimpleContentAdapter(private val contentList : ArrayList<SimpleContent>,
+                           private val adapterClickListener: BaseAdapterClickListener<SimpleContent> )
     : RecyclerView.Adapter<SimpleContentAdapter.ViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
             = ViewHolder( LayoutInflater.from( parent.context ).inflate( R.layout.item_simple_content, null ) )
 

@@ -12,7 +12,6 @@ import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.ui.chapters.SubModulesAdapter
 import kotlinx.android.synthetic.main.fragment_new_module.*
 
-import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.v2.base.*
 import java.util.*
 
@@ -39,7 +38,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
 
         navigateToContent( arguments!!.getInt(ModuleActivity.modulePosition) )
 
-        ivNavigation.setOnClickListener { /*AnimationUtils.slideInToRight(rvTracker)*/drawer_layout.openDrawer(nav_view) }
+        ivNavigation.setOnClickListener { drawer_layout.openDrawer(nav_view) }
 
         val chaptersList = arguments!!.getParcelableArrayList<Chapter>(ModuleActivity.chaptersListExtra)
         rvTracker.adapter = SubModulesAdapter( chaptersList, -1, object : BaseAdapterClickListener<Chapter> {
@@ -47,7 +46,6 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 tvHeader.text = item.moduleTitle
                 navigateToContent( position )
                 drawer_layout.closeDrawer(nav_view)
-                //AnimationUtils.slideOutToLeft(rvTracker)
             }
         })
 

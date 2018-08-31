@@ -9,14 +9,12 @@ import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.data.helper.Content
 import com.sortedqueue.programmercreek.v2.data.helper.ContentType
 import kotlinx.android.synthetic.main.activity_content_share.*
+import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 
 
 @Suppress("PrivatePropertyName")
 class ContentShareActivity : BaseActivity() {
-
-    private val TAG = "AddedNotes"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +46,7 @@ class ContentShareActivity : BaseActivity() {
         }
     }
 
-    private var contentList: ArrayList<Content> ?= null
+    private var contentList: ArrayList<Content>?= null
 
     private fun splitIntoParas() {
         sharedText = etContent.text.toString()

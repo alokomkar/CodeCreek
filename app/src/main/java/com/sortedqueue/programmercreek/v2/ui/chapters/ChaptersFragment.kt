@@ -14,6 +14,7 @@ import com.sortedqueue.programmercreek.v2.base.BaseFragment
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.ui.module.ModuleActivity
 import kotlinx.android.synthetic.main.fragment_chapters_layout.*
+import java.util.*
 
 class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
 

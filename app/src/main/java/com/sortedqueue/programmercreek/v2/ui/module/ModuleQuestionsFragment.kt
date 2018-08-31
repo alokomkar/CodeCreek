@@ -17,7 +17,7 @@ import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import kotlinx.android.synthetic.main.fragment_module_questions.*
-import kotlin.collections.ArrayList
+import java.util.*
 
 class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String> {
 

@@ -5,9 +5,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
+import java.util.*
 
-class QuestionsPagerAdapter( private val contentList : ArrayList<SimpleContent>,
-                             supportFragmentManager: FragmentManager ) : FragmentStatePagerAdapter( supportFragmentManager ) {
+class QuestionsPagerAdapter(private val contentList : ArrayList<SimpleContent>,
+                            supportFragmentManager: FragmentManager ) : FragmentStatePagerAdapter( supportFragmentManager ) {
 
     private val mFragmentsList = ArrayList<ModuleQuestionsFragment>()
     init {

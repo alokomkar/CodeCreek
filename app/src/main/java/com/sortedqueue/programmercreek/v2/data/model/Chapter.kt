@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.v2.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 data class Chapter(val chapterId: String,
                    val chapterTitle: String,

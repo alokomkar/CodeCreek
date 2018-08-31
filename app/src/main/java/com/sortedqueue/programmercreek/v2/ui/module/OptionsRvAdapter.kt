@@ -15,7 +15,6 @@ import com.sortedqueue.programmercreek.util.ItemTouchHelperAdapter
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import java.util.*
-import kotlin.collections.ArrayList
 
 class OptionsRvAdapter(private val questionType : Int,
                        private val optionModels: ArrayList<String>,

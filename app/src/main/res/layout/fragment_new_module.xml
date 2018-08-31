@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/margin_8"
                 android:id="@+id/ivNavigation"
-                android:src="@drawable/ic_dns_white_24dp"/>
+                android:src="@drawable/ic_menu_white_24dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -75,6 +75,7 @@
         android:elevation="@dimen/margin_16"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        tools:visibility="gone"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         >

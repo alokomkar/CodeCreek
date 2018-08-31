@@ -14,8 +14,7 @@ import com.sortedqueue.programmercreek.v2.data.api.DBIntentService
 import com.sortedqueue.programmercreek.v2.data.db.*
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.model.MasterContent
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import java.util.*
 
 @Suppress("PrivatePropertyName")
 @SuppressLint("StaticFieldLeak")
