@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 
 
 class SimpleContent(var contentId: String = "",
@@ -34,6 +35,15 @@ class SimpleContent(var contentId: String = "",
         } else {
             contentString
         }
+    }
+
+    fun getFormattedContentList() : ArrayList<SimpleContent> {
+        val formattedContent = getFormattedContent().split(".\n\n")
+        val contentList = ArrayList<SimpleContent>()
+        for( content in formattedContent ) {
+            contentList.add(SimpleContent("",content.trim(), SimpleContent.content) )
+        }
+        return contentList
     }
 
     private fun getFillBlanksOptions(): ArrayList<String> {
@@ -131,6 +141,8 @@ class SimpleContent(var contentId: String = "",
         const val fillBlanks = 7
 
         const val codeMcq = 8 //Contains code in Question
+
+        const val syntaxLearn = 9
 
         @JvmField
         val CREATOR: Parcelable.Creator<SimpleContent> = object : Parcelable.Creator<SimpleContent> {

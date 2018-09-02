@@ -14,9 +14,13 @@ import kotlinx.android.synthetic.main.fragment_new_module.*
 
 import com.sortedqueue.programmercreek.v2.base.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
+
+    private lateinit var contentAdapter: SimpleContentAdapter
+    private var currentContentList = ArrayList<SimpleContent>()
 
     override fun onItemClick(position: Int, item: SimpleContent) {
 
@@ -49,12 +53,15 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
             }
         })
 
+
+
         moduleProgressBar.max = chaptersList.size
 
     }
 
     private fun navigateToContent(moduleId: Int) {
         questionContainer.hide()
+        nextFAB.show()
         when(  moduleId ) {
             0 -> getFirstContent()
             1 -> getSecondContent()
@@ -102,12 +109,21 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 SimpleContent.rearrange))
 
         simpleContentList.add(SimpleContent("",
+                "Qn. Rearrange in the right order?" +
+                        "class HelloWorldApp {\n" +
+                        "    public static void main(String[] args) {\n" +
+                        "        System.out.println(\"Hello World!\"); //Display the string.\n" +
+                        "    }\n" +
+                        "}",
+                SimpleContent.syntaxLearn))
+
+        simpleContentList.add(SimpleContent("",
                 "The <<API>> is a large collection of ready-made software " +
                         "components that provide many useful capabilities. " +
                         "It is grouped into libraries of related <<classes and interfaces>>; these libraries are known as <<packages>>.",
                 SimpleContent.fillBlanks))
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        //rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
 
         questionContainer.show()
         val fragmentTransaction = childFragmentManager.beginTransaction()
@@ -122,6 +138,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
         fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
         fragmentTransaction.replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
         fragmentTransaction.commit()
+        nextFAB.hide()
     }
 
     private fun getFifthContent() {
@@ -157,7 +174,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
         simpleContentList.add(SimpleContent("", "The compiler ignores everything from // to the end of the line.", SimpleContent.bullets))
 
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        setAdapterContent( simpleContentList )
     }
 
     private fun getFourthContent() {
@@ -172,7 +189,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                         "Write once, run anywhere: Because applications written in the Java programming language are compiled into machine-independent bytecodes, they run consistently on any Java platform.\n" +
                         "Distribute software more easily: With Java Web Start software, users will be able to launch your applications with a single click of the mouse. An automatic version check at startup ensures that users are always up to date with the latest version of your software. If an update is available, the Java Web Start software will automatically update their installation.", SimpleContent.content ))
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        setAdapterContent( simpleContentList )
     }
 
     private fun getThirdContent() {
@@ -194,7 +211,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 , SimpleContent.content))
 
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        setAdapterContent( simpleContentList )
     }
 
     private fun getSecondContent() {
@@ -220,7 +237,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 SimpleContent.bullets))
 
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+        setAdapterContent( simpleContentList )
     }
 
     private fun getFirstContent() {
@@ -252,9 +269,40 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
         simpleContentList.add(SimpleContent("",
                 "https://docs.oracle.com/javase/tutorial/figures/getStarted/helloWorld.gif",
                 SimpleContent.image))
+        setAdapterContent( simpleContentList )
 
+    }
 
-        rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
+    private fun setAdapterContent( simpleContentList : ArrayList<SimpleContent> ) {
+        val breakIntoPoints = breakIntoPoints(simpleContentList)
+        var index = 0
+        currentContentList.clear()
+        currentContentList.add(breakIntoPoints[index])
+        contentAdapter = SimpleContentAdapter( currentContentList, this )
+        rvModuleContent.adapter = contentAdapter
+        nextFAB.setOnClickListener {
+            if( index < breakIntoPoints.size - 1 ) {
+                contentAdapter.addItem( breakIntoPoints[++index] )
+                rvModuleContent.smoothScrollToPosition(currentContentList.size)
+            }
+            else drawer_layout.openDrawer(nav_view)
+        }
+    }
+
+    private fun breakIntoPoints(simpleContentList: ArrayList<SimpleContent>): ArrayList<SimpleContent> {
+
+        val breakPoints = ArrayList<SimpleContent>()
+        for( content in simpleContentList ) {
+            when( content.contentType ) {
+                SimpleContent.content -> {
+                    breakPoints.addAll( content.getFormattedContentList() )
+                }
+                else -> {
+                    breakPoints.add( content )
+                }
+            }
+        }
+        return breakPoints
     }
 
 }

@@ -195,8 +195,10 @@ class ChapterDetailsFragment : Fragment(), WikiNavigationListner, ModuleDetailsS
                 if (fragment is TestCompletionListener) {
                     val testCompletionListener = fragment as TestCompletionListener
                     when (testCompletionListener.isTestComplete) {
-                        ProgrammingBuddyConstants.KEY_MATCH, ProgrammingBuddyConstants.KEY_TEST //Has same index as wiki - no changes for wiki
-                            , ProgrammingBuddyConstants.KEY_QUIZ, ProgrammingBuddyConstants.KEY_FILL_BLANKS, ChapterDetails.TYPE_SYNTAX_MODULE -> {
+                        ProgrammingBuddyConstants.KEY_MATCH,
+                        ProgrammingBuddyConstants.KEY_TEST, //Has same index as wiki - no changes for wiki
+                        ProgrammingBuddyConstants.KEY_QUIZ,
+                        ProgrammingBuddyConstants.KEY_FILL_BLANKS, ChapterDetails.TYPE_SYNTAX_MODULE -> {
                             fabAction()
                             updateCreekStats()
                         }

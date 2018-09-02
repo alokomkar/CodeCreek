@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.base.hide
@@ -55,6 +56,7 @@ class SimpleContentAdapter(private val contentList : ArrayList<SimpleContent>,
 
             if( content.contentType == SimpleContent.image ) {
                 Glide.with(ivContent)
+                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.splash_logo))
                         .asBitmap()
                         .load(content.contentString)
                         .into(ivContent)
@@ -79,5 +81,10 @@ class SimpleContentAdapter(private val contentList : ArrayList<SimpleContent>,
             itemView.setOnClickListener( this )
         }
 
+    }
+
+    fun addItem(simpleContent: SimpleContent) {
+        contentList.add(simpleContent)
+        notifyItemInserted(contentList.size - 1 )
     }
 }
