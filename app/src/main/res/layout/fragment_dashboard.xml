@@ -218,7 +218,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="gone"
+        tools:visibility="visible"
         android:elevation="@dimen/margin_24"
         android:animateLayoutChanges="true"
         android:id="@+id/progressLayout">

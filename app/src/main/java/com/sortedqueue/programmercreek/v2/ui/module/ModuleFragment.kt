@@ -17,7 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
+class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent> {
 
     private lateinit var contentAdapter: SimpleContentAdapter
     private var currentContentList = ArrayList<SimpleContent>()
@@ -53,8 +53,6 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
             }
         })
 
-
-
         moduleProgressBar.max = chaptersList.size
 
     }
@@ -71,6 +69,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
             5 -> getSixthContent()
         }
         moduleProgressBar.progress = moduleId + 1
+
     }
 
     private fun getSixthContent() {
@@ -112,7 +111,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
                 "Qn. Rearrange in the right order?" +
                         "class HelloWorldApp {\n" +
                         "    public static void main(String[] args) {\n" +
-                        "        System.out.println(\"Hello World!\"); //Display the string.\n" +
+                        "        System.out.println(\"Hello World!\");\n" +
                         "    }\n" +
                         "}",
                 SimpleContent.syntaxLearn))
@@ -287,6 +286,7 @@ class ModuleFragment : BaseFragment(), BaseAdapterClickListener<SimpleContent> {
             }
             else drawer_layout.openDrawer(nav_view)
         }
+        onProgressStatsUpdate(25)
     }
 
     private fun breakIntoPoints(simpleContentList: ArrayList<SimpleContent>): ArrayList<SimpleContent> {

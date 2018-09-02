@@ -85,6 +85,11 @@
 
         </ScrollView>
 
+        <io.github.kbiakov.codeview.CodeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/codeView"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"

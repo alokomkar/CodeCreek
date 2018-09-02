@@ -40,6 +40,9 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
 
             fillLayout.hide()
             tvQuestion.hide()
+            codeView.hide()
+            codeQuestionEditor.hide()
+            scroll_view.hide()
 
             if( simpleContent.contentType == SimpleContent.fillBlanks ) {
                 tvFillQuestion.text = simpleContent.getFillBlanksQuestion()
@@ -53,10 +56,12 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
 
             if( simpleContent.contentType == SimpleContent.codeMcq ) {
                 codeQuestionEditor.setText( simpleContent.getCode() )
+                codeQuestionEditor.show()
+                scroll_view.show()
             }
-            else {
-                codeQuestionEditor.hide()
-                scroll_view.hide()
+            else if( simpleContent.contentType == SimpleContent.syntaxLearn ) {
+                codeView.show()
+                codeView.setCode(simpleContent.getCode(), "java")
             }
 
             val questionsList = simpleContent.getQuestionOptions()
