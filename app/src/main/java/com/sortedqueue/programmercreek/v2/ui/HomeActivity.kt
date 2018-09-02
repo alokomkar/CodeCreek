@@ -69,7 +69,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         if( supportFragmentManager.findFragmentByTag( CodeLanguageFragment::class.java.simpleName ) == null ) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.apply {
-                homePager.hide()
                 addUserCodeFAB.hide()
                 bottom_navigation.hide()
                 setCustomAnimations(R.anim.slide_in_up,
@@ -97,7 +96,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             setLanguageSelection()
             addUserCodeFAB.show()
             bottom_navigation.show()
-            homePager.show()
             supportFragmentManager.popBackStack()
         }
         else
