@@ -54,6 +54,17 @@
                 android:textSize="@dimen/text_dashboard_small"
                 tools:text="This is a long question to check overlapping issue"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_8"
+                android:background="@color/md_black_1000"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/text_dashboard_small"
+                android:id="@+id/syntaxSolutionTextView"
+                android:visibility="gone"
+                tools:text="@string/printf_solution"/>
+
         </RelativeLayout>
 
 

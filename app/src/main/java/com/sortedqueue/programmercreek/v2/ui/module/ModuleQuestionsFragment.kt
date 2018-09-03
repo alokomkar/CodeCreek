@@ -140,10 +140,11 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
         if( codeView.isVisible() ) {
             solutionList.add(item)
             val solution = getSolution( solutionList )
-            codeView!!
+            syntaxSolutionTextView.text = solution
+            codeView
                     .setOptions(Options.get(context!!)
                             .withLanguage("java")
-                            .withCode(solution)
+                            .withCode(syntaxSolutionTextView.text.toString())
                             .withTheme(ColorTheme.DEFAULT))
         }
         else {
