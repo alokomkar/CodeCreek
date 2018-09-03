@@ -1,8 +1,11 @@
 package com.sortedqueue.programmercreek.v2.ui.module
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.Html
 import android.view.LayoutInflater
@@ -11,16 +14,18 @@ import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.SimpleItemTouchHelperCallback
-import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
-import com.sortedqueue.programmercreek.v2.base.BaseFragment
-import com.sortedqueue.programmercreek.v2.base.hide
-import com.sortedqueue.programmercreek.v2.base.show
+import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
+import io.github.kbiakov.codeview.adapters.Options
+import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.fragment_module_questions.*
 import java.util.*
 
+@Suppress("DEPRECATION")
+@SuppressLint("SetTextI18n")
 class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String> {
 
+    private val solutionList = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -43,6 +48,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
             codeView.hide()
             codeQuestionEditor.hide()
             scroll_view.hide()
+            tvOutput.hide()
 
             if( simpleContent.contentType == SimpleContent.fillBlanks ) {
                 tvFillQuestion.text = simpleContent.getFillBlanksQuestion()
@@ -61,7 +67,9 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
             }
             else if( simpleContent.contentType == SimpleContent.syntaxLearn ) {
                 codeView.show()
-                codeView.setCode(simpleContent.getCode(), "java")
+                tvOutput.show()
+                codeView.setCode("", "java")
+                tvOutput.text = simpleContent.getSyntaxOutput()
             }
 
             val questionsList = simpleContent.getQuestionOptions()
@@ -95,13 +103,65 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                     optionsAdapter.isAnswerChecked(true)
                 }
             }
+            if( simpleContent.contentType == SimpleContent.syntaxLearn ) {
+                solutionList.clear()
+                val correctOrder = simpleContent.getSyntaxOptions()
+                val shuffledList = ArrayList<String>()
+                shuffledList.addAll(correctOrder)
+                shuffledList.shuffle()
+                val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, shuffledList, correctOrder, this )
+                rvOptions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                rvOptions.adapter = optionsAdapter
+                tvCheck.setOnClickListener {
+                    ivBack.isEnabled = false
+                    optionsAdapter.isAnswerChecked(true)
+                    checkSolution(simpleContent.getSyntax(), simpleContent.getSyntaxOutput())
+                }
+                ivBack.setOnClickListener {
+                    solutionList.removeAt(solutionList.size - 1)
+                    val solution = getSolution( solutionList )
+                    codeView.setCode( solution )
+                }
+            }
+
         }
 
     }
 
+    private fun getSolution(solutionList: ArrayList<String>): String {
+        var solution = ""
+        for (solutionString in solutionList) {
+            solution += solutionString
+        }
+        return solution
+    }
+
     override fun onItemClick(position: Int, item: String) {
-        var fillText = tvFillQuestion.text.toString()
-        fillText = fillText.replaceFirst("<________>", "<$item>")
-        tvFillQuestion.text = fillText
+        if( codeView.isVisible() ) {
+            solutionList.add(item)
+            val solution = getSolution( solutionList )
+            codeView!!
+                    .setOptions(Options.get(context!!)
+                            .withLanguage("java")
+                            .withCode(solution)
+                            .withTheme(ColorTheme.DEFAULT))
+        }
+        else {
+            var fillText = tvFillQuestion.text.toString()
+            fillText = fillText.replaceFirst("<________>", "<$item>")
+            tvFillQuestion.text = fillText
+        }
+
+    }
+
+    private fun checkSolution(syntax: String, syntaxOutput: String) {
+        val solutionText = getSolution(solutionList)
+        if (solutionText.trim { it <= ' ' }.replace("\\s+".toRegex(), "") == syntax.trim { it <= ' ' }.replace("\\s+".toRegex(), "")) {
+            tvOutput.text = syntaxOutput
+            tvOutput.setTextColor(Color.GREEN)
+         } else {
+            tvOutput.text = "Error..!!"
+            tvOutput.setTextColor(Color.RED)
+        }
     }
 }

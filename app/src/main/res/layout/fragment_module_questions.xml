@@ -90,6 +90,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/codeView"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8"
+            android:background="@color/md_black_1000"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/text_dashboard_small"
+            android:id="@+id/tvOutput"
+            tools:text="Infinite Programmer"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"

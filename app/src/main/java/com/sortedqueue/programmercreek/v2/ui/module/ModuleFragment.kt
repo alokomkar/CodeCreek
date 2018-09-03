@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_new_module.*
 
 import com.sortedqueue.programmercreek.v2.base.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent> {
@@ -108,12 +107,13 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                 SimpleContent.rearrange))
 
         simpleContentList.add(SimpleContent("",
-                "Qn. Rearrange in the right order?" +
+                "Qn. Complete the syntax?" +
                         "class HelloWorldApp {\n" +
                         "    public static void main(String[] args) {\n" +
                         "        System.out.println(\"Hello World!\");\n" +
                         "    }\n" +
-                        "}",
+                        "}\n" +
+                        "Output : Prints Hello World!",
                 SimpleContent.syntaxLearn))
 
         simpleContentList.add(SimpleContent("",

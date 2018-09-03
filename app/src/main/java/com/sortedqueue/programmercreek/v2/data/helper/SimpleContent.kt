@@ -4,7 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 
 
 class SimpleContent(var contentId: String = "",
@@ -71,6 +70,10 @@ class SimpleContent(var contentId: String = "",
 
     fun getCode(): String = contentString.split("?")[1]
 
+    fun getSyntax() : String = contentString.split("?")[1].split("Output :")[0]
+
+    fun getSyntaxOutput(): String =  "Output :\n"+ contentString.split("?")[1].split("Output :")[1]
+
     fun getQuestionOptions() : ArrayList<String> {
       return when (contentType) {
           codeMcq -> ArrayList(contentString.split("??")[1].split("|||"))
@@ -85,6 +88,14 @@ class SimpleContent(var contentId: String = "",
           ArrayList(correctOptions.split("|||"))
     }
 
+    fun getSyntaxOptions() : ArrayList<String> {
+        val options = ArrayList<String>()
+        for ( option in getSyntax().trim().split(" ") )
+            if( option.trim().isNotEmpty() ) {
+                options.add(option)
+            }
+        return options
+    }
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -121,6 +132,8 @@ class SimpleContent(var contentId: String = "",
         }
         return answer
     }
+
+
 
 
     companion object {

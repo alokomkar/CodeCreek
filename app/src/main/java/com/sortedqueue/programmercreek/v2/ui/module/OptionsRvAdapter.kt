@@ -28,7 +28,11 @@ class OptionsRvAdapter(private val questionType : Int,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_interview_option, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(
+                if( questionType == SimpleContent.syntaxLearn )
+                    R.layout.item_syntax
+                else
+                    R.layout.item_interview_option, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -147,7 +151,7 @@ class OptionsRvAdapter(private val questionType : Int,
 
 
                 }
-                SimpleContent.fillBlanks -> baseAdapterClickListener.onItemClick( position, getItemAtPosition(position) )
+                SimpleContent.fillBlanks, SimpleContent.syntaxLearn -> baseAdapterClickListener.onItemClick( position, getItemAtPosition(position) )
             }
 
         }

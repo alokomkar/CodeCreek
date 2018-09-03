@@ -1,31 +1,20 @@
 package com.sortedqueue.programmercreek.fragments
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.TextView
 
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardItem
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
@@ -36,7 +25,6 @@ import com.sortedqueue.programmercreek.adapter.CustomProgramRecyclerViewAdapter
 import com.sortedqueue.programmercreek.adapter.OptionsRecyclerViewAdapter
 import com.sortedqueue.programmercreek.database.Chapter
 import com.sortedqueue.programmercreek.database.ChapterDetails
-import com.sortedqueue.programmercreek.database.CreekUserStats
 import com.sortedqueue.programmercreek.database.LanguageModule
 import com.sortedqueue.programmercreek.database.ModuleOption
 import com.sortedqueue.programmercreek.database.SyntaxModule
@@ -51,8 +39,6 @@ import java.util.ArrayList
 import java.util.Locale
 
 
-
-import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.fragment_syntax_learn.*
@@ -78,10 +64,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_syntax_learn, container, false)
-
-
-        return view
+        return inflater.inflate(R.layout.fragment_syntax_learn, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -122,29 +105,8 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
                 })
     }
 
-    private fun initializeRewardedVideoAd() {
-        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity)
-        rewardedVideoAd!!.rewardedVideoAdListener = this
-        if (!rewardedVideoAd!!.isLoaded) {
-            rewardedVideoAd!!.loadAd(getString(R.string.hint_rewarded_interstital_ad), AdRequest.Builder().build())
-        }
-    }
 
-    override fun onResume() {
-        //rewardedVideoAd.resume(getContext());
-        super.onResume()
-    }
-
-    override fun onPause() {
-        //rewardedVideoAd.pause(getContext());
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        //rewardedVideoAd.destroy(getContext());
-        super.onDestroy()
-    }
-
+    @SuppressLint("SetTextI18n")
     private fun bindData(syntaxModule: SyntaxModule) {
         syntaxNameTextView!!.text = syntaxModule.syntaxName
         syntaxDescriptionTextView!!.text = syntaxModule.syntaxDescription
@@ -177,7 +139,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
     private fun setupRecyclerView(syntaxOptions: List<ModuleOption>) {
         moduleOptions = ArrayList<ModuleOption>()
         for (moduleOption in syntaxOptions) {
-            if (moduleOption.option.trim { it <= ' ' }.length != 0) {
+            if (moduleOption.option.trim { it <= ' ' }.isNotEmpty()) {
                 moduleOptions!!.add(moduleOption)
             }
         }
@@ -215,10 +177,6 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
 
     fun setSyntaxModule(syntaxModule: SyntaxModule) {
         this.syntaxModule = syntaxModule
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     override fun onClick(view: View) {
