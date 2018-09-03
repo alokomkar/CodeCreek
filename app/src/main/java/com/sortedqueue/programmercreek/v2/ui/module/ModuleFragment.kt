@@ -96,25 +96,30 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                 SimpleContent.codeMcq,
                 "Multi line comment"))
 
+        simpleContentList.add(SimpleContent("",
+                "Qn. Complete the syntax?" +
+                        "class HelloWorldApp {\n" +
+                        "}\n" +
+                        "Output : HelloWorldApp class creation",
+                SimpleContent.syntaxLearn))
+
+        simpleContentList.add(SimpleContent("",
+                "Qn. Complete the syntax?" +
+                        "    public static void main(String[] args) {\n" +
+                        "    }\n" +
+                        "Output : main method creation - entry point to any project",
+                SimpleContent.syntaxLearn))
 
         simpleContentList.add(SimpleContent("",
                 "Qn. Rearrange in the right order?" +
                         "class HelloWorldApp {\n" +
                         "    public static void main(String[] args) {\n" +
-                        "        System.out.println(\"Hello World!\"); //Display the string.\n" +
+                        "        System.out.println(\"Hello World!\");\n" +
                         "    }\n" +
                         "}",
                 SimpleContent.rearrange))
 
-        simpleContentList.add(SimpleContent("",
-                "Qn. Complete the syntax?" +
-                        "class HelloWorldApp {\n" +
-                        "    public static void main(String[] args) {\n" +
-                        "        System.out.println(\"Hello World!\");\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "Output : Prints Hello World!",
-                SimpleContent.syntaxLearn))
+
 
         simpleContentList.add(SimpleContent("",
                 "The <<API>> is a large collection of ready-made software " +

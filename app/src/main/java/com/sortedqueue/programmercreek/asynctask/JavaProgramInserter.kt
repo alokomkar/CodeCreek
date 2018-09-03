@@ -2721,7 +2721,7 @@ class JavaProgramInserter(private val context:Context) {
   var options = syntaxModule.syntaxSolution.split(" ".toRegex()).dropLastWhile{ it.isEmpty() }.toTypedArray()
   for (option in options)
   {
-   moduleOptions!!.add(ModuleOption(index++, option + " "))
+   moduleOptions!!.add(ModuleOption(index++, "$option "))
   }
   Collections.shuffle(moduleOptions!!)
   syntaxModule.setSyntaxOptions(moduleOptions)

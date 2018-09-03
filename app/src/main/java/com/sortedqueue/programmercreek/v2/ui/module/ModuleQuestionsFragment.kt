@@ -110,7 +110,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                 shuffledList.addAll(correctOrder)
                 shuffledList.shuffle()
                 val optionsAdapter = OptionsRvAdapter( simpleContent.contentType, shuffledList, correctOrder, this )
-                rvOptions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                rvOptions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 rvOptions.adapter = optionsAdapter
                 tvCheck.setOnClickListener {
                     ivBack.isEnabled = false
@@ -131,7 +131,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
     private fun getSolution(solutionList: ArrayList<String>): String {
         var solution = ""
         for (solutionString in solutionList) {
-            solution += solutionString
+            solution += "$solutionString "
         }
         return solution
     }

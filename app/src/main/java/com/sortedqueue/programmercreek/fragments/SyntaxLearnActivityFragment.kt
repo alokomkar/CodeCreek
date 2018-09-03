@@ -137,7 +137,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
     private val solutionList = ArrayList<String>()
 
     private fun setupRecyclerView(syntaxOptions: List<ModuleOption>) {
-        moduleOptions = ArrayList<ModuleOption>()
+        moduleOptions = ArrayList()
         for (moduleOption in syntaxOptions) {
             if (moduleOption.option.trim { it <= ' ' }.isNotEmpty()) {
                 moduleOptions!!.add(moduleOption)
@@ -170,7 +170,7 @@ class SyntaxLearnActivityFragment : Fragment(), View.OnClickListener, TestComple
     private fun getSolution(solutionList: ArrayList<String>): String {
         var solution = ""
         for (solutionString in solutionList) {
-            solution += solutionString
+            solution += "$solutionString "
         }
         return solution
     }

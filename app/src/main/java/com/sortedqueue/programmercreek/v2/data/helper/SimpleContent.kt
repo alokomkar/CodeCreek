@@ -91,8 +91,8 @@ class SimpleContent(var contentId: String = "",
     fun getSyntaxOptions() : ArrayList<String> {
         val options = ArrayList<String>()
         for ( option in getSyntax().split(" ") )
-            if( option.trim { it <= ' ' }.isNotEmpty() ) {
-                options.add(option)
+            if( option.trim().isNotEmpty() ) {
+                options.add("$option ")
             }
         return options
     }
