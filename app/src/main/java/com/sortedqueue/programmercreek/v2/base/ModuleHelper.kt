@@ -211,7 +211,7 @@ fun getOOFirstContent() : ArrayList<SimpleContent> {
             , SimpleContent.bullets))
 
     simpleContentList.add(SimpleContent("",
-            "https://commons.wikimedia.org/wiki/File:CPT-OOP-objects_and_classes.svg",
+            "https://www.guru99.com/images/java/052016_0704_ObjectsandC6.jpg",
             SimpleContent.image))
 
     simpleContentList.add(SimpleContent("",
@@ -298,6 +298,21 @@ fun getOOThirdContent()  : ArrayList<SimpleContent> {
             "{  \n" +
             "   //methods and fields  \n" +
             "}  ", SimpleContent.code ))
+
+    return( simpleContentList )
+}
+
+fun getOOFourthContent() : ArrayList<SimpleContent> {
+    val simpleContentList = ArrayList<SimpleContent>()
+    simpleContentList.add(SimpleContent("", "We can't promise you fame, fortune, or even a job if you learn the Java programming language. Still, it is likely to make your programs better and requires less effort than other languages. We believe that Java technology will help you do the following:", SimpleContent.header ))
+    simpleContentList.add(SimpleContent("",
+            "Get started quickly: Although the Java programming language is a powerful object-oriented language, it's easy to learn, especially for programmers already familiar with C or C++.\n" +
+                    "Write less code: Comparisons of program metrics (class counts, method counts, and so on) suggest that a program written in the Java programming language can be four times smaller than the same program written in C++.\n" +
+                    "Write better code: The Java programming language encourages good coding practices, and automatic garbage collection helps you avoid memory leaks. Its object orientation, its JavaBeans™ component architecture, and its wide-ranging, easily extendible API let you reuse existing, tested code and introduce fewer bugs.\n" +
+                    "Develop programs more quickly: The Java programming language is simpler than C++, and as such, your development time could be up to twice as fast when writing in it. Your programs will also require fewer lines of code.\n" +
+                    "Avoid platform dependencies: You can keep your program portable by avoiding the use of libraries written in other languages.\n" +
+                    "Write once, run anywhere: Because applications written in the Java programming language are compiled into machine-independent bytecodes, they run consistently on any Java platform.\n" +
+                    "Distribute software more easily: With Java Web Start software, users will be able to launch your applications with a single click of the mouse. An automatic version check at startup ensures that users are always up to date with the latest version of your software. If an update is available, the Java Web Start software will automatically update their installation.", SimpleContent.content ))
 
     return( simpleContentList )
 }
