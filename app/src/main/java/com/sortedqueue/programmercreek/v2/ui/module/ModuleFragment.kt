@@ -63,11 +63,11 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
         when ( chapter.chapterTitle ){
              "Introduction to Java" -> {
                 when(  moduleId ) {
-                    0 -> setAdapterContent( getFirstContent() )
-                    1 -> getSecondContent()
-                    2 -> getThirdContent()
-                    3 -> getFourthContent()
-                    4 -> getFifthContent()
+                    0 -> setAdapterContent(getFirstContent())
+                    1 -> setAdapterContent(getSecondContent())
+                    2 -> setAdapterContent(getThirdContent())
+                    3 -> setAdapterContent(getFourthContent())
+                    4 -> setAdapterContent(getFifthContent())
                     5 -> {
                         questionContainer.show()
                         val fragmentTransaction = childFragmentManager.beginTransaction()
@@ -88,12 +88,27 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
             }
             "Object-Oriented Programming Concepts" ->{
                 when(  moduleId ) {
-                    0 -> getOOFirstContent()
-                    1 -> getOOSecondContent()
-                    2 -> getOOThirdContent()
-                    3 -> getFourthContent()
-                    4 -> getFifthContent()
-                    5 -> getSixthContent()
+                    0 -> setAdapterContent(getOOFirstContent())
+                    1 -> setAdapterContent(getOOSecondContent())
+                    2 -> setAdapterContent(getOOThirdContent())
+                    3 -> setAdapterContent(getFourthContent())
+                    4 -> setAdapterContent(getFifthContent())
+                    5 -> {
+                        questionContainer.show()
+                        val fragmentTransaction = childFragmentManager.beginTransaction()
+                        var pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment?
+                        if (pagerFragment == null) {
+                            pagerFragment = PagerFragment()
+                        }
+                        val bundle = Bundle()
+                        bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
+                        pagerFragment.arguments = bundle
+                        //AnimationUtils.enterReveal(checkFAB);
+                        fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                        fragmentTransaction.replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
+                        fragmentTransaction.commit()
+                        nextFAB.hide()
+                    }
                 }
             }
 
