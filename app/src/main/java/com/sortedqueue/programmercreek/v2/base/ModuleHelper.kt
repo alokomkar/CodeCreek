@@ -103,7 +103,7 @@ import java.util.*
     
 }
 
- fun getFourthContent() : ArrayList<SimpleContent> {
+fun getFourthContent() : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("", "We can't promise you fame, fortune, or even a job if you learn the Java programming language. Still, it is likely to make your programs better and requires less effort than other languages. We believe that Java technology will help you do the following:", SimpleContent.header ))
     simpleContentList.add(SimpleContent("",
@@ -304,15 +304,79 @@ fun getOOThirdContent()  : ArrayList<SimpleContent> {
 
 fun getOOFourthContent() : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
-    simpleContentList.add(SimpleContent("", "We can't promise you fame, fortune, or even a job if you learn the Java programming language. Still, it is likely to make your programs better and requires less effort than other languages. We believe that Java technology will help you do the following:", SimpleContent.header ))
+    simpleContentList.add(SimpleContent("", "Types of Inheritance in Java", SimpleContent.header ))
     simpleContentList.add(SimpleContent("",
-            "Get started quickly: Although the Java programming language is a powerful object-oriented language, it's easy to learn, especially for programmers already familiar with C or C++.\n" +
-                    "Write less code: Comparisons of program metrics (class counts, method counts, and so on) suggest that a program written in the Java programming language can be four times smaller than the same program written in C++.\n" +
-                    "Write better code: The Java programming language encourages good coding practices, and automatic garbage collection helps you avoid memory leaks. Its object orientation, its JavaBeans™ component architecture, and its wide-ranging, easily extendible API let you reuse existing, tested code and introduce fewer bugs.\n" +
-                    "Develop programs more quickly: The Java programming language is simpler than C++, and as such, your development time could be up to twice as fast when writing in it. Your programs will also require fewer lines of code.\n" +
-                    "Avoid platform dependencies: You can keep your program portable by avoiding the use of libraries written in other languages.\n" +
-                    "Write once, run anywhere: Because applications written in the Java programming language are compiled into machine-independent bytecodes, they run consistently on any Java platform.\n" +
-                    "Distribute software more easily: With Java Web Start software, users will be able to launch your applications with a single click of the mouse. An automatic version check at startup ensures that users are always up to date with the latest version of your software. If an update is available, the Java Web Start software will automatically update their installation.", SimpleContent.content ))
+            "Single Inheritance", SimpleContent.bullets ))
+    simpleContentList.add(SimpleContent("",
+            "In single inheritance, subclasses inherit the features of one superclass. In image below, the class A serves as a base class for the derived class B.", SimpleContent.content ))
+    simpleContentList.add(SimpleContent("",
+            "https://2.bp.blogspot.com/-qS-HZLkthPY/W5Tya5lIqEI/AAAAAAAACuo/ZAOF0JwnW2geHk0srDoUb_Fau2yWOz82ACK4BGAYYCw/s320/inheritance2.png", SimpleContent.image ))
+
+    simpleContentList.add(SimpleContent("",
+            "Multilevel Inheritance", SimpleContent.bullets ))
+    simpleContentList.add(SimpleContent("",
+            "In Multilevel Inheritance, a derived class will be inheriting a base class and as well as the derived class also act as the base class to other class. In below image, the class A serves as a base class for the derived class B, which in turn serves as a base class for the derived class C. In Java, a class cannot directly access the grandparent’s members.", SimpleContent.content ))
+    simpleContentList.add(SimpleContent("",
+            "https://4.bp.blogspot.com/-JdAdUXvcR_U/W5TyawlOojI/AAAAAAAACus/MVjnoYWV_uYR8_4PKMKlT7IJneQLY9XEwCK4BGAYYCw/s320/inheritance3.png", SimpleContent.image ))
+
+    simpleContentList.add(SimpleContent("",
+            "Hierarchical Inheritance", SimpleContent.bullets ))
+    simpleContentList.add(SimpleContent("",
+            "In Hierarchical Inheritance, one class serves as a superclass (base class) for more than one sub class.In below image, the class A serves as a base class for the derived class B,C and D.", SimpleContent.content ))
+    simpleContentList.add(SimpleContent("",
+            "https://2.bp.blogspot.com/-13yQtslDHC8/W5TyazUgQxI/AAAAAAAACuw/WX9yGmSWJNw-LJ9_ZL1AKKFpuIr6WnhrQCK4BGAYYCw/s320/inheritance4.png", SimpleContent.image ))
+
+    simpleContentList.add(SimpleContent("",
+            "Multiple Inheritance (Through Interfaces) :", SimpleContent.bullets ))
+    simpleContentList.add(SimpleContent("",
+            "In Multiple inheritance ,one class can have more than one superclass and inherit features from all parent classes. Please note that Java does not support multiple inheritance with classes. In java, we can achieve multiple inheritance only through Interfaces. In image below, Class C is derived from interface A and B.", SimpleContent.content ))
+    simpleContentList.add(SimpleContent("",
+            "https://4.bp.blogspot.com/-Syfee0rd2VM/W5TyarEvYpI/AAAAAAAACug/sVoikqv5R1orrrx8DdmX616FcP2QcWojACK4BGAYYCw/s320/inheritance2-1.png", SimpleContent.image ))
+
+    simpleContentList.add(SimpleContent("",
+            "Hybrid Inheritance(Through Interfaces) :", SimpleContent.bullets ))
+    simpleContentList.add(SimpleContent("",
+            "It is a mix of two or more of the above types of inheritance. Since java doesn’t support multiple inheritance with classes, the hybrid inheritance is also not possible with classes. In java, we can achieve hybrid inheritance only through Interfaces.", SimpleContent.content ))
+    simpleContentList.add(SimpleContent("",
+            "https://1.bp.blogspot.com/-1nKymZ1Xjx4/W5TyagVELDI/AAAAAAAACuk/14Hgc3JsoXgzCvzOvMzOPdKVLWIw41e-gCK4BGAYYCw/s320/inheritance-5.png", SimpleContent.image ))
+
 
     return( simpleContentList )
+}
+
+fun getOOFifthContent() : ArrayList<SimpleContent> {
+    val simpleContentList = ArrayList<SimpleContent>()
+    simpleContentList.add(SimpleContent("",
+            "A Closer Look at the \"Hello World!\" Application",
+            SimpleContent.header))
+    simpleContentList.add(SimpleContent("",
+            "/**\n" +
+                    " * The HelloWorldApp class implements an application that\n" +
+                    " * simply displays \"Hello World!\" to the standard output.\n" +
+                    " */\n" +
+                    "class HelloWorldApp {\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        System.out.println(\"Hello World!\"); //Display the string.\n" +
+                    "    }\n" +
+                    "}",
+            SimpleContent.code))
+    simpleContentList.add(SimpleContent("",
+            "The \"Hello World!\" application consists of three primary components: " +
+                    "\n\nSource code comments " +
+                    "\n\nThe HelloWorldApp class definition " +
+                    "\n\nThe main method",
+            SimpleContent.content))
+
+    simpleContentList.add(SimpleContent("", "Comments are ignored by the compiler but are useful to other programmers. The Java programming language supports three kinds of comments:", SimpleContent.header))
+
+    simpleContentList.add(SimpleContent("", "/* text */", SimpleContent.code))
+    simpleContentList.add(SimpleContent("", "The compiler ignores everything from /* to */.", SimpleContent.bullets))
+    simpleContentList.add(SimpleContent("", "/** documentation */", SimpleContent.code))
+    simpleContentList.add(SimpleContent("", "This indicates a documentation comment (doc comment, for short). The compiler ignores this kind of comment, just like it ignores comments that use /* and */. The javadoc tool uses doc comments when preparing automatically generated documentation.", SimpleContent.bullets))
+    simpleContentList.add(SimpleContent("", "// text", SimpleContent.code))
+    simpleContentList.add(SimpleContent("", "The compiler ignores everything from // to the end of the line.", SimpleContent.bullets))
+
+    return simpleContentList
+
+
 }

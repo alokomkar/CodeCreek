@@ -91,9 +91,10 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                     0 -> setAdapterContent(getOOFirstContent())
                     1 -> setAdapterContent(getOOSecondContent())
                     2 -> setAdapterContent(getOOThirdContent())
-                    3 -> setAdapterContent(getFourthContent())
-                    4 -> setAdapterContent(getFifthContent())
-                    5 -> {
+                    3 -> setAdapterContent(getOOFourthContent())
+                    4 -> setAdapterContent(getOOFifthContent())
+                    5 -> setAdapterContent(getOOFifthContent())
+                    6 -> {
                         questionContainer.show()
                         val fragmentTransaction = childFragmentManager.beginTransaction()
                         var pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment?

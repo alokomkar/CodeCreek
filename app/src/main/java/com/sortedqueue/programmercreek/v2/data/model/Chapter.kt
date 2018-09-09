@@ -45,6 +45,7 @@ data class Chapter(val chapterId: String,
             chaptersList.add(Chapter("", chapterTitle, "What Is an Object?"))
             chaptersList.add(Chapter("", chapterTitle, "What Is a Class?"))
             chaptersList.add(Chapter("", chapterTitle, "What Is Inheritance?"))
+            chaptersList.add(Chapter("", chapterTitle, "Types of Inheritance"))
             chaptersList.add(Chapter("", chapterTitle, "What Is an Interface?"))
             chaptersList.add(Chapter("", chapterTitle, "What Is a Package?"))
             chaptersList.add(Chapter("", chapterTitle, "Questions and Exercises: Object-Oriented Programming Concepts"))
