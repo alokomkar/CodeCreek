@@ -8,13 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -22,7 +16,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.activity.SplashActivity
 import com.sortedqueue.programmercreek.database.CreekUser
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
@@ -39,15 +32,12 @@ class SignupFragment : Fragment(), View.OnClickListener {
 
 
     private var mAuth: FirebaseAuth? = null
-    private val googleIdToken: String? = null
     private var loginSignupDialog: LoginSignupDialog? = null
     private val TAG = "SignupFragment"
     private var creekPreferences: CreekPreferences? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_signup, container, false)
-
-        return fragmentView
+        return inflater.inflate(R.layout.fragment_signup, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,10 +46,6 @@ class SignupFragment : Fragment(), View.OnClickListener {
         googleSignInButton!!.setOnClickListener(this)
         signEmailButton!!.setOnClickListener(this)
         signEmailButton!!.callOnClick()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     override fun onClick(view: View) {
@@ -94,8 +80,9 @@ class SignupFragment : Fragment(), View.OnClickListener {
                 .addOnCompleteListener(activity!!) { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, "linkWithCredential:success")
-                        val user = task.result.user
-                        updateUI(user)
+                        task.result?.user.apply {
+                            updateUI(this)
+                        }
                     } else {
                         Log.w(TAG, "linkWithCredential:failure", task.exception)
                         Toast.makeText(context, "Authentication failed.",
@@ -110,7 +97,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private fun updateUI(user: FirebaseUser) {
+    private fun updateUI(user: FirebaseUser?) {
         creekPreferences = CreekApplication.creekPreferences
 
         FirebaseDatabaseHandler(context!!).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
@@ -120,7 +107,7 @@ class SignupFragment : Fragment(), View.OnClickListener {
                 creekUser.userFullName = userFullName
                 creekUser.userPhotoUrl = ""
                 creekUser.wasAnonUser = "Yes"
-                creekUser.userId = user.uid
+                creekUser.userId = user?.uid
                 creekUser.save(context)
                 creekPreferences!!.setSignInAccount(userEmail!!)
                 creekPreferences!!.setAccountName(userFullName!!)
@@ -155,6 +142,6 @@ class SignupFragment : Fragment(), View.OnClickListener {
     }
 
     private fun signupGmail() {
-        val credential = GoogleAuthProvider.getCredential(getString(R.string.default_web_client_id), null)
+        GoogleAuthProvider.getCredential(getString(R.string.default_web_client_id), null)
     }
 }
