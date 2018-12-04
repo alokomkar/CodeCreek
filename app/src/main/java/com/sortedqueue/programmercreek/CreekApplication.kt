@@ -38,6 +38,7 @@ import java.util.ArrayList
 import co.uk.rushorm.android.AndroidInitializeConfig
 import co.uk.rushorm.core.Rush
 import co.uk.rushorm.core.RushCore
+import com.google.android.gms.ads.MobileAds
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 /**
@@ -97,6 +98,7 @@ class CreekApplication : Application() {
 
     fun initAdsSdk() {
         StartAppSDK.init(this, "207164192", creekPreferences!!.adsEnabled)
+        MobileAds.initialize(this, getString(R.string.ad_mob_id));
     }
 
     private fun setupExceptionHandler() {
