@@ -121,7 +121,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
                 try {
                     var waited = 0
                     // Splash screen pause time
-                    while (waited < 2500) {
+                    while (waited < 1500) {
                         Thread.sleep(100)
                         waited += 100
                     }

@@ -94,8 +94,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         if( supportFragmentManager.backStackEntryCount > 0 ) {
             setLanguageSelection()
-            addUserCodeFAB.show()
-            bottom_navigation.show()
+            //addUserCodeFAB.show()
+            //bottom_navigation.show()
+            bottom_navigation.hide()
+            addUserCodeFAB.hide()
             supportFragmentManager.popBackStack()
         }
         else
