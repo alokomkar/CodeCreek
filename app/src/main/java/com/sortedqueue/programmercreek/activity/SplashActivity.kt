@@ -211,7 +211,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            CommonUtils.dismissProgressDialog()
+            hideProgress()
             if (result.isSuccess) {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = result.signInAccount

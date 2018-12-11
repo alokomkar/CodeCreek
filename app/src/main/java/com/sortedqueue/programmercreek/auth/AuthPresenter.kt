@@ -96,7 +96,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
             }
             FirebaseDatabaseHandler(context).getCreekUser(email, object : FirebaseDatabaseHandler.GetCreekUserListner {
                 override fun onSuccess(creekUser: CreekUser) {
-                    CommonUtils.dismissProgressDialog()
+                    authView.hideProgress()
                     if (creekUser.userId.equals("", ignoreCase = true)) {
                         creekUser.userId = creekPreferences!!.userId
                         creekUser.wasAnonUser = if (creekPreferences!!.isAnonAccount) "Yes" else "No"
@@ -108,7 +108,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                 override fun onFailure(databaseError: DatabaseError?) {
                     //New signup
                     creekUser!!.save(context)
-                    CommonUtils.dismissProgressDialog()
+                    authView.hideProgress()
                     saveUser()
                     authView.startApp()
                 }
@@ -205,7 +205,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                     } else {
                         isAnonSignup = true
                     }
-                    CommonUtils.dismissProgressDialog()
+                    authView.hideProgress()
                     // ...
                 }
 
@@ -231,7 +231,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                         isEmailSignup = true
                         authView.cancelLoginDialog()
                     }
-                    CommonUtils.dismissProgressDialog()
+                    authView.hideProgress()
                 }
     }
 
@@ -250,7 +250,7 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                     } else {
                         authView.cancelLoginDialog()
                     }
-                    CommonUtils.dismissProgressDialog()
+                    authView.hideProgress()
                     // ...
                 }
     }

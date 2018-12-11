@@ -355,12 +355,15 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
     }
 
     fun updateMessageToken(refreshedToken: String) {
-        getmUserMessageTokenDatabase()
-        val userToken = UserToken(creekPreferences.getSignInAccount(), refreshedToken)
-        val pushKey = mUserMessageTokenDatabase!!.push().key
-        userToken.pushKey = pushKey
-        mUserMessageTokenDatabase!!.child(pushKey!!).setValue(userToken)
-
+        try {
+            getmUserMessageTokenDatabase()
+            val userToken = UserToken(creekPreferences.getSignInAccount(), refreshedToken)
+            val pushKey = mUserMessageTokenDatabase!!.push().key
+            userToken.pushKey = pushKey
+            mUserMessageTokenDatabase!!.child(pushKey!!).setValue(userToken)
+        } catch ( e : java.lang.Exception ) {
+            e.printStackTrace()
+        }
     }
 
     interface GetAllUserProgramsListener {

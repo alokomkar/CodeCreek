@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.v2.data.remote
 import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.os.AsyncTask
 import android.os.Parcelable
 import android.util.Log
@@ -15,6 +16,7 @@ import com.sortedqueue.programmercreek.v2.data.db.*
 import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.model.MasterContent
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Suppress("PrivatePropertyName")
 @SuppressLint("StaticFieldLeak")
@@ -27,12 +29,13 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
     override fun onDataChange(snapshot: DataSnapshot) {
         if( snapshot.hasChildren() ) {
             Log.d(PCFirebaseHandler::class.java.simpleName, "CodeLanguages : " + snapshot.children.count())
+            val codeLanguages = ArrayList<CodeLanguage>()
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
                 insertAsync( codeLanguage )
                 getAllContent( codeLanguage )
             }
-
+            mMutableCodeLanguageLiveData.value = codeLanguages
         }
     }
 
@@ -144,6 +147,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
                     }
                     else {
                         checkForIndividualUpdates( remoteDBMap )
+                        codeLanguageDao.listAllLive().observeForever { t -> mMutableCodeLanguageLiveData.value = t }
                     }
 
                 }
@@ -208,9 +212,10 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
     private fun getFirebaseSortedId( dbUrl: String ) : String =
             getFirebaseDBReference(dbUrl).push().key!!
 
+    private val mMutableCodeLanguageLiveData = MutableLiveData<List<CodeLanguage>>()
 
-    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
-            = codeLanguageDao.listAllLive()
+    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>> = mMutableCodeLanguageLiveData
+            //= codeLanguageDao.listAllLive()
 
     override fun fetchLiveCodeLanguageById(id: String): LiveData<CodeLanguage>
             = codeLanguageDao.findLiveById(id)

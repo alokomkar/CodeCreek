@@ -7,7 +7,7 @@ import com.sortedqueue.programmercreek.v2.data.model.CodeLanguage
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
 import java.util.*
 
-class CodeLanguageRepository(application: Application ) : CodeLanguageAPI {
+class CodeLanguageRepository( application: Application ) : CodeLanguageAPI {
 
     override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>>
             = api.fetchLiveCodeLanguages()
