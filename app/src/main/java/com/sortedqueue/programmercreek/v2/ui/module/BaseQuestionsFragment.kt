@@ -51,7 +51,7 @@ abstract class BaseQuestionsFragment : Fragment() {
                                 reputationTextView!!.text = "You've gained " + points + "xp\n" + progressBarStatus + "% Complete"
                                 val level = 250 / 100
                                 if (level > 0) {
-                                    completionTextView?.text = "$progressBarStatus%"
+                                    completionTextView?.text = "$progressBarStatus"
                                     reputationTextView!!.text = "Complete : Level : " + level
                                 }
                             }

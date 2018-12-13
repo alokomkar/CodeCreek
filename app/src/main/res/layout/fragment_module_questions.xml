@@ -140,7 +140,7 @@
         android:textSize="@dimen/text_14"
         android:background="@drawable/button_check"/>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -156,6 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:layout_gravity="center"
             android:paddingTop="@dimen/margin_8"
             android:paddingRight="@dimen/margin_16"
             android:paddingBottom="@dimen/margin_8"
@@ -163,7 +164,7 @@
             android:id="@+id/completionTextView"
             android:gravity="center"
             android:textSize="@dimen/text_extra_large_dashboard"
-            tools:text="45%"
+            tools:text="45"
             tools:ignore="RtlHardcoded" />
 
         <TextView
@@ -180,16 +181,17 @@
             tools:ignore="RtlHardcoded" />
 
         <ProgressBar
+            android:layout_gravity="center"
             style="?android:attr/progressBarStyleHorizontal"
             android:padding="@dimen/margin_32"
             android:id="@+id/reputationProgressBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/gradient_progress"
-            tools:progress="60" />
+            android:layout_height="match_parent"
+            android:progressDrawable="@drawable/big_circular_progress"
+            tools:progress="90" />
 
 
 
-    </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>
