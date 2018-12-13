@@ -23,7 +23,7 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 @SuppressLint("SetTextI18n")
-class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String> {
+class ModuleQuestionsFragment : BaseQuestionsFragment(), BaseAdapterClickListener<String> {
 
     private val solutionList = ArrayList<String>()
 
@@ -93,6 +93,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                     }
                     else tvFillQuestion.text = Html.fromHtml(simpleContent.checkAnswer( tvFillQuestion.text.toString() ))
                 }
+                onProgressStatsUpdate(45)
             }
 
             if( simpleContent.contentType == SimpleContent.rearrange ) {
@@ -108,6 +109,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                 tvCheck.setOnClickListener {
                     ivBack.isEnabled = false
                     optionsAdapter.isAnswerChecked(true)
+                    onProgressStatsUpdate(55)
                 }
             }
             if( simpleContent.contentType == SimpleContent.syntaxLearn ) {
@@ -123,6 +125,7 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                     ivBack.isEnabled = false
                     optionsAdapter.isAnswerChecked(true)
                     checkSolution(simpleContent.getSyntax(), simpleContent.getSyntaxOutput())
+                    onProgressStatsUpdate(65)
                 }
                 ivBack.setOnClickListener {
                     if( solutionList.isNotEmpty() ) {

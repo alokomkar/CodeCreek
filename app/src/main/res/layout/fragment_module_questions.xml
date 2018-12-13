@@ -140,4 +140,56 @@
         android:textSize="@dimen/text_14"
         android:background="@drawable/button_check"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:gravity="center"
+        android:background="@color/transparent_black"
+        android:elevation="@dimen/margin_24"
+        android:animateLayoutChanges="true"
+        android:id="@+id/progressLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/completionTextView"
+            android:gravity="center"
+            android:textSize="@dimen/text_extra_large_dashboard"
+            tools:text="45%"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
+            android:paddingLeft="@dimen/margin_16"
+            android:id="@+id/reputationTextView"
+            android:gravity="center"
+            tools:text="Complete : Level 10"
+            tools:ignore="RtlHardcoded" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:padding="@dimen/margin_32"
+            android:id="@+id/reputationProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/gradient_progress"
+            tools:progress="60" />
+
+
+
+    </LinearLayout>
+
 </RelativeLayout>
