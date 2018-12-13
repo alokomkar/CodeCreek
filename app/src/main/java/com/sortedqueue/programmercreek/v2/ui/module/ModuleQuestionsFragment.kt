@@ -57,7 +57,14 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
             }
             else {
                 tvQuestion.text = simpleContent.getQuestion()
-                tvQuestion.show()
+                tvFillBlanks.text = simpleContent.getQuestion()
+
+                if( simpleContent.contentType == SimpleContent.syntaxLearn ) {
+                    fillLayout.show()
+                    tvQuestion.hide()
+                    tvFillQuestion.hide()
+                }
+                else tvQuestion.show()
             }
 
             if( simpleContent.contentType == SimpleContent.codeMcq ) {
@@ -118,9 +125,11 @@ class ModuleQuestionsFragment : BaseFragment(), BaseAdapterClickListener<String>
                     checkSolution(simpleContent.getSyntax(), simpleContent.getSyntaxOutput())
                 }
                 ivBack.setOnClickListener {
-                    solutionList.removeAt(solutionList.size - 1)
-                    val solution = getSolution( solutionList )
-                    codeView.setCode( solution )
+                    if( solutionList.isNotEmpty() ) {
+                        solutionList.removeAt(solutionList.size - 1)
+                        val solution = getSolution( solutionList )
+                        codeView.setCode( solution )
+                    }
                 }
             }
 

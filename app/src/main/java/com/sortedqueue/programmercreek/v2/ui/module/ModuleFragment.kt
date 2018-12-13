@@ -133,7 +133,9 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                 contentAdapter.addItem( breakIntoPoints[++index] )
                 rvModuleContent.smoothScrollToPosition(currentContentList.size)
             }
-            else drawer_layout.openDrawer(nav_view)
+            else {
+                drawer_layout.openDrawer(nav_view)
+            }
         }
         onProgressStatsUpdate(25)
     }

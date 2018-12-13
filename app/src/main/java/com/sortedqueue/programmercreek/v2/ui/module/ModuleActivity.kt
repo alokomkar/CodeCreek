@@ -50,7 +50,7 @@ class ModuleActivity : BaseActivity() {
         fun loadChapter(context: Context, chapter: Chapter, position: Int, chaptersList: ArrayList<Chapter>?) {
             context.apply {
                 mode = modeChapter
-                val intent = Intent( context, ModuleActivity::class.java )
+                val intent = Intent( this, ModuleActivity::class.java )
                 intent.putExtra( Chapter::class.java.simpleName, chapter )
                 intent.putParcelableArrayListExtra( chaptersListExtra, chaptersList )
                 intent.putExtra( modulePosition, position )

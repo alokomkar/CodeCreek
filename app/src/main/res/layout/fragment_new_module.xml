@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="visible"
+            tools:visibility="gone"
             android:elevation="@dimen/margin_24"
             android:animateLayoutChanges="true"
             android:id="@+id/progressLayout">
@@ -119,6 +119,21 @@
             app:elevation="6dp"
             app:pressedTranslationZ="12dp"
             android:src="@android:drawable/ic_media_ff" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/quizFAB"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:paddingBottom="@dimen/fab_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:fabSize="normal"
+            app:backgroundTint="@color/colorPrimary"
+            app:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:src="@android:drawable/ic_menu_help" />
 
     </RelativeLayout>
 

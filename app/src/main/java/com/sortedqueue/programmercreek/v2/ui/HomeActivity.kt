@@ -35,6 +35,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         addUserCodeFAB.setOnClickListener { startActivity(Intent( this, ContentShareActivity::class.java)) }
         setLanguageSelection()
+        addUserCodeFAB.hide()
         //CodeLanguageHelper( this )
         //MasterContentHelper( this )
         //handleSendText()
