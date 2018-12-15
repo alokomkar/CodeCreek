@@ -66,7 +66,7 @@ class CodeEditorFragment : Fragment(), CodeEditor.OnTextChangedListener, CodeLab
                     override fun onItemClick(position: Int) {
                         val start = Math.max(editor!!.selectionStart, 0)
                         val end = Math.max(editor!!.selectionEnd, 0)
-                        editor!!.text.insert(Math.min(start, end), codeShortCuts[position].value)
+                        editor!!.text?.insert(Math.min(start, end), codeShortCuts[position].value)
                     }
                 })
     }

@@ -294,7 +294,7 @@ class GravitySnapHelper(private val gravity: Int) : SnapHelper() {
 
         for (i in 0..childCount - 1) {
             val child = layoutManager.getChildAt(i)
-            val pos = layoutManager.getPosition(child)
+            val pos = layoutManager.getPosition(child!!)
             if (pos == RecyclerView.NO_POSITION) {
                 continue
             }

@@ -509,7 +509,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             codeEditRecyclerView!!.layoutManager = LinearLayoutManager(context)
             codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, programLines, this.selectedLanguage!!)
             codeEditRecyclerView!!.adapter = codeEditorRecyclerAdapter
-            codeEditRecyclerView!!.itemAnimator.changeDuration = 0
+            codeEditRecyclerView!!.itemAnimator?.changeDuration = 0
         }
     }
 }

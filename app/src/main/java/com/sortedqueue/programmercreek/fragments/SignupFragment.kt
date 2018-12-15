@@ -94,8 +94,8 @@ class SignupFragment : Fragment(), View.OnClickListener {
                 .addOnCompleteListener(activity!!) { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, "linkWithCredential:success")
-                        val user = task.result.user
-                        updateUI(user)
+                        val user = task.result?.user
+                        updateUI(user!!)
                     } else {
                         Log.w(TAG, "linkWithCredential:failure", task.exception)
                         Toast.makeText(context, "Authentication failed.",

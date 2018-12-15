@@ -123,7 +123,7 @@ class CompileCodeFragment : Fragment(), View.OnClickListener, CustomProgramRecyc
             codeEditRecyclerView!!.layoutManager = LinearLayoutManager(context)
             codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, programLines, selectedLanguage!!)
             codeEditRecyclerView!!.adapter = codeEditorRecyclerAdapter
-            codeEditRecyclerView!!.itemAnimator.changeDuration = 0
+            codeEditRecyclerView!!.itemAnimator?.changeDuration = 0
         }
     }
 

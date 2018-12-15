@@ -51,7 +51,7 @@ class NewIntroActivity : AppCompatActivity(), NewIntroNavigationListener {
         val bundle = Bundle()
         bundle.putString("topic", topic)
         topicDetailsFragment!!.arguments = bundle
-        mFragmentTransaction!!.replace(R.id.container, topicDetailsFragment, TopicDetailsFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, topicDetailsFragment!!, TopicDetailsFragment::class.java.simpleName)
         mFragmentTransaction!!.addToBackStack(null)
         mFragmentTransaction!!.commit()
     }

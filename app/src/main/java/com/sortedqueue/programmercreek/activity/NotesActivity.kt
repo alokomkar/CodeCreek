@@ -94,10 +94,10 @@ class NotesActivity : AppCompatActivity() {
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (requestCode == SPEECH_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-            val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             Log.d(TAG, "STT : " + results)
             CommonUtils.displayToast(this@NotesActivity, results.toString())
             return

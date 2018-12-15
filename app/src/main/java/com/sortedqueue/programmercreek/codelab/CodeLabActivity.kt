@@ -94,7 +94,7 @@ class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnC
         checkFAB!!.setImageDrawable(ContextCompat.getDrawable(this@CodeLabActivity, android.R.drawable.ic_media_play))
         AnimationUtils.enterReveal(checkFAB)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, compileCodeFragment, ChaptersFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, compileCodeFragment!!, ChaptersFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -113,7 +113,7 @@ class CodeLabActivity : AppCompatActivity(), CodeLabNavigationListener, View.OnC
             AnimationUtils.exitReveal(checkFAB)
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, codeLanguageFragment, CodeLanguageFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, codeLanguageFragment!!, CodeLanguageFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
