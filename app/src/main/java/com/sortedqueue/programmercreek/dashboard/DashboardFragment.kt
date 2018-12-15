@@ -154,8 +154,8 @@ class DashboardFragment : Fragment(), View.OnClickListener, FirebaseDatabaseHand
 
             //delay += standardDelay;
             /*initAnimations(interviewLayout, delay);*/
-            delay += standardDelay
-            initAnimations(codeLabLayout, delay)
+            //delay += standardDelay
+            //initAnimations(codeLabLayout, delay)
         }
 
 
