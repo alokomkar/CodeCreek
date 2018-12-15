@@ -28,7 +28,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
 
     override fun onDataChange(snapshot: DataSnapshot) {
         if( snapshot.hasChildren() ) {
-            Log.d(PCFirebaseHandler::class.java.simpleName, "CodeLanguages : " + snapshot.children.count())
+            Log.d(TAG, "CodeLanguages : " + snapshot.children.count())
             val codeLanguages = ArrayList<CodeLanguage>()
             for( child in snapshot.children ) {
                 val codeLanguage = child.getValue(CodeLanguage::class.java)
@@ -147,6 +147,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
                     }
                     else {
                         checkForIndividualUpdates( remoteDBMap )
+                        mMutableCodeLanguageLiveData.value = null
                         codeLanguageDao.listAllLive().observeForever { t -> mMutableCodeLanguageLiveData.value = t }
                     }
 
@@ -214,8 +215,8 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
 
     private val mMutableCodeLanguageLiveData = MutableLiveData<List<CodeLanguage>>()
 
-    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>> = mMutableCodeLanguageLiveData
-            //= codeLanguageDao.listAllLive()
+    override fun fetchLiveCodeLanguages(): LiveData<List<CodeLanguage>> //= mMutableCodeLanguageLiveData
+            = codeLanguageDao.listAllLive()
 
     override fun fetchLiveCodeLanguageById(id: String): LiveData<CodeLanguage>
             = codeLanguageDao.findLiveById(id)

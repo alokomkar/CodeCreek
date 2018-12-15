@@ -27,6 +27,7 @@ import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.auth.AuthPresenter
 import com.sortedqueue.programmercreek.auth.AuthView
+import com.sortedqueue.programmercreek.dashboard.DashboardActivity
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
 import com.sortedqueue.programmercreek.v2.data.remote.PCFirebaseHandler
@@ -230,8 +231,8 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
 
     override fun startApp() {
-        PCFirebaseHandler( this.application )
-        startActivity( Intent(this@SplashActivity, HomeActivity::class.java) )
+        //PCFirebaseHandler( this.application )
+        startActivity( Intent(this@SplashActivity, DashboardActivity::class.java) )
         finish()
     }
 

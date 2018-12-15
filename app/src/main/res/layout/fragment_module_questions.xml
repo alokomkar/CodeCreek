@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tvCheck"
+        android:layout_above="@+id/btnLayout"
         android:orientation="vertical">
 
         <TextView
@@ -126,26 +127,59 @@
     </LinearLayout>
 
 
-
-    <TextView
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:fabSize="normal"
+        android:src="@android:drawable/checkbox_on_background"
         android:id="@+id/tvCheck"
         android:text="@string/check"
         android:gravity="center"
         android:layout_margin="@dimen/margin_4"
         android:padding="@dimen/margin_8"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_14"
-        android:background="@drawable/button_check"/>
+        android:textSize="@dimen/text_14" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/margin_36"
+        android:background="@color/md_blue_grey_300"
+        android:id="@+id/btnLayout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:padding="@dimen/margin_4"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@android:drawable/ic_media_previous"
+            android:id="@+id/btnPrev"/>
+
+        <ImageView
+            android:padding="@dimen/margin_4"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_next"
+            android:id="@+id/btnNext"/>
+
+    </RelativeLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:gravity="center"
         android:background="@color/transparent_black"
         android:elevation="@dimen/margin_24"

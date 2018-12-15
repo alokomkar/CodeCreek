@@ -13,8 +13,6 @@ import java.util.*
 
 class PCPreferences( application: Context ) : BasePreferencesAPI {
 
-
-
     inner class StoredContent( val contentList: ArrayList<Content>)
 
     companion object {
@@ -29,6 +27,7 @@ class PCPreferences( application: Context ) : BasePreferencesAPI {
 
             if( basePreferencesAPI == null )
                 basePreferencesAPI = PCPreferences( application )
+
             return basePreferencesAPI!!
 
         }
