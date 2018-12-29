@@ -77,7 +77,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         R.anim.slide_out_down,
                         R.anim.slide_out_up)
                 addToBackStack(null)
-                replace(R.id.container, mCodeLanguageFragment, CodeLanguageFragment::class.java.simpleName).commit()
+                mCodeLanguageFragment?.apply {
+                    replace(R.id.container, this, CodeLanguageFragment::class.java.simpleName).commit()
+                }
+
             }
         }
         else {

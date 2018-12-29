@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/margin_36"
-        android:background="@color/md_blue_grey_300"
+        android:background="@color/md_orange_500"
         android:id="@+id/btnLayout"
         android:orientation="horizontal">
 
