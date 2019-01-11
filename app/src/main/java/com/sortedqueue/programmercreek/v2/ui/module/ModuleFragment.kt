@@ -6,14 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
-
+import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.ui.chapters.SubModulesAdapter
 import kotlinx.android.synthetic.main.fragment_new_module.*
-
-import com.sortedqueue.programmercreek.v2.base.*
-import java.util.*
 
 
 class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent> {
@@ -21,7 +18,7 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
     private lateinit var contentAdapter: SimpleContentAdapter
     private lateinit var chapter: Chapter
     private var currentContentList = ArrayList<SimpleContent>()
-
+    private var chaptersList: ArrayList<Chapter> = ArrayList()
     override fun onItemClick(position: Int, item: SimpleContent) {
 
     }
@@ -31,10 +28,13 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                               savedInstanceState: Bundle? ): View?
             = inflater.inflate(R.layout.fragment_new_module, container, false)
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        chapter = arguments!!.getParcelable<Chapter>(Chapter::class.java.simpleName)
+        arguments?.getParcelable<Chapter>(Chapter::class.java.simpleName)?.apply {
+            chapter = this
+        }
         tvHeader.text = chapter.moduleTitle
 
         rvModuleContent.layoutManager = LinearLayoutManager(context)
@@ -44,7 +44,9 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
 
         ivNavigation.setOnClickListener { drawer_layout.openDrawer(nav_view) }
 
-        val chaptersList = arguments!!.getParcelableArrayList<Chapter>(ModuleActivity.chaptersListExtra)
+        arguments?.getParcelableArrayList<Chapter>(ModuleActivity.chaptersListExtra)?.apply {
+            chaptersList = this
+        }
         rvTracker.adapter = SubModulesAdapter( chaptersList, -1, object : BaseAdapterClickListener<Chapter> {
             override fun onItemClick(position: Int, item: Chapter) {
                 tvHeader.text = item.moduleTitle
