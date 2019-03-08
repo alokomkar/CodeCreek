@@ -23,19 +23,19 @@
           }
         },
         {
-          "client_id": "953148957327-j5g27ls6b736ig0tp2vht17ufj9lj02i.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sortedqueue.programmercreek",
-            "certificate_hash": "6f8ea9ba816427c2553595bf99588c611c6a0269"
-          }
-        },
-        {
           "client_id": "953148957327-as1m8623hdus3cjnane35oqjngfh0tr3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sortedqueue.programmercreek",
             "certificate_hash": "5ade8519940caee90d772cf53bf312229ef6a035"
+          }
+        },
+        {
+          "client_id": "953148957327-j5g27ls6b736ig0tp2vht17ufj9lj02i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sortedqueue.programmercreek",
+            "certificate_hash": "6f8ea9ba816427c2553595bf99588c611c6a0269"
           }
         },
         {
@@ -64,7 +64,8 @@
         "ads_service": {
           "status": 2
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-2597451345754102~2851301278"
     }
   ],
   "configuration_version": "1"

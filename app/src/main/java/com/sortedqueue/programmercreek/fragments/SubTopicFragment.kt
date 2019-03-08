@@ -96,7 +96,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
             requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
             requestOptions.placeholder(R.color.colorPrimary)
             requestOptions.fallback(R.color.md_grey_500)
-            Glide.with(context)
+            Glide.with(context!!)
                     .setDefaultRequestOptions(requestOptions)
                     .load(subTopics!!.imageUrl)
                     .into(slideImageView!!)
@@ -196,7 +196,7 @@ class SubTopicFragment : Fragment(), View.OnClickListener, OnBackPressListener, 
                     val fragmentTransaction = childFragmentManager.beginTransaction()
                     fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_down, R.anim.slide_out_up)
                     fragmentTransaction.addToBackStack(null)
-                    fragmentTransaction.replace(R.id.testContainer, subTopicQuestionFragment).commit()
+                    fragmentTransaction.replace(R.id.testContainer, subTopicQuestionFragment!!).commit()
                 }
             }
             R.id.nextImageView -> navigationListener!!.onMoveForward()

@@ -87,7 +87,7 @@ class TutorialModelFragment : Fragment(), View.OnClickListener {
             slideImageLayout!!.visibility = View.GONE
         } else {
             slideImageLayout!!.visibility = View.VISIBLE
-            Glide.with(context)
+            Glide.with(context!!)
                     .load(tutorialModel!!.stepImageUrl)
                     .into(slideImageView!!)
         }

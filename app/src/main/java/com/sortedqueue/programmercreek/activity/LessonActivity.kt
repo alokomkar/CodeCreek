@@ -140,7 +140,7 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
             lessonsFragment = LessonsFragment()
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, lessonsFragment, LessonsFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, lessonsFragment!!, LessonsFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -154,7 +154,7 @@ class LessonActivity : AppCompatActivity(), View.OnClickListener, LessonNavigati
         lessonDetailsFragment!!.setLesson(lesson)
 
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, lessonDetailsFragment, LessonDetailsFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, lessonDetailsFragment!!, LessonDetailsFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 

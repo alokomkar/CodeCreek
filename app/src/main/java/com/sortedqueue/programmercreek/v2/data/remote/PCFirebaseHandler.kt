@@ -73,6 +73,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
 
     }
 
+    private var updateInProgress = false
 
     companion object {
 
@@ -83,7 +84,7 @@ class PCFirebaseHandler( private val application: Application ) : API, ValueEven
         private lateinit var codeLanguageDao : CodeLanguageDao
         private lateinit var masterContentDao: MasterContentDao
 
-        private var updateInProgress = false
+
 
         private fun getInstance( application: Application ): PCFirebaseHandler {
             if( singleInstance == null ) {

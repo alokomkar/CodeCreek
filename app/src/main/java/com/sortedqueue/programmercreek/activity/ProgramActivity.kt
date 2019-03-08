@@ -211,14 +211,13 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
         startActivityForResult(intent, ProgrammingBuddyConstants.RESULT_NOTES)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == ProgrammingBuddyConstants.RESULT_NOTES) {
             if (requestCode == AppCompatActivity.RESULT_OK) {
 
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
+        super.onActivityResult(requestCode, resultCode, data)
 
     }
 

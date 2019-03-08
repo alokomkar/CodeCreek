@@ -142,7 +142,7 @@ class LanguageFragment : Fragment() {
         requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
         requestOptions.placeholder(R.color.colorPrimary)
         requestOptions.fallback(R.color.md_grey_500)
-        Glide.with(context)
+        Glide.with(context!!)
                 .setDefaultRequestOptions(requestOptions)
                 .load(creekPreferences!!.getAccountPhoto())
                 .into(profileImageView!!)

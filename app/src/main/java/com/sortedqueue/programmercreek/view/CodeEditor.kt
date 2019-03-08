@@ -41,7 +41,7 @@ class CodeEditor : AppCompatEditText {
                     e.toString())
         }
 
-        highlightWithoutChange(e)
+        highlightWithoutChange(e!!)
     }
 
     private var onTextChangedListener: OnTextChangedListener? = null
@@ -97,7 +97,7 @@ class CodeEditor : AppCompatEditText {
     }
 
     fun updateHighlighting() {
-        highlightWithoutChange(text)
+        highlightWithoutChange(text!!)
     }
 
     fun setTextHighlighted(text: CharSequence?) {
@@ -129,7 +129,7 @@ class CodeEditor : AppCompatEditText {
         val start = selectionStart
         val end = selectionEnd
 
-        text.replace(
+        text!!.replace(
                 Math.min(start, end),
                 Math.max(start, end),
                 "\t",
@@ -141,7 +141,7 @@ class CodeEditor : AppCompatEditText {
         var statement: String? = statement ?: return
 
         val e = text
-        removeUniform(e, statement)
+        removeUniform(e!!, statement)
 
         val m = PATTERN_INSERT_UNIFORM.matcher(e)
         var start = -1
@@ -161,7 +161,7 @@ class CodeEditor : AppCompatEditText {
 
             // add an empty line between the last #endif
             // and the now following uniform
-            start = endIndexOfLastEndIf(e)
+            start = endIndexOfLastEndIf(e!!)
             if ((start) > -1) {
                 statement = "\n" + statement
             }

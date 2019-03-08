@@ -98,13 +98,13 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
         }
         checkFAB!!.setImageDrawable(ContextCompat.getDrawable(this@ChaptersActivity, android.R.drawable.ic_media_play))
         if (isFirstTime) {
-            checkFAB!!.visibility = View.GONE
+            checkFAB?.visibility = View.GONE
             isFirstTime = false
         } else {
             AnimationUtils.exitReveal(checkFAB)
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, chaptersFragment, ChaptersFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, chaptersFragment!!, ChaptersFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -161,7 +161,7 @@ class ChaptersActivity : AppCompatActivity(), ChapterNavigationListener, View.On
         chapterDetailsFragment!!.setNextChapter(nextChapter)
         chapterDetailsFragment!!.setOnChapterNavigationListener(this)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, chapterDetailsFragment, ChapterDetailsFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, chapterDetailsFragment!!, ChapterDetailsFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 

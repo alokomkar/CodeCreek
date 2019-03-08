@@ -42,7 +42,7 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
 
     private var mFragmentTransaction: FragmentTransaction? = null
     private var matchMakerFragment: NewMatchFragment? = null
-    private var testDragNDropFragment: TestDragNDropFragment? = null
+    private lateinit var testDragNDropFragment: TestDragNDropFragment
     private var quizFragment: QuizFragment? = null
     private var fillBlankFragment: NewFillBlankFragment? = null
     private val isAdShown: Boolean = false
@@ -171,7 +171,7 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         matchMakerFragment = NewMatchFragment()
         matchMakerFragment!!.setBundle(bundle)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, matchMakerFragment, NewMatchFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, matchMakerFragment!!, NewMatchFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -197,7 +197,7 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         }
         quizFragment!!.setBundle(bundle)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, quizFragment, QuizFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, quizFragment!!, QuizFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -212,7 +212,7 @@ class WizardActivity : AppCompatActivity(), WizardNavigationListener {
         fillBlankFragment!!.setmProgram_Index((bundle.getParcelable<Parcelable>(ProgrammingBuddyConstants.KEY_PROG_ID) as ProgramIndex).program_index)
         fillBlankFragment!!.setWizardMode(true)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, fillBlankFragment, NewFillBlankFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, fillBlankFragment!!, NewFillBlankFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 

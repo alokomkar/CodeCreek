@@ -550,7 +550,7 @@ object AuxilaryUtils {
 
     fun generateImageNotification(context: Context, notificationTitle: String, notificationContent: String, imageUrl: String) {
 
-        Glide
+        /*Glide
                 .with(context)
                 .asBitmap()
                 .load(imageUrl)
@@ -591,7 +591,7 @@ object AuxilaryUtils {
                         mNotifyMgr.notify(mNotificationId, noti)
                     }
 
-                } )
+                } )*/
 
     }
 

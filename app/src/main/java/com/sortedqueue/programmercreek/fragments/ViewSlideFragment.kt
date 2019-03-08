@@ -42,7 +42,7 @@ class ViewSlideFragment : Fragment() {
     private fun setupViews() {
         titleTextView!!.text = slideModel!!.title
         subTitleTextView!!.text = slideModel!!.subTitle
-        Glide.with(context)
+        Glide.with(context!!)
                 .load(slideModel!!.slideImageUrl)
                 .into(slideImageView!!)
         if (slideModel!!.code != null && slideModel!!.code.trim { it <= ' ' }.isNotEmpty()) {

@@ -25,6 +25,9 @@ abstract class PracticeCodeRoomDatabase : RoomDatabase() {
                     if (dbInstance == null) {
                         dbInstance = Room.databaseBuilder(application,
                                 PracticeCodeRoomDatabase::class.java, "practiceCodeDatabase")
+                                .addCallback(object  : RoomDatabase.Callback() {
+                                    //val dbInstance = getDbInstance(application)
+                                })
                                 .build()
 
                     }

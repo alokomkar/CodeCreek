@@ -1,29 +1,22 @@
 package com.sortedqueue.programmercreek.activity
 
+
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.AlgorithmsIndex
 import com.sortedqueue.programmercreek.fragments.AlgorithmFragment
 import com.sortedqueue.programmercreek.interfaces.AlgorithmNavigationListener
-import com.sortedqueue.programmercreek.util.AuxilaryUtils
-import com.sortedqueue.programmercreek.util.CommonUtils
 import com.startapp.android.publish.adsCommon.StartAppAd
-
-
-
 import kotlinx.android.synthetic.main.activity_wizard_module.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -35,7 +28,7 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
 
     private var mFragmentTransaction: FragmentTransaction? = null
 
-    private var algorithmFragment: AlgorithmFragment? = null
+    private lateinit var algorithmFragment: AlgorithmFragment
 
     override fun onResume() {
         super.onResume()
@@ -54,7 +47,7 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        checkFAB!!.visibility = View.GONE
+        checkFAB?.visibility = View.GONE
         loadAlgorithmFragment(intent.getParcelableExtra<Parcelable>(ProgrammingBuddyConstants.KEY_PROG_ID) as AlgorithmsIndex)
         this.overridePendingTransition(R.anim.anim_slide_in_left,
                 R.anim.anim_slide_out_left)
@@ -89,11 +82,10 @@ class AlgorithmListActivity : AppCompatActivity(), AlgorithmNavigationListener {
     }
 
     private fun shareProgram() {
-        if (algorithmFragment != null) {
-            algorithmFragment!!.shareAlgorithm()
-        }
+        algorithmFragment.shareAlgorithm()
     }
 
+    @SuppressLint("CommitTransaction")
     override fun loadAlgorithmFragment(algorithm: AlgorithmsIndex) {
         supportActionBar!!.title = algorithm.programTitle
         mFragmentTransaction = supportFragmentManager.beginTransaction()

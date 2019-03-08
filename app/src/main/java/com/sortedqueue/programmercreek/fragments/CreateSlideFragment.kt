@@ -391,7 +391,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
                     Log.d(TAG, "Upload Success : " + downloadUri.toString())
                     this@CreateSlideFragment.selectedImageUri = downloadUri
                     slideModel!!.slideImageUrl = downloadUri.toString()
-                    Glide.with(context).load(downloadUri).into(slideImageView!!)
+                    Glide.with(context!!).load(downloadUri).into(slideImageView!!)
                 }
 
                 override fun onProgressUpdate(currentProgress: Double) {
@@ -509,7 +509,7 @@ class CreateSlideFragment : Fragment(), View.OnClickListener, AuxilaryUtils.Phot
             codeEditRecyclerView!!.layoutManager = LinearLayoutManager(context)
             codeEditorRecyclerAdapter = CodeEditorRecyclerAdapter(context!!, programLines, this.selectedLanguage!!)
             codeEditRecyclerView!!.adapter = codeEditorRecyclerAdapter
-            codeEditRecyclerView!!.itemAnimator.changeDuration = 0
+            codeEditRecyclerView!!.itemAnimator?.changeDuration = 0
         }
     }
 }

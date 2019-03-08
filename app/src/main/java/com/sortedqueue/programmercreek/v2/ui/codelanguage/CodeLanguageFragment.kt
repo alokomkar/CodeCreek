@@ -45,9 +45,8 @@ class CodeLanguageFragment : BaseFragment(),
 
     override fun onChanged(t: List<CodeLanguage>?) {
         if( t != null ) {
-            if(t.isNotEmpty()) {
+            if( t.isNotEmpty() )
                 progressLayout.hide()
-            }
             mCodeLanguages.clear()
             mCodeLanguages.addAll( t )
             mCodeLanguageAdapter.notifyItemRangeChanged(0, mCodeLanguages.size)

@@ -89,7 +89,7 @@ class BitModuleFragment : Fragment(), View.OnClickListener, OnBackPressListener,
             requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA)
             requestOptions.placeholder(R.color.colorPrimary)
             requestOptions.fallback(R.color.md_grey_500)
-            Glide.with(context)
+            Glide.with(context!!)
                     .setDefaultRequestOptions(requestOptions)
                     .load(bitModule!!.imageUrl)
                     .into(slideImageView!!)

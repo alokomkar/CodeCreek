@@ -106,7 +106,7 @@ class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
         //AnimationUtils.enterReveal(checkFAB);
         interviewQuestionsFragment!!.setProgramLanguage(programLanguage)
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, interviewQuestionsFragment, InterviewQuestionsFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, interviewQuestionsFragment!!, InterviewQuestionsFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 
@@ -124,7 +124,7 @@ class InterviewActivity : AppCompatActivity(), InterviewNavigationListener {
         mFragmentTransaction = supportFragmentManager.beginTransaction()
         interviewChoiceFragment = InterviewChoiceFragment.instance
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, interviewChoiceFragment, InterviewChoiceFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, interviewChoiceFragment!!, InterviewChoiceFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 

@@ -44,7 +44,7 @@ class ProgramInserterActivity : AppCompatActivity() {
             programInserterFragment = ProgramInserterFragment()
         }
         mFragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-        mFragmentTransaction!!.replace(R.id.container, programInserterFragment, ProgramInserterFragment::class.java.simpleName)
+        mFragmentTransaction!!.replace(R.id.container, programInserterFragment!!, ProgramInserterFragment::class.java.simpleName)
         mFragmentTransaction!!.commit()
     }
 }
