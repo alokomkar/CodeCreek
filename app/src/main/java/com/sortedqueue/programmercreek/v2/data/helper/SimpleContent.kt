@@ -66,6 +66,8 @@ class SimpleContent(var contentId: String = "",
         return question
     }
 
+    var isAnimated = false
+
     fun getQuestion() : String = contentString.split("?")[0] + "?"
 
     fun getCode(): String = contentString.split("?")[1]

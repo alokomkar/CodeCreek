@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
+import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.v2.base.BaseViewHolder
 import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
@@ -25,6 +26,8 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
     }
 
     fun bindData( content : SimpleContent) {
+
+
 
         itemView.tvContent.text = content.getFormattedContent()
         itemView.tvHeader.text = content.contentString
@@ -54,6 +57,19 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
             SimpleContent.code -> itemView.editor.show()
             SimpleContent.image -> itemView.ivContent.show()
             else -> itemView.cvQuestion.show()
+        }
+
+        if( !content.isAnimated ) {
+            content.isAnimated = true
+            when( content.contentType ) {
+                SimpleContent.header -> AnimationUtils.slideInToRight(itemView)
+                SimpleContent.bullets -> AnimationUtils.slideInToLeft(itemView)
+                SimpleContent.content -> AnimationUtils.slideInToRight(itemView)
+                SimpleContent.code -> AnimationUtils.slideInToLeft(itemView)
+                SimpleContent.image -> AnimationUtils.slideInToLeft(itemView)
+                else -> AnimationUtils.enterReveal(itemView)
+            }
+
         }
     }
 
