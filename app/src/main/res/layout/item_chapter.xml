@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvHeader"
-        android:background="@color/md_blue_500"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:background="@color/md_blue_800"
         android:textColor="@color/white"
         android:padding="@dimen/margin_8"
         android:text="@string/top_learners"/>
