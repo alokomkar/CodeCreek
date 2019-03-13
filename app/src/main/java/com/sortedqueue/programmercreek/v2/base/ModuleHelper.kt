@@ -4,7 +4,7 @@ import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 
 import java.util.*
 
- fun getSixthContent() : ArrayList<SimpleContent> {
+fun getSixthContent() : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("",
             "Qn. Choose all applicable : Java is ?" +
@@ -61,12 +61,12 @@ import java.util.*
             SimpleContent.fillBlanks))
 
     //rvModuleContent.adapter = SimpleContentAdapter( simpleContentList, this )
-    
-     return simpleContentList
-    
+
+    return simpleContentList
+
 }
 
- fun getFifthContent() : ArrayList<SimpleContent> {
+fun getFifthContent() : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("",
             "A Closer Look at the \"Hello World!\" Application",
@@ -96,11 +96,21 @@ import java.util.*
     simpleContentList.add(SimpleContent("", "/** documentation */", SimpleContent.code))
     simpleContentList.add(SimpleContent("", "This indicates a documentation comment (doc comment, for short). The compiler ignores this kind of comment, just like it ignores comments that use /* and */. The javadoc tool uses doc comments when preparing automatically generated documentation.", SimpleContent.bullets))
     simpleContentList.add(SimpleContent("", "// text", SimpleContent.code))
+    simpleContentList.add(SimpleContent("",
+            "Qn. What's this comment type?/**\n" +
+                    " * The HelloWorldApp class implements an application that\n" +
+                    " * simply displays \"Hello World!\" to the standard output.\n" +
+                    " */\n??" +
+                    "Single line comment|||" +
+                    "Multi line comment|||" +
+                    "Not a comment",
+            SimpleContent.codeMcq,
+            "Multi line comment"))
     simpleContentList.add(SimpleContent("", "The compiler ignores everything from // to the end of the line.", SimpleContent.bullets))
 
-     return simpleContentList
+    return simpleContentList
 
-    
+
 }
 
 fun getFourthContent() : ArrayList<SimpleContent> {
@@ -118,7 +128,7 @@ fun getFourthContent() : ArrayList<SimpleContent> {
     return( simpleContentList )
 }
 
- fun getThirdContent()  : ArrayList<SimpleContent> {
+fun getThirdContent()  : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("", "The general-purpose, high-level Java programming language is a powerful software platform. Every full implementation of the Java platform gives you the following features:", SimpleContent.header ))
     simpleContentList.add(SimpleContent("", "The Java platform has two components:\n" +
@@ -140,7 +150,7 @@ fun getFourthContent() : ArrayList<SimpleContent> {
     return( simpleContentList )
 }
 
- fun getSecondContent() : ArrayList<SimpleContent> {
+fun getSecondContent() : ArrayList<SimpleContent> {
 
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("", "A platform is the hardware or software environment in which a program runs. We've already mentioned some of the most popular platforms like Microsoft Windows, Linux, Solaris OS, and Mac OS. Most platforms can be described as a combination of the operating system and underlying hardware. The Java platform differs from most other platforms in that it's a software-only platform that runs on top of other hardware-based platforms.", SimpleContent.content ))
@@ -166,7 +176,7 @@ fun getFourthContent() : ArrayList<SimpleContent> {
     return( simpleContentList )
 }
 
- fun getFirstContent() : ArrayList<SimpleContent> {
+fun getFirstContent() : ArrayList<SimpleContent> {
     val simpleContentList = ArrayList<SimpleContent>()
     simpleContentList.add(SimpleContent("", "The Java programming language is a high-level language that can be characterized by all of the following buzzwords:", SimpleContent.header ))
     simpleContentList.add(SimpleContent("",

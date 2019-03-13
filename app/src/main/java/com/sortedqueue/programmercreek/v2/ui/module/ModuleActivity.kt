@@ -28,17 +28,23 @@ class ModuleActivity : BaseActivity() {
         }
     }
 
+    private var moduleFragment: ModuleFragment ?= null
+
     private fun loadModule() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.apply {
-            val moduleFragment = ModuleFragment()
-            moduleFragment.arguments = intent.extras
-            addToBackStack(null)
-            replace(R.id.moduleContainer, moduleFragment, ModuleFragment::class.java.simpleName).commit()
+            moduleFragment = ModuleFragment().apply {
+                arguments = intent.extras
+                addToBackStack(null)
+                replace(R.id.moduleContainer, this, ModuleFragment::class.java.simpleName).commit()
+            }
         }
     }
 
-    override fun onBackPressed() = finish()
+    override fun onBackPressed() {
+        if( moduleFragment?.onBackPressed() == true )
+            finish()
+    }
 
     companion object {
 

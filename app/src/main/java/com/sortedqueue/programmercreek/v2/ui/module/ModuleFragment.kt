@@ -20,7 +20,23 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
     private var currentContentList = ArrayList<SimpleContent>()
     private var chaptersList: ArrayList<Chapter> = ArrayList()
     override fun onItemClick(position: Int, item: SimpleContent) {
+        if( item.contentType > SimpleContent.image ) {
+            questionContainer.show()
+            val fragmentTransaction = childFragmentManager.beginTransaction()
+            val pagerFragment = childFragmentManager.findFragmentByTag(ModuleQuestionsFragment::class.java.simpleName) as ModuleQuestionsFragment? ?: ModuleQuestionsFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(SimpleContent::class.java.simpleName, item)
+            pagerFragment.arguments = bundle
+            //AnimationUtils.enterReveal(checkFAB);
+            fragmentTransaction.apply {
+                setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
+                replace(R.id.questionContainer, pagerFragment, ModuleQuestionsFragment::class.java.simpleName)
+                addToBackStack(ModuleQuestionsFragment::class.java.simpleName)
+                commit()
+            }
 
+            nextFAB.hide()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -73,17 +89,17 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                     5 -> {
                         questionContainer.show()
                         val fragmentTransaction = childFragmentManager.beginTransaction()
-                        var pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment?
-                        if (pagerFragment == null) {
-                            pagerFragment = PagerFragment()
-                        }
+                        val pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment? ?: PagerFragment()
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
                         pagerFragment.arguments = bundle
                         //AnimationUtils.enterReveal(checkFAB);
-                        fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-                        fragmentTransaction.replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
-                        fragmentTransaction.commit()
+                        fragmentTransaction.apply {
+                            setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                            replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
+                            commit()
+                        }
+
                         nextFAB.hide()
                     }
                 }
@@ -99,17 +115,17 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                     6 -> {
                         questionContainer.show()
                         val fragmentTransaction = childFragmentManager.beginTransaction()
-                        var pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment?
-                        if (pagerFragment == null) {
-                            pagerFragment = PagerFragment()
-                        }
+                        val pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment? ?: PagerFragment()
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
                         pagerFragment.arguments = bundle
                         //AnimationUtils.enterReveal(checkFAB);
-                        fragmentTransaction!!.setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
-                        fragmentTransaction.replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
-                        fragmentTransaction.commit()
+                        fragmentTransaction.apply {
+                            setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                            replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
+                            commit()
+                        }
+
                         nextFAB.hide()
                     }
                 }
@@ -156,6 +172,17 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
             }
         }
         return breakPoints
+    }
+
+    fun onBackPressed(): Boolean {
+        return if( childFragmentManager.backStackEntryCount > 0 ) {
+            childFragmentManager.popBackStack()
+            rvModuleContent.smoothScrollToPosition(contentAdapter.itemCount)
+            questionContainer.hide()
+            nextFAB.show()
+            false
+        }
+        else true
     }
 
 }

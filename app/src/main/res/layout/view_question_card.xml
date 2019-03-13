@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvQuestion"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/margin_8"
+    app:cardElevation="@dimen/margin_4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:background="@drawable/question_gradient"
+        android:padding="@dimen/margin_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:drawableTop="@drawable/ic_question_48dp"
+        android:id="@+id/tvQuestionType"
+        android:text="@string/question_type"/>
+
+</android.support.v7.widget.CardView>

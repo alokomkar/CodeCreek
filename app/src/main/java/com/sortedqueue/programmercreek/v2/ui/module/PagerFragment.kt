@@ -19,10 +19,12 @@ class PagerFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val contentList = arguments!!.getParcelableArrayList<SimpleContent>(SimpleContent::class.java.simpleName)
+
+        val contentList = arguments?.getParcelableArrayList<SimpleContent>(SimpleContent::class.java.simpleName) ?: ArrayList()
         questionsProgressBar.max = contentList.size
         questionsProgressBar.progress = 1
         vpQuestions.adapter = QuestionsPagerAdapter( contentList, childFragmentManager )
         vpQuestions.setOnScrollChangeListener { _, _, _, _, _ -> questionsProgressBar.progress = vpQuestions.currentItem + 1 }
+
     }
 }

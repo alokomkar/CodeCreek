@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivContent"
-        android:layout_below="@+id/tvContent"
-        android:src="@drawable/splash_logo"
-        android:contentDescription="@string/image_content" />
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,10 +20,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHeader"
+        tools:visibility="gone"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginStart="@dimen/margin_32"
-        android:layout_alignParentEnd="true"
         android:gravity="start"
         android:background="@color/md_blue_grey_100"
         android:id="@+id/tvBullets"
@@ -43,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBullets"
+        tools:visibility="gone"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@color/md_yellow_50"
         android:id="@+id/tvContent"
@@ -51,13 +42,20 @@
         android:textColor="@color/md_black_1000"
         tools:text="@string/divide_and_conquer_description"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="gone"
+        android:id="@+id/ivContent"
+        android:src="@drawable/splash_logo"
+        android:contentDescription="@string/image_content" />
+
     <ScrollView
         tools:ignore="Overdraw"
-        android:layout_below="@+id/ivContent"
         android:layout_marginTop="@dimen/margin_8"
         android:id="@+id/scroll_view"
         android:visibility="visible"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_black_1000">
@@ -79,4 +77,7 @@
 
     </ScrollView>
 
-</RelativeLayout>
+    <include layout="@layout/view_question_card" />
+
+
+</LinearLayout>
