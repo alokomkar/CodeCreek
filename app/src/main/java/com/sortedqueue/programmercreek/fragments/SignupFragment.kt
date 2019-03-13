@@ -69,8 +69,8 @@ class SignupFragment : Fragment(), View.OnClickListener {
         })
     }
 
-    private var userFullName: String? = null
-    private var userEmail: String? = null
+    private var userFullName: String = ""
+    private var userEmail: String = ""
     private fun emailSignup(name: String, email: String, password: String) {
         userFullName = name
         userEmail = email
@@ -107,8 +107,8 @@ class SignupFragment : Fragment(), View.OnClickListener {
                 creekUser.userFullName = userFullName
                 creekUser.userPhotoUrl = ""
                 creekUser.wasAnonUser = "Yes"
-                creekUser.userId = user?.uid
-                creekUser.save(context)
+                creekUser.userId = user?.uid ?: ""
+                creekUser.save(context!!)
                 creekPreferences!!.setSignInAccount(userEmail!!)
                 creekPreferences!!.setAccountName(userFullName!!)
                 creekPreferences!!.setAccountPhoto("")

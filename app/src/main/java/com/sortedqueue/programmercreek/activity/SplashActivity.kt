@@ -233,6 +233,7 @@ class SplashActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     override fun startApp() {
         PCFirebaseHandler( this.application )
         startActivity( Intent(this@SplashActivity, HomeActivity::class.java) )
+        //startActivity( Intent(this@SplashActivity, DashboardActivity::class.java) )
         finish()
     }
 

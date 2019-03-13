@@ -11,12 +11,9 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DatabaseError
 import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.database.CreekUser
-import com.sortedqueue.programmercreek.database.CreekUserStats
-import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekPreferences
 import java.util.*
@@ -56,10 +53,10 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
             // User is signed in
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.uid)
             creekUser = CreekUser()
-            creekUser!!.userFullName = user.displayName
+            creekUser!!.userFullName = user.displayName ?: ""
 
             if (isEmailSignup) {
-                creekUser!!.userFullName = userNameEmailSignup
+                creekUser!!.userFullName = userNameEmailSignup ?: ""
             }
 
             if (isAnonSignup && user.displayName == null) {
@@ -72,16 +69,16 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
                 creekUser!!.userPhotoUrl = ""
             }
             if (user.email != null) {
-                creekUser!!.emailId = user.email
+                creekUser!!.emailId = user.email ?: ""
             } else {
                 creekUser!!.emailId = user.uid
             }
 
             creekUser!!.userId = user.uid
 
-            creekPreferences!!.setAccountName( creekUser!!.userFullName )
-            Log.d(TAG, "Anon User name : " + creekPreferences!!.getAccountName())
-            creekPreferences!!.setAccountPhoto(  creekUser!!.userPhotoUrl )
+            creekPreferences!!.setAccountName( creekUser?.userFullName ?: "" )
+            Log.d(TAG, "Anon User name : " + creekPreferences?.getAccountName())
+            creekPreferences!!.setAccountPhoto(  creekUser?.userPhotoUrl ?: "" )
             if (user.email != null && user.email!!.trim { it <= ' ' }.isNotEmpty()) {
                 creekPreferences!!.setSignInAccount( user.email!! )
             } else {
@@ -94,34 +91,14 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
             if (email == null) {
                 email = user.uid
             }
-            FirebaseDatabaseHandler(context).getCreekUser(email, object : FirebaseDatabaseHandler.GetCreekUserListner {
-                override fun onSuccess(creekUser: CreekUser) {
-                    authView.hideProgress()
-                    if (creekUser.userId.equals("", ignoreCase = true)) {
-                        creekUser.userId = creekPreferences!!.userId
-                        creekUser.wasAnonUser = if (creekPreferences!!.isAnonAccount) "Yes" else "No"
-                    }
-                    saveUser()
-                    authView.startApp()
-                }
 
-                override fun onFailure(databaseError: DatabaseError?) {
-                    //New signup
-                    creekUser!!.save(context)
-                    authView.hideProgress()
-                    saveUser()
-                    authView.startApp()
-                }
-            })
-            /*FirebaseDatabaseHandler(context).getCreekUserStatsInBackground(object : FirebaseDatabaseHandler.CreekUserStatsListener {
-                override fun onSuccess(creekUserStats: CreekUserStats) {
+            //Delegate getting and saving user stats to intent service
+            SaveUserIntentService.startService(context, email, creekUser)
+            authView.hideProgress()
+            authView.startApp()
 
-                }
 
-                override fun onFailure(databaseError: DatabaseError?) {
 
-                }
-            })*/
 
         } else {
             // User is signed out
@@ -130,26 +107,15 @@ class AuthPresenter( val context: Context, val authView: AuthView ) : OnComplete
         }
     }
 
-    private fun saveUser() {
-        FirebaseDatabaseHandler(context ).getCreekUser(creekPreferences!!.getSignInAccount(), object : FirebaseDatabaseHandler.GetCreekUserListner {
-            override fun onSuccess(creekUser: CreekUser) {
 
-            }
-
-            override fun onFailure(databaseError: DatabaseError?) {
-
-            }
-        })
-
-    }
 
     fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
         authView.showProgress(R.string.authenticating_account)
         creekUser = CreekUser()
-        creekUser!!.userFullName = account.displayName
+        creekUser!!.userFullName = account.displayName ?: ""
         creekUser!!.userPhotoUrl = account.photoUrl!!.toString()
-        creekUser!!.emailId = account.email
+        creekUser!!.emailId = account.email ?: ""
         if (creekUser!!.userId.equals("", ignoreCase = true) && FirebaseAuth.getInstance().currentUser != null) {
             creekUser!!.userId = creekPreferences!!.userId
             creekUser!!.wasAnonUser = "No"

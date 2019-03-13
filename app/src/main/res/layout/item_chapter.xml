@@ -19,7 +19,6 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rvModules"
-        android:nestedScrollingEnabled="false"
         tools:listitem="@layout/item_sub_module"
         android:layout_height="wrap_content"/>
 

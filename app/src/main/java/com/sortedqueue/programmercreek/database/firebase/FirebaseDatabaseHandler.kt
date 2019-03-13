@@ -262,7 +262,7 @@ class FirebaseDatabaseHandler(private val mContext: Context) {
                     Log.d(TAG, "getCreekUserStatsInBackground : success : retrieved stats are : " + creekUserStats.toString())
                     if (creekUser.userId != null && !creekUser.userId.trim().equals("", ignoreCase = true)) {
                         userStatsDatabase.child(creekUser.userId).removeValue()
-                        userStatsDatabase.child(creekUser.emailId.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
+                        userStatsDatabase.child(creekUser.emailId!!.replace("[-+.^:,]".toRegex(), "")).setValue(creekUserStats)
                     }
 
                 } else {
