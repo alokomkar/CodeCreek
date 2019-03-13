@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvHeader"
-        android:background="@drawable/button_blue"
-        android:layout_margin="@dimen/margin_4"
+        android:background="@color/md_blue_500"
         android:textColor="@color/white"
         android:padding="@dimen/margin_8"
         android:text="@string/top_learners"/>
@@ -19,6 +18,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rvModules"
+        android:clipToPadding="true"
         tools:listitem="@layout/item_sub_module"
         android:layout_height="wrap_content"/>
 
