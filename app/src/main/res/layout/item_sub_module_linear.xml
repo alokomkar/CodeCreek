@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/topicCardView"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:textSize="@dimen/text_dashboard_medium"
+        android:textStyle="bold"
+        android:id="@+id/topicTextView"
+        android:textColor="@color/colorPrimary"
+        android:padding="@dimen/margin_8"
+        android:layout_gravity="center"
+        android:gravity="start"
+        android:text="@string/app_name"/>
+
+</LinearLayout>

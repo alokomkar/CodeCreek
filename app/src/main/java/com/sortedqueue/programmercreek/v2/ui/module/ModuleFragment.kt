@@ -63,7 +63,7 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
         arguments?.getParcelableArrayList<Chapter>(ModuleActivity.chaptersListExtra)?.apply {
             chaptersList = this
         }
-        rvTracker.adapter = SubModulesAdapter( chaptersList, -1, object : BaseAdapterClickListener<Chapter> {
+        rvTracker.adapter = SubModulesAdapter( chaptersList, 0, object : BaseAdapterClickListener<Chapter> {
             override fun onItemClick(position: Int, item: Chapter) {
                 tvHeader.text = item.moduleTitle
                 navigateToContent( position )

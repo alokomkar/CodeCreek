@@ -14,7 +14,7 @@ import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import java.util.ArrayList
 
 class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
-                         private val color : Int,
+                         private val layoutId : Int,
                          private val adapterClickListener: BaseAdapterClickListener<Chapter> )
     : RecyclerView.Adapter<SubModulesAdapter.ModuleViewHolder>() {
 
@@ -22,7 +22,11 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
 
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder
-            = ModuleViewHolder( LayoutInflater.from( parent.context ).inflate( R.layout.item_sub_module, null ) )
+            = ModuleViewHolder( LayoutInflater.from( parent.context ).inflate(
+            if( layoutId != -1 )
+                R.layout.item_sub_module_linear
+            else
+                R.layout.item_sub_module, null ) )
 
     override fun getItemCount(): Int
             = chaptersList!!.size

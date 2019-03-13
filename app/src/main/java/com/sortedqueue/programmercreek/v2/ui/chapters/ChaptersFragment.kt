@@ -61,7 +61,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             tvHeader.text = key
             val rvModules = chapterView.findViewById<RecyclerView>(R.id.rvModules)
             rvModules.layoutManager = StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL )
-            rvModules.adapter = SubModulesAdapter( chaptersList, colors[position % colors.size], this )
+            rvModules.adapter = SubModulesAdapter( chaptersList, -1, this )
             chaptersLayout.addView(chapterView)
             position++
         }
