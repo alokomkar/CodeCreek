@@ -29,8 +29,12 @@ class SimpleContentAdapter(private val contentList : ArrayList<SimpleContent>,
 
     override fun onBindViewHolder(holder: SimpleContentViewHolder, position: Int) {
         holder.onItemClickListener = {
-            if( holder.adapterPosition != RecyclerView.NO_POSITION )
+
+            if( holder.adapterPosition != RecyclerView.NO_POSITION ) {
                 adapterClickListener.onItemClick(holder.adapterPosition, contentList[holder.adapterPosition])
+                holder.clearAnimation(contentList[holder.adapterPosition].contentType)
+            }
+
         }
         holder.bindData( contentList[position] )
     }

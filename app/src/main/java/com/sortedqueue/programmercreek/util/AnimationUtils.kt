@@ -320,4 +320,13 @@ object AnimationUtils {
         }
 
     }
+
+    fun blink(view: View?) {
+        if (view != null) {
+            val viewAnimation = android.view.animation.AnimationUtils.loadAnimation(view.context,
+                    R.anim.blink)
+            view.startAnimation(viewAnimation)
+        }
+
+    }
 }

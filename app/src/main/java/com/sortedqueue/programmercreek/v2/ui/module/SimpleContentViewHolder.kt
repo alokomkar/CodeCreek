@@ -27,8 +27,6 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
 
     fun bindData( content : SimpleContent) {
 
-
-
         itemView.tvContent.text = content.getFormattedContent()
         itemView.tvHeader.text = content.contentString
         itemView.tvBullets.text = content.contentString
@@ -67,9 +65,24 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
                 SimpleContent.content -> AnimationUtils.slideInToRight(itemView)
                 SimpleContent.code -> AnimationUtils.slideInToLeft(itemView)
                 SimpleContent.image -> AnimationUtils.slideInToLeft(itemView)
-                else -> AnimationUtils.enterReveal(itemView)
+                else -> {
+                    AnimationUtils.enterReveal(itemView.tvQuestionType)
+                    AnimationUtils.blink(itemView.tvQuestionType)
+                }
             }
+        }
+    }
 
+    fun clearAnimation( contentType : Int ) {
+        when( contentType ) {
+            SimpleContent.header -> itemView.clearAnimation()
+            SimpleContent.bullets -> itemView.clearAnimation()
+            SimpleContent.content -> itemView.clearAnimation()
+            SimpleContent.code -> itemView.clearAnimation()
+            SimpleContent.image -> itemView.clearAnimation()
+            else -> {
+                itemView.tvQuestionType.clearAnimation()
+            }
         }
     }
 
