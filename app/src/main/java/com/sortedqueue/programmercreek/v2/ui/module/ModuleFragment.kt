@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.R
+import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
+import com.sortedqueue.programmercreek.database.ProgramIndex
+import com.sortedqueue.programmercreek.database.ProgramTable
+import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
+import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment
 import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
@@ -13,27 +18,55 @@ import com.sortedqueue.programmercreek.v2.ui.chapters.SubModulesAdapter
 import kotlinx.android.synthetic.main.fragment_new_module.*
 
 
-class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent> {
+class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent>, FirebaseDatabaseHandler.ConfirmUserProgram {
+
+    override fun onSuccess(programIndex: ProgramIndex, programTables: java.util.ArrayList<ProgramTable>) {
+        val fragmentTransaction = childFragmentManager.beginTransaction()
+        val pagerFragment = childFragmentManager.findFragmentByTag(TestDragNDropFragment::class.java.simpleName) as TestDragNDropFragment? ?: TestDragNDropFragment()
+        val bundle = Bundle()
+        bundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables)
+        bundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex)
+        pagerFragment.arguments = bundle
+        pagerFragment.setBundle(bundle)
+        fragmentTransaction.apply {
+            setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
+            replace(R.id.questionContainer, pagerFragment, TestDragNDropFragment::class.java.simpleName)
+            addToBackStack(TestDragNDropFragment::class.java.simpleName)
+            commit()
+        }
+    }
+
+    override fun onError(errorMessage: String) {
+
+    }
 
     private lateinit var contentAdapter: SimpleContentAdapter
     private lateinit var chapter: Chapter
     private var currentContentList = ArrayList<SimpleContent>()
     private var chaptersList: ArrayList<Chapter> = ArrayList()
     override fun onItemClick(position: Int, item: SimpleContent) {
-        if( item.contentType > SimpleContent.image ) {
+        if( item.contentType >= SimpleContent.code ) {
             questionContainer.show()
-            val fragmentTransaction = childFragmentManager.beginTransaction()
-            val pagerFragment = childFragmentManager.findFragmentByTag(ModuleQuestionsFragment::class.java.simpleName) as ModuleQuestionsFragment? ?: ModuleQuestionsFragment()
-            val bundle = Bundle()
-            bundle.putParcelable(SimpleContent::class.java.simpleName, item)
-            pagerFragment.arguments = bundle
-            //AnimationUtils.enterReveal(checkFAB);
-            fragmentTransaction.apply {
-                setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
-                replace(R.id.questionContainer, pagerFragment, ModuleQuestionsFragment::class.java.simpleName)
-                addToBackStack(ModuleQuestionsFragment::class.java.simpleName)
-                commit()
+            if( item.contentType == SimpleContent.code ) {
+                context?.apply {
+                    FirebaseDatabaseHandler(this).compileSharedProgram(item.contentString, this@ModuleFragment)
+                }
             }
+            else {
+                val fragmentTransaction = childFragmentManager.beginTransaction()
+                val pagerFragment = childFragmentManager.findFragmentByTag(ModuleQuestionsFragment::class.java.simpleName) as ModuleQuestionsFragment? ?: ModuleQuestionsFragment()
+                val bundle = Bundle()
+                bundle.putParcelable(SimpleContent::class.java.simpleName, item)
+                pagerFragment.arguments = bundle
+                //AnimationUtils.enterReveal(checkFAB);
+                fragmentTransaction.apply {
+                    setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
+                    replace(R.id.questionContainer, pagerFragment, ModuleQuestionsFragment::class.java.simpleName)
+                    addToBackStack(ModuleQuestionsFragment::class.java.simpleName)
+                    commit()
+                }
+            }
+
 
             nextFAB.hide()
         }

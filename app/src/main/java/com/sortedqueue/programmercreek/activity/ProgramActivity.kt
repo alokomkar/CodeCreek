@@ -40,7 +40,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants.KEY_USER_PROGRAM
 
-class ProgramActivity : AppCompatActivity(), UIUpdateListener {
+open class ProgramActivity : AppCompatActivity(), UIUpdateListener {
 
     internal var mProgramList = ArrayList<String>()
     internal var mProgramExplanationList = ArrayList<String>()
@@ -265,14 +265,14 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
 
     }
 
-    protected fun nextProgramBtnAction() {
-        mProgramIndex = mProgramIndex + 1
+    private fun nextProgramBtnAction() {
+        mProgramIndex += 1
         enableDisablePrevButton()
         NextProgram(mProgramIndex)
     }
 
-    protected fun prevProgramBtnAction() {
-        mProgramIndex = mProgramIndex - 1
+    private fun prevProgramBtnAction() {
+        mProgramIndex -= 1
         enableDisablePrevButton()
         NextProgram(mProgramIndex)
     }
@@ -281,13 +281,8 @@ class ProgramActivity : AppCompatActivity(), UIUpdateListener {
         return AuxilaryUtils.getProgramTitle(program_Index, this@ProgramActivity)!!
     }
 
-    fun enableDisablePrevButton() {
-        if (mProgramIndex == 1 || mProgramIndex < 1) {
-            mPrevProgramBtn!!.isEnabled = false
-
-        } else {
-            mPrevProgramBtn!!.isEnabled = true
-        }
+    private fun enableDisablePrevButton() {
+        mPrevProgramBtn!!.isEnabled = !(mProgramIndex == 1 || mProgramIndex < 1)
 
     }
 

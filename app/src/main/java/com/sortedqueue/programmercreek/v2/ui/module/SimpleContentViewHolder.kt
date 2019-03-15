@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.util.AnimationUtils
+import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.v2.base.BaseViewHolder
 import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
@@ -14,7 +15,7 @@ import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import kotlinx.android.synthetic.main.item_simple_content.view.*
 import kotlinx.android.synthetic.main.view_question_card.view.*
 
-class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView, R.layout.item_simple_content ), View.OnClickListener {
+class SimpleContentViewHolder( viewGroup : ViewGroup )  : BaseViewHolder( viewGroup, R.layout.item_simple_content ), View.OnClickListener {
 
     override fun onClick( view: View? ) {
         val position = adapterPosition
@@ -45,6 +46,7 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
         itemView.tvHeader.hide()
         itemView.tvBullets.hide()
         itemView.editor.hide()
+        itemView.tvPracticeNow.hide()
         itemView.ivContent.hide()
         itemView.cvQuestion.hide()
 
@@ -52,7 +54,13 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
             SimpleContent.header -> itemView.tvHeader.show()
             SimpleContent.bullets -> itemView.tvBullets.show()
             SimpleContent.content -> itemView.tvContent.show()
-            SimpleContent.code -> itemView.editor.show()
+            SimpleContent.code -> {
+                itemView.editor.show()
+                if( AuxilaryUtils.splitProgramIntolines(content.contentString).size >= 3 )
+                    itemView.tvPracticeNow.show()
+                else
+                    itemView.tvPracticeNow.hide()
+            }
             SimpleContent.image -> itemView.ivContent.show()
             else -> itemView.cvQuestion.show()
         }
@@ -88,6 +96,7 @@ class SimpleContentViewHolder( itemView : ViewGroup)  : BaseViewHolder( itemView
 
     init {
         itemView.setOnClickListener( this )
+        itemView.tvPracticeNow.setOnClickListener(this)
     }
 
 }

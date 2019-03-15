@@ -1,29 +1,24 @@
 package com.sortedqueue.programmercreek.fragments
 
+
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-
+import com.facebook.FacebookSdk.getApplicationContext
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.DatabaseError
 import com.google.gson.Gson
-import com.sortedqueue.programmercreek.CreekApplication
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.activity.ProgramListActivity
 import com.sortedqueue.programmercreek.adapter.DragNDropAdapter
@@ -33,30 +28,16 @@ import com.sortedqueue.programmercreek.database.CreekUserStats
 import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramTable
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
-import com.sortedqueue.programmercreek.interfaces.DragListenerInterface
-import com.sortedqueue.programmercreek.interfaces.DropListenerInterface
-import com.sortedqueue.programmercreek.interfaces.ModuleDetailsScrollPageListener
-import com.sortedqueue.programmercreek.interfaces.RemoveListenerInterface
-import com.sortedqueue.programmercreek.interfaces.SubTestCommunicationListener
-import com.sortedqueue.programmercreek.interfaces.TestCompletionListener
-import com.sortedqueue.programmercreek.interfaces.UIUpdateListener
+import com.sortedqueue.programmercreek.interfaces.*
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
 import com.sortedqueue.programmercreek.view.DragNDropListView
-import com.sortedqueue.programmercreek.view.ScrollableViewPager
-
+import kotlinx.android.synthetic.main.activity_test_drag_n_drop.*
 import org.json.JSONException
 import org.json.JSONObject
-
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
-
-
-
-
-import com.facebook.FacebookSdk.getApplicationContext
-import kotlinx.android.synthetic.main.activity_test_drag_n_drop.*
 
 /**
  * Created by Alok on 03/01/17.
@@ -267,12 +248,17 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
             mCountDownTimer = object : CountDownTimer(time, interval) {
 
                 override fun onTick(millisUntilFinished: Long) {
-                    timerButton!!.text = "" + String.format("%d:%02d",
-                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
-                    progressTextView!!.text = timerButton!!.text
-                    remainingTime = time - millisUntilFinished
-                    circular_progress_bar!!.progress = (remainingTime / 1000).toInt()
+                    if( timerButton != null ) {
+                        timerButton!!.text = "" + String.format("%d:%02d",
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
+                        progressTextView!!.text = timerButton!!.text
+                        remainingTime = time - millisUntilFinished
+                        circular_progress_bar!!.progress = (remainingTime / 1000).toInt()
+                    }
+                    else {
+                        mCountDownTimer?.cancel()
+                    }
                 }
 
                 override fun onFinish() {
@@ -404,7 +390,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
     }
 
     private fun updateCreekStats() {
-        creekUserStats = CreekApplication.instance.creekUserStats
+        /*creekUserStats = CreekApplication.instance.creekUserStats
         if (mProgramIndex!!.userProgramId == null || mProgramIndex!!.userProgramId.trim { it <= ' ' }.length == 0) {
             when (mProgramIndex!!.program_Language.toLowerCase()) {
                 "c" -> creekUserStats!!.addToUnlockedCProgramIndexList(mProgramIndex!!.program_index + 1)
@@ -418,7 +404,7 @@ class TestDragNDropFragment : Fragment(), UIUpdateListener, TestCompletionListen
                 creekUserStats!!.addToUnlockedUserAddedPrograms(mProgramIndex!!.userProgramId)
                 FirebaseDatabaseHandler(context!!).writeCreekUserStats(creekUserStats!!)
             }
-        }
+        }*/
     }
 
 

@@ -18,15 +18,13 @@ import java.util.ArrayList
 class SubTestPagerAdapter(fm: FragmentManager, private val programTableArray: Array<ArrayList<ProgramTable>>, subTestCommunicationListener: SubTestCommunicationListener) : FragmentPagerAdapter(fm) {
 
     val codeViewFragment: CodeViewFragment
-    private val subTestFragments: ArrayList<Fragment>
+    private val subTestFragments: ArrayList<Fragment> = ArrayList<Fragment>()
 
     init {
-        subTestFragments = ArrayList<Fragment>()
-        var index = 0
-        for (programTables in programTableArray) {
+        for ((index, programTables) in programTableArray.withIndex()) {
             val subTestFragment = SubTestFragment()
             subTestFragment.setProgramTables(programTables)
-            subTestFragment.setIndex(index++)
+            subTestFragment.setIndex(index)
             subTestFragment.setSubmitTestCommunicationListener(subTestCommunicationListener)
             subTestFragments.add(subTestFragment)
         }
