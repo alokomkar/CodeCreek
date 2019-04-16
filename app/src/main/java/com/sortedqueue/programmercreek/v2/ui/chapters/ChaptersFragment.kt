@@ -50,7 +50,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                 chapterTitleList.add(chapter.chapterTitle)
                 chaptersMap[chapter.chapterTitle] = ArrayList()
             }
-            chaptersMap[chapter.chapterTitle]!!.add(chapter)
+            chaptersMap[chapter.chapterTitle]?.add(chapter)
         }
 
         val layoutInflater = LayoutInflater.from(context)

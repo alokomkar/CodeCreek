@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvHeader"
         style="@style/TextAppearance.AppCompat.Large"
-        android:background="@color/md_blue_800"
+        android:background="@drawable/gradient_color"
         android:textColor="@color/white"
         android:padding="@dimen/margin_8"
         android:text="@string/top_learners"/>

@@ -11,6 +11,7 @@
     <color name="transparent_black_60">#99000000</color>
     <color name="background_editor">#8000</color>
     <color name="editor_text">#fff</color>
+    <color name="rippleAppButton">#cedefc</color>
     <!--http://stackoverflow.com/a/16890937/2648035-->
     <!--<color name="colorPrimaryDark">#673AB7</color>
     <color name="colorPrimary">#311B92</color>-->

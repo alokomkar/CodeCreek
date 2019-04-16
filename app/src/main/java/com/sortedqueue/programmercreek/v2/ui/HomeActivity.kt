@@ -11,6 +11,7 @@ import com.sortedqueue.programmercreek.v2.base.*
 
 import com.sortedqueue.programmercreek.v2.ui.codelanguage.CodeLanguageFragment
 import com.sortedqueue.programmercreek.v2.ui.contentshare.ContentShareActivity
+import com.sortedqueue.programmercreek.v2.ui.revision.RevisionFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 @SuppressLint("CommitTransaction")
@@ -36,6 +37,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         addUserCodeFAB.setOnClickListener { startActivity(Intent( this, ContentShareActivity::class.java)) }
         setLanguageSelection()
         addUserCodeFAB.hide()
+
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment = supportFragmentManager.findFragmentByTag("RevisionFragment")
+
+        if( fragment != null )
+            transaction.remove(fragment)
+
+        transaction.addToBackStack(null)
+
+        RevisionFragment.getInstance().show(transaction, "RevisionFragment")
+
         //CodeLanguageHelper( this )
         //MasterContentHelper( this )
         //handleSendText()

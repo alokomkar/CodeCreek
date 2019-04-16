@@ -62,31 +62,39 @@
             tools:progress="1"
             android:progressDrawable="@drawable/greenprogress" />
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
+            app:cardElevation="@dimen/margin_8"
+            app:cardCornerRadius="0dp"
             android:layout_width="match_parent"
             android:layout_below="@+id/moduleProgressBar"
             android:id="@+id/headerLayout"
-            android:background="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:contentDescription="@string/navigation_drawer_open"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/margin_8"
-                android:id="@+id/ivNavigation"
-                android:src="@drawable/ic_menu_white_24dp"/>
-
-            <TextView
+            >
+            <LinearLayout
+                android:background="@drawable/gradient_color"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvHeader"
-                android:text="@string/header"
-                android:textColor="@color/white"
-                android:padding="@dimen/margin_8"
-                style="@style/TextAppearance.AppCompat.Headline"/>
-        </LinearLayout>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:contentDescription="@string/navigation_drawer_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_8"
+                    android:id="@+id/ivNavigation"
+                    android:src="@drawable/ic_menu_white_24dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvHeader"
+                    android:text="@string/header"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/margin_8"
+                    style="@style/TextAppearance.AppCompat.Headline"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
 

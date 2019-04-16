@@ -13,7 +13,7 @@ import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import java.util.ArrayList
 
-class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
+class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>,
                          private val layoutId : Int,
                          private val adapterClickListener: BaseAdapterClickListener<Chapter> )
     : RecyclerView.Adapter<SubModulesAdapter.ModuleViewHolder>() {
@@ -29,11 +29,11 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
                 R.layout.item_sub_module, null ) )
 
     override fun getItemCount(): Int
-            = chaptersList!!.size
+            = chaptersList.size
 
     override fun onBindViewHolder(holder: ModuleViewHolder, position: Int) {
-        val chapter = chaptersList!![position]
-        holder.bindData( chapter )
+        val chapter = chaptersList[position]
+        holder.bindData( chapter, position )
     }
 
 
@@ -49,13 +49,13 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>?,
         override fun onClick(view: View) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                adapterClickListener.onItemClick( position, chaptersList!![position] )
+                adapterClickListener.onItemClick( position, chaptersList[position] )
             }
         }
 
-        fun bindData(chapter: Chapter) {
+        fun bindData(chapter: Chapter, position: Int) {
             //topicCardView.setCardBackgroundColor(ContextCompat.getColor(topicCardView.context, color))
-            topicTextView.text = chapter.moduleTitle
+            topicTextView.text = "${( position + 1 )}. ${chapter.moduleTitle}"
         }
     }
 }

@@ -37,7 +37,7 @@ class MasterChaptersAdapter(private val chapterTitles : ArrayList<String>,
     override fun getItemCount(): Int = chaptersMap.size
 
     override fun onBindViewHolder(holderChapter: ChapterViewHolder, position: Int)
-        = holderChapter.bindData( chapterTitles[position], chaptersMap[chapterTitles[position]] )
+        = holderChapter.bindData( chapterTitles[position], chaptersMap[chapterTitles[position]] ?: ArrayList() )
 
 
     inner class ChapterViewHolder(itemView : View ) : RecyclerView.ViewHolder( itemView ) {
@@ -45,7 +45,7 @@ class MasterChaptersAdapter(private val chapterTitles : ArrayList<String>,
         private val rvModules : RecyclerView = itemView.findViewById(R.id.rvModules)
         private val tvHeader : TextView = itemView.findViewById(R.id.tvHeader)
 
-        fun bindData( chapterTitle: String, chaptersList: java.util.ArrayList<Chapter>?) {
+        fun bindData( chapterTitle: String, chaptersList: java.util.ArrayList<Chapter>) {
             tvHeader.text = chapterTitle
             rvModules.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL)
             rvModules.adapter = SubModulesAdapter( chaptersList, colors[adapterPosition % colors.size], adapterClickListener )
