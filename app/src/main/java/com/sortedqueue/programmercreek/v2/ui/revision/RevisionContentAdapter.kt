@@ -1,13 +1,11 @@
 package com.sortedqueue.programmercreek.v2.ui.revision
 
-import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import java.util.*
 
-@SuppressLint("InflateParams")
 class RevisionContentAdapter(private val contentList : ArrayList<SimpleContent>,
                            private val adapterClickListener: BaseAdapterClickListener<SimpleContent>)
     : RecyclerView.Adapter<RevisionContentViewHolder>(){

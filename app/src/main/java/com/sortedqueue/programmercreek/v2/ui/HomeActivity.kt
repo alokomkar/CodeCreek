@@ -38,6 +38,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         setLanguageSelection()
         addUserCodeFAB.hide()
 
+        //CodeLanguageHelper( this )
+        //MasterContentHelper( this )
+        //handleSendText()
+    }
+
+    fun practiceNow() {
+
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = supportFragmentManager.findFragmentByTag("RevisionFragment")
 
@@ -47,10 +54,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         transaction.addToBackStack(null)
 
         RevisionFragment.getInstance().show(transaction, "RevisionFragment")
-
-        //CodeLanguageHelper( this )
-        //MasterContentHelper( this )
-        //handleSendText()
     }
 
     private fun setLanguageSelection() {

@@ -2,8 +2,6 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
@@ -14,8 +12,11 @@ import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
 import com.sortedqueue.programmercreek.v2.base.BaseFragment
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
+import com.sortedqueue.programmercreek.v2.data.model.Streak
+import com.sortedqueue.programmercreek.v2.ui.HomeActivity
 import com.sortedqueue.programmercreek.v2.ui.module.ModuleActivity
 import kotlinx.android.synthetic.main.fragment_chapters_layout.*
+import kotlinx.android.synthetic.main.view_practice_now.*
 import java.util.*
 
 class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
@@ -64,6 +65,19 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             rvModules.adapter = SubModulesAdapter( chaptersList, -1, this )
             chaptersLayout.addView(chapterView)
             position++
+        }
+
+        tvRevise?.setOnClickListener {
+            (activity as HomeActivity).practiceNow()
+        }
+
+        rvStreak?.apply {
+            adapter = StreakAdapter().apply {
+                add(Streak(""))
+                add(Streak(""))
+                add(Streak(""))
+                add(Streak(""))
+            }
         }
 
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvQuestion"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_margin="@dimen/margin_8"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/margin_16"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:background="@drawable/question_gradient"
+        android:src="@drawable/ic_done_all"
+        app:fabSize="mini"
+        app:elevation="@dimen/margin_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:id="@+id/tvQuestionType"
+        android:text="@string/question_type"/>
+
+
+    <View
+        android:layout_margin="@dimen/margin_8"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/margin_16"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent"/>
+
+</LinearLayout>
