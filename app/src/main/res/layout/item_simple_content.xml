@@ -91,12 +91,6 @@
                 android:background="@color/md_black_1000"/>
         </LinearLayout>
 
-
-
-
-
-
-
     </ScrollView>
 
     <include layout="@layout/view_question_card" />

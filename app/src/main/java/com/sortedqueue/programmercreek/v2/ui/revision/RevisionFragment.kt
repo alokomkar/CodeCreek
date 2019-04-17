@@ -12,7 +12,6 @@ import com.sortedqueue.programmercreek.v2.base.BaseDialogFragment
 import com.sortedqueue.programmercreek.v2.base.CenterZoomLayoutManager
 import com.sortedqueue.programmercreek.v2.base.getFirstContent
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
-import com.sortedqueue.programmercreek.v2.ui.module.SimpleContentAdapter
 import kotlinx.android.synthetic.main.fragment_revision.*
 
 class RevisionFragment : BaseDialogFragment(), BaseAdapterClickListener<SimpleContent> {
@@ -32,7 +31,7 @@ class RevisionFragment : BaseDialogFragment(), BaseAdapterClickListener<SimpleCo
                 orientation = LinearLayoutManager.HORIZONTAL
             }
 
-            adapter = SimpleContentAdapter( getFirstContent(), this@RevisionFragment )
+            adapter = RevisionContentAdapter( getFirstContent(), this@RevisionFragment )
 
             PagerSnapHelper().attachToRecyclerView(this)
 

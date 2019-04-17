@@ -10,6 +10,7 @@
     <color name="transparent_black_65">#A6000000</color>
     <color name="transparent_black_60">#99000000</color>
     <color name="background_editor">#8000</color>
+    <color name="transparent">#00ffffff</color>
     <color name="editor_text">#fff</color>
     <color name="rippleAppButton">#cedefc</color>
     <!--http://stackoverflow.com/a/16890937/2648035-->

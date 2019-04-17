@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.ui.module
+package com.sortedqueue.programmercreek.v2.ui.revision
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -6,16 +6,14 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.v2.base.BaseViewHolder
 import com.sortedqueue.programmercreek.v2.base.hide
 import com.sortedqueue.programmercreek.v2.base.show
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
-import kotlinx.android.synthetic.main.item_simple_content.view.*
-import kotlinx.android.synthetic.main.view_question_card.view.*
+import kotlinx.android.synthetic.main.item_revision_content.view.*
 
-class SimpleContentViewHolder( viewGroup : ViewGroup )  : BaseViewHolder<SimpleContent>( viewGroup, R.layout.item_simple_content ), View.OnClickListener {
+class RevisionContentViewHolder( viewGroup : ViewGroup)  : BaseViewHolder<SimpleContent>( viewGroup, R.layout.item_revision_content ), View.OnClickListener {
 
     override fun onClick( view: View? ) {
         val position = adapterPosition
@@ -48,7 +46,6 @@ class SimpleContentViewHolder( viewGroup : ViewGroup )  : BaseViewHolder<SimpleC
         itemView.editor.hide()
         itemView.tvPracticeNow.hide()
         itemView.ivContent.hide()
-        itemView.cvQuestion.hide()
 
         when( item.contentType ) {
             SimpleContent.header -> itemView.tvHeader.show()
@@ -62,35 +59,6 @@ class SimpleContentViewHolder( viewGroup : ViewGroup )  : BaseViewHolder<SimpleC
                     itemView.tvPracticeNow.hide()
             }
             SimpleContent.image -> itemView.ivContent.show()
-            else -> itemView.cvQuestion.show()
-        }
-
-        if( !item.isAnimated ) {
-            item.isAnimated = true
-            when( item.contentType ) {
-                SimpleContent.header -> AnimationUtils.slideInToRight(itemView)
-                SimpleContent.bullets -> AnimationUtils.slideInToLeft(itemView)
-                SimpleContent.content -> AnimationUtils.slideInToRight(itemView)
-                SimpleContent.code -> AnimationUtils.slideInToLeft(itemView)
-                SimpleContent.image -> AnimationUtils.slideInToLeft(itemView)
-                else -> {
-                    AnimationUtils.enterReveal(itemView.tvQuestionType)
-                    AnimationUtils.blink(itemView.tvQuestionType)
-                }
-            }
-        }
-    }
-
-    fun clearAnimation( contentType : Int ) {
-        when( contentType ) {
-            SimpleContent.header -> itemView.clearAnimation()
-            SimpleContent.bullets -> itemView.clearAnimation()
-            SimpleContent.content -> itemView.clearAnimation()
-            SimpleContent.code -> itemView.clearAnimation()
-            SimpleContent.image -> itemView.clearAnimation()
-            else -> {
-                itemView.tvQuestionType.clearAnimation()
-            }
         }
     }
 

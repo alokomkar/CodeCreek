@@ -1,4 +1,4 @@
-package com.sortedqueue.programmercreek.v2.ui.module
+package com.sortedqueue.programmercreek.v2.ui.revision
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -8,29 +8,24 @@ import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import java.util.*
 
 @SuppressLint("InflateParams")
-class SimpleContentAdapter(private val contentList : ArrayList<SimpleContent>,
+class RevisionContentAdapter(private val contentList : ArrayList<SimpleContent>,
                            private val adapterClickListener: BaseAdapterClickListener<SimpleContent>)
-    : RecyclerView.Adapter<SimpleContentViewHolder>(){
+    : RecyclerView.Adapter<RevisionContentViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleContentViewHolder
-            = SimpleContentViewHolder( parent )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RevisionContentViewHolder
+            = RevisionContentViewHolder( parent )
 
     override fun getItemCount(): Int = contentList.size
 
-    override fun onBindViewHolder(holder: SimpleContentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RevisionContentViewHolder, position: Int) {
         holder.onItemClickListener = {
 
             if( holder.adapterPosition != RecyclerView.NO_POSITION ) {
                 adapterClickListener.onItemClick(holder.adapterPosition, contentList[holder.adapterPosition])
-                holder.clearAnimation(contentList[holder.adapterPosition].contentType)
             }
 
         }
         holder.bindData( contentList[position] )
     }
 
-    fun addItem(simpleContent: SimpleContent) {
-        contentList.add(simpleContent)
-        notifyItemInserted(contentList.size - 1 )
-    }
 }

@@ -4,7 +4,7 @@ import android.support.annotation.CallSuper
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
-abstract class BaseAdapter<T, VH : BaseViewHolder> : RecyclerView.Adapter<VH>(){
+abstract class BaseAdapter<T, VH : BaseViewHolder<T>> : RecyclerView.Adapter<VH>(){
 
     var baseAdapterClickListener: ((view : View, position : Int, item : T) -> Unit)? = null
     var onEmptyOrNot: ((isEmpty: Boolean) -> Unit)? = null

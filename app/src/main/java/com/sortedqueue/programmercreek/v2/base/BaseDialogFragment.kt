@@ -8,7 +8,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyleTransparent)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
