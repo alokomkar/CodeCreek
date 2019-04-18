@@ -2,6 +2,7 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
@@ -61,7 +62,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             val tvHeader = chapterView.findViewById<TextView>(R.id.tvHeader)
             tvHeader.text = key
             val rvModules = chapterView.findViewById<RecyclerView>(R.id.rvModules)
-            rvModules.layoutManager = StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL )
+            //rvModules.layoutManager = LinearLayoutManager(context)//StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL )
             rvModules.adapter = SubModulesAdapter( chaptersList, -1, this )
             chaptersLayout.addView(chapterView)
             position++

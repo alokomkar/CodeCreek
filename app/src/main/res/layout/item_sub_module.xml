@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    app:cardCornerRadius="@dimen/margin_8"
-    app:cardElevation="@dimen/margin_8"
-    app:cardUseCompatPadding="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:id="@+id/topicCardView"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:paddingStart="@dimen/margin_16"
+    android:paddingEnd="@dimen/margin_16">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textSize="@dimen/text_dashboard_medium"
-        android:textStyle="bold"
-        android:id="@+id/topicTextView"
-        android:textColor="@color/colorPrimary"
-        android:padding="@dimen/margin_8"
-        android:layout_gravity="center"
-        android:gravity="start"
-        android:text="@string/app_name"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:id="@+id/topDivider"
+            android:layout_width="4dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/md_green_400" />
 
-</android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/topicCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:cardCornerRadius="@dimen/margin_8"
+            app:cardElevation="@dimen/margin_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/topicTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_yellow_300"
+                android:padding="@dimen/margin_8"
+                android:text="@string/loading_program"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_dashboard_medium"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.CardView>
+
+        <View
+            android:id="@+id/bottomDivider"
+            android:layout_width="4dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/md_green_400" />
+
+    </LinearLayout>
+
+</FrameLayout>
