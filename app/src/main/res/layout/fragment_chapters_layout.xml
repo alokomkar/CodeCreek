@@ -26,6 +26,7 @@
 
     <include
         layout="@layout/view_practice_now"
+        android:visibility="gone"
         android:id="@+id/reviseLayout"
         android:layout_marginStart="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_8"

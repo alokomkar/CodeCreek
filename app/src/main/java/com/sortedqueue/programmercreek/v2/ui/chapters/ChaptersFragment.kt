@@ -74,9 +74,6 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         rvStreak?.apply {
             adapter = StreakAdapter().apply {
                 add(Streak(""))
-                add(Streak(""))
-                add(Streak(""))
-                add(Streak(""))
             }
         }
 

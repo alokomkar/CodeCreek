@@ -22,16 +22,27 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvStreak"
-        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_8"
-        android:padding="@dimen/margin_8"
-        tools:listitem="@layout/item_streak"
         android:orientation="horizontal"
+        android:padding="@dimen/margin_8"
+        android:foregroundGravity="center"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRevise" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRevise"
+        tools:listitem="@layout/item_streak" />
+
+    <include layout="@layout/view_question_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRevise"/>
 
 </android.support.constraint.ConstraintLayout>
