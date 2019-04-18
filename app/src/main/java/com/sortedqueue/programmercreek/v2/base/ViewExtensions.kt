@@ -19,7 +19,7 @@ fun View.invisible() {
 }
 
 fun View.toggleVisibility() {
-    if( this.isVisible() ) this.hide() else this.hide()
+    if( this.isVisible() ) this.hide() else this.show()
 }
 
 fun View.showSnackBar( message : Int ) = Snackbar.make( this, message, Snackbar.LENGTH_SHORT ).show()

@@ -29,7 +29,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        mBasePreferencesAPI = PCPreferences( this )
         selectedLanguageCardView.setOnClickListener {
             showLanguageFragment()
         }

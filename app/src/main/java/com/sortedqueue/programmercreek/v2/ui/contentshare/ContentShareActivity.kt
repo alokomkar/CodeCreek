@@ -19,7 +19,6 @@ class ContentShareActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content_share)
-        mBasePreferencesAPI = PCPreferences( this )
 
         tvStart.setOnClickListener { splitIntoParas() }
         tvHeader.setOnClickListener { setContentType( 0, "Header" ) }

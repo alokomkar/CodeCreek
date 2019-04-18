@@ -16,7 +16,6 @@ class ModuleActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_module)
-        mBasePreferencesAPI = PCPreferences( this )
         loadContent()
     }
 
@@ -56,11 +55,11 @@ class ModuleActivity : BaseActivity() {
         fun loadChapter(context: Context, chapter: Chapter, position: Int, chaptersList: ArrayList<Chapter>?) {
             context.apply {
                 mode = modeChapter
-                val intent = Intent( this, ModuleActivity::class.java )
-                intent.putExtra( Chapter::class.java.simpleName, chapter )
-                intent.putParcelableArrayListExtra( chaptersListExtra, chaptersList )
-                intent.putExtra( modulePosition, position )
-                startActivity( intent )
+                startActivity( Intent( this, ModuleActivity::class.java ).apply {
+                    putExtra( Chapter::class.java.simpleName, chapter )
+                    putParcelableArrayListExtra( chaptersListExtra, chaptersList )
+                    putExtra( modulePosition, position )
+                } )
             }
         }
     }

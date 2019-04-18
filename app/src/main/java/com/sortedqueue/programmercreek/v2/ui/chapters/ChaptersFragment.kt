@@ -2,16 +2,14 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
-import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
-import com.sortedqueue.programmercreek.v2.base.BaseFragment
+import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.data.model.Streak
 import com.sortedqueue.programmercreek.v2.ui.HomeActivity
@@ -48,7 +46,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         val chapterTitleList = ArrayList<String>()
 
         for( chapter in chapterList ) {
-           if( !chaptersMap.containsKey(chapter.chapterTitle) ){
+            if( !chaptersMap.containsKey(chapter.chapterTitle) ){
                 chapterTitleList.add(chapter.chapterTitle)
                 chaptersMap[chapter.chapterTitle] = ArrayList()
             }
@@ -65,6 +63,24 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             //rvModules.layoutManager = LinearLayoutManager(context)//StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL )
             rvModules.adapter = SubModulesAdapter( chaptersList, -1, this )
             chaptersLayout.addView(chapterView)
+
+            if( position == 0 )
+                rvModules.show()
+            else
+                rvModules.hide()
+
+            tvHeader.setOnClickListener {
+                rvModules.toggleVisibility()
+                tvHeader.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(tvHeader.context,
+                                if( rvModules.isVisible() )
+                                    R.drawable.ic_down_arrow
+                                else
+                                    R.drawable.ic_right_arrow ),
+                        null)
+            }
             position++
         }
 
@@ -81,6 +97,8 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
     }
 
     override fun onItemClick(position: Int, item: Chapter) {
-        ModuleActivity.loadChapter( context!!, item, position, chaptersMap[item.chapterTitle]  )
+        context?.let {
+            ModuleActivity.loadChapter( it, item, position, chaptersMap[item.chapterTitle]  )
+        }
     }
 }

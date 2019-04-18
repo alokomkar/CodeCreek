@@ -96,6 +96,8 @@ fun getFifthContent() : ArrayList<SimpleContent> {
     simpleContentList.add(SimpleContent("", "/** documentation */", SimpleContent.code))
     simpleContentList.add(SimpleContent("", "This indicates a documentation comment (doc comment, for short). The compiler ignores this kind of comment, just like it ignores comments that use /* and */. The javadoc tool uses doc comments when preparing automatically generated documentation.", SimpleContent.bullets))
     simpleContentList.add(SimpleContent("", "// text", SimpleContent.code))
+    simpleContentList.add(SimpleContent("", "The compiler ignores everything from // to the end of the line.", SimpleContent.bullets))
+
     simpleContentList.add(SimpleContent("",
             "Qn. What's this comment type?/**\n" +
                     " * The HelloWorldApp class implements an application that\n" +
@@ -106,7 +108,6 @@ fun getFifthContent() : ArrayList<SimpleContent> {
                     "Not a comment",
             SimpleContent.codeMcq,
             "Multi line comment"))
-    simpleContentList.add(SimpleContent("", "The compiler ignores everything from // to the end of the line.", SimpleContent.bullets))
 
     return simpleContentList
 

@@ -15,7 +15,6 @@
         android:background="@color/colorAccent"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:background="@drawable/question_gradient"
         android:src="@drawable/ic_done_all"
         app:fabSize="mini"
         app:elevation="@dimen/margin_4"

@@ -17,7 +17,7 @@
         app:tabTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabBackground="?attr/selectableItemBackground"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/gradient_color"
         app:tabMode="fixed"/>
     <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:padding="@dimen/margin_8"
-        android:background="@color/md_blue_200"
+        android:background="@drawable/gradient_color"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -61,7 +61,7 @@
             style="@style/ButtonText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_blue"
+            android:background="@drawable/button_check"
             android:text="@string/checkMatch"
             android:layout_weight="0.75" />
 
@@ -88,7 +88,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/progressTextView"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 android:text="@string/time"/>
 
         </FrameLayout>

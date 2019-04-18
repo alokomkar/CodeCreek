@@ -10,19 +10,36 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/margin_16"
         android:id="@+id/tvHeader"
         style="@style/TextAppearance.AppCompat.Large"
         android:background="@drawable/gradient_color"
+        android:drawableEnd="@drawable/ic_right_arrow"
         android:textColor="@color/white"
-        android:padding="@dimen/margin_8"
+        android:padding="@dimen/margin_12"
         android:text="@string/top_learners"/>
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="@dimen/margin_8"
+        app:cardElevation="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginTop="-20dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/md_blue_A200"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvModules"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/item_sub_module" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvModules"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_sub_module" />
+
+    </android.support.v7.widget.CardView>
+
+
 
 </LinearLayout>

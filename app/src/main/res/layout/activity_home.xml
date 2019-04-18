@@ -96,7 +96,6 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp">
@@ -105,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/question_gradient"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
@@ -157,10 +156,6 @@
 
 
         </android.support.v7.widget.Toolbar>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:background="@color/md_grey_400" />
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
