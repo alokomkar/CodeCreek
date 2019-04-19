@@ -318,4 +318,5 @@
     <string name="image_content">Image content</string>
     <string name="question_type">Question Type</string>
     <string name="practice_now">Practice now</string>
+    <string name="level_novice">Level : Novice</string>
 </resources>

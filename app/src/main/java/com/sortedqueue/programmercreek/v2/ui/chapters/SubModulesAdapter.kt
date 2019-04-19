@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.v2.base.BaseAdapterClickListener
+import com.sortedqueue.programmercreek.v2.base.toggleVisibility
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import java.util.ArrayList
 
@@ -40,6 +41,8 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>,
     inner class ModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         private val topicTextView: TextView = itemView.findViewById(R.id.topicTextView)
+        private val topDividerView : View? = itemView.findViewById(R.id.topDivider)
+        private val bottomDividerView : View? = itemView.findViewById(R.id.bottomDivider)
         //private val topicCardView: CardView = itemView.findViewById(R.id.topicCardView)
 
         init {
@@ -56,6 +59,9 @@ class SubModulesAdapter( private val chaptersList: ArrayList<Chapter>,
         fun bindData(chapter: Chapter, position: Int) {
             //topicCardView.setCardBackgroundColor(ContextCompat.getColor(topicCardView.context, color))
             topicTextView.text = "${( position + 1 )}. ${chapter.moduleTitle}"
+            bottomDividerView?.apply {
+                toggleVisibility( adapterPosition != chaptersList.size -1 )
+            }
         }
     }
 }

@@ -22,6 +22,10 @@ fun View.toggleVisibility() {
     if( this.isVisible() ) this.hide() else this.show()
 }
 
+fun View.toggleVisibility( isVisible : Boolean ) {
+    if( isVisible ) this.show() else this.hide()
+}
+
 fun View.showSnackBar( message : Int ) = Snackbar.make( this, message, Snackbar.LENGTH_SHORT ).show()
 
 

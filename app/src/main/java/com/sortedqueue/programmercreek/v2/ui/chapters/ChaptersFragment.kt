@@ -57,6 +57,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         var position = 0
         for( (key, chaptersList) in chaptersMap ) {
             val chapterView = layoutInflater.inflate(R.layout.item_chapter, null)
+            val cvChapter = chapterView.findViewById<View>(R.id.cvChapter)
             val tvHeader = chapterView.findViewById<TextView>(R.id.tvHeader)
             tvHeader.text = key
             val rvModules = chapterView.findViewById<RecyclerView>(R.id.rvModules)
@@ -64,12 +65,15 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             rvModules.adapter = SubModulesAdapter( chaptersList, -1, this )
             chaptersLayout.addView(chapterView)
 
-            if( position == 0 )
+            if( position == 0 ) {
                 rvModules.show()
-            else
-                rvModules.hide()
+            }
 
-            tvHeader.setOnClickListener {
+            else {
+                rvModules.hide()
+            }
+
+            cvChapter.setOnClickListener {
                 rvModules.toggleVisibility()
                 tvHeader.setCompoundDrawablesWithIntrinsicBounds(
                         null,

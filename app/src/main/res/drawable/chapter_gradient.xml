@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/rippleAppButton">
+    <item>
+        <shape>
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="@color/md_pink_200"
+                android:endColor="@color/md_pink_400" />
+            <!--<corners android:radius="100000dp" />-->
+            <padding
+                android:left="16dp"
+                android:right="16dp" />
+        </shape>
+    </item>
+</ripple>
