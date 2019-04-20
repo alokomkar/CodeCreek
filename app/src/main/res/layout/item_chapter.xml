@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvHeader"
+                android:minLines="2"
                 style="@style/TextAppearance.AppCompat.Large"
                 android:drawableEnd="@drawable/ic_right_arrow"
                 android:textColor="@color/white"
@@ -49,11 +50,21 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:contentDescription="@string/locked"
+            android:id="@+id/ivChapterLocked"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_16"
+            android:background="@color/transparent_black_60"
+            android:src="@drawable/ic_chapter_lock"/>
+
     </android.support.v7.widget.CardView>
 
 
 
     <android.support.v7.widget.CardView
+        tools:visibility="gone"
         android:layout_marginTop="-20dp"
         android:id="@+id/cvModules"
         app:cardBackgroundColor="@color/white"

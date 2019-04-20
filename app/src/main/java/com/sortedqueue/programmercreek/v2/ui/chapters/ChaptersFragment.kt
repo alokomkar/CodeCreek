@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
+import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.model.Chapter
 import com.sortedqueue.programmercreek.v2.data.model.Streak
@@ -57,6 +58,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         var position = 0
         for( (key, chaptersList) in chaptersMap ) {
             val chapterView = layoutInflater.inflate(R.layout.item_chapter, null)
+            val ivChapterLocked = chapterView.findViewById<View>(R.id.ivChapterLocked)
             val cvChapter = chapterView.findViewById<View>(R.id.cvChapter)
             val tvHeader = chapterView.findViewById<TextView>(R.id.tvHeader)
             tvHeader.text = key
@@ -67,23 +69,35 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
 
             if( position == 0 ) {
                 rvModules.show()
-            }
-
-            else {
-                rvModules.hide()
-            }
-
-            cvChapter.setOnClickListener {
-                rvModules.toggleVisibility()
                 tvHeader.setCompoundDrawablesWithIntrinsicBounds(
                         null,
                         null,
                         ContextCompat.getDrawable(tvHeader.context,
-                                if( rvModules.isVisible() )
-                                    R.drawable.ic_down_arrow
-                                else
-                                    R.drawable.ic_right_arrow ),
+                                    R.drawable.ic_down_arrow),
                         null)
+                ivChapterLocked.hide()
+            }
+            else {
+                rvModules.hide()
+                ivChapterLocked.show()
+            }
+
+            cvChapter.setOnClickListener {
+                if( !ivChapterLocked.isVisible() ) {
+                    rvModules.toggleVisibility()
+                    tvHeader.setCompoundDrawablesWithIntrinsicBounds(
+                            null,
+                            null,
+                            ContextCompat.getDrawable(tvHeader.context,
+                                    if( rvModules.isVisible() )
+                                        R.drawable.ic_down_arrow
+                                    else
+                                        R.drawable.ic_right_arrow ),
+                            null)
+                }
+            }
+            ivChapterLocked.setOnClickListener {
+                AnimationUtils.exitRevealGone(ivChapterLocked)
             }
             position++
         }
