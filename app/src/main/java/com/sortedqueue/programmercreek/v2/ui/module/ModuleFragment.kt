@@ -1,6 +1,7 @@
 package com.sortedqueue.programmercreek.v2.ui.module
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.sortedqueue.programmercreek.constants.ProgrammingBuddyConstants
 import com.sortedqueue.programmercreek.database.ProgramIndex
 import com.sortedqueue.programmercreek.database.ProgramTable
 import com.sortedqueue.programmercreek.database.firebase.FirebaseDatabaseHandler
+import com.sortedqueue.programmercreek.fragments.NewFillBlankFragment
 import com.sortedqueue.programmercreek.fragments.TestDragNDropFragment
 import com.sortedqueue.programmercreek.v2.base.*
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
@@ -21,17 +23,30 @@ import kotlinx.android.synthetic.main.fragment_new_module.*
 class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleContent>, FirebaseDatabaseHandler.ConfirmUserProgram {
 
     override fun onSuccess(programIndex: ProgramIndex, programTables: java.util.ArrayList<ProgramTable>) {
-        val fragmentTransaction = childFragmentManager.beginTransaction()
-        val pagerFragment = childFragmentManager.findFragmentByTag(TestDragNDropFragment::class.java.simpleName) as TestDragNDropFragment? ?: TestDragNDropFragment()
-        val bundle = Bundle()
-        bundle.putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables)
-        bundle.putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex)
-        pagerFragment.arguments = bundle
-        pagerFragment.setBundle(bundle)
-        fragmentTransaction.apply {
+
+        childFragmentManager.beginTransaction().apply {
+
+            val bundle = Bundle().apply {
+                putParcelableArrayList(ProgrammingBuddyConstants.KEY_USER_PROGRAM, programTables)
+                putParcelable(ProgrammingBuddyConstants.KEY_PROG_ID, programIndex)
+            }
+
+            val fragment : Fragment = if( programTables.size > 6 ) {
+                NewFillBlankFragment().apply {
+                    arguments = bundle
+                    setBundle(bundle)
+                }
+            }
+            else {
+                TestDragNDropFragment().apply {
+                    arguments = bundle
+                    setBundle(bundle)
+                }
+            }
+
             setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
-            replace(R.id.questionContainer, pagerFragment, TestDragNDropFragment::class.java.simpleName)
-            addToBackStack(TestDragNDropFragment::class.java.simpleName)
+            replace(R.id.questionContainer, fragment, NewFillBlankFragment::class.java.simpleName)
+            addToBackStack(NewFillBlankFragment::class.java.simpleName)
             commit()
         }
     }
@@ -44,6 +59,7 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
     private lateinit var chapter: Chapter
     private var currentContentList = ArrayList<SimpleContent>()
     private var chaptersList: ArrayList<Chapter> = ArrayList()
+
     override fun onItemClick(position: Int, item: SimpleContent) {
         if( item.contentType >= SimpleContent.code ) {
             questionContainer.show()
@@ -53,13 +69,14 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                 }
             }
             else {
-                val fragmentTransaction = childFragmentManager.beginTransaction()
-                val pagerFragment = childFragmentManager.findFragmentByTag(ModuleQuestionsFragment::class.java.simpleName) as ModuleQuestionsFragment? ?: ModuleQuestionsFragment()
-                val bundle = Bundle()
-                bundle.putParcelable(SimpleContent::class.java.simpleName, item)
-                pagerFragment.arguments = bundle
+
                 //AnimationUtils.enterReveal(checkFAB);
-                fragmentTransaction.apply {
+                childFragmentManager.beginTransaction().apply {
+                    val pagerFragment = ModuleQuestionsFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable(SimpleContent::class.java.simpleName, item)
+                        }
+                    }
                     setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down, R.anim.slide_out_up, R.anim.slide_out_down)
                     replace(R.id.questionContainer, pagerFragment, ModuleQuestionsFragment::class.java.simpleName)
                     addToBackStack(ModuleQuestionsFragment::class.java.simpleName)
@@ -121,13 +138,13 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                     4 -> setAdapterContent(getFifthContent())
                     5 -> {
                         questionContainer.show()
-                        val fragmentTransaction = childFragmentManager.beginTransaction()
-                        val pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment? ?: PagerFragment()
-                        val bundle = Bundle()
-                        bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
-                        pagerFragment.arguments = bundle
+                        val pagerFragment = PagerFragment().apply {
+                            arguments = Bundle().apply {
+                                putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
+                            }
+                        }
                         //AnimationUtils.enterReveal(checkFAB);
-                        fragmentTransaction.apply {
+                        childFragmentManager.beginTransaction().apply {
                             setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
                             replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
                             commit()
@@ -147,13 +164,13 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
                     5 -> setAdapterContent(getOOFifthContent())
                     6 -> {
                         questionContainer.show()
-                        val fragmentTransaction = childFragmentManager.beginTransaction()
-                        val pagerFragment = childFragmentManager.findFragmentByTag(PagerFragment::class.java.simpleName) as PagerFragment? ?: PagerFragment()
-                        val bundle = Bundle()
-                        bundle.putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
-                        pagerFragment.arguments = bundle
+                        val pagerFragment = PagerFragment().apply {
+                            arguments = Bundle().apply {
+                                putParcelableArrayList(SimpleContent::class.java.simpleName, getSixthContent())
+                            }
+                        }
                         //AnimationUtils.enterReveal(checkFAB);
-                        fragmentTransaction.apply {
+                        childFragmentManager.beginTransaction().apply {
                             setCustomAnimations(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
                             replace(R.id.questionContainer, pagerFragment, PagerFragment::class.java.simpleName)
                             commit()

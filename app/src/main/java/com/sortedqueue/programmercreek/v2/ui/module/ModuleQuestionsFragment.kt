@@ -21,7 +21,7 @@ import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.fragment_module_questions.*
 import java.util.*
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION") //HTML legacy support deprecation
 @SuppressLint("SetTextI18n")
 class ModuleQuestionsFragment : BaseQuestionsFragment(), BaseAdapterClickListener<String> {
 

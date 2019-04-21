@@ -6,16 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 
 import com.google.firebase.database.DatabaseError
 import com.google.gson.Gson
@@ -36,10 +31,6 @@ import com.sortedqueue.programmercreek.util.AnimationUtils
 import com.sortedqueue.programmercreek.util.AuxilaryUtils
 import com.sortedqueue.programmercreek.util.CommonUtils
 import com.sortedqueue.programmercreek.util.CreekAnalytics
-import com.startapp.android.publish.adsCommon.Ad
-import com.startapp.android.publish.adsCommon.StartAppAd
-import com.startapp.android.publish.adsCommon.VideoListener
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener
 import kotlinx.android.synthetic.main.fragment_new_fill_blank.*
 
 import org.json.JSONException
@@ -73,11 +64,8 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
     private var program_index: Int = 0
     private val TAG = NewFillBlankFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_new_fill_blank, container, false)
-        return fragmentView
-    }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+         inflater.inflate(R.layout.fragment_new_fill_blank, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -236,19 +224,18 @@ class NewFillBlankFragment : Fragment(), View.OnClickListener, TestCompletionLis
                     checkButton!!.text = "Proceed"
                 }
             }
-            if (moduleDetailsScrollPageListener != null)
-                moduleDetailsScrollPageListener!!.toggleFABDrawable()
+
+                moduleDetailsScrollPageListener?.toggleFABDrawable()
 
         } else {
             if (mWizard)
                 activity!!.finish()
             else {
                 if (moduleDetailsScrollPageListener != null) {
-                    moduleDetailsScrollPageListener!!.onScrollForward()
+                    moduleDetailsScrollPageListener?.onScrollForward()
                 } else {
                     activity!!.finish()
                 }
-
 
             }
 

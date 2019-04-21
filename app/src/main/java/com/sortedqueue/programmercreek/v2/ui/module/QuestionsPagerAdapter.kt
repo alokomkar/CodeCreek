@@ -10,7 +10,7 @@ import java.util.*
 class QuestionsPagerAdapter(private val contentList : ArrayList<SimpleContent>,
                             supportFragmentManager: FragmentManager ) : FragmentStatePagerAdapter( supportFragmentManager ) {
 
-    private val mFragmentsList = ArrayList<ModuleQuestionsFragment>()
+    private val mFragmentsList = ArrayList<Fragment>()
     init {
         for( content in contentList ) {
             val fragment = ModuleQuestionsFragment()
