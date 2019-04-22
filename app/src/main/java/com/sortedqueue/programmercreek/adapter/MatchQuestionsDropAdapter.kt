@@ -289,7 +289,7 @@ class MatchQuestionsDropAdapter : RecyclerView.Adapter<MatchQuestionsDropAdapter
                                 //the tag is the view id already dropped here
                                 val existingID = tag as Int
                                 //set the original view visible again
-                                if (loacalView != null && loacalView.findViewById<View>(existingID) != null)
+                                if (loacalView?.findViewById<View>(existingID) != null)
                                     loacalView.findViewById<View>(existingID).visibility = View.VISIBLE
                             }
                             //set the tag in the target view being dropped on - to the ID of the view being dropped

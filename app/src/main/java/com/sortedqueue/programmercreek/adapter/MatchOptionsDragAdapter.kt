@@ -65,7 +65,7 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
 
         init {
 
-            questionTextView!!.setOnLongClickListener(this)
+            questionTextView.setOnLongClickListener(this)
         }
 
         override fun onLongClick(view: View): Boolean {
@@ -77,25 +77,25 @@ class MatchOptionsDragAdapter(private val mProgramList: ArrayList<String>) : Rec
             //To start drag immediately after a view has been selected.
             val data = ClipData.newPlainText("", "")
             val shadowBuilder = View.DragShadowBuilder(view)
-            view.startDrag(data, shadowBuilder, view, 0)
+            view.startDragAndDrop(data, shadowBuilder, view, 0)
 
             return false
         }
 
         override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
-            if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+            return if (motionEvent.action == MotionEvent.ACTION_DOWN) {
                 /*
-				 * Drag details: we only need default behavior
-				 * - clip data could be set to pass data as part of drag
-				 * - shadow can be tailored
-				 */
+                             * Drag details: we only need default behavior
+                             * - clip data could be set to pass data as part of drag
+                             * - shadow can be tailored
+                             */
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(view)
                 //start dragging the item touched
-                view.startDrag(data, shadowBuilder, view, 0)
-                return true
+                view.startDragAndDrop(data, shadowBuilder, view, 0)
+                true
             } else {
-                return false
+                false
             }
         }
     }

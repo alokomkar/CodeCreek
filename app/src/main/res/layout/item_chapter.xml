@@ -71,26 +71,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:id="@+id/rvModules"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        <LinearLayout
             android:orientation="vertical"
-            tools:listitem="@layout/item_sub_module" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/margin_16"
+                android:paddingStart="@dimen/margin_16"
+                android:id="@+id/rvModules"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_sub_module" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/unlockChapterLayout"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_rectangle_gradient"
+                    android:padding="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginEnd="@dimen/margin_12"
+                    android:layout_gravity="center"/>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/ivChapterKey"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chapter_key"/>
+            </FrameLayout>
+        </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
 
-    <ImageView
-        android:id="@+id/ivChapterKey"
-        android:contentDescription="@string/key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_8"
-        android:layout_margin="@dimen/margin_12"
-        android:background="@drawable/gradient_color"
-        android:src="@drawable/ic_chapter_key"/>
+
+
+
+
 
 </LinearLayout>

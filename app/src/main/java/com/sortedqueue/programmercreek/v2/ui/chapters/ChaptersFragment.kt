@@ -1,12 +1,11 @@
 package com.sortedqueue.programmercreek.v2.ui.chapters
 
 import android.annotation.SuppressLint
+import android.content.ClipData
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import com.sortedqueue.programmercreek.R
 import com.sortedqueue.programmercreek.util.AnimationUtils
@@ -57,10 +56,13 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         val layoutInflater = LayoutInflater.from(context)
         var position = 0
         for( (key, chaptersList) in chaptersMap ) {
+
             val chapterView = layoutInflater.inflate(R.layout.item_chapter, null)
             val ivChapterLocked = chapterView.findViewById<View>(R.id.ivChapterLocked)
             val cvChapter = chapterView.findViewById<View>(R.id.cvChapter)
             val tvHeader = chapterView.findViewById<TextView>(R.id.tvHeader)
+            val unlockChapterLayout = chapterView.findViewById<View>(R.id.unlockChapterLayout)
+
             tvHeader.text = key
             val rvModules = chapterView.findViewById<RecyclerView>(R.id.rvModules)
             //rvModules.layoutManager = LinearLayoutManager(context)//StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL )
@@ -73,18 +75,65 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                         null,
                         null,
                         ContextCompat.getDrawable(tvHeader.context,
-                                    R.drawable.ic_down_arrow),
+                                R.drawable.ic_down_arrow),
                         null)
                 ivChapterLocked.hide()
+                unlockChapterLayout.show()
             }
             else {
                 rvModules.hide()
                 ivChapterLocked.show()
+                unlockChapterLayout.hide()
+            }
+
+            unlockChapterLayout.setOnLongClickListener {
+                unlockChapterLayout.setOnTouchListener { view, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        /*
+                                     * Drag details: we only need default behavior
+                                     * - clip data could be set to pass data as part of drag
+                                     * - shadow can be tailored
+                                     */
+                        val data = ClipData.newPlainText("", "")
+                        val shadowBuilder = View.DragShadowBuilder(view)
+                        //start dragging the item touched
+                        view.startDragAndDrop(data, shadowBuilder, view, 0)
+                        true
+                    } else {
+                        false
+                    }
+                }
+                //To start drag immediately after a view has been selected.
+                val data = ClipData.newPlainText("", "")
+                val shadowBuilder = View.DragShadowBuilder(it)
+                it.startDragAndDrop(data, shadowBuilder, it, 0)
+                false
+            }
+
+            ivChapterLocked.setOnDragListener { v, event ->
+
+                when (event.action) {
+                    DragEvent.ACTION_DRAG_STARTED -> {
+                    }
+                    DragEvent.ACTION_DRAG_ENTERED -> {
+                    }
+                    DragEvent.ACTION_DRAG_EXITED -> {
+                    }
+                    DragEvent.ACTION_DROP -> {
+                        AnimationUtils.exitRevealGone(ivChapterLocked)
+                    }
+                    DragEvent.ACTION_DRAG_ENDED -> {
+                    }
+                    else -> {
+                    }
+                }
+                true
             }
 
             cvChapter.setOnClickListener {
                 if( !ivChapterLocked.isVisible() ) {
                     rvModules.toggleVisibility()
+                    unlockChapterLayout.toggleVisibility()
                     tvHeader.setCompoundDrawablesWithIntrinsicBounds(
                             null,
                             null,
@@ -96,9 +145,9 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                             null)
                 }
             }
-            ivChapterLocked.setOnClickListener {
+            /*ivChapterLocked.setOnClickListener {
                 AnimationUtils.exitRevealGone(ivChapterLocked)
-            }
+            }*/
             position++
         }
 
