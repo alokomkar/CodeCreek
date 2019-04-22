@@ -21,6 +21,7 @@ import java.util.*
 
 class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
 
+    private var currentDragView: View? = null
     private val colors : Array<Int> = arrayOf(
             R.color.md_amber_800,
             R.color.md_cyan_500,
@@ -88,6 +89,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             }
 
             unlockChapterLayout.setOnLongClickListener {
+                currentDragView = unlockChapterLayout
                 unlockChapterLayout.setOnTouchListener { view, event ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
                         val data = ClipData.newPlainText("", "")
@@ -117,7 +119,8 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                     }
                     DragEvent.ACTION_DROP -> {
                         AnimationUtils.exitRevealGone(ivChapterLocked)
-                        unlockChapterLayout.hide()
+                        currentDragView?.hide()
+                        currentDragView = null
                     }
                     DragEvent.ACTION_DRAG_ENDED -> {
                     }
@@ -130,7 +133,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             cvChapter.setOnClickListener {
                 if( !ivChapterLocked.isVisible() ) {
                     rvModules.toggleVisibility()
-                    unlockChapterLayout.toggleVisibility()
+                    unlockChapterLayout.visibility = rvModules.visibility
                     tvHeader.setCompoundDrawablesWithIntrinsicBounds(
                             null,
                             null,
