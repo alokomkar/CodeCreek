@@ -3,6 +3,7 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.*
@@ -89,11 +90,6 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             unlockChapterLayout.setOnLongClickListener {
                 unlockChapterLayout.setOnTouchListener { view, event ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
-                        /*
-                                     * Drag details: we only need default behavior
-                                     * - clip data could be set to pass data as part of drag
-                                     * - shadow can be tailored
-                                     */
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = View.DragShadowBuilder(view)
                         //start dragging the item touched
@@ -121,6 +117,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
                     }
                     DragEvent.ACTION_DROP -> {
                         AnimationUtils.exitRevealGone(ivChapterLocked)
+                        unlockChapterLayout.hide()
                     }
                     DragEvent.ACTION_DRAG_ENDED -> {
                     }
@@ -148,6 +145,19 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
             /*ivChapterLocked.setOnClickListener {
                 AnimationUtils.exitRevealGone(ivChapterLocked)
             }*/
+            /*if( position % 2 == 0 )
+                Handler().postDelayed({
+                    AnimationUtils.slideInToLeft(cvChapter)
+                }, (400 + (position * 250)).toLong())
+
+            else
+                Handler().postDelayed({
+                    AnimationUtils.slideInToRight(cvChapter)
+                }, (400 + (position * 250)).toLong())*/
+
+
+
+
             position++
         }
 
