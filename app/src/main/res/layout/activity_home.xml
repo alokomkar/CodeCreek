@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:elevation="@dimen/margin_24"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:background="@drawable/gradient_color"
+            android:background="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
@@ -116,7 +116,7 @@
                 app:cardBackgroundColor="@color/md_white_1000"
                 app:cardCornerRadius="@dimen/cardview_app_radius"
                 android:layout_marginEnd="@dimen/margin_16"
-                app:cardElevation="4dp">
+                app:cardElevation="24dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
