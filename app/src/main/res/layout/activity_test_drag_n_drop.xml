@@ -17,7 +17,7 @@
         app:tabTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabBackground="?attr/selectableItemBackground"
-        android:background="@drawable/gradient_color"
+        android:background="@drawable/chapter_gradient"
         app:tabMode="fixed"/>
     <com.sortedqueue.programmercreek.view.ScrollableViewPager
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:padding="@dimen/margin_8"
-        android:background="@drawable/gradient_color"
+        android:background="@drawable/chapter_gradient"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">

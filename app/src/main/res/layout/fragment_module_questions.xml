@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/margin_36"
-        android:background="@drawable/gradient_color"
+        android:background="@drawable/chapter_gradient"
         android:id="@+id/btnLayout"
         android:orientation="horizontal">
 

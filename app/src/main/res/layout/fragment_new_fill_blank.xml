@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/buttonLayout"
-        android:background="@drawable/gradient_color">
+        android:background="@drawable/chapter_gradient">
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
