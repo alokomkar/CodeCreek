@@ -13,7 +13,7 @@ import com.sortedqueue.programmercreek.v2.base.show
 import com.sortedqueue.programmercreek.v2.data.helper.SimpleContent
 import kotlinx.android.synthetic.main.item_revision_content.view.*
 
-class RevisionContentViewHolder( viewGroup : ViewGroup)  : BaseViewHolder<SimpleContent>( viewGroup, R.layout.item_revision_content ), View.OnClickListener {
+class RevisionContentViewHolder( viewGroup : ViewGroup )  : BaseViewHolder<SimpleContent>( viewGroup, R.layout.item_revision_content ), View.OnClickListener {
 
     override fun onClick( view: View? ) {
         val position = adapterPosition

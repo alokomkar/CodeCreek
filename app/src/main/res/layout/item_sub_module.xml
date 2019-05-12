@@ -8,7 +8,7 @@
     <View
         android:id="@+id/topDivider"
         android:layout_width="4dp"
-        android:layout_height="16dp"
+        android:layout_height="12dp"
         android:layout_marginStart="@dimen/margin_24"
         android:background="@color/md_green_400" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/topicTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_yellow_300"
+            android:background="@color/white"
             android:padding="@dimen/margin_8"
             android:text="@string/loading_program"
             android:textColor="@color/colorPrimary"
@@ -41,7 +41,7 @@
         android:id="@+id/bottomDivider"
         android:layout_gravity="bottom"
         android:layout_width="4dp"
-        android:layout_height="16dp"
+        android:layout_height="12dp"
         android:layout_marginStart="@dimen/margin_24"
         android:background="@color/md_green_400" />
 

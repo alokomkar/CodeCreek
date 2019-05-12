@@ -3,7 +3,6 @@ package com.sortedqueue.programmercreek.v2.ui.chapters
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.*
@@ -60,7 +59,7 @@ class ChaptersFragment : BaseFragment(), BaseAdapterClickListener<Chapter> {
         for( (key, chaptersList) in chaptersMap ) {
 
             val chapterView = layoutInflater.inflate(R.layout.item_chapter, null)
-            val ivChapterLocked = chapterView.findViewById<View>(R.id.ivChapterLocked)
+            val ivChapterLocked = chapterView.findViewById<View>(R.id.chapterLockedLayout)
             val cvChapter = chapterView.findViewById<View>(R.id.cvChapter)
             val tvHeader = chapterView.findViewById<TextView>(R.id.tvHeader)
             val unlockChapterLayout = chapterView.findViewById<View>(R.id.unlockChapterLayout)
