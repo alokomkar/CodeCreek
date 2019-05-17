@@ -21,7 +21,7 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>> : RecyclerView.Adapter<VH>
 
     fun add(item: T) {
         itemsList.add(item)
-        notifyItemRangeInserted(0, itemsList.size)
+        notifyItemInserted(itemsList.size - 1)
         onEmptyOrNot?.invoke(itemsList.isEmpty())
     }
 

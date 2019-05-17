@@ -57,7 +57,6 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
 
     private lateinit var contentAdapter: SimpleContentAdapter
     private lateinit var chapter: Chapter
-    private var currentContentList = ArrayList<SimpleContent>()
     private var chaptersList: ArrayList<Chapter> = ArrayList()
 
     override fun onItemClick(position: Int, item: SimpleContent) {
@@ -192,14 +191,16 @@ class ModuleFragment : BaseModuleFragment(), BaseAdapterClickListener<SimpleCont
     private fun setAdapterContent( simpleContentList : ArrayList<SimpleContent> ) {
         val breakIntoPoints = breakIntoPoints(simpleContentList)
         var index = 0
-        currentContentList.clear()
-        currentContentList.add(breakIntoPoints[index])
-        contentAdapter = SimpleContentAdapter( currentContentList, this )
-        rvModuleContent.adapter = contentAdapter
+
+        rvModuleContent.adapter = SimpleContentAdapter( this ).apply {
+            removeAll()
+            contentAdapter = this
+            add(breakIntoPoints[index])
+        }
         nextFAB.setOnClickListener {
             if( index < breakIntoPoints.size - 1 ) {
-                contentAdapter.addItem( breakIntoPoints[++index] )
-                rvModuleContent.smoothScrollToPosition(currentContentList.size)
+                contentAdapter.add( breakIntoPoints[++index] )
+                rvModuleContent.smoothScrollToPosition(contentAdapter.itemCount)
             }
             else {
                 drawer_layout.openDrawer(nav_view)
